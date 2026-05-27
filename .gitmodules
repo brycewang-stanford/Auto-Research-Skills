@@ -121,3 +121,45 @@
 [submodule "lists/awesome-automated-research"]
 	path = lists/awesome-automated-research
 	url = https://github.com/MinhaoXiong/awesome-automated-research
+[submodule "skills/arxiv-mcp-server"]
+	path = skills/arxiv-mcp-server
+	url = https://github.com/blazickjp/arxiv-mcp-server
+[submodule "systems/open-deep-research"]
+	path = systems/open-deep-research
+	url = https://github.com/langchain-ai/open_deep_research
+[submodule "systems/paper-qa"]
+	path = systems/paper-qa
+	url = https://github.com/Future-House/paper-qa
+[submodule "systems/ai-scientist-v2"]
+	path = systems/ai-scientist-v2
+	url = https://github.com/SakanaAI/AI-Scientist-v2
+[submodule "systems/agent-laboratory"]
+	path = systems/agent-laboratory
+	url = https://github.com/SamuelSchmidgall/AgentLaboratory
+[submodule "systems/biomni"]
+	path = systems/biomni
+	url = https://github.com/snap-stanford/Biomni
+[submodule "systems/aideml"]
+	path = systems/aideml
+	url = https://github.com/WecoAI/aideml
+[submodule "systems/chemcrow"]
+	path = systems/chemcrow
+	url = https://github.com/ur-whitelab/chemcrow-public
+[submodule "systems/virtual-lab"]
+	path = systems/virtual-lab
+	url = https://github.com/zou-group/virtual-lab
+[submodule "systems/curie"]
+	path = systems/curie
+	url = https://github.com/Just-Curieous/Curie
+[submodule "systems/coscientist"]
+	path = systems/coscientist
+	url = https://github.com/gomesgroup/coscientist
+[submodule "benchmarks/mlagentbench"]
+	path = benchmarks/mlagentbench
+	url = https://github.com/snap-stanford/MLAgentBench
+[submodule "benchmarks/discoverybench"]
+	path = benchmarks/discoverybench
+	url = https://github.com/allenai/discoverybench
+[submodule "benchmarks/scienceagentbench"]
+	path = benchmarks/scienceagentbench
+	url = https://github.com/OSU-NLP-Group/ScienceAgentBench
