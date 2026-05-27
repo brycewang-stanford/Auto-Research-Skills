@@ -102,12 +102,36 @@ git submodule update --init --recursive
 
 ## 🗂️ Bundled Skills (submodules)
 
-These skill repos are vendored under [`skills/`](skills/) as git submodules. Run `git submodule update --init --recursive` to fetch them.
+**27 research-skill repos** (every one with 100+ ⭐) are vendored under [`skills/`](skills/) as git submodules, sorted by stars. Run `git submodule update --init --recursive` to fetch them all.
 
-| Path | Source | What it gives you |
-|---|---|---|
-| `skills/academic-research-skills` ⭐ | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | Full academic pipeline: research → write → review → revise → finalize (Claude Code). |
-| `skills/aris` | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | Markdown-only autonomous-ML-research skills. |
+| Path | Source | ⭐ | What it gives you |
+|---|---|---|---|
+| `skills/last30days` | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | ~26.7k | Research any topic across Reddit, X, YouTube, HN, Polymarket. |
+| `skills/scientific-agent-skills` | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | ~26.2k | Ready-to-use agent skills for research, science, engineering, analysis, finance. |
+| `skills/academic-research-skills` ⭐ | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | ~22.7k | **Featured.** research → write → review → revise → finalize. |
+| `skills/aris` | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | ~10.8k | Markdown-only autonomous-ML-research skills. |
+| `skills/ai-research-skills` | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | ~9.0k | Open library of AI research & engineering skills for any model. |
+| `skills/paper-writing-skills` | [Master-cai/Research-Paper-Writing-Skills](https://github.com/Master-cai/Research-Paper-Writing-Skills) | ~3.0k | ML/CV/NLP paper-writing skill package. |
+| `skills/academic-research-skills-codex` | [Imbad0202/academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | ~1.9k | Codex-native academic research suite, human-in-the-loop. |
+| `skills/academicforge` | [HughYau/AcademicForge](https://github.com/HughYau/AcademicForge) | ~1.3k | Curated skill collection for academic writing & research. |
+| `skills/empirical-research-skills` | [brycewang-stanford/Awesome-Agent-Skills-for-Empirical-Research](https://github.com/brycewang-stanford/Awesome-Agent-Skills-for-Empirical-Research) | ~1.3k | 23k+ agent skills for empirical research across social sciences. |
+| `skills/x-research-skill` | [rohunvora/x-research-skill](https://github.com/rohunvora/x-research-skill) | ~1.1k | X/Twitter research: agentic search, thread following. |
+| `skills/supervisor-skills` | [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills) | ~1.1k | "AI 科研副导师" — from idea to paper submission. |
+| `skills/medical-research-skills` | [aipoch/medical-research-skills](https://github.com/aipoch/medical-research-skills) | ~858 | Medical research: protocol design, data analysis, evidence. |
+| `skills/scienceclaw` | [beita6969/ScienceClaw](https://github.com/beita6969/ScienceClaw) | ~823 | Self-evolving AI research colleague, 285 skills. |
+| `skills/claude-deep-research-skill` | [199-biotechnologies/claude-deep-research-skill](https://github.com/199-biotechnologies/claude-deep-research-skill) | ~726 | Enterprise deep-research, 8-phase pipeline, source credibility. |
+| `skills/research-skills` | [luwill/research-skills](https://github.com/luwill/research-skills) | ~639 | Common research processes encapsulated as agent skills. |
+| `skills/research-units-pipeline` | [WILLOSCAR/research-units-pipeline-skills](https://github.com/WILLOSCAR/research-units-pipeline-skills) | ~441 | Research pipelines as semantic execution units. |
+| `skills/oneresearchclaw` | [gaotiexinqu/OneResearchClaw](https://github.com/gaotiexinqu/OneResearchClaw) | ~434 | Any materials → fully autonomous, skill-driven research. |
+| `skills/openclaw-search-skills` | [blessonism/openclaw-search-skills](https://github.com/blessonism/openclaw-search-skills) | ~434 | OpenClaw deep-search: multi-source search & extraction. |
+| `skills/awesome-scientific-skills` | [InternScience/Awesome-Scientific-Skills](https://github.com/InternScience/Awesome-Scientific-Skills) | ~400 | Curated Agent Skills for scientific research. |
+| `skills/claudeblattman` | [chrisblattman/claudeblattman](https://github.com/chrisblattman/claudeblattman) | ~373 | Claude Code for academics — skills, agents, setup guides. |
+| `skills/ai-research-feedback` | [claesbackman/AI-research-feedback](https://github.com/claesbackman/AI-research-feedback) | ~354 | Claude Code skills for academic research review. |
+| `skills/phd-skills` | [fcakyon/phd-skills](https://github.com/fcakyon/phd-skills) | ~246 | Paper reproduction, experiment design, paper review. |
+| `skills/academic-skills` | [chtc66/academic-skills](https://github.com/chtc66/academic-skills) | ~227 | Paper reading, survey writing, experiment summary, rebuttal. |
+| `skills/research-plugins` | [wentorai/research-plugins](https://github.com/wentorai/research-plugins) | ~223 | 350+ academic research skills, MCP configs & plugins. |
+| `skills/codex-academic-skills` | [zLanqing/codex-claude-academic-skills](https://github.com/zLanqing/codex-claude-academic-skills) | ~172 | Three academic skills: reading, writing, scientific computing. |
+| `skills/franklee-academic-research-skills` | [franklee16/academic-research-skills](https://github.com/franklee16/academic-research-skills) | ~149 | Claude Code skills for econ/finance academic research. |
 
 > Want your skill bundled? See [CONTRIBUTING](CONTRIBUTING.md) — open a PR adding a submodule under `skills/`.
 

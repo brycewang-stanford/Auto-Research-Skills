@@ -4,3 +4,78 @@
 [submodule "skills/academic-research-skills"]
 	path = skills/academic-research-skills
 	url = https://github.com/Imbad0202/academic-research-skills
+[submodule "skills/phd-skills"]
+	path = skills/phd-skills
+	url = https://github.com/fcakyon/phd-skills
+[submodule "skills/research-skills"]
+	path = skills/research-skills
+	url = https://github.com/luwill/research-skills
+[submodule "skills/last30days"]
+	path = skills/last30days
+	url = https://github.com/mvanhorn/last30days-skill
+[submodule "skills/scientific-agent-skills"]
+	path = skills/scientific-agent-skills
+	url = https://github.com/K-Dense-AI/scientific-agent-skills
+[submodule "skills/ai-research-skills"]
+	path = skills/ai-research-skills
+	url = https://github.com/Orchestra-Research/AI-Research-SKILLs
+[submodule "skills/paper-writing-skills"]
+	path = skills/paper-writing-skills
+	url = https://github.com/Master-cai/Research-Paper-Writing-Skills
+[submodule "skills/academic-research-skills-codex"]
+	path = skills/academic-research-skills-codex
+	url = https://github.com/Imbad0202/academic-research-skills-codex
+[submodule "skills/empirical-research-skills"]
+	path = skills/empirical-research-skills
+	url = https://github.com/brycewang-stanford/Awesome-Agent-Skills-for-Empirical-Research
+[submodule "skills/x-research-skill"]
+	path = skills/x-research-skill
+	url = https://github.com/rohunvora/x-research-skill
+[submodule "skills/supervisor-skills"]
+	path = skills/supervisor-skills
+	url = https://github.com/HKUSTDial/Supervisor-Skills
+[submodule "skills/academicforge"]
+	path = skills/academicforge
+	url = https://github.com/HughYau/AcademicForge
+[submodule "skills/deep-research-skills"]
+	path = skills/deep-research-skills
+	url = https://github.com/Weizhena/Deep-Research-skills
+[submodule "skills/medical-research-skills"]
+	path = skills/medical-research-skills
+	url = https://github.com/aipoch/medical-research-skills
+[submodule "skills/scienceclaw"]
+	path = skills/scienceclaw
+	url = https://github.com/beita6969/ScienceClaw
+[submodule "skills/claude-deep-research-skill"]
+	path = skills/claude-deep-research-skill
+	url = https://github.com/199-biotechnologies/claude-deep-research-skill
+[submodule "skills/research-units-pipeline"]
+	path = skills/research-units-pipeline
+	url = https://github.com/WILLOSCAR/research-units-pipeline-skills
+[submodule "skills/oneresearchclaw"]
+	path = skills/oneresearchclaw
+	url = https://github.com/gaotiexinqu/OneResearchClaw
+[submodule "skills/openclaw-search-skills"]
+	path = skills/openclaw-search-skills
+	url = https://github.com/blessonism/openclaw-search-skills
+[submodule "skills/awesome-scientific-skills"]
+	path = skills/awesome-scientific-skills
+	url = https://github.com/InternScience/Awesome-Scientific-Skills
+[submodule "skills/claudeblattman"]
+	path = skills/claudeblattman
+	url = https://github.com/chrisblattman/claudeblattman
+[submodule "skills/ai-research-feedback"]
+	path = skills/ai-research-feedback
+	url = https://github.com/claesbackman/AI-research-feedback
+[submodule "skills/academic-skills"]
+	path = skills/academic-skills
+	url = https://github.com/chtc66/academic-skills
+[submodule "skills/research-plugins"]
+	path = skills/research-plugins
+	url = https://github.com/wentorai/research-plugins
+[submodule "skills/codex-academic-skills"]
+	path = skills/codex-academic-skills
+	url = https://github.com/zLanqing/codex-claude-academic-skills
+[submodule "skills/franklee-academic-research-skills"]
+	path = skills/franklee-academic-research-skills
+	url = https://github.com/franklee16/academic-research-skills
