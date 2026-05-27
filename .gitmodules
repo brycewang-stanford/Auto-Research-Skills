@@ -1,3 +1,6 @@
 [submodule "skills/aris"]
 	path = skills/aris
 	url = https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep
+[submodule "skills/academic-research-skills"]
+	path = skills/academic-research-skills
+	url = https://github.com/Imbad0202/academic-research-skills

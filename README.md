@@ -17,6 +17,13 @@
 
 ---
 
+### ⭐ Featured Skill
+
+> **[Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills)** &nbsp;·&nbsp; ~22.7k ⭐ &nbsp;·&nbsp; 🧩 bundled
+> Academic Research Skills for Claude Code — a full **research → write → review → revise → finalize** pipeline, covering literature review and peer review. Vendored here at [`skills/academic-research-skills`](skills/academic-research-skills).
+
+---
+
 > **What is this?** A community-curated collection of *reusable, composable skills* for **autonomous research** — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. Selected skill repos are vendored here as **git submodules** so you can clone the whole toolbox in one shot.
 
 ```bash
@@ -78,6 +85,7 @@ git submodule update --init --recursive
 
 | Project | ⭐ | Stack | Notes |
 |---|---|---|---|
+| [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) 🧩 ⭐ | ~22.7k | Claude Code · Python | **Featured.** Academic research → write → review → revise → finalize pipeline. |
 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) 🧩 | ~10.8k | Markdown skills | ARIS — cross-model review loops, idea discovery, experiment automation. No framework lock-in. |
 | [mshumer/autonomous-researcher](https://github.com/mshumer/autonomous-researcher) | ~804 | Agent | Lightweight autonomous research agent. |
 | [openags/auto-research](https://github.com/openags/auto-research) | ~284 | Agent + UI | Generalist "AI Scientist" across fields. |
@@ -98,6 +106,7 @@ These skill repos are vendored under [`skills/`](skills/) as git submodules. Run
 
 | Path | Source | What it gives you |
 |---|---|---|
+| `skills/academic-research-skills` ⭐ | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | Full academic pipeline: research → write → review → revise → finalize (Claude Code). |
 | `skills/aris` | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | Markdown-only autonomous-ML-research skills. |
 
 > Want your skill bundled? See [CONTRIBUTING](CONTRIBUTING.md) — open a PR adding a submodule under `skills/`.
