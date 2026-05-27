@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/banner.svg" alt="Auto-Research-Skills banner" width="100%">
+  <img src="readme.png" alt="Auto-Research-Skills banner" width="100%">
 </div>
 
 <h1 align="center">Auto-Research-Skills</h1>
