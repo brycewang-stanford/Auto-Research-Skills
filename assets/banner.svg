@@ -1,0 +1,77 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg" font-family="'Comic Sans MS','Segoe UI',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff3d6"/>
+      <stop offset="1" stop-color="#ffe0ec"/>
+    </linearGradient>
+    <linearGradient id="bot" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7ed0ff"/>
+      <stop offset="1" stop-color="#4aa6ff"/>
+    </linearGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="1200" height="360" rx="28" fill="url(#bg)"/>
+  <!-- dotted texture -->
+  <g fill="#ffffff" opacity="0.55">
+    <circle cx="90" cy="60" r="5"/><circle cx="1130" cy="90" r="6"/>
+    <circle cx="1080" cy="300" r="5"/><circle cx="60" cy="300" r="6"/>
+    <circle cx="640" cy="40" r="4"/><circle cx="1150" cy="200" r="4"/>
+  </g>
+
+  <!-- ==== cartoon robot scientist ==== -->
+  <g filter="url(#sh)" transform="translate(150 70)">
+    <!-- body -->
+    <rect x="35" y="120" width="150" height="120" rx="30" fill="url(#bot)" stroke="#1e3a5f" stroke-width="5"/>
+    <rect x="78" y="150" width="64" height="50" rx="10" fill="#dff3ff" stroke="#1e3a5f" stroke-width="4"/>
+    <text x="110" y="184" font-size="26" text-anchor="middle" fill="#1e3a5f">AI</text>
+    <!-- head -->
+    <rect x="55" y="35" width="110" height="90" rx="24" fill="url(#bot)" stroke="#1e3a5f" stroke-width="5"/>
+    <!-- antenna -->
+    <line x1="110" y1="35" x2="110" y2="10" stroke="#1e3a5f" stroke-width="5"/>
+    <circle cx="110" cy="6" r="9" fill="#ffd23f" stroke="#1e3a5f" stroke-width="4"/>
+    <!-- eyes -->
+    <circle cx="88" cy="78" r="14" fill="#fff" stroke="#1e3a5f" stroke-width="4"/>
+    <circle cx="132" cy="78" r="14" fill="#fff" stroke="#1e3a5f" stroke-width="4"/>
+    <circle cx="91" cy="80" r="6" fill="#1e3a5f"/>
+    <circle cx="135" cy="80" r="6" fill="#1e3a5f"/>
+    <!-- smile -->
+    <path d="M86 102 Q110 120 134 102" stroke="#1e3a5f" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- left arm holding magnifier -->
+    <line x1="40" y1="150" x2="-6" y2="120" stroke="#1e3a5f" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="-34" cy="100" r="30" fill="#fff" fill-opacity="0.5" stroke="#ff7aa2" stroke-width="8"/>
+    <line x1="-14" y1="122" x2="6" y2="142" stroke="#ff7aa2" stroke-width="10" stroke-linecap="round"/>
+    <!-- legs -->
+    <rect x="60" y="240" width="28" height="34" rx="10" fill="#1e3a5f"/>
+    <rect x="132" y="240" width="28" height="34" rx="10" fill="#1e3a5f"/>
+  </g>
+
+  <!-- ==== stack of books + flask ==== -->
+  <g filter="url(#sh)" transform="translate(120 250)">
+    <rect x="0" y="40" width="170" height="22" rx="5" fill="#ff9f68" stroke="#1e3a5f" stroke-width="4"/>
+    <rect x="12" y="20" width="150" height="22" rx="5" fill="#7ee0a8" stroke="#1e3a5f" stroke-width="4"/>
+    <rect x="6" y="0" width="160" height="22" rx="5" fill="#b79bff" stroke="#1e3a5f" stroke-width="4"/>
+  </g>
+  <g filter="url(#sh)" transform="translate(330 200)">
+    <path d="M20 0 h26 v34 l28 56 a18 18 0 0 1 -16 28 h-50 a18 18 0 0 1 -16 -28 l28 -56 z" fill="#c8f6ff" stroke="#1e3a5f" stroke-width="5"/>
+    <path d="M14 78 h54 l10 20 a18 18 0 0 1 -16 20 h-50 a18 18 0 0 1 -16 -20 z" fill="#5ad1ff" stroke="#1e3a5f" stroke-width="5"/>
+    <circle cx="34" cy="92" r="4" fill="#fff"/><circle cx="50" cy="104" r="3" fill="#fff"/>
+  </g>
+
+  <!-- ==== title block ==== -->
+  <g transform="translate(470 110)">
+    <text x="0" y="0" font-size="62" font-weight="bold" fill="#1e3a5f" stroke="#fff" stroke-width="2" paint-order="stroke">Auto-Research</text>
+    <text x="0" y="64" font-size="62" font-weight="bold" fill="#ff7aa2" stroke="#fff" stroke-width="2" paint-order="stroke">-Skills</text>
+    <text x="4" y="118" font-size="24" fill="#3a5a7a">🔬 A curated hub of autonomous-research skills &amp; agents</text>
+    <text x="4" y="152" font-size="20" fill="#7a6a4a">from idea → experiment → paper, on autopilot.</text>
+  </g>
+
+  <!-- sparkles -->
+  <g fill="#ffd23f" stroke="#1e3a5f" stroke-width="2">
+    <path d="M1090 70 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6 z"/>
+    <path d="M1010 250 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z"/>
+  </g>
+</svg>
