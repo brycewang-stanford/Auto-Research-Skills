@@ -79,3 +79,45 @@
 [submodule "skills/franklee-academic-research-skills"]
 	path = skills/franklee-academic-research-skills
 	url = https://github.com/franklee16/academic-research-skills
+[submodule "systems/autoresearchclaw"]
+	path = systems/autoresearchclaw
+	url = https://github.com/aiming-lab/AutoResearchClaw
+[submodule "systems/ai-scientist"]
+	path = systems/ai-scientist
+	url = https://github.com/SakanaAI/AI-Scientist
+[submodule "systems/sibyl-system"]
+	path = systems/sibyl-system
+	url = https://github.com/Sibyl-Research-Team/AutoResearch-SibylSystem
+[submodule "systems/gpt-researcher"]
+	path = systems/gpt-researcher
+	url = https://github.com/assafelovic/gpt-researcher
+[submodule "systems/storm"]
+	path = systems/storm
+	url = https://github.com/stanford-oval/storm
+[submodule "systems/deer-flow"]
+	path = systems/deer-flow
+	url = https://github.com/bytedance/deer-flow
+[submodule "systems/auto-deep-research"]
+	path = systems/auto-deep-research
+	url = https://github.com/HKUDS/Auto-Deep-Research
+[submodule "systems/auto-deep-researcher-24x7"]
+	path = systems/auto-deep-researcher-24x7
+	url = https://github.com/Xiangyue-Zhang/auto-deep-researcher-24x7
+[submodule "systems/web-researcher-ollama"]
+	path = systems/web-researcher-ollama
+	url = https://github.com/TheBlewish/Automated-AI-Web-Researcher-Ollama
+[submodule "systems/autonomous-researcher"]
+	path = systems/autonomous-researcher
+	url = https://github.com/mshumer/autonomous-researcher
+[submodule "systems/auto-research"]
+	path = systems/auto-research
+	url = https://github.com/openags/auto-research
+[submodule "lists/awesome-auto-research-tools"]
+	path = lists/awesome-auto-research-tools
+	url = https://github.com/handsome-rich/Awesome-Auto-Research-Tools
+[submodule "lists/awesome-ai-auto-research"]
+	path = lists/awesome-ai-auto-research
+	url = https://github.com/worldbench/awesome-ai-auto-research
+[submodule "lists/awesome-automated-research"]
+	path = lists/awesome-automated-research
+	url = https://github.com/MinhaoXiong/awesome-automated-research

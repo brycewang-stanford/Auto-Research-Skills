@@ -15,6 +15,8 @@
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-7ee0a8?style=flat-square" alt="PRs welcome"></a>
 </p>
 
+<p align="center"><b>English</b> · <a href="README_CN.md">简体中文</a></p>
+
 ---
 
 ### ⭐ Featured Skill
@@ -24,14 +26,17 @@
 
 ---
 
-> **What is this?** A community-curated collection of *reusable, composable skills* for **autonomous research** — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. Selected skill repos are vendored here as **git submodules** so you can clone the whole toolbox in one shot.
+> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **41 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
-# grab everything, including all skill submodules
+# grab everything, including all submodules (shallow)
 git clone --recurse-submodules https://github.com/brycewang-stanford/Auto-Research-Skills.git
 
-# already cloned? pull the skills in
+# already cloned? pull them all in
 git submodule update --init --recursive
+
+# or use the helper
+./setup.sh
 ```
 
 ## Table of Contents
@@ -41,11 +46,15 @@ git submodule update --init --recursive
 - [🧪 Automated Experiment & Code Agents](#-automated-experiment--code-agents)
 - [🧩 Research Skills & Plugin Collections](#-research-skills--plugin-collections)
 - [📚 Awesome Lists & Surveys](#-awesome-lists--surveys)
-- [🗂️ Bundled Skills (submodules)](#️-bundled-skills-submodules)
+- [🗂️ Bundled Repos (submodules)](#️-bundled-repos-submodules)
+  - [Skills & Plugin Collections](#skills--plugin-collections-skills)
+  - [Systems & Agents](#systems--agents-systems)
+  - [Lists & Surveys](#lists--surveys-lists)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 
 > **Legend:** ⭐ = approximate star count · 🧩 = vendored here as a submodule
+> **Note:** every project listed below is vendored as a submodule under `skills/`, `systems/`, or `lists/` — see [Bundled Repos](#️-bundled-repos-submodules).
 
 ---
 
@@ -100,9 +109,15 @@ git submodule update --init --recursive
 
 ---
 
-## 🗂️ Bundled Skills (submodules)
+## 🗂️ Bundled Repos (submodules)
 
-**27 research-skill repos** (every one with 100+ ⭐) are vendored under [`skills/`](skills/) as git submodules, sorted by stars. Run `git submodule update --init --recursive` to fetch them all.
+**41 repos** (every one with 100+ ⭐) are vendored as shallow git submodules across three folders, sorted by stars within each. Run `git submodule update --init --recursive` (or `./setup.sh`) to fetch them all.
+
+> 📊 Live ranking: see [**STARS.md**](STARS.md) — auto-refreshed weekly by [a GitHub Action](.github/workflows/update-stars.yml).
+
+### Skills & Plugin Collections (`skills/`)
+
+27 reusable skill sets and plugins that drop into coding agents.
 
 | Path | Source | ⭐ | What it gives you |
 |---|---|---|---|
@@ -133,7 +148,35 @@ git submodule update --init --recursive
 | `skills/codex-academic-skills` | [zLanqing/codex-claude-academic-skills](https://github.com/zLanqing/codex-claude-academic-skills) | ~172 | Three academic skills: reading, writing, scientific computing. |
 | `skills/franklee-academic-research-skills` | [franklee16/academic-research-skills](https://github.com/franklee16/academic-research-skills) | ~149 | Claude Code skills for econ/finance academic research. |
 
-> Want your skill bundled? See [CONTRIBUTING](CONTRIBUTING.md) — open a PR adding a submodule under `skills/`.
+### Systems & Agents (`systems/`)
+
+11 end-to-end systems and autonomous agents — from idea to paper, deep-research report generation, and 24/7 experiment runners.
+
+| Path | Source | ⭐ | What it does |
+|---|---|---|---|
+| `systems/deer-flow` | [bytedance/deer-flow](https://github.com/bytedance/deer-flow) | ~70k | LangGraph deep-research SuperAgent w/ human-in-the-loop. |
+| `systems/storm` | [stanford-oval/storm](https://github.com/stanford-oval/storm) | ~28.3k | Wikipedia-style long-form report synthesis (Stanford). |
+| `systems/gpt-researcher` | [assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher) | ~27.3k | Plan → scrape → cited report. The classic. |
+| `systems/ai-scientist` | [SakanaAI/AI-Scientist](https://github.com/SakanaAI/AI-Scientist) | ~13.8k | Generate ideas, run experiments, write & auto-review papers. |
+| `systems/autoresearchclaw` | [aiming-lab/AutoResearchClaw](https://github.com/aiming-lab/AutoResearchClaw) | ~12.8k | Fully autonomous & self-evolving research, idea → paper. |
+| `systems/web-researcher-ollama` | [TheBlewish/Automated-AI-Web-Researcher-Ollama](https://github.com/TheBlewish/Automated-AI-Web-Researcher-Ollama) | ~3.0k | Local-LLM automated web researcher (Ollama). |
+| `systems/auto-deep-researcher-24x7` | [Xiangyue-Zhang/auto-deep-researcher-24x7](https://github.com/Xiangyue-Zhang/auto-deep-researcher-24x7) | ~975 | Runs DL experiments 24/7, Leader-Worker architecture. |
+| `systems/autonomous-researcher` | [mshumer/autonomous-researcher](https://github.com/mshumer/autonomous-researcher) | ~804 | Lightweight autonomous research agent. |
+| `systems/auto-deep-research` | [HKUDS/Auto-Deep-Research](https://github.com/HKUDS/Auto-Deep-Research) | ~1.5k | Low-cost, fully-automated personal research assistant. |
+| `systems/auto-research` | [openags/auto-research](https://github.com/openags/auto-research) | ~284 | Generalist "AI Scientist" across fields, with UI. |
+| `systems/sibyl-system` | [Sibyl-Research-Team/AutoResearch-SibylSystem](https://github.com/Sibyl-Research-Team/AutoResearch-SibylSystem) | ~247 | Self-evolving autonomous research system, Claude-Code native. |
+
+### Lists & Surveys (`lists/`)
+
+3 curated collections / survey repos on the auto-research landscape.
+
+| Path | Source | ⭐ | What it is |
+|---|---|---|---|
+| `lists/awesome-auto-research-tools` | [handsome-rich/Awesome-Auto-Research-Tools](https://github.com/handsome-rich/Awesome-Auto-Research-Tools) | ~778 | The list that inspired this repo. |
+| `lists/awesome-ai-auto-research` | [worldbench/awesome-ai-auto-research](https://github.com/worldbench/awesome-ai-auto-research) | ~187 | A survey on AI auto-research. |
+| `lists/awesome-automated-research` | [MinhaoXiong/awesome-automated-research](https://github.com/MinhaoXiong/awesome-automated-research) | ~116 | Curated list of autonomous research systems. |
+
+> Want your repo bundled? See [CONTRIBUTING](CONTRIBUTING.md) — open a PR adding a submodule under `skills/`, `systems/`, or `lists/`.
 
 ## 🤝 Contributing
 
