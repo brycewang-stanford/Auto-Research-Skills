@@ -1,0 +1,3 @@
+[submodule "skills/aris"]
+	path = skills/aris
+	url = https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep
