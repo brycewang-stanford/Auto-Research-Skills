@@ -1,77 +1,130 @@
-<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg" font-family="'Comic Sans MS','Segoe UI',sans-serif">
+<svg width="1200" height="420" viewBox="0 0 1200 420" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Auto-Research-Skills banner</title>
+  <desc id="desc">A modern poster-style banner for autonomous research skills, showing a workflow from discovery to publication.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fff3d6"/>
-      <stop offset="1" stop-color="#ffe0ec"/>
+      <stop offset="0" stop-color="#08111f"/>
+      <stop offset="0.52" stop-color="#10263f"/>
+      <stop offset="1" stop-color="#0e1b2d"/>
     </linearGradient>
-    <linearGradient id="bot" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#7ed0ff"/>
-      <stop offset="1" stop-color="#4aa6ff"/>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#79f2d0" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#7cc7ff" stop-opacity="0.2"/>
     </linearGradient>
-    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.18"/>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffd36a"/>
+      <stop offset="1" stop-color="#ff8e5e"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.06"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000000" flood-opacity="0.34"/>
     </filter>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#8bd4ff" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
   </defs>
 
-  <!-- background -->
-  <rect width="1200" height="360" rx="28" fill="url(#bg)"/>
-  <!-- dotted texture -->
-  <g fill="#ffffff" opacity="0.55">
-    <circle cx="90" cy="60" r="5"/><circle cx="1130" cy="90" r="6"/>
-    <circle cx="1080" cy="300" r="5"/><circle cx="60" cy="300" r="6"/>
-    <circle cx="640" cy="40" r="4"/><circle cx="1150" cy="200" r="4"/>
+  <rect width="1200" height="420" rx="30" fill="url(#bg)"/>
+  <rect width="1200" height="420" rx="30" fill="url(#grid)"/>
+
+  <circle cx="178" cy="92" r="120" fill="#79f2d0" fill-opacity="0.12" filter="url(#softGlow)"/>
+  <circle cx="1040" cy="332" r="150" fill="#7cc7ff" fill-opacity="0.12" filter="url(#softGlow)"/>
+  <circle cx="920" cy="60" r="70" fill="#ffd36a" fill-opacity="0.12" filter="url(#softGlow)"/>
+
+  <g opacity="0.55" stroke="#d9f2ff" stroke-width="2">
+    <path d="M64 64 H214" stroke-opacity="0.22"/>
+    <path d="M986 74 H1136" stroke-opacity="0.22"/>
+    <path d="M76 346 H210" stroke-opacity="0.14"/>
+    <path d="M990 344 H1134" stroke-opacity="0.14"/>
   </g>
 
-  <!-- ==== cartoon robot scientist ==== -->
-  <g filter="url(#sh)" transform="translate(150 70)">
-    <!-- body -->
-    <rect x="35" y="120" width="150" height="120" rx="30" fill="url(#bot)" stroke="#1e3a5f" stroke-width="5"/>
-    <rect x="78" y="150" width="64" height="50" rx="10" fill="#dff3ff" stroke="#1e3a5f" stroke-width="4"/>
-    <text x="110" y="184" font-size="26" text-anchor="middle" fill="#1e3a5f">AI</text>
-    <!-- head -->
-    <rect x="55" y="35" width="110" height="90" rx="24" fill="url(#bot)" stroke="#1e3a5f" stroke-width="5"/>
-    <!-- antenna -->
-    <line x1="110" y1="35" x2="110" y2="10" stroke="#1e3a5f" stroke-width="5"/>
-    <circle cx="110" cy="6" r="9" fill="#ffd23f" stroke="#1e3a5f" stroke-width="4"/>
-    <!-- eyes -->
-    <circle cx="88" cy="78" r="14" fill="#fff" stroke="#1e3a5f" stroke-width="4"/>
-    <circle cx="132" cy="78" r="14" fill="#fff" stroke="#1e3a5f" stroke-width="4"/>
-    <circle cx="91" cy="80" r="6" fill="#1e3a5f"/>
-    <circle cx="135" cy="80" r="6" fill="#1e3a5f"/>
-    <!-- smile -->
-    <path d="M86 102 Q110 120 134 102" stroke="#1e3a5f" stroke-width="4" fill="none" stroke-linecap="round"/>
-    <!-- left arm holding magnifier -->
-    <line x1="40" y1="150" x2="-6" y2="120" stroke="#1e3a5f" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="-34" cy="100" r="30" fill="#fff" fill-opacity="0.5" stroke="#ff7aa2" stroke-width="8"/>
-    <line x1="-14" y1="122" x2="6" y2="142" stroke="#ff7aa2" stroke-width="10" stroke-linecap="round"/>
-    <!-- legs -->
-    <rect x="60" y="240" width="28" height="34" rx="10" fill="#1e3a5f"/>
-    <rect x="132" y="240" width="28" height="34" rx="10" fill="#1e3a5f"/>
+  <g filter="url(#shadow)">
+    <rect x="58" y="56" width="1084" height="308" rx="26" fill="#0d1726" fill-opacity="0.55" stroke="#ffffff" stroke-opacity="0.12"/>
   </g>
 
-  <!-- ==== stack of books + flask ==== -->
-  <g filter="url(#sh)" transform="translate(120 250)">
-    <rect x="0" y="40" width="170" height="22" rx="5" fill="#ff9f68" stroke="#1e3a5f" stroke-width="4"/>
-    <rect x="12" y="20" width="150" height="22" rx="5" fill="#7ee0a8" stroke="#1e3a5f" stroke-width="4"/>
-    <rect x="6" y="0" width="160" height="22" rx="5" fill="#b79bff" stroke="#1e3a5f" stroke-width="4"/>
-  </g>
-  <g filter="url(#sh)" transform="translate(330 200)">
-    <path d="M20 0 h26 v34 l28 56 a18 18 0 0 1 -16 28 h-50 a18 18 0 0 1 -16 -28 l28 -56 z" fill="#c8f6ff" stroke="#1e3a5f" stroke-width="5"/>
-    <path d="M14 78 h54 l10 20 a18 18 0 0 1 -16 20 h-50 a18 18 0 0 1 -16 -20 z" fill="#5ad1ff" stroke="#1e3a5f" stroke-width="5"/>
-    <circle cx="34" cy="92" r="4" fill="#fff"/><circle cx="50" cy="104" r="3" fill="#fff"/>
+  <g transform="translate(92 86)" filter="url(#shadow)">
+    <rect x="0" y="0" width="266" height="228" rx="24" fill="url(#panel)" stroke="#ffffff" stroke-opacity="0.16"/>
+    <rect x="18" y="18" width="120" height="28" rx="14" fill="url(#accent)"/>
+    <text x="78" y="39" text-anchor="middle" font-size="15" font-weight="700" fill="#132235" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">AUTONOMOUS</text>
+
+    <g transform="translate(26 64)">
+      <circle cx="54" cy="54" r="46" fill="#132338" stroke="#79f2d0" stroke-opacity="0.6" stroke-width="2"/>
+      <circle cx="54" cy="54" r="30" fill="none" stroke="#ffd36a" stroke-width="4" stroke-dasharray="8 10" opacity="0.9"/>
+      <circle cx="54" cy="54" r="14" fill="#79f2d0"/>
+      <path d="M54 8 V24" stroke="#ffd36a" stroke-width="4" stroke-linecap="round"/>
+      <path d="M54 84 V100" stroke="#7cc7ff" stroke-width="4" stroke-linecap="round"/>
+      <path d="M8 54 H24" stroke="#7cc7ff" stroke-width="4" stroke-linecap="round"/>
+      <path d="M84 54 H100" stroke="#ffd36a" stroke-width="4" stroke-linecap="round"/>
+      <path d="M21 21 L32 32" stroke="#d9f2ff" stroke-width="4" stroke-linecap="round"/>
+      <path d="M76 76 L87 87" stroke="#d9f2ff" stroke-width="4" stroke-linecap="round"/>
+      <path d="M21 87 L32 76" stroke="#d9f2ff" stroke-width="4" stroke-linecap="round"/>
+      <path d="M76 32 L87 21" stroke="#d9f2ff" stroke-width="4" stroke-linecap="round"/>
+    </g>
+
+    <text x="140" y="178" text-anchor="middle" font-size="26" font-weight="800" fill="#f3fbff" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">Research Stack</text>
+    <text x="140" y="206" text-anchor="middle" font-size="15" fill="#c3d9ea" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">skills, systems, lists, and agents</text>
   </g>
 
-  <!-- ==== title block ==== -->
-  <g transform="translate(470 110)">
-    <text x="0" y="0" font-size="62" font-weight="bold" fill="#1e3a5f" stroke="#fff" stroke-width="2" paint-order="stroke">Auto-Research</text>
-    <text x="0" y="64" font-size="62" font-weight="bold" fill="#ff7aa2" stroke="#fff" stroke-width="2" paint-order="stroke">-Skills</text>
-    <text x="4" y="118" font-size="24" fill="#3a5a7a">🔬 A curated hub of autonomous-research skills &amp; agents</text>
-    <text x="4" y="152" font-size="20" fill="#7a6a4a">from idea → experiment → paper, on autopilot.</text>
+  <g transform="translate(388 94)" filter="url(#shadow)">
+    <rect x="0" y="0" width="484" height="212" rx="24" fill="url(#panel)" stroke="#ffffff" stroke-opacity="0.16"/>
+    <text x="28" y="42" font-size="56" font-weight="900" letter-spacing="-1.2" fill="#f7fbff" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">Auto-Research</text>
+    <text x="28" y="92" font-size="56" font-weight="900" letter-spacing="-1.2" fill="#79f2d0" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">-Skills</text>
+    <text x="30" y="132" font-size="22" fill="#d5e5f2" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">A curated hub of autonomous research skills &amp; agents</text>
+    <text x="30" y="162" font-size="16" fill="#9eb6ca" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">from idea to literature review, experiments, and publication.</text>
+
+    <g transform="translate(30 182)">
+      <rect x="0" y="0" width="78" height="22" rx="11" fill="#79f2d0" fill-opacity="0.16" stroke="#79f2d0" stroke-opacity="0.45"/>
+      <text x="39" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#cffff5" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">DISCOVER</text>
+      <rect x="90" y="0" width="82" height="22" rx="11" fill="#7cc7ff" fill-opacity="0.16" stroke="#7cc7ff" stroke-opacity="0.45"/>
+      <text x="131" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#dbeeff" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">SYNTHESIZE</text>
+      <rect x="184" y="0" width="64" height="22" rx="11" fill="#ffd36a" fill-opacity="0.18" stroke="#ffd36a" stroke-opacity="0.5"/>
+      <text x="216" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#fff0c4" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">BUILD</text>
+      <rect x="260" y="0" width="74" height="22" rx="11" fill="#ff8e5e" fill-opacity="0.16" stroke="#ff8e5e" stroke-opacity="0.5"/>
+      <text x="297" y="16" text-anchor="middle" font-size="12" font-weight="700" fill="#ffe0d1" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">PUBLISH</text>
+    </g>
   </g>
 
-  <!-- sparkles -->
-  <g fill="#ffd23f" stroke="#1e3a5f" stroke-width="2">
-    <path d="M1090 70 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6 z"/>
-    <path d="M1010 250 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z"/>
+  <g transform="translate(910 82)" filter="url(#shadow)">
+    <rect x="0" y="0" width="220" height="236" rx="24" fill="url(#panel)" stroke="#ffffff" stroke-opacity="0.16"/>
+    <text x="26" y="40" font-size="18" font-weight="800" fill="#f4fbff" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">Workflow</text>
+
+    <g transform="translate(28 58)">
+      <rect x="0" y="0" width="164" height="34" rx="17" fill="#79f2d0" fill-opacity="0.12" stroke="#79f2d0" stroke-opacity="0.35"/>
+      <circle cx="24" cy="17" r="7" fill="#79f2d0"/>
+      <text x="44" y="22" font-size="14" font-weight="700" fill="#e8fff9" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">Find the signal</text>
+
+      <rect x="0" y="48" width="164" height="34" rx="17" fill="#7cc7ff" fill-opacity="0.12" stroke="#7cc7ff" stroke-opacity="0.35"/>
+      <circle cx="24" cy="65" r="7" fill="#7cc7ff"/>
+      <text x="44" y="70" font-size="14" font-weight="700" fill="#e6f4ff" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">Run experiments</text>
+
+      <rect x="0" y="96" width="164" height="34" rx="17" fill="#ffd36a" fill-opacity="0.14" stroke="#ffd36a" stroke-opacity="0.35"/>
+      <circle cx="24" cy="113" r="7" fill="#ffd36a"/>
+      <text x="44" y="118" font-size="14" font-weight="700" fill="#fff7df" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">Draft the paper</text>
+
+      <rect x="0" y="144" width="164" height="34" rx="17" fill="#ff8e5e" fill-opacity="0.14" stroke="#ff8e5e" stroke-opacity="0.35"/>
+      <circle cx="24" cy="161" r="7" fill="#ff8e5e"/>
+      <text x="44" y="166" font-size="14" font-weight="700" fill="#ffefe7" font-family="Avenir Next, Inter, Segoe UI, Arial, sans-serif">Ship &amp; iterate</text>
+    </g>
+  </g>
+
+  <g opacity="0.75">
+    <path d="M328 198 C364 182, 372 180, 388 180" stroke="#79f2d0" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 8"/>
+    <path d="M872 188 C888 188, 896 188, 910 188" stroke="#ffd36a" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 8"/>
+  </g>
+
+  <g fill="#ffd36a" stroke="#082038" stroke-width="2" opacity="0.9">
+    <path d="M1028 48 l6 14 14 6 -14 6 -6 14 -6 -14 -14 -6 14 -6 z"/>
+    <path d="M1100 286 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z"/>
+    <path d="M74 286 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z"/>
   </g>
 </svg>
