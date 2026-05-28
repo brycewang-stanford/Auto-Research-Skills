@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="readme.png" alt="Auto-Research-Skills banner" width="100%">
+  <img src="readme.png" alt="Auto-Research-Skills English cover" width="100%">
 </div>
 
 <h1 align="center">Auto-Research-Skills</h1>
@@ -163,7 +163,7 @@ git submodule update --init --recursive
 | `skills/arxiv-mcp-server` | [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) | ~2.8k | MCP server to search & fetch arXiv papers from any agent. |
 | `skills/academic-research-skills-codex` | [Imbad0202/academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | ~1.9k | Codex-native academic research suite, human-in-the-loop. |
 | `skills/academicforge` | [HughYau/AcademicForge](https://github.com/HughYau/AcademicForge) | ~1.3k | Curated skill collection for academic writing & research. |
-| `skills/empirical-research-skills` | [brycewang-stanford/Awesome-Agent-Skills-for-Empirical-Research](https://github.com/brycewang-stanford/Awesome-Agent-Skills-for-Empirical-Research) | ~1.3k | 23k+ agent skills for empirical research across social sciences. |
+| `skills/empirical-research-skills` | [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) | ~1.3k | 23k+ agent skills for empirical research across social sciences. |
 | `skills/x-research-skill` | [rohunvora/x-research-skill](https://github.com/rohunvora/x-research-skill) | ~1.1k | X/Twitter research: agentic search, thread following. |
 | `skills/supervisor-skills` | [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills) | ~1.1k | "AI 科研副导师" — from idea to paper submission. |
 | `skills/deep-research-skills` | [Weizhena/Deep-Research-skills](https://github.com/Weizhena/Deep-Research-skills) | ~880 | Structured deep-research skill with human-in-the-loop (Claude Code / Codex). |

@@ -21,7 +21,7 @@ Total bundled repos: **41**
 | 13 | 1.9k | [Imbad0202/academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | `skills/academic-research-skills-codex` |
 | 14 | 1.5k | [HKUDS/Auto-Deep-Research](https://github.com/HKUDS/Auto-Deep-Research) | `systems/auto-deep-research` |
 | 15 | 1.3k | [HughYau/AcademicForge](https://github.com/HughYau/AcademicForge) | `skills/academicforge` |
-| 16 | 1.3k | [brycewang-stanford/Awesome-Agent-Skills-for-Empirical-Research](https://github.com/brycewang-stanford/Awesome-Agent-Skills-for-Empirical-Research) | `skills/empirical-research-skills` |
+| 16 | 1.3k | [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) | `skills/empirical-research-skills` |
 | 17 | 1.1k | [rohunvora/x-research-skill](https://github.com/rohunvora/x-research-skill) | `skills/x-research-skill` |
 | 18 | 1.1k | [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills) | `skills/supervisor-skills` |
 | 19 | 976 | [Xiangyue-Zhang/auto-deep-researcher-24x7](https://github.com/Xiangyue-Zhang/auto-deep-researcher-24x7) | `systems/auto-deep-researcher-24x7` |

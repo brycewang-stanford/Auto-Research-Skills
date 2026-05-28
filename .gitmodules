@@ -27,7 +27,7 @@
 	url = https://github.com/Imbad0202/academic-research-skills-codex
 [submodule "skills/empirical-research-skills"]
 	path = skills/empirical-research-skills
-	url = https://github.com/brycewang-stanford/Awesome-Agent-Skills-for-Empirical-Research
+	url = https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills
 [submodule "skills/x-research-skill"]
 	path = skills/x-research-skill
 	url = https://github.com/rohunvora/x-research-skill

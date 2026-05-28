@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="readme.png" alt="Auto-Research-Skills banner" width="100%">
+  <img src="readme_cn.png" alt="Auto-Research-Skills 中文海报" width="100%">
 </div>
 
 <h1 align="center">Auto-Research-Skills</h1>
