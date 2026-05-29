@@ -178,3 +178,51 @@
 [submodule "skills/nature-paper-skills"]
 	path = skills/nature-paper-skills
 	url = https://github.com/Boom5426/Nature-Paper-Skills
+[submodule "systems/robin"]
+	path = systems/robin
+	url = https://github.com/Future-House/robin
+[submodule "systems/ai-researcher"]
+	path = systems/ai-researcher
+	url = https://github.com/HKUDS/AI-Researcher
+[submodule "systems/research-town"]
+	path = systems/research-town
+	url = https://github.com/ulab-uiuc/research-town
+[submodule "systems/deep-research"]
+	path = systems/deep-research
+	url = https://github.com/dzhng/deep-research
+[submodule "systems/local-deep-research"]
+	path = systems/local-deep-research
+	url = https://github.com/LearningCircuit/local-deep-research
+[submodule "systems/open-deep-research-firecrawl"]
+	path = systems/open-deep-research-firecrawl
+	url = https://github.com/nickscamara/open-deep-research
+[submodule "systems/paper2code"]
+	path = systems/paper2code
+	url = https://github.com/going-doer/Paper2Code
+[submodule "systems/autosurvey"]
+	path = systems/autosurvey
+	url = https://github.com/AutoSurveys/AutoSurvey
+[submodule "systems/sciagents"]
+	path = systems/sciagents
+	url = https://github.com/lamm-mit/SciAgentsDiscovery
+[submodule "benchmarks/aviary"]
+	path = benchmarks/aviary
+	url = https://github.com/Future-House/aviary
+[submodule "skills/claude-code-my-workflow"]
+	path = skills/claude-code-my-workflow
+	url = https://github.com/pedrohcgs/claude-code-my-workflow
+[submodule "skills/research-companion"]
+	path = skills/research-companion
+	url = https://github.com/andrehuang/research-companion
+[submodule "lists/awesome-ai-for-science"]
+	path = lists/awesome-ai-for-science
+	url = https://github.com/ai-boost/awesome-ai-for-science
+[submodule "lists/dive-into-claude-code"]
+	path = lists/dive-into-claude-code
+	url = https://github.com/VILA-Lab/Dive-into-Claude-Code
+[submodule "lists/awesome-deep-research"]
+	path = lists/awesome-deep-research
+	url = https://github.com/DavidZWZ/Awesome-Deep-Research
+[submodule "lists/awesome-deep-research-survey"]
+	path = lists/awesome-deep-research-survey
+	url = https://github.com/scienceaix/deepresearch
