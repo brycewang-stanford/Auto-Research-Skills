@@ -26,7 +26,7 @@
 
 ---
 
-> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **60 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
+> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **76 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
 # grab everything, including all submodules (shallow)
@@ -71,7 +71,9 @@ git submodule update --init --recursive
 | [SakanaAI/AI-Scientist](https://github.com/SakanaAI/AI-Scientist) | ~13.8k | Python | Generate ideas, run experiments, write & auto-review papers. |
 | [SakanaAI/AI-Scientist-v2](https://github.com/SakanaAI/AI-Scientist-v2) | ~6.4k | Python | v2 — agentic tree-search, workshop-grade papers, less template-bound. |
 | [SamuelSchmidgall/AgentLaboratory](https://github.com/SamuelSchmidgall/AgentLaboratory) | ~5.6k | Python | LLM agents as research assistants across the full pipeline. |
+| [HKUDS/AI-Researcher](https://github.com/HKUDS/AI-Researcher) | ~5.4k | Python | NeurIPS 2025 — autonomous scientific innovation, idea → paper. |
 | [Sibyl-Research-Team/AutoResearch-SibylSystem](https://github.com/Sibyl-Research-Team/AutoResearch-SibylSystem) | ~247 | Claude Code | Self-evolving autonomous research system, Claude-Code native. |
+| [ulab-uiuc/research-town](https://github.com/ulab-uiuc/research-town) | ~205 | Python | ICML 2025 — multi-agent simulator of a human research community. |
 
 ## 🔎 Deep Research & Literature Synthesis
 
@@ -82,9 +84,13 @@ git submodule update --init --recursive
 | [bytedance/deer-flow](https://github.com/bytedance/deer-flow) | ~70k | LangGraph | Deep research w/ human-in-the-loop. |
 | [stanford-oval/storm](https://github.com/stanford-oval/storm) | ~28.3k | Python | Wikipedia-style long-form report synthesis. |
 | [assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher) | ~27.3k | Python | Plan → scrape → cited report. The classic. |
+| [dzhng/deep-research](https://github.com/dzhng/deep-research) | ~19.0k | TypeScript | The simplest iterative deep-research agent — refines its own direction. |
 | [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research) | ~11.5k | LangGraph | Open, configurable deep-research agent. |
 | [Future-House/paper-qa](https://github.com/Future-House/paper-qa) | ~8.6k | Python | PaperQA2 — high-accuracy RAG over scientific PDFs with citations. |
+| [LearningCircuit/local-deep-research](https://github.com/LearningCircuit/local-deep-research) | ~8.1k | Python | Local & private deep research; arXiv + PubMed, ~95% on SimpleQA. |
+| [nickscamara/open-deep-research](https://github.com/nickscamara/open-deep-research) | ~6.2k | TypeScript | Open deep-research clone reasoning over Firecrawl-extracted web data. |
 | [HKUDS/Auto-Deep-Research](https://github.com/HKUDS/Auto-Deep-Research) | ~1.5k | Agent | Low-cost, fully-automated personal research assistant. |
+| [AutoSurveys/AutoSurvey](https://github.com/AutoSurveys/AutoSurvey) | ~468 | Python | Multi-stage pipeline for automated literature-survey generation. |
 
 ## 🧪 Automated Experiment & Code Agents
 
@@ -92,6 +98,7 @@ git submodule update --init --recursive
 
 | Project | ⭐ | Stack | Notes |
 |---|---|---|---|
+| [going-doer/Paper2Code](https://github.com/going-doer/Paper2Code) | ~4.6k | Python | PaperCoder — turns an ML paper into a runnable code repository. |
 | [WecoAI/aideml](https://github.com/WecoAI/aideml) | ~1.3k | Python | AIDE — ML-engineering agent; treats modeling as code-optimization search. |
 | [Xiangyue-Zhang/auto-deep-researcher-24x7](https://github.com/Xiangyue-Zhang/auto-deep-researcher-24x7) | ~975 | Agent | Runs DL experiments 24/7, Leader-Worker, constant-size memory. |
 | [Just-Curieous/Curie](https://github.com/Just-Curieous/Curie) | ~360 | Python | Rigorous, reproducible experimentation agent for ML research. |
@@ -106,6 +113,8 @@ git submodule update --init --recursive
 | [snap-stanford/Biomni](https://github.com/snap-stanford/Biomni) | ~3.1k | Biomedicine | General-purpose biomedical AI agent across 150+ tools/databases. |
 | [ur-whitelab/chemcrow-public](https://github.com/ur-whitelab/chemcrow-public) | ~915 | Chemistry | LLM chemistry agent for synthesis, drug discovery, materials. |
 | [zou-group/virtual-lab](https://github.com/zou-group/virtual-lab) | ~685 | Multi-agent | A team of LLM "scientists" running interdisciplinary research (Stanford). |
+| [lamm-mit/SciAgentsDiscovery](https://github.com/lamm-mit/SciAgentsDiscovery) | ~611 | Materials | MIT — multi-agent automated scientific discovery & hypothesis generation. |
+| [Future-House/robin](https://github.com/Future-House/robin) | ~439 | Biomedicine | Multi-agent discovery; proposed a validated dry-AMD drug candidate. |
 | [gomesgroup/coscientist](https://github.com/gomesgroup/coscientist) | ~203 | Chemistry | Autonomous chemical research with LLMs (Nature 2023). |
 
 ## 🧩 Research Skills & Plugin Collections
@@ -150,7 +159,7 @@ git submodule update --init --recursive
 
 ## 🗂️ Bundled Repos (submodules)
 
-**60 repos** (every one with 100+ ⭐) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `git submodule update --init --recursive` (or `./setup.sh`) to fetch them all.
+**76 repos** (every one with 100+ ⭐) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `git submodule update --init --recursive` (or `./setup.sh`) to fetch them all.
 
 > 📊 Live ranking: see [**STARS.md**](STARS.md) — auto-refreshed weekly by [a GitHub Action](.github/workflows/update-stars.yml).
 >
@@ -158,7 +167,7 @@ git submodule update --init --recursive
 
 ### Skills & Plugin Collections (`skills/`)
 
-33 reusable skill sets and plugins that drop into coding agents.
+35 reusable skill sets and plugins that drop into coding agents.
 
 | Path | Source | ⭐ | What it gives you |
 |---|---|---|---|
@@ -175,6 +184,7 @@ git submodule update --init --recursive
 | `skills/claude-scientific-writer` | [K-Dense-AI/claude-scientific-writer](https://github.com/K-Dense-AI/claude-scientific-writer) | ~1.9k | General-purpose scientific writer (sibling of `scientific-agent-skills`). |
 | `skills/academicforge` | [HughYau/AcademicForge](https://github.com/HughYau/AcademicForge) | ~1.3k | Curated skill collection for academic writing & research. |
 | `skills/empirical-research-skills` | [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) | ~1.3k | 23k+ agent skills for empirical research across social sciences. |
+| `skills/claude-code-my-workflow` | [pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow) | ~1.2k | Fork-ready academic Claude Code template (LaTeX/Beamer + R); multi-agent QA & replication. |
 | `skills/x-research-skill` | [rohunvora/x-research-skill](https://github.com/rohunvora/x-research-skill) | ~1.1k | X/Twitter research: agentic search, thread following. |
 | `skills/supervisor-skills` | [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills) | ~1.1k | "AI 科研副导师" — from idea to paper submission. |
 | `skills/deep-research-skills` | [Weizhena/Deep-Research-skills](https://github.com/Weizhena/Deep-Research-skills) | ~880 | Structured deep-research skill with human-in-the-loop (Claude Code / Codex). |
@@ -182,6 +192,7 @@ git submodule update --init --recursive
 | `skills/scienceclaw` | [beita6969/ScienceClaw](https://github.com/beita6969/ScienceClaw) | ~823 | Self-evolving AI research colleague, 285 skills. |
 | `skills/academic-paper-skills` | [lishix520/academic-paper-skills](https://github.com/lishix520/academic-paper-skills) | ~768 | Systematic framework for planning & writing academic papers. |
 | `skills/claude-deep-research-skill` | [199-biotechnologies/claude-deep-research-skill](https://github.com/199-biotechnologies/claude-deep-research-skill) | ~726 | Enterprise deep-research, 8-phase pipeline, source credibility. |
+| `skills/research-companion` | [andrehuang/research-companion](https://github.com/andrehuang/research-companion) | ~665 | Strategic research-thinking agents: idea evaluation, triage, brainstorming. |
 | `skills/research-skills` | [luwill/research-skills](https://github.com/luwill/research-skills) | ~639 | Common research processes encapsulated as agent skills. |
 | `skills/research-units-pipeline` | [WILLOSCAR/research-units-pipeline-skills](https://github.com/WILLOSCAR/research-units-pipeline-skills) | ~441 | Research pipelines as semantic execution units. |
 | `skills/oneresearchclaw` | [gaotiexinqu/OneResearchClaw](https://github.com/gaotiexinqu/OneResearchClaw) | ~434 | Any materials → fully autonomous, skill-driven research. |
@@ -198,7 +209,7 @@ git submodule update --init --recursive
 
 ### Systems & Agents (`systems/`)
 
-21 end-to-end systems and autonomous agents — from idea to paper, deep-research report generation, domain-science labs, and 24/7 experiment runners.
+30 end-to-end systems and autonomous agents — from idea to paper, deep-research report generation, domain-science labs, and 24/7 experiment runners.
 
 | Path | Source | ⭐ | What it does |
 |---|---|---|---|
