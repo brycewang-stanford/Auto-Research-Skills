@@ -163,3 +163,18 @@
 [submodule "benchmarks/scienceagentbench"]
 	path = benchmarks/scienceagentbench
 	url = https://github.com/OSU-NLP-Group/ScienceAgentBench
+[submodule "skills/nature-skills"]
+	path = skills/nature-skills
+	url = https://github.com/Yuan1z0825/nature-skills
+[submodule "skills/claude-scholar"]
+	path = skills/claude-scholar
+	url = https://github.com/Galaxy-Dawn/claude-scholar
+[submodule "skills/claude-scientific-writer"]
+	path = skills/claude-scientific-writer
+	url = https://github.com/K-Dense-AI/claude-scientific-writer
+[submodule "skills/academic-paper-skills"]
+	path = skills/academic-paper-skills
+	url = https://github.com/lishix520/academic-paper-skills
+[submodule "skills/nature-paper-skills"]
+	path = skills/nature-paper-skills
+	url = https://github.com/Boom5426/Nature-Paper-Skills

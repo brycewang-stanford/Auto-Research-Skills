@@ -26,7 +26,7 @@
 
 ---
 
-> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**55 个仓库**以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
+> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**60 个仓库**以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
 
 ```bash
 # 一次性拉全（含所有子模块，浅克隆）
@@ -113,10 +113,18 @@ git submodule update --init --recursive
 | 项目 | ⭐ | 技术栈 | 说明 |
 |---|---|---|---|
 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) 🧩 ⭐ | ~22.7k | Claude Code · Python | **重点。** 学术研究 → 写作 → 评审 → 修订 → 定稿流水线。 |
+| [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) 🧩 | ~13.4k | Claude Code · Python | Nature 级学术表达 + 科研绘图，Claude 与 Codex 双支持。 |
 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) 🧩 | ~10.8k | Markdown skills | ARIS —— 跨模型互审循环、想法发现、实验自动化，无框架锁定。 |
+| [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) 🧩 | ~4.1k | Claude Code · MCP | 半自动科研助手；集成 Zotero + Obsidian + MCP。 |
 | [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) 🧩 | ~2.8k | MCP | 在任意支持 MCP 的智能体中直接检索与抓取 arXiv 论文。 |
+| [K-Dense-AI/claude-scientific-writer](https://github.com/K-Dense-AI/claude-scientific-writer) 🧩 | ~1.9k | Claude Code · Python | 通用型科研写作助手。 |
 | [mshumer/autonomous-researcher](https://github.com/mshumer/autonomous-researcher) 🧩 | ~804 | Agent | 轻量级自主研究智能体。 |
+| [lishix520/academic-paper-skills](https://github.com/lishix520/academic-paper-skills) 🧩 | ~768 | Claude Code · Python | 系统化的学术论文规划与写作框架。 |
 | [openags/auto-research](https://github.com/openags/auto-research) 🧩 | ~284 | Agent + UI | 跨领域通用「AI 科学家」。 |
+| [Boom5426/Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills) 🧩 | ~252 | Claude Code · TeX | Nature 风格论文的起草、修订、审稿与返修技能。 |
+| [LeonChaoX/qinyan-academic-skills](https://github.com/LeonChaoX/qinyan-academic-skills) | ~93 | Claude Code · Python | 「沁言」学术科研库 —— 177 个研究 Agent。 |
+| [lingzhi227/agent-research-skills](https://github.com/lingzhi227/agent-research-skills) | ~85 | Claude Code · Python | 系统化学术深度研究技能。 |
+| [andrehuang/academic-writing-agents](https://github.com/andrehuang/academic-writing-agents) | ~80 | Claude Code | 多智能体编排，含 10 个专职写作 Agent。 |
 
 ## 📊 评测基准
 
@@ -140,9 +148,9 @@ git submodule update --init --recursive
 
 ## 🗂️ 已收录仓库（子模块）
 
-**55 个仓库**（每个都 100+ ⭐）以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `git submodule update --init --recursive`（或 `./setup.sh`）即可全部拉取。完整带 star 的榜单见 [STARS.md](STARS.md)。
+**60 个仓库**（每个都 100+ ⭐）以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `git submodule update --init --recursive`（或 `./setup.sh`）即可全部拉取。完整带 star 的榜单见 [STARS.md](STARS.md)。
 
-- **`skills/`** —— 28 个可复用技能集与插件合集
+- **`skills/`** —— 33 个可复用技能集与插件合集
 - **`systems/`** —— 21 个端到端系统与自主智能体
 - **`benchmarks/`** —— 3 个自主研究 / ML 工程评测基准
 - **`lists/`** —— 3 个精选清单与综述
