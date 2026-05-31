@@ -20,6 +20,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Auto-Research-Skills?style=flat-square&color=ffd23f" alt="stars">
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-7ee0a8?style=flat-square" alt="PRs welcome"></a>
+  <a href="https://github.com/brycewang-stanford/StatsPAI"><img src="https://img.shields.io/badge/Powered%20by-StatsPAI-orange" alt="Powered by StatsPAI"></a>
 </p>
 
 <p align="center"><b>English</b> · <a href="README_CN.md">简体中文</a></p>
