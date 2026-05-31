@@ -36,13 +36,12 @@
 > **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,250 skills** across **76 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
-# grab everything, including all submodules (shallow)
-git clone --recurse-submodules https://github.com/brycewang-stanford/Auto-Research-Skills.git
+# recommended: clone first, then let setup.sh handle top-level + nested submodules
+git clone https://github.com/brycewang-stanford/Auto-Research-Skills.git
+cd Auto-Research-Skills
+./setup.sh
 
-# already cloned? pull them all in
-git submodule update --init --recursive
-
-# or use the helper
+# already cloned? refresh missing submodules
 ./setup.sh
 ```
 
@@ -64,7 +63,7 @@ git submodule update --init --recursive
 - [📄 License](#-license)
 
 > **Legend:** ⭐ = approximate star count · 🧩 = vendored here as a submodule
-> **Note:** every project listed below is vendored as a submodule under `skills/`, `systems/`, `benchmarks/`, or `lists/` — see [Bundled Repos](#️-bundled-repos-submodules).
+> **Note:** the authoritative vendored inventory is [Bundled Repos](#️-bundled-repos-submodules). In the Research Skills table, unmarked rows are tracked candidates or useful adjacent projects.
 
 ---
 
@@ -134,14 +133,16 @@ git submodule update --init --recursive
 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) 🧩 | ~13.4k | Claude Code · Python | Nature-grade academic phrasing + scientific figure plotting; Claude & Codex. |
 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) 🧩 | ~10.8k | Markdown skills | ARIS — cross-model review loops, idea discovery, experiment automation. No framework lock-in. |
 | [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) 🧩 | ~4.1k | Claude Code · MCP | Semi-automated research assistant; Zotero + Obsidian + MCP integration. |
-| [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) | ~2.8k | MCP | Search & retrieve arXiv papers directly inside any MCP-capable agent. |
+| [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) 🧩 | ~2.8k | MCP | Search & retrieve arXiv papers directly inside any MCP-capable agent. |
 | [K-Dense-AI/claude-scientific-writer](https://github.com/K-Dense-AI/claude-scientific-writer) 🧩 | ~1.9k | Claude Code · Python | General-purpose scientific writer. |
 | [pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow) 🧩 | ~1.2k | Claude Code · LaTeX/R | Fork-ready academic template: multi-agent review, quality gates, replication. |
-| [mshumer/autonomous-researcher](https://github.com/mshumer/autonomous-researcher) | ~804 | Agent | Lightweight autonomous research agent. |
+| [mshumer/autonomous-researcher](https://github.com/mshumer/autonomous-researcher) 🧩 | ~804 | Agent | Lightweight autonomous research agent. |
 | [lishix520/academic-paper-skills](https://github.com/lishix520/academic-paper-skills) 🧩 | ~768 | Claude Code · Python | Systematic framework for planning & writing academic papers. |
-| [andrehuang/research-companion](https://github.com/andrehuang/research-companion) | ~665 | Claude Code | Strategic research-thinking agents: idea evaluation, triage, brainstorming. |
-| [openags/auto-research](https://github.com/openags/auto-research) | ~284 | Agent + UI | Generalist "AI Scientist" across fields. |
+| [andrehuang/research-companion](https://github.com/andrehuang/research-companion) 🧩 | ~665 | Claude Code | Strategic research-thinking agents: idea evaluation, triage, brainstorming. |
+| [EvoScientist/EvoSkills](https://github.com/EvoScientist/EvoSkills) | ~380 | Agent Skills | Installable skill and knowledge packs for EvoScientist-style scientific workflows. |
+| [openags/auto-research](https://github.com/openags/auto-research) 🧩 | ~284 | Agent + UI | Generalist "AI Scientist" across fields. |
 | [Boom5426/Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills) 🧩 | ~252 | Claude Code · TeX | Draft, revise, audit & resubmit skills for Nature-style papers. |
+| [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | ~101 | Claude Code · Codex · Gemini CLI | Multi-platform academic research suite with specialized agents and CLI workflows. |
 | [LeonChaoX/qinyan-academic-skills](https://github.com/LeonChaoX/qinyan-academic-skills) | ~93 | Claude Code · Python | "沁言" academic library — 177 research agents. |
 | [lingzhi227/agent-research-skills](https://github.com/lingzhi227/agent-research-skills) | ~85 | Claude Code · Python | Systematic academic deep-research skills. |
 | [andrehuang/academic-writing-agents](https://github.com/andrehuang/academic-writing-agents) | ~80 | Claude Code | Multi-agent orchestrator with 10 specialist writing agents. |
@@ -173,9 +174,13 @@ git submodule update --init --recursive
 
 ## 🗂️ Bundled Repos (submodules)
 
-**3,250 skills** across **76 repos** (every one with 100+ ⭐) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `git submodule update --init --recursive` (or `./setup.sh`) to fetch them all.
+**3,250 skills** across **76 repos** (every one with 100+ ⭐) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
 
 > 📊 Live ranking: see [**STARS.md**](STARS.md) — auto-refreshed weekly by [a GitHub Action](.github/workflows/update-stars.yml).
+>
+> 🧭 Curation backlog: see [**CURATION.md**](CURATION.md) for candidate skills found via registry/GitHub research, review criteria, and the current safety checklist.
+>
+> 🛠️ Maintainers: run `python scripts/check-repo.py` before PRs. `setup.sh` initializes top-level submodules first and then best-effort nested submodules declared by upstream repos, so one broken nested mapping does not block the whole checkout.
 >
 > **Picking an academic-research skill?** Several bundled packages overlap. Start with [`skills/academic-research-skills`](skills/academic-research-skills) (the featured, most-starred pipeline). Pick [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) or [`skills/codex-academic-skills`](skills/codex-academic-skills) if you're on **Codex** rather than Claude Code; [`skills/franklee-academic-research-skills`](skills/franklee-academic-research-skills) if you work in **econ/finance**; [`skills/claude-code-my-workflow`](skills/claude-code-my-workflow) for a **LaTeX/Beamer + R, fork-ready** academic setup; [`skills/empirical-research-skills`](skills/empirical-research-skills) for **empirical social-science** workflows.
 

@@ -36,17 +36,20 @@
 > **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**3,250 个 skills**、分布在 **76 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
 
 ```bash
-# 一次性拉全（含所有子模块，浅克隆）
-git clone --recurse-submodules https://github.com/brycewang-stanford/Auto-Research-Skills.git
+# 推荐：先克隆，再让 setup.sh 处理顶层与嵌套子模块
+git clone https://github.com/brycewang-stanford/Auto-Research-Skills.git
+cd Auto-Research-Skills
+./setup.sh
 
-# 已经克隆过？把子模块都拉进来
-git submodule update --init --recursive
-
-# 或使用辅助脚本
+# 已经克隆过？补齐缺失子模块
 ./setup.sh
 ```
 
 > 📊 实时排名见 [**STARS.md**](STARS.md) —— 由 [GitHub Action](.github/workflows/update-stars.yml) 每周自动刷新。
+>
+> 🧭 候选收录与筛选标准见 [**CURATION.md**](CURATION.md)：里面记录了通过 registry/GitHub 调研发现的候选 skills、评审标准与安全检查清单。
+>
+> 🛠️ 维护者提交前建议运行 `python scripts/check-repo.py`。`setup.sh` 会先初始化顶层子模块，再尽力初始化上游仓库声明过的嵌套子模块，避免单个上游嵌套映射问题阻塞整个 checkout。
 
 ## 目录
 
@@ -62,7 +65,7 @@ git submodule update --init --recursive
 - [📄 协议](#-协议)
 
 > **图例：** ⭐ = 约略 star 数 · 🧩 = 已作为子模块收录
-> **说明：** 下列每个项目都已作为子模块收录在 `skills/`、`systems/`、`benchmarks/` 或 `lists/` 下 —— 详见 [已收录仓库](#️-已收录仓库子模块)。
+> **说明：** 权威收录清单见 [已收录仓库](#️-已收录仓库子模块)。在“研究技能与插件合集”表中，未标记的项目是候选或相邻参考项目。
 
 ---
 
@@ -138,8 +141,10 @@ git submodule update --init --recursive
 | [mshumer/autonomous-researcher](https://github.com/mshumer/autonomous-researcher) 🧩 | ~804 | Agent | 轻量级自主研究智能体。 |
 | [lishix520/academic-paper-skills](https://github.com/lishix520/academic-paper-skills) 🧩 | ~768 | Claude Code · Python | 系统化的学术论文规划与写作框架。 |
 | [andrehuang/research-companion](https://github.com/andrehuang/research-companion) 🧩 | ~665 | Claude Code | 战略型科研思考智能体：选题评估、项目分诊、头脑风暴。 |
+| [EvoScientist/EvoSkills](https://github.com/EvoScientist/EvoSkills) | ~380 | Agent Skills | 面向 EvoScientist 式科学工作流的可安装技能与知识包。 |
 | [openags/auto-research](https://github.com/openags/auto-research) 🧩 | ~284 | Agent + UI | 跨领域通用「AI 科学家」。 |
 | [Boom5426/Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills) 🧩 | ~252 | Claude Code · TeX | Nature 风格论文的起草、修订、审稿与返修技能。 |
+| [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | ~101 | Claude Code · Codex · Gemini CLI | 跨 Claude Code、Codex、Gemini CLI 的多平台学术研究套件，含专门 agent 与 CLI 工作流。 |
 | [LeonChaoX/qinyan-academic-skills](https://github.com/LeonChaoX/qinyan-academic-skills) | ~93 | Claude Code · Python | 「沁言」学术科研库 —— 177 个研究 Agent。 |
 | [lingzhi227/agent-research-skills](https://github.com/lingzhi227/agent-research-skills) | ~85 | Claude Code · Python | 系统化学术深度研究技能。 |
 | [andrehuang/academic-writing-agents](https://github.com/andrehuang/academic-writing-agents) | ~80 | Claude Code | 多智能体编排，含 10 个专职写作 Agent。 |
@@ -171,7 +176,7 @@ git submodule update --init --recursive
 
 ## 🗂️ 已收录仓库（子模块）
 
-**3,250 个 skills**、分布在 **76 个仓库**（每个都 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `git submodule update --init --recursive`（或 `./setup.sh`）即可全部拉取。完整带 star 的榜单见 [STARS.md](STARS.md)。
+**3,250 个 skills**、分布在 **76 个仓库**（每个都 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `./setup.sh` 即可全部拉取；只需要顶层仓库时可运行 `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh`。完整带 star 的榜单见 [STARS.md](STARS.md)。
 
 - **`skills/`** —— 35 个可复用技能集与插件合集
 - **`systems/`** —— 30 个端到端系统与自主智能体
