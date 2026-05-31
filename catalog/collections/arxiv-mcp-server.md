@@ -9,4 +9,4 @@ Source: [https://github.com/blazickjp/arxiv-mcp-server](https://github.com/blazi
 
 | Skill | Trigger / description | Flags | Path |
 |---|---|---|---|
-| `arxiv-mcp-server` | Search arXiv papers, download full text, follow citations, and run local semantic search. | — | [skills/arxiv-mcp-server/skills/arxiv-mcp-server/SKILL.md](../../skills/arxiv-mcp-server/skills/arxiv-mcp-server/SKILL.md) |
+| `arxiv-mcp-server` | Search arXiv papers, download full text, follow citations, and run local semantic search. | — | `skills/arxiv-mcp-server/skills/arxiv-mcp-server/SKILL.md` |

@@ -10,5 +10,5 @@ Source: [https://github.com/lishix520/academic-paper-skills](https://github.com/
 
 | Skill | Trigger / description | Flags | Path |
 |---|---|---|---|
-| `academic-paper-composer` | Systematic writing framework for philosophy and interdisciplinary academic papers from optimized outline to submission-ready manuscript. Use when users want to: (1) write a paper from a detailed… | — | [skills/academic-paper-skills/composer/SKILL.md](../../skills/academic-paper-skills/composer/SKILL.md) |
-| `academic-paper-strategist` | Systematic strategic planning framework for philosophy and interdisciplinary academic papers targeting preprint platforms (PhilArchive, arXiv, PhilSci-Archive). Use when users want to: (1) plan a… | — | [skills/academic-paper-skills/strategist/SKILL.md](../../skills/academic-paper-skills/strategist/SKILL.md) |
+| `academic-paper-composer` | Systematic writing framework for philosophy and interdisciplinary academic papers from optimized outline to submission-ready manuscript. Use when users want to: (1) write a paper from a detailed… | — | `skills/academic-paper-skills/composer/SKILL.md` |
+| `academic-paper-strategist` | Systematic strategic planning framework for philosophy and interdisciplinary academic papers targeting preprint platforms (PhilArchive, arXiv, PhilSci-Archive). Use when users want to: (1) plan a… | — | `skills/academic-paper-skills/strategist/SKILL.md` |

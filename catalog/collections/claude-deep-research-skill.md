@@ -9,4 +9,4 @@ Source: [https://github.com/199-biotechnologies/claude-deep-research-skill](http
 
 | Skill | Trigger / description | Flags | Path |
 |---|---|---|---|
-| `deep-research` | Use when the user needs multi-source research with citation tracking, evidence persistence, and structured report generation. Triggers on "deep research", "comprehensive analysis", "research report",… | — | [skills/claude-deep-research-skill/SKILL.md](../../skills/claude-deep-research-skill/SKILL.md) |
+| `deep-research` | Use when the user needs multi-source research with citation tracking, evidence persistence, and structured report generation. Triggers on "deep research", "comprehensive analysis", "research report",… | — | `skills/claude-deep-research-skill/SKILL.md` |

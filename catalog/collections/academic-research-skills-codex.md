@@ -9,4 +9,4 @@ Source: [https://github.com/Imbad0202/academic-research-skills-codex](https://gi
 
 | Skill | Trigger / description | Flags | Path |
 |---|---|---|---|
-| `academic-research-suite` | Codex-native Academic Research Skills suite for deep research, academic paper writing, manuscript review, full research-to-paper pipelines, and experiment planning or validation. Use when the user… | — | [skills/academic-research-skills-codex/skills/academic-research-suite/SKILL.md](../../skills/academic-research-skills-codex/skills/academic-research-suite/SKILL.md) |
+| `academic-research-suite` | Codex-native Academic Research Skills suite for deep research, academic paper writing, manuscript review, full research-to-paper pipelines, and experiment planning or validation. Use when the user… | — | `skills/academic-research-skills-codex/skills/academic-research-suite/SKILL.md` |

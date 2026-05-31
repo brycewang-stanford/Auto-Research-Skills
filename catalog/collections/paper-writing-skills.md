@@ -9,4 +9,4 @@ Source: [https://github.com/Master-cai/Research-Paper-Writing-Skills](https://gi
 
 | Skill | Trigger / description | Flags | Path |
 |---|---|---|---|
-| `research-paper-writing` | Improve academic paper writing quality for ML/CV/NLP-style papers with clear section structure, paragraph flow, and reviewer-facing presentation. Use when drafting or revising Abstract, Introduction,… | — | [skills/paper-writing-skills/research-paper-writing/SKILL.md](../../skills/paper-writing-skills/research-paper-writing/SKILL.md) |
+| `research-paper-writing` | Improve academic paper writing quality for ML/CV/NLP-style papers with clear section structure, paragraph flow, and reviewer-facing presentation. Use when drafting or revising Abstract, Introduction,… | — | `skills/paper-writing-skills/research-paper-writing/SKILL.md` |

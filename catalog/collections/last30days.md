@@ -9,4 +9,4 @@ Source: [https://github.com/mvanhorn/last30days-skill](https://github.com/mvanho
 
 | Skill | Trigger / description | Flags | Path |
 |---|---|---|---|
-| `last30days` | Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. | — | [skills/last30days/skills/last30days/SKILL.md](../../skills/last30days/skills/last30days/SKILL.md) |
+| `last30days` | Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web. | — | `skills/last30days/skills/last30days/SKILL.md` |

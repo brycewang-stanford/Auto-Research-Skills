@@ -9,4 +9,4 @@ Source: [https://github.com/rohunvora/x-research-skill](https://github.com/rohun
 
 | Skill | Trigger / description | Flags | Path |
 |---|---|---|---|
-| `x-research` | General-purpose X/Twitter research agent. Searches X for real-time perspectives, dev discussions, product feedback, cultural takes, breaking news, and expert opinions. Works like a web research agent… | — | [skills/x-research-skill/SKILL.md](../../skills/x-research-skill/SKILL.md) |
+| `x-research` | General-purpose X/Twitter research agent. Searches X for real-time perspectives, dev discussions, product feedback, cultural takes, breaking news, and expert opinions. Works like a web research agent… | — | `skills/x-research-skill/SKILL.md` |

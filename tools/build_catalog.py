@@ -450,14 +450,15 @@ def write_collection_pages(collections: list[Collection]) -> list[Path]:
             if not s.has_frontmatter:
                 flags.append("no-fm")
             flag_str = ", ".join(flags) or "—"
-            # Collection pages live at catalog/collections/<name>.md, so links to
-            # source paths (repo-root-relative) need to climb two directories.
-            link = f"../../{s.path}"
+            # Path is rendered as inline code, NOT a link: GitHub can't browse
+            # into submodule contents from the parent repo, and the link checker
+            # only materializes submodule top-dirs — so a file link would 404.
+            # The path is exact for a local clone (after `setup.sh`/submodule init).
             lines.append(
                 f"| `{md_escape(s.name)}` "
                 f"| {md_escape(trigger_sentence(s.description))} "
                 f"| {flag_str} "
-                f"| [{md_escape(s.path)}]({link}) |"
+                f"| `{md_escape(s.path)}` |"
             )
         lines.append("")
         out = COLLECTIONS_DIR / f"{c.name}.md"
