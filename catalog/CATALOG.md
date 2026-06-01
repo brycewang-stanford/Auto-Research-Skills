@@ -9,14 +9,14 @@ An index of every individual skill bundled across all collections, so you can fi
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files (README headline number) | **3,250** |
-| Unique skills (de-duplicated by name + body) | **2,521** |
-| Copies re-bundled by aggregator collections | 729 |
+| `SKILL.md` files (README headline number) | **3,251** |
+| Unique skills (de-duplicated by name + body) | **2,523** |
+| Copies re-bundled by aggregator collections | 728 |
 | Placeholder / template skills | 1 |
 | Skills without YAML frontmatter | 11 |
 | Collections | 32 |
 
-> The headline **3,250** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,521** of those skills are actually distinct — a ~22% redundancy rate worth knowing when you browse.
+> The headline **3,251** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,523** of those skills are actually distinct — a ~22% redundancy rate worth knowing when you browse.
 
 ## Collections
 
@@ -28,7 +28,7 @@ Sorted by skill count. Click a collection for its full skill list.
 | [medical-research-skills](collections/medical-research-skills.md) | 556 | 556 | 0 | 0 | [repo](https://github.com/aipoch/medical-research-skills) |
 | [research-plugins](collections/research-plugins.md) | 473 | 473 | 464 | 0 | [repo](https://github.com/wentorai/research-plugins) |
 | [scienceclaw](collections/scienceclaw.md) | 293 | 293 | 25 | 0 | [repo](https://github.com/beita6969/ScienceClaw) |
-| [aris](collections/aris.md) | 177 | 164 | 22 | 0 | [repo](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) |
+| [aris](collections/aris.md) | 178 | 166 | 21 | 0 | [repo](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) |
 | [scientific-agent-skills](collections/scientific-agent-skills.md) | 143 | 143 | 30 | 0 | [repo](https://github.com/K-Dense-AI/scientific-agent-skills) |
 | [research-units-pipeline](collections/research-units-pipeline.md) | 109 | 109 | 0 | 0 | [repo](https://github.com/WILLOSCAR/research-units-pipeline-skills) |
 | [ai-research-skills](collections/ai-research-skills.md) | 98 | 98 | 2 | 0 | [repo](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
@@ -68,7 +68,6 @@ Identical skills (same name + body) that appear in multiple collections — the 
 | `research-add-items` | 6 | `deep-research-skills`, `franklee-academic-research-skills` |
 | `infographics` | 5 | `claude-scientific-writer`, `scienceclaw`, `scientific-agent-skills` |
 | `analyze-results` | 4 | `aris`, `empirical-research-skills` |
-| `dse-loop` | 4 | `aris`, `empirical-research-skills` |
 | `proof-writer` | 4 | `aris`, `empirical-research-skills` |
 | `clinical-reports` | 4 | `claude-scientific-writer`, `scientific-agent-skills` |
 | `hypothesis-generation` | 4 | `claude-scientific-writer`, `scientific-agent-skills` |
@@ -81,6 +80,7 @@ Identical skills (same name + body) that appear in multiple collections — the 
 | `research-report` | 4 | `deep-research-skills`, `franklee-academic-research-skills` |
 | `formula-derivation` | 3 | `aris`, `empirical-research-skills` |
 | `pixel-art` | 3 | `aris`, `empirical-research-skills` |
+| `dse-loop` | 3 | `aris`, `empirical-research-skills` |
 | `system-profile` | 3 | `aris`, `empirical-research-skills` |
 | `devils-advocate` | 3 | `claude-code-my-workflow`, `empirical-research-skills` |
 | `proofread` | 3 | `claude-code-my-workflow`, `empirical-research-skills` |

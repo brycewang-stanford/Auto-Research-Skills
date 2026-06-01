@@ -2,12 +2,12 @@
   "_generated_by": "tools/build_catalog.py",
   "_note": "Auto-generated. 'total_skill_files' is the raw SKILL.md count (matches the README headline and includes copies re-bundled by aggregator collections). 'unique_skills' de-duplicates by name+body content hash.",
   "totals": {
-    "total_skill_files": 3250,
-    "unique_skills": 2521,
+    "total_skill_files": 3251,
+    "unique_skills": 2523,
     "collections": 32,
     "template_skills": 1,
     "without_frontmatter": 11,
-    "rebundled_copies": 729
+    "rebundled_copies": 728
   },
   "collections": [
     {
@@ -45,10 +45,10 @@
     {
       "name": "aris",
       "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
-      "skill_files": 177,
-      "unique_skills": 164,
+      "skill_files": 178,
+      "unique_skills": 166,
       "template_skills": 0,
-      "rebundled_copies": 22
+      "rebundled_copies": 21
     },
     {
       "name": "scientific-agent-skills",
@@ -344,7 +344,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "9840d727963d6fde",
+      "content_hash": "ab3fdab397e26548",
       "duplicate_of": "",
       "nested_depth": 1
     },
@@ -376,7 +376,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "a711f71dec52c2b1",
+      "content_hash": "76d08d2f72004295",
       "duplicate_of": "",
       "nested_depth": 1
     },
@@ -2384,7 +2384,7 @@
       "name": "auto-paper-improvement-loop",
       "collection": "aris",
       "path": "skills/aris/skills/auto-paper-improvement-loop/SKILL.md",
-      "description": "Autonomously improve a generated paper via GPT-5.4 xhigh review → implement fixes → recompile, for 2 rounds. Use when user says \\\"改论文\\\", \\\"improve paper\\\", \\\"论文润色循环\\\", \\\"auto improve\\\", or wants to iteratively polish a generated paper.",
+      "description": "Autonomously improve a generated paper via GPT-5.5 xhigh review → implement fixes → recompile, for 2 rounds. Use when user says \\\"改论文\\\", \\\"improve paper\\\", \\\"论文润色循环\\\", \\\"auto improve\\\", or wants to iteratively polish a generated paper.",
       "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
       "license": "",
       "version": "",
@@ -2392,7 +2392,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "7515d063ab454418",
+      "content_hash": "d815c33cdf42a100",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2408,7 +2408,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "52412401092584cd",
+      "content_hash": "af1fa6909dc39cae",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2424,7 +2424,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "000c54816847b31c",
+      "content_hash": "a1bc1e84282e3741",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2440,7 +2440,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "b4208abcd400c65a",
+      "content_hash": "18013ffb0812d64e",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2456,7 +2456,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "44e03025e1f49696",
+      "content_hash": "06839e75bfc91b64",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2520,7 +2520,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "10c0f63db9662996",
+      "content_hash": "3d0a57536bba408b",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2568,7 +2568,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "85e03532b37de42a",
+      "content_hash": "9a6a71672a7b5152",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2584,7 +2584,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "6ec5f968df046b1a",
+      "content_hash": "bccaa101e4234b83",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2616,7 +2616,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "ee2a27a229c44aee",
+      "content_hash": "19d458ff166fc46d",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2712,7 +2712,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "1deadf9b15d93e6f",
+      "content_hash": "b915bb5d359f84a8",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2728,7 +2728,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "f1a514ec14510c83",
+      "content_hash": "ebde40bbfa932d74",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2760,7 +2760,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "93b6357f2cf3a59a",
+      "content_hash": "97b5318cd7f0fec2",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2776,7 +2776,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "4f190a5707df9bea",
+      "content_hash": "97585cb00281da0e",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2824,7 +2824,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "91baeaf1022d9e49",
+      "content_hash": "921d627897d028fb",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2845,6 +2845,22 @@
       "nested_depth": 2
     },
     {
+      "name": "meta-apply",
+      "collection": "aris",
+      "path": "skills/aris/skills/meta-apply/SKILL.md",
+      "description": "Privileged applier that LANDS meta-optimize / corpus-audit patches the user approved. The ONLY skill permitted to mutate the skill corpus from a self-modification proposal. Runs the cross-model jury AT LANDING (on the staged diff, not a producer-written claim), requires human approval, enforces author≠reviewer family, backs up, applies, stamps provenance, logs. Use when the user says \\\"meta apply\\\", \\\"/meta-apply\\\", \\\"land the staged patches\\\", \\\"应用优化\\\", after a /meta-optimize run.",
+      "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
+      "license": "",
+      "version": "",
+      "author": "",
+      "has_frontmatter": true,
+      "has_name": true,
+      "is_template": false,
+      "content_hash": "0d09b51658cbd0ac",
+      "duplicate_of": "",
+      "nested_depth": 2
+    },
+    {
       "name": "meta-optimize",
       "collection": "aris",
       "path": "skills/aris/skills/meta-optimize/SKILL.md",
@@ -2856,7 +2872,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "5b3ed5d4e0f9a271",
+      "content_hash": "1fc421fdee307d74",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2872,7 +2888,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "1e5b09a37f398a56",
+      "content_hash": "99b59e4c6b97db99",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2936,7 +2952,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "f6ffcfda4758475a",
+      "content_hash": "34113677c3bf9916",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -2968,7 +2984,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "52295ffe10ca31ee",
+      "content_hash": "d676b3be06b35f5b",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3016,7 +3032,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "b49df04e111457f4",
+      "content_hash": "67c17512b4fcea17",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3032,7 +3048,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "3f4f4590ba4e8cc9",
+      "content_hash": "72e2005032f2effb",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3048,7 +3064,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "a5044a192b0a81bb",
+      "content_hash": "8bae4967c1ae6500",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3080,7 +3096,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "6e29fec6c189f0a7",
+      "content_hash": "d47fd2af68b50da1",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3096,7 +3112,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "c186926acaf21009",
+      "content_hash": "4751739fda8cbd7c",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3112,7 +3128,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "4e37262900f7e76b",
+      "content_hash": "adca6e3d45df2ed9",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3128,7 +3144,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "baf9b75897563413",
+      "content_hash": "f50b6846c5af40c6",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3144,7 +3160,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "a79e349f3ca0d1c3",
+      "content_hash": "645494027c307870",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3192,7 +3208,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "d05a0b068d19f6d3",
+      "content_hash": "b9ec0767b9157672",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3272,7 +3288,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "fecc5c0361ad0608",
+      "content_hash": "95fd3de290ae0477",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3288,7 +3304,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "a4d8f906e01a6e9d",
+      "content_hash": "eade28da80872aaa",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3312,7 +3328,7 @@
       "name": "research-refine",
       "collection": "aris",
       "path": "skills/aris/skills/research-refine/SKILL.md",
-      "description": "Turn a vague research direction into a problem-anchored, elegant, frontier-aware, implementation-oriented method plan via iterative GPT-5.4 review. Use when the user says \"refine my approach\", \"帮我细化方案\", \"decompose this problem\", \"打磨idea\", \"refine research plan\", \"细化研究方案\", or wants a concrete research method that stays simple, focused, and top-venue ready instead of a vague or overbuilt idea.",
+      "description": "Turn a vague research direction into a problem-anchored, elegant, frontier-aware, implementation-oriented method plan via iterative GPT-5.5 review. Use when the user says \"refine my approach\", \"帮我细化方案\", \"decompose this problem\", \"打磨idea\", \"refine research plan\", \"细化研究方案\", or wants a concrete research method that stays simple, focused, and top-venue ready instead of a vague or overbuilt idea.",
       "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
       "license": "",
       "version": "",
@@ -3320,7 +3336,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "74934dfe6fd0dc6f",
+      "content_hash": "9a129a1b8cd38a3e",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3336,7 +3352,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "3defb6223b6b9e78",
+      "content_hash": "f5a2b74b5afca90d",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3352,7 +3368,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "0eedc92f7a606e92",
+      "content_hash": "d73981547771fdcf",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3384,7 +3400,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "89e6c8994a3dce49",
+      "content_hash": "5ebe445bd1cfcead",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -3464,7 +3480,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "7a533cf853a02925",
+      "content_hash": "d970f22973cd1caa",
       "duplicate_of": "",
       "nested_depth": 3
     },
@@ -3592,7 +3608,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "065c32c169aa4264",
+      "content_hash": "6d80c11a420b56a6",
       "duplicate_of": "",
       "nested_depth": 3
     },
@@ -3624,7 +3640,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "6c84c2ade3785fcd",
+      "content_hash": "af82b10cb449dff9",
       "duplicate_of": "",
       "nested_depth": 3
     },
@@ -3896,7 +3912,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "3e88d23afce2d9dd",
+      "content_hash": "31c00dc1eaa938df",
       "duplicate_of": "",
       "nested_depth": 3
     },
@@ -3912,7 +3928,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "58f3b93b4f72e24d",
+      "content_hash": "45af21bb05101f12",
       "duplicate_of": "",
       "nested_depth": 3
     },
@@ -3928,7 +3944,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "3c1bc677b15bb1c2",
+      "content_hash": "d855862a9bbff94c",
       "duplicate_of": "",
       "nested_depth": 3
     },
@@ -4009,7 +4025,7 @@
       "has_name": true,
       "is_template": false,
       "content_hash": "10c0f63db9662996",
-      "duplicate_of": "skills/aris/skills/dse-loop/SKILL.md",
+      "duplicate_of": "",
       "nested_depth": 3
     },
     {
@@ -4216,7 +4232,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "1dd7410f810236e8",
+      "content_hash": "cd68b900f20d70ed",
       "duplicate_of": "",
       "nested_depth": 3
     },
@@ -4264,7 +4280,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "d97d5e64f58f546e",
+      "content_hash": "73625b279cbe1c82",
       "duplicate_of": "",
       "nested_depth": 3
     },
@@ -4312,7 +4328,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "81fadc47570748ce",
+      "content_hash": "6933495f0585bac3",
       "duplicate_of": "",
       "nested_depth": 3
     },
@@ -4936,7 +4952,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "08afb06f5928d986",
+      "content_hash": "2ce8067683c86872",
       "duplicate_of": "",
       "nested_depth": 3
     },
@@ -5048,7 +5064,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "66c57c53c861f07a",
+      "content_hash": "48bda93cf72413b2",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -5096,7 +5112,7 @@
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "2b12801f3b6b9104",
+      "content_hash": "f5a1c5458c53ada3",
       "duplicate_of": "",
       "nested_depth": 2
     },
@@ -12127,7 +12143,7 @@
     {
       "name": "computational-inference",
       "collection": "empirical-research-skills",
-      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/implementation/computational-inference/SKILL.md",
+      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/implementation/computational-inference/skill.md",
       "description": "Computational methods for statistical inference and optimization",
       "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
       "license": "",
@@ -12175,7 +12191,7 @@
     {
       "name": "statistical-software-qa",
       "collection": "empirical-research-skills",
-      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/implementation/statistical-software-qa/SKILL.md",
+      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/implementation/statistical-software-qa/skill.md",
       "description": "Quality assurance and testing protocols for statistical software",
       "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
       "license": "",
@@ -12223,7 +12239,7 @@
     {
       "name": "mathematical-foundations",
       "collection": "empirical-research-skills",
-      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/mathematical/mathematical-foundations/SKILL.md",
+      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/mathematical/mathematical-foundations/skill.md",
       "description": "Core mathematical concepts and theoretical frameworks for statistics",
       "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
       "license": "",
@@ -12287,7 +12303,7 @@
     {
       "name": "mediation-meta-analyst",
       "collection": "empirical-research-skills",
-      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/research/mediation-meta-analyst/SKILL.md",
+      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/research/mediation-meta-analyst/skill.md",
       "description": "Meta-analysis frameworks and methods for mediation studies",
       "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
       "license": "",
@@ -12319,7 +12335,7 @@
     {
       "name": "sensitivity-analyst",
       "collection": "empirical-research-skills",
-      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/research/sensitivity-analyst/SKILL.md",
+      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/research/sensitivity-analyst/skill.md",
       "description": "Sensitivity analysis frameworks and assumption-testing methods",
       "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
       "license": "",
@@ -12335,7 +12351,7 @@
     {
       "name": "methods-communicator",
       "collection": "empirical-research-skills",
-      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/writing/methods-communicator/SKILL.md",
+      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/writing/methods-communicator/skill.md",
       "description": "Effective communication strategies for statistical methods",
       "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
       "license": "",
@@ -12367,7 +12383,7 @@
     {
       "name": "publication-strategist",
       "collection": "empirical-research-skills",
-      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/writing/publication-strategist/SKILL.md",
+      "path": "skills/empirical-research-skills/skills/26-Data-Wise-scholar/skills/writing/publication-strategist/skill.md",
       "description": "Strategic publication planning and venue selection for research",
       "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
       "license": "",
@@ -12447,7 +12463,7 @@
     {
       "name": "event-study",
       "collection": "empirical-research-skills",
-      "path": "skills/empirical-research-skills/skills/27-dariia-m-my_claude_skills/event-studies/SKILL.md",
+      "path": "skills/empirical-research-skills/skills/27-dariia-m-my_claude_skills/event-studies/skill.md",
       "description": "Use this skill whenever the user wants to conduct an event study, create event study plots, test for parallel trends, implement difference-in-differences designs, or work with any panel data estimation that involves pre/post treatment comparisons. Trigger on phrases like \"event study\", \"parallel trends\", \"pre-trends\", \"dynamic treatment effects\", \"leads and lags\", \"TWFE\", \"two-way fixed effects\", \"staggered adoption\", \"staggered treatment\", \"difference-in-differences\", \"DiD\", \"Sun and Abraham\", \"Callaway and Sant'Anna\", \"de Chaisemartin\", \"Borusyak\", \"did_multiplegt\", \"fixest\", \"did2s\", \"bacon decomposition\", or any reference to plotting coefficients around a treatment event. Also trigger when the user uploads panel data and wants to estimate treatment effects with variation in treatment timing. All code is in R.",
       "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
       "license": "",
@@ -14697,7 +14713,7 @@
       "has_name": true,
       "is_template": false,
       "content_hash": "10c0f63db9662996",
-      "duplicate_of": "skills/aris/skills/dse-loop/SKILL.md",
+      "duplicate_of": "skills/aris/skills/skills-codex/dse-loop/SKILL.md",
       "nested_depth": 4
     },
     {
@@ -15689,7 +15705,7 @@
       "has_name": true,
       "is_template": false,
       "content_hash": "10c0f63db9662996",
-      "duplicate_of": "skills/aris/skills/dse-loop/SKILL.md",
+      "duplicate_of": "skills/aris/skills/skills-codex/dse-loop/SKILL.md",
       "nested_depth": 5
     },
     {
@@ -25683,12 +25699,12 @@
       "description": "Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web.",
       "repo_url": "https://github.com/mvanhorn/last30days-skill",
       "license": "MIT",
-      "version": "3.3.0",
+      "version": "3.3.1",
       "author": "mvanhorn",
       "has_frontmatter": true,
       "has_name": true,
       "is_template": false,
-      "content_hash": "45cd78ac85bdf28d",
+      "content_hash": "74de1ecc691a1b20",
       "duplicate_of": "",
       "nested_depth": 2
     },
