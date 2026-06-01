@@ -6,8 +6,8 @@ collection ships many individual skills (a directory with a ``SKILL.md``),
 but there is no way to discover or search an *individual* skill across all
 collections. This tool fixes that.
 
-It walks ``skills/**/SKILL.md``, parses each skill's YAML frontmatter with a
-dependency-free parser (block scalars, quotes, and missing/garbled
+It walks ``skills/**/skill.md`` case-insensitively, parses each skill's YAML
+frontmatter with a dependency-free parser (block scalars, quotes, and missing/garbled
 frontmatter are all handled), maps each skill back to its source submodule
 and GitHub URL, detects duplicate skills re-bundled by aggregator
 collections, flags placeholder/template skills, and emits:
@@ -34,6 +34,7 @@ import csv
 import hashlib
 import json
 import re
+import tempfile
 from collections import defaultdict
 from dataclasses import dataclass, asdict, field
 from pathlib import Path
@@ -247,6 +248,15 @@ def load_submodule_urls() -> dict[str, str]:
     return urls
 
 
+def iter_skill_files() -> list[Path]:
+    """Return skill files case-insensitively while preserving on-disk casing."""
+    return sorted(
+        path
+        for path in SKILLS_DIR.rglob("*")
+        if path.is_file() and path.name.lower() == "skill.md"
+    )
+
+
 def collection_of(skill_md: Path) -> tuple[str, int]:
     """Return (top-level collection name, nesting depth) for a SKILL.md path."""
     rel = skill_md.relative_to(SKILLS_DIR)
@@ -263,7 +273,7 @@ def normalize_body(body: str) -> str:
 
 def load_skills(urls: dict[str, str]) -> list[Skill]:
     skills: list[Skill] = []
-    for skill_md in sorted(SKILLS_DIR.rglob("SKILL.md")):
+    for skill_md in iter_skill_files():
         try:
             text = skill_md.read_text(encoding="utf-8", errors="replace")
         except OSError:
@@ -362,7 +372,9 @@ def md_escape(text: str) -> str:
     return text.replace("|", "\\|").replace("\n", " ").strip()
 
 
-def write_json(skills: list[Skill], collections: list[Collection]) -> Path:
+def write_json(
+    skills: list[Skill], collections: list[Collection], out_dir: Path = OUT_DIR
+) -> Path:
     unique_hashes = {s.content_hash for s in skills}
     payload = {
         "_generated_by": "tools/build_catalog.py",
@@ -393,13 +405,13 @@ def write_json(skills: list[Skill], collections: list[Collection]) -> Path:
         ],
         "skills": [asdict(s) for s in sorted(skills, key=lambda s: s.path.lower())],
     }
-    out = OUT_DIR / "skills.json"
+    out = out_dir / "skills.json"
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return out
 
 
-def write_csv(skills: list[Skill]) -> Path:
-    out = OUT_DIR / "skills.csv"
+def write_csv(skills: list[Skill], out_dir: Path = OUT_DIR) -> Path:
+    out = out_dir / "skills.csv"
     fields = [
         "name", "collection", "path", "repo_url", "license", "version",
         "author", "has_frontmatter", "is_template", "duplicate_of", "description",
@@ -416,8 +428,10 @@ def write_csv(skills: list[Skill]) -> Path:
     return out
 
 
-def write_collection_pages(collections: list[Collection]) -> list[Path]:
-    COLLECTIONS_DIR.mkdir(parents=True, exist_ok=True)
+def write_collection_pages(
+    collections: list[Collection], collections_dir: Path = COLLECTIONS_DIR
+) -> list[Path]:
+    collections_dir.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
     for c in collections:
         lines = [
@@ -461,13 +475,15 @@ def write_collection_pages(collections: list[Collection]) -> list[Path]:
                 f"| `{md_escape(s.path)}` |"
             )
         lines.append("")
-        out = COLLECTIONS_DIR / f"{c.name}.md"
+        out = collections_dir / f"{c.name}.md"
         out.write_text("\n".join(lines), encoding="utf-8")
         written.append(out)
     return written
 
 
-def write_catalog_md(skills: list[Skill], collections: list[Collection]) -> Path:
+def write_catalog_md(
+    skills: list[Skill], collections: list[Collection], out_dir: Path = OUT_DIR
+) -> Path:
     unique_hashes = {s.content_hash for s in skills}
     total = len(skills)
     unique = len(unique_hashes)
@@ -555,9 +571,78 @@ def write_catalog_md(skills: list[Skill], collections: list[Collection]) -> Path
         "yet bundled? See [`DISCOVERY.md`](DISCOVERY.md).*",
         "",
     ]
-    out = OUT_DIR / "CATALOG.md"
+    out = out_dir / "CATALOG.md"
     out.write_text("\n".join(lines), encoding="utf-8")
     return out
+
+
+def write_outputs(
+    skills: list[Skill], collections: list[Collection], out_dir: Path = OUT_DIR
+) -> tuple[list[Path], list[Path]]:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    collections_dir = out_dir / "collections"
+    outputs = [
+        write_json(skills, collections, out_dir),
+        write_csv(skills, out_dir),
+        write_catalog_md(skills, collections, out_dir),
+    ]
+    pages = write_collection_pages(collections, collections_dir)
+    return outputs, pages
+
+
+def stale_generated_collection_pages(written_pages: list[Path]) -> list[Path]:
+    expected = {path.resolve() for path in written_pages}
+    if not COLLECTIONS_DIR.exists():
+        return []
+    return sorted(
+        path
+        for path in COLLECTIONS_DIR.glob("*.md")
+        if path.resolve() not in expected
+    )
+
+
+def relative_to_catalog(path: Path, out_dir: Path) -> str:
+    return path.relative_to(out_dir).as_posix()
+
+
+def check_generated_outputs(skills: list[Skill], collections: list[Collection]) -> int:
+    with tempfile.TemporaryDirectory(prefix="ars-catalog-check-") as tmp:
+        tmp_out = Path(tmp) / "catalog"
+        outputs, pages = write_outputs(skills, collections, tmp_out)
+        expected = sorted(path.relative_to(tmp_out) for path in [*outputs, *pages])
+
+        missing: list[str] = []
+        changed: list[str] = []
+        for rel in expected:
+            actual = OUT_DIR / rel
+            generated = tmp_out / rel
+            label = rel.as_posix()
+            if not actual.exists():
+                missing.append(label)
+                continue
+            if actual.read_bytes() != generated.read_bytes():
+                changed.append(label)
+
+        extra = [
+            relative_to_catalog(path, OUT_DIR)
+            for path in stale_generated_collection_pages([OUT_DIR / rel for rel in expected])
+        ]
+
+    if not (missing or changed or extra):
+        print("OK: generated catalog files are current")
+        return 0
+
+    for label, values in (
+        ("missing generated file", missing),
+        ("outdated generated file", changed),
+        ("stale generated file", extra),
+    ):
+        for value in values[:10]:
+            print(f"ERROR: {label}: catalog/{value}")
+        if len(values) > 10:
+            print(f"ERROR: {label}: ... (+{len(values) - 10} more)")
+    print("Run: python tools/build_catalog.py")
+    return 1
 
 
 def main() -> int:
@@ -565,7 +650,7 @@ def main() -> int:
     parser.add_argument(
         "--check",
         action="store_true",
-        help="parse everything and print stats without writing files",
+        help="verify generated catalog files are current without writing them",
     )
     args = parser.parse_args()
 
@@ -587,18 +672,18 @@ def main() -> int:
     )
 
     if args.check:
-        return 0
+        return check_generated_outputs(skills, collections)
 
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    outputs = [
-        write_json(skills, collections),
-        write_csv(skills),
-        write_catalog_md(skills, collections),
-    ]
-    pages = write_collection_pages(collections)
+    outputs, pages = write_outputs(skills, collections)
+    stale_pages = stale_generated_collection_pages(pages)
+    for path in stale_pages:
+        path.unlink()
+
     for out in outputs:
         print(f"  wrote {out.relative_to(ROOT)}")
     print(f"  wrote {len(pages)} collection pages under {COLLECTIONS_DIR.relative_to(ROOT)}/")
+    if stale_pages:
+        print(f"  removed {len(stale_pages)} stale collection pages")
     return 0
 
 

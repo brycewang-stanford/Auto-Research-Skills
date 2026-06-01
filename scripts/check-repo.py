@@ -2,13 +2,14 @@
 """Validate repository metadata that commonly drifts in this hub.
 
 The check is intentionally offline: it validates .gitmodules, tracked gitlinks,
-headline counts in README files, STARS.md totals, and obvious nested submodule
-mapping problems without calling the GitHub API.
+headline counts in README files, generated catalog freshness, STARS.md totals,
+and obvious nested submodule mapping problems without calling the GitHub API.
 """
 from __future__ import annotations
 
 import argparse
 import configparser
+import json
 import re
 import subprocess
 import sys
@@ -127,6 +128,17 @@ def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
+def skill_file_paths() -> list[Path]:
+    skills_dir = ROOT / "skills"
+    if not skills_dir.exists():
+        return []
+    return sorted(
+        path
+        for path in skills_dir.rglob("*")
+        if path.is_file() and path.name.lower() == "skill.md"
+    )
+
+
 def numbers_from(pattern: str, text: str) -> set[int]:
     values: set[int] = set()
     for match in re.finditer(pattern, text, flags=re.IGNORECASE):
@@ -135,10 +147,12 @@ def numbers_from(pattern: str, text: str) -> set[int]:
 
 
 def check_readme_counts(
-    submodules: list[Submodule], counts: dict[str, int], reporter: Reporter
+    submodules: list[Submodule],
+    counts: dict[str, int],
+    skill_files: list[Path],
+    reporter: Reporter,
 ) -> None:
     total = len(submodules)
-    skill_files = list((ROOT / "skills").rglob("SKILL.md")) if (ROOT / "skills").exists() else []
 
     readmes = {
         "README.md": read_text(ROOT / "README.md"),
@@ -172,18 +186,120 @@ def check_readme_counts(
         else:
             reporter.warn("skills/ is not initialized; skipped raw SKILL.md count check")
 
-    english = readmes["README.md"]
-    english_expectations = {
-        "skills": (r"([0-9,]+)\s+reusable skill", counts["skills"]),
-        "systems": (r"([0-9,]+)\s+end-to-end systems", counts["systems"]),
-        "benchmarks": (r"([0-9,]+)\s+benchmarks", counts["benchmarks"]),
-        "lists": (r"([0-9,]+)\s+curated collections", counts["lists"]),
+    category_expectations = {
+        "README.md": {
+            "skills": (r"([0-9,]+)\s+reusable skill", counts["skills"]),
+            "systems": (r"([0-9,]+)\s+end-to-end systems", counts["systems"]),
+            "benchmarks": (r"([0-9,]+)\s+benchmarks", counts["benchmarks"]),
+            "lists": (r"([0-9,]+)\s+curated collections", counts["lists"]),
+        },
+        "README_CN.md": {
+            "skills": (r"`skills/`[^\n]*?([0-9,]+)\s+个", counts["skills"]),
+            "systems": (r"`systems/`[^\n]*?([0-9,]+)\s+个", counts["systems"]),
+            "benchmarks": (r"`benchmarks/`[^\n]*?([0-9,]+)\s+个", counts["benchmarks"]),
+            "lists": (r"`lists/`[^\n]*?([0-9,]+)\s+个", counts["lists"]),
+        },
     }
-    for label, (pattern, expected) in english_expectations.items():
-        claims = numbers_from(pattern, english)
-        for claim in claims:
-            if claim != expected:
-                reporter.error(f"README.md claims {claim} {label}, but .gitmodules has {expected}")
+    for name, expectations in category_expectations.items():
+        text = readmes[name]
+        for label, (pattern, expected) in expectations.items():
+            claims = numbers_from(pattern, text)
+            for claim in claims:
+                if claim != expected:
+                    reporter.error(
+                        f"{name} claims {claim} {label}, but .gitmodules has {expected}"
+                    )
+
+
+def sample(values: list[str], limit: int = 3) -> str:
+    shown = values[:limit]
+    suffix = "" if len(values) <= limit else f", ... (+{len(values) - limit} more)"
+    return ", ".join(shown) + suffix
+
+
+def check_int_field(label: str, value: object, expected: int, reporter: Reporter) -> None:
+    if not isinstance(value, int):
+        reporter.error(f"{label} is missing or not an integer")
+    elif value != expected:
+        reporter.error(f"{label} is {value}, but expected {expected}")
+
+
+def check_catalog_manifest(skill_files: list[Path], reporter: Reporter) -> None:
+    if not skill_files:
+        return
+
+    path = ROOT / "catalog" / "skills.json"
+    if not path.exists():
+        reporter.warn("catalog/skills.json is missing; run python tools/build_catalog.py")
+        return
+
+    try:
+        payload = json.loads(read_text(path))
+    except json.JSONDecodeError as exc:
+        reporter.error(f"cannot parse catalog/skills.json: {exc}")
+        return
+
+    skills = payload.get("skills")
+    if not isinstance(skills, list):
+        reporter.error("catalog/skills.json has no skills list")
+        return
+
+    manifest_paths: list[str] = []
+    content_hashes: set[str] = set()
+    for item in skills:
+        if not isinstance(item, dict):
+            reporter.error("catalog/skills.json contains a non-object skill entry")
+            return
+        skill_path = item.get("path")
+        if isinstance(skill_path, str) and skill_path:
+            manifest_paths.append(skill_path)
+        else:
+            reporter.error("catalog/skills.json contains a skill entry without a path")
+            return
+        content_hash = item.get("content_hash")
+        if isinstance(content_hash, str) and content_hash:
+            content_hashes.add(content_hash)
+
+    manifest_path_set = set(manifest_paths)
+    if len(manifest_path_set) != len(manifest_paths):
+        reporter.error("catalog/skills.json contains duplicate skill paths")
+
+    current_paths = {path.relative_to(ROOT).as_posix() for path in skill_files}
+    missing = sorted(current_paths - manifest_path_set)
+    stale = sorted(manifest_path_set - current_paths)
+    if missing:
+        reporter.error(
+            "catalog/skills.json is stale; missing current skill path(s): "
+            f"{sample(missing)}"
+        )
+    if stale:
+        reporter.error(
+            "catalog/skills.json is stale; includes removed skill path(s): "
+            f"{sample(stale)}"
+        )
+
+    totals = payload.get("totals")
+    if not isinstance(totals, dict):
+        reporter.error("catalog/skills.json has no totals object")
+        return
+    check_int_field(
+        "catalog/skills.json totals.total_skill_files",
+        totals.get("total_skill_files"),
+        len(current_paths),
+        reporter,
+    )
+    check_int_field(
+        "catalog/skills.json totals.unique_skills",
+        totals.get("unique_skills"),
+        len(content_hashes),
+        reporter,
+    )
+    check_int_field(
+        "catalog/skills.json totals.rebundled_copies",
+        totals.get("rebundled_copies"),
+        max(0, len(manifest_paths) - len(content_hashes)),
+        reporter,
+    )
 
 
 def check_stars_total(expected: int, reporter: Reporter) -> None:
@@ -248,9 +364,11 @@ def main() -> int:
     reporter = Reporter()
     submodules = parse_gitmodules(GITMODULES, reporter)
     counts = category_counts(submodules)
+    skill_files = skill_file_paths()
 
     check_submodule_index(submodules, reporter)
-    check_readme_counts(submodules, counts, reporter)
+    check_readme_counts(submodules, counts, skill_files, reporter)
+    check_catalog_manifest(skill_files, reporter)
     check_stars_total(len(submodules), reporter)
     check_nested_gitlinks(submodules, reporter, strict=args.strict_nested)
 

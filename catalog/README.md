@@ -1,22 +1,27 @@
 # 📚 catalog/ — skill discovery layer
 
 This hub bundles dozens of upstream collections as git submodules. Together
-they ship **3,250 `SKILL.md` files (≈2,521 unique)** — but until now there was
+they ship **3,251 `SKILL.md` files (≈2,523 unique)** — but until now there was
 no way to browse or search an *individual* skill without grepping every
 submodule. This directory fixes that.
 
-Everything except the two hand-written dossiers is **generated** by
-[`../tools/build_catalog.py`](../tools/build_catalog.py) and reads only
-`.gitmodules` + the working tree (fully offline).
+Everything except the two hand-written dossiers is generated from `.gitmodules`
+and the working tree (fully offline). [`../tools/build_catalog.py`](../tools/build_catalog.py)
+builds the canonical manifest and collection pages; [`../tools/build_index.py`](../tools/build_index.py)
+builds the compact discovery index and collision data.
 
 ## What's here
 
 | File | Generated? | Purpose |
 |---|---|---|
 | [`CATALOG.md`](CATALOG.md) | ✅ | Human entry point: at-a-glance stats, per-collection index, and the most re-bundled skills. |
-| [`collections/`](collections/) | ✅ | One page per collection — every skill with its trigger, flags, and a link to the source `SKILL.md`. |
+| [`collections/`](collections/) | ✅ | One page per collection — every skill with its trigger, flags, and local source path. |
 | [`skills.json`](skills.json) | ✅ | Full machine-readable manifest (name, description, collection, repo URL, license, dedup info) for every skill. |
 | [`skills.csv`](skills.csv) | ✅ | The same data, flat — grep it or open it in a spreadsheet. |
+| [`search-index.json`](search-index.json) | ✅ | Compact search/discovery index for lightweight consumers and future UI work. |
+| [`collisions.json`](collisions.json) | ✅ | Same-name/different-content skill collisions for resolver tooling and curation review. |
+| [`SAFETY.md`](SAFETY.md) | ✅ | Heuristic high-severity safety scan summary for vendored skill collections. |
+| [`../site/`](../site/) | ✍️ | Static browser for the compact discovery index; serve the repo root and open `/site/`. |
 | [`QUALITY.md`](QUALITY.md) | ✍️ | Redundancy, name-collision, and frontmatter findings + suggestions for maintainers. |
 | [`DISCOVERY.md`](DISCOVERY.md) | ✍️ | Vetted candidate skills **not yet bundled**, with live signals and ready-to-run vendoring commands. |
 
@@ -25,8 +30,9 @@ Everything except the two hand-written dossiers is **generated** by
 Run after submodules are added, removed, or updated:
 
 ```bash
-python tools/build_catalog.py          # writes skills.json, skills.csv, CATALOG.md, collections/*.md
-python tools/build_catalog.py --check  # parse-and-count only, writes nothing (good for CI)
+make catalog  # writes generated catalog manifests, indexes, and pages
+make safety-report  # refreshes the heuristic safety summary
+make check    # verifies generated files are current, writes nothing
 ```
 
 No third-party dependencies — standard-library Python 3.9+.

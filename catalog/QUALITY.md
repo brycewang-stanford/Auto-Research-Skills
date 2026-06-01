@@ -1,6 +1,6 @@
 # 🔬 Quality & redundancy findings
 
-Observations from indexing all **3,250** bundled `SKILL.md` files (see
+Observations from indexing all **3,251** bundled `SKILL.md` files (see
 [`CATALOG.md`](CATALOG.md) and [`skills.json`](skills.json)). These are
 **findings and suggestions for the maintainer**, not edits — curation
 decisions live in [`../CURATION.md`](../CURATION.md). All numbers are
@@ -12,9 +12,9 @@ Snapshot date: **2026-05-31**.
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files on disk (README headline) | **3,250** |
-| Distinct skills (by name + body hash) | **2,521** |
-| Re-bundled copies | **729** |
+| `SKILL.md` files on disk (README headline) | **3,251** |
+| Distinct skills (by name + body hash) | **2,523** |
+| Re-bundled copies | **728** |
 
 Aggregator collections vendor other collections *inside themselves*, so the
 same skill is counted many times. The worst offenders (copies also present in
@@ -25,13 +25,13 @@ another collection):
 - `franklee-academic-research-skills` — 97 files, **53** re-bundled.
 - `claude-scientific-writer` — 81 files, only **34** unique.
 
-**Suggestion:** keep the 3,250 headline (it's honest about what's on disk) but
-cite the **2,521 unique** figure alongside it so users aren't misled about
+**Suggestion:** keep the 3,251 headline (it's honest about what's on disk) but
+cite the **2,523 unique** figure alongside it so users aren't misled about
 breadth. The catalog now surfaces both automatically.
 
 ## 2. Name collisions are the real usability hazard ⚠️
 
-**192 skill names** resolve to *different content* across collections — i.e.
+**193 skill names** resolve to *different content* across collections — i.e.
 the same name means different things depending on which collection an agent
 loaded. Examples:
 
@@ -83,7 +83,7 @@ upstream PR than a local patch, since submodules are vendored read-only.
 
 ## 5. Only 29% of skills declare a license
 
-**941 / 3,250** skills carry a `license:` field in their frontmatter. The rest
+**941 / 3,251** skills carry a `license:` field in their frontmatter. The rest
 inherit their repo's top-level license (if any) — fine, but it means a user
 copying a single skill out of a collection can't tell its license from the
 `SKILL.md` alone. **Suggestion:** a soft recommendation in `CONTRIBUTING.md`

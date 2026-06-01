@@ -22,4 +22,30 @@ jobs:
           python-version: "3.12"
 
       - name: Validate repo metadata
-        run: python scripts/check-repo.py
+        run: make repo-check
+
+      - name: Compile maintenance scripts
+        run: make py-compile
+
+      - name: Run unit tests
+        run: make test
+
+  catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository with top-level submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate generated catalog
+        run: make catalog-check
+
+      - name: Count bundled skills
+        run: make count-skills

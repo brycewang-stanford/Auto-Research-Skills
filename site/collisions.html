@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Name Collisions · Auto-Research-Skills</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      /* Resolver-specific layout; everything else reuses styles.css. */
+      .topbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; }
+      .back { color: var(--teal); font-weight: 700; text-decoration: none; }
+      .back:hover { text-decoration: underline; }
+      .lead { max-width: 70ch; color: var(--muted); line-height: 1.5; }
+      .collision-card { padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfa; margin-bottom: 12px; }
+      .collision-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+      .collision-name { margin: 0; font-size: 17px; overflow-wrap: anywhere; }
+      .badge { color: var(--coral); font-size: 12px; font-weight: 800; white-space: nowrap; }
+      .variant { display: grid; grid-template-columns: minmax(150px, 220px) 1fr; gap: 6px 14px; padding: 10px 0; border-top: 1px dashed var(--line); }
+      .variant-head { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+      .variant-trigger { color: #3d453e; line-height: 1.45; font-size: 14px; }
+      .variant .path { margin-top: 6px; }
+      @media (max-width: 620px) { .variant { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <div>
+          <p class="eyebrow"><a href="index.html" class="back">← Skill Catalog</a></p>
+          <h1>Name Collisions</h1>
+        </div>
+      </div>
+      <div class="summary-grid" id="summary" aria-live="polite">
+        <div><span class="metric">-</span><span class="label">colliding names</span></div>
+        <div><span class="metric">-</span><span class="label">collections involved</span></div>
+        <div><span class="metric">-</span><span class="label">most ambiguous</span></div>
+        <div><span class="metric">-</span><span class="label">total variants</span></div>
+      </div>
+    </header>
+
+    <main class="layout" style="grid-template-columns: 1fr;">
+      <section class="content">
+        <section class="panel">
+          <p class="lead">
+            Most agent runtimes resolve a skill <strong>by name</strong>. These
+            names ship in more than one bundled collection with
+            <strong>different content</strong> — so if you install two of these
+            collections at once, which one wins is undefined. Pick deliberately:
+            each row shows what that collection's version actually does.
+          </p>
+          <label class="field" style="max-width: 420px;">
+            <span>Filter by name</span>
+            <input id="query" type="search" autocomplete="off" placeholder="paper-writing, citation-management, deep-research">
+          </label>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Colliding skill names</h2>
+            <span id="resultCount" class="muted">Loading</span>
+          </div>
+          <div id="status" class="status">Loading catalog/collisions.json</div>
+          <div id="results" aria-live="polite"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="collisions.js"></script>
+  </body>
+</html>
