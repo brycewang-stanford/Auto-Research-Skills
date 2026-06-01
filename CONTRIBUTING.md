@@ -21,7 +21,12 @@ git submodule add --depth 1 https://github.com/owner/repo skills/<short-name>
 git commit -m "Add <short-name> skill submodule"
 ```
 
-Then add a row to the **Bundled Skills** table in the README.
+Then add a row to the **Bundled Skills** table in the README and regenerate the
+discovery catalog:
+
+```bash
+python tools/build_catalog.py
+```
 
 For systems, benchmarks, and lists, use the matching top-level folder:
 
@@ -54,12 +59,27 @@ execute. Before vendoring, read the candidate and check for:
 - prompt-injection style instructions such as hiding behavior from the user;
 - unclear license or provenance.
 
+Use the local scanner as a review aid, not as an automatic verdict:
+
+```bash
+make safety-scan SAFETY_ROOTS=skills/<short-name>
+```
+
 ## Local checks
 
 Before opening a PR, run:
 
 ```bash
+make check
+```
+
+Equivalent individual commands:
+
+```bash
+python -m py_compile scripts/check-repo.py tools/build_catalog.py scripts/scan-skill-safety.py scripts/update-stars.py
+python -m unittest discover -s tests
 python scripts/check-repo.py
+python tools/build_catalog.py --check
 ./scripts/count-skills.sh
 ```
 

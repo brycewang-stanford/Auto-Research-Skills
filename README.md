@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="#-research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C250-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,250 skills collected"></a>
+  <a href="#-research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C251-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,251 skills collected"></a>
 </p>
 
-<p align="center"><b>🧩 3,250 skills</b> bundled across <b>76 repos</b> — clone the whole research toolbox in one shot.</p>
+<p align="center"><b>🧩 3,251 skills</b> bundled across <b>76 repos</b> — clone the whole research toolbox in one shot.</p>
 
 <p align="center">
-  <a href="#-research-skills--plugin-collections"><img src="https://img.shields.io/badge/🧩_skills-3%2C250-ff4e88?style=flat-square" alt="3,250 skills"></a>
+  <a href="#-research-skills--plugin-collections"><img src="https://img.shields.io/badge/🧩_skills-3%2C251-ff4e88?style=flat-square" alt="3,251 skills"></a>
   <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Auto-Research-Skills?style=flat-square&color=ffd23f" alt="stars">
@@ -34,7 +34,7 @@
 
 ---
 
-> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,250 skills** across **76 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
+> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,251 skills** across **76 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
 # recommended: clone first, then let setup.sh handle top-level + nested submodules
@@ -175,13 +175,13 @@ cd Auto-Research-Skills
 
 ## 🗂️ Bundled Repos (submodules)
 
-**3,250 skills** across **76 repos** (every one with 100+ ⭐) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
+**3,251 skills** across **76 repos** (every one with 100+ ⭐) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
 
 > 📊 Live ranking: see [**STARS.md**](STARS.md) — auto-refreshed weekly by [a GitHub Action](.github/workflows/update-stars.yml).
 >
 > 🧭 Curation backlog: see [**CURATION.md**](CURATION.md) for candidate skills found via registry/GitHub research, review criteria, and the current safety checklist.
 >
-> 🛠️ Maintainers: run `python scripts/check-repo.py` before PRs. `setup.sh` initializes top-level submodules first and then best-effort nested submodules declared by upstream repos, so one broken nested mapping does not block the whole checkout.
+> 🛠️ Maintainers: run `make check` before PRs (or the equivalent commands in [`CONTRIBUTING.md`](CONTRIBUTING.md)). `setup.sh` initializes top-level submodules first and then best-effort nested submodules declared by upstream repos, so one broken nested mapping does not block the whole checkout.
 >
 > **Picking an academic-research skill?** Several bundled packages overlap. Start with [`skills/academic-research-skills`](skills/academic-research-skills) (the featured, most-starred pipeline). Pick [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) or [`skills/codex-academic-skills`](skills/codex-academic-skills) if you're on **Codex** rather than Claude Code; [`skills/franklee-academic-research-skills`](skills/franklee-academic-research-skills) if you work in **econ/finance**; [`skills/claude-code-my-workflow`](skills/claude-code-my-workflow) for a **LaTeX/Beamer + R, fork-ready** academic setup; [`skills/empirical-research-skills`](skills/empirical-research-skills) for **empirical social-science** workflows.
 
