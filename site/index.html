@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Search and filter the Auto-Research-Skills catalog.">
+    <title>Auto-Research-Skills Catalog</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <img src="../readme.png" alt="" class="brand-image">
+        <div>
+          <p class="eyebrow">Auto-Research-Skills</p>
+          <h1>Skill Catalog</h1>
+          <nav class="site-nav" aria-label="Catalog tools">
+            <a href="collisions.html">Name collisions</a>
+          </nav>
+        </div>
+      </div>
+      <div class="summary-grid" id="summary" aria-live="polite">
+        <div><span class="metric">-</span><span class="label">skill files</span></div>
+        <div><span class="metric">-</span><span class="label">unique</span></div>
+        <div><span class="metric">-</span><span class="label">collections</span></div>
+        <div><span class="metric">-</span><span class="label">collisions</span></div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="filters" aria-label="Catalog filters">
+        <label class="field">
+          <span>Search</span>
+          <input id="query" type="search" autocomplete="off" placeholder="zotero, event study, peer review">
+        </label>
+
+        <label class="field">
+          <span>Tag</span>
+          <select id="tagFilter">
+            <option value="">All tags</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Collection</span>
+          <select id="collectionFilter">
+            <option value="">All collections</option>
+          </select>
+        </label>
+
+        <fieldset class="checklist">
+          <legend>Flags</legend>
+          <label><input type="checkbox" id="flagCollision"> Name collision</label>
+          <label><input type="checkbox" id="flagNoFrontmatter"> No frontmatter</label>
+          <label><input type="checkbox" id="flagTemplate"> Template</label>
+        </fieldset>
+
+        <button id="reset" class="secondary" type="button">Reset filters</button>
+      </aside>
+
+      <section class="content">
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Collection Coverage</h2>
+            <span id="collectionCount" class="muted">Loading</span>
+          </div>
+          <div id="collectionBars" class="bars" aria-label="Collections by skill count"></div>
+        </section>
+
+        <section class="panel results-panel">
+          <div class="panel-header">
+            <h2>Skills</h2>
+            <span id="resultCount" class="muted">Loading</span>
+          </div>
+          <div id="status" class="status" role="status">Loading catalog/search-index.json</div>
+          <noscript>
+            <p class="status">JavaScript is required to load catalog/search-index.json in this browser view.</p>
+          </noscript>
+          <div id="results" class="results" aria-live="polite"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
