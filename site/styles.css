@@ -578,6 +578,76 @@ a:focus-visible,
   width: 100%;
 }
 
+/* ---------- search-term highlight ---------- */
+
+mark {
+  padding: 0 1px;
+  border-radius: 3px;
+  background: #ffe9a6;
+  color: #20231f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) mark {
+    background: #6b5a23;
+    color: #f4efdd;
+  }
+}
+
+:root[data-theme="dark"] mark {
+  background: #6b5a23;
+  color: #f4efdd;
+}
+
+/* ---------- active filter chips ---------- */
+
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.active-filters.hidden {
+  display: none;
+}
+
+.filter-chip {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  padding: 5px 10px;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.filter-chip:hover {
+  border-color: var(--coral);
+  color: var(--coral);
+}
+
+.filter-chip-x {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.filter-chip.clear-all {
+  color: var(--teal);
+  background: transparent;
+  border-style: dashed;
+}
+
+.filter-chip.clear-all:hover {
+  color: var(--on-accent);
+  background: var(--teal);
+  border-style: solid;
+}
+
 /* ---------- detail drawer ---------- */
 
 .drawer {

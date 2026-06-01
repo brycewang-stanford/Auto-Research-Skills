@@ -43,6 +43,7 @@
     resultCount: document.getElementById("resultCount"),
     results: document.getElementById("results"),
     status: document.getElementById("status"),
+    activeFilters: document.getElementById("activeFilters"),
     loadMore: document.getElementById("loadMore"),
     drawer: document.getElementById("drawer"),
     drawerTitle: document.getElementById("drawerTitle"),
@@ -65,9 +66,12 @@
     collection: "",
     flags: { collision: false, dup: false, "no-fm": false, template: false },
     results: [],
+    terms: [],
     shown: PAGE_SIZE,
     lastFocus: null,
   };
+
+  const SORT_LABELS = { relevance: "best match", name: "name", collection: "collection" };
 
   // ---------- helpers ----------
 
@@ -84,6 +88,31 @@
     a.target = "_blank";
     a.rel = "noopener noreferrer";
     return a;
+  }
+
+  function escapeRegex(value) {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  // Append text to a parent node, wrapping any matched search terms in <mark>.
+  // Builds real text nodes / elements — never innerHTML — so it stays XSS-safe.
+  function appendHighlighted(parent, text, terms) {
+    const value = String(text || "");
+    const pattern = terms.map(escapeRegex).filter(Boolean).join("|");
+    if (!pattern) {
+      parent.appendChild(document.createTextNode(value));
+      return;
+    }
+    const re = new RegExp(`(${pattern})`, "ig");
+    let last = 0;
+    let match;
+    while ((match = re.exec(value)) !== null) {
+      if (match.index > last) parent.appendChild(document.createTextNode(value.slice(last, match.index)));
+      parent.appendChild(el("mark", null, match[0]));
+      last = match.index + match[0].length;
+      if (match.index === re.lastIndex) re.lastIndex += 1; // guard against zero-width matches
+    }
+    if (last < value.length) parent.appendChild(document.createTextNode(value.slice(last)));
   }
 
   function repoUrlFor(collectionName) {
@@ -143,6 +172,7 @@
 
   function computeResults() {
     const terms = state.query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    state.terms = terms;
     const scored = [];
     for (const skill of state.data.skills) {
       if (!passesFilters(skill)) continue;
@@ -194,10 +224,14 @@
     );
   }
 
-  function populateSelect(select, values, allLabel) {
+  function populateSelect(select, values, allLabel, counts) {
     select.replaceChildren();
     select.append(new Option(allLabel, ""));
-    for (const value of values) select.append(new Option(value, value));
+    for (const value of values) {
+      const count = counts ? counts.get(value) : null;
+      const label = count != null ? `${value} (${numberFmt.format(count)})` : value;
+      select.append(new Option(label, value));
+    }
   }
 
   function renderBars(collections) {
@@ -237,7 +271,9 @@
     card.setAttribute("aria-label", `Open details for ${skill.name}`);
 
     const topline = el("div", "skill-topline");
-    topline.append(el("h3", "skill-name", skill.name));
+    const nameEl = el("h3", "skill-name");
+    appendHighlighted(nameEl, skill.name, state.terms);
+    topline.append(nameEl);
     const collectionBtn = el("button", "collection collection-btn", skill.collection);
     collectionBtn.type = "button";
     collectionBtn.title = `Filter to ${skill.collection}`;
@@ -250,7 +286,9 @@
     topline.append(collectionBtn);
     card.append(topline);
 
-    card.append(el("p", "trigger", skill.trigger || "—"));
+    const triggerEl = el("p", "trigger");
+    appendHighlighted(triggerEl, skill.trigger || "—", state.terms);
+    card.append(triggerEl);
 
     const chips = el("div", "chips");
     for (const flag of skill.flags || []) chips.append(chip(FLAG_LABELS[flag] || flag, "flag"));
@@ -454,9 +492,60 @@
 
   // ---------- orchestration ----------
 
+  function sortLabel(value) {
+    return SORT_LABELS[value] || value;
+  }
+
+  function resetFilters() {
+    state.query = "";
+    state.sort = "relevance";
+    state.tag = "";
+    state.collection = "";
+    for (const key of FLAG_KEYS) state.flags[key] = false;
+    syncControlsFromState();
+    onFiltersChanged();
+  }
+
+  // A removable chip per active filter, plus a clear-all when several apply.
+  function renderActiveFilters() {
+    const chips = [];
+    if (state.query.trim()) chips.push([`search: ${state.query.trim()}`, () => { state.query = ""; els.query.value = ""; }]);
+    if (state.tag) chips.push([`tag: ${state.tag}`, () => { state.tag = ""; els.tagFilter.value = ""; }]);
+    if (state.collection) chips.push([`collection: ${state.collection}`, () => { state.collection = ""; els.collectionFilter.value = ""; }]);
+    for (const key of FLAG_KEYS) {
+      if (state.flags[key]) chips.push([`flag: ${FLAG_LABELS[key]}`, () => { state.flags[key] = false; flagInputs[key].checked = false; }]);
+    }
+    if (state.sort !== "relevance") chips.push([`sort: ${sortLabel(state.sort)}`, () => { state.sort = "relevance"; els.sort.value = "relevance"; }]);
+
+    els.activeFilters.replaceChildren();
+    if (!chips.length) {
+      els.activeFilters.classList.add("hidden");
+      return;
+    }
+    els.activeFilters.classList.remove("hidden");
+    for (const [label, clear] of chips) {
+      const chip = el("button", "filter-chip");
+      chip.type = "button";
+      chip.title = "Remove this filter";
+      chip.append(el("span", null, label), el("span", "filter-chip-x", "✕"));
+      chip.addEventListener("click", () => {
+        clear();
+        onFiltersChanged();
+      });
+      els.activeFilters.appendChild(chip);
+    }
+    if (chips.length > 1) {
+      const clearAll = el("button", "filter-chip clear-all", "Clear all");
+      clearAll.type = "button";
+      clearAll.addEventListener("click", resetFilters);
+      els.activeFilters.appendChild(clearAll);
+    }
+  }
+
   function apply() {
     state.results = computeResults();
     renderResults();
+    renderActiveFilters();
     writeStateToUrl();
   }
 
@@ -490,15 +579,7 @@
         onFiltersChanged();
       });
     }
-    els.reset.addEventListener("click", () => {
-      state.query = "";
-      state.sort = "relevance";
-      state.tag = "";
-      state.collection = "";
-      for (const key of FLAG_KEYS) state.flags[key] = false;
-      syncControlsFromState();
-      onFiltersChanged();
-    });
+    els.reset.addEventListener("click", resetFilters);
     els.loadMore.addEventListener("click", () => {
       state.shown += PAGE_SIZE;
       renderResults();
@@ -516,6 +597,21 @@
           els.query.value = "";
           state.query = "";
           onFiltersChanged();
+        }
+        return;
+      }
+      if (event.key === "Tab" && els.drawer.classList.contains("open")) {
+        const focusables = Array.from(els.drawer.querySelectorAll('a[href], button:not([disabled])'));
+        if (focusables.length) {
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
         }
         return;
       }
@@ -581,12 +677,19 @@
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       state.data = await response.json();
       state.collectionsByName = new Map((state.data.collections || []).map((c) => [c.name, c]));
+      const tagCounts = new Map();
+      const collectionCounts = new Map();
+      for (const skill of state.data.skills || []) {
+        for (const tag of skill.tags || []) tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+        collectionCounts.set(skill.collection, (collectionCounts.get(skill.collection) || 0) + 1);
+      }
       renderSummary(state.data.totals || {});
-      populateSelect(els.tagFilter, state.data.tags || [], "All tags");
+      populateSelect(els.tagFilter, state.data.tags || [], "All tags", tagCounts);
       populateSelect(
         els.collectionFilter,
         (state.data.collections || []).map((c) => c.name).sort(),
         "All collections",
+        collectionCounts,
       );
       renderBars(state.data.collections || []);
       syncControlsFromState();

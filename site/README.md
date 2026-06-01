@@ -16,8 +16,11 @@ and `catalog/collisions.json`. It is plain HTML/CSS/JS — no framework, no bund
 - **Ranked search** — multi-term search scored by where each term hits (exact
   name > name prefix > tag > collection > trigger > path), not just substring
   order.
+- **Match highlighting** — search terms are highlighted in result names and
+  triggers so you can see *why* a skill matched.
 - **Filters** — by tag, by collection, and by quality flag (name collision,
-  rebundled copy, missing frontmatter, template).
+  rebundled copy, missing frontmatter, template). Tag and collection dropdowns
+  show how many skills each holds, and active filters appear as removable chips.
 - **Sort** — best match, name (A–Z), or collection (A–Z).
 - **Detail drawer** — click any skill (or press <kbd>Enter</kbd>) for its full
   trigger, tags, flags, license, path, a link to the **upstream source file**,
