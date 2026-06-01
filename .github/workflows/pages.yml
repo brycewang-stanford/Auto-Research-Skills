@@ -40,7 +40,7 @@ jobs:
           rm -rf _site
           mkdir -p _site/site _site/catalog
           cp site/index.html site/collisions.html site/styles.css \
-             site/app.js site/collisions.js _site/site/
+             site/app.js site/collisions.js site/favicon.svg _site/site/
           cp catalog/search-index.json catalog/collisions.json _site/catalog/
           # Root entry redirects to the catalog browser under /site/.
           printf '%s\n' \

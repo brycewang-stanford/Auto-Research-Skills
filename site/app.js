@@ -69,6 +69,7 @@
     terms: [],
     shown: PAGE_SIZE,
     lastFocus: null,
+    openSkillPath: "",
   };
 
   const SORT_LABELS = { relevance: "best match", name: "name", collection: "collection" };
@@ -334,9 +335,11 @@
 
   function renderResults() {
     const total = state.results.length;
-    els.resultCount.textContent = total
-      ? `${numberFmt.format(total)} match${total === 1 ? "" : "es"}`
-      : "0 matches";
+    const grand = state.data.skills.length;
+    els.resultCount.textContent =
+      total === grand
+        ? `${numberFmt.format(total)} skills`
+        : `${numberFmt.format(total)} of ${numberFmt.format(grand)} match${total === 1 ? "" : "es"}`;
 
     if (!total) {
       els.status.classList.remove("hidden");
@@ -373,6 +376,7 @@
 
   function openDrawer(skill) {
     state.lastFocus = document.activeElement;
+    state.openSkillPath = skill.path;
     els.drawerTitle.textContent = skill.name;
 
     const body = document.createDocumentFragment();
@@ -432,6 +436,7 @@
     els.drawer.setAttribute("aria-hidden", "false");
     document.body.classList.add("drawer-open");
     els.drawerClose.focus();
+    writeStateToUrl();
   }
 
   function closeDrawer() {
@@ -439,6 +444,8 @@
     els.drawer.classList.remove("open");
     els.drawer.setAttribute("aria-hidden", "true");
     document.body.classList.remove("drawer-open");
+    state.openSkillPath = "";
+    writeStateToUrl();
     if (state.lastFocus && typeof state.lastFocus.focus === "function") state.lastFocus.focus();
   }
 
@@ -477,6 +484,7 @@
     if (state.collection) params.set("collection", state.collection);
     const flags = FLAG_KEYS.filter((key) => state.flags[key]);
     if (flags.length) params.set("flags", flags.join(","));
+    if (state.openSkillPath) params.set("skill", state.openSkillPath);
     const query = params.toString();
     const url = query ? `${window.location.pathname}?${query}` : window.location.pathname;
     window.history.replaceState(null, "", url);
@@ -694,6 +702,11 @@
       renderBars(state.data.collections || []);
       syncControlsFromState();
       apply();
+      const skillParam = new URLSearchParams(window.location.search).get("skill");
+      if (skillParam) {
+        const match = state.data.skills.find((skill) => skill.path === skillParam);
+        if (match) openDrawer(match);
+      }
     } catch (error) {
       els.status.classList.remove("hidden");
       els.status.textContent = `Could not load ${DATA_URL}. Run \`make serve-site\` from the repository root, then open /site/. (${error.message})`;
