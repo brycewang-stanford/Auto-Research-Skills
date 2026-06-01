@@ -14,12 +14,31 @@ import os
 import sys
 import urllib.error
 import urllib.request
+from urllib.parse import urlsplit
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 GITMODULES = ROOT / ".gitmodules"
 OUT = ROOT / "STARS.md"
 API = "https://api.github.com/repos/"
+
+
+def github_slug(url: str) -> str | None:
+    """Return owner/repo for supported GitHub remote URLs."""
+    value = url.strip().rstrip("/")
+    if value.endswith(".git"):
+        value = value[:-4]
+    if value.startswith("git@github.com:"):
+        parts = value.split(":", 1)[1].split("/")
+    else:
+        parsed = urlsplit(value)
+        host = parsed.hostname or ""
+        if host.lower() not in {"github.com", "www.github.com"}:
+            return None
+        parts = [part for part in parsed.path.split("/") if part]
+    if len(parts) != 2 or not all(parts):
+        return None
+    return f"{parts[0]}/{parts[1]}"
 
 
 def parse_submodules() -> list[tuple[str, str]]:
@@ -29,10 +48,7 @@ def parse_submodules() -> list[tuple[str, str]]:
     out = []
     for section in cfg.sections():
         path = cfg[section].get("path", "")
-        url = cfg[section].get("url", "").rstrip("/")
-        if url.endswith(".git"):
-            url = url[:-4]
-        slug = "/".join(url.split("/")[-2:])
+        slug = github_slug(cfg[section].get("url", ""))
         if path and slug:
             out.append((path, slug))
     return out
@@ -41,6 +57,7 @@ def parse_submodules() -> list[tuple[str, str]]:
 def get_stars(slug: str) -> int | None:
     req = urllib.request.Request(API + slug)
     req.add_header("Accept", "application/vnd.github+json")
+    req.add_header("User-Agent", "Auto-Research-Skills star refresher")
     token = os.environ.get("GITHUB_TOKEN")
     if token:
         req.add_header("Authorization", f"Bearer {token}")
