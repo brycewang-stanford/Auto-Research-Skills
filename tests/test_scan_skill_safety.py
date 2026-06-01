@@ -3,6 +3,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 def load_scan_module():
@@ -54,6 +55,16 @@ class ScanFileTests(unittest.TestCase):
 
 
 class FileIterationTests(unittest.TestCase):
+    def test_missing_roots_reports_absent_scan_roots(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            missing = root / "missing"
+
+            with mock.patch.object(scan, "ROOT", root):
+                result = scan.missing_roots([missing])
+
+        self.assertEqual(result, ["missing"])
+
     def test_iter_files_skips_ignored_dirs_and_large_files(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -73,6 +84,21 @@ class FileIterationTests(unittest.TestCase):
         self.assertNotIn("bad.md", names)
         self.assertNotIn("large.md", names)
         self.assertNotIn("image.png", names)
+
+    def test_iter_files_does_not_skip_when_parent_dir_matches_skip_name(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / "build" / "scan-root"
+            included = root / "skills" / "x" / "SKILL.md"
+            skipped = root / "skills" / "x" / "node_modules" / "bad.md"
+            for path in (included, skipped):
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("safe", encoding="utf-8")
+
+            files = scan.iter_files([root], max_bytes=100)
+            rels = {path.relative_to(root).as_posix() for path in files}
+
+        self.assertIn("skills/x/SKILL.md", rels)
+        self.assertNotIn("skills/x/node_modules/bad.md", rels)
 
 
 class SortingTests(unittest.TestCase):

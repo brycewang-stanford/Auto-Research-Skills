@@ -97,6 +97,22 @@ class RenderingHelperTests(unittest.TestCase):
             "alpha beta\u2026",
         )
 
+    def test_stale_generated_collection_pages_reports_unwritten_pages(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            collections_dir = Path(tmp) / "collections"
+            collections_dir.mkdir()
+            current = collections_dir / "current.md"
+            stale = collections_dir / "stale.md"
+            current.write_text("current", encoding="utf-8")
+            stale.write_text("stale", encoding="utf-8")
+
+            result = build_catalog.stale_generated_collection_pages(
+                [current],
+                collections_dir,
+            )
+
+        self.assertEqual([path.name for path in result], ["stale.md"])
+
 
 if __name__ == "__main__":
     unittest.main()
