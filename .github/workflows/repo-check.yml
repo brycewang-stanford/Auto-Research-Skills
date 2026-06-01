@@ -27,8 +27,14 @@ jobs:
       - name: Compile maintenance scripts
         run: make py-compile
 
+      - name: Validate shell scripts
+        run: make shell-check
+
       - name: Run unit tests
         run: make test
+
+      - name: Validate docs and static site
+        run: make docs-check site-check site-js-check
 
   catalog:
     runs-on: ubuntu-latest
@@ -46,6 +52,12 @@ jobs:
 
       - name: Validate generated catalog
         run: make catalog-check
+
+      - name: Validate discovery index
+        run: make index-check
+
+      - name: Validate safety report
+        run: make safety-report-check
 
       - name: Count bundled skills
         run: make count-skills

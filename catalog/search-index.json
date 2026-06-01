@@ -1,6 +1,6 @@
 {
   "generated_by": "tools/build_index.py",
-  "note": "Compact discovery index consumed by site/. The canonical, complete manifest is catalog/skills.json. Regenerate with `python tools/build_index.py`.",
+  "note": "Compact discovery index consumed by site/. The canonical, complete manifest is catalog/skills.json. Regenerate with `python3 tools/build_index.py`.",
   "totals": {
     "skill_files": 3251,
     "unique_skills": 2523,

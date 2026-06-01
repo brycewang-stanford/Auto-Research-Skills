@@ -17,7 +17,7 @@ to vendor as submodules yet.
   scan for dangerous shell commands, secret harvesting, unexpected network
   calls, hidden binaries, and prompt-injection style instructions.
 - Prefer adding uncertain projects here first. Vendor them only after a second
-  review and a clean `python scripts/check-repo.py` run.
+  review and a clean `python3 scripts/check-repo.py` run.
 
 ## External Sources Checked
 
@@ -70,6 +70,6 @@ Stars and install counts are approximate and should be refreshed before a PR.
 5. Add one project per PR, update both README files, and run:
 
 ```bash
-python scripts/check-repo.py
+python3 scripts/check-repo.py
 ./scripts/count-skills.sh
 ```

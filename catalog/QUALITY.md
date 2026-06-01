@@ -102,8 +102,8 @@ caught.
 ## Reproduce these numbers
 
 ```bash
-python tools/build_catalog.py          # regenerate skills.json + the catalog
-python - <<'PY'
+python3 tools/build_catalog.py         # regenerate skills.json + the catalog
+python3 - <<'PY'
 import json, collections
 S = json.load(open("catalog/skills.json"))["skills"]
 print("files:", len(S), "unique:", len({s["content_hash"] for s in S}))

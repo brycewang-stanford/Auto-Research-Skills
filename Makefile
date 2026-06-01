@@ -4,9 +4,9 @@ SAFETY_MAX_FINDINGS ?= 50
 SITE_HOST ?= 127.0.0.1
 SITE_PORT ?= 8765
 
-.PHONY: check repo-check docs-check catalog catalog-check index index-check site-check site-js-check serve-site count-skills safety-scan safety-report safety-report-check py-compile test
+.PHONY: check repo-check docs-check catalog catalog-check index index-check site-check site-js-check serve-site count-skills safety-scan safety-report safety-report-check py-compile shell-check test
 
-check: py-compile test repo-check docs-check catalog-check index-check site-check site-js-check safety-report-check count-skills
+check: py-compile shell-check test repo-check docs-check catalog-check index-check site-check site-js-check safety-report-check count-skills
 
 repo-check:
 	$(PYTHON) scripts/check-repo.py
@@ -55,6 +55,11 @@ safety-report-check:
 
 py-compile:
 	$(PYTHON) -m py_compile scripts/check-repo.py tools/build_catalog.py tools/build_index.py tools/build_safety_report.py tools/check_docs.py tools/check_site.py scripts/scan-skill-safety.py scripts/update-stars.py
+
+shell-check:
+	@for file in setup.sh scripts/count-skills.sh; do \
+		bash -n "$$file"; \
+	done
 
 test:
 	$(PYTHON) -m unittest discover -s tests

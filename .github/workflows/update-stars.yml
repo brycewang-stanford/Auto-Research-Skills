@@ -23,7 +23,7 @@ jobs:
       - name: Refresh STARS.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/update-stars.py
+        run: python3 scripts/update-stars.py
 
       - name: Commit if changed
         run: |
