@@ -29,7 +29,8 @@ and `catalog/collisions.json`. It is plain HTML/CSS/JS — no framework, no bund
   against the collection's upstream repository (`repo_url` in the index), since
   files here live behind git submodules.
 - **Shareable URLs** — the active query, sort, filters, and flags are mirrored to
-  the URL, so any view can be linked or bookmarked.
+  the URL, so any view can be linked or bookmarked. Opening a skill adds
+  `?skill=<path>`, so a single skill's detail view is shareable too.
 - **Keyboard** — <kbd>/</kbd> focuses search, <kbd>Esc</kbd> clears it or closes
   the drawer.
 - **Light / dark theme** — follows your OS by default; the toggle persists your
