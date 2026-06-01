@@ -3,27 +3,46 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Search and filter the Auto-Research-Skills catalog.">
-    <title>Auto-Research-Skills Catalog</title>
+    <meta name="description" content="Search, filter, and explore 3,000+ autonomous-research skills bundled in Auto-Research-Skills.">
+    <meta name="color-scheme" content="light dark">
+    <meta property="og:title" content="Auto-Research-Skills · Skill Catalog">
+    <meta property="og:description" content="Search and filter every research skill bundled in the Auto-Research-Skills hub.">
+    <meta property="og:type" content="website">
+    <title>Auto-Research-Skills · Skill Catalog</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <a class="skip-link" href="#results">Skip to results</a>
     <header class="app-header">
       <div class="brand">
-        <img src="../readme.png" alt="" class="brand-image">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="48" height="48" role="img" focusable="false">
+            <rect x="2" y="2" width="44" height="44" rx="11" fill="#0f766e"></rect>
+            <circle cx="19" cy="19" r="9" fill="none" stroke="#fff" stroke-width="3.2"></circle>
+            <line x1="25.5" y1="25.5" x2="37" y2="37" stroke="#fff" stroke-width="3.6" stroke-linecap="round"></line>
+            <circle cx="19" cy="19" r="3" fill="#fff"></circle>
+          </svg>
+        </span>
         <div>
           <p class="eyebrow">Auto-Research-Skills</p>
           <h1>Skill Catalog</h1>
           <nav class="site-nav" aria-label="Catalog tools">
             <a href="collisions.html">Name collisions</a>
+            <a href="https://github.com/brycewang-stanford/Auto-Research-Skills" target="_blank" rel="noopener noreferrer">GitHub repo ↗</a>
           </nav>
         </div>
       </div>
-      <div class="summary-grid" id="summary" aria-live="polite">
-        <div><span class="metric">-</span><span class="label">skill files</span></div>
-        <div><span class="metric">-</span><span class="label">unique</span></div>
-        <div><span class="metric">-</span><span class="label">collections</span></div>
-        <div><span class="metric">-</span><span class="label">collisions</span></div>
+      <div class="header-side">
+        <button id="themeToggle" class="ghost-btn" type="button" aria-pressed="false" title="Toggle dark mode">
+          <span class="theme-icon" aria-hidden="true">◐</span><span class="theme-label">Theme</span>
+        </button>
+        <div class="summary-grid" id="summary" aria-live="polite">
+          <div><span class="metric">-</span><span class="label">skill files</span></div>
+          <div><span class="metric">-</span><span class="label">unique</span></div>
+          <div><span class="metric">-</span><span class="label">collections</span></div>
+          <div><span class="metric">-</span><span class="label">rebundled</span></div>
+          <div><span class="metric">-</span><span class="label">collisions</span></div>
+        </div>
       </div>
     </header>
 
@@ -31,7 +50,17 @@
       <aside class="filters" aria-label="Catalog filters">
         <label class="field">
           <span>Search</span>
-          <input id="query" type="search" autocomplete="off" placeholder="zotero, event study, peer review">
+          <input id="query" type="search" autocomplete="off" placeholder="zotero, event study, peer review" aria-describedby="searchHint">
+        </label>
+        <p id="searchHint" class="field-hint">Press <kbd>/</kbd> to focus · <kbd>Esc</kbd> to clear</p>
+
+        <label class="field">
+          <span>Sort</span>
+          <select id="sort">
+            <option value="relevance">Best match</option>
+            <option value="name">Name (A–Z)</option>
+            <option value="collection">Collection (A–Z)</option>
+          </select>
         </label>
 
         <label class="field">
@@ -50,9 +79,10 @@
 
         <fieldset class="checklist">
           <legend>Flags</legend>
-          <label><input type="checkbox" id="flagCollision"> Name collision</label>
-          <label><input type="checkbox" id="flagNoFrontmatter"> No frontmatter</label>
-          <label><input type="checkbox" id="flagTemplate"> Template</label>
+          <label><input type="checkbox" id="flagCollision"> <span>Name collision</span></label>
+          <label><input type="checkbox" id="flagDup"> <span>Rebundled copy</span></label>
+          <label><input type="checkbox" id="flagNoFrontmatter"> <span>No frontmatter</span></label>
+          <label><input type="checkbox" id="flagTemplate"> <span>Template</span></label>
         </fieldset>
 
         <button id="reset" class="secondary" type="button">Reset filters</button>
@@ -61,7 +91,7 @@
       <section class="content">
         <section class="panel">
           <div class="panel-header">
-            <h2>Collection Coverage</h2>
+            <h2>Collection coverage</h2>
             <span id="collectionCount" class="muted">Loading</span>
           </div>
           <div id="collectionBars" class="bars" aria-label="Collections by skill count"></div>
@@ -72,14 +102,33 @@
             <h2>Skills</h2>
             <span id="resultCount" class="muted">Loading</span>
           </div>
-          <div id="status" class="status" role="status">Loading catalog/search-index.json</div>
+          <div id="status" class="status" role="status">Loading catalog/search-index.json…</div>
           <noscript>
             <p class="status">JavaScript is required to load catalog/search-index.json in this browser view.</p>
           </noscript>
           <div id="results" class="results" aria-live="polite"></div>
+          <div class="load-more-wrap">
+            <button id="loadMore" class="secondary load-more hidden" type="button">Load more</button>
+          </div>
         </section>
       </section>
     </main>
+
+    <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+      <div class="drawer-backdrop" data-drawer-close></div>
+      <div class="drawer-panel" role="document">
+        <div class="drawer-head">
+          <h2 id="drawerTitle" class="drawer-title">Skill details</h2>
+          <button id="drawerClose" class="ghost-btn" type="button" data-drawer-close aria-label="Close details">✕</button>
+        </div>
+        <div id="drawerBody" class="drawer-body"></div>
+      </div>
+    </div>
+
+    <footer class="app-footer">
+      <span>Generated from <code>catalog/search-index.json</code>.</span>
+      <span>Regenerate with <code>python3 tools/build_index.py</code> · serve with <code>make serve-site</code>.</span>
+    </footer>
 
     <script src="app.js"></script>
   </body>
