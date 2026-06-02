@@ -226,3 +226,6 @@
 [submodule "lists/awesome-deep-research-survey"]
 	path = lists/awesome-deep-research-survey
 	url = https://github.com/scienceaix/deepresearch
+[submodule "skills/co-researcher"]
+	path = skills/co-researcher
+	url = https://github.com/poemswe/co-researcher
