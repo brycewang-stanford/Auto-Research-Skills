@@ -1,7 +1,7 @@
 # 📚 catalog/ — skill discovery layer
 
 This hub bundles dozens of upstream collections as git submodules. Together
-they ship **3,251 `SKILL.md` files (≈2,523 unique)** — but until now there was
+they ship **3,275 `SKILL.md` files (≈2,547 unique)** — but until now there was
 no way to browse or search an *individual* skill without grepping every
 submodule. This directory fixes that.
 

@@ -2,13 +2,13 @@
   "generated_by": "tools/build_index.py",
   "note": "Compact discovery index consumed by site/. The canonical, complete manifest is catalog/skills.json. Regenerate with `python3 tools/build_index.py`.",
   "totals": {
-    "skill_files": 3251,
-    "unique_skills": 2523,
-    "collections": 32,
+    "skill_files": 3275,
+    "unique_skills": 2547,
+    "collections": 33,
     "templates": 1,
     "no_frontmatter": 11,
     "rebundled": 728,
-    "name_collisions": 193
+    "name_collisions": 197
   },
   "tags": [
     "automation",
@@ -101,6 +101,12 @@
       "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
       "skill_files": 81,
       "unique_skills": 34
+    },
+    {
+      "name": "co-researcher",
+      "repo_url": "https://github.com/poemswe/co-researcher",
+      "skill_files": 24,
+      "unique_skills": 24
     },
     {
       "name": "codex-academic-skills",
@@ -5875,6 +5881,250 @@
       ]
     },
     {
+      "name": "academic-writing",
+      "collection": "co-researcher",
+      "trigger": "You must use this when producing any research prose — literature reviews, syntheses, analyses, methodology descriptions, discussion sections, abstracts, or any written output intended for an academic…",
+      "license": "",
+      "path": "skills/co-researcher/skills/academic-writing/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "literature-review",
+        "writing"
+      ]
+    },
+    {
+      "name": "analyze",
+      "collection": "co-researcher",
+      "trigger": "Critically analyze content, claims, or arguments with rigorous evaluation.",
+      "license": "",
+      "path": "skills/co-researcher/.codex/skills/analyze/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "experiment"
+      ]
+    },
+    {
+      "name": "bibliography",
+      "collection": "co-researcher",
+      "trigger": "Generate formatted bibliography and citations in various academic styles.",
+      "license": "",
+      "path": "skills/co-researcher/.codex/skills/bibliography/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "citations"
+      ]
+    },
+    {
+      "name": "critical-analysis",
+      "collection": "co-researcher",
+      "trigger": "You must use this when analyzing claims, evaluating evidence, or Identifying logical fallacies in research.",
+      "license": "",
+      "path": "skills/co-researcher/skills/critical-analysis/SKILL.md"
+    },
+    {
+      "name": "ethics",
+      "collection": "co-researcher",
+      "trigger": "Research ethics, IRB compliance, and data privacy analysis.",
+      "license": "",
+      "path": "skills/co-researcher/.codex/skills/ethics/SKILL.md"
+    },
+    {
+      "name": "ethics-review",
+      "collection": "co-researcher",
+      "trigger": "You must use this when identifying ethical risks, ensuring participant privacy, or preparing IRB applications.",
+      "license": "",
+      "path": "skills/co-researcher/skills/ethics-review/SKILL.md"
+    },
+    {
+      "name": "grant",
+      "collection": "co-researcher",
+      "trigger": "Transform research ideas into compelling, fundable grant proposals (NSF, NIH, ERC).",
+      "license": "",
+      "path": "skills/co-researcher/.codex/skills/grant/SKILL.md",
+      "tags": [
+        "grants",
+        "ideation"
+      ]
+    },
+    {
+      "name": "grant-proposal",
+      "collection": "co-researcher",
+      "trigger": "You must use this when drafting grant proposals, refining research aims, or aligning projects with agency priorities.",
+      "license": "",
+      "path": "skills/co-researcher/skills/grant-writing/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "grants",
+        "writing"
+      ]
+    },
+    {
+      "name": "hypothesis-testing",
+      "collection": "co-researcher",
+      "trigger": "You must use this when formulating testable hypotheses, designing experimental controls, or defining falsification criteria.",
+      "license": "",
+      "path": "skills/co-researcher/skills/hypothesis-testing/SKILL.md",
+      "tags": [
+        "data",
+        "experiment",
+        "statistics"
+      ]
+    },
+    {
+      "name": "lateral-thinking",
+      "collection": "co-researcher",
+      "trigger": "You must use this when seeking cross-domain analogies, applying first-principles reasoning, or overcoming creative bottlenecks.",
+      "license": "",
+      "path": "skills/co-researcher/skills/lateral-thinking/SKILL.md"
+    },
+    {
+      "name": "literature-review",
+      "collection": "co-researcher",
+      "trigger": "You must use this when synthesizing existing knowledge, identifying research gaps, or tracing the evolution of scientific ideas.",
+      "license": "",
+      "path": "skills/co-researcher/skills/literature-review/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "literature-review"
+      ]
+    },
+    {
+      "name": "methodology",
+      "collection": "co-researcher",
+      "trigger": "Research methodology selection, design, and validation guidance.",
+      "license": "",
+      "path": "skills/co-researcher/.codex/skills/methodology/SKILL.md"
+    },
+    {
+      "name": "multi-source-investigation",
+      "collection": "co-researcher",
+      "trigger": "You must use this when investigating complex claims across diverse sources or fact-checking contradictory information.",
+      "license": "",
+      "path": "skills/co-researcher/skills/multi-source-investigation/SKILL.md"
+    },
+    {
+      "name": "peer-review",
+      "collection": "co-researcher",
+      "trigger": "You must use this when critiquing academic manuscripts, evaluating methodological rigor, or providing structured reviewer feedback.",
+      "license": "",
+      "path": "skills/co-researcher/skills/peer-review/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "peer-review",
+        "writing"
+      ]
+    },
+    {
+      "name": "qualitative-research",
+      "collection": "co-researcher",
+      "trigger": "You must use this when designing qualitative studies, developing coding schemes, or performing thematic analysis.",
+      "license": "",
+      "path": "skills/co-researcher/skills/qualitative-research/SKILL.md"
+    },
+    {
+      "name": "quantitative-analysis",
+      "collection": "co-researcher",
+      "trigger": "You must use this when selecting statistical tests, interpreting effect sizes, or conducting power analysis.",
+      "license": "",
+      "path": "skills/co-researcher/skills/quantitative-analysis/SKILL.md",
+      "tags": [
+        "statistics"
+      ]
+    },
+    {
+      "name": "research",
+      "collection": "co-researcher",
+      "trigger": "Start a research project with intelligent agent orchestration",
+      "license": "",
+      "path": "skills/co-researcher/.codex/skills/research/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "research-manager",
+      "collection": "co-researcher",
+      "trigger": "Use this when starting a new research project or managing a complex, multi-step research workflow.",
+      "license": "",
+      "path": "skills/co-researcher/skills/research-manager/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "research-methodology",
+      "collection": "co-researcher",
+      "trigger": "You must use this when matching research questions to appropriate designs, sampling strategies, or validity controls.",
+      "license": "",
+      "path": "skills/co-researcher/skills/research-methodology/SKILL.md",
+      "tags": [
+        "ideation"
+      ]
+    },
+    {
+      "name": "research-synthesis",
+      "collection": "co-researcher",
+      "trigger": "You must use this when merging findings from multiple studies into a coherent narrative with grounded evidence.",
+      "license": "",
+      "path": "skills/co-researcher/skills/research-synthesis/SKILL.md"
+    },
+    {
+      "name": "review",
+      "collection": "co-researcher",
+      "trigger": "PhD-level academic manuscript and research proposal review.",
+      "license": "",
+      "path": "skills/co-researcher/.codex/skills/review/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "grants",
+        "writing"
+      ]
+    },
+    {
+      "name": "synthesize",
+      "collection": "co-researcher",
+      "trigger": "Synthesize findings from multiple sources into coherent conclusions with uncertainty quantification.",
+      "license": "",
+      "path": "skills/co-researcher/.codex/skills/synthesize/SKILL.md"
+    },
+    {
+      "name": "systematic-review",
+      "collection": "co-researcher",
+      "trigger": "You must use this when conducting PRISMA-standard systematic reviews, protocol development, or Risk of Bias assessment.",
+      "license": "",
+      "path": "skills/co-researcher/skills/systematic-review/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "literature-review"
+      ]
+    },
+    {
+      "name": "using-co-researcher",
+      "collection": "co-researcher",
+      "trigger": "Use when understanding your capabilities, how to use skills, or the rules of the Co-Researcher system.",
+      "license": "",
+      "path": "skills/co-researcher/skills/using-co-researcher/SKILL.md"
+    },
+    {
       "name": "astropy",
       "collection": "codex-academic-skills",
       "trigger": "Comprehensive Python library for astronomy and astrophysics. This skill should be used when working with astronomical data including celestial coordinates, physical units, FITS files, cosmological…",
@@ -6971,6 +7221,9 @@
       "trigger": "End-to-end data analysis dispatching Coder and Data-engineer for implementation, coder-critic for review. Supports R, Stata, Python, Julia. Replaces /data-analysis.",
       "license": "",
       "path": "skills/empirical-research-skills/skills/16-hsantanna88-clo-author/dot-claude/skills/analyze/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "automation",
         "data"
@@ -14779,6 +15032,9 @@
       "trigger": "All quality reviews — routes to appropriate critics based on target file type and flags. Replaces /paper-excellence, /proofread, /econometrics-check, /review-r, /review-paper.",
       "license": "",
       "path": "skills/empirical-research-skills/skills/16-hsantanna88-clo-author/dot-claude/skills/review/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "statistics",
         "writing"
@@ -18432,6 +18688,9 @@
       "trigger": "Classifies and organizes literature by theme, method, and conclusion; use when you need to batch-read a folder of PDF/MD/DOCX/TXT files and output a structured CSV for literature reviews and…",
       "license": "MIT",
       "path": "skills/medical-research-skills/scientific-skills/Other/bibliography/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "citations",
         "literature-review"
@@ -34723,6 +34982,9 @@
       "trigger": "Orchestrates a systematic review and meta-analysis workflow following PRISMA 2020 guidelines, from protocol development through multi-database search, screening, data extraction, and evidence…",
       "license": "",
       "path": "skills/scienceclaw/skills/systematic-review/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "automation",
         "literature-review"
