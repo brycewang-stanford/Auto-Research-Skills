@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="#-research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C251-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,251 skills collected"></a>
+  <a href="#-research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C275-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,275 skills collected"></a>
 </p>
 
-<p align="center"><b>🧩 3,251 skills</b> bundled across <b>76 repos</b> — clone the whole research toolbox in one shot.</p>
+<p align="center"><b>🧩 3,275 skills</b> bundled across <b>77 repos</b> — clone the whole research toolbox in one shot.</p>
 
 <p align="center">
-  <a href="#-research-skills--plugin-collections"><img src="https://img.shields.io/badge/🧩_skills-3%2C251-ff4e88?style=flat-square" alt="3,251 skills"></a>
+  <a href="#-research-skills--plugin-collections"><img src="https://img.shields.io/badge/🧩_skills-3%2C275-ff4e88?style=flat-square" alt="3,275 skills"></a>
   <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Auto-Research-Skills?style=flat-square&color=ffd23f" alt="stars">
@@ -34,7 +34,7 @@
 
 ---
 
-> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,251 skills** across **76 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
+> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,275 skills** across **77 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
 # recommended: clone first, then let setup.sh handle top-level + nested submodules
@@ -143,7 +143,7 @@ cd Auto-Research-Skills
 | [EvoScientist/EvoSkills](https://github.com/EvoScientist/EvoSkills) | ~380 | Agent Skills | Installable skill and knowledge packs for EvoScientist-style scientific workflows. |
 | [openags/auto-research](https://github.com/openags/auto-research) 🧩 | ~284 | Agent + UI | Generalist "AI Scientist" across fields. |
 | [Boom5426/Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills) 🧩 | ~252 | Claude Code · TeX | Draft, revise, audit & resubmit skills for Nature-style papers. |
-| [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | ~101 | Claude Code · Codex · Gemini CLI | Multi-platform academic research suite with specialized agents and CLI workflows. |
+| [poemswe/co-researcher](https://github.com/poemswe/co-researcher) 🧩 | ~101 | Claude Code · Codex · Gemini CLI | Multi-platform academic research suite with specialized agents and CLI workflows. |
 | [LeonChaoX/qinyan-academic-skills](https://github.com/LeonChaoX/qinyan-academic-skills) | ~93 | Claude Code · Python | "沁言" academic library — 177 research agents. |
 | [lingzhi227/agent-research-skills](https://github.com/lingzhi227/agent-research-skills) | ~85 | Claude Code · Python | Systematic academic deep-research skills. |
 | [andrehuang/academic-writing-agents](https://github.com/andrehuang/academic-writing-agents) | ~80 | Claude Code | Multi-agent orchestrator with 10 specialist writing agents. |
@@ -175,7 +175,7 @@ cd Auto-Research-Skills
 
 ## 🗂️ Bundled Repos (submodules)
 
-**3,251 skills** across **76 repos** (every one with 100+ ⭐) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
+**3,275 skills** across **77 repos** (every one with 100+ ⭐) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
 
 > 📊 Live ranking: see [**STARS.md**](STARS.md) — auto-refreshed weekly by [a GitHub Action](.github/workflows/update-stars.yml).
 >
@@ -187,7 +187,7 @@ cd Auto-Research-Skills
 
 ### Skills & Plugin Collections (`skills/`)
 
-35 reusable skill sets and plugins that drop into coding agents.
+36 reusable skill sets and plugins that drop into coding agents.
 
 | Path | Source | ⭐ | What it gives you |
 |---|---|---|---|
@@ -226,6 +226,7 @@ cd Auto-Research-Skills
 | `skills/research-plugins` | [wentorai/research-plugins](https://github.com/wentorai/research-plugins) | ~223 | 350+ academic research skills, MCP configs & plugins. |
 | `skills/codex-academic-skills` | [zLanqing/codex-claude-academic-skills](https://github.com/zLanqing/codex-claude-academic-skills) | ~172 | Three academic skills: reading, writing, scientific computing. |
 | `skills/franklee-academic-research-skills` | [franklee16/academic-research-skills](https://github.com/franklee16/academic-research-skills) | ~149 | Claude Code skills for econ/finance academic research. |
+| `skills/co-researcher` | [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | ~101 | Multi-platform research suite: literature review, methodology, synthesis, peer review, ethics, grants. |
 
 ### Systems & Agents (`systems/`)
 
