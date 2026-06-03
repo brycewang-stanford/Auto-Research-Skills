@@ -9,14 +9,14 @@ An index of every individual skill bundled across all collections, so you can fi
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files (README headline number) | **3,275** |
-| Unique skills (de-duplicated by name + body) | **2,547** |
+| `SKILL.md` files (README headline number) | **3,276** |
+| Unique skills (de-duplicated by name + body) | **2,548** |
 | Copies re-bundled by aggregator collections | 728 |
 | Placeholder / template skills | 1 |
 | Skills without YAML frontmatter | 11 |
 | Collections | 33 |
 
-> The headline **3,275** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,547** of those skills are actually distinct — a ~22% redundancy rate worth knowing when you browse.
+> The headline **3,276** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,548** of those skills are actually distinct — a ~22% redundancy rate worth knowing when you browse.
 
 ## Collections
 
@@ -28,7 +28,7 @@ Sorted by skill count. Click a collection for its full skill list.
 | [medical-research-skills](collections/medical-research-skills.md) | 556 | 556 | 0 | 0 | [repo](https://github.com/aipoch/medical-research-skills) |
 | [research-plugins](collections/research-plugins.md) | 473 | 473 | 464 | 0 | [repo](https://github.com/wentorai/research-plugins) |
 | [scienceclaw](collections/scienceclaw.md) | 293 | 293 | 25 | 0 | [repo](https://github.com/beita6969/ScienceClaw) |
-| [aris](collections/aris.md) | 178 | 166 | 21 | 0 | [repo](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) |
+| [aris](collections/aris.md) | 179 | 167 | 21 | 0 | [repo](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) |
 | [scientific-agent-skills](collections/scientific-agent-skills.md) | 143 | 143 | 30 | 0 | [repo](https://github.com/K-Dense-AI/scientific-agent-skills) |
 | [research-units-pipeline](collections/research-units-pipeline.md) | 109 | 109 | 0 | 0 | [repo](https://github.com/WILLOSCAR/research-units-pipeline-skills) |
 | [ai-research-skills](collections/ai-research-skills.md) | 98 | 98 | 2 | 0 | [repo](https://github.com/Orchestra-Research/AI-Research-SKILLs) |

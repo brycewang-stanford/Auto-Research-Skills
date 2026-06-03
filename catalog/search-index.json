@@ -2,8 +2,8 @@
   "generated_by": "tools/build_index.py",
   "note": "Compact discovery index consumed by site/. The canonical, complete manifest is catalog/skills.json. Regenerate with `python3 tools/build_index.py`.",
   "totals": {
-    "skill_files": 3275,
-    "unique_skills": 2547,
+    "skill_files": 3276,
+    "unique_skills": 2548,
     "collections": 33,
     "templates": 1,
     "no_frontmatter": 11,
@@ -69,8 +69,8 @@
     {
       "name": "aris",
       "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
-      "skill_files": 178,
-      "unique_skills": 166
+      "skill_files": 179,
+      "unique_skills": 167
     },
     {
       "name": "arxiv-mcp-server",
@@ -1522,15 +1522,14 @@
     {
       "name": "ablation-planner",
       "collection": "aris",
-      "trigger": "Use when main results pass result-to-claim (claim_supported=yes or partial) and ablation studies are needed for paper submission. Codex designs ablations from a reviewer's perspective, CC reviews…",
+      "trigger": "Use when main results pass result-to-claim (claim_supported=yes or partial) and ablation studies are needed for paper submission.",
       "license": "",
       "path": "skills/aris/skills/ablation-planner/SKILL.md",
       "flags": [
         "collision"
       ],
       "tags": [
-        "experiment",
-        "peer-review"
+        "experiment"
       ]
     },
     {
@@ -1638,7 +1637,7 @@
     {
       "name": "auto-paper-improvement-loop",
       "collection": "aris",
-      "trigger": "Autonomously improve a generated paper via GPT-5.4 xhigh review → implement fixes → recompile, for 2 rounds. Use when user says \\\"改论文\\\", \\\"improve paper\\\", \\\"论文润色循环\\\", \\\"auto improve\\\", or wants to…",
+      "trigger": "Autonomously improve a generated paper via GPT-5.5 xhigh review → implement fixes → recompile, for 2 rounds. Use when user says \\\"改论文\\\", \\\"improve paper\\\", \\\"论文润色循环\\\", \\\"auto improve\\\", or wants to…",
       "license": "",
       "path": "skills/aris/skills/skills-codex/auto-paper-improvement-loop/SKILL.md",
       "flags": [
@@ -1791,28 +1790,24 @@
     {
       "name": "citation-audit",
       "collection": "aris",
-      "trigger": "Zero-context verification that every bibliographic entry in the paper is real, correctly attributed, and used in a context the cited paper actually supports. Uses a fresh cross-model reviewer with…",
+      "trigger": "Zero-context verification that every bibliographic entry in the paper is real, correctly attributed, and used in a context the cited paper actually supports — catching hallucinated authors, wrong…",
       "license": "",
       "path": "skills/aris/skills/citation-audit/SKILL.md",
       "tags": [
         "citations",
         "latex",
-        "paper-search",
-        "peer-review",
         "reproducibility"
       ]
     },
     {
       "name": "citation-audit",
       "collection": "aris",
-      "trigger": "Zero-context verification that every bibliographic entry in the paper is real, correctly attributed, and used in a context the cited paper actually supports. Uses a fresh cross-model reviewer with…",
+      "trigger": "Zero-context verification that every bibliographic entry in the paper is real, correctly attributed, and used in a context the cited paper actually supports — catching hallucinated authors, wrong…",
       "license": "",
       "path": "skills/aris/skills/skills-codex/citation-audit/SKILL.md",
       "tags": [
         "citations",
         "latex",
-        "paper-search",
-        "peer-review",
         "reproducibility"
       ]
     },
@@ -1848,7 +1843,6 @@
         "collision"
       ],
       "tags": [
-        "citations",
         "literature-review",
         "statistics"
       ]
@@ -1860,7 +1854,6 @@
       "license": "",
       "path": "skills/aris/skills/comm-lit-review/SKILL.md",
       "tags": [
-        "citations",
         "literature-review",
         "statistics"
       ]
@@ -1969,7 +1962,7 @@
     {
       "name": "experiment-audit",
       "collection": "aris",
-      "trigger": "Audit experiment integrity before claiming results. Uses cross-model review (GPT-5.4) to check for fake ground truth, score normalization fraud, phantom results, and insufficient scope. Use when user…",
+      "trigger": "Audit experiment integrity before claiming results. Uses cross-model review (GPT-5.5) to check for fake ground truth, score normalization fraud, phantom results, and insufficient scope. Use when user…",
       "license": "",
       "path": "skills/aris/skills/skills-codex/experiment-audit/SKILL.md",
       "tags": [
@@ -2060,7 +2053,7 @@
     {
       "name": "feishu-notify",
       "collection": "aris",
-      "trigger": "Send notifications to Feishu/Lark. Internal utility used by other skills, or manually via /feishu-notify. Supports push-only (webhook) and interactive (bidirectional) modes. Use when user says…",
+      "trigger": "Send notifications to Feishu/Lark. Internal utility used by other skills, or manually via /feishu-notify. Use when user says \\\"发飞书\\\", \\\"notify feishu\\\", or other skills need to send status updates.",
       "license": "",
       "path": "skills/aris/skills/feishu-notify/SKILL.md",
       "flags": [
@@ -2070,7 +2063,7 @@
     {
       "name": "feishu-notify",
       "collection": "aris",
-      "trigger": "Send notifications to Feishu/Lark. Internal utility used by other skills, or manually via /feishu-notify. Supports push-only (webhook) and interactive (bidirectional) modes. Use when user says…",
+      "trigger": "Send notifications to Feishu/Lark. Internal utility used by other skills, or manually via /feishu-notify. Use when user says \\\"发飞书\\\", \\\"notify feishu\\\", or other skills need to send status updates.",
       "license": "",
       "path": "skills/aris/skills/skills-codex/feishu-notify/SKILL.md",
       "flags": [
@@ -2249,7 +2242,7 @@
     {
       "name": "idea-discovery",
       "collection": "aris",
-      "trigger": "Workflow 1: Full idea discovery pipeline. Orchestrates research-lit → idea-creator → novelty-check → research-review → research-refine-pipeline to go from a broad research direction to validated,…",
+      "trigger": "Workflow 1: Full idea discovery pipeline to go from a broad research direction to validated, pilot-tested ideas. Use when user says \\\"找idea全流程\\\", \\\"idea discovery pipeline\\\", \\\"从零开始找方向\\\", or wants…",
       "license": "",
       "path": "skills/aris/skills/idea-discovery/SKILL.md",
       "flags": [
@@ -2263,7 +2256,7 @@
     {
       "name": "idea-discovery",
       "collection": "aris",
-      "trigger": "Workflow 1: Full idea discovery pipeline. Orchestrates research-lit \\u2192 idea-creator \\u2192 novelty-check \\u2192 research-review \\u2192 research-refine-pipeline to go from a broad research…",
+      "trigger": "Workflow 1: Full idea discovery pipeline to go from a broad research direction to validated, pilot-tested ideas. Use when user says \\\"找idea全流程\\\", \\\"idea discovery pipeline\\\", \\\"从零开始找方向\\\", or wants…",
       "license": "",
       "path": "skills/aris/skills/skills-codex/idea-discovery/SKILL.md",
       "flags": [
@@ -2340,7 +2333,6 @@
       "license": "",
       "path": "skills/aris/skills/interview-cheatsheet/SKILL.md",
       "tags": [
-        "citations",
         "data"
       ]
     },
@@ -2351,7 +2343,6 @@
       "license": "",
       "path": "skills/aris/skills/skills-codex/interview-cheatsheet/SKILL.md",
       "tags": [
-        "citations",
         "data"
       ]
     },
@@ -2409,7 +2400,7 @@
     {
       "name": "mermaid-diagram",
       "collection": "aris",
-      "trigger": "Generate Mermaid diagrams from user requirements. Saves .mmd and .md files to figures/ directory with syntax verification. Supports flowcharts, sequence diagrams, class diagrams, ER diagrams, Gantt…",
+      "trigger": "Generate Mermaid diagrams from user requirements. Supports flowcharts, sequence diagrams, class diagrams, ER diagrams, Gantt charts, and 18 more diagram types.",
       "license": "",
       "path": "skills/aris/skills/mermaid-diagram/SKILL.md",
       "flags": [
@@ -2435,12 +2426,22 @@
     {
       "name": "meta-apply",
       "collection": "aris",
-      "trigger": "Privileged applier that LANDS meta-optimize / corpus-audit patches the user approved. The ONLY skill permitted to mutate the skill corpus from a self-modification proposal. Runs the cross-model jury…",
+      "trigger": "Privileged applier that LANDS meta-optimize / corpus-audit patches the user approved — the ONLY skill permitted to mutate the skill corpus from a self-modification proposal, with cross-model jury and…",
       "license": "",
       "path": "skills/aris/skills/meta-apply/SKILL.md",
       "tags": [
         "grants",
-        "peer-review",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "meta-apply",
+      "collection": "aris",
+      "trigger": "Privileged applier that LANDS meta-optimize / corpus-audit patches the user approved — the ONLY skill permitted to mutate the skill corpus from a self-modification proposal, with cross-model jury and…",
+      "license": "",
+      "path": "skills/aris/skills/skills-codex/meta-apply/SKILL.md",
+      "tags": [
+        "grants",
         "reproducibility"
       ]
     },
@@ -2573,7 +2574,7 @@
     {
       "name": "overleaf-sync",
       "collection": "aris",
-      "trigger": "Two-way sync between a local paper directory and an Overleaf project via the Overleaf Git bridge (Premium feature). Lets you keep ARIS audit/edit workflows on the local copy while collaborators edit…",
+      "trigger": "Two-way sync between a local paper directory and an Overleaf project, so ARIS audit/edit workflows stay on the local copy while collaborators edit in the Overleaf web UI. Use when user says \\\"同步…",
       "license": "",
       "path": "skills/aris/skills/overleaf-sync/SKILL.md",
       "tags": [
@@ -2585,7 +2586,7 @@
     {
       "name": "overleaf-sync",
       "collection": "aris",
-      "trigger": "Two-way sync between a local paper directory and an Overleaf project via the Overleaf Git bridge (Premium feature). Lets you keep ARIS audit/edit workflows on the local copy while collaborators edit…",
+      "trigger": "Two-way sync between a local paper directory and an Overleaf project, so ARIS audit/edit workflows stay on the local copy while collaborators edit in the Overleaf web UI. Use when user says \\\"同步…",
       "license": "",
       "path": "skills/aris/skills/skills-codex/overleaf-sync/SKILL.md",
       "flags": [
@@ -2806,14 +2807,13 @@
     {
       "name": "paper-poster",
       "collection": "aris",
-      "trigger": "Generate a conference poster (article + tcbposter LaTeX → A0/A1 PDF + editable PPTX + SVG) from a compiled paper. Use when user says \\\"做海报\\\", \\\"制作海报\\\", \\\"conference poster\\\", \\\"make poster\\\",…",
+      "trigger": "Generate a conference poster (venue-driven tcbposter LaTeX) from a compiled paper. Use when user says \\\"做海报\\\", \\\"制作海报\\\", \\\"conference poster\\\", \\\"make poster\\\", \\\"生成poster\\\", \\\"poster session\\\", or…",
       "license": "",
       "path": "skills/aris/skills/paper-poster/SKILL.md",
       "flags": [
         "collision"
       ],
       "tags": [
-        "data",
         "latex",
         "presentation"
       ]
@@ -2821,14 +2821,13 @@
     {
       "name": "paper-poster",
       "collection": "aris",
-      "trigger": "Generate a conference poster (article + tcbposter LaTeX → A0/A1 PDF + editable PPTX + SVG) from a compiled paper. Use when user says \\\"做海报\\\", \\\"制作海报\\\", \\\"conference poster\\\", \\\"make poster\\\",…",
+      "trigger": "Generate a conference poster (venue-driven tcbposter LaTeX) from a compiled paper. Use when user says \\\"做海报\\\", \\\"制作海报\\\", \\\"conference poster\\\", \\\"make poster\\\", \\\"生成poster\\\", \\\"poster session\\\", or…",
       "license": "",
       "path": "skills/aris/skills/skills-codex/paper-poster/SKILL.md",
       "flags": [
         "collision"
       ],
       "tags": [
-        "data",
         "latex",
         "presentation"
       ]
@@ -2978,7 +2977,7 @@
     {
       "name": "paper-writing",
       "collection": "aris",
-      "trigger": "Workflow 3: Full paper writing pipeline. Orchestrates paper-plan → paper-figure → figure-spec/paper-illustration/mermaid-diagram → paper-write → paper-compile → auto-paper-improvement-loop to go from…",
+      "trigger": "Workflow 3: Full paper writing pipeline that goes from a narrative report to a polished, submission-ready PDF. Use when user says \\\"写论文全流程\\\", \\\"write paper pipeline\\\", \\\"从报告到PDF\\\", \\\"paper writing\\\",…",
       "license": "",
       "path": "skills/aris/skills/paper-writing/SKILL.md",
       "flags": [
@@ -2986,15 +2985,13 @@
       ],
       "tags": [
         "automation",
-        "data",
-        "reproducibility",
         "writing"
       ]
     },
     {
       "name": "paper-writing",
       "collection": "aris",
-      "trigger": "Workflow 3: Full paper writing pipeline. Orchestrates paper-plan → paper-figure → figure-spec/paper-illustration/mermaid-diagram → paper-write → paper-compile → auto-paper-improvement-loop to go from…",
+      "trigger": "Workflow 3: Full paper writing pipeline that goes from a narrative report to a polished, submission-ready PDF. Use when user says \\\"写论文全流程\\\", \\\"write paper pipeline\\\", \\\"从报告到PDF\\\", \\\"paper writing\\\",…",
       "license": "",
       "path": "skills/aris/skills/skills-codex/paper-writing/SKILL.md",
       "flags": [
@@ -3002,8 +2999,6 @@
       ],
       "tags": [
         "automation",
-        "data",
-        "reproducibility",
         "writing"
       ]
     },
@@ -3139,7 +3134,7 @@
     {
       "name": "proof-checker",
       "collection": "aris",
-      "trigger": "Rigorous mathematical proof verification and fixing workflow. Reads a LaTeX proof, identifies gaps via cross-model review (Codex GPT-5.4 xhigh), fixes each gap with full derivations, re-reviews, and…",
+      "trigger": "Rigorous mathematical proof verification and fixing workflow. Reads a LaTeX proof, identifies gaps via cross-model review (Codex GPT-5.5 xhigh), fixes each gap with full derivations, re-reviews, and…",
       "license": "",
       "path": "skills/aris/skills/skills-codex/proof-checker/SKILL.md",
       "tags": [
@@ -3215,14 +3210,14 @@
     {
       "name": "render-html",
       "collection": "aris",
-      "trigger": "Render an ARIS Markdown / JSON artifact (IDEA_REPORT, AUTO_REVIEW, KILL_ARGUMENT, PAPER_PLAN, research-wiki state, etc.) into a single-file HTML view designed for human reading. Academic template…",
+      "trigger": "Render an ARIS Markdown / JSON artifact (IDEA_REPORT, AUTO_REVIEW, KILL_ARGUMENT, PAPER_PLAN, research-wiki state, etc.) into a single-file HTML view designed for human reading. Use when the user…",
       "license": "",
       "path": "skills/aris/skills/render-html/SKILL.md"
     },
     {
       "name": "render-html",
       "collection": "aris",
-      "trigger": "Render an ARIS Markdown / JSON artifact (IDEA_REPORT, AUTO_REVIEW, KILL_ARGUMENT, PAPER_PLAN, research-wiki state, etc.) into a single-file HTML view designed for human reading. Academic template…",
+      "trigger": "Render an ARIS Markdown / JSON artifact (IDEA_REPORT, AUTO_REVIEW, KILL_ARGUMENT, PAPER_PLAN, research-wiki state, etc.) into a single-file HTML view designed for human reading. Use when the user…",
       "license": "",
       "path": "skills/aris/skills/skills-codex/render-html/SKILL.md"
     },
@@ -3259,7 +3254,7 @@
     {
       "name": "research-pipeline",
       "collection": "aris",
-      "trigger": "Full research pipeline: Workflow 1 (idea discovery) → Workflow 1.5 (experiment bridge) → Workflow 2 (auto review loop) → Workflow 3 (paper writing, optional). Goes from a broad research direction all…",
+      "trigger": "Full end-to-end research pipeline: from a broad research direction through idea discovery, experiments, and review all the way to a polished paper PDF. Use when user says \\\"全流程\\\", \\\"full pipeline\\\",…",
       "license": "",
       "path": "skills/aris/skills/research-pipeline/SKILL.md",
       "flags": [
@@ -3268,15 +3263,13 @@
       "tags": [
         "automation",
         "experiment",
-        "ideation",
-        "peer-review",
-        "writing"
+        "ideation"
       ]
     },
     {
       "name": "research-pipeline",
       "collection": "aris",
-      "trigger": "Full research pipeline: Workflow 1 (idea discovery) → Workflow 1.5 (experiment bridge) → Workflow 2 (auto review loop) → Workflow 3 (paper writing, optional). Goes from a broad research direction all…",
+      "trigger": "Full end-to-end research pipeline: from a broad research direction through idea discovery, experiments, and review all the way to a polished paper PDF. Use when user says \\\"全流程\\\", \\\"full pipeline\\\",…",
       "license": "",
       "path": "skills/aris/skills/skills-codex/research-pipeline/SKILL.md",
       "flags": [
@@ -3285,9 +3278,7 @@
       "tags": [
         "automation",
         "experiment",
-        "ideation",
-        "peer-review",
-        "writing"
+        "ideation"
       ]
     },
     {
@@ -3306,7 +3297,7 @@
     {
       "name": "research-refine",
       "collection": "aris",
-      "trigger": "Turn a vague research direction into a problem-anchored, elegant, frontier-aware, implementation-oriented method plan via iterative GPT-5.4 review. Use when the user says \\\"refine my approach\\\",…",
+      "trigger": "Turn a vague research direction into a problem-anchored, elegant, frontier-aware, implementation-oriented method plan via iterative GPT-5.5 review. Use when the user says \\\"refine my approach\\\",…",
       "license": "",
       "path": "skills/aris/skills/skills-codex/research-refine/SKILL.md",
       "flags": [
@@ -3459,11 +3450,8 @@
       "path": "skills/aris/skills/resubmit-pipeline/SKILL.md",
       "tags": [
         "automation",
-        "citations",
         "experiment",
-        "latex",
-        "medical",
-        "reproducibility"
+        "latex"
       ]
     },
     {
@@ -3477,11 +3465,8 @@
       ],
       "tags": [
         "automation",
-        "citations",
         "experiment",
-        "latex",
-        "medical",
-        "reproducibility"
+        "latex"
       ]
     },
     {
@@ -3625,7 +3610,7 @@
     {
       "name": "system-profile",
       "collection": "aris",
-      "trigger": "Profile a target (script, process, GPU, memory, interconnect) using external tools and code instrumentation. Produces structured performance reports with actionable recommendations. Use when user…",
+      "trigger": "Profile a target (script, process, GPU, memory, interconnect) for performance analysis. Use when user says \\\"profile\\\", \\\"benchmark\\\", \\\"bottleneck\\\", or wants performance analysis.",
       "license": "",
       "path": "skills/aris/skills/skills-codex/system-profile/SKILL.md",
       "tags": [
@@ -3635,7 +3620,7 @@
     {
       "name": "system-profile",
       "collection": "aris",
-      "trigger": "Profile a target (script, process, GPU, memory, interconnect) using external tools and code instrumentation. Produces structured performance reports with actionable recommendations. Use when user…",
+      "trigger": "Profile a target (script, process, GPU, memory, interconnect) for performance analysis. Use when user says \\\"profile\\\", \\\"benchmark\\\", \\\"bottleneck\\\", or wants performance analysis.",
       "license": "",
       "path": "skills/aris/skills/system-profile/SKILL.md",
       "flags": [
@@ -3691,22 +3676,16 @@
     {
       "name": "wiki-enrich",
       "collection": "aris",
-      "trigger": "Fill in the per-paper TODO sections (Problem/Method/Key Results/Limitations/Reusable Ingredients/...) of research-wiki/papers/<slug>.md pages that /research-lit, /arxiv, /alphaxiv, /deepxiv,…",
+      "trigger": "Fill in the per-paper TODO sections of research-wiki/papers/<slug>.md pages that literature-ingest skills leave as bare scaffolds. Use when user says 'enrich wiki', 'fill paper TODOs', 'wiki body…",
       "license": "",
-      "path": "skills/aris/skills/skills-codex/wiki-enrich/SKILL.md",
-      "tags": [
-        "paper-search"
-      ]
+      "path": "skills/aris/skills/skills-codex/wiki-enrich/SKILL.md"
     },
     {
       "name": "wiki-enrich",
       "collection": "aris",
-      "trigger": "Fill in the per-paper TODO sections (Problem/Method/Key Results/Limitations/Reusable Ingredients/...) of research-wiki/papers/<slug>.md pages that /research-lit, /arxiv, /alphaxiv, /deepxiv,…",
+      "trigger": "Fill in the per-paper TODO sections of research-wiki/papers/<slug>.md pages that literature-ingest skills leave as bare scaffolds. Use when user says 'enrich wiki', 'fill paper TODOs', 'wiki body…",
       "license": "",
-      "path": "skills/aris/skills/wiki-enrich/SKILL.md",
-      "tags": [
-        "paper-search"
-      ]
+      "path": "skills/aris/skills/wiki-enrich/SKILL.md"
     },
     {
       "name": "writing-systems-papers",

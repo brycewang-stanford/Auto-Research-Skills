@@ -5,16 +5,16 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **446**
-- Critical: **201**
-- High: **245**
+- Findings: **447**
+- Critical: **200**
+- High: **247**
 
 ## By Rule
 
 | Rule | Findings |
 |---|---:|
-| `credential-print` | 225 |
-| `remote-shell-pipe` | 177 |
+| `credential-print` | 227 |
+| `remote-shell-pipe` | 176 |
 | `powershell-iex` | 23 |
 | `concealment-instruction` | 20 |
 | `destructive-root-delete` | 1 |
@@ -24,16 +24,16 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 | Collection | Findings |
 |---|---:|
 | `scienceclaw` | 211 |
-| `scientific-agent-skills` | 56 |
+| `scientific-agent-skills` | 60 |
 | `claude-scientific-writer` | 41 |
 | `aris` | 32 |
 | `ai-research-skills` | 27 |
 | `empirical-research-skills` | 20 |
 | `academic-research-skills` | 9 |
 | `franklee-academic-research-skills` | 8 |
-| `last30days` | 8 |
 | `academicforge` | 6 |
 | `claude-scholar` | 5 |
+| `last30days` | 5 |
 | `academic-research-skills-codex` | 4 |
 | `medical-research-skills` | 4 |
 | `nature-skills` | 4 |
@@ -50,8 +50,8 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 | Severity | Rule | Location | Match |
 |---|---|---|---|
 | critical | `remote-shell-pipe` | `skills/academic-research-skills-codex/skills/academic-research-suite/ars/QUICKSTART.md:9` | `curl -fsSL https://claude.ai/install.sh \| bash` |
-| critical | `remote-shell-pipe` | `skills/academic-research-skills-codex/skills/academic-research-suite/ars/docs/SETUP.md:188` | `curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net \| sh` |
-| critical | `remote-shell-pipe` | `skills/academic-research-skills-codex/skills/academic-research-suite/ars/docs/SETUP.zh-TW.md:179` | `curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net \| sh` |
+| critical | `remote-shell-pipe` | `skills/academic-research-skills-codex/skills/academic-research-suite/ars/docs/SETUP.md:195` | `curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net \| sh` |
+| critical | `remote-shell-pipe` | `skills/academic-research-skills-codex/skills/academic-research-suite/ars/docs/SETUP.zh-TW.md:186` | `curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net \| sh` |
 | critical | `remote-shell-pipe` | `skills/academic-research-skills/QUICKSTART.md:9` | `curl -fsSL https://claude.ai/install.sh \| bash` |
 | critical | `remote-shell-pipe` | `skills/academic-research-skills/docs/SETUP.md:23` | `curl -fsSL https://claude.ai/install.sh \| bash` |
 | critical | `powershell-iex` | `skills/academic-research-skills/docs/SETUP.md:26` | `irm https://claude.ai/install.ps1 \| iex` |
@@ -90,7 +90,7 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 | critical | `remote-shell-pipe` | `skills/empirical-research-skills/SECURITY-SCAN-REPORT.md:184` | `curl ... \| sh` |
 | critical | `remote-shell-pipe` | `skills/empirical-research-skills/SECURITY-SCAN-REPORT.md:184` | `curl ... \| bash` |
 
-_Truncated 406 additional findings._
+_Truncated 407 additional findings._
 
 ## Regenerate
 

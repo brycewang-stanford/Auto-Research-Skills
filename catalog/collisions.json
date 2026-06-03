@@ -598,7 +598,7 @@
         {
           "collection": "aris",
           "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
-          "trigger": "Workflow 3: Full paper writing pipeline. Orchestrates paper-plan → paper-figure → figure-spec/paper-illustration/mermaid-diagram → paper-write → paper-compile…",
+          "trigger": "Workflow 3: Full paper writing pipeline that goes from a narrative report to a polished, submission-ready PDF. Use when user says \\\"写论文全流程\\\", \\\"write paper…",
           "path": "skills/aris/skills/paper-writing/SKILL.md",
           "bodies_in_collection": 3
         },
@@ -2213,7 +2213,7 @@
         {
           "collection": "aris",
           "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
-          "trigger": "Workflow 1: Full idea discovery pipeline. Orchestrates research-lit → idea-creator → novelty-check → research-review → research-refine-pipeline to go from a…",
+          "trigger": "Workflow 1: Full idea discovery pipeline to go from a broad research direction to validated, pilot-tested ideas. Use when user says \\\"找idea全流程\\\", \\\"idea…",
           "path": "skills/aris/skills/idea-discovery/SKILL.md",
           "bodies_in_collection": 3
         },
@@ -2301,7 +2301,7 @@
         {
           "collection": "aris",
           "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
-          "trigger": "Generate a conference poster (article + tcbposter LaTeX → A0/A1 PDF + editable PPTX + SVG) from a compiled paper. Use when user says \\\"做海报\\\", \\\"制作海报\\\",…",
+          "trigger": "Generate a conference poster (venue-driven tcbposter LaTeX) from a compiled paper. Use when user says \\\"做海报\\\", \\\"制作海报\\\", \\\"conference poster\\\", \\\"make…",
           "path": "skills/aris/skills/paper-poster/SKILL.md",
           "bodies_in_collection": 3
         },
@@ -2565,7 +2565,7 @@
         {
           "collection": "aris",
           "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
-          "trigger": "Full research pipeline: Workflow 1 (idea discovery) → Workflow 1.5 (experiment bridge) → Workflow 2 (auto review loop) → Workflow 3 (paper writing, optional).…",
+          "trigger": "Full end-to-end research pipeline: from a broad research direction through idea discovery, experiments, and review all the way to a polished paper PDF. Use…",
           "path": "skills/aris/skills/research-pipeline/SKILL.md",
           "bodies_in_collection": 2
         },
@@ -2675,7 +2675,7 @@
         {
           "collection": "aris",
           "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
-          "trigger": "Use when main results pass result-to-claim (claim_supported=yes or partial) and ablation studies are needed for paper submission. Codex designs ablations from…",
+          "trigger": "Use when main results pass result-to-claim (claim_supported=yes or partial) and ablation studies are needed for paper submission.",
           "path": "skills/aris/skills/ablation-planner/SKILL.md",
           "bodies_in_collection": 2
         },
@@ -2763,7 +2763,7 @@
         {
           "collection": "aris",
           "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
-          "trigger": "Generate Mermaid diagrams from user requirements. Saves .mmd and .md files to figures/ directory with syntax verification. Supports flowcharts, sequence…",
+          "trigger": "Generate Mermaid diagrams from user requirements. Supports flowcharts, sequence diagrams, class diagrams, ER diagrams, Gantt charts, and 18 more diagram types.",
           "path": "skills/aris/skills/mermaid-diagram/SKILL.md",
           "bodies_in_collection": 2
         },
@@ -3885,7 +3885,7 @@
         {
           "collection": "aris",
           "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
-          "trigger": "Send notifications to Feishu/Lark. Internal utility used by other skills, or manually via /feishu-notify. Supports push-only (webhook) and interactive…",
+          "trigger": "Send notifications to Feishu/Lark. Internal utility used by other skills, or manually via /feishu-notify. Use when user says \\\"发飞书\\\", \\\"notify feishu\\\", or…",
           "path": "skills/aris/skills/feishu-notify/SKILL.md",
           "bodies_in_collection": 2
         },
