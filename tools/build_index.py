@@ -16,8 +16,8 @@ It reuses ``build_catalog``'s frontmatter parser and dedup logic verbatim — so
 the index is always consistent with the manifest and never depends on a stale
 ``skills.json`` on disk. Fully offline, standard library only.
 
-    python tools/build_index.py            # write the two files
-    python tools/build_index.py --check    # verify they are current (for CI)
+    python3 tools/build_index.py            # write the two files
+    python3 tools/build_index.py --check    # verify they are current (for CI)
 """
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ from pathlib import Path
 
 # Import the canonical parser rather than re-implementing it. Works both as a
 # package module (``from tools import build_index`` — what the unittest suite
-# uses) and as a standalone script (``python tools/build_index.py``).
+# uses) and as a standalone script (``python3 tools/build_index.py``).
 try:
     from tools import build_catalog as bc
 except ImportError:
@@ -216,7 +216,7 @@ def build_index_payload(
         "note": (
             "Compact discovery index consumed by site/. The canonical, complete "
             "manifest is catalog/skills.json. Regenerate with "
-            "`python tools/build_index.py`."
+            "`python3 tools/build_index.py`."
         ),
         "totals": {
             "skill_files": len(skills),
@@ -320,7 +320,7 @@ def check_outputs(skills: list[bc.Skill], collections: list[bc.Collection]) -> i
     if stale:
         for s in stale:
             print(f"ERROR: {s}")
-        print("Run: python tools/build_index.py")
+        print("Run: python3 tools/build_index.py")
         return 1
     print("OK: discovery index files are current")
     return 0

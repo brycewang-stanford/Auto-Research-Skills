@@ -17,7 +17,7 @@ to vendor as submodules yet.
   scan for dangerous shell commands, secret harvesting, unexpected network
   calls, hidden binaries, and prompt-injection style instructions.
 - Prefer adding uncertain projects here first. Vendor them only after a second
-  review and a clean `python scripts/check-repo.py` run.
+  review and a clean `python3 scripts/check-repo.py` run.
 
 ## External Sources Checked
 
@@ -37,6 +37,12 @@ to vendor as submodules yet.
   supply-chain attacks through `SKILL.md` metadata/instructions
   (<https://arxiv.org/abs/2605.11418>).
 
+## Recently Promoted
+
+| Project | Promoted to | Review note |
+|---|---|---|
+| [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | `skills/co-researcher` | Added 2026-06-01 after MIT license check, README/SKILL.md review, and safety scan. The single high scanner hit is in an eval JSON example about rejecting covert scraping, not in executable skill instructions. |
+
 ## Candidate Backlog
 
 Checked on 2026-05-31 with GitHub API metadata and `npx skills find` output.
@@ -48,8 +54,10 @@ Stars and install counts are approximate and should be refreshed before a PR.
 | [affaan-m/ECC](https://github.com/affaan-m/ECC) | Broad cross-agent toolkit formerly found via `everything-claude-code`; includes research-first development, memory, security, and workflow patterns. | ~199k stars | Review as ecosystem infrastructure; do not vendor blindly because it is broad. |
 | [VoltAgent/awesome-openclaw-skills](https://github.com/VoltAgent/awesome-openclaw-skills) | Large OpenClaw skill index, useful for discovery and gap analysis. | ~49k stars | Add to lists only after security caveats; too broad for direct skills vendoring. |
 | [sickn33/antigravity-awesome-skills](https://github.com/sickn33/antigravity-awesome-skills) | Large installable library for Claude Code, Codex CLI, Gemini CLI, Cursor, and Antigravity. | ~39k stars | Review as a list/infrastructure candidate; security review needed. |
-| [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | Multi-platform academic research suite compatible with Claude Code, Gemini CLI, Codex, and OpenCode. | ~101 stars; `academic-writing` skill ~218 installs | Strong near-term candidate for `skills/` after license and content audit. |
-| [EvoScientist/EvoSkills](https://github.com/EvoScientist/EvoSkills) | Installable skill and knowledge packs for EvoScientist-style scientific work. | ~380 stars; `paper-review` skill ~327 installs | Review for domain-science coverage and overlap with existing biomedical/science bundles. |
+| [EvoScientist/EvoSkills](https://github.com/EvoScientist/EvoSkills) | Installable skill and knowledge packs for EvoScientist-style scientific work. | ~381 stars; `paper-review` skill ~327 installs | Good coverage, but hold before vendoring: the `nano-banana` skill currently suggests `echo $GOOGLE_API_KEY`, which would expose secrets in agent-visible output. |
+| [zsyggg/paper-craft-skills](https://github.com/zsyggg/paper-craft-skills) | Paper analysis, summaries, and visual explanation skills for Claude Code. | ~385 stars | Promising paper-understanding package; needs explicit license/provenance check before vendoring. |
+| [WenyuChiou/ai-research-skills](https://github.com/WenyuChiou/ai-research-skills) | Cross-agent SKILL.md catalog for literature review, research design, project memory, manuscript writing, and delegation. | ~83 stars; MIT | Monitor until it clears the default 100-star bar, or review earlier if cross-agent coverage is prioritized. |
+| [ShZhao27208/Aut_Sci_Write](https://github.com/ShZhao27208/Aut_Sci_Write) | Literature search, PDF extraction, figure cropping, Zotero sync, review writing, and PPT generation. | ~88 stars; MIT | Monitor; potentially useful for Zotero/PDF workflow gaps once it matures. |
 | [LeonChaoX/qinyan-academic-skills](https://github.com/LeonChaoX/qinyan-academic-skills) | Chinese academic research skill library with many agents across paper search, writing, medicine, bioinfo, and drug discovery. | ~99 stars | Already listed in README; revisit once it clears the 100-star bar or if Chinese coverage is prioritized. |
 | [lingzhi227/agent-research-skills](https://github.com/lingzhi227/agent-research-skills) | Systematic academic literature-review skill. | ~89 stars; `literature-review` skill ~1.1k installs | Already listed in README; installs justify a closer manual audit despite sub-100 stars. |
 | [collaborative-deep-research/agent-papers-cli](https://github.com/collaborative-deep-research/agent-papers-cli) | Literature-review workflow surfaced by registry search. | ~44 stars; `literature-review` skill ~556 installs | Monitor; needs more repo-level maturity before vendoring. |
@@ -70,6 +78,6 @@ Stars and install counts are approximate and should be refreshed before a PR.
 5. Add one project per PR, update both README files, and run:
 
 ```bash
-python scripts/check-repo.py
+python3 scripts/check-repo.py
 ./scripts/count-skills.sh
 ```

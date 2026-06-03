@@ -63,6 +63,10 @@ def parse_args() -> argparse.Namespace:
 
 def collect_findings(roots: list[str], min_severity: str, max_bytes: int) -> list:
     resolved = [scan.resolve_root(value) for value in roots]
+    missing = scan.missing_roots(resolved)
+    if missing:
+        missing_list = ", ".join(missing)
+        raise FileNotFoundError(f"scan root does not exist: {missing_list}")
     findings = []
     for path in scan.iter_files(resolved, max_bytes):
         findings.extend(scan.scan_file(path, min_severity))
@@ -162,11 +166,11 @@ def write_report(report: str) -> None:
 def check_report(report: str) -> int:
     if not REPORT_PATH.exists():
         print("ERROR: missing catalog/SAFETY.md")
-        print("Run: python tools/build_safety_report.py")
+        print("Run: python3 tools/build_safety_report.py")
         return 1
     if REPORT_PATH.read_text(encoding="utf-8") != report:
         print("ERROR: catalog/SAFETY.md is outdated")
-        print("Run: python tools/build_safety_report.py")
+        print("Run: python3 tools/build_safety_report.py")
         return 1
     print("OK: catalog/SAFETY.md is current")
     return 0
@@ -174,7 +178,11 @@ def check_report(report: str) -> int:
 
 def main() -> int:
     args = parse_args()
-    findings = collect_findings(args.roots, args.min_severity, args.max_bytes)
+    try:
+        findings = collect_findings(args.roots, args.min_severity, args.max_bytes)
+    except FileNotFoundError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
     report = render_report(findings, args.roots, args.min_severity, args.max_examples)
 
     print(

@@ -39,7 +39,7 @@
       els.status.textContent =
         `Could not load ${DATA_URL} — ${err.message}. Serve the repo root ` +
         "(e.g. python3 -m http.server) and open /site/collisions.html. " +
-        "Run `python tools/build_index.py` if the file is missing.";
+        "Run `python3 tools/build_index.py` if the file is missing.";
       els.resultCount.textContent = "—";
     });
 

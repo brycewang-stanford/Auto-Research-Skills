@@ -1,5 +1,8 @@
 import unittest
 from collections import Counter
+from pathlib import Path
+import tempfile
+from unittest import mock
 
 from tools import build_safety_report
 
@@ -56,6 +59,13 @@ class SafetyReportTests(unittest.TestCase):
 
     def test_md_escape_protects_tables(self) -> None:
         self.assertEqual(build_safety_report.md_escape("a|b\nc"), "a\\|b c")
+
+    def test_collect_findings_rejects_missing_roots(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            with mock.patch.object(build_safety_report.scan, "ROOT", root):
+                with self.assertRaises(FileNotFoundError):
+                    build_safety_report.collect_findings(["missing"], "high", 750_000)
 
 
 if __name__ == "__main__":

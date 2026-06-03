@@ -93,10 +93,10 @@ git submodule add https://github.com/ClawBio/ClawBio             skills/clawbio
 git submodule add https://github.com/jaechang-hits/SciAgent-Skills skills/sciagent-skills
 
 # After each add:
-python scripts/check-repo.py        # validate counts / gitlinks
+python3 scripts/check-repo.py       # validate counts / gitlinks
 ./scripts/count-skills.sh           # refresh the headline skill count
-python scripts/update-stars.py      # refresh STARS.md  (needs $GITHUB_TOKEN)
-python tools/build_catalog.py       # rebuild this catalog so the new skills are discoverable
+python3 scripts/update-stars.py     # refresh STARS.md  (needs $GITHUB_TOKEN)
+python3 tools/build_catalog.py      # rebuild this catalog so the new skills are discoverable
 ```
 
 > **Security gate.** Before running any `git submodule add`, clone the candidate

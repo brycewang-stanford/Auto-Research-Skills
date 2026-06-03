@@ -25,7 +25,7 @@ Then add a row to the **Bundled Skills** table in the README and regenerate the
 discovery catalog:
 
 ```bash
-python tools/build_catalog.py
+python3 tools/build_catalog.py
 ```
 
 For systems, benchmarks, and lists, use the matching top-level folder:
@@ -76,14 +76,22 @@ make check
 Equivalent individual commands:
 
 ```bash
-python -m py_compile scripts/check-repo.py tools/build_catalog.py scripts/scan-skill-safety.py scripts/update-stars.py
-python -m unittest discover -s tests
-python scripts/check-repo.py
-python tools/build_catalog.py --check
+python3 -m py_compile scripts/check-repo.py tools/build_catalog.py tools/build_index.py tools/build_safety_report.py tools/check_docs.py tools/check_site.py scripts/scan-skill-safety.py scripts/update-stars.py
+bash -n setup.sh
+bash -n scripts/count-skills.sh
+python3 -m unittest discover -s tests
+python3 scripts/check-repo.py
+python3 tools/check_docs.py
+python3 tools/build_catalog.py --check
+python3 tools/build_index.py --check
+python3 tools/check_site.py
+node --check site/app.js
+node --check site/collisions.js
+python3 tools/build_safety_report.py --check
 ./scripts/count-skills.sh
 ```
 
-Run `python scripts/update-stars.py` only when intentionally refreshing
+Run `python3 scripts/update-stars.py` only when intentionally refreshing
 [`STARS.md`](STARS.md); the scheduled GitHub Action also refreshes it weekly.
 
 ## Guidelines
@@ -91,6 +99,6 @@ Run `python scripts/update-stars.py` only when intentionally refreshing
 - One project per PR keeps review easy.
 - Link to the canonical repo, not a mirror.
 - Star counts are approximate — no need to keep them perfectly current.
-- Update both [`README.md`](README.md) and [`README_CN.md`](README_CN.md) when
+- Update both [`README.md`](README.md) (简体中文) and [`README_EN.md`](README_EN.md) (English) when
   changing the public index.
 - Be kind. This is a community list.

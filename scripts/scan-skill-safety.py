@@ -227,6 +227,10 @@ def resolve_root(value: str) -> Path:
     return path if path.is_absolute() else ROOT / path
 
 
+def missing_roots(roots: list[Path]) -> list[str]:
+    return [relative_path(root) for root in roots if not root.exists()]
+
+
 def is_probably_text(path: Path, max_bytes: int) -> bool:
     if path.suffix.lower() not in TEXT_SUFFIXES:
         return False
@@ -245,7 +249,11 @@ def iter_files(roots: list[Path], max_bytes: int) -> list[Path]:
         if not root.exists():
             continue
         for path in root.rglob("*"):
-            if any(part in SKIP_DIRS for part in path.parts):
+            try:
+                parts = path.relative_to(root).parts
+            except ValueError:
+                parts = path.parts
+            if any(part in SKIP_DIRS for part in parts):
                 continue
             if path.is_file() and is_probably_text(path, max_bytes):
                 files.append(path)
@@ -329,6 +337,11 @@ def print_text(findings: list[Finding], max_findings: int) -> None:
 def main() -> int:
     args = parse_args()
     roots = [resolve_root(value) for value in args.roots]
+    missing = missing_roots(roots)
+    if missing:
+        for root in missing:
+            print(f"ERROR: scan root does not exist: {root}", file=sys.stderr)
+        return 2
     files = iter_files(roots, args.max_bytes)
     findings: list[Finding] = []
     for path in files:
