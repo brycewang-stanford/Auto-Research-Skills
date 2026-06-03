@@ -1,0 +1,69 @@
+name: Deploy discovery site
+
+# Publishes the static skill-discovery browser in site/ to GitHub Pages.
+# Uses only committed assets (site/* and the generated catalog/*.json), so it
+# never needs the heavy bundled submodules checked out. Catalog freshness is
+# enforced separately by the repo-check / catalog-check workflows.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - site/**
+      - catalog/search-index.json
+      - catalog/collisions.json
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; let in-progress runs finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (no submodules needed)
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - name: Assemble site bundle
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site/site _site/catalog
+          cp site/index.html site/collisions.html site/styles.css \
+             site/app.js site/collisions.js site/favicon.svg _site/site/
+          cp catalog/search-index.json catalog/collisions.json _site/catalog/
+          # Root entry redirects to the catalog browser under /site/.
+          printf '%s\n' \
+            '<!doctype html>' \
+            '<meta charset="utf-8">' \
+            '<meta http-equiv="refresh" content="0; url=./site/">' \
+            '<link rel="canonical" href="./site/">' \
+            '<title>Auto-Research-Skills · Skill Catalog</title>' \
+            '<p>Redirecting to the <a href="./site/">Auto-Research-Skills catalog</a>.</p>' \
+            > _site/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

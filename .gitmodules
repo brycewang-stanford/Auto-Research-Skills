@@ -111,7 +111,7 @@
 	url = https://github.com/mshumer/autonomous-researcher
 [submodule "systems/auto-research"]
 	path = systems/auto-research
-	url = https://github.com/openags/auto-research
+	url = https://github.com/openags/auto-research-ui
 [submodule "lists/awesome-auto-research-tools"]
 	path = lists/awesome-auto-research-tools
 	url = https://github.com/handsome-rich/Awesome-Auto-Research-Tools

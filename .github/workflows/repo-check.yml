@@ -39,11 +39,22 @@ jobs:
   catalog:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository with top-level submodules
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: true
+          submodules: false
           fetch-depth: 1
+
+      - name: Initialize top-level submodules (non-recursive)
+        # The catalog tooling only needs the top-level vendored submodules.
+        # actions/checkout's submodule step recurses, and some vendored repos
+        # carry nested gitlinks with no upstream .gitmodules URL (e.g.
+        # skills/claude-scholar/plugins/marketplaces/*), which aborts checkout
+        # with exit 128. Initialise only the top level. Anonymous clones also
+        # follow GitHub rename redirects that token-auth submodule clones don't.
+        run: |
+          git submodule sync
+          git submodule update --init --depth 1 --jobs 4
 
       - name: Set up Python
         uses: actions/setup-python@v5
