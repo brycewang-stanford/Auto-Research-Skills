@@ -672,7 +672,7 @@ class ReadmeCountTests(unittest.TestCase):
     def test_check_readme_counts_validates_chinese_category_counts(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            (root / "README.md").write_text(
+            (root / "README_EN.md").write_text(
                 """
 **2 skills** across **4 repos**
 2 reusable skill sets
@@ -682,7 +682,7 @@ class ReadmeCountTests(unittest.TestCase):
 """,
                 encoding="utf-8",
             )
-            (root / "README_CN.md").write_text(
+            (root / "README.md").write_text(
                 """
 **2 个 skills**、分布在 **4 个仓库**
 - **`skills/`** —— 2 个可复用技能集与插件合集
@@ -713,7 +713,7 @@ class ReadmeCountTests(unittest.TestCase):
     def test_check_readme_counts_reports_chinese_category_drift(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            (root / "README.md").write_text(
+            (root / "README_EN.md").write_text(
                 """
 **2 skills** across **4 repos**
 2 reusable skill sets
@@ -723,7 +723,7 @@ class ReadmeCountTests(unittest.TestCase):
 """,
                 encoding="utf-8",
             )
-            (root / "README_CN.md").write_text(
+            (root / "README.md").write_text(
                 """
 **2 个 skills**、分布在 **4 个仓库**
 - **`skills/`** —— 99 个可复用技能集与插件合集
@@ -749,12 +749,12 @@ class ReadmeCountTests(unittest.TestCase):
             with mock.patch.object(check_repo, "ROOT", root):
                 check_repo.check_readme_counts(submodules, counts, skill_files, reporter)
 
-        self.assertIn("README_CN.md claims 99 skills", "\n".join(reporter.errors))
+        self.assertIn("README.md claims 99 skills", "\n".join(reporter.errors))
 
     def test_check_readme_counts_reports_bad_shields_skill_badge(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            (root / "README.md").write_text(
+            (root / "README_EN.md").write_text(
                 """
 **2 skills** across **4 repos**
 <img src="https://img.shields.io/badge/skills_collected-999-ff4e88" alt="2 skills">
@@ -765,7 +765,7 @@ class ReadmeCountTests(unittest.TestCase):
 """,
                 encoding="utf-8",
             )
-            (root / "README_CN.md").write_text(
+            (root / "README.md").write_text(
                 """
 **2 个 skills**、分布在 **4 个仓库**
 - **`skills/`** —— 2 个可复用技能集与插件合集
@@ -791,12 +791,12 @@ class ReadmeCountTests(unittest.TestCase):
             with mock.patch.object(check_repo, "ROOT", root):
                 check_repo.check_readme_counts(submodules, counts, skill_files, reporter)
 
-        self.assertIn("README.md claims 999 skills, but found 2", "\n".join(reporter.errors))
+        self.assertIn("README_EN.md claims 999 skills, but found 2", "\n".join(reporter.errors))
 
     def test_check_readme_counts_reports_missing_category_claim(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            (root / "README.md").write_text(
+            (root / "README_EN.md").write_text(
                 """
 **2 skills** across **4 repos**
 2 reusable skill sets
@@ -805,7 +805,7 @@ class ReadmeCountTests(unittest.TestCase):
 """,
                 encoding="utf-8",
             )
-            (root / "README_CN.md").write_text(
+            (root / "README.md").write_text(
                 """
 **2 个 skills**、分布在 **4 个仓库**
 - **`skills/`** —— 2 个可复用技能集与插件合集
@@ -832,14 +832,14 @@ class ReadmeCountTests(unittest.TestCase):
                 check_repo.check_readme_counts(submodules, counts, skill_files, reporter)
 
         self.assertIn(
-            "README.md is missing a lists category count claim",
+            "README_EN.md is missing a lists category count claim",
             "\n".join(reporter.errors),
         )
 
     def test_check_readme_counts_reports_missing_headline_claims(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            (root / "README.md").write_text(
+            (root / "README_EN.md").write_text(
                 """
 2 reusable skill sets
 1 end-to-end systems
@@ -848,7 +848,7 @@ class ReadmeCountTests(unittest.TestCase):
 """,
                 encoding="utf-8",
             )
-            (root / "README_CN.md").write_text(
+            (root / "README.md").write_text(
                 """
 **2 个 skills**、分布在 **4 个仓库**
 - **`skills/`** —— 2 个可复用技能集与插件合集
@@ -875,8 +875,8 @@ class ReadmeCountTests(unittest.TestCase):
                 check_repo.check_readme_counts(submodules, counts, skill_files, reporter)
 
         messages = "\n".join(reporter.errors)
-        self.assertIn("README.md is missing a bundled repo count claim", messages)
-        self.assertIn("README.md is missing a headline skill count claim", messages)
+        self.assertIn("README_EN.md is missing a bundled repo count claim", messages)
+        self.assertIn("README_EN.md is missing a headline skill count claim", messages)
 
 
 class StarsManifestTests(unittest.TestCase):

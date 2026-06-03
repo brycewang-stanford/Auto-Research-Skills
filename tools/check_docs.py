@@ -15,7 +15,7 @@ DEFAULT_ROOTS = (
     "CONTRIBUTING.md",
     "CURATION.md",
     "README.md",
-    "README_CN.md",
+    "README_EN.md",
     "STARS.md",
     "catalog",
     "docs",

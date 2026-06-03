@@ -99,6 +99,6 @@ Run `python3 scripts/update-stars.py` only when intentionally refreshing
 - One project per PR keeps review easy.
 - Link to the canonical repo, not a mirror.
 - Star counts are approximate — no need to keep them perfectly current.
-- Update both [`README.md`](README.md) and [`README_CN.md`](README_CN.md) when
+- Update both [`README.md`](README.md) (简体中文) and [`README_EN.md`](README_EN.md) (English) when
   changing the public index.
 - Be kind. This is a community list.

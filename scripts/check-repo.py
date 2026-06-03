@@ -211,7 +211,7 @@ def check_readme_counts(
 
     readmes = {
         "README.md": read_text(ROOT / "README.md"),
-        "README_CN.md": read_text(ROOT / "README_CN.md"),
+        "README_EN.md": read_text(ROOT / "README_EN.md"),
     }
 
     for name, text in readmes.items():
@@ -251,16 +251,16 @@ def check_readme_counts(
 
     category_expectations = {
         "README.md": {
-            "skills": (r"([0-9,]+)\s+reusable skill", counts["skills"]),
-            "systems": (r"([0-9,]+)\s+end-to-end systems", counts["systems"]),
-            "benchmarks": (r"([0-9,]+)\s+benchmarks", counts["benchmarks"]),
-            "lists": (r"([0-9,]+)\s+curated collections", counts["lists"]),
-        },
-        "README_CN.md": {
             "skills": (r"`skills/`[^\n]*?([0-9,]+)\s+个", counts["skills"]),
             "systems": (r"`systems/`[^\n]*?([0-9,]+)\s+个", counts["systems"]),
             "benchmarks": (r"`benchmarks/`[^\n]*?([0-9,]+)\s+个", counts["benchmarks"]),
             "lists": (r"`lists/`[^\n]*?([0-9,]+)\s+个", counts["lists"]),
+        },
+        "README_EN.md": {
+            "skills": (r"([0-9,]+)\s+reusable skill", counts["skills"]),
+            "systems": (r"([0-9,]+)\s+end-to-end systems", counts["systems"]),
+            "benchmarks": (r"([0-9,]+)\s+benchmarks", counts["benchmarks"]),
+            "lists": (r"([0-9,]+)\s+curated collections", counts["lists"]),
         },
     }
     for name, expectations in category_expectations.items():
