@@ -229,3 +229,6 @@
 [submodule "skills/co-researcher"]
 	path = skills/co-researcher
 	url = https://github.com/poemswe/co-researcher
+[submodule "skills/light-skills"]
+	path = skills/light-skills
+	url = https://github.com/Light0305/Light-skills
