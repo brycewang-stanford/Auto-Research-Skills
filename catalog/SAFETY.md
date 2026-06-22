@@ -5,9 +5,9 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **447**
+- Findings: **448**
 - Critical: **200**
-- High: **247**
+- High: **248**
 
 ## By Rule
 
@@ -16,7 +16,7 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 | `credential-print` | 227 |
 | `remote-shell-pipe` | 176 |
 | `powershell-iex` | 23 |
-| `concealment-instruction` | 20 |
+| `concealment-instruction` | 21 |
 | `destructive-root-delete` | 1 |
 
 ## Top Collections
@@ -43,7 +43,7 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 | `codex-academic-skills` | 1 |
 | `research-plugins` | 1 |
 | `co-researcher` | 1 |
-| _Other_ | 2 |
+| _Other_ | 3 |
 
 ## Example Findings
 
@@ -90,7 +90,7 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 | critical | `remote-shell-pipe` | `skills/empirical-research-skills/SECURITY-SCAN-REPORT.md:184` | `curl ... \| sh` |
 | critical | `remote-shell-pipe` | `skills/empirical-research-skills/SECURITY-SCAN-REPORT.md:184` | `curl ... \| bash` |
 
-_Truncated 407 additional findings._
+_Truncated 408 additional findings._
 
 ## Regenerate
 

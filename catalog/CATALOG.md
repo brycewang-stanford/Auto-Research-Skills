@@ -9,14 +9,14 @@ An index of every individual skill bundled across all collections, so you can fi
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files (README headline number) | **3,276** |
-| Unique skills (de-duplicated by name + body) | **2,548** |
+| `SKILL.md` files (README headline number) | **3,304** |
+| Unique skills (de-duplicated by name + body) | **2,576** |
 | Copies re-bundled by aggregator collections | 728 |
 | Placeholder / template skills | 1 |
 | Skills without YAML frontmatter | 11 |
-| Collections | 33 |
+| Collections | 34 |
 
-> The headline **3,276** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,548** of those skills are actually distinct — a ~22% redundancy rate worth knowing when you browse.
+> The headline **3,304** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,576** of those skills are actually distinct — a ~22% redundancy rate worth knowing when you browse.
 
 ## Collections
 
@@ -36,6 +36,7 @@ Sorted by skill count. Click a collection for its full skill list.
 | [claude-scientific-writer](collections/claude-scientific-writer.md) | 81 | 34 | 35 | 0 | [repo](https://github.com/K-Dense-AI/claude-scientific-writer) |
 | [claude-scholar](collections/claude-scholar.md) | 45 | 45 | 27 | 0 | [repo](https://github.com/Galaxy-Dawn/claude-scholar) |
 | [claude-code-my-workflow](collections/claude-code-my-workflow.md) | 36 | 36 | 11 | 0 | [repo](https://github.com/pedrohcgs/claude-code-my-workflow) |
+| [light-skills](collections/light-skills.md) | 28 | 28 | 0 | 0 | [repo](https://github.com/Light0305/Light-skills) |
 | [co-researcher](collections/co-researcher.md) | 24 | 24 | 0 | 0 | [repo](https://github.com/poemswe/co-researcher) |
 | [codex-academic-skills](collections/codex-academic-skills.md) | 24 | 24 | 15 | 0 | [repo](https://github.com/zLanqing/codex-claude-academic-skills) |
 | [deep-research-skills](collections/deep-research-skills.md) | 20 | 13 | 20 | 0 | [repo](https://github.com/Weizhena/Deep-Research-skills) |
