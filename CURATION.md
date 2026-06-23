@@ -62,6 +62,13 @@ Second-review notes should record reviewer, date, commit/tag inspected, commands
 run, and the final decision: `vendor`, `list-only`, `hold`, or `reject`. Add
 one project per PR and do not batch submodule additions.
 
+Executed reviews (refreshed metadata, focused safety scans, and per-candidate
+verdicts) are logged in
+[`docs/second-review-2026-06-23.md`](docs/second-review-2026-06-23.md):
+zotero-mcp and one bioinformatics collection (bioSkills or ClawBio) are
+vendor-ready; SciAgent-Skills, EvoSkills, and paper-craft-skills are held on
+license or secret-exposure grounds.
+
 ## Candidate Backlog
 
 Checked on 2026-05-31 with GitHub API metadata and `npx skills find` output.
