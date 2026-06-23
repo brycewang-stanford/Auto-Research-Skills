@@ -50,6 +50,8 @@ cd Auto-Research-Skills
 >
 > 🧭 候选收录与筛选标准见 [**CURATION.md**](CURATION.md)：里面记录了通过 registry/GitHub 调研发现的候选 skills、评审标准与安全检查清单。
 >
+> 🗺️ 想了解整个自动化科研生态的全景，以及本仓库四个目录的划分逻辑，见 [**docs/landscape-2026.md**](docs/landscape-2026.md)（领域地图）。
+>
 > 🛠️ 维护者提交前建议运行 `make check`（或 [`CONTRIBUTING.md`](CONTRIBUTING.md) 中列出的等价命令）。`setup.sh` 会先初始化顶层子模块，再尽力初始化上游仓库声明过的嵌套子模块，避免单个上游嵌套映射问题阻塞整个 checkout。
 >
 > ⚠️ 不建议把所有 `skills/` 子模块一次性装进同一个 agent profile：不同集合里有不少同名但内容不同的技能，按名称解析时胜出者可能不确定。组合安装前请看 [`catalog/collisions.json`](catalog/collisions.json)，或启动本地静态服务后打开 [`site/collisions.html`](site/collisions.html)。

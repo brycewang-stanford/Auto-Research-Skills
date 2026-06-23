@@ -184,6 +184,8 @@ cd Auto-Research-Skills
 >
 > Curation backlog: see [**CURATION.md**](CURATION.md) for candidate skills found via registry/GitHub research, review criteria, and the current safety checklist.
 >
+> 🗺️ For a map of the whole autonomous-research ecosystem and the logic behind the four-folder split, see [**docs/landscape-2026.md**](docs/landscape-2026.md).
+>
 > Maintainers: run `make check` before PRs (or the equivalent commands in [`CONTRIBUTING.md`](CONTRIBUTING.md)). `setup.sh` initializes top-level submodules first and then best-effort nested submodules declared by upstream repos, so one broken nested mapping does not block the whole checkout.
 >
 > Do not install every `skills/` submodule into one agent profile by default. Many upstream collections reuse the same skill names for different behavior, and name-based resolution can become undefined. Before combining collections, inspect [`catalog/collisions.json`](catalog/collisions.json) or serve the repo root and open [`site/collisions.html`](site/collisions.html).

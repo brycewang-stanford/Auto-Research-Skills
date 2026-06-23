@@ -42,6 +42,10 @@ to vendor as submodules yet.
 | Project | Promoted to | Review note |
 |---|---|---|
 | [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | `skills/co-researcher` | Added 2026-06-01 after MIT license check, README/SKILL.md review, and safety scan. The single high scanner hit is in an eval JSON example about rejecting covert scraping, not in executable skill instructions. |
+| [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) | `skills/zotero-mcp` | Added 2026-06-23 (MIT, ~4.0k★). Fills the Zotero gap; MCP-server-as-skill shape like `arxiv-mcp-server`. Sole high finding is an `_obfuscate_sensitive()` print (defensive). See [`docs/vendoring-2026-06-23.md`](docs/vendoring-2026-06-23.md). |
+| [flonat/claude-research](https://github.com/flonat/claude-research) | `skills/claude-research` | Added 2026-06-23 (MIT, ~96★ — sub-bar exception for a complete PhD research-infra collection). One critical is the official Astral `uv` installer (benign). |
+| [jamditis/claude-skills-journalism](https://github.com/jamditis/claude-skills-journalism) | `skills/claude-skills-journalism` | Added 2026-06-23 (MIT, ~295★). Journalism/media/academia skills (fact-check, FOIA, data journalism). One high is a false-positive on a non-credential `token` variable. |
+| [snap-stanford/POPPER](https://github.com/snap-stanford/POPPER) | `systems/popper` | Added 2026-06-23 (~275★). Agentic sequential-falsification hypothesis testing (Stanford SNAP). ⚠️ no upstream license — vendored as a flagged exception; treat as all-rights-reserved until clarified. Scan clean. |
 
 ## Second-Review Queue
 
@@ -51,7 +55,7 @@ counts drift; refresh them on the day of the PR.
 
 | Priority | Candidate | Current second-review question | Required evidence before vendoring |
 |---:|---|---|---|
-| 1 | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) | Does it cleanly fill the Zotero/reference-manager gap without duplicating `arxiv-mcp-server`? | Fresh license check, README/API-key review, `make safety-scan SAFETY_ROOTS=<scratch-clone> SAFETY_CONTEXT=skill,script,other`, and README/README_EN placement decision. |
+| ✅ done | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) | ~~Does it cleanly fill the Zotero/reference-manager gap without duplicating `arxiv-mcp-server`?~~ | **Vendored 2026-06-23** at `skills/zotero-mcp` (commit `c6935db`); see [`docs/vendoring-2026-06-23.md`](docs/vendoring-2026-06-23.md). |
 | 2 | [ClawBio/ClawBio](https://github.com/ClawBio/ClawBio) | If adding one bioinformatics collection, is reproducible-code-first coverage more useful than breadth? | Fresh license check, overlap note against `scientific-agent-skills` and `medical-research-skills`, focused safety scan, and catalog count impact estimate. |
 | 3 | [GPTomics/bioSkills](https://github.com/GPTomics/bioSkills) | Does the 500+ skill breadth justify the additional collision/redundancy surface? | Same evidence as ClawBio, plus a name-collision estimate before adding the submodule. |
 | 4 | [jaechang-hits/SciAgent-Skills](https://github.com/jaechang-hits/SciAgent-Skills) | Is the license/provenance story clear enough for per-skill reuse? | Confirm the repo license file, check any per-skill license metadata, run focused safety scan, then decide whether to prefer it over ClawBio/bioSkills. |
@@ -68,6 +72,11 @@ verdicts) are logged in
 zotero-mcp and one bioinformatics collection (bioSkills or ClawBio) are
 vendor-ready; SciAgent-Skills, EvoSkills, and paper-craft-skills are held on
 license or secret-exposure grounds.
+
+A follow-up discovery batch — `zotero-mcp` plus three newly surfaced projects
+(`claude-research`, `claude-skills-journalism`, `POPPER`) — was vendored on
+2026-06-23 and is logged in
+[`docs/vendoring-2026-06-23.md`](docs/vendoring-2026-06-23.md).
 
 ## Candidate Backlog
 
