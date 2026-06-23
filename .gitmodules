@@ -232,3 +232,6 @@
 [submodule "skills/light-skills"]
 	path = skills/light-skills
 	url = https://github.com/Light0305/Light-skills
+[submodule "skills/feynman"]
+	path = skills/feynman
+	url = https://github.com/companion-inc/feynman
