@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **518**
+- Findings: **519**
 - Critical: **230**
-- High: **288**
-- In `skill`/`script` files (not docs or examples): **275** (61 critical, 214 high)
+- High: **289**
+- In `skill`/`script` files (not docs or examples): **276** (61 critical, 215 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -30,7 +30,7 @@ so a downgraded critical no longer inflates the high+ report.
 | Context | Findings |
 |---|---:|
 | `docs` | 219 |
-| `script` | 199 |
+| `script` | 200 |
 | `skill` | 72 |
 | `example` | 24 |
 | `other` | 4 |
@@ -39,7 +39,7 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Rule | Findings |
 |---|---:|
-| `credential-print` | 229 |
+| `credential-print` | 230 |
 | `remote-shell-pipe` | 196 |
 | `echo-secret-value` | 34 |
 | `powershell-iex` | 32 |
@@ -71,7 +71,7 @@ so a downgraded critical no longer inflates the high+ report.
 | `light-skills` | 2 |
 | `claude-code-my-workflow` | 1 |
 | `codex-academic-skills` | 1 |
-| _Other_ | 4 |
+| _Other_ | 5 |
 
 ## Example Findings
 
@@ -120,7 +120,7 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `credential-print` | `skills/aris/skills/paper-illustration/SKILL.md:205` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
 | high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:594` | `secretly` |
 
-_Truncated 478 additional findings._
+_Truncated 479 additional findings._
 
 ## Regenerate
 

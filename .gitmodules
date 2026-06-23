@@ -235,3 +235,6 @@
 [submodule "skills/feynman"]
 	path = skills/feynman
 	url = https://github.com/companion-inc/feynman
+[submodule "skills/zotero-mcp"]
+	path = skills/zotero-mcp
+	url = https://github.com/54yyyu/zotero-mcp
