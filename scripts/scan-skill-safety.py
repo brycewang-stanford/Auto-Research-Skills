@@ -130,6 +130,32 @@ class Finding:
     match: str
     reason: str
     context: str = "other"
+    review_status: str = ""
+    review_note: str = ""
+
+
+@dataclass(frozen=True)
+class FindingAdjustment:
+    path: str
+    rule_id: str
+    severity: str
+    note: str
+
+
+# Manually reviewed path/rule exceptions. Keep this list narrow: an adjustment
+# must name the exact vendored path and exact rule so future scanners still
+# catch the same pattern everywhere else.
+REVIEW_ADJUSTMENTS = (
+    FindingAdjustment(
+        path="skills/claude-scholar/hooks/security-guard.js",
+        rule_id="destructive-root-delete",
+        severity="medium",
+        note=(
+            "Reviewed 2026-06-23: this is a block-list regex/comment inside a "
+            "security hook, not an executable root-delete path."
+        ),
+    ),
+)
 
 
 RULES = [
@@ -367,6 +393,13 @@ def relative_path(path: Path) -> str:
         return path.as_posix()
 
 
+def review_adjustment(rel_path: str, rule_id: str) -> FindingAdjustment | None:
+    for adjustment in REVIEW_ADJUSTMENTS:
+        if adjustment.path == rel_path and adjustment.rule_id == rule_id:
+            return adjustment
+    return None
+
+
 def classify_context(rel_path: str) -> str:
     """Bucket a finding's file into skill / script / docs / example / other.
 
@@ -406,15 +439,29 @@ def scan_file(path: Path, min_severity: str) -> list[Finding]:
             continue
         for match in rule.pattern.finditer(text):
             snippet = " ".join(match.group(0).split())
+            severity = rule.severity
+            reason = rule.reason
+            status = ""
+            note = ""
+            adjustment = review_adjustment(rel, rule.rule_id)
+            if adjustment is not None:
+                severity = adjustment.severity
+                status = "reviewed-downgrade"
+                note = adjustment.note
+                reason = f"{reason} Reviewed downgrade: {note}"
+            if SEVERITY[severity] < threshold:
+                continue
             findings.append(
                 Finding(
-                    severity=rule.severity,
+                    severity=severity,
                     rule_id=rule.rule_id,
                     path=rel,
                     line=line_number(text, match.start()),
                     match=snippet[:180],
-                    reason=rule.reason,
+                    reason=reason,
                     context=context,
+                    review_status=status,
+                    review_note=note,
                 )
             )
     return findings
@@ -431,8 +478,10 @@ def print_text(findings: list[Finding], max_findings: int) -> None:
 
     shown = findings if max_findings <= 0 else findings[:max_findings]
     for finding in shown:
+        review_label = f" {finding.review_status}" if finding.review_status else ""
         print(
-            f"{finding.severity.upper():8} ({finding.context}) {finding.path}:{finding.line} "
+            f"{finding.severity.upper():8} ({finding.context}{review_label}) "
+            f"{finding.path}:{finding.line} "
             f"[{finding.rule_id}] {finding.match}"
         )
         print(f"         {finding.reason}")

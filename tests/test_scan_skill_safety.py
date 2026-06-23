@@ -70,6 +70,22 @@ class ScanFileTests(unittest.TestCase):
         self.assertEqual([f.rule_id for f in findings], ["obfuscated-exec"])
         self.assertEqual(findings[0].severity, "high")
 
+    def test_scan_file_downgrades_reviewed_false_positive(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            path = root / "skills" / "claude-scholar" / "hooks" / "security-guard.js"
+            path.parent.mkdir(parents=True)
+            path.write_text("const block = [/rm\\s+-rf\\s+\\/(\\s|$)/]; // rm -rf /\n", encoding="utf-8")
+
+            with mock.patch.object(scan, "ROOT", root):
+                high_findings = scan.scan_file(path, min_severity="high")
+                medium_findings = scan.scan_file(path, min_severity="medium")
+
+        self.assertEqual(high_findings, [])
+        self.assertEqual(len(medium_findings), 1)
+        self.assertEqual(medium_findings[0].severity, "medium")
+        self.assertEqual(medium_findings[0].review_status, "reviewed-downgrade")
+
 
 class FileIterationTests(unittest.TestCase):
     def test_missing_roots_reports_absent_scan_roots(self) -> None:

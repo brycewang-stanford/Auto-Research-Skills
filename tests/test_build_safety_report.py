@@ -87,6 +87,18 @@ class SafetyReportTests(unittest.TestCase):
         docs_row = report.index("| critical | docs |")
         self.assertLess(skill_row, docs_row)
 
+    def test_render_report_documents_reviewed_downgrades(self) -> None:
+        report = build_safety_report.render_report(
+            [],
+            roots=["skills"],
+            min_severity="high",
+            max_examples=10,
+        )
+
+        self.assertIn("## Reviewed Downgrades", report)
+        self.assertIn("skills/claude-scholar/hooks/security-guard.js", report)
+        self.assertIn("destructive-root-delete", report)
+
     def test_md_escape_protects_tables(self) -> None:
         self.assertEqual(build_safety_report.md_escape("a|b\nc"), "a\\|b c")
 

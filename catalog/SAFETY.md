@@ -5,22 +5,32 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **485**
-- Critical: **231**
+- Findings: **484**
+- Critical: **230**
 - High: **254**
-- In `skill`/`script` files (not docs or examples): **263** (62 critical, 201 high)
+- In `skill`/`script` files (not docs or examples): **262** (61 critical, 201 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
 or a shipped script is something an agent might actually run. Start the
 review with the `skill`/`script` rows below.
 
+## Reviewed Downgrades
+
+The scanner keeps a tiny path/rule review list for known false
+positives. These downgrades are applied before the severity threshold,
+so a downgraded critical no longer inflates the high+ report.
+
+| Severity | Rule | Path | Note |
+|---|---|---|---|
+| medium | `destructive-root-delete` | `skills/claude-scholar/hooks/security-guard.js` | Reviewed 2026-06-23: this is a block-list regex/comment inside a security hook, not an executable root-delete path. |
+
 ## By Context
 
 | Context | Findings |
 |---|---:|
 | `docs` | 198 |
-| `script` | 193 |
+| `script` | 192 |
 | `skill` | 66 |
 | `example` | 24 |
 | `other` | 4 |
@@ -35,7 +45,6 @@ review with the `skill`/`script` rows below.
 | `concealment-instruction` | 22 |
 | `obfuscated-exec` | 3 |
 | `reverse-shell` | 2 |
-| `destructive-root-delete` | 1 |
 
 ## Top Collections
 
@@ -51,9 +60,9 @@ review with the `skill`/`script` rows below.
 | `academic-research-skills` | 9 |
 | `franklee-academic-research-skills` | 8 |
 | `academicforge` | 6 |
-| `claude-scholar` | 5 |
 | `last30days` | 5 |
 | `academic-research-skills-codex` | 4 |
+| `claude-scholar` | 4 |
 | `medical-research-skills` | 4 |
 | `nature-skills` | 4 |
 | `claudeblattman` | 3 |
@@ -110,7 +119,7 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `credential-print` | `skills/aris/skills/paper-illustration/SKILL.md:205` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
 | high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:594` | `secretly` |
 
-_Truncated 445 additional findings._
+_Truncated 444 additional findings._
 
 ## Regenerate
 

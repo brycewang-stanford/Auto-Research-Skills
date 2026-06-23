@@ -149,6 +149,24 @@ def render_report(
         "or a shipped script is something an agent might actually run. Start the",
         "review with the `skill`/`script` rows below.",
         "",
+        "## Reviewed Downgrades",
+        "",
+        "The scanner keeps a tiny path/rule review list for known false",
+        "positives. These downgrades are applied before the severity threshold,",
+        "so a downgraded critical no longer inflates the high+ report.",
+        "",
+        "| Severity | Rule | Path | Note |",
+        "|---|---|---|---|",
+        *[
+            (
+                f"| {md_escape(adjustment.severity)} | "
+                f"`{md_escape(adjustment.rule_id)}` | "
+                f"`{md_escape(adjustment.path)}` | "
+                f"{md_escape(adjustment.note)} |"
+            )
+            for adjustment in getattr(scan, "REVIEW_ADJUSTMENTS", ())
+        ],
+        "",
         "## By Context",
         "",
         *render_count_table(("Context", "Findings"), by_context, limit=10),
