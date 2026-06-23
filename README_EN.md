@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C324-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,324 skills collected"></a>
+  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C374-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,374 skills collected"></a>
 </p>
 
-<p align="center"><b>3,324 skills</b> bundled across <b>80 repos</b> — clone the whole research toolbox in one shot.</p>
+<p align="center"><b>3,374 skills</b> bundled across <b>81 repos</b> — clone the whole research toolbox in one shot.</p>
 
 <p align="center">
-  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-3%2C324-ff4e88?style=flat-square" alt="3,324 skills"></a>
+  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-3%2C374-ff4e88?style=flat-square" alt="3,374 skills"></a>
   <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Auto-Research-Skills?style=flat-square&color=ffd23f" alt="stars">
@@ -34,7 +34,7 @@
 
 ---
 
-> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,324 skills** across **80 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
+> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,374 skills** across **81 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
 # recommended: clone first, then let setup.sh handle top-level + nested submodules
@@ -178,7 +178,7 @@ cd Auto-Research-Skills
 
 ## Bundled Repos (submodules)
 
-**3,324 skills** across **80 repos** (most with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
+**3,374 skills** across **81 repos** (most with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
 
 > Live ranking: see [**STARS.md**](STARS.md) — auto-refreshed weekly by [a GitHub Action](.github/workflows/update-stars.yml).
 >
@@ -192,7 +192,7 @@ cd Auto-Research-Skills
 
 ### Skills & Plugin Collections (`skills/`)
 
-39 reusable skill sets and plugins that drop into coding agents.
+40 reusable skill sets and plugins that drop into coding agents.
 
 | Path | Source | Stars | What it gives you |
 |---|---|---|---|
@@ -235,6 +235,7 @@ cd Auto-Research-Skills
 | `skills/light-skills` | [Light0305/Light-skills](https://github.com/Light0305/Light-skills) | ~151 | 28 skills covering literature review → writing → review → submission, plus 9 verifiable knowledge bases. |
 | `skills/franklee-academic-research-skills` | [franklee16/academic-research-skills](https://github.com/franklee16/academic-research-skills) | ~149 | Claude Code skills for econ/finance academic research. |
 | `skills/co-researcher` | [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | ~101 | Multi-platform research suite: literature review, methodology, synthesis, peer review, ethics, grants. |
+| `skills/claude-research` | [flonat/claude-research](https://github.com/flonat/claude-research) | ~96 | PhD-grade Claude Code infrastructure: 50 skills + agents + hooks + rules (/bib-validate, /pre-submission-report, …). |
 
 ### Systems & Agents (`systems/`)
 

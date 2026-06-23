@@ -10,9 +10,9 @@ decisions live in [`../CURATION.md`](../CURATION.md). Regenerate with
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files on disk (README headline) | **3,324** |
-| Distinct skills (by content hash) | **2,596** |
-| Re-bundled copies | **728** (22%) |
+| `SKILL.md` files on disk (README headline) | **3,374** |
+| Distinct skills (by content hash) | **2,645** |
+| Re-bundled copies | **729** (22%) |
 
 Aggregator collections vendor other collections *inside themselves*, so
 the same skill is counted many times. The collections re-bundling the
@@ -31,12 +31,12 @@ scan order):
 | `aris` | 179 | 167 | 21 |
 
 **Suggestion:** keep the on-disk headline (it is honest about what is
-vendored) but cite the **2,596 unique** figure alongside it so
+vendored) but cite the **2,645 unique** figure alongside it so
 users are not misled about breadth. The catalog surfaces both.
 
 ## 2. Name collisions are the real usability hazard ⚠️
 
-**198 skill names** resolve to *different content* across
+**203 skill names** resolve to *different content* across
 collections — the same name means different things depending on which
 collection an agent loaded. Most colliding names:
 
@@ -54,7 +54,7 @@ collection an agent loaded. Most colliding names:
 | `research-ideation` | 7 | `claude-code-my-workflow`, `claude-scholar`, `empirical-research-skills` |
 | `peer-review` | 6 | `claude-scientific-writer`, `co-researcher`, `empirical-research-skills`, `feynman`, `franklee-academic-research-skills`, `medical-research-skills`, `scienceclaw`, `scientific-agent-skills` |
 | `citation-management` | 6 | `claude-scientific-writer`, `codex-academic-skills`, `empirical-research-skills`, `franklee-academic-research-skills`, `medical-research-skills`, `scienceclaw`, `scientific-agent-skills` |
-| _… and 186 more_ | | |
+| _… and 191 more_ | | |
 
 This matters because most agent runtimes resolve skills **by name**. If
 a user installs two collections that both ship a `paper-writing`, which
@@ -99,7 +99,7 @@ submodules are vendored read-only.
 
 ## 5. Only 28% of skills declare a license
 
-**941 / 3,324** skills carry a `license:` field in their
+**944 / 3,374** skills carry a `license:` field in their
 frontmatter. The rest inherit their repo's top-level license (if any) —
 fine, but it means a user copying a single skill out of a collection
 cannot tell its license from the `SKILL.md` alone. **Suggestion:** a

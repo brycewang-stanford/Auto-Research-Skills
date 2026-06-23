@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **519**
-- Critical: **230**
+- Findings: **524**
+- Critical: **235**
 - High: **289**
-- In `skill`/`script` files (not docs or examples): **276** (61 critical, 215 high)
+- In `skill`/`script` files (not docs or examples): **277** (62 critical, 215 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -29,8 +29,8 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Context | Findings |
 |---|---:|
-| `docs` | 219 |
-| `script` | 200 |
+| `docs` | 223 |
+| `script` | 201 |
 | `skill` | 72 |
 | `example` | 24 |
 | `other` | 4 |
@@ -40,7 +40,7 @@ so a downgraded critical no longer inflates the high+ report.
 | Rule | Findings |
 |---|---:|
 | `credential-print` | 230 |
-| `remote-shell-pipe` | 196 |
+| `remote-shell-pipe` | 201 |
 | `echo-secret-value` | 34 |
 | `powershell-iex` | 32 |
 | `concealment-instruction` | 22 |
@@ -61,6 +61,7 @@ so a downgraded critical no longer inflates the high+ report.
 | `academic-research-skills` | 9 |
 | `franklee-academic-research-skills` | 8 |
 | `academicforge` | 6 |
+| `claude-research` | 5 |
 | `claude-scholar` | 5 |
 | `last30days` | 5 |
 | `academic-research-skills-codex` | 4 |
@@ -70,8 +71,7 @@ so a downgraded critical no longer inflates the high+ report.
 | `arxiv-mcp-server` | 2 |
 | `light-skills` | 2 |
 | `claude-code-my-workflow` | 1 |
-| `codex-academic-skills` | 1 |
-| _Other_ | 5 |
+| _Other_ | 6 |
 
 ## Example Findings
 
@@ -120,7 +120,7 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `credential-print` | `skills/aris/skills/paper-illustration/SKILL.md:205` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
 | high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:594` | `secretly` |
 
-_Truncated 479 additional findings._
+_Truncated 484 additional findings._
 
 ## Regenerate
 

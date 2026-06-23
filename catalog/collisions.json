@@ -1,7 +1,7 @@
 {
   "generated_by": "tools/build_index.py",
   "note": "Skill names that mean different things across collections. Most agent runtimes resolve skills by name, so installing two of these collections at once makes the winner undefined. Pick deliberately.",
-  "count": 198,
+  "count": 203,
   "collisions": [
     {
       "name": "literature-review",
@@ -525,6 +525,49 @@
       ]
     },
     {
+      "name": "pdf",
+      "collections": 5,
+      "distinct_bodies": 4,
+      "total_copies": 8,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple…",
+          "path": "skills/claude-research/skills/pdf/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-scientific-writer",
+          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+          "trigger": "PDF manipulation toolkit. Extract text/tables, create PDFs, merge/split, fill forms, for programmatic document processing and analysis.",
+          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/pdf/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "codex-academic-skills",
+          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
+          "trigger": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple…",
+          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/pdf/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to…",
+          "path": "skills/scienceclaw/skills/pdf-anthropic/SKILL.md",
+          "bodies_in_collection": 2
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple…",
+          "path": "skills/scientific-agent-skills/skills/pdf/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "scientific-visualization",
       "collections": 5,
       "distinct_bodies": 4,
@@ -563,6 +606,49 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Meta-skill for publication-ready figures. Use when creating journal submission figures requiring multi-panel layouts, significance annotations, error bars,…",
           "path": "skills/scientific-agent-skills/skills/scientific-visualization/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "xlsx",
+      "collections": 5,
+      "distinct_bodies": 4,
+      "total_copies": 8,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing…",
+          "path": "skills/claude-research/skills/xlsx/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-scientific-writer",
+          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+          "trigger": "Spreadsheet toolkit (.xlsx/.csv). Create/edit with formulas/formatting, analyze data, visualization, recalculate formulas, for spreadsheet processing and…",
+          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/xlsx/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "codex-academic-skills",
+          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
+          "trigger": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing…",
+          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/xlsx/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When Claude needs to work…",
+          "path": "skills/scienceclaw/skills/xlsx-official/SKILL.md",
+          "bodies_in_collection": 2
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Create, edit, analyze, or convert Excel spreadsheets (.xlsx, .xlsm) where the workbook file is the primary deliverable. Use for formulas, formatting, financial…",
+          "path": "skills/scientific-agent-skills/skills/xlsx/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -690,6 +776,42 @@
       ]
     },
     {
+      "name": "interview-me",
+      "collections": 4,
+      "distinct_bodies": 5,
+      "total_copies": 7,
+      "variants": [
+        {
+          "collection": "claude-code-my-workflow",
+          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
+          "trigger": "Interactive interview that formalizes a fuzzy research idea into a structured spec (RQ, hypotheses, identification, data needs, empirical strategy). Use when…",
+          "path": "skills/claude-code-my-workflow/.claude/skills/interview-me/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to conduct a structured interview to extract knowledge or preferences.",
+          "path": "skills/claude-research/skills/interview-me/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Interactive interview to formalize a research idea into a structured specification with hypotheses and empirical strategy",
+          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/interview-me/SKILL.md",
+          "bodies_in_collection": 3
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Interactive interview to formalize a research idea into a structured specification with hypotheses and empirical strategy",
+          "path": "skills/franklee-academic-research-skills/output-tools/interview-me/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "ml-paper-writing",
       "collections": 4,
       "distinct_bodies": 5,
@@ -757,6 +879,42 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations,…",
           "path": "skills/scientific-agent-skills/skills/scientific-slides/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "docx",
+      "collections": 4,
+      "distinct_bodies": 4,
+      "total_copies": 7,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of 'Word doc', 'word…",
+          "path": "skills/claude-research/skills/docx/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-scientific-writer",
+          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+          "trigger": "Document toolkit (.docx). Create/edit documents, tracked changes, comments, formatting preservation, text extraction, for professional document processing.",
+          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/docx/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude…",
+          "path": "skills/scienceclaw/skills/docx-official/SKILL.md",
+          "bodies_in_collection": 2
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of 'Word doc', 'word…",
+          "path": "skills/scientific-agent-skills/skills/docx/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -906,42 +1064,6 @@
       ]
     },
     {
-      "name": "xlsx",
-      "collections": 4,
-      "distinct_bodies": 4,
-      "total_copies": 7,
-      "variants": [
-        {
-          "collection": "claude-scientific-writer",
-          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
-          "trigger": "Spreadsheet toolkit (.xlsx/.csv). Create/edit with formulas/formatting, analyze data, visualization, recalculate formulas, for spreadsheet processing and…",
-          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/xlsx/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "codex-academic-skills",
-          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
-          "trigger": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing…",
-          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/xlsx/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When Claude needs to work…",
-          "path": "skills/scienceclaw/skills/xlsx-official/SKILL.md",
-          "bodies_in_collection": 2
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Create, edit, analyze, or convert Excel spreadsheets (.xlsx, .xlsm) where the workbook file is the primary deliverable. Use for formulas, formatting, financial…",
-          "path": "skills/scientific-agent-skills/skills/xlsx/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
       "name": "geopandas",
       "collections": 4,
       "distinct_bodies": 3,
@@ -973,42 +1095,6 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Python library for working with geospatial vector data including shapefiles, GeoJSON, and GeoPackage files. Use when working with geographic data for spatial…",
           "path": "skills/scientific-agent-skills/skills/geopandas/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "pdf",
-      "collections": 4,
-      "distinct_bodies": 3,
-      "total_copies": 7,
-      "variants": [
-        {
-          "collection": "claude-scientific-writer",
-          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
-          "trigger": "PDF manipulation toolkit. Extract text/tables, create PDFs, merge/split, fill forms, for programmatic document processing and analysis.",
-          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/pdf/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "codex-academic-skills",
-          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
-          "trigger": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple…",
-          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/pdf/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to…",
-          "path": "skills/scienceclaw/skills/pdf-anthropic/SKILL.md",
-          "bodies_in_collection": 2
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple…",
-          "path": "skills/scientific-agent-skills/skills/pdf/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -1180,6 +1266,35 @@
       ]
     },
     {
+      "name": "proofread",
+      "collections": 3,
+      "distinct_bodies": 6,
+      "total_copies": 8,
+      "variants": [
+        {
+          "collection": "claude-code-my-workflow",
+          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
+          "trigger": "Read-only proofreading pass over lecture `.tex` or `.qmd` files. Checks grammar, typos, overflow, terminology consistency, and academic writing quality;…",
+          "path": "skills/claude-code-my-workflow/.claude/skills/proofread/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need academic proofreading of a LaTeX paper (11 check categories).",
+          "path": "skills/claude-research/skills/proofread/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Run the proofreading protocol on lecture files. Checks grammar, typos, overflow, consistency, and academic writing quality. Produces a report without editing…",
+          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/proofread/SKILL.md",
+          "bodies_in_collection": 5
+        }
+      ]
+    },
+    {
       "name": "lit-review",
       "collections": 3,
       "distinct_bodies": 5,
@@ -1263,35 +1378,6 @@
           "trigger": "You are an academic writing expert specializing in scholarly papers, literature reviews, research methodology, and thesis writing. You must adhere to strict…",
           "path": "skills/franklee-academic-research-skills/writing/academic-writing-1.0.0/SKILL.md",
           "bodies_in_collection": 2
-        }
-      ]
-    },
-    {
-      "name": "interview-me",
-      "collections": 3,
-      "distinct_bodies": 4,
-      "total_copies": 6,
-      "variants": [
-        {
-          "collection": "claude-code-my-workflow",
-          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
-          "trigger": "Interactive interview that formalizes a fuzzy research idea into a structured spec (RQ, hypotheses, identification, data needs, empirical strategy). Use when…",
-          "path": "skills/claude-code-my-workflow/.claude/skills/interview-me/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Interactive interview to formalize a research idea into a structured specification with hypotheses and empirical strategy",
-          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/interview-me/SKILL.md",
-          "bodies_in_collection": 3
-        },
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Interactive interview to formalize a research idea into a structured specification with hypotheses and empirical strategy",
-          "path": "skills/franklee-academic-research-skills/output-tools/interview-me/SKILL.md",
-          "bodies_in_collection": 1
         }
       ]
     },
@@ -1412,30 +1498,59 @@
       ]
     },
     {
-      "name": "docx",
+      "name": "devils-advocate",
       "collections": 3,
       "distinct_bodies": 3,
-      "total_copies": 6,
+      "total_copies": 5,
       "variants": [
         {
-          "collection": "claude-scientific-writer",
-          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
-          "trigger": "Document toolkit (.docx). Create/edit documents, tracked changes, comments, formatting preservation, text extraction, for professional document processing.",
-          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/docx/SKILL.md",
+          "collection": "claude-code-my-workflow",
+          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
+          "trigger": "Adversarial 5-7 question challenge to a deck's pedagogical choices — ordering, prerequisites, cognitive load, motivation. Use when user says \"devil's…",
+          "path": "skills/claude-code-my-workflow/.claude/skills/devils-advocate/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to challenge research assumptions or stress-test arguments.",
+          "path": "skills/claude-research/skills/devils-advocate/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Challenge slide design with 5-7 pedagogical questions. Checks ordering, prerequisites, and cognitive load.",
+          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/devils-advocate/SKILL.md",
+          "bodies_in_collection": 2
+        }
+      ]
+    },
+    {
+      "name": "experiment-design",
+      "collections": 3,
+      "distinct_bodies": 3,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need power analysis, pre-analysis plans, QSF parsing, or survey design.",
+          "path": "skills/claude-research/skills/experiment-design/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "phd-skills",
+          "repo_url": "https://github.com/fcakyon/phd-skills",
+          "trigger": "Use when the user wants to design experiments, plan ablation studies, structure baselines, or create incremental evaluation strategies. Triggers on phrases…",
+          "path": "skills/phd-skills/plugin/skills/experiment-design/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "scienceclaw",
           "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude…",
-          "path": "skills/scienceclaw/skills/docx-official/SKILL.md",
-          "bodies_in_collection": 2
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of 'Word doc', 'word…",
-          "path": "skills/scientific-agent-skills/skills/docx/SKILL.md",
+          "trigger": "Design scientific experiments including sample size calculation, randomization, control groups, blinding, and study protocols. Covers RCTs, quasi-experiments,…",
+          "path": "skills/scienceclaw/skills/experiment-design/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -2079,6 +2194,35 @@
       ]
     },
     {
+      "name": "split-pdf",
+      "collections": 3,
+      "distinct_bodies": 2,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to download, split, and deeply read an academic PDF that is NOT in Paperpile (for Paperpile items, prefer paperpile get-pdf-text directly).",
+          "path": "skills/claude-research/skills/split-pdf/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Download, split, and deeply read academic PDFs. Use when asked to read, review, or summarize an academic paper. Splits PDFs into 4-page chunks, reads them in…",
+          "path": "skills/empirical-research-skills/skills/13-scunning1975-MixtapeTools/skills/split-pdf/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Download, split, and deeply read academic PDFs. Use when asked to read, review, or summarize an academic paper. Splits PDFs into 4-page chunks, reads them in…",
+          "path": "skills/franklee-academic-research-skills/project-management/split-pdf/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "stata-data-cleaning",
       "collections": 3,
       "distinct_bodies": 2,
@@ -2390,28 +2534,6 @@
           "trigger": "Generate conference presentation slides (beamer LaTeX → PDF + editable PPTX) from a compiled paper, with speaker notes and full talk script. Use when user says…",
           "path": "skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/paper-slides/SKILL.md",
           "bodies_in_collection": 2
-        }
-      ]
-    },
-    {
-      "name": "proofread",
-      "collections": 2,
-      "distinct_bodies": 5,
-      "total_copies": 7,
-      "variants": [
-        {
-          "collection": "claude-code-my-workflow",
-          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
-          "trigger": "Read-only proofreading pass over lecture `.tex` or `.qmd` files. Checks grammar, typos, overflow, terminology consistency, and academic writing quality;…",
-          "path": "skills/claude-code-my-workflow/.claude/skills/proofread/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Run the proofreading protocol on lecture files. Checks grammar, typos, overflow, consistency, and academic writing quality. Produces a report without editing…",
-          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/proofread/SKILL.md",
-          "bodies_in_collection": 5
         }
       ]
     },
@@ -3736,28 +3858,6 @@
       ]
     },
     {
-      "name": "devils-advocate",
-      "collections": 2,
-      "distinct_bodies": 2,
-      "total_copies": 4,
-      "variants": [
-        {
-          "collection": "claude-code-my-workflow",
-          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
-          "trigger": "Adversarial 5-7 question challenge to a deck's pedagogical choices — ordering, prerequisites, cognitive load, motivation. Use when user says \"devil's…",
-          "path": "skills/claude-code-my-workflow/.claude/skills/devils-advocate/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Challenge slide design with 5-7 pedagogical questions. Checks ordering, prerequisites, and cognitive load.",
-          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/devils-advocate/SKILL.md",
-          "bodies_in_collection": 2
-        }
-      ]
-    },
-    {
       "name": "dnanexus-integration",
       "collections": 2,
       "distinct_bodies": 2,
@@ -3885,28 +3985,6 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Phylogenetic tree toolkit (ETE). Tree manipulation (Newick/NHX), evolutionary event detection, orthology/paralogy, NCBI taxonomy, visualization (PDF/SVG), for…",
           "path": "skills/scientific-agent-skills/skills/etetoolkit/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "experiment-design",
-      "collections": 2,
-      "distinct_bodies": 2,
-      "total_copies": 2,
-      "variants": [
-        {
-          "collection": "phd-skills",
-          "repo_url": "https://github.com/fcakyon/phd-skills",
-          "trigger": "Use when the user wants to design experiments, plan ablation studies, structure baselines, or create incremental evaluation strategies. Triggers on phrases…",
-          "path": "skills/phd-skills/plugin/skills/experiment-design/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Design scientific experiments including sample size calculation, randomization, control groups, blinding, and study protocols. Covers RCTs, quasi-experiments,…",
-          "path": "skills/scienceclaw/skills/experiment-design/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -4132,6 +4210,28 @@
       ]
     },
     {
+      "name": "handoff",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to pass state to the next session in the current working directory. Writes a handoff.md file that the next session's SessionStart hook will…",
+          "path": "skills/claude-research/skills/handoff/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Writes a session handoff report to handoffs/ with project state, work done, decisions, and next steps. Use at session end or after significant work.",
+          "path": "skills/empirical-research-skills/skills/29-quarcs-lab-project20XXy/dot-claude/skills/handoff/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "histolab",
       "collections": 2,
       "distinct_bodies": 2,
@@ -4281,6 +4381,50 @@
           "repo_url": "https://github.com/franklee16/academic-research-skills",
           "trigger": "Universal LaTeX document skill: create, compile, and convert any document to professional PDF with PNG previews. Supports resumes, reports, cover letters,…",
           "path": "skills/franklee-academic-research-skills/output-tools/latex-document-skill-main/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "latex-scaffold",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to convert a Markdown draft into a buildable LaTeX project.",
+          "path": "skills/claude-research/skills/latex-scaffold/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "research-units-pipeline",
+          "repo_url": "https://github.com/WILLOSCAR/research-units-pipeline-skills",
+          "trigger": "Scaffold a LaTeX project (`latex/main.tex`, optional bibliography wiring, structure) from an existing Markdown draft. **Trigger**: latex scaffold, md→tex,…",
+          "path": "skills/research-units-pipeline/.codex/skills/latex-scaffold/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "literature",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need academic literature discovery, synthesis, or bibliography management. Supports standalone searches and end-to-end project pipelines with…",
+          "path": "skills/claude-research/skills/literature/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "# Literature Search & Review",
+          "path": "skills/scienceclaw/skills/literature/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -5007,6 +5151,28 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Deep generative models for single-cell omics. Use when you need probabilistic batch correction (scVI), transfer learning, differential expression with…",
           "path": "skills/scientific-agent-skills/skills/scvi-tools/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "session-log",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to create a timestamped progress log for a research session.",
+          "path": "skills/claude-research/skills/session-log/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Write a durable session log capturing completed work, findings, open questions, and next steps. Use when the user asks to log progress, save session notes,…",
+          "path": "skills/feynman/skills/session-log/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
