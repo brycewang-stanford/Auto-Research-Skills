@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **480**
-- Critical: **229**
-- High: **251**
-- In `skill`/`script` files (not docs or examples): **277** (72 critical, 205 high)
+- Findings: **485**
+- Critical: **231**
+- High: **254**
+- In `skill`/`script` files (not docs or examples): **263** (62 critical, 201 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -19,10 +19,10 @@ review with the `skill`/`script` rows below.
 
 | Context | Findings |
 |---|---:|
-| `script` | 207 |
-| `docs` | 196 |
+| `docs` | 198 |
+| `script` | 193 |
 | `skill` | 66 |
-| `example` | 7 |
+| `example` | 24 |
 | `other` | 4 |
 
 ## By Rule
@@ -33,19 +33,21 @@ review with the `skill`/`script` rows below.
 | `remote-shell-pipe` | 196 |
 | `powershell-iex` | 32 |
 | `concealment-instruction` | 22 |
+| `obfuscated-exec` | 3 |
+| `reverse-shell` | 2 |
 | `destructive-root-delete` | 1 |
 
 ## Top Collections
 
 | Collection | Findings |
 |---|---:|
-| `scienceclaw` | 211 |
+| `scienceclaw` | 214 |
 | `scientific-agent-skills` | 60 |
 | `claude-scientific-writer` | 41 |
 | `feynman` | 32 |
 | `aris` | 32 |
 | `ai-research-skills` | 27 |
-| `empirical-research-skills` | 20 |
+| `empirical-research-skills` | 22 |
 | `academic-research-skills` | 9 |
 | `franklee-academic-research-skills` | 8 |
 | `academicforge` | 6 |
@@ -108,7 +110,7 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `credential-print` | `skills/aris/skills/paper-illustration/SKILL.md:205` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
 | high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:594` | `secretly` |
 
-_Truncated 440 additional findings._
+_Truncated 445 additional findings._
 
 ## Regenerate
 

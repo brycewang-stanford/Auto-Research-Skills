@@ -169,6 +169,25 @@ RULES = [
         "Disk formatting or raw device writes are destructive system operations.",
     ),
     Rule(
+        "reverse-shell",
+        "critical",
+        re.compile(
+            r"/dev/(?:tcp|udp)/[\w.\-]+/\d+"
+            r"|\b(?:nc|ncat)\b[^\n]{0,40}\s-e\b",
+            re.IGNORECASE,
+        ),
+        "Reverse-shell socket redirection or netcat exec is almost never legitimate in a skill.",
+    ),
+    Rule(
+        "obfuscated-exec",
+        "high",
+        re.compile(
+            r"\bbase64\s+(?:-d|-D|--decode)\b[^\n|]{0,60}\|\s*(?:sudo\s+)?(?:sh|bash|zsh)\b",
+            re.IGNORECASE,
+        ),
+        "Decoding base64 straight into a shell hides what is actually executed.",
+    ),
+    Rule(
         "credential-print",
         "high",
         re.compile(
@@ -359,7 +378,8 @@ def classify_context(rel_path: str) -> str:
     name = parts[-1] if parts else ""
     if name == "skill.md":
         return "skill"
-    if any(part in EXAMPLE_PATH_PARTS for part in parts):
+    is_test_file = ".test." in name or ".spec." in name or name.endswith((".test", ".spec"))
+    if is_test_file or any(part in EXAMPLE_PATH_PARTS for part in parts):
         return "example"
     suffix = PurePosixPath(name).suffix
     if suffix in DOC_SUFFIXES:
