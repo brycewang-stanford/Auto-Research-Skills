@@ -105,10 +105,12 @@ curated set is preferred. One project per PR; do not batch.
   `print()`s, not leaks.
 - **Verdict: hold.** Do not vendor until the `echo $GOOGLE_API_KEY` guidance is
   removed or moved to non-executable docs.
-- **Scanner gap uncovered:** our `credential-print` rule does **not** flag
-  `echo $GOOGLE_API_KEY` — the `\bAPI[_-]?KEY\b` word boundary misses prefixed
-  env vars like `GOOGLE_API_KEY`. Worth tightening so the scanner catches the
-  very pattern that justifies this hold.
+- **Scanner gap uncovered (now closed):** `credential-print` did **not** flag
+  `echo $GOOGLE_API_KEY` — its `\bAPI[_-]?KEY\b` word boundary never matches a
+  prefixed env var like `GOOGLE_API_KEY`. A new narrow `echo-secret-value` rule
+  now catches `echo`/`printf` of a `$`-dereferenced secret env var (34 real hits
+  tree-wide, including this one), so the scanner now flags the very pattern that
+  justifies this hold.
 
 ## 6. paper-craft-skills — hold (no license)
 
