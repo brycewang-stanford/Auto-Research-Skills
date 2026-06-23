@@ -1,12 +1,13 @@
 # 📚 catalog/ — skill discovery layer
 
 This hub bundles dozens of upstream collections as git submodules. Together
-they ship **3,275 `SKILL.md` files (≈2,547 unique)** — but until now there was
+they ship **3,324 `SKILL.md` files (≈2,596 unique)** — but until now there was
 no way to browse or search an *individual* skill without grepping every
 submodule. This directory fixes that.
 
-Everything except the two hand-written dossiers is generated from `.gitmodules`
-and the working tree (fully offline). [`../tools/build_catalog.py`](../tools/build_catalog.py)
+Everything except the hand-written [`DISCOVERY.md`](DISCOVERY.md) candidate
+dossier is generated from `.gitmodules` and the working tree (fully offline).
+[`../tools/build_catalog.py`](../tools/build_catalog.py)
 builds the canonical manifest and collection pages; [`../tools/build_index.py`](../tools/build_index.py)
 builds the compact discovery index and collision data.
 
@@ -22,7 +23,7 @@ builds the compact discovery index and collision data.
 | [`collisions.json`](collisions.json) | ✅ | Same-name/different-content skill collisions for resolver tooling and curation review. |
 | [`SAFETY.md`](SAFETY.md) | ✅ | Heuristic high-severity safety scan summary for vendored skill collections. |
 | [`../site/`](../site/) | ✍️ | Static browser for the compact discovery index; serve the repo root and open `/site/`. |
-| [`QUALITY.md`](QUALITY.md) | ✍️ | Redundancy, name-collision, and frontmatter findings + suggestions for maintainers. |
+| [`QUALITY.md`](QUALITY.md) | ✅ | Redundancy, name-collision, watermark, frontmatter, and license findings + suggestions for maintainers. |
 | [`DISCOVERY.md`](DISCOVERY.md) | ✍️ | Vetted candidate skills **not yet bundled**, with live signals and ready-to-run vendoring commands. |
 
 ## Regenerate
@@ -31,7 +32,8 @@ Run after submodules are added, removed, or updated:
 
 ```bash
 make catalog  # writes generated catalog manifests, indexes, and pages
-make safety-report  # refreshes the heuristic safety summary
+make safety-report   # refreshes the heuristic safety summary
+make quality-report  # refreshes the redundancy/collision/license findings
 make check    # verifies generated files are current, writes nothing
 ```
 
