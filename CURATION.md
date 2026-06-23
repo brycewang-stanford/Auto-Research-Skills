@@ -43,6 +43,25 @@ to vendor as submodules yet.
 |---|---|---|
 | [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | `skills/co-researcher` | Added 2026-06-01 after MIT license check, README/SKILL.md review, and safety scan. The single high scanner hit is in an eval JSON example about rejecting covert scraping, not in executable skill instructions. |
 
+## Second-Review Queue
+
+Use this queue for candidates that already passed a first read but should not
+be vendored until a second reviewer records fresh evidence. Stars and install
+counts drift; refresh them on the day of the PR.
+
+| Priority | Candidate | Current second-review question | Required evidence before vendoring |
+|---:|---|---|---|
+| 1 | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) | Does it cleanly fill the Zotero/reference-manager gap without duplicating `arxiv-mcp-server`? | Fresh license check, README/API-key review, `make safety-scan SAFETY_ROOTS=<scratch-clone> SAFETY_CONTEXT=skill,script,other`, and README/README_EN placement decision. |
+| 2 | [ClawBio/ClawBio](https://github.com/ClawBio/ClawBio) | If adding one bioinformatics collection, is reproducible-code-first coverage more useful than breadth? | Fresh license check, overlap note against `scientific-agent-skills` and `medical-research-skills`, focused safety scan, and catalog count impact estimate. |
+| 3 | [GPTomics/bioSkills](https://github.com/GPTomics/bioSkills) | Does the 500+ skill breadth justify the additional collision/redundancy surface? | Same evidence as ClawBio, plus a name-collision estimate before adding the submodule. |
+| 4 | [jaechang-hits/SciAgent-Skills](https://github.com/jaechang-hits/SciAgent-Skills) | Is the license/provenance story clear enough for per-skill reuse? | Confirm the repo license file, check any per-skill license metadata, run focused safety scan, then decide whether to prefer it over ClawBio/bioSkills. |
+| hold | [EvoScientist/EvoSkills](https://github.com/EvoScientist/EvoSkills) | Has the `nano-banana` credential-print issue been fixed upstream? | Do not vendor until the second reviewer confirms the unsafe `echo $GOOGLE_API_KEY` guidance is gone or isolated to non-executable docs. |
+| hold | [zsyggg/paper-craft-skills](https://github.com/zsyggg/paper-craft-skills) | Is license/provenance explicit enough for a copied-skill workflow? | License/provenance confirmation plus focused safety scan. |
+
+Second-review notes should record reviewer, date, commit/tag inspected, commands
+run, and the final decision: `vendor`, `list-only`, `hold`, or `reject`. Add
+one project per PR and do not batch submodule additions.
+
 ## Candidate Backlog
 
 Checked on 2026-05-31 with GitHub API metadata and `npx skills find` output.
@@ -78,6 +97,7 @@ Stars and install counts are approximate and should be refreshed before a PR.
 5. Add one project per PR, update both README files, and run:
 
 ```bash
+make safety-scan SAFETY_ROOTS=/path/to/scratch-clone SAFETY_CONTEXT=skill,script,other
 python3 scripts/check-repo.py
 ./scripts/count-skills.sh
 ```

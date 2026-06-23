@@ -47,6 +47,13 @@ git submodule add --depth 1 https://github.com/owner/repo lists/<short-name>
   first instead of vendoring it immediately.
 - Avoid adding broad skill dumps unless they have a clear reason to live in this
   research-focused hub.
+- Prefer collections whose individual `SKILL.md` files declare a `license:`
+  frontmatter field. A top-level repo license is still required, but per-skill
+  license metadata helps users who copy one skill out of a larger collection.
+- Do not install every bundled collection into one agent profile by default.
+  Many upstream collections reuse the same skill names for different behavior;
+  inspect [`catalog/collisions.json`](catalog/collisions.json) or
+  [`site/collisions.html`](site/collisions.html) before combining collections.
 
 ## Safety review
 
@@ -63,6 +70,7 @@ Use the local scanner as a review aid, not as an automatic verdict:
 
 ```bash
 make safety-scan SAFETY_ROOTS=skills/<short-name>
+make safety-scan SAFETY_ROOTS=skills/<short-name> SAFETY_CONTEXT=skill,script,other
 ```
 
 ## Local checks

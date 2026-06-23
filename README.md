@@ -51,6 +51,8 @@ cd Auto-Research-Skills
 > 🧭 候选收录与筛选标准见 [**CURATION.md**](CURATION.md)：里面记录了通过 registry/GitHub 调研发现的候选 skills、评审标准与安全检查清单。
 >
 > 🛠️ 维护者提交前建议运行 `make check`（或 [`CONTRIBUTING.md`](CONTRIBUTING.md) 中列出的等价命令）。`setup.sh` 会先初始化顶层子模块，再尽力初始化上游仓库声明过的嵌套子模块，避免单个上游嵌套映射问题阻塞整个 checkout。
+>
+> ⚠️ 不建议把所有 `skills/` 子模块一次性装进同一个 agent profile：不同集合里有不少同名但内容不同的技能，按名称解析时胜出者可能不确定。组合安装前请看 [`catalog/collisions.json`](catalog/collisions.json)，或启动本地静态服务后打开 [`site/collisions.html`](site/collisions.html)。
 
 ## 目录
 
@@ -187,6 +189,8 @@ cd Auto-Research-Skills
 - **`lists/`** —— 7 个精选清单与综述
 
 > 选学术研究类技能时，多个包功能有重叠：默认从 [`skills/academic-research-skills`](skills/academic-research-skills)（重点推荐、star 最高）开始；用 **Codex** 而非 Claude Code 选 [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) 或 [`skills/codex-academic-skills`](skills/codex-academic-skills)；做**经济/金融**选 [`skills/franklee-academic-research-skills`](skills/franklee-academic-research-skills)；想要 **LaTeX/Beamer + R 的可 fork 学术工作流**选 [`skills/claude-code-my-workflow`](skills/claude-code-my-workflow)；做**实证社科**选 [`skills/empirical-research-skills`](skills/empirical-research-skills)。
+>
+> 多个子模块含有同名技能。把集合安装到 Claude Code、Codex 或其他 agent 前，优先按项目选择一两个集合，而不是全量导入；同名冲突清单见 [`catalog/collisions.json`](catalog/collisions.json) 和 [`site/collisions.html`](site/collisions.html)。
 >
 > 想收录你的仓库？见 [CONTRIBUTING](CONTRIBUTING.md) —— 提一个 PR，在 `skills/`、`systems/`、`benchmarks/` 或 `lists/` 下添加子模块即可。
 

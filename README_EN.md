@@ -185,6 +185,8 @@ cd Auto-Research-Skills
 >
 > Maintainers: run `make check` before PRs (or the equivalent commands in [`CONTRIBUTING.md`](CONTRIBUTING.md)). `setup.sh` initializes top-level submodules first and then best-effort nested submodules declared by upstream repos, so one broken nested mapping does not block the whole checkout.
 >
+> Do not install every `skills/` submodule into one agent profile by default. Many upstream collections reuse the same skill names for different behavior, and name-based resolution can become undefined. Before combining collections, inspect [`catalog/collisions.json`](catalog/collisions.json) or serve the repo root and open [`site/collisions.html`](site/collisions.html).
+>
 > **Picking an academic-research skill?** Several bundled packages overlap. Start with [`skills/academic-research-skills`](skills/academic-research-skills) (the featured, most-starred pipeline). Pick [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) or [`skills/codex-academic-skills`](skills/codex-academic-skills) if you're on **Codex** rather than Claude Code; [`skills/franklee-academic-research-skills`](skills/franklee-academic-research-skills) if you work in **econ/finance**; [`skills/claude-code-my-workflow`](skills/claude-code-my-workflow) for a **LaTeX/Beamer + R, fork-ready** academic setup; [`skills/empirical-research-skills`](skills/empirical-research-skills) for **empirical social-science** workflows.
 
 ### Skills & Plugin Collections (`skills/`)
