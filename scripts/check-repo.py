@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 GITMODULES = ROOT / ".gitmodules"
 CATEGORIES = ("skills", "systems", "benchmarks", "lists")
 CONTENT_HASH_RE = re.compile(r"[0-9a-f]{16}")
+GITHUB_SLUG_PART_RE = re.compile(r"^[A-Za-z0-9_.-]+$")
 STARS_ROW_RE = re.compile(
     r"^\|\s*\d+\s*\|\s*[^|]+\|\s*\[[^\]]+\]\(https://github\.com/([^)]+)\)\s*\|\s*`([^`]+)`\s*\|$",
     re.MULTILINE,
@@ -55,24 +56,38 @@ class Reporter:
 def github_repo_slug(url: str) -> str | None:
     """Return owner/repo for supported GitHub repository remote URLs."""
     value = url.strip().rstrip("/")
-    if value.endswith(".git"):
-        value = value[:-4]
     if value.startswith("git@github.com:"):
-        parts = value.split(":", 1)[1].split("/")
+        remote_path = value.split(":", 1)[1]
+        if any(char in remote_path for char in "?#"):
+            return None
+        if remote_path.endswith(".git"):
+            remote_path = remote_path[:-4]
+        parts = remote_path.split("/")
     else:
         parsed = urlsplit(value)
         host = parsed.hostname or ""
         if host.lower() not in {"github.com", "www.github.com"}:
             return None
+        if parsed.query or parsed.fragment:
+            return None
         parts = [part for part in parsed.path.split("/") if part]
+        if len(parts) == 2 and parts[1].endswith(".git"):
+            parts[1] = parts[1][:-4]
     if len(parts) != 2 or not all(parts):
+        return None
+    if not all(GITHUB_SLUG_PART_RE.fullmatch(part) for part in parts):
         return None
     return f"{parts[0]}/{parts[1]}"
 
 
 def safe_submodule_path(value: str) -> bool:
     path = PurePosixPath(value)
-    return not value.startswith(("/", "\\")) and ".." not in path.parts
+    return (
+        not value.startswith(("/", "\\"))
+        and "\\" not in value
+        and ":" not in value
+        and ".." not in path.parts
+    )
 
 
 def run_git(args: list[str], cwd: Path = ROOT) -> subprocess.CompletedProcess[str]:

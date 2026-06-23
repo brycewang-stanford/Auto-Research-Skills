@@ -40,6 +40,14 @@ class SubmoduleIndexTests(unittest.TestCase):
         self.assertIsNone(check_repo.github_repo_slug("https://example.com/owner/repo.git"))
         self.assertIsNone(check_repo.github_repo_slug("https://github.com/owner"))
         self.assertIsNone(check_repo.github_repo_slug("https://github.com/owner/repo/tree/main"))
+        self.assertIsNone(check_repo.github_repo_slug("https://github.com/owner/repo?tab=readme"))
+        self.assertIsNone(check_repo.github_repo_slug("https://github.com/owner/repo#readme"))
+        self.assertIsNone(check_repo.github_repo_slug("git@github.com:owner/repo#readme"))
+
+    def test_safe_submodule_path_rejects_platform_specific_paths(self) -> None:
+        self.assertFalse(check_repo.safe_submodule_path("skills\\demo"))
+        self.assertFalse(check_repo.safe_submodule_path("C:/skills/demo"))
+        self.assertTrue(check_repo.safe_submodule_path("skills/demo"))
 
     def test_parse_gitmodules_reports_section_path_mismatch(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

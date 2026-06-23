@@ -77,6 +77,11 @@ def strip_code_fences(text: str) -> str:
     return "".join(out)
 
 
+def strip_inline_code_spans(text: str) -> str:
+    """Blank single-line Markdown code spans while preserving offsets."""
+    return re.sub(r"`[^`\n]*`", lambda match: " " * len(match.group(0)), text)
+
+
 def resolve_root(value: str) -> Path:
     root = Path(value)
     return root if root.is_absolute() else ROOT / root
@@ -109,7 +114,7 @@ def line_number(text: str, offset: int) -> int:
 
 
 def links_in_text(source: Path, text: str) -> list[DocLink]:
-    cleaned = strip_code_fences(text)
+    cleaned = strip_inline_code_spans(strip_code_fences(text))
     links: list[DocLink] = []
     for pattern in (MARKDOWN_LINK_RE, MARKDOWN_IMAGE_RE, MARKDOWN_REFERENCE_RE, HTML_ATTR_RE):
         for match in pattern.finditer(cleaned):
