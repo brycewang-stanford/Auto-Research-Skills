@@ -9,14 +9,14 @@ An index of every individual skill bundled across all collections, so you can fi
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files (README headline number) | **3,304** |
-| Unique skills (de-duplicated by name + body) | **2,576** |
+| `SKILL.md` files (README headline number) | **3,324** |
+| Unique skills (de-duplicated by name + body) | **2,596** |
 | Copies re-bundled by aggregator collections | 728 |
 | Placeholder / template skills | 1 |
 | Skills without YAML frontmatter | 11 |
-| Collections | 34 |
+| Collections | 35 |
 
-> The headline **3,304** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,576** of those skills are actually distinct — a ~22% redundancy rate worth knowing when you browse.
+> The headline **3,324** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,596** of those skills are actually distinct — a ~22% redundancy rate worth knowing when you browse.
 
 ## Collections
 
@@ -40,6 +40,7 @@ Sorted by skill count. Click a collection for its full skill list.
 | [co-researcher](collections/co-researcher.md) | 24 | 24 | 0 | 0 | [repo](https://github.com/poemswe/co-researcher) |
 | [codex-academic-skills](collections/codex-academic-skills.md) | 24 | 24 | 15 | 0 | [repo](https://github.com/zLanqing/codex-claude-academic-skills) |
 | [deep-research-skills](collections/deep-research-skills.md) | 20 | 13 | 20 | 0 | [repo](https://github.com/Weizhena/Deep-Research-skills) |
+| [feynman](collections/feynman.md) | 20 | 20 | 0 | 0 | [repo](https://github.com/companion-inc/feynman) |
 | [nature-paper-skills](collections/nature-paper-skills.md) | 18 | 18 | 1 | 0 | [repo](https://github.com/Boom5426/Nature-Paper-Skills) |
 | [nature-skills](collections/nature-skills.md) | 18 | 11 | 6 | 0 | [repo](https://github.com/Yuan1z0825/nature-skills) |
 | [oneresearchclaw](collections/oneresearchclaw.md) | 16 | 16 | 0 | 0 | [repo](https://github.com/gaotiexinqu/OneResearchClaw) |

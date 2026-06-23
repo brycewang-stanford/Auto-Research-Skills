@@ -5,18 +5,18 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **448**
-- Critical: **200**
-- High: **248**
+- Findings: **480**
+- Critical: **229**
+- High: **251**
 
 ## By Rule
 
 | Rule | Findings |
 |---|---:|
-| `credential-print` | 227 |
-| `remote-shell-pipe` | 176 |
-| `powershell-iex` | 23 |
-| `concealment-instruction` | 21 |
+| `credential-print` | 229 |
+| `remote-shell-pipe` | 196 |
+| `powershell-iex` | 32 |
+| `concealment-instruction` | 22 |
 | `destructive-root-delete` | 1 |
 
 ## Top Collections
@@ -26,6 +26,7 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 | `scienceclaw` | 211 |
 | `scientific-agent-skills` | 60 |
 | `claude-scientific-writer` | 41 |
+| `feynman` | 32 |
 | `aris` | 32 |
 | `ai-research-skills` | 27 |
 | `empirical-research-skills` | 20 |
@@ -42,8 +43,7 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 | `claude-code-my-workflow` | 1 |
 | `codex-academic-skills` | 1 |
 | `research-plugins` | 1 |
-| `co-researcher` | 1 |
-| _Other_ | 3 |
+| _Other_ | 4 |
 
 ## Example Findings
 
@@ -90,7 +90,7 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 | critical | `remote-shell-pipe` | `skills/empirical-research-skills/SECURITY-SCAN-REPORT.md:184` | `curl ... \| sh` |
 | critical | `remote-shell-pipe` | `skills/empirical-research-skills/SECURITY-SCAN-REPORT.md:184` | `curl ... \| bash` |
 
-_Truncated 408 additional findings._
+_Truncated 440 additional findings._
 
 ## Regenerate
 

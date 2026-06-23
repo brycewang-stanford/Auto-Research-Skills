@@ -1,8 +1,136 @@
 {
   "generated_by": "tools/build_index.py",
   "note": "Skill names that mean different things across collections. Most agent runtimes resolve skills by name, so installing two of these collections at once makes the winner undefined. Pick deliberately.",
-  "count": 197,
+  "count": 198,
   "collisions": [
+    {
+      "name": "literature-review",
+      "collections": 8,
+      "distinct_bodies": 7,
+      "total_copies": 12,
+      "variants": [
+        {
+          "collection": "claude-scientific-writer",
+          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/claude-scientific-writer/.claude/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "co-researcher",
+          "repo_url": "https://github.com/poemswe/co-researcher",
+          "trigger": "You must use this when synthesizing existing knowledge, identifying research gaps, or tracing the evolution of scientific ideas.",
+          "path": "skills/co-researcher/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "codex-academic-skills",
+          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/empirical-research-skills/skills/03-K-Dense-AI-claude-scientific-skills/literature-review/SKILL.md",
+          "bodies_in_collection": 3
+        },
+        {
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Run a literature review using paper search and primary-source synthesis. Use when the user asks for a lit review, paper survey, state of the art, or academic…",
+          "path": "skills/feynman/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/franklee-academic-research-skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/scienceclaw/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/scientific-agent-skills/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "peer-review",
+      "collections": 8,
+      "distinct_bodies": 6,
+      "total_copies": 10,
+      "variants": [
+        {
+          "collection": "claude-scientific-writer",
+          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
+          "path": "skills/claude-scientific-writer/.claude/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "co-researcher",
+          "repo_url": "https://github.com/poemswe/co-researcher",
+          "trigger": "You must use this when critiquing academic manuscripts, evaluating methodological rigor, or providing structured reviewer feedback.",
+          "path": "skills/co-researcher/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
+          "path": "skills/empirical-research-skills/skills/04-K-Dense-AI-claude-scientific-writer/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Simulate a tough but constructive peer review of an AI research artifact. Use when the user asks for a review, critique, feedback on a paper or draft, or wants…",
+          "path": "skills/feynman/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
+          "path": "skills/franklee-academic-research-skills/peer-review/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Conduct professional peer reviews for papers or theses, providing structured evaluations and improvement suggestions; use when you need a pre-submission…",
+          "path": "skills/medical-research-skills/scientific-skills/Academic Writing/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Conducts structured peer review of scientific manuscripts including methodological evaluation, statistical assessment, clarity analysis, and constructive…",
+          "path": "skills/scienceclaw/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Structured manuscript/grant review with checklist-based evaluation. Use when writing formal peer reviews with specific criteria methodology assessment,…",
+          "path": "skills/scientific-agent-skills/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
     {
       "name": "citation-management",
       "collections": 7,
@@ -61,115 +189,51 @@
       ]
     },
     {
-      "name": "literature-review",
-      "collections": 7,
+      "name": "deep-research",
+      "collections": 6,
       "distinct_bodies": 6,
-      "total_copies": 11,
+      "total_copies": 6,
       "variants": [
         {
-          "collection": "claude-scientific-writer",
-          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/claude-scientific-writer/.claude/skills/literature-review/SKILL.md",
+          "collection": "academic-research-skills",
+          "repo_url": "https://github.com/Imbad0202/academic-research-skills",
+          "trigger": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 7 modes: full research, quick brief, paper review,…",
+          "path": "skills/academic-research-skills/deep-research/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "co-researcher",
-          "repo_url": "https://github.com/poemswe/co-researcher",
-          "trigger": "You must use this when synthesizing existing knowledge, identifying research gaps, or tracing the evolution of scientific ideas.",
-          "path": "skills/co-researcher/skills/literature-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "codex-academic-skills",
-          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/literature-review/SKILL.md",
+          "collection": "claude-deep-research-skill",
+          "repo_url": "https://github.com/199-biotechnologies/claude-deep-research-skill",
+          "trigger": "Use when the user needs multi-source research with citation tracking, evidence persistence, and structured report generation. Triggers on \"deep research\",…",
+          "path": "skills/claude-deep-research-skill/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "empirical-research-skills",
           "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/empirical-research-skills/skills/03-K-Dense-AI-claude-scientific-skills/literature-review/SKILL.md",
-          "bodies_in_collection": 3
-        },
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/franklee-academic-research-skills/literature-review/SKILL.md",
+          "trigger": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 7 modes: full research, quick brief, paper review,…",
+          "path": "skills/empirical-research-skills/skills/24-Imbad0202-academic-research-skills/deep-research/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/scienceclaw/skills/literature-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/scientific-agent-skills/skills/literature-review/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "peer-review",
-      "collections": 7,
-      "distinct_bodies": 5,
-      "total_copies": 9,
-      "variants": [
-        {
-          "collection": "claude-scientific-writer",
-          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
-          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
-          "path": "skills/claude-scientific-writer/.claude/skills/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "co-researcher",
-          "repo_url": "https://github.com/poemswe/co-researcher",
-          "trigger": "You must use this when critiquing academic manuscripts, evaluating methodological rigor, or providing structured reviewer feedback.",
-          "path": "skills/co-researcher/skills/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
-          "path": "skills/empirical-research-skills/skills/04-K-Dense-AI-claude-scientific-writer/peer-review/SKILL.md",
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Run a thorough, source-heavy investigation on any topic. Use when the user asks for deep research, a comprehensive analysis, an in-depth report, or a…",
+          "path": "skills/feynman/skills/deep-research/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "franklee-academic-research-skills",
           "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
-          "path": "skills/franklee-academic-research-skills/peer-review/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Conduct professional peer reviews for papers or theses, providing structured evaluations and improvement suggestions; use when you need a pre-submission…",
-          "path": "skills/medical-research-skills/scientific-skills/Academic Writing/peer-review/SKILL.md",
+          "trigger": "Comprehensive research assistant that synthesizes information from multiple sources with citations. Use when: conducting in-depth research, gathering sources,…",
+          "path": "skills/franklee-academic-research-skills/literature-review/deep-research/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "scienceclaw",
           "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Conducts structured peer review of scientific manuscripts including methodological evaluation, statistical assessment, clarity analysis, and constructive…",
-          "path": "skills/scienceclaw/skills/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Structured manuscript/grant review with checklist-based evaluation. Use when writing formal peer reviews with specific criteria methodology assessment,…",
-          "path": "skills/scientific-agent-skills/skills/peer-review/SKILL.md",
+          "trigger": "Execute autonomous multi-step deep research on any topic. Use when the user asks for comprehensive research, literature reviews, competitive analysis, topic…",
+          "path": "skills/scienceclaw/skills/deep-research/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -375,44 +439,44 @@
       ]
     },
     {
-      "name": "deep-research",
+      "name": "paper-writing",
       "collections": 5,
-      "distinct_bodies": 5,
-      "total_copies": 5,
+      "distinct_bodies": 9,
+      "total_copies": 9,
       "variants": [
         {
-          "collection": "academic-research-skills",
-          "repo_url": "https://github.com/Imbad0202/academic-research-skills",
-          "trigger": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 7 modes: full research, quick brief, paper review,…",
-          "path": "skills/academic-research-skills/deep-research/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "claude-deep-research-skill",
-          "repo_url": "https://github.com/199-biotechnologies/claude-deep-research-skill",
-          "trigger": "Use when the user needs multi-source research with citation tracking, evidence persistence, and structured report generation. Triggers on \"deep research\",…",
-          "path": "skills/claude-deep-research-skill/SKILL.md",
-          "bodies_in_collection": 1
+          "collection": "aris",
+          "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
+          "trigger": "Workflow 3: Full paper writing pipeline that goes from a narrative report to a polished, submission-ready PDF. Use when user says \\\"写论文全流程\\\", \\\"write paper…",
+          "path": "skills/aris/skills/paper-writing/SKILL.md",
+          "bodies_in_collection": 3
         },
         {
           "collection": "empirical-research-skills",
           "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 7 modes: full research, quick brief, paper review,…",
-          "path": "skills/empirical-research-skills/skills/24-Imbad0202-academic-research-skills/deep-research/SKILL.md",
+          "trigger": "Workflow 3: Full paper writing pipeline. Orchestrates paper-plan → paper-figure → paper-write → paper-compile → auto-paper-improvement-loop to go from a…",
+          "path": "skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/paper-writing/SKILL.md",
+          "bodies_in_collection": 3
+        },
+        {
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Turn research findings into a polished paper-style draft with sections, equations, and citations. Use when the user asks to write a paper, draft a report,…",
+          "path": "skills/feynman/skills/paper-writing/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Comprehensive research assistant that synthesizes information from multiple sources with citations. Use when: conducting in-depth research, gathering sources,…",
-          "path": "skills/franklee-academic-research-skills/literature-review/deep-research/SKILL.md",
+          "collection": "phd-skills",
+          "repo_url": "https://github.com/fcakyon/phd-skills",
+          "trigger": "Use when the user wants to write, structure, or revise academic paper sections, improve notation consistency, or refine figures and tables. Triggers on phrases…",
+          "path": "skills/phd-skills/plugin/skills/paper-writing/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "scienceclaw",
           "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Execute autonomous multi-step deep research on any topic. Use when the user asks for comprehensive research, literature reviews, competitive analysis, topic…",
-          "path": "skills/scienceclaw/skills/deep-research/SKILL.md",
+          "trigger": "Write scientific papers following IMRaD structure with proper citations. Use when: user asks to draft or improve a scientific paper, write specific sections,…",
+          "path": "skills/scienceclaw/skills/paper-writing/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -585,42 +649,6 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Evaluate scientific claims and evidence quality. Use for assessing experimental design validity, identifying biases and confounders, applying evidence grading…",
           "path": "skills/scientific-agent-skills/skills/scientific-critical-thinking/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "paper-writing",
-      "collections": 4,
-      "distinct_bodies": 8,
-      "total_copies": 8,
-      "variants": [
-        {
-          "collection": "aris",
-          "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
-          "trigger": "Workflow 3: Full paper writing pipeline that goes from a narrative report to a polished, submission-ready PDF. Use when user says \\\"写论文全流程\\\", \\\"write paper…",
-          "path": "skills/aris/skills/paper-writing/SKILL.md",
-          "bodies_in_collection": 3
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Workflow 3: Full paper writing pipeline. Orchestrates paper-plan → paper-figure → paper-write → paper-compile → auto-paper-improvement-loop to go from a…",
-          "path": "skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/paper-writing/SKILL.md",
-          "bodies_in_collection": 3
-        },
-        {
-          "collection": "phd-skills",
-          "repo_url": "https://github.com/fcakyon/phd-skills",
-          "trigger": "Use when the user wants to write, structure, or revise academic paper sections, improve notation consistency, or refine figures and tables. Triggers on phrases…",
-          "path": "skills/phd-skills/plugin/skills/paper-writing/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Write scientific papers following IMRaD structure with proper citations. Use when: user asks to draft or improve a scientific paper, write specific sections,…",
-          "path": "skills/scienceclaw/skills/paper-writing/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -1843,6 +1871,35 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Generate concise (3-4 page), focused medical treatment plans in LaTeX/PDF format for all clinical specialties. Supports general medical treatment,…",
           "path": "skills/scientific-agent-skills/skills/treatment-plans/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collections": 3,
+      "distinct_bodies": 2,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "ai-research-skills",
+          "repo_url": "https://github.com/Orchestra-Research/AI-Research-SKILLs",
+          "trigger": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization…",
+          "path": "skills/ai-research-skills/0-autoresearch-skill/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization…",
+          "path": "skills/empirical-research-skills/skills/07-Orchestra-Research-AI-Research-SKILLs/autoresearch-skill/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Autonomous experiment loop that tries ideas, measures results, keeps what works, and discards what doesn't. Use when the user asks to optimize a metric, run an…",
+          "path": "skills/feynman/skills/autoresearch/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
