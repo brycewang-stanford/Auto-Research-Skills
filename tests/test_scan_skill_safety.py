@@ -35,6 +35,7 @@ class ScanFileTests(unittest.TestCase):
         self.assertEqual(findings[0].rule_id, "remote-shell-pipe")
         self.assertEqual(findings[0].severity, "critical")
         self.assertEqual(findings[0].line, 1)
+        self.assertEqual(findings[0].context, "skill")
 
     def test_scan_file_respects_min_severity(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -101,12 +102,38 @@ class FileIterationTests(unittest.TestCase):
         self.assertNotIn("skills/x/node_modules/bad.md", rels)
 
 
+class ContextClassificationTests(unittest.TestCase):
+    def test_classify_context_buckets_paths(self) -> None:
+        cases = {
+            "skills/demo/SKILL.md": "skill",
+            "skills/demo/sub/SKILL.md": "skill",
+            "skills/demo/install.sh": "script",
+            "skills/demo/scripts/run.py": "script",
+            "skills/demo/README.md": "docs",
+            "skills/demo/docs/SETUP.md": "docs",
+            "skills/demo/CHANGELOG": "docs",
+            "skills/demo/tests/test_it.py": "example",
+            "skills/demo/examples/walkthrough.md": "example",
+            "skills/demo/data.json": "other",
+        }
+        for path, expected in cases.items():
+            self.assertEqual(scan.classify_context(path), expected, path)
+
+    def test_classify_context_prefers_skill_over_example_dir(self) -> None:
+        # A SKILL.md is the executable unit even inside an examples/ tree.
+        self.assertEqual(scan.classify_context("skills/x/examples/SKILL.md"), "skill")
+
+
 class SortingTests(unittest.TestCase):
     def test_sort_key_orders_higher_severity_first(self) -> None:
         low = scan.Finding("medium", "rule", "b.md", 1, "m", "r")
         high = scan.Finding("critical", "rule", "a.md", 1, "m", "r")
 
         self.assertEqual(sorted([low, high], key=scan.sort_key), [high, low])
+
+    def test_finding_defaults_context_for_positional_construction(self) -> None:
+        finding = scan.Finding("medium", "rule", "b.md", 1, "m", "r")
+        self.assertEqual(finding.context, "other")
 
 
 if __name__ == "__main__":

@@ -16,6 +16,7 @@ class SafetyReportTests(unittest.TestCase):
             "line": 7,
             "match": "curl https://example.com/install.sh | bash",
             "reason": "Review download-and-execute.",
+            "context": "docs",
         }
         values.update(overrides)
         return build_safety_report.scan.Finding(**values)
@@ -56,6 +57,35 @@ class SafetyReportTests(unittest.TestCase):
         self.assertIn("High: **1**", report)
         self.assertIn("remote-shell-pipe", report)
         self.assertIn("Truncated 1 additional findings", report)
+
+    def test_render_report_surfaces_context_and_must_review(self) -> None:
+        report = build_safety_report.render_report(
+            [
+                self.finding(context="docs"),  # critical, install docs
+                self.finding(
+                    severity="high",
+                    rule_id="credential-print",
+                    path="skills/demo/SKILL.md",
+                    line=8,
+                    context="skill",
+                ),
+            ],
+            roots=["skills"],
+            min_severity="high",
+            max_examples=10,
+        )
+
+        self.assertIn("## By Context", report)
+        # one finding lives in a skill/script file (the other is install docs)
+        self.assertIn(
+            "In `skill`/`script` files (not docs or examples): **1** (0 critical, 1 high)",
+            report,
+        )
+        # the example table carries a Context column and surfaces skill first
+        self.assertIn("| Severity | Context | Rule | Location | Match |", report)
+        skill_row = report.index("| high | skill |")
+        docs_row = report.index("| critical | docs |")
+        self.assertLess(skill_row, docs_row)
 
     def test_md_escape_protects_tables(self) -> None:
         self.assertEqual(build_safety_report.md_escape("a|b\nc"), "a\\|b c")

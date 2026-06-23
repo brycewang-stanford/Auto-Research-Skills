@@ -12,7 +12,7 @@ import json
 import re
 import sys
 from dataclasses import asdict, dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -38,6 +38,45 @@ SKIP_DIRS = {
     "dist",
     "build",
 }
+
+# Where a finding lives shapes how much it matters. A `curl … | bash` line in a
+# README is install documentation; the same line inside a SKILL.md body or a
+# shipped script is something an agent might actually run. classify_context()
+# buckets each file so reviewers can triage executable instructions away from
+# install docs and illustrative material, which dominate the raw counts.
+EXAMPLE_PATH_PARTS = {
+    "test",
+    "tests",
+    "__tests__",
+    "example",
+    "examples",
+    "eval",
+    "evals",
+    "fixture",
+    "fixtures",
+    "sample",
+    "samples",
+    "spec",
+    "specs",
+}
+DOC_SUFFIXES = {".md", ".mdx", ".markdown", ".rst", ".txt"}
+SCRIPT_SUFFIXES = {
+    ".sh",
+    ".bash",
+    ".zsh",
+    ".fish",
+    ".ps1",
+    ".cmd",
+    ".py",
+    ".js",
+    ".mjs",
+    ".jsx",
+    ".ts",
+    ".tsx",
+    ".rb",
+    ".rs",
+}
+DOC_BASENAMES = ("readme", "install", "changelog", "contributing", "license", "notice")
 
 TEXT_SUFFIXES = {
     "",
@@ -87,6 +126,7 @@ class Finding:
     line: int
     match: str
     reason: str
+    context: str = "other"
 
 
 RULES = [
@@ -283,11 +323,37 @@ def relative_path(path: Path) -> str:
         return path.as_posix()
 
 
+def classify_context(rel_path: str) -> str:
+    """Bucket a finding's file into skill / script / docs / example / other.
+
+    ``skill`` and ``script`` files hold instructions an agent may execute and
+    deserve the most scrutiny; ``docs`` are usually install instructions and
+    ``example`` files are illustrative, so both tend to be benign.
+    """
+    parts = [part.lower() for part in PurePosixPath(rel_path).parts]
+    name = parts[-1] if parts else ""
+    if name == "skill.md":
+        return "skill"
+    if any(part in EXAMPLE_PATH_PARTS for part in parts):
+        return "example"
+    suffix = PurePosixPath(name).suffix
+    if suffix in DOC_SUFFIXES:
+        return "docs"
+    if suffix in SCRIPT_SUFFIXES:
+        # check before doc basenames so "install.sh" stays a script, not a doc
+        return "script"
+    if name.startswith(DOC_BASENAMES):  # extensionless INSTALL/README/LICENSE/…
+        return "docs"
+    return "other"
+
+
 def scan_file(path: Path, min_severity: str) -> list[Finding]:
     text = read_text(path)
     if text is None:
         return []
 
+    rel = relative_path(path)
+    context = classify_context(rel)
     findings: list[Finding] = []
     threshold = SEVERITY[min_severity]
     for rule in RULES:
@@ -299,10 +365,11 @@ def scan_file(path: Path, min_severity: str) -> list[Finding]:
                 Finding(
                     severity=rule.severity,
                     rule_id=rule.rule_id,
-                    path=relative_path(path),
+                    path=rel,
                     line=line_number(text, match.start()),
                     match=snippet[:180],
                     reason=rule.reason,
+                    context=context,
                 )
             )
     return findings
@@ -320,7 +387,7 @@ def print_text(findings: list[Finding], max_findings: int) -> None:
     shown = findings if max_findings <= 0 else findings[:max_findings]
     for finding in shown:
         print(
-            f"{finding.severity.upper():8} {finding.path}:{finding.line} "
+            f"{finding.severity.upper():8} ({finding.context}) {finding.path}:{finding.line} "
             f"[{finding.rule_id}] {finding.match}"
         )
         print(f"         {finding.reason}")
@@ -328,10 +395,14 @@ def print_text(findings: list[Finding], max_findings: int) -> None:
         print(f"... truncated {len(findings) - max_findings} additional findings")
 
     counts: dict[str, int] = {}
+    context_counts: dict[str, int] = {}
     for finding in findings:
         counts[finding.severity] = counts.get(finding.severity, 0) + 1
+        context_counts[finding.context] = context_counts.get(finding.context, 0) + 1
     summary = ", ".join(f"{severity}={counts[severity]}" for severity in sorted(counts))
+    contexts = ", ".join(f"{ctx}={context_counts[ctx]}" for ctx in sorted(context_counts))
     print(f"SUMMARY: {len(findings)} findings ({summary})")
+    print(f"CONTEXT: {contexts}")
 
 
 def main() -> int:

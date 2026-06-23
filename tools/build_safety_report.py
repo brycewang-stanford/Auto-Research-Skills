@@ -94,6 +94,23 @@ def render_count_table(headers: tuple[str, str], counts: Counter[str], limit: in
     return lines
 
 
+# A finding in install docs or an illustrative example is usually benign; one
+# in a SKILL.md body or a shipped script is something an agent might execute.
+# Surface the executable contexts first in the example table.
+REVIEW_CONTEXTS = ("skill", "script", "other")
+_CONTEXT_PRIORITY = {"skill": 0, "script": 1, "other": 2, "example": 3, "docs": 4}
+
+
+def example_sort_key(finding) -> tuple:
+    return (
+        _CONTEXT_PRIORITY.get(getattr(finding, "context", "other"), 2),
+        -scan.SEVERITY[finding.severity],
+        finding.path,
+        finding.line,
+        finding.rule_id,
+    )
+
+
 def render_report(
     findings: list,
     roots: list[str],
@@ -103,6 +120,14 @@ def render_report(
     by_severity = Counter(finding.severity for finding in findings)
     by_rule = Counter(finding.rule_id for finding in findings)
     by_collection = Counter(collection_from_path(finding.path) for finding in findings)
+    by_context = Counter(getattr(finding, "context", "other") for finding in findings)
+
+    must_review = [
+        finding
+        for finding in findings
+        if getattr(finding, "context", "other") in REVIEW_CONTEXTS
+    ]
+    mr_by_severity = Counter(finding.severity for finding in must_review)
 
     lines = [
         "# Skill Safety Scan",
@@ -115,6 +140,18 @@ def render_report(
         f"- Findings: **{len(findings)}**",
         f"- Critical: **{by_severity.get('critical', 0)}**",
         f"- High: **{by_severity.get('high', 0)}**",
+        f"- In `skill`/`script` files (not docs or examples): "
+        f"**{len(must_review)}** "
+        f"({mr_by_severity.get('critical', 0)} critical, {mr_by_severity.get('high', 0)} high)",
+        "",
+        "Findings are bucketed by where they live. A `curl … | bash` line in a",
+        "README is install documentation; the same line inside a `SKILL.md` body",
+        "or a shipped script is something an agent might actually run. Start the",
+        "review with the `skill`/`script` rows below.",
+        "",
+        "## By Context",
+        "",
+        *render_count_table(("Context", "Findings"), by_context, limit=10),
         "",
         "## By Rule",
         "",
@@ -126,18 +163,22 @@ def render_report(
         "",
         "## Example Findings",
         "",
+        "Ordered to surface executable (`skill`/`script`) contexts first.",
+        "",
     ]
 
     if findings:
         lines.extend([
-            "| Severity | Rule | Location | Match |",
-            "|---|---|---|---|",
+            "| Severity | Context | Rule | Location | Match |",
+            "|---|---|---|---|---|",
         ])
-        shown = findings if max_examples <= 0 else findings[:max_examples]
+        ordered = sorted(findings, key=example_sort_key)
+        shown = ordered if max_examples <= 0 else ordered[:max_examples]
         for finding in shown:
             location = f"{finding.path}:{finding.line}"
+            context = getattr(finding, "context", "other")
             lines.append(
-                f"| {finding.severity} | `{md_escape(finding.rule_id)}` | "
+                f"| {finding.severity} | {context} | `{md_escape(finding.rule_id)}` | "
                 f"`{md_escape(location)}` | `{md_escape(finding.match)}` |"
             )
         if max_examples > 0 and len(findings) > max_examples:

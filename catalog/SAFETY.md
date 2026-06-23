@@ -8,6 +8,22 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 - Findings: **480**
 - Critical: **229**
 - High: **251**
+- In `skill`/`script` files (not docs or examples): **277** (72 critical, 205 high)
+
+Findings are bucketed by where they live. A `curl … | bash` line in a
+README is install documentation; the same line inside a `SKILL.md` body
+or a shipped script is something an agent might actually run. Start the
+review with the `skill`/`script` rows below.
+
+## By Context
+
+| Context | Findings |
+|---|---:|
+| `script` | 207 |
+| `docs` | 196 |
+| `skill` | 66 |
+| `example` | 7 |
+| `other` | 4 |
 
 ## By Rule
 
@@ -47,48 +63,50 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 ## Example Findings
 
-| Severity | Rule | Location | Match |
-|---|---|---|---|
-| critical | `remote-shell-pipe` | `skills/academic-research-skills-codex/skills/academic-research-suite/ars/QUICKSTART.md:9` | `curl -fsSL https://claude.ai/install.sh \| bash` |
-| critical | `remote-shell-pipe` | `skills/academic-research-skills-codex/skills/academic-research-suite/ars/docs/SETUP.md:195` | `curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net \| sh` |
-| critical | `remote-shell-pipe` | `skills/academic-research-skills-codex/skills/academic-research-suite/ars/docs/SETUP.zh-TW.md:186` | `curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net \| sh` |
-| critical | `remote-shell-pipe` | `skills/academic-research-skills/QUICKSTART.md:9` | `curl -fsSL https://claude.ai/install.sh \| bash` |
-| critical | `remote-shell-pipe` | `skills/academic-research-skills/docs/SETUP.md:23` | `curl -fsSL https://claude.ai/install.sh \| bash` |
-| critical | `powershell-iex` | `skills/academic-research-skills/docs/SETUP.md:26` | `irm https://claude.ai/install.ps1 \| iex` |
-| critical | `remote-shell-pipe` | `skills/academic-research-skills/docs/SETUP.md:78` | `curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net \| sh` |
-| critical | `remote-shell-pipe` | `skills/academic-research-skills/docs/SETUP.zh-TW.md:23` | `curl -fsSL https://claude.ai/install.sh \| bash` |
-| critical | `powershell-iex` | `skills/academic-research-skills/docs/SETUP.zh-TW.md:26` | `irm https://claude.ai/install.ps1 \| iex` |
-| critical | `remote-shell-pipe` | `skills/academic-research-skills/docs/SETUP.zh-TW.md:78` | `curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net \| sh` |
-| critical | `remote-shell-pipe` | `skills/academicforge/QUICKSTART.md:22` | `curl -sSL https://raw.githubusercontent.com/HughYau/AcademicForge/refs/heads/master/scripts/install.sh \| bash` |
-| critical | `powershell-iex` | `skills/academicforge/QUICKSTART.md:29` | `irm https://raw.githubusercontent.com/HughYau/AcademicForge/refs/heads/master/scripts/install.ps1 \| iex` |
-| critical | `remote-shell-pipe` | `skills/academicforge/README.md:65` | `curl -sSL https://raw.githubusercontent.com/HughYau/AcademicForge/refs/heads/master/scripts/install.sh \| bash` |
-| critical | `powershell-iex` | `skills/academicforge/README.md:71` | `irm https://raw.githubusercontent.com/HughYau/AcademicForge/refs/heads/master/scripts/install.ps1 \| iex` |
-| critical | `remote-shell-pipe` | `skills/academicforge/README_en.md:64` | `curl -sSL https://raw.githubusercontent.com/HughYau/AcademicForge/refs/heads/master/scripts/install.sh \| bash` |
-| critical | `powershell-iex` | `skills/academicforge/README_en.md:70` | `irm https://raw.githubusercontent.com/HughYau/AcademicForge/refs/heads/master/scripts/install.ps1 \| iex` |
-| critical | `remote-shell-pipe` | `skills/ai-research-skills/03-fine-tuning/axolotl/references/other.md:310` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
-| critical | `remote-shell-pipe` | `skills/ai-research-skills/09-infrastructure/lambda-labs/references/troubleshooting.md:148` | `wget -nv -O- https://lambdalabs.com/install-lambda-stack.sh \| sh` |
-| critical | `remote-shell-pipe` | `skills/ai-research-skills/09-infrastructure/lambda-labs/references/troubleshooting.md:196` | `wget -nv -O- https://lambdalabs.com/install-lambda-stack.sh \| sh` |
-| critical | `remote-shell-pipe` | `skills/arxiv-mcp-server/.github/workflows/tests.yml:30` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
-| critical | `powershell-iex` | `skills/arxiv-mcp-server/.github/workflows/tests.yml:37` | `iwr -useb https://astral.sh/uv/install.ps1 \| iex` |
-| critical | `remote-shell-pipe` | `skills/claude-code-my-workflow/CHANGELOG.md:717` | `curl -fsSL https://claude.ai/install.sh \| bash` |
-| critical | `destructive-root-delete` | `skills/claude-scholar/hooks/security-guard.js:42` | `rm -rf /` |
-| critical | `remote-shell-pipe` | `skills/claude-scholar/skills/uv-package-manager/SKILL.md:56` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
-| critical | `powershell-iex` | `skills/claude-scholar/skills/uv-package-manager/SKILL.md:59` | `irm https://astral.sh/uv/install.ps1 \| iex` |
-| critical | `remote-shell-pipe` | `skills/claude-scientific-writer/scripts/README.md:143` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
-| critical | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/parallel-web/SKILL.md:56` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| critical | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/research-lookup/README.md:9` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| critical | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/research-lookup/README.md:88` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| critical | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/research-lookup/SKILL.md:256` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| critical | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/research-lookup/SKILL.md:455` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| critical | `remote-shell-pipe` | `skills/claudeblattman/docs/toolkit/mcp-setup.md:76` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
-| critical | `remote-shell-pipe` | `skills/claudeblattman/docs/toolkit/mcp-setup.md:230` | `curl -fsSL https://bun.sh/install \| bash` |
-| critical | `remote-shell-pipe` | `skills/claudeblattman/skills/deep-research-references/config.md:175` | `curl -fsSL https://raw.githubusercontent.com/superagent-ai/grok-cli/main/install.sh \| bash` |
-| critical | `remote-shell-pipe` | `skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/literature-review/SKILL.md:659` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| critical | `remote-shell-pipe` | `skills/empirical-research-skills/SECURITY-SCAN-REPORT-23k.md:31` | `curl … \\| bash` |
-| critical | `remote-shell-pipe` | `skills/empirical-research-skills/SECURITY-SCAN-REPORT-23k.md:313` | `curl ... \\| sh` |
-| critical | `remote-shell-pipe` | `skills/empirical-research-skills/SECURITY-SCAN-REPORT.md:35` | `curl ... \\| bash` |
-| critical | `remote-shell-pipe` | `skills/empirical-research-skills/SECURITY-SCAN-REPORT.md:184` | `curl ... \| sh` |
-| critical | `remote-shell-pipe` | `skills/empirical-research-skills/SECURITY-SCAN-REPORT.md:184` | `curl ... \| bash` |
+Ordered to surface executable (`skill`/`script`) contexts first.
+
+| Severity | Context | Rule | Location | Match |
+|---|---|---|---|---|
+| critical | skill | `remote-shell-pipe` | `skills/claude-scholar/skills/uv-package-manager/SKILL.md:56` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
+| critical | skill | `powershell-iex` | `skills/claude-scholar/skills/uv-package-manager/SKILL.md:59` | `irm https://astral.sh/uv/install.ps1 \| iex` |
+| critical | skill | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/parallel-web/SKILL.md:56` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/research-lookup/SKILL.md:256` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/research-lookup/SKILL.md:455` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/literature-review/SKILL.md:659` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/empirical-research-skills/skills/33-Galaxy-Dawn-claude-scholar/skills/uv-package-manager/SKILL.md:56` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
+| critical | skill | `powershell-iex` | `skills/empirical-research-skills/skills/33-Galaxy-Dawn-claude-scholar/skills/uv-package-manager/SKILL.md:59` | `irm https://astral.sh/uv/install.ps1 \| iex` |
+| critical | skill | `remote-shell-pipe` | `skills/empirical-research-skills/skills/43-wentorai-research-plugins/skills/domains/economics/imf-data-api-guide/SKILL.md:41` | `curl -s "https://www.imf.org/external/datamapper/api/v1" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/franklee-academic-research-skills/literature-review/deep-research-pro/SKILL.md:58` | `curl -sL "<url>" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/research-plugins/skills/domains/economics/imf-data-api-guide/SKILL.md:41` | `curl -s "https://www.imf.org/external/datamapper/api/v1" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/arxiv-search/SKILL.md:47` | `curl -s "http://export.arxiv.org/api/query?search_query=ti:large+language+model&max_results=5&sortBy=submittedDate&sortOrder=descending" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/chembl-drug/SKILL.md:98` | `curl -s "https://www.ebi.ac.uk/chembl/api/data/molecule/CHEMBL25.json" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/chemistry-tools/SKILL.md:110` | `curl -s "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspirin/JSON" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/crossref-search/SKILL.md:29` | `curl -s "https://api.crossref.org/works/10.1038/nature12373" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/crossref-search/SKILL.md:46` | `curl -s "https://api.crossref.org/works?query=machine+learning+protein+folding&rows=5&mailto=user@example.com" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/crossref-search/SKILL.md:68` | `curl -s "https://api.crossref.org/journals?query=nature+biotechnology&rows=5" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/crossref-search/SKILL.md:84` | `curl -s "https://api.crossref.org/funders?query=national+institutes+of+health&rows=5" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/crossref-search/SKILL.md:97` | `curl -s "https://api.crossref.org/works/10.1038/nature12373" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/dblp-search/SKILL.md:40` | `curl -s "https://dblp.org/search/publ/api?q=attention+is+all+you+need&format=json&h=5" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/dblp-search/SKILL.md:62` | `curl -s "https://dblp.org/pid/b/YoshuaBengio.xml?format=json" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/lean4-prover/SKILL.md:22` | `curl https://elan.lean-lang.org/install.sh -sSf \| sh` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/ncbi-entrez/SKILL.md:98` | `curl -s "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gene&term=insulin[Gene]+AND+human[Organism]&retmode=json" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/world-bank-data/SKILL.md:77` | `curl -s "https://api.worldbank.org/v2/country/US;CN;IN/indicator/NY.GDP.PCAP.CD?format=json&date=2020:2023&per_page=100" \| python3` |
+| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/xurl/SKILL.md:54` | `curl -fsSL https://raw.githubusercontent.com/xdevplatform/xurl/main/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/literature-review/SKILL.md:660` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/nextflow/SKILL.md:40` | `curl -s https://get.nextflow.io \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/parallel-web/SKILL.md:57` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/research-lookup/SKILL.md:264` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/research-lookup/SKILL.md:476` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| high | skill | `credential-print` | `skills/ai-research-skills/01-model-architecture/litgpt/SKILL.md:309` | `print(token` |
+| high | skill | `credential-print` | `skills/ai-research-skills/01-model-architecture/rwkv/SKILL.md:78` | `print(pipeline.decode(token` |
+| high | skill | `credential-print` | `skills/ai-research-skills/02-tokenization/huggingface-tokenizers/SKILL.md:317` | `print(f"{token` |
+| high | skill | `credential-print` | `skills/ai-research-skills/04-mechanistic-interpretability/nnsight/SKILL.md:149` | `print(f"{model.tokenizer.decode(token` |
+| high | skill | `credential-print` | `skills/ai-research-skills/04-mechanistic-interpretability/saelens/SKILL.md:96` | `print(f"Token '{token` |
+| high | skill | `concealment-instruction` | `skills/ai-research-skills/06-post-training/trl-fine-tuning/SKILL.md:450` | `Secretly` |
+| high | skill | `credential-print` | `skills/ai-research-skills/14-agents/crewai/SKILL.md:171` | `print(result.token_usage) # Token` |
+| high | skill | `credential-print` | `skills/ai-research-skills/20-ml-paper-writing/academic-plotting/SKILL.md:234` | `print(" Get a key at: https://aistudio.google.com/apikey` |
+| high | skill | `credential-print` | `skills/aris/skills/paper-illustration/SKILL.md:205` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
+| high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:594` | `secretly` |
 
 _Truncated 440 additional findings._
 
