@@ -12,7 +12,7 @@
   <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C428-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,428 skills collected"></a>
 </p>
 
-<p align="center"><b>3,428 skills</b> bundled across <b>82 repos</b> — clone the whole research toolbox in one shot.</p>
+<p align="center"><b>3,428 skills</b> bundled across <b>83 repos</b> — clone the whole research toolbox in one shot.</p>
 
 <p align="center">
   <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-3%2C428-ff4e88?style=flat-square" alt="3,428 skills"></a>
@@ -34,7 +34,7 @@
 
 ---
 
-> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,428 skills** across **82 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
+> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,428 skills** across **83 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
 # recommended: clone first, then let setup.sh handle top-level + nested submodules
@@ -178,7 +178,7 @@ cd Auto-Research-Skills
 
 ## Bundled Repos (submodules)
 
-**3,428 skills** across **82 repos** (most with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
+**3,428 skills** across **83 repos** (most with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
 
 > Live ranking: see [**STARS.md**](STARS.md) — auto-refreshed weekly by [a GitHub Action](.github/workflows/update-stars.yml).
 >
@@ -240,7 +240,7 @@ cd Auto-Research-Skills
 
 ### Systems & Agents (`systems/`)
 
-30 end-to-end systems and autonomous agents — from idea to paper, deep-research report generation, domain-science labs, and 24/7 experiment runners.
+31 end-to-end systems and autonomous agents — from idea to paper, deep-research report generation, domain-science labs, and 24/7 experiment runners.
 
 | Path | Source | Stars | What it does |
 |---|---|---|---|
@@ -271,6 +271,7 @@ cd Auto-Research-Skills
 | `systems/robin` | [Future-House/robin](https://github.com/Future-House/robin) | ~439 | FutureHouse multi-agent discovery; validated a dry-AMD drug candidate. |
 | `systems/curie` | [Just-Curieous/Curie](https://github.com/Just-Curieous/Curie) | ~360 | Rigorous, reproducible experimentation agent for ML research. |
 | `systems/auto-research` | [openags/auto-research](https://github.com/openags/auto-research) | ~284 | Generalist "AI Scientist" across fields, with UI. |
+| `systems/popper` | [snap-stanford/POPPER](https://github.com/snap-stanford/POPPER) | ~275 | Automated hypothesis testing via agentic sequential (Popperian) falsification — Stanford SNAP. ⚠️ no upstream license. |
 | `systems/sibyl-system` | [Sibyl-Research-Team/AutoResearch-SibylSystem](https://github.com/Sibyl-Research-Team/AutoResearch-SibylSystem) | ~247 | Self-evolving autonomous research system, Claude-Code native. |
 | `systems/research-town` | [ulab-uiuc/research-town](https://github.com/ulab-uiuc/research-town) | ~205 | ICML 2025 — simulator of a human research community. |
 | `systems/coscientist` | [gomesgroup/coscientist](https://github.com/gomesgroup/coscientist) | ~203 | Autonomous chemical research with LLMs (Nature 2023). |

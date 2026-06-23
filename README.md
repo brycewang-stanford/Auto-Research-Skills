@@ -12,7 +12,7 @@
   <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/已收录_skills-3%2C428-ff4e88?style=for-the-badge&labelColor=1f2330" alt="已收录 3,428 个 skills"></a>
 </p>
 
-<p align="center"><b>🧩 已收录 3,428 个 skills</b>，分布在 <b>82 个仓库</b> 中 —— 一次克隆拿到整套研究工具箱。</p>
+<p align="center"><b>🧩 已收录 3,428 个 skills</b>，分布在 <b>83 个仓库</b> 中 —— 一次克隆拿到整套研究工具箱。</p>
 
 <p align="center">
   <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/🧩_skills-3%2C428-ff4e88?style=flat-square" alt="3,428 skills"></a>
@@ -34,7 +34,7 @@
 
 ---
 
-> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**3,428 个 skills**、分布在 **82 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
+> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**3,428 个 skills**、分布在 **83 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
 
 ```bash
 # 推荐：先克隆，再让 setup.sh 处理顶层与嵌套子模块
@@ -113,6 +113,7 @@ cd Auto-Research-Skills
 | [WecoAI/aideml](https://github.com/WecoAI/aideml) | ~1.3k | Python | AIDE —— ML 工程智能体，把建模当作代码优化搜索。 |
 | [Xiangyue-Zhang/auto-deep-researcher-24x7](https://github.com/Xiangyue-Zhang/auto-deep-researcher-24x7) | ~975 | Agent | 7×24 跑深度学习实验，Leader-Worker，常量内存。 |
 | [Just-Curieous/Curie](https://github.com/Just-Curieous/Curie) | ~360 | Python | 严谨、可复现的 ML 研究实验智能体。 |
+| [snap-stanford/POPPER](https://github.com/snap-stanford/POPPER) | ~275 | Python | 自动化假设检验：基于波普尔「序贯证伪」思想的多智能体框架（Stanford SNAP）。 |
 | [TheBlewish/Automated-AI-Web-Researcher-Ollama](https://github.com/TheBlewish/Automated-AI-Web-Researcher-Ollama) | ~3.0k | Ollama | 基于本地 LLM 的自动网络研究员。 |
 
 ## 🔬 领域科学智能体
@@ -184,10 +185,10 @@ cd Auto-Research-Skills
 
 ## 🗂️ 已收录仓库（子模块）
 
-**3,428 个 skills**、分布在 **82 个仓库**（多数 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `./setup.sh` 即可全部拉取；只需要顶层仓库时可运行 `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh`。完整带 star 的榜单见 [STARS.md](STARS.md)。
+**3,428 个 skills**、分布在 **83 个仓库**（多数 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `./setup.sh` 即可全部拉取；只需要顶层仓库时可运行 `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh`。完整带 star 的榜单见 [STARS.md](STARS.md)。
 
 - **`skills/`** —— 41 个可复用技能集与插件合集
-- **`systems/`** —— 30 个端到端系统与自主智能体
+- **`systems/`** —— 31 个端到端系统与自主智能体
 - **`benchmarks/`** —— 4 个自主研究 / ML 工程评测基准
 - **`lists/`** —— 7 个精选清单与综述
 

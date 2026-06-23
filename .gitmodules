@@ -244,3 +244,6 @@
 [submodule "skills/claude-skills-journalism"]
 	path = skills/claude-skills-journalism
 	url = https://github.com/jamditis/claude-skills-journalism
+[submodule "systems/popper"]
+	path = systems/popper
+	url = https://github.com/snap-stanford/POPPER
