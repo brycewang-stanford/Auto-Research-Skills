@@ -9,14 +9,14 @@ An index of every individual skill bundled across all collections, so you can fi
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files (README headline number) | **3,374** |
-| Unique skills (de-duplicated by name + body) | **2,645** |
+| `SKILL.md` files (README headline number) | **3,428** |
+| Unique skills (de-duplicated by name + body) | **2,699** |
 | Copies re-bundled by aggregator collections | 729 |
 | Placeholder / template skills | 1 |
 | Skills without YAML frontmatter | 11 |
-| Collections | 36 |
+| Collections | 37 |
 
-> The headline **3,374** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,645** of those skills are actually distinct — a ~22% redundancy rate worth knowing when you browse.
+> The headline **3,428** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,699** of those skills are actually distinct — a ~21% redundancy rate worth knowing when you browse.
 
 ## Collections
 
@@ -34,6 +34,7 @@ Sorted by skill count. Click a collection for its full skill list.
 | [ai-research-skills](collections/ai-research-skills.md) | 98 | 98 | 2 | 0 | [repo](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
 | [franklee-academic-research-skills](collections/franklee-academic-research-skills.md) | 97 | 90 | 53 | 0 | [repo](https://github.com/franklee16/academic-research-skills) |
 | [claude-scientific-writer](collections/claude-scientific-writer.md) | 81 | 34 | 35 | 0 | [repo](https://github.com/K-Dense-AI/claude-scientific-writer) |
+| [claude-skills-journalism](collections/claude-skills-journalism.md) | 54 | 54 | 0 | 0 | [repo](https://github.com/jamditis/claude-skills-journalism) |
 | [claude-research](collections/claude-research.md) | 50 | 50 | 1 | 0 | [repo](https://github.com/flonat/claude-research) |
 | [claude-scholar](collections/claude-scholar.md) | 45 | 45 | 27 | 0 | [repo](https://github.com/Galaxy-Dawn/claude-scholar) |
 | [claude-code-my-workflow](collections/claude-code-my-workflow.md) | 36 | 36 | 11 | 0 | [repo](https://github.com/pedrohcgs/claude-code-my-workflow) |

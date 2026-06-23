@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C374-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,374 skills collected"></a>
+  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C428-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,428 skills collected"></a>
 </p>
 
-<p align="center"><b>3,374 skills</b> bundled across <b>81 repos</b> — clone the whole research toolbox in one shot.</p>
+<p align="center"><b>3,428 skills</b> bundled across <b>82 repos</b> — clone the whole research toolbox in one shot.</p>
 
 <p align="center">
-  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-3%2C374-ff4e88?style=flat-square" alt="3,374 skills"></a>
+  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-3%2C428-ff4e88?style=flat-square" alt="3,428 skills"></a>
   <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Auto-Research-Skills?style=flat-square&color=ffd23f" alt="stars">
@@ -34,7 +34,7 @@
 
 ---
 
-> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,374 skills** across **81 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
+> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,428 skills** across **82 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
 # recommended: clone first, then let setup.sh handle top-level + nested submodules
@@ -178,7 +178,7 @@ cd Auto-Research-Skills
 
 ## Bundled Repos (submodules)
 
-**3,374 skills** across **81 repos** (most with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
+**3,428 skills** across **82 repos** (most with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
 
 > Live ranking: see [**STARS.md**](STARS.md) — auto-refreshed weekly by [a GitHub Action](.github/workflows/update-stars.yml).
 >
@@ -192,7 +192,7 @@ cd Auto-Research-Skills
 
 ### Skills & Plugin Collections (`skills/`)
 
-40 reusable skill sets and plugins that drop into coding agents.
+41 reusable skill sets and plugins that drop into coding agents.
 
 | Path | Source | Stars | What it gives you |
 |---|---|---|---|
@@ -227,6 +227,7 @@ cd Auto-Research-Skills
 | `skills/awesome-scientific-skills` | [InternScience/Awesome-Scientific-Skills](https://github.com/InternScience/Awesome-Scientific-Skills) | ~400 | Curated Agent Skills for scientific research. |
 | `skills/claudeblattman` | [chrisblattman/claudeblattman](https://github.com/chrisblattman/claudeblattman) | ~373 | Claude Code for academics — skills, agents, setup guides. |
 | `skills/ai-research-feedback` | [claesbackman/AI-research-feedback](https://github.com/claesbackman/AI-research-feedback) | ~354 | Claude Code skills for academic research review. |
+| `skills/claude-skills-journalism` | [jamditis/claude-skills-journalism](https://github.com/jamditis/claude-skills-journalism) | ~295 | Journalism/media/academia skills: fact-checking, FOIA, data journalism, academic writing (54 skills). |
 | `skills/nature-paper-skills` | [Boom5426/Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills) | ~252 | Draft, revise, audit & resubmit skills for Nature-style papers. |
 | `skills/phd-skills` | [fcakyon/phd-skills](https://github.com/fcakyon/phd-skills) | ~246 | Paper reproduction, experiment design, paper review. |
 | `skills/academic-skills` | [chtc66/academic-skills](https://github.com/chtc66/academic-skills) | ~227 | Paper reading, survey writing, experiment summary, rebuttal. |

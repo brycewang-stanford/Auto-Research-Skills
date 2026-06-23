@@ -1,7 +1,7 @@
 {
   "generated_by": "tools/build_index.py",
   "note": "Skill names that mean different things across collections. Most agent runtimes resolve skills by name, so installing two of these collections at once makes the winner undefined. Pick deliberately.",
-  "count": 203,
+  "count": 215,
   "collisions": [
     {
       "name": "literature-review",
@@ -776,6 +776,42 @@
       ]
     },
     {
+      "name": "academic-writing",
+      "collections": 4,
+      "distinct_bodies": 5,
+      "total_copies": 5,
+      "variants": [
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Academic writing, research methodology, and scholarly communication workflows. Use when writing papers, literature reviews, grant proposals, conducting…",
+          "path": "skills/claude-skills-journalism/research-toolkit/skills/academic-writing/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "co-researcher",
+          "repo_url": "https://github.com/poemswe/co-researcher",
+          "trigger": "You must use this when producing any research prose — literature reviews, syntheses, analyses, methodology descriptions, discussion sections, abstracts, or any…",
+          "path": "skills/co-researcher/skills/academic-writing/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Activate when the user is drafting any academic economics content from scratch (e.g., outlines, abstracts, introductions, data/methods/identification sections,…",
+          "path": "skills/empirical-research-skills/skills/27-dariia-m-my_claude_skills/academic_writing/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "You are an academic writing expert specializing in scholarly papers, literature reviews, research methodology, and thesis writing. You must adhere to strict…",
+          "path": "skills/franklee-academic-research-skills/writing/academic-writing-1.0.0/SKILL.md",
+          "bodies_in_collection": 2
+        }
+      ]
+    },
+    {
       "name": "interview-me",
       "collections": 4,
       "distinct_bodies": 5,
@@ -879,6 +915,42 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations,…",
           "path": "skills/scientific-agent-skills/skills/scientific-slides/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "brainstorming",
+      "collections": 4,
+      "distinct_bodies": 4,
+      "total_copies": 4,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent,…",
+          "path": "skills/academicforge/skills/superpowers/brainstorming/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent,…",
+          "path": "skills/claude-skills-journalism/superjawn/skills/brainstorming/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Creative exploration and brainstorming; use it when you need to clarify goals/constraints, explore multiple options, and converge on a direction before…",
+          "path": "skills/medical-research-skills/scientific-skills/Other/brainstorming/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent,…",
+          "path": "skills/scienceclaw/skills/brainstorming/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -1353,35 +1425,6 @@
       ]
     },
     {
-      "name": "academic-writing",
-      "collections": 3,
-      "distinct_bodies": 4,
-      "total_copies": 4,
-      "variants": [
-        {
-          "collection": "co-researcher",
-          "repo_url": "https://github.com/poemswe/co-researcher",
-          "trigger": "You must use this when producing any research prose — literature reviews, syntheses, analyses, methodology descriptions, discussion sections, abstracts, or any…",
-          "path": "skills/co-researcher/skills/academic-writing/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Activate when the user is drafting any academic economics content from scratch (e.g., outlines, abstracts, introductions, data/methods/identification sections,…",
-          "path": "skills/empirical-research-skills/skills/27-dariia-m-my_claude_skills/academic_writing/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "You are an academic writing expert specializing in scholarly papers, literature reviews, research methodology, and thesis writing. You must adhere to strict…",
-          "path": "skills/franklee-academic-research-skills/writing/academic-writing-1.0.0/SKILL.md",
-          "bodies_in_collection": 2
-        }
-      ]
-    },
-    {
       "name": "research",
       "collections": 3,
       "distinct_bodies": 4,
@@ -1464,35 +1507,6 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Comprehensive molecular biology toolkit. Use for sequence manipulation, file parsing (FASTA/GenBank/PDB), phylogenetics, and programmatic NCBI/PubMed access…",
           "path": "skills/scientific-agent-skills/skills/biopython/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "brainstorming",
-      "collections": 3,
-      "distinct_bodies": 3,
-      "total_copies": 3,
-      "variants": [
-        {
-          "collection": "academicforge",
-          "repo_url": "https://github.com/HughYau/AcademicForge",
-          "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent,…",
-          "path": "skills/academicforge/skills/superpowers/brainstorming/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Creative exploration and brainstorming; use it when you need to clarify goals/constraints, explore multiple options, and converge on a direction before…",
-          "path": "skills/medical-research-skills/scientific-skills/Other/brainstorming/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent,…",
-          "path": "skills/scienceclaw/skills/brainstorming/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -2247,6 +2261,64 @@
           "repo_url": "https://github.com/wentorai/research-plugins",
           "trigger": "Clean, transform, and validate messy research data using Stata",
           "path": "skills/research-plugins/skills/analysis/wrangling/stata-data-cleaning/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "systematic-debugging",
+      "collections": 3,
+      "distinct_bodies": 2,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+          "path": "skills/academicforge/skills/superpowers/systematic-debugging/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+          "path": "skills/claude-skills-journalism/superjawn/skills/systematic-debugging/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+          "path": "skills/scienceclaw/skills/systematic-debugging/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "test-driven-development",
+      "collections": 3,
+      "distinct_bodies": 2,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when implementing any feature or bugfix, before writing implementation code",
+          "path": "skills/academicforge/skills/superpowers/test-driven-development/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when implementing any feature or bugfix, before writing implementation code",
+          "path": "skills/claude-skills-journalism/superjawn/skills/test-driven-development/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Use when implementing any feature or bugfix, before writing implementation code",
+          "path": "skills/scienceclaw/skills/test-driven-development/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -3858,6 +3930,28 @@
       ]
     },
     {
+      "name": "dispatching-parallel-agents",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+          "path": "skills/academicforge/skills/superpowers/dispatching-parallel-agents/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+          "path": "skills/claude-skills-journalism/superjawn/skills/dispatching-parallel-agents/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "dnanexus-integration",
       "collections": 2,
       "distinct_bodies": 2,
@@ -3990,6 +4084,28 @@
       ]
     },
     {
+      "name": "executing-plans",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+          "path": "skills/academicforge/skills/superpowers/executing-plans/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+          "path": "skills/claude-skills-journalism/superjawn/skills/executing-plans/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "extract-tikz",
       "collections": 2,
       "distinct_bodies": 2,
@@ -4030,6 +4146,28 @@
           "trigger": "Send notifications to Feishu/Lark. Internal utility used by other skills, or manually via /feishu-notify. Supports push-only (webhook) and interactive…",
           "path": "skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/feishu-notify/SKILL.md",
           "bodies_in_collection": 2
+        }
+      ]
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting…",
+          "path": "skills/academicforge/skills/superpowers/finishing-a-development-branch/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting…",
+          "path": "skills/claude-skills-journalism/superjawn/skills/finishing-a-development-branch/SKILL.md",
+          "bodies_in_collection": 1
         }
       ]
     },
@@ -4980,6 +5118,50 @@
       ]
     },
     {
+      "name": "receiving-code-review",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical…",
+          "path": "skills/academicforge/skills/superpowers/receiving-code-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical…",
+          "path": "skills/claude-skills-journalism/superjawn/skills/receiving-code-review/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "requesting-code-review",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+          "path": "skills/academicforge/skills/superpowers/requesting-code-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+          "path": "skills/claude-skills-journalism/superjawn/skills/requesting-code-review/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "research-add-fields",
       "collections": 2,
       "distinct_bodies": 2,
@@ -5200,6 +5382,28 @@
       ]
     },
     {
+      "name": "subagent-driven-development",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when executing implementation plans with independent tasks in the current session",
+          "path": "skills/academicforge/skills/superpowers/subagent-driven-development/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when executing implementation plans with independent tasks in the current session",
+          "path": "skills/claude-skills-journalism/superjawn/skills/subagent-driven-development/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "survey-writer",
       "collections": 2,
       "distinct_bodies": 2,
@@ -5266,6 +5470,28 @@
       ]
     },
     {
+      "name": "using-git-worktrees",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via…",
+          "path": "skills/academicforge/skills/superpowers/using-git-worktrees/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart…",
+          "path": "skills/claude-skills-journalism/superjawn/skills/using-git-worktrees/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "vast-gpu",
       "collections": 2,
       "distinct_bodies": 2,
@@ -5283,6 +5509,72 @@
           "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
           "trigger": "Rent, manage, and destroy GPU instances on vast.ai. Use when user says \\\"rent gpu\\\", \\\"vast.ai\\\", \\\"rent a server\\\", \\\"cloud gpu\\\", or needs on-demand GPU…",
           "path": "skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/vast-gpu/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "verification-before-completion",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output…",
+          "path": "skills/academicforge/skills/superpowers/verification-before-completion/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output…",
+          "path": "skills/claude-skills-journalism/superjawn/skills/verification-before-completion/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "writing-plans",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when you have a spec or requirements for a multi-step task, before touching code",
+          "path": "skills/academicforge/skills/superpowers/writing-plans/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when you have a spec or requirements for a multi-step task, before touching code",
+          "path": "skills/claude-skills-journalism/superjawn/skills/writing-plans/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "writing-skills",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+          "path": "skills/academicforge/skills/superpowers/writing-skills/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+          "path": "skills/claude-skills-journalism/superjawn/skills/writing-skills/SKILL.md",
           "bodies_in_collection": 1
         }
       ]

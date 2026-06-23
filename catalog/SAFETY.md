@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **524**
+- Findings: **526**
 - Critical: **235**
-- High: **289**
-- In `skill`/`script` files (not docs or examples): **277** (62 critical, 215 high)
+- High: **291**
+- In `skill`/`script` files (not docs or examples): **278** (62 critical, 216 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -29,8 +29,8 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Context | Findings |
 |---|---:|
-| `docs` | 223 |
-| `script` | 201 |
+| `docs` | 224 |
+| `script` | 202 |
 | `skill` | 72 |
 | `example` | 24 |
 | `other` | 4 |
@@ -39,9 +39,9 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Rule | Findings |
 |---|---:|
-| `credential-print` | 230 |
+| `credential-print` | 231 |
 | `remote-shell-pipe` | 201 |
-| `echo-secret-value` | 34 |
+| `echo-secret-value` | 35 |
 | `powershell-iex` | 32 |
 | `concealment-instruction` | 22 |
 | `obfuscated-exec` | 3 |
@@ -69,9 +69,9 @@ so a downgraded critical no longer inflates the high+ report.
 | `nature-skills` | 4 |
 | `claudeblattman` | 3 |
 | `arxiv-mcp-server` | 2 |
+| `claude-skills-journalism` | 2 |
 | `light-skills` | 2 |
-| `claude-code-my-workflow` | 1 |
-| _Other_ | 6 |
+| _Other_ | 7 |
 
 ## Example Findings
 
@@ -120,7 +120,7 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `credential-print` | `skills/aris/skills/paper-illustration/SKILL.md:205` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
 | high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:594` | `secretly` |
 
-_Truncated 484 additional findings._
+_Truncated 486 additional findings._
 
 ## Regenerate
 

@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/已收录_skills-3%2C374-ff4e88?style=for-the-badge&labelColor=1f2330" alt="已收录 3,374 个 skills"></a>
+  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/已收录_skills-3%2C428-ff4e88?style=for-the-badge&labelColor=1f2330" alt="已收录 3,428 个 skills"></a>
 </p>
 
-<p align="center"><b>🧩 已收录 3,374 个 skills</b>，分布在 <b>81 个仓库</b> 中 —— 一次克隆拿到整套研究工具箱。</p>
+<p align="center"><b>🧩 已收录 3,428 个 skills</b>，分布在 <b>82 个仓库</b> 中 —— 一次克隆拿到整套研究工具箱。</p>
 
 <p align="center">
-  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/🧩_skills-3%2C374-ff4e88?style=flat-square" alt="3,374 skills"></a>
+  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/🧩_skills-3%2C428-ff4e88?style=flat-square" alt="3,428 skills"></a>
   <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Auto-Research-Skills?style=flat-square&color=ffd23f" alt="stars">
@@ -34,7 +34,7 @@
 
 ---
 
-> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**3,374 个 skills**、分布在 **81 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
+> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**3,428 个 skills**、分布在 **82 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
 
 ```bash
 # 推荐：先克隆，再让 setup.sh 处理顶层与嵌套子模块
@@ -147,6 +147,7 @@ cd Auto-Research-Skills
 | [lishix520/academic-paper-skills](https://github.com/lishix520/academic-paper-skills) 🧩 | ~768 | Claude Code · Python | 系统化的学术论文规划与写作框架。 |
 | [andrehuang/research-companion](https://github.com/andrehuang/research-companion) 🧩 | ~665 | Claude Code | 战略型科研思考智能体：选题评估、项目分诊、头脑风暴。 |
 | [EvoScientist/EvoSkills](https://github.com/EvoScientist/EvoSkills) | ~380 | Agent Skills | 面向 EvoScientist 式科学工作流的可安装技能与知识包。 |
+| [jamditis/claude-skills-journalism](https://github.com/jamditis/claude-skills-journalism) 🧩 | ~295 | Claude Code | 新闻/媒体/学术交叉的技能集：事实核查、FOIA 申请、数据新闻、学术写作等 54 个 skill。 |
 | [openags/auto-research](https://github.com/openags/auto-research) 🧩 | ~284 | Agent + UI | 跨领域通用「AI 科学家」。 |
 | [Boom5426/Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills) 🧩 | ~252 | Claude Code · TeX | Nature 风格论文的起草、修订、审稿与返修技能。 |
 | [Light0305/Light-skills](https://github.com/Light0305/Light-skills) 🧩 | ~151 | Claude Code · Codex | 全流程科研技能包：28 个技能覆盖调研 → 写作 → 审稿 → 投稿，配套 9 个可核查知识库与对抗式自检。 |
@@ -183,9 +184,9 @@ cd Auto-Research-Skills
 
 ## 🗂️ 已收录仓库（子模块）
 
-**3,374 个 skills**、分布在 **81 个仓库**（多数 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `./setup.sh` 即可全部拉取；只需要顶层仓库时可运行 `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh`。完整带 star 的榜单见 [STARS.md](STARS.md)。
+**3,428 个 skills**、分布在 **82 个仓库**（多数 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `./setup.sh` 即可全部拉取；只需要顶层仓库时可运行 `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh`。完整带 star 的榜单见 [STARS.md](STARS.md)。
 
-- **`skills/`** —— 40 个可复用技能集与插件合集
+- **`skills/`** —— 41 个可复用技能集与插件合集
 - **`systems/`** —— 30 个端到端系统与自主智能体
 - **`benchmarks/`** —— 4 个自主研究 / ML 工程评测基准
 - **`lists/`** —— 7 个精选清单与综述

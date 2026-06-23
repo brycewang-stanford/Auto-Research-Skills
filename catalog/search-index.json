@@ -2,13 +2,13 @@
   "generated_by": "tools/build_index.py",
   "note": "Compact discovery index consumed by site/. The canonical, complete manifest is catalog/skills.json. Regenerate with `python3 tools/build_index.py`.",
   "totals": {
-    "skill_files": 3374,
-    "unique_skills": 2645,
-    "collections": 36,
+    "skill_files": 3428,
+    "unique_skills": 2699,
+    "collections": 37,
     "templates": 1,
     "no_frontmatter": 11,
     "rebundled": 729,
-    "name_collisions": 203
+    "name_collisions": 215
   },
   "tags": [
     "automation",
@@ -107,6 +107,12 @@
       "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
       "skill_files": 81,
       "unique_skills": 34
+    },
+    {
+      "name": "claude-skills-journalism",
+      "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+      "skill_files": 54,
+      "unique_skills": 54
     },
     {
       "name": "co-researcher",
@@ -459,35 +465,50 @@
       "collection": "academicforge",
       "trigger": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/dispatching-parallel-agents/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/dispatching-parallel-agents/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "executing-plans",
       "collection": "academicforge",
       "trigger": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/executing-plans/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/executing-plans/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "finishing-a-development-branch",
       "collection": "academicforge",
       "trigger": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/finishing-a-development-branch/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/finishing-a-development-branch/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "receiving-code-review",
       "collection": "academicforge",
       "trigger": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not…",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/receiving-code-review/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/receiving-code-review/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "requesting-code-review",
       "collection": "academicforge",
       "trigger": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/requesting-code-review/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/requesting-code-review/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "scientific-visualization",
@@ -507,28 +528,40 @@
       "collection": "academicforge",
       "trigger": "Use when executing implementation plans with independent tasks in the current session",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/subagent-driven-development/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/subagent-driven-development/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "systematic-debugging",
       "collection": "academicforge",
       "trigger": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/systematic-debugging/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/systematic-debugging/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "test-driven-development",
       "collection": "academicforge",
       "trigger": "Use when implementing any feature or bugfix, before writing implementation code",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/test-driven-development/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/test-driven-development/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "using-git-worktrees",
       "collection": "academicforge",
       "trigger": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/using-git-worktrees/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/using-git-worktrees/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "using-superpowers",
@@ -542,14 +575,20 @@
       "collection": "academicforge",
       "trigger": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims;…",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/verification-before-completion/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/verification-before-completion/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "writing-plans",
       "collection": "academicforge",
       "trigger": "Use when you have a spec or requirements for a multi-step task, before touching code",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/writing-plans/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/writing-plans/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "writing-skills",
@@ -557,6 +596,9 @@
       "trigger": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
       "license": "",
       "path": "skills/academicforge/skills/superpowers/writing-skills/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "writing"
       ]
@@ -6383,6 +6425,523 @@
       "tags": [
         "data"
       ]
+    },
+    {
+      "name": "academic-writing",
+      "collection": "claude-skills-journalism",
+      "trigger": "Academic writing, research methodology, and scholarly communication workflows. Use when writing papers, literature reviews, grant proposals, conducting research, managing citations, preparing for…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/academic-writing/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation",
+        "citations",
+        "grants",
+        "literature-review",
+        "peer-review",
+        "writing"
+      ]
+    },
+    {
+      "name": "accessibility-compliance",
+      "collection": "claude-skills-journalism",
+      "trigger": "Web accessibility patterns for news sites, journalism tools, and academic platforms. Use when building accessible interfaces, auditing existing sites for WCAG compliance, writing alt text for news…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/accessibility-compliance/SKILL.md",
+      "tags": [
+        "data",
+        "latex",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "ai-writing-detox",
+      "collection": "claude-skills-journalism",
+      "trigger": "Eliminate AI-generated writing patterns that erode reader trust. Activate when writing articles, documentation, press releases, or any content where AI patterns would undermine credibility. For…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/ai-writing-detox/SKILL.md"
+    },
+    {
+      "name": "api-hardening",
+      "collection": "claude-skills-journalism",
+      "trigger": "API security hardening patterns. Use when implementing rate limiting, input validation, CORS configuration, API key management, request throttling, or protecting endpoints from abuse. Covers…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/security-toolkit/skills/api-hardening/SKILL.md"
+    },
+    {
+      "name": "brainstorming",
+      "collection": "claude-skills-journalism",
+      "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/brainstorming/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "ideation"
+      ]
+    },
+    {
+      "name": "content-access",
+      "collection": "claude-skills-journalism",
+      "trigger": "Legal methods for accessing paywalled and geo-blocked content. Use when researching behind paywalls, accessing academic papers, bypassing geographic restrictions, or finding open access alternatives.…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/content-access/SKILL.md",
+      "tags": [
+        "writing"
+      ]
+    },
+    {
+      "name": "crisis-communications",
+      "collection": "claude-skills-journalism",
+      "trigger": "Crisis communication and rapid response workflows for journalists and communications professionals. Use when covering breaking news events, managing organizational communications during crises,…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/crisis-communications/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "data-journalism",
+      "collection": "claude-skills-journalism",
+      "trigger": "Data journalism workflows for analysis, visualization, and storytelling. Use when analyzing datasets, creating charts and maps, cleaning messy data, calculating statistics or building data-driven…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/data-journalism/SKILL.md",
+      "tags": [
+        "automation",
+        "data",
+        "statistics"
+      ]
+    },
+    {
+      "name": "digital-archive",
+      "collection": "claude-skills-journalism",
+      "trigger": "Digital archiving workflows with AI enrichment, entity extraction, and knowledge graph construction. Use when building content archives, implementing AI-powered categorization, extracting entities…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/digital-archive/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/dispatching-parallel-agents/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "Document design",
+      "collection": "claude-skills-journalism",
+      "trigger": "This skill should be used when the user asks to \"create a proposal\", \"design a report\", \"make a one-pager\", \"build a PDF\", \"create a newsletter\", \"design slides\", \"make event materials\", \"design a…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/pdf-playground/skills/document-design/SKILL.md",
+      "tags": [
+        "grants",
+        "presentation"
+      ]
+    },
+    {
+      "name": "editorial-workflow",
+      "collection": "claude-skills-journalism",
+      "trigger": "Manage editorial workflows for newsrooms and publications. Use when tracking story assignments, managing deadlines, coordinating editorial calendars, or establishing handoff protocols between…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/editorial-workflow/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "electron-dev",
+      "collection": "claude-skills-journalism",
+      "trigger": "Electron desktop application development with React, TypeScript, and Vite. Use when building desktop apps, implementing IPC communication, managing windows/tray, handling PTY terminals, integrating…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/electron-dev/SKILL.md"
+    },
+    {
+      "name": "executing-plans",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/executing-plans/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "fact-check-workflow",
+      "collection": "claude-skills-journalism",
+      "trigger": "Structured workflow for fact-checking claims in journalism. Use when verifying statements for publication, rating claims for fact-check articles, or building pre-publication verification processes.…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/fact-check-workflow/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/finishing-a-development-branch/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "foia-requests",
+      "collection": "claude-skills-journalism",
+      "trigger": "Freedom of Information Act (FOIA) and public records request workflows. Use when drafting records requests, tracking submissions, understanding exemptions, appealing denials, or managing large…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/foia-requests/SKILL.md",
+      "tags": [
+        "automation",
+        "writing"
+      ]
+    },
+    {
+      "name": "free-apis-catalog",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when suggesting APIs for a project, looking for free data sources, building weekend projects that need external data, or when the user needs weather, news, finance, sports, ML, or entertainment…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/free-apis-catalog/SKILL.md"
+    },
+    {
+      "name": "interview-prep",
+      "collection": "claude-skills-journalism",
+      "trigger": "Prepare for journalism interviews with research checklists, question frameworks, and attribution guidelines. Use when preparing to interview sources, planning follow-up questions, or managing…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/interview-prep/SKILL.md"
+    },
+    {
+      "name": "interview-transcription",
+      "collection": "claude-skills-journalism",
+      "trigger": "Transcription workflows, recording management, and quote extraction for journalists. Use when processing audio/video recordings, generating transcripts with timestamps, extracting quotes for…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/interview-transcription/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "mobile-debugging",
+      "collection": "claude-skills-journalism",
+      "trigger": "Remote JavaScript console access and debugging on mobile devices. Use when debugging web pages on phones/tablets, accessing console errors without desktop DevTools, testing responsive designs on real…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/mobile-debugging/SKILL.md",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "newsletter-publishing",
+      "collection": "claude-skills-journalism",
+      "trigger": "Email newsletter workflows for journalists and researchers. Use when creating, managing, or optimizing email newsletters, building subscriber lists, designing email templates, analyzing engagement…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/newsletter-publishing/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "newsroom-style",
+      "collection": "claude-skills-journalism",
+      "trigger": "Enforce AP Style and newsroom conventions for journalism writing. Use when writing news articles, editing drafts, creating headlines, or converting notes into publishable copy. Ensures professional…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/newsroom-style/SKILL.md",
+      "tags": [
+        "writing"
+      ]
+    },
+    {
+      "name": "one-way-door",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use this skill when creating new files that represent architectural decisions — data models, infrastructure configs, auth boundaries, API contracts, CI/CD pipelines, or event systems. Flags…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/one-way-door/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "page-monitoring",
+      "collection": "claude-skills-journalism",
+      "trigger": "Web page monitoring, change detection, and availability tracking. Use when tracking content changes, detecting when pages go down, monitoring for updates, preserving content before deletion, or…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/page-monitoring/SKILL.md"
+    },
+    {
+      "name": "pdf-design",
+      "collection": "claude-skills-journalism",
+      "trigger": "Design and edit professional PDF reports and proposals with live preview",
+      "license": "",
+      "path": "skills/claude-skills-journalism/pdf-design/SKILL.md",
+      "tags": [
+        "grants"
+      ]
+    },
+    {
+      "name": "photo-metadata",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when preparing photos or images for a news wire, publication, photo CMS, or archive — embedding caption, byline, credit, alt text, keywords, copyright or Creative Commons license, and location…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/photo-metadata/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "project-memory",
+      "collection": "claude-skills-journalism",
+      "trigger": "Generate CLAUDE.md project memory files that transfer institutional knowledge, not obvious information. Use when setting up new journalism projects, onboarding collaborators, or documenting…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/project-templates-toolkit/skills/project-memory/SKILL.md",
+      "tags": [
+        "automation",
+        "grants"
+      ]
+    },
+    {
+      "name": "project-retrospective",
+      "collection": "claude-skills-journalism",
+      "trigger": "Generate LESSONS.md retrospective files that capture institutional knowledge, especially failures. Use when closing out journalism projects, investigations, events, or publications. Includes…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/project-templates-toolkit/skills/project-retrospective/SKILL.md"
+    },
+    {
+      "name": "python-pipeline",
+      "collection": "claude-skills-journalism",
+      "trigger": "Python data processing pipelines with modular architecture. Use when building content processing workflows, implementing dispatcher patterns, integrating Google Sheets/Drive APIs, or creating batch…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/python-pipeline/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "receiving-code-review",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/receiving-code-review/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "requesting-code-review",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/requesting-code-review/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "secure-auth",
+      "collection": "claude-skills-journalism",
+      "trigger": "Secure authentication implementation patterns. Use when implementing user login, registration, password reset, session management, JWT authentication, OAuth, MFA, or passkeys. Provides…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/security-toolkit/skills/secure-auth/SKILL.md"
+    },
+    {
+      "name": "security-checklist",
+      "collection": "claude-skills-journalism",
+      "trigger": "Pre-deployment security audit for web applications, organized by OWASP Top 10:2025 categories. Use when reviewing code before shipping, auditing an existing application, or when users mention…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/security-toolkit/skills/security-checklist/SKILL.md",
+      "tags": [
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "social-media-intelligence",
+      "collection": "claude-skills-journalism",
+      "trigger": "Social media monitoring, narrative tracking, and open-source intelligence for journalists. Use when tracking viral content spread, analyzing coordinated campaigns, monitoring breaking news on social…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/social-media-intelligence/SKILL.md"
+    },
+    {
+      "name": "source-verification",
+      "collection": "claude-skills-journalism",
+      "trigger": "Journalism source verification and fact-checking workflows. Use when verifying claims, checking source credibility, investigating social media accounts, reverse image searching, detecting…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/source-verification/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "story-pitch",
+      "collection": "claude-skills-journalism",
+      "trigger": "Craft effective story pitches for different publication types and formats. Use when pitching to editors, preparing query letters, or developing story angles. Includes templates for daily news,…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/story-pitch/SKILL.md"
+    },
+    {
+      "name": "subagent-driven-development",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when executing implementation plans with independent tasks in the current session",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/subagent-driven-development/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "supply-chain-hardening",
+      "collection": "claude-skills-journalism",
+      "trigger": "Configure install-time cooldowns for npm/bun (minimum release age) and run a sandboxed pre-install scan when the cooldown has to be bypassed. Use when the user asks about supply-chain attacks,…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/security-toolkit/skills/supply-chain-hardening/SKILL.md",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "systematic-debugging",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/systematic-debugging/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "template-selector",
+      "collection": "claude-skills-journalism",
+      "trigger": "Choose the correct CLAUDE.md or LESSONS.md template for journalism projects. Use when starting a new project, setting up documentation, or unsure which template category fits best. Provides decision…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/project-templates-toolkit/skills/template-selector/SKILL.md"
+    },
+    {
+      "name": "test-driven-development",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when implementing any feature or bugfix, before writing implementation code",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/test-driven-development/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "test-first-bugs",
+      "collection": "claude-skills-journalism",
+      "trigger": "This skill should be used when the user reports a bug, describes unexpected behavior, says something is \"broken\", \"not working\", \"failing\", mentions an \"error\", \"issue\", or \"problem\" in code, or asks…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/test-first-bugs/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "using-git-worktrees",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/using-git-worktrees/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "using-superjawn",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/using-superjawn/SKILL.md"
+    },
+    {
+      "name": "verification-before-completion",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims;…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/verification-before-completion/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "vibe-coding",
+      "collection": "claude-skills-journalism",
+      "trigger": "Methodology for effective AI-assisted software development. Use when helping users build software with AI coding assistants, debugging AI-generated code, planning features for AI implementation,…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/vibe-coding/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "visual-explainer",
+      "collection": "claude-skills-journalism",
+      "trigger": "Generate self-contained HTML pages that visually explain systems, data stories, investigations, editorial workflows, and code changes. Use when the user asks for a diagram, architecture overview,…",
+      "license": "MIT",
+      "path": "skills/claude-skills-journalism/visual-explainer/SKILL.md",
+      "tags": [
+        "automation",
+        "data"
+      ]
+    },
+    {
+      "name": "web-archiving",
+      "collection": "claude-skills-journalism",
+      "trigger": "Web page archiving and retrieval from cached/deleted sources. Use when accessing unavailable pages, preserving web content, creating legal evidence archives, or building redundant archival workflows.…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/web-archiving/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "web-scraping",
+      "collection": "claude-skills-journalism",
+      "trigger": "Web scraping with anti-bot bypass, content extraction, undocumented APIs and poison pill detection. Use when extracting content from websites, handling paywalls, implementing scraping cascades or…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/web-scraping/SKILL.md"
+    },
+    {
+      "name": "web-ui-best-practices",
+      "collection": "claude-skills-journalism",
+      "trigger": "Signs of taste in web UI. Use when building or reviewing any user-facing web interface — dashboards, SaaS apps, marketing sites, internal tools. Covers interaction speed, navigation depth, visual…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/web-ui-best-practices/SKILL.md"
+    },
+    {
+      "name": "writing-plans",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/writing-plans/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "writing-skills",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/writing-skills/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "writing"
+      ]
+    },
+    {
+      "name": "zero-build-frontend",
+      "collection": "claude-skills-journalism",
+      "trigger": "Zero-build frontend development with CDN-loaded React, Tailwind CSS, and vanilla JavaScript. Use when building static web apps without bundlers, creating Leaflet maps, integrating Google Sheets as…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/zero-build-frontend/SKILL.md"
     },
     {
       "name": "academic-writing",
@@ -35932,7 +36491,8 @@
       "license": "",
       "path": "skills/scienceclaw/skills/systematic-debugging/SKILL.md",
       "flags": [
-        "dup"
+        "dup",
+        "collision"
       ]
     },
     {
@@ -35956,7 +36516,8 @@
       "license": "",
       "path": "skills/scienceclaw/skills/test-driven-development/SKILL.md",
       "flags": [
-        "dup"
+        "dup",
+        "collision"
       ]
     },
     {

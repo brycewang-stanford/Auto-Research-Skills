@@ -241,3 +241,6 @@
 [submodule "skills/claude-research"]
 	path = skills/claude-research
 	url = https://github.com/flonat/claude-research
+[submodule "skills/claude-skills-journalism"]
+	path = skills/claude-skills-journalism
+	url = https://github.com/jamditis/claude-skills-journalism
