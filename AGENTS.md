@@ -21,6 +21,8 @@ observable, and easy to merge.
 - After adding, removing, or updating submodules under `skills/`, regenerate the
   catalog and update README headline counts when `scripts/check-repo.py` asks
   for it.
+- See [`docs/TOOLING.md`](docs/TOOLING.md) for the full generated-vs-source file
+  map, the data pipeline, and the `make`/CI check matrix.
 
 ## Validation
 
