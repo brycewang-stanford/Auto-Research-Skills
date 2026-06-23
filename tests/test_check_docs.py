@@ -25,6 +25,16 @@ class CheckDocsTests(unittest.TestCase):
         self.assertEqual([link.target for link in links], ["docs/a.md"])
         self.assertEqual(links[0].line, 2)
 
+    def test_links_in_text_ignores_multi_backtick_inline_code_links(self) -> None:
+        path = Path("README.md")
+        links = check_docs.links_in_text(
+            path,
+            "``[example](missing.md)``\n[real](docs/a.md)\n",
+        )
+
+        self.assertEqual([link.target for link in links], ["docs/a.md"])
+        self.assertEqual(links[0].line, 2)
+
     def test_links_in_text_extracts_markdown_images_and_html_attrs(self) -> None:
         path = Path("README.md")
         links = check_docs.links_in_text(
