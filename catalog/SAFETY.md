@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **484**
+- Findings: **518**
 - Critical: **230**
-- High: **254**
-- In `skill`/`script` files (not docs or examples): **262** (61 critical, 201 high)
+- High: **288**
+- In `skill`/`script` files (not docs or examples): **275** (61 critical, 214 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -29,9 +29,9 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Context | Findings |
 |---|---:|
-| `docs` | 198 |
-| `script` | 192 |
-| `skill` | 66 |
+| `docs` | 219 |
+| `script` | 199 |
+| `skill` | 72 |
 | `example` | 24 |
 | `other` | 4 |
 
@@ -41,6 +41,7 @@ so a downgraded critical no longer inflates the high+ report.
 |---|---:|
 | `credential-print` | 229 |
 | `remote-shell-pipe` | 196 |
+| `echo-secret-value` | 34 |
 | `powershell-iex` | 32 |
 | `concealment-instruction` | 22 |
 | `obfuscated-exec` | 3 |
@@ -50,26 +51,26 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Collection | Findings |
 |---|---:|
-| `scienceclaw` | 214 |
-| `scientific-agent-skills` | 60 |
-| `claude-scientific-writer` | 41 |
+| `scienceclaw` | 230 |
+| `scientific-agent-skills` | 63 |
+| `claude-scientific-writer` | 50 |
 | `feynman` | 32 |
 | `aris` | 32 |
-| `ai-research-skills` | 27 |
-| `empirical-research-skills` | 22 |
+| `ai-research-skills` | 30 |
+| `empirical-research-skills` | 23 |
 | `academic-research-skills` | 9 |
 | `franklee-academic-research-skills` | 8 |
 | `academicforge` | 6 |
+| `claude-scholar` | 5 |
 | `last30days` | 5 |
 | `academic-research-skills-codex` | 4 |
-| `claude-scholar` | 4 |
 | `medical-research-skills` | 4 |
 | `nature-skills` | 4 |
 | `claudeblattman` | 3 |
 | `arxiv-mcp-server` | 2 |
+| `light-skills` | 2 |
 | `claude-code-my-workflow` | 1 |
 | `codex-academic-skills` | 1 |
-| `research-plugins` | 1 |
 | _Other_ | 4 |
 
 ## Example Findings
@@ -119,7 +120,7 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `credential-print` | `skills/aris/skills/paper-illustration/SKILL.md:205` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
 | high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:594` | `secretly` |
 
-_Truncated 444 additional findings._
+_Truncated 478 additional findings._
 
 ## Regenerate
 

@@ -224,6 +224,16 @@ RULES = [
         "Credentials should not be printed or logged into agent-visible output.",
     ),
     Rule(
+        "echo-secret-value",
+        "high",
+        re.compile(
+            r"\b(?:echo|printf)\b[^\n]{0,20}\$\{?[A-Za-z_]*"
+            r"(?:API[_-]?KEY|TOKEN|SECRET|PASSWORD|ACCESS_KEY)\b",
+            re.IGNORECASE,
+        ),
+        "Echoing a secret env var's value prints it into terminal / agent-visible output.",
+    ),
+    Rule(
         "credential-file-reference",
         "medium",
         re.compile(

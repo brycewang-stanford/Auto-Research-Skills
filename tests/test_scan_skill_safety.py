@@ -70,6 +70,23 @@ class ScanFileTests(unittest.TestCase):
         self.assertEqual([f.rule_id for f in findings], ["obfuscated-exec"])
         self.assertEqual(findings[0].severity, "high")
 
+    def test_scan_file_detects_echoed_secret_value(self) -> None:
+        # The exact pattern that keeps EvoSkills' nano-banana skill on hold:
+        # echoing a prefixed secret env var prints its value.
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "SKILL.md"
+            path.write_text("Verify with: echo $GOOGLE_API_KEY\n", encoding="utf-8")
+            findings = scan.scan_file(path, min_severity="high")
+        self.assertIn("echo-secret-value", [f.rule_id for f in findings])
+
+    def test_scan_file_ignores_api_key_help_text(self) -> None:
+        # Telling the user to set a key is not echoing its value; no $ deref.
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "setup.sh"
+            path.write_text('echo "Set your ANTHROPIC_API_KEY first"\n', encoding="utf-8")
+            findings = scan.scan_file(path, min_severity="high")
+        self.assertNotIn("echo-secret-value", [f.rule_id for f in findings])
+
     def test_scan_file_downgrades_reviewed_false_positive(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
