@@ -78,6 +78,9 @@ SCRIPT_SUFFIXES = {
 }
 DOC_BASENAMES = ("readme", "install", "changelog", "contributing", "license", "notice")
 
+# Buckets returned by classify_context(), highest review priority first.
+CONTEXTS = ("skill", "script", "other", "example", "docs")
+
 TEXT_SUFFIXES = {
     "",
     ".bash",
@@ -255,11 +258,33 @@ def parse_args() -> argparse.Namespace:
         help="Maximum findings to print before truncating output.",
     )
     parser.add_argument(
+        "--context",
+        help=(
+            "Comma-separated file contexts to include "
+            f"({', '.join(CONTEXTS)}); default: all. Use 'skill,script,other' "
+            "to focus a review on executable instructions and skip install docs."
+        ),
+    )
+    parser.add_argument(
         "--json",
         action="store_true",
         help="Emit JSON instead of human-readable text.",
     )
     return parser.parse_args()
+
+
+def parse_contexts(value: str | None) -> set[str] | None:
+    """Parse a --context selection into a validated set, or None for 'all'.
+
+    Raises ValueError listing any unknown contexts.
+    """
+    if not value:
+        return None
+    selected = {item.strip().lower() for item in value.split(",") if item.strip()}
+    unknown = selected - set(CONTEXTS)
+    if unknown:
+        raise ValueError(", ".join(sorted(unknown)))
+    return selected
 
 
 def resolve_root(value: str) -> Path:
@@ -407,6 +432,11 @@ def print_text(findings: list[Finding], max_findings: int) -> None:
 
 def main() -> int:
     args = parse_args()
+    try:
+        selected_contexts = parse_contexts(args.context)
+    except ValueError as exc:
+        print(f"ERROR: unknown --context value(s): {exc}", file=sys.stderr)
+        return 2
     roots = [resolve_root(value) for value in args.roots]
     missing = missing_roots(roots)
     if missing:
@@ -417,6 +447,8 @@ def main() -> int:
     findings: list[Finding] = []
     for path in files:
         findings.extend(scan_file(path, args.min_severity))
+    if selected_contexts is not None:
+        findings = [finding for finding in findings if finding.context in selected_contexts]
     findings.sort(key=sort_key)
 
     try:

@@ -1,6 +1,7 @@
 PYTHON ?= python3
 SAFETY_ROOTS ?= skills
 SAFETY_MAX_FINDINGS ?= 50
+SAFETY_CONTEXT ?=
 SITE_HOST ?= 127.0.0.1
 SITE_PORT ?= 8765
 
@@ -45,7 +46,7 @@ count-skills:
 	./scripts/count-skills.sh
 
 safety-scan:
-	$(PYTHON) scripts/scan-skill-safety.py $(SAFETY_ROOTS) --max-findings $(SAFETY_MAX_FINDINGS) --fail-on none
+	$(PYTHON) scripts/scan-skill-safety.py $(SAFETY_ROOTS) --max-findings $(SAFETY_MAX_FINDINGS) --fail-on none $(if $(SAFETY_CONTEXT),--context $(SAFETY_CONTEXT))
 
 safety-report:
 	$(PYTHON) tools/build_safety_report.py

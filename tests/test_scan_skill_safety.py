@@ -124,6 +124,22 @@ class ContextClassificationTests(unittest.TestCase):
         self.assertEqual(scan.classify_context("skills/x/examples/SKILL.md"), "skill")
 
 
+class ContextFilterTests(unittest.TestCase):
+    def test_parse_contexts_returns_none_for_blank(self) -> None:
+        self.assertIsNone(scan.parse_contexts(None))
+        self.assertIsNone(scan.parse_contexts(""))
+
+    def test_parse_contexts_parses_and_normalizes(self) -> None:
+        self.assertEqual(
+            scan.parse_contexts(" Skill , script "),
+            {"skill", "script"},
+        )
+
+    def test_parse_contexts_rejects_unknown(self) -> None:
+        with self.assertRaises(ValueError):
+            scan.parse_contexts("skill,bogus")
+
+
 class SortingTests(unittest.TestCase):
     def test_sort_key_orders_higher_severity_first(self) -> None:
         low = scan.Finding("medium", "rule", "b.md", 1, "m", "r")
