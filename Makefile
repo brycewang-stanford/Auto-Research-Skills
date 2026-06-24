@@ -1,12 +1,13 @@
 PYTHON ?= python3
 SAFETY_ROOTS ?= skills
 SAFETY_MAX_FINDINGS ?= 50
+SAFETY_CONTEXT ?=
 SITE_HOST ?= 127.0.0.1
 SITE_PORT ?= 8765
 
-.PHONY: check repo-check docs-check catalog catalog-check index index-check site-check site-js-check serve-site count-skills safety-scan safety-report safety-report-check py-compile shell-check test
+.PHONY: check repo-check docs-check catalog catalog-check index index-check site-check site-js-check serve-site count-skills safety-scan safety-report safety-report-check quality-report quality-report-check health-report py-compile shell-check test
 
-check: py-compile shell-check test repo-check docs-check catalog-check index-check site-check site-js-check safety-report-check count-skills
+check: py-compile shell-check test repo-check docs-check catalog-check index-check site-check site-js-check safety-report-check quality-report-check count-skills
 
 repo-check:
 	$(PYTHON) scripts/check-repo.py
@@ -45,7 +46,7 @@ count-skills:
 	./scripts/count-skills.sh
 
 safety-scan:
-	$(PYTHON) scripts/scan-skill-safety.py $(SAFETY_ROOTS) --max-findings $(SAFETY_MAX_FINDINGS) --fail-on none
+	$(PYTHON) scripts/scan-skill-safety.py $(SAFETY_ROOTS) --max-findings $(SAFETY_MAX_FINDINGS) --fail-on none $(if $(SAFETY_CONTEXT),--context $(SAFETY_CONTEXT))
 
 safety-report:
 	$(PYTHON) tools/build_safety_report.py
@@ -53,8 +54,17 @@ safety-report:
 safety-report-check:
 	$(PYTHON) tools/build_safety_report.py --check
 
+quality-report:
+	$(PYTHON) tools/build_quality_report.py
+
+quality-report-check:
+	$(PYTHON) tools/build_quality_report.py --check
+
+health-report:
+	$(PYTHON) scripts/check-submodule-health.py
+
 py-compile:
-	$(PYTHON) -m py_compile scripts/check-repo.py tools/build_catalog.py tools/build_index.py tools/build_safety_report.py tools/check_docs.py tools/check_site.py scripts/scan-skill-safety.py scripts/update-stars.py
+	$(PYTHON) -m py_compile scripts/check-repo.py tools/build_catalog.py tools/build_index.py tools/build_safety_report.py tools/build_quality_report.py tools/check_docs.py tools/check_site.py scripts/scan-skill-safety.py scripts/update-stars.py scripts/check-submodule-health.py scripts/discover-skills.py
 
 shell-check:
 	@for file in setup.sh scripts/count-skills.sh; do \

@@ -9,14 +9,14 @@ An index of every individual skill bundled across all collections, so you can fi
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files (README headline number) | **3,276** |
-| Unique skills (de-duplicated by name + body) | **2,548** |
-| Copies re-bundled by aggregator collections | 728 |
+| `SKILL.md` files (README headline number) | **3,433** |
+| Unique skills (de-duplicated by name + body) | **2,702** |
+| Copies re-bundled by aggregator collections | 731 |
 | Placeholder / template skills | 1 |
 | Skills without YAML frontmatter | 11 |
-| Collections | 33 |
+| Collections | 38 |
 
-> The headline **3,276** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,548** of those skills are actually distinct — a ~22% redundancy rate worth knowing when you browse.
+> The headline **3,433** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,702** of those skills are actually distinct — a ~21% redundancy rate worth knowing when you browse.
 
 ## Collections
 
@@ -34,11 +34,15 @@ Sorted by skill count. Click a collection for its full skill list.
 | [ai-research-skills](collections/ai-research-skills.md) | 98 | 98 | 2 | 0 | [repo](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
 | [franklee-academic-research-skills](collections/franklee-academic-research-skills.md) | 97 | 90 | 53 | 0 | [repo](https://github.com/franklee16/academic-research-skills) |
 | [claude-scientific-writer](collections/claude-scientific-writer.md) | 81 | 34 | 35 | 0 | [repo](https://github.com/K-Dense-AI/claude-scientific-writer) |
+| [claude-skills-journalism](collections/claude-skills-journalism.md) | 54 | 54 | 0 | 0 | [repo](https://github.com/jamditis/claude-skills-journalism) |
+| [claude-research](collections/claude-research.md) | 50 | 50 | 1 | 0 | [repo](https://github.com/flonat/claude-research) |
 | [claude-scholar](collections/claude-scholar.md) | 45 | 45 | 27 | 0 | [repo](https://github.com/Galaxy-Dawn/claude-scholar) |
 | [claude-code-my-workflow](collections/claude-code-my-workflow.md) | 36 | 36 | 11 | 0 | [repo](https://github.com/pedrohcgs/claude-code-my-workflow) |
+| [light-skills](collections/light-skills.md) | 28 | 28 | 0 | 0 | [repo](https://github.com/Light0305/Light-skills) |
 | [co-researcher](collections/co-researcher.md) | 24 | 24 | 0 | 0 | [repo](https://github.com/poemswe/co-researcher) |
 | [codex-academic-skills](collections/codex-academic-skills.md) | 24 | 24 | 15 | 0 | [repo](https://github.com/zLanqing/codex-claude-academic-skills) |
 | [deep-research-skills](collections/deep-research-skills.md) | 20 | 13 | 20 | 0 | [repo](https://github.com/Weizhena/Deep-Research-skills) |
+| [feynman](collections/feynman.md) | 20 | 20 | 0 | 0 | [repo](https://github.com/companion-inc/feynman) |
 | [nature-paper-skills](collections/nature-paper-skills.md) | 18 | 18 | 1 | 0 | [repo](https://github.com/Boom5426/Nature-Paper-Skills) |
 | [nature-skills](collections/nature-skills.md) | 18 | 11 | 6 | 0 | [repo](https://github.com/Yuan1z0825/nature-skills) |
 | [oneresearchclaw](collections/oneresearchclaw.md) | 16 | 16 | 0 | 0 | [repo](https://github.com/gaotiexinqu/OneResearchClaw) |
@@ -47,6 +51,7 @@ Sorted by skill count. Click a collection for its full skill list.
 | [academic-skills](collections/academic-skills.md) | 8 | 8 | 0 | 0 | [repo](https://github.com/chtc66/academic-skills) |
 | [research-skills](collections/research-skills.md) | 8 | 8 | 2 | 0 | [repo](https://github.com/luwill/research-skills) |
 | [supervisor-skills](collections/supervisor-skills.md) | 7 | 7 | 0 | 0 | [repo](https://github.com/HKUSTDial/Supervisor-Skills) |
+| [autoresearch](collections/autoresearch.md) | 5 | 3 | 0 | 0 | [repo](https://github.com/uditgoenka/autoresearch) |
 | [academic-research-skills](collections/academic-research-skills.md) | 4 | 4 | 0 | 0 | [repo](https://github.com/Imbad0202/academic-research-skills) |
 | [openclaw-search-skills](collections/openclaw-search-skills.md) | 3 | 3 | 0 | 0 | [repo](https://github.com/blessonism/openclaw-search-skills) |
 | [research-companion](collections/research-companion.md) | 3 | 3 | 1 | 0 | [repo](https://github.com/andrehuang/research-companion) |
@@ -86,9 +91,9 @@ Identical skills (same name + body) that appear in multiple collections — the 
 | `devils-advocate` | 3 | `claude-code-my-workflow`, `empirical-research-skills` |
 | `proofread` | 3 | `claude-code-my-workflow`, `empirical-research-skills` |
 | `review-r` | 3 | `claude-code-my-workflow`, `empirical-research-skills` |
+| `xlsx` | 3 | `claude-research`, `codex-academic-skills`, `scienceclaw` |
 | `nature-data` | 3 | `claude-scholar`, `nature-skills` |
 | `nature-response` | 3 | `claude-scholar`, `nature-skills` |
-| `parallel-web` | 3 | `claude-scientific-writer`, `scienceclaw` |
 
 ---
 

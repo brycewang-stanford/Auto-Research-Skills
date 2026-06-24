@@ -254,6 +254,14 @@ class SearchIndexContractTests(unittest.TestCase):
         self.assertIn("tags missing used tags: writing", messages)
         self.assertIn("tags include unused tags: unused", messages)
 
+    def test_check_index_payload_reports_duplicate_flags(self) -> None:
+        payload = self.valid_payload()
+        payload["skills"][0]["flags"] = ["collision", "collision"]
+
+        errors = check_site.check_index_payload(payload)
+
+        self.assertIn("duplicate flags: collision", "\n".join(errors))
+
 
 class CollisionsContractTests(unittest.TestCase):
     def valid_payload(self) -> dict:

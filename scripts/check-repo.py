@@ -22,6 +22,8 @@ ROOT = Path(__file__).resolve().parent.parent
 GITMODULES = ROOT / ".gitmodules"
 CATEGORIES = ("skills", "systems", "benchmarks", "lists")
 CONTENT_HASH_RE = re.compile(r"[0-9a-f]{16}")
+GITHUB_SLUG_PART_RE = re.compile(r"^[A-Za-z0-9_.-]+$")
+LEADING_HTML_COMMENTS_RE = re.compile(r"\A\s*(?:<!--.*?-->\s*)+", re.DOTALL)
 STARS_ROW_RE = re.compile(
     r"^\|\s*\d+\s*\|\s*[^|]+\|\s*\[[^\]]+\]\(https://github\.com/([^)]+)\)\s*\|\s*`([^`]+)`\s*\|$",
     re.MULTILINE,
@@ -55,24 +57,38 @@ class Reporter:
 def github_repo_slug(url: str) -> str | None:
     """Return owner/repo for supported GitHub repository remote URLs."""
     value = url.strip().rstrip("/")
-    if value.endswith(".git"):
-        value = value[:-4]
     if value.startswith("git@github.com:"):
-        parts = value.split(":", 1)[1].split("/")
+        remote_path = value.split(":", 1)[1]
+        if any(char in remote_path for char in "?#"):
+            return None
+        if remote_path.endswith(".git"):
+            remote_path = remote_path[:-4]
+        parts = remote_path.split("/")
     else:
         parsed = urlsplit(value)
         host = parsed.hostname or ""
         if host.lower() not in {"github.com", "www.github.com"}:
             return None
+        if parsed.query or parsed.fragment:
+            return None
         parts = [part for part in parsed.path.split("/") if part]
+        if len(parts) == 2 and parts[1].endswith(".git"):
+            parts[1] = parts[1][:-4]
     if len(parts) != 2 or not all(parts):
+        return None
+    if not all(GITHUB_SLUG_PART_RE.fullmatch(part) for part in parts):
         return None
     return f"{parts[0]}/{parts[1]}"
 
 
 def safe_submodule_path(value: str) -> bool:
     path = PurePosixPath(value)
-    return not value.startswith(("/", "\\")) and ".." not in path.parts
+    return (
+        not value.startswith(("/", "\\"))
+        and "\\" not in value
+        and ":" not in value
+        and ".." not in path.parts
+    )
 
 
 def run_git(args: list[str], cwd: Path = ROOT) -> subprocess.CompletedProcess[str]:
@@ -181,6 +197,17 @@ def read_text(path: Path) -> str:
     if not path.exists():
         return ""
     return path.read_text(encoding="utf-8")
+
+
+def has_watermark_hidden_frontmatter(path: Path) -> bool:
+    text = read_text(path)
+    if not text:
+        return False
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    if text.startswith("﻿"):
+        text = text[1:]
+    match = LEADING_HTML_COMMENTS_RE.match(text)
+    return bool(match and text[match.end():].lstrip().startswith("---"))
 
 
 def skill_file_paths() -> list[Path]:
@@ -318,6 +345,8 @@ def check_catalog_manifest(skill_files: list[Path], reporter: Reporter) -> None:
     collection_counts: Counter[str] = Counter()
     collection_hashes: dict[str, set[str]] = defaultdict(set)
     collection_templates: Counter[str] = Counter()
+    template_paths: list[str] = []
+    watermarked_paths: list[str] = []
     template_count = 0
     without_frontmatter_count = 0
     rebundled_count = 0
@@ -362,6 +391,9 @@ def check_catalog_manifest(skill_files: list[Path], reporter: Reporter) -> None:
         if is_template:
             template_count += 1
             collection_templates[collection] += 1
+            template_paths.append(skill_path)
+        if has_watermark_hidden_frontmatter(ROOT / skill_path):
+            watermarked_paths.append(skill_path)
         has_name = item.get("has_name")
         if has_name is not None and not isinstance(has_name, bool):
             reporter.error(f"catalog/skills.json entry {skill_path} has invalid has_name")
@@ -548,6 +580,17 @@ def check_catalog_manifest(skill_files: list[Path], reporter: Reporter) -> None:
         reporter.error(
             "catalog/skills.json collections includes removed collection(s): "
             f"{sample(stale_collections)}"
+        )
+    if watermarked_paths:
+        reporter.warn(
+            "catalog recovered frontmatter hidden behind leading HTML comment(s) "
+            f"in {len(watermarked_paths)} SKILL.md file(s); upstream cleanup needed: "
+            f"{sample(watermarked_paths)}"
+        )
+    if template_paths:
+        reporter.warn(
+            "catalog/skills.json flags placeholder/template skill(s); upstream cleanup needed: "
+            f"{sample(template_paths)}"
         )
 
 

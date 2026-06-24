@@ -1,8 +1,136 @@
 {
   "generated_by": "tools/build_index.py",
   "note": "Skill names that mean different things across collections. Most agent runtimes resolve skills by name, so installing two of these collections at once makes the winner undefined. Pick deliberately.",
-  "count": 197,
+  "count": 215,
   "collisions": [
+    {
+      "name": "literature-review",
+      "collections": 8,
+      "distinct_bodies": 7,
+      "total_copies": 12,
+      "variants": [
+        {
+          "collection": "claude-scientific-writer",
+          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/claude-scientific-writer/.claude/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "co-researcher",
+          "repo_url": "https://github.com/poemswe/co-researcher",
+          "trigger": "You must use this when synthesizing existing knowledge, identifying research gaps, or tracing the evolution of scientific ideas.",
+          "path": "skills/co-researcher/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "codex-academic-skills",
+          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/empirical-research-skills/skills/03-K-Dense-AI-claude-scientific-skills/literature-review/SKILL.md",
+          "bodies_in_collection": 3
+        },
+        {
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Run a literature review using paper search and primary-source synthesis. Use when the user asks for a lit review, paper survey, state of the art, or academic…",
+          "path": "skills/feynman/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/franklee-academic-research-skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/scienceclaw/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
+          "path": "skills/scientific-agent-skills/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "peer-review",
+      "collections": 8,
+      "distinct_bodies": 6,
+      "total_copies": 10,
+      "variants": [
+        {
+          "collection": "claude-scientific-writer",
+          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
+          "path": "skills/claude-scientific-writer/.claude/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "co-researcher",
+          "repo_url": "https://github.com/poemswe/co-researcher",
+          "trigger": "You must use this when critiquing academic manuscripts, evaluating methodological rigor, or providing structured reviewer feedback.",
+          "path": "skills/co-researcher/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
+          "path": "skills/empirical-research-skills/skills/04-K-Dense-AI-claude-scientific-writer/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Simulate a tough but constructive peer review of an AI research artifact. Use when the user asks for a review, critique, feedback on a paper or draft, or wants…",
+          "path": "skills/feynman/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
+          "path": "skills/franklee-academic-research-skills/peer-review/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Conduct professional peer reviews for papers or theses, providing structured evaluations and improvement suggestions; use when you need a pre-submission…",
+          "path": "skills/medical-research-skills/scientific-skills/Academic Writing/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Conducts structured peer review of scientific manuscripts including methodological evaluation, statistical assessment, clarity analysis, and constructive…",
+          "path": "skills/scienceclaw/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Structured manuscript/grant review with checklist-based evaluation. Use when writing formal peer reviews with specific criteria methodology assessment,…",
+          "path": "skills/scientific-agent-skills/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
     {
       "name": "citation-management",
       "collections": 7,
@@ -61,115 +189,51 @@
       ]
     },
     {
-      "name": "literature-review",
-      "collections": 7,
+      "name": "deep-research",
+      "collections": 6,
       "distinct_bodies": 6,
-      "total_copies": 11,
+      "total_copies": 6,
       "variants": [
         {
-          "collection": "claude-scientific-writer",
-          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/claude-scientific-writer/.claude/skills/literature-review/SKILL.md",
+          "collection": "academic-research-skills",
+          "repo_url": "https://github.com/Imbad0202/academic-research-skills",
+          "trigger": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 7 modes: full research, quick brief, paper review,…",
+          "path": "skills/academic-research-skills/deep-research/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "co-researcher",
-          "repo_url": "https://github.com/poemswe/co-researcher",
-          "trigger": "You must use this when synthesizing existing knowledge, identifying research gaps, or tracing the evolution of scientific ideas.",
-          "path": "skills/co-researcher/skills/literature-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "codex-academic-skills",
-          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/literature-review/SKILL.md",
+          "collection": "claude-deep-research-skill",
+          "repo_url": "https://github.com/199-biotechnologies/claude-deep-research-skill",
+          "trigger": "Use when the user needs multi-source research with citation tracking, evidence persistence, and structured report generation. Triggers on \"deep research\",…",
+          "path": "skills/claude-deep-research-skill/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "empirical-research-skills",
           "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/empirical-research-skills/skills/03-K-Dense-AI-claude-scientific-skills/literature-review/SKILL.md",
-          "bodies_in_collection": 3
-        },
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/franklee-academic-research-skills/literature-review/SKILL.md",
+          "trigger": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 7 modes: full research, quick brief, paper review,…",
+          "path": "skills/empirical-research-skills/skills/24-Imbad0202-academic-research-skills/deep-research/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/scienceclaw/skills/literature-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
-          "path": "skills/scientific-agent-skills/skills/literature-review/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "peer-review",
-      "collections": 7,
-      "distinct_bodies": 5,
-      "total_copies": 9,
-      "variants": [
-        {
-          "collection": "claude-scientific-writer",
-          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
-          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
-          "path": "skills/claude-scientific-writer/.claude/skills/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "co-researcher",
-          "repo_url": "https://github.com/poemswe/co-researcher",
-          "trigger": "You must use this when critiquing academic manuscripts, evaluating methodological rigor, or providing structured reviewer feedback.",
-          "path": "skills/co-researcher/skills/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
-          "path": "skills/empirical-research-skills/skills/04-K-Dense-AI-claude-scientific-writer/peer-review/SKILL.md",
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Run a thorough, source-heavy investigation on any topic. Use when the user asks for deep research, a comprehensive analysis, an in-depth report, or a…",
+          "path": "skills/feynman/skills/deep-research/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "franklee-academic-research-skills",
           "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
-          "path": "skills/franklee-academic-research-skills/peer-review/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Conduct professional peer reviews for papers or theses, providing structured evaluations and improvement suggestions; use when you need a pre-submission…",
-          "path": "skills/medical-research-skills/scientific-skills/Academic Writing/peer-review/SKILL.md",
+          "trigger": "Comprehensive research assistant that synthesizes information from multiple sources with citations. Use when: conducting in-depth research, gathering sources,…",
+          "path": "skills/franklee-academic-research-skills/literature-review/deep-research/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "scienceclaw",
           "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Conducts structured peer review of scientific manuscripts including methodological evaluation, statistical assessment, clarity analysis, and constructive…",
-          "path": "skills/scienceclaw/skills/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Structured manuscript/grant review with checklist-based evaluation. Use when writing formal peer reviews with specific criteria methodology assessment,…",
-          "path": "skills/scientific-agent-skills/skills/peer-review/SKILL.md",
+          "trigger": "Execute autonomous multi-step deep research on any topic. Use when the user asks for comprehensive research, literature reviews, competitive analysis, topic…",
+          "path": "skills/scienceclaw/skills/deep-research/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -375,44 +439,44 @@
       ]
     },
     {
-      "name": "deep-research",
+      "name": "paper-writing",
       "collections": 5,
-      "distinct_bodies": 5,
-      "total_copies": 5,
+      "distinct_bodies": 9,
+      "total_copies": 9,
       "variants": [
         {
-          "collection": "academic-research-skills",
-          "repo_url": "https://github.com/Imbad0202/academic-research-skills",
-          "trigger": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 7 modes: full research, quick brief, paper review,…",
-          "path": "skills/academic-research-skills/deep-research/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "claude-deep-research-skill",
-          "repo_url": "https://github.com/199-biotechnologies/claude-deep-research-skill",
-          "trigger": "Use when the user needs multi-source research with citation tracking, evidence persistence, and structured report generation. Triggers on \"deep research\",…",
-          "path": "skills/claude-deep-research-skill/SKILL.md",
-          "bodies_in_collection": 1
+          "collection": "aris",
+          "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
+          "trigger": "Workflow 3: Full paper writing pipeline that goes from a narrative report to a polished, submission-ready PDF. Use when user says \\\"写论文全流程\\\", \\\"write paper…",
+          "path": "skills/aris/skills/paper-writing/SKILL.md",
+          "bodies_in_collection": 3
         },
         {
           "collection": "empirical-research-skills",
           "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Universal deep research agent team. 13-agent pipeline for rigorous academic research on any topic. 7 modes: full research, quick brief, paper review,…",
-          "path": "skills/empirical-research-skills/skills/24-Imbad0202-academic-research-skills/deep-research/SKILL.md",
+          "trigger": "Workflow 3: Full paper writing pipeline. Orchestrates paper-plan → paper-figure → paper-write → paper-compile → auto-paper-improvement-loop to go from a…",
+          "path": "skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/paper-writing/SKILL.md",
+          "bodies_in_collection": 3
+        },
+        {
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Turn research findings into a polished paper-style draft with sections, equations, and citations. Use when the user asks to write a paper, draft a report,…",
+          "path": "skills/feynman/skills/paper-writing/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Comprehensive research assistant that synthesizes information from multiple sources with citations. Use when: conducting in-depth research, gathering sources,…",
-          "path": "skills/franklee-academic-research-skills/literature-review/deep-research/SKILL.md",
+          "collection": "phd-skills",
+          "repo_url": "https://github.com/fcakyon/phd-skills",
+          "trigger": "Use when the user wants to write, structure, or revise academic paper sections, improve notation consistency, or refine figures and tables. Triggers on phrases…",
+          "path": "skills/phd-skills/plugin/skills/paper-writing/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "scienceclaw",
           "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Execute autonomous multi-step deep research on any topic. Use when the user asks for comprehensive research, literature reviews, competitive analysis, topic…",
-          "path": "skills/scienceclaw/skills/deep-research/SKILL.md",
+          "trigger": "Write scientific papers following IMRaD structure with proper citations. Use when: user asks to draft or improve a scientific paper, write specific sections,…",
+          "path": "skills/scienceclaw/skills/paper-writing/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -461,6 +525,49 @@
       ]
     },
     {
+      "name": "pdf",
+      "collections": 5,
+      "distinct_bodies": 4,
+      "total_copies": 8,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple…",
+          "path": "skills/claude-research/skills/pdf/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-scientific-writer",
+          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+          "trigger": "PDF manipulation toolkit. Extract text/tables, create PDFs, merge/split, fill forms, for programmatic document processing and analysis.",
+          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/pdf/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "codex-academic-skills",
+          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
+          "trigger": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple…",
+          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/pdf/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to…",
+          "path": "skills/scienceclaw/skills/pdf-anthropic/SKILL.md",
+          "bodies_in_collection": 2
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple…",
+          "path": "skills/scientific-agent-skills/skills/pdf/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "scientific-visualization",
       "collections": 5,
       "distinct_bodies": 4,
@@ -499,6 +606,49 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Meta-skill for publication-ready figures. Use when creating journal submission figures requiring multi-panel layouts, significance annotations, error bars,…",
           "path": "skills/scientific-agent-skills/skills/scientific-visualization/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "xlsx",
+      "collections": 5,
+      "distinct_bodies": 4,
+      "total_copies": 8,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing…",
+          "path": "skills/claude-research/skills/xlsx/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-scientific-writer",
+          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+          "trigger": "Spreadsheet toolkit (.xlsx/.csv). Create/edit with formulas/formatting, analyze data, visualization, recalculate formulas, for spreadsheet processing and…",
+          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/xlsx/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "codex-academic-skills",
+          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
+          "trigger": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing…",
+          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/xlsx/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When Claude needs to work…",
+          "path": "skills/scienceclaw/skills/xlsx-official/SKILL.md",
+          "bodies_in_collection": 2
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Create, edit, analyze, or convert Excel spreadsheets (.xlsx, .xlsm) where the workbook file is the primary deliverable. Use for formulas, formatting, financial…",
+          "path": "skills/scientific-agent-skills/skills/xlsx/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -590,42 +740,6 @@
       ]
     },
     {
-      "name": "paper-writing",
-      "collections": 4,
-      "distinct_bodies": 8,
-      "total_copies": 8,
-      "variants": [
-        {
-          "collection": "aris",
-          "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
-          "trigger": "Workflow 3: Full paper writing pipeline that goes from a narrative report to a polished, submission-ready PDF. Use when user says \\\"写论文全流程\\\", \\\"write paper…",
-          "path": "skills/aris/skills/paper-writing/SKILL.md",
-          "bodies_in_collection": 3
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Workflow 3: Full paper writing pipeline. Orchestrates paper-plan → paper-figure → paper-write → paper-compile → auto-paper-improvement-loop to go from a…",
-          "path": "skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/paper-writing/SKILL.md",
-          "bodies_in_collection": 3
-        },
-        {
-          "collection": "phd-skills",
-          "repo_url": "https://github.com/fcakyon/phd-skills",
-          "trigger": "Use when the user wants to write, structure, or revise academic paper sections, improve notation consistency, or refine figures and tables. Triggers on phrases…",
-          "path": "skills/phd-skills/plugin/skills/paper-writing/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Write scientific papers following IMRaD structure with proper citations. Use when: user asks to draft or improve a scientific paper, write specific sections,…",
-          "path": "skills/scienceclaw/skills/paper-writing/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
       "name": "data-analysis",
       "collections": 4,
       "distinct_bodies": 6,
@@ -657,6 +771,114 @@
           "repo_url": "https://github.com/beita6969/ScienceClaw",
           "trigger": "Scientific data analysis including data cleaning, exploratory data analysis (EDA), statistical testing, regression, and reporting. Uses Python with pandas,…",
           "path": "skills/scienceclaw/skills/data-analysis/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "academic-writing",
+      "collections": 4,
+      "distinct_bodies": 5,
+      "total_copies": 5,
+      "variants": [
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Academic writing, research methodology, and scholarly communication workflows. Use when writing papers, literature reviews, grant proposals, conducting…",
+          "path": "skills/claude-skills-journalism/research-toolkit/skills/academic-writing/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "co-researcher",
+          "repo_url": "https://github.com/poemswe/co-researcher",
+          "trigger": "You must use this when producing any research prose — literature reviews, syntheses, analyses, methodology descriptions, discussion sections, abstracts, or any…",
+          "path": "skills/co-researcher/skills/academic-writing/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Activate when the user is drafting any academic economics content from scratch (e.g., outlines, abstracts, introductions, data/methods/identification sections,…",
+          "path": "skills/empirical-research-skills/skills/27-dariia-m-my_claude_skills/academic_writing/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "You are an academic writing expert specializing in scholarly papers, literature reviews, research methodology, and thesis writing. You must adhere to strict…",
+          "path": "skills/franklee-academic-research-skills/writing/academic-writing-1.0.0/SKILL.md",
+          "bodies_in_collection": 2
+        }
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collections": 4,
+      "distinct_bodies": 5,
+      "total_copies": 8,
+      "variants": [
+        {
+          "collection": "ai-research-skills",
+          "repo_url": "https://github.com/Orchestra-Research/AI-Research-SKILLs",
+          "trigger": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization…",
+          "path": "skills/ai-research-skills/0-autoresearch-skill/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "autoresearch",
+          "repo_url": "https://github.com/uditgoenka/autoresearch",
+          "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+          "path": "skills/autoresearch/.agents/skills/autoresearch/SKILL.md",
+          "bodies_in_collection": 3
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization…",
+          "path": "skills/empirical-research-skills/skills/07-Orchestra-Research-AI-Research-SKILLs/autoresearch-skill/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Autonomous experiment loop that tries ideas, measures results, keeps what works, and discards what doesn't. Use when the user asks to optimize a metric, run an…",
+          "path": "skills/feynman/skills/autoresearch/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "interview-me",
+      "collections": 4,
+      "distinct_bodies": 5,
+      "total_copies": 7,
+      "variants": [
+        {
+          "collection": "claude-code-my-workflow",
+          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
+          "trigger": "Interactive interview that formalizes a fuzzy research idea into a structured spec (RQ, hypotheses, identification, data needs, empirical strategy). Use when…",
+          "path": "skills/claude-code-my-workflow/.claude/skills/interview-me/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to conduct a structured interview to extract knowledge or preferences.",
+          "path": "skills/claude-research/skills/interview-me/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Interactive interview to formalize a research idea into a structured specification with hypotheses and empirical strategy",
+          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/interview-me/SKILL.md",
+          "bodies_in_collection": 3
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Interactive interview to formalize a research idea into a structured specification with hypotheses and empirical strategy",
+          "path": "skills/franklee-academic-research-skills/output-tools/interview-me/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -729,6 +951,78 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Build slide decks and presentations for research talks. Use this for making PowerPoint slides, conference presentations, seminar talks, research presentations,…",
           "path": "skills/scientific-agent-skills/skills/scientific-slides/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "brainstorming",
+      "collections": 4,
+      "distinct_bodies": 4,
+      "total_copies": 4,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent,…",
+          "path": "skills/academicforge/skills/superpowers/brainstorming/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent,…",
+          "path": "skills/claude-skills-journalism/superjawn/skills/brainstorming/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Creative exploration and brainstorming; use it when you need to clarify goals/constraints, explore multiple options, and converge on a direction before…",
+          "path": "skills/medical-research-skills/scientific-skills/Other/brainstorming/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent,…",
+          "path": "skills/scienceclaw/skills/brainstorming/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "docx",
+      "collections": 4,
+      "distinct_bodies": 4,
+      "total_copies": 7,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of 'Word doc', 'word…",
+          "path": "skills/claude-research/skills/docx/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-scientific-writer",
+          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+          "trigger": "Document toolkit (.docx). Create/edit documents, tracked changes, comments, formatting preservation, text extraction, for professional document processing.",
+          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/docx/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude…",
+          "path": "skills/scienceclaw/skills/docx-official/SKILL.md",
+          "bodies_in_collection": 2
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of 'Word doc', 'word…",
+          "path": "skills/scientific-agent-skills/skills/docx/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -878,42 +1172,6 @@
       ]
     },
     {
-      "name": "xlsx",
-      "collections": 4,
-      "distinct_bodies": 4,
-      "total_copies": 7,
-      "variants": [
-        {
-          "collection": "claude-scientific-writer",
-          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
-          "trigger": "Spreadsheet toolkit (.xlsx/.csv). Create/edit with formulas/formatting, analyze data, visualization, recalculate formulas, for spreadsheet processing and…",
-          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/xlsx/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "codex-academic-skills",
-          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
-          "trigger": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing…",
-          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/xlsx/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. When Claude needs to work…",
-          "path": "skills/scienceclaw/skills/xlsx-official/SKILL.md",
-          "bodies_in_collection": 2
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Create, edit, analyze, or convert Excel spreadsheets (.xlsx, .xlsm) where the workbook file is the primary deliverable. Use for formulas, formatting, financial…",
-          "path": "skills/scientific-agent-skills/skills/xlsx/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
       "name": "geopandas",
       "collections": 4,
       "distinct_bodies": 3,
@@ -945,42 +1203,6 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Python library for working with geospatial vector data including shapefiles, GeoJSON, and GeoPackage files. Use when working with geographic data for spatial…",
           "path": "skills/scientific-agent-skills/skills/geopandas/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "pdf",
-      "collections": 4,
-      "distinct_bodies": 3,
-      "total_copies": 7,
-      "variants": [
-        {
-          "collection": "claude-scientific-writer",
-          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
-          "trigger": "PDF manipulation toolkit. Extract text/tables, create PDFs, merge/split, fill forms, for programmatic document processing and analysis.",
-          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/pdf/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "codex-academic-skills",
-          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
-          "trigger": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple…",
-          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/pdf/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to…",
-          "path": "skills/scienceclaw/skills/pdf-anthropic/SKILL.md",
-          "bodies_in_collection": 2
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple…",
-          "path": "skills/scientific-agent-skills/skills/pdf/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -1152,6 +1374,35 @@
       ]
     },
     {
+      "name": "proofread",
+      "collections": 3,
+      "distinct_bodies": 6,
+      "total_copies": 8,
+      "variants": [
+        {
+          "collection": "claude-code-my-workflow",
+          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
+          "trigger": "Read-only proofreading pass over lecture `.tex` or `.qmd` files. Checks grammar, typos, overflow, terminology consistency, and academic writing quality;…",
+          "path": "skills/claude-code-my-workflow/.claude/skills/proofread/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need academic proofreading of a LaTeX paper (11 check categories).",
+          "path": "skills/claude-research/skills/proofread/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Run the proofreading protocol on lecture files. Checks grammar, typos, overflow, consistency, and academic writing quality. Produces a report without editing…",
+          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/proofread/SKILL.md",
+          "bodies_in_collection": 5
+        }
+      ]
+    },
+    {
       "name": "lit-review",
       "collections": 3,
       "distinct_bodies": 5,
@@ -1205,64 +1456,6 @@
           "repo_url": "https://github.com/franklee16/academic-research-skills",
           "trigger": "Comprehensive manuscript review covering argument structure, econometric specification, citation completeness, and potential referee objections",
           "path": "skills/franklee-academic-research-skills/peer-review/review-paper/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "academic-writing",
-      "collections": 3,
-      "distinct_bodies": 4,
-      "total_copies": 4,
-      "variants": [
-        {
-          "collection": "co-researcher",
-          "repo_url": "https://github.com/poemswe/co-researcher",
-          "trigger": "You must use this when producing any research prose — literature reviews, syntheses, analyses, methodology descriptions, discussion sections, abstracts, or any…",
-          "path": "skills/co-researcher/skills/academic-writing/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Activate when the user is drafting any academic economics content from scratch (e.g., outlines, abstracts, introductions, data/methods/identification sections,…",
-          "path": "skills/empirical-research-skills/skills/27-dariia-m-my_claude_skills/academic_writing/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "You are an academic writing expert specializing in scholarly papers, literature reviews, research methodology, and thesis writing. You must adhere to strict…",
-          "path": "skills/franklee-academic-research-skills/writing/academic-writing-1.0.0/SKILL.md",
-          "bodies_in_collection": 2
-        }
-      ]
-    },
-    {
-      "name": "interview-me",
-      "collections": 3,
-      "distinct_bodies": 4,
-      "total_copies": 6,
-      "variants": [
-        {
-          "collection": "claude-code-my-workflow",
-          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
-          "trigger": "Interactive interview that formalizes a fuzzy research idea into a structured spec (RQ, hypotheses, identification, data needs, empirical strategy). Use when…",
-          "path": "skills/claude-code-my-workflow/.claude/skills/interview-me/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Interactive interview to formalize a research idea into a structured specification with hypotheses and empirical strategy",
-          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/interview-me/SKILL.md",
-          "bodies_in_collection": 3
-        },
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Interactive interview to formalize a research idea into a structured specification with hypotheses and empirical strategy",
-          "path": "skills/franklee-academic-research-skills/output-tools/interview-me/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -1355,59 +1548,59 @@
       ]
     },
     {
-      "name": "brainstorming",
+      "name": "devils-advocate",
+      "collections": 3,
+      "distinct_bodies": 3,
+      "total_copies": 5,
+      "variants": [
+        {
+          "collection": "claude-code-my-workflow",
+          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
+          "trigger": "Adversarial 5-7 question challenge to a deck's pedagogical choices — ordering, prerequisites, cognitive load, motivation. Use when user says \"devil's…",
+          "path": "skills/claude-code-my-workflow/.claude/skills/devils-advocate/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to challenge research assumptions or stress-test arguments.",
+          "path": "skills/claude-research/skills/devils-advocate/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Challenge slide design with 5-7 pedagogical questions. Checks ordering, prerequisites, and cognitive load.",
+          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/devils-advocate/SKILL.md",
+          "bodies_in_collection": 2
+        }
+      ]
+    },
+    {
+      "name": "experiment-design",
       "collections": 3,
       "distinct_bodies": 3,
       "total_copies": 3,
       "variants": [
         {
-          "collection": "academicforge",
-          "repo_url": "https://github.com/HughYau/AcademicForge",
-          "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent,…",
-          "path": "skills/academicforge/skills/superpowers/brainstorming/SKILL.md",
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need power analysis, pre-analysis plans, QSF parsing, or survey design.",
+          "path": "skills/claude-research/skills/experiment-design/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Creative exploration and brainstorming; use it when you need to clarify goals/constraints, explore multiple options, and converge on a direction before…",
-          "path": "skills/medical-research-skills/scientific-skills/Other/brainstorming/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent,…",
-          "path": "skills/scienceclaw/skills/brainstorming/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "docx",
-      "collections": 3,
-      "distinct_bodies": 3,
-      "total_copies": 6,
-      "variants": [
-        {
-          "collection": "claude-scientific-writer",
-          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
-          "trigger": "Document toolkit (.docx). Create/edit documents, tracked changes, comments, formatting preservation, text extraction, for professional document processing.",
-          "path": "skills/claude-scientific-writer/.claude/skills/document-skills/docx/SKILL.md",
+          "collection": "phd-skills",
+          "repo_url": "https://github.com/fcakyon/phd-skills",
+          "trigger": "Use when the user wants to design experiments, plan ablation studies, structure baselines, or create incremental evaluation strategies. Triggers on phrases…",
+          "path": "skills/phd-skills/plugin/skills/experiment-design/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "scienceclaw",
           "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. When Claude…",
-          "path": "skills/scienceclaw/skills/docx-official/SKILL.md",
-          "bodies_in_collection": 2
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of 'Word doc', 'word…",
-          "path": "skills/scientific-agent-skills/skills/docx/SKILL.md",
+          "trigger": "Design scientific experiments including sample size calculation, randomization, control groups, blinding, and study protocols. Covers RCTs, quasi-experiments,…",
+          "path": "skills/scienceclaw/skills/experiment-design/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -2022,6 +2215,35 @@
       ]
     },
     {
+      "name": "split-pdf",
+      "collections": 3,
+      "distinct_bodies": 2,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to download, split, and deeply read an academic PDF that is NOT in Paperpile (for Paperpile items, prefer paperpile get-pdf-text directly).",
+          "path": "skills/claude-research/skills/split-pdf/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Download, split, and deeply read academic PDFs. Use when asked to read, review, or summarize an academic paper. Splits PDFs into 4-page chunks, reads them in…",
+          "path": "skills/empirical-research-skills/skills/13-scunning1975-MixtapeTools/skills/split-pdf/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Download, split, and deeply read academic PDFs. Use when asked to read, review, or summarize an academic paper. Splits PDFs into 4-page chunks, reads them in…",
+          "path": "skills/franklee-academic-research-skills/project-management/split-pdf/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "stata-data-cleaning",
       "collections": 3,
       "distinct_bodies": 2,
@@ -2046,6 +2268,64 @@
           "repo_url": "https://github.com/wentorai/research-plugins",
           "trigger": "Clean, transform, and validate messy research data using Stata",
           "path": "skills/research-plugins/skills/analysis/wrangling/stata-data-cleaning/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "systematic-debugging",
+      "collections": 3,
+      "distinct_bodies": 2,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+          "path": "skills/academicforge/skills/superpowers/systematic-debugging/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+          "path": "skills/claude-skills-journalism/superjawn/skills/systematic-debugging/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+          "path": "skills/scienceclaw/skills/systematic-debugging/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "test-driven-development",
+      "collections": 3,
+      "distinct_bodies": 2,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when implementing any feature or bugfix, before writing implementation code",
+          "path": "skills/academicforge/skills/superpowers/test-driven-development/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when implementing any feature or bugfix, before writing implementation code",
+          "path": "skills/claude-skills-journalism/superjawn/skills/test-driven-development/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Use when implementing any feature or bugfix, before writing implementation code",
+          "path": "skills/scienceclaw/skills/test-driven-development/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -2333,28 +2613,6 @@
           "trigger": "Generate conference presentation slides (beamer LaTeX → PDF + editable PPTX) from a compiled paper, with speaker notes and full talk script. Use when user says…",
           "path": "skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/paper-slides/SKILL.md",
           "bodies_in_collection": 2
-        }
-      ]
-    },
-    {
-      "name": "proofread",
-      "collections": 2,
-      "distinct_bodies": 5,
-      "total_copies": 7,
-      "variants": [
-        {
-          "collection": "claude-code-my-workflow",
-          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
-          "trigger": "Read-only proofreading pass over lecture `.tex` or `.qmd` files. Checks grammar, typos, overflow, terminology consistency, and academic writing quality;…",
-          "path": "skills/claude-code-my-workflow/.claude/skills/proofread/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Run the proofreading protocol on lecture files. Checks grammar, typos, overflow, consistency, and academic writing quality. Produces a report without editing…",
-          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/proofread/SKILL.md",
-          "bodies_in_collection": 5
         }
       ]
     },
@@ -3679,24 +3937,24 @@
       ]
     },
     {
-      "name": "devils-advocate",
+      "name": "dispatching-parallel-agents",
       "collections": 2,
       "distinct_bodies": 2,
-      "total_copies": 4,
+      "total_copies": 2,
       "variants": [
         {
-          "collection": "claude-code-my-workflow",
-          "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
-          "trigger": "Adversarial 5-7 question challenge to a deck's pedagogical choices — ordering, prerequisites, cognitive load, motivation. Use when user says \"devil's…",
-          "path": "skills/claude-code-my-workflow/.claude/skills/devils-advocate/SKILL.md",
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+          "path": "skills/academicforge/skills/superpowers/dispatching-parallel-agents/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Challenge slide design with 5-7 pedagogical questions. Checks ordering, prerequisites, and cognitive load.",
-          "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/devils-advocate/SKILL.md",
-          "bodies_in_collection": 2
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+          "path": "skills/claude-skills-journalism/superjawn/skills/dispatching-parallel-agents/SKILL.md",
+          "bodies_in_collection": 1
         }
       ]
     },
@@ -3833,23 +4091,23 @@
       ]
     },
     {
-      "name": "experiment-design",
+      "name": "executing-plans",
       "collections": 2,
       "distinct_bodies": 2,
       "total_copies": 2,
       "variants": [
         {
-          "collection": "phd-skills",
-          "repo_url": "https://github.com/fcakyon/phd-skills",
-          "trigger": "Use when the user wants to design experiments, plan ablation studies, structure baselines, or create incremental evaluation strategies. Triggers on phrases…",
-          "path": "skills/phd-skills/plugin/skills/experiment-design/SKILL.md",
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+          "path": "skills/academicforge/skills/superpowers/executing-plans/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Design scientific experiments including sample size calculation, randomization, control groups, blinding, and study protocols. Covers RCTs, quasi-experiments,…",
-          "path": "skills/scienceclaw/skills/experiment-design/SKILL.md",
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+          "path": "skills/claude-skills-journalism/superjawn/skills/executing-plans/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -3895,6 +4153,28 @@
           "trigger": "Send notifications to Feishu/Lark. Internal utility used by other skills, or manually via /feishu-notify. Supports push-only (webhook) and interactive…",
           "path": "skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/feishu-notify/SKILL.md",
           "bodies_in_collection": 2
+        }
+      ]
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting…",
+          "path": "skills/academicforge/skills/superpowers/finishing-a-development-branch/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting…",
+          "path": "skills/claude-skills-journalism/superjawn/skills/finishing-a-development-branch/SKILL.md",
+          "bodies_in_collection": 1
         }
       ]
     },
@@ -4075,6 +4355,28 @@
       ]
     },
     {
+      "name": "handoff",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to pass state to the next session in the current working directory. Writes a handoff.md file that the next session's SessionStart hook will…",
+          "path": "skills/claude-research/skills/handoff/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Writes a session handoff report to handoffs/ with project state, work done, decisions, and next steps. Use at session end or after significant work.",
+          "path": "skills/empirical-research-skills/skills/29-quarcs-lab-project20XXy/dot-claude/skills/handoff/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "histolab",
       "collections": 2,
       "distinct_bodies": 2,
@@ -4224,6 +4526,50 @@
           "repo_url": "https://github.com/franklee16/academic-research-skills",
           "trigger": "Universal LaTeX document skill: create, compile, and convert any document to professional PDF with PNG previews. Supports resumes, reports, cover letters,…",
           "path": "skills/franklee-academic-research-skills/output-tools/latex-document-skill-main/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "latex-scaffold",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to convert a Markdown draft into a buildable LaTeX project.",
+          "path": "skills/claude-research/skills/latex-scaffold/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "research-units-pipeline",
+          "repo_url": "https://github.com/WILLOSCAR/research-units-pipeline-skills",
+          "trigger": "Scaffold a LaTeX project (`latex/main.tex`, optional bibliography wiring, structure) from an existing Markdown draft. **Trigger**: latex scaffold, md→tex,…",
+          "path": "skills/research-units-pipeline/.codex/skills/latex-scaffold/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "literature",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need academic literature discovery, synthesis, or bibliography management. Supports standalone searches and end-to-end project pipelines with…",
+          "path": "skills/claude-research/skills/literature/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "# Literature Search & Review",
+          "path": "skills/scienceclaw/skills/literature/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -4779,6 +5125,50 @@
       ]
     },
     {
+      "name": "receiving-code-review",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical…",
+          "path": "skills/academicforge/skills/superpowers/receiving-code-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical…",
+          "path": "skills/claude-skills-journalism/superjawn/skills/receiving-code-review/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "requesting-code-review",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+          "path": "skills/academicforge/skills/superpowers/requesting-code-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+          "path": "skills/claude-skills-journalism/superjawn/skills/requesting-code-review/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "research-add-fields",
       "collections": 2,
       "distinct_bodies": 2,
@@ -4955,6 +5345,28 @@
       ]
     },
     {
+      "name": "session-log",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "claude-research",
+          "repo_url": "https://github.com/flonat/claude-research",
+          "trigger": "Use when you need to create a timestamped progress log for a research session.",
+          "path": "skills/claude-research/skills/session-log/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Write a durable session log capturing completed work, findings, open questions, and next steps. Use when the user asks to log progress, save session notes,…",
+          "path": "skills/feynman/skills/session-log/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "string-database",
       "collections": 2,
       "distinct_bodies": 2,
@@ -4972,6 +5384,28 @@
           "repo_url": "https://github.com/beita6969/ScienceClaw",
           "trigger": "Query STRING API for protein-protein interactions (59M proteins, 20B interactions). Network analysis, GO/KEGG enrichment, interaction discovery, 5000+ species,…",
           "path": "skills/scienceclaw/skills/string-database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "subagent-driven-development",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when executing implementation plans with independent tasks in the current session",
+          "path": "skills/academicforge/skills/superpowers/subagent-driven-development/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when executing implementation plans with independent tasks in the current session",
+          "path": "skills/claude-skills-journalism/superjawn/skills/subagent-driven-development/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -5043,6 +5477,28 @@
       ]
     },
     {
+      "name": "using-git-worktrees",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via…",
+          "path": "skills/academicforge/skills/superpowers/using-git-worktrees/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart…",
+          "path": "skills/claude-skills-journalism/superjawn/skills/using-git-worktrees/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "vast-gpu",
       "collections": 2,
       "distinct_bodies": 2,
@@ -5060,6 +5516,72 @@
           "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
           "trigger": "Rent, manage, and destroy GPU instances on vast.ai. Use when user says \\\"rent gpu\\\", \\\"vast.ai\\\", \\\"rent a server\\\", \\\"cloud gpu\\\", or needs on-demand GPU…",
           "path": "skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/vast-gpu/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "verification-before-completion",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output…",
+          "path": "skills/academicforge/skills/superpowers/verification-before-completion/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output…",
+          "path": "skills/claude-skills-journalism/superjawn/skills/verification-before-completion/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "writing-plans",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when you have a spec or requirements for a multi-step task, before touching code",
+          "path": "skills/academicforge/skills/superpowers/writing-plans/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when you have a spec or requirements for a multi-step task, before touching code",
+          "path": "skills/claude-skills-journalism/superjawn/skills/writing-plans/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "writing-skills",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "academicforge",
+          "repo_url": "https://github.com/HughYau/AcademicForge",
+          "trigger": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+          "path": "skills/academicforge/skills/superpowers/writing-skills/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "claude-skills-journalism",
+          "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+          "trigger": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+          "path": "skills/claude-skills-journalism/superjawn/skills/writing-skills/SKILL.md",
           "bodies_in_collection": 1
         }
       ]

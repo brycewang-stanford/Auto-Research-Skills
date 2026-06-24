@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C276-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,276 skills collected"></a>
+  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C433-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,433 skills collected"></a>
 </p>
 
-<p align="center"><b>3,276 skills</b> bundled across <b>77 repos</b> — clone the whole research toolbox in one shot.</p>
+<p align="center"><b>3,433 skills</b> bundled across <b>87 repos</b> — clone the whole research toolbox in one shot.</p>
 
 <p align="center">
-  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-3%2C276-ff4e88?style=flat-square" alt="3,276 skills"></a>
+  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-3%2C433-ff4e88?style=flat-square" alt="3,433 skills"></a>
   <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Auto-Research-Skills?style=flat-square&color=ffd23f" alt="stars">
@@ -34,7 +34,7 @@
 
 ---
 
-> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,276 skills** across **77 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
+> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,433 skills** across **87 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
 # recommended: clone first, then let setup.sh handle top-level + nested submodules
@@ -133,7 +133,9 @@ cd Auto-Research-Skills
 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) 🧩 | ~22.7k | Claude Code · Python | **Featured.** Academic research → write → review → revise → finalize pipeline. |
 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) 🧩 | ~13.4k | Claude Code · Python | Nature-grade academic phrasing + scientific figure plotting; Claude & Codex. |
 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) 🧩 | ~10.8k | Markdown skills | ARIS — cross-model review loops, idea discovery, experiment automation. No framework lock-in. |
+| [companion-inc/feynman](https://github.com/companion-inc/feynman) 🧩 | ~8.1k | CLI · Codex · Claude Code | Open-source AI research agent (CLI) on Pi + alphaXiv; 20 research skills — lit review, deep research, replication, peer review — installable into Codex/Claude. |
 | [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) 🧩 | ~4.1k | Claude Code · MCP | Semi-automated research assistant; Zotero + Obsidian + MCP integration. |
+| [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) 🧩 | ~4.0k | MCP · Python | Connect your Zotero library to any MCP agent — discuss papers, summarize, analyze citations. |
 | [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) 🧩 | ~2.8k | MCP | Search & retrieve arXiv papers directly inside any MCP-capable agent. |
 | [K-Dense-AI/claude-scientific-writer](https://github.com/K-Dense-AI/claude-scientific-writer) 🧩 | ~1.9k | Claude Code · Python | General-purpose scientific writer. |
 | [pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow) 🧩 | ~1.2k | Claude Code · LaTeX/R | Fork-ready academic template: multi-agent review, quality gates, replication. |
@@ -143,6 +145,7 @@ cd Auto-Research-Skills
 | [EvoScientist/EvoSkills](https://github.com/EvoScientist/EvoSkills) | ~380 | Agent Skills | Installable skill and knowledge packs for EvoScientist-style scientific workflows. |
 | [openags/auto-research](https://github.com/openags/auto-research) 🧩 | ~284 | Agent + UI | Generalist "AI Scientist" across fields. |
 | [Boom5426/Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills) 🧩 | ~252 | Claude Code · TeX | Draft, revise, audit & resubmit skills for Nature-style papers. |
+| [Light0305/Light-skills](https://github.com/Light0305/Light-skills) 🧩 | ~151 | Claude Code · Codex | Full-pipeline research pack: 28 skills from literature review to submission, with verifiable knowledge bases and adversarial self-checks. |
 | [poemswe/co-researcher](https://github.com/poemswe/co-researcher) 🧩 | ~101 | Claude Code · Codex · Gemini CLI | Multi-platform academic research suite with specialized agents and CLI workflows. |
 | [LeonChaoX/qinyan-academic-skills](https://github.com/LeonChaoX/qinyan-academic-skills) | ~93 | Claude Code · Python | "沁言" academic library — 177 research agents. |
 | [lingzhi227/agent-research-skills](https://github.com/lingzhi227/agent-research-skills) | ~85 | Claude Code · Python | Systematic academic deep-research skills. |
@@ -163,6 +166,7 @@ cd Auto-Research-Skills
 
 | Project | Stars | Notes |
 |---|---|---|
+| [webfuse-com/awesome-autoresearch](https://github.com/webfuse-com/awesome-autoresearch) | ~2.3k | Autoresearch / autonomous-improvement-loop systems (CC0). |
 | [ai-boost/awesome-ai-for-science](https://github.com/ai-boost/awesome-ai-for-science) | ~1.6k | Curated AI-for-Science tools, datasets & frameworks across domains. |
 | [VILA-Lab/Dive-into-Claude-Code](https://github.com/VILA-Lab/Dive-into-Claude-Code) | ~1.4k | Systematic analysis of Claude Code for designing AI-agent systems. |
 | [handsome-rich/Awesome-Auto-Research-Tools](https://github.com/handsome-rich/Awesome-Auto-Research-Tools) | ~778 | The list that inspired this repo. |
@@ -175,19 +179,23 @@ cd Auto-Research-Skills
 
 ## Bundled Repos (submodules)
 
-**3,276 skills** across **77 repos** (every one with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
+**3,433 skills** across **87 repos** (most with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
 
 > Live ranking: see [**STARS.md**](STARS.md) — auto-refreshed weekly by [a GitHub Action](.github/workflows/update-stars.yml).
 >
 > Curation backlog: see [**CURATION.md**](CURATION.md) for candidate skills found via registry/GitHub research, review criteria, and the current safety checklist.
 >
+> 🗺️ For a map of the whole autonomous-research ecosystem and the logic behind the four-folder split, see [**docs/landscape-2026.md**](docs/landscape-2026.md).
+>
 > Maintainers: run `make check` before PRs (or the equivalent commands in [`CONTRIBUTING.md`](CONTRIBUTING.md)). `setup.sh` initializes top-level submodules first and then best-effort nested submodules declared by upstream repos, so one broken nested mapping does not block the whole checkout.
+>
+> Do not install every `skills/` submodule into one agent profile by default. Many upstream collections reuse the same skill names for different behavior, and name-based resolution can become undefined. Before combining collections, inspect [`catalog/collisions.json`](catalog/collisions.json) or serve the repo root and open [`site/collisions.html`](site/collisions.html).
 >
 > **Picking an academic-research skill?** Several bundled packages overlap. Start with [`skills/academic-research-skills`](skills/academic-research-skills) (the featured, most-starred pipeline). Pick [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) or [`skills/codex-academic-skills`](skills/codex-academic-skills) if you're on **Codex** rather than Claude Code; [`skills/franklee-academic-research-skills`](skills/franklee-academic-research-skills) if you work in **econ/finance**; [`skills/claude-code-my-workflow`](skills/claude-code-my-workflow) for a **LaTeX/Beamer + R, fork-ready** academic setup; [`skills/empirical-research-skills`](skills/empirical-research-skills) for **empirical social-science** workflows.
 
 ### Skills & Plugin Collections (`skills/`)
 
-36 reusable skill sets and plugins that drop into coding agents.
+42 reusable skill sets and plugins that drop into coding agents.
 
 | Path | Source | Stars | What it gives you |
 |---|---|---|---|
@@ -197,7 +205,10 @@ cd Auto-Research-Skills
 | `skills/nature-skills` | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | ~13.4k | Nature-grade academic phrasing + scientific figure plotting (Claude & Codex). |
 | `skills/aris` | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | ~10.8k | Markdown-only autonomous-ML-research skills. |
 | `skills/ai-research-skills` | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | ~9.0k | Open library of AI research & engineering skills for any model. |
+| `skills/feynman` | [companion-inc/feynman](https://github.com/companion-inc/feynman) | ~8.1k | Open-source AI research agent (CLI) on Pi + alphaXiv; 20 research skills installable into Codex/Claude. |
+| `skills/autoresearch` | [uditgoenka/autoresearch](https://github.com/uditgoenka/autoresearch) | ~5.2k | Claude Autoresearch skill — Karpathy-inspired autonomous goal-directed iteration; ships a command-safety guard. |
 | `skills/claude-scholar` | [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) | ~4.1k | Semi-automated research assistant; Zotero + Obsidian + MCP. |
+| `skills/zotero-mcp` | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) | ~4.0k | MCP server connecting your Zotero library to any agent — discuss papers, summarize, analyze citations. |
 | `skills/paper-writing-skills` | [Master-cai/Research-Paper-Writing-Skills](https://github.com/Master-cai/Research-Paper-Writing-Skills) | ~3.0k | ML/CV/NLP paper-writing skill package. |
 | `skills/arxiv-mcp-server` | [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) | ~2.8k | MCP server to search & fetch arXiv papers from any agent. |
 | `skills/academic-research-skills-codex` | [Imbad0202/academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | ~1.9k | Codex-native academic research suite, human-in-the-loop. |
@@ -220,17 +231,20 @@ cd Auto-Research-Skills
 | `skills/awesome-scientific-skills` | [InternScience/Awesome-Scientific-Skills](https://github.com/InternScience/Awesome-Scientific-Skills) | ~400 | Curated Agent Skills for scientific research. |
 | `skills/claudeblattman` | [chrisblattman/claudeblattman](https://github.com/chrisblattman/claudeblattman) | ~373 | Claude Code for academics — skills, agents, setup guides. |
 | `skills/ai-research-feedback` | [claesbackman/AI-research-feedback](https://github.com/claesbackman/AI-research-feedback) | ~354 | Claude Code skills for academic research review. |
+| `skills/claude-skills-journalism` | [jamditis/claude-skills-journalism](https://github.com/jamditis/claude-skills-journalism) | ~295 | Journalism/media/academia skills: fact-checking, FOIA, data journalism, academic writing (54 skills). |
 | `skills/nature-paper-skills` | [Boom5426/Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills) | ~252 | Draft, revise, audit & resubmit skills for Nature-style papers. |
 | `skills/phd-skills` | [fcakyon/phd-skills](https://github.com/fcakyon/phd-skills) | ~246 | Paper reproduction, experiment design, paper review. |
 | `skills/academic-skills` | [chtc66/academic-skills](https://github.com/chtc66/academic-skills) | ~227 | Paper reading, survey writing, experiment summary, rebuttal. |
 | `skills/research-plugins` | [wentorai/research-plugins](https://github.com/wentorai/research-plugins) | ~223 | 350+ academic research skills, MCP configs & plugins. |
 | `skills/codex-academic-skills` | [zLanqing/codex-claude-academic-skills](https://github.com/zLanqing/codex-claude-academic-skills) | ~172 | Three academic skills: reading, writing, scientific computing. |
+| `skills/light-skills` | [Light0305/Light-skills](https://github.com/Light0305/Light-skills) | ~151 | 28 skills covering literature review → writing → review → submission, plus 9 verifiable knowledge bases. |
 | `skills/franklee-academic-research-skills` | [franklee16/academic-research-skills](https://github.com/franklee16/academic-research-skills) | ~149 | Claude Code skills for econ/finance academic research. |
 | `skills/co-researcher` | [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | ~101 | Multi-platform research suite: literature review, methodology, synthesis, peer review, ethics, grants. |
+| `skills/claude-research` | [flonat/claude-research](https://github.com/flonat/claude-research) | ~96 | PhD-grade Claude Code infrastructure: 50 skills + agents + hooks + rules (/bib-validate, /pre-submission-report, …). |
 
 ### Systems & Agents (`systems/`)
 
-30 end-to-end systems and autonomous agents — from idea to paper, deep-research report generation, domain-science labs, and 24/7 experiment runners.
+32 end-to-end systems and autonomous agents — from idea to paper, deep-research report generation, domain-science labs, and 24/7 experiment runners.
 
 | Path | Source | Stars | What it does |
 |---|---|---|---|
@@ -238,6 +252,7 @@ cd Auto-Research-Skills
 | `systems/storm` | [stanford-oval/storm](https://github.com/stanford-oval/storm) | ~28.3k | Wikipedia-style long-form report synthesis (Stanford). |
 | `systems/gpt-researcher` | [assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher) | ~27.3k | Plan → scrape → cited report. The classic. |
 | `systems/deep-research` | [dzhng/deep-research](https://github.com/dzhng/deep-research) | ~19.0k | The simplest iterative deep-research agent; refines its own direction (TS). |
+| `systems/deepcode` | [HKUDS/DeepCode](https://github.com/HKUDS/DeepCode) | ~15.8k | Open agentic coding: Paper2Code + Text2Web + Text2Backend. |
 | `systems/ai-scientist` | [SakanaAI/AI-Scientist](https://github.com/SakanaAI/AI-Scientist) | ~13.8k | Generate ideas, run experiments, write & auto-review papers. |
 | `systems/autoresearchclaw` | [aiming-lab/AutoResearchClaw](https://github.com/aiming-lab/AutoResearchClaw) | ~12.8k | Fully autonomous & self-evolving research, idea → paper. |
 | `systems/open-deep-research` | [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research) | ~11.5k | Open, configurable LangGraph deep-research agent. |
@@ -261,6 +276,7 @@ cd Auto-Research-Skills
 | `systems/robin` | [Future-House/robin](https://github.com/Future-House/robin) | ~439 | FutureHouse multi-agent discovery; validated a dry-AMD drug candidate. |
 | `systems/curie` | [Just-Curieous/Curie](https://github.com/Just-Curieous/Curie) | ~360 | Rigorous, reproducible experimentation agent for ML research. |
 | `systems/auto-research` | [openags/auto-research](https://github.com/openags/auto-research) | ~284 | Generalist "AI Scientist" across fields, with UI. |
+| `systems/popper` | [snap-stanford/POPPER](https://github.com/snap-stanford/POPPER) | ~275 | Automated hypothesis testing via agentic sequential (Popperian) falsification — Stanford SNAP. ⚠️ no upstream license. |
 | `systems/sibyl-system` | [Sibyl-Research-Team/AutoResearch-SibylSystem](https://github.com/Sibyl-Research-Team/AutoResearch-SibylSystem) | ~247 | Self-evolving autonomous research system, Claude-Code native. |
 | `systems/research-town` | [ulab-uiuc/research-town](https://github.com/ulab-uiuc/research-town) | ~205 | ICML 2025 — simulator of a human research community. |
 | `systems/coscientist` | [gomesgroup/coscientist](https://github.com/gomesgroup/coscientist) | ~203 | Autonomous chemical research with LLMs (Nature 2023). |
@@ -278,12 +294,14 @@ cd Auto-Research-Skills
 
 ### Lists & Surveys (`lists/`)
 
-7 curated collections / survey repos on the auto-research landscape.
+9 curated collections / survey repos on the auto-research landscape.
 
 | Path | Source | Stars | What it is |
 |---|---|---|---|
+| `lists/awesome-autoresearch` | [webfuse-com/awesome-autoresearch](https://github.com/webfuse-com/awesome-autoresearch) | ~2.3k | Curated autoresearch / autonomous-improvement-loop systems (CC0). |
 | `lists/awesome-ai-for-science` | [ai-boost/awesome-ai-for-science](https://github.com/ai-boost/awesome-ai-for-science) | ~1.6k | Curated AI-for-Science tools, datasets & frameworks across domains. |
 | `lists/dive-into-claude-code` | [VILA-Lab/Dive-into-Claude-Code](https://github.com/VILA-Lab/Dive-into-Claude-Code) | ~1.4k | Systematic analysis of Claude Code for designing AI-agent systems. |
+| `lists/autonomous-agents` | [tmgthb/Autonomous-Agents](https://github.com/tmgthb/Autonomous-Agents) | ~1.3k | Daily-updated index of autonomous-agent (LLM) research papers. |
 | `lists/awesome-auto-research-tools` | [handsome-rich/Awesome-Auto-Research-Tools](https://github.com/handsome-rich/Awesome-Auto-Research-Tools) | ~778 | The list that inspired this repo. |
 | `lists/awesome-deep-research` | [DavidZWZ/Awesome-Deep-Research](https://github.com/DavidZWZ/Awesome-Deep-Research) | ~759 | ACL 2026 — agentic deep-research resources. |
 | `lists/awesome-deep-research-survey` | [scienceaix/deepresearch](https://github.com/scienceaix/deepresearch) | ~430 | Companion list to the Deep Research survey paper. |

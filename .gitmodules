@@ -229,3 +229,33 @@
 [submodule "skills/co-researcher"]
 	path = skills/co-researcher
 	url = https://github.com/poemswe/co-researcher
+[submodule "skills/light-skills"]
+	path = skills/light-skills
+	url = https://github.com/Light0305/Light-skills
+[submodule "skills/feynman"]
+	path = skills/feynman
+	url = https://github.com/companion-inc/feynman
+[submodule "skills/zotero-mcp"]
+	path = skills/zotero-mcp
+	url = https://github.com/54yyyu/zotero-mcp
+[submodule "skills/claude-research"]
+	path = skills/claude-research
+	url = https://github.com/flonat/claude-research
+[submodule "skills/claude-skills-journalism"]
+	path = skills/claude-skills-journalism
+	url = https://github.com/jamditis/claude-skills-journalism
+[submodule "systems/popper"]
+	path = systems/popper
+	url = https://github.com/snap-stanford/POPPER
+[submodule "systems/deepcode"]
+	path = systems/deepcode
+	url = https://github.com/HKUDS/DeepCode
+[submodule "skills/autoresearch"]
+	path = skills/autoresearch
+	url = https://github.com/uditgoenka/autoresearch
+[submodule "lists/autonomous-agents"]
+	path = lists/autonomous-agents
+	url = https://github.com/tmgthb/Autonomous-Agents
+[submodule "lists/awesome-autoresearch"]
+	path = lists/awesome-autoresearch
+	url = https://github.com/webfuse-com/awesome-autoresearch

@@ -77,6 +77,35 @@ def strip_code_fences(text: str) -> str:
     return "".join(out)
 
 
+def strip_inline_code_spans(text: str) -> str:
+    """Blank single-line Markdown code spans while preserving offsets.
+
+    Markdown lets code spans use any run length of backticks, which is common
+    when the example itself contains a single backtick.
+    """
+    chars = list(text)
+    i = 0
+    while i < len(chars):
+        if chars[i] != "`":
+            i += 1
+            continue
+
+        start = i
+        while i < len(chars) and chars[i] == "`":
+            i += 1
+        marker = "`" * (i - start)
+        line_end = text.find("\n", i)
+        if line_end == -1:
+            line_end = len(chars)
+        close = text.find(marker, i, line_end)
+        if close == -1:
+            continue
+        for pos in range(start, close + len(marker)):
+            chars[pos] = " "
+        i = close + len(marker)
+    return "".join(chars)
+
+
 def resolve_root(value: str) -> Path:
     root = Path(value)
     return root if root.is_absolute() else ROOT / root
@@ -109,7 +138,7 @@ def line_number(text: str, offset: int) -> int:
 
 
 def links_in_text(source: Path, text: str) -> list[DocLink]:
-    cleaned = strip_code_fences(text)
+    cleaned = strip_inline_code_spans(strip_code_fences(text))
     links: list[DocLink] = []
     for pattern in (MARKDOWN_LINK_RE, MARKDOWN_IMAGE_RE, MARKDOWN_REFERENCE_RE, HTML_ATTR_RE):
         for match in pattern.finditer(cleaned):

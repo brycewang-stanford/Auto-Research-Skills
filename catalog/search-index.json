@@ -2,13 +2,13 @@
   "generated_by": "tools/build_index.py",
   "note": "Compact discovery index consumed by site/. The canonical, complete manifest is catalog/skills.json. Regenerate with `python3 tools/build_index.py`.",
   "totals": {
-    "skill_files": 3276,
-    "unique_skills": 2548,
-    "collections": 33,
+    "skill_files": 3433,
+    "unique_skills": 2702,
+    "collections": 38,
     "templates": 1,
     "no_frontmatter": 11,
-    "rebundled": 728,
-    "name_collisions": 197
+    "rebundled": 731,
+    "name_collisions": 215
   },
   "tags": [
     "automation",
@@ -79,6 +79,12 @@
       "unique_skills": 1
     },
     {
+      "name": "autoresearch",
+      "repo_url": "https://github.com/uditgoenka/autoresearch",
+      "skill_files": 5,
+      "unique_skills": 3
+    },
+    {
       "name": "claude-code-my-workflow",
       "repo_url": "https://github.com/pedrohcgs/claude-code-my-workflow",
       "skill_files": 36,
@@ -91,6 +97,12 @@
       "unique_skills": 1
     },
     {
+      "name": "claude-research",
+      "repo_url": "https://github.com/flonat/claude-research",
+      "skill_files": 50,
+      "unique_skills": 50
+    },
+    {
       "name": "claude-scholar",
       "repo_url": "https://github.com/Galaxy-Dawn/claude-scholar",
       "skill_files": 45,
@@ -101,6 +113,12 @@
       "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
       "skill_files": 81,
       "unique_skills": 34
+    },
+    {
+      "name": "claude-skills-journalism",
+      "repo_url": "https://github.com/jamditis/claude-skills-journalism",
+      "skill_files": 54,
+      "unique_skills": 54
     },
     {
       "name": "co-researcher",
@@ -127,6 +145,12 @@
       "unique_skills": 946
     },
     {
+      "name": "feynman",
+      "repo_url": "https://github.com/companion-inc/feynman",
+      "skill_files": 20,
+      "unique_skills": 20
+    },
+    {
       "name": "franklee-academic-research-skills",
       "repo_url": "https://github.com/franklee16/academic-research-skills",
       "skill_files": 97,
@@ -137,6 +161,12 @@
       "repo_url": "https://github.com/mvanhorn/last30days-skill",
       "skill_files": 1,
       "unique_skills": 1
+    },
+    {
+      "name": "light-skills",
+      "repo_url": "https://github.com/Light0305/Light-skills",
+      "skill_files": 28,
+      "unique_skills": 28
     },
     {
       "name": "medical-research-skills",
@@ -441,35 +471,50 @@
       "collection": "academicforge",
       "trigger": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/dispatching-parallel-agents/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/dispatching-parallel-agents/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "executing-plans",
       "collection": "academicforge",
       "trigger": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/executing-plans/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/executing-plans/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "finishing-a-development-branch",
       "collection": "academicforge",
       "trigger": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/finishing-a-development-branch/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/finishing-a-development-branch/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "receiving-code-review",
       "collection": "academicforge",
       "trigger": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not…",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/receiving-code-review/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/receiving-code-review/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "requesting-code-review",
       "collection": "academicforge",
       "trigger": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/requesting-code-review/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/requesting-code-review/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "scientific-visualization",
@@ -489,28 +534,40 @@
       "collection": "academicforge",
       "trigger": "Use when executing implementation plans with independent tasks in the current session",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/subagent-driven-development/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/subagent-driven-development/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "systematic-debugging",
       "collection": "academicforge",
       "trigger": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/systematic-debugging/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/systematic-debugging/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "test-driven-development",
       "collection": "academicforge",
       "trigger": "Use when implementing any feature or bugfix, before writing implementation code",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/test-driven-development/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/test-driven-development/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "using-git-worktrees",
       "collection": "academicforge",
       "trigger": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/using-git-worktrees/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/using-git-worktrees/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "using-superpowers",
@@ -524,14 +581,20 @@
       "collection": "academicforge",
       "trigger": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims;…",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/verification-before-completion/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/verification-before-completion/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "writing-plans",
       "collection": "academicforge",
       "trigger": "Use when you have a spec or requirements for a multi-step task, before touching code",
       "license": "",
-      "path": "skills/academicforge/skills/superpowers/writing-plans/SKILL.md"
+      "path": "skills/academicforge/skills/superpowers/writing-plans/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "writing-skills",
@@ -539,6 +602,9 @@
       "trigger": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
       "license": "",
       "path": "skills/academicforge/skills/superpowers/writing-skills/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "writing"
       ]
@@ -617,6 +683,9 @@
       "trigger": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization targets. The outer loop synthesizes…",
       "license": "MIT",
       "path": "skills/ai-research-skills/0-autoresearch-skill/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "automation",
         "experiment",
@@ -3717,6 +3786,73 @@
       ]
     },
     {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "license": "",
+      "path": "skills/autoresearch/.agents/skills/autoresearch/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "license": "",
+      "path": "skills/autoresearch/.claude/skills/autoresearch/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "license": "",
+      "path": "skills/autoresearch/.opencode/skills/autoresearch/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "license": "",
+      "path": "skills/autoresearch/claude-plugin/skills/autoresearch/SKILL.md",
+      "flags": [
+        "dup",
+        "collision"
+      ],
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "license": "",
+      "path": "skills/autoresearch/plugins/autoresearch/skills/autoresearch/SKILL.md",
+      "flags": [
+        "dup",
+        "collision"
+      ],
+      "tags": [
+        "automation"
+      ]
+    },
+    {
       "name": "audit-reproducibility",
       "collection": "claude-code-my-workflow",
       "trigger": "Enforce the replication-protocol.md rule by cross-checking numeric claims in a manuscript against the actual R / Stata / Python outputs. Report PASS/FAIL per claim against tolerance thresholds. Use…",
@@ -4175,6 +4311,510 @@
       ],
       "tags": [
         "citations"
+      ]
+    },
+    {
+      "name": "audit-paper-book",
+      "collection": "claude-research",
+      "trigger": "Use when you need to detect drift between an existing paper-book companion and a revised version of its source paper, then sync the mechanical pieces (new bib entries, new/changed figures) and report…",
+      "license": "",
+      "path": "skills/claude-research/skills/audit-paper-book/SKILL.md",
+      "tags": [
+        "data",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "beamer-deck",
+      "collection": "claude-research",
+      "trigger": "Use when you need to create an academic Beamer presentation with original theme and multi-agent review.",
+      "license": "",
+      "path": "skills/claude-research/skills/beamer-deck/SKILL.md",
+      "tags": [
+        "automation",
+        "latex",
+        "presentation"
+      ]
+    },
+    {
+      "name": "bib-coverage",
+      "collection": "claude-research",
+      "trigger": "Use when you need to compare a project .bib against a Paperpile label to find uncited papers or unfiled entries.",
+      "license": "",
+      "path": "skills/claude-research/skills/bib-coverage/SKILL.md"
+    },
+    {
+      "name": "bib-filter",
+      "collection": "claude-research",
+      "trigger": "Use when you need to filter a .bib file to only entries actually cited in a .tex project.",
+      "license": "",
+      "path": "skills/claude-research/skills/bib-filter/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "bib-parse",
+      "collection": "claude-research",
+      "trigger": "Extract citations from a PDF and generate a validated .bib file. Reads the PDF, identifies all referenced works, constructs BibTeX entries with metadata verification, then runs /bib-validate.",
+      "license": "",
+      "path": "skills/claude-research/skills/bib-parse/SKILL.md",
+      "tags": [
+        "citations",
+        "latex"
+      ]
+    },
+    {
+      "name": "bib-validate",
+      "collection": "claude-research",
+      "trigger": "Cross-reference \\\\cite{} keys against .bib files or embedded \\\\bibitem entries. Finds missing, unused, and typo'd citation keys. Deep verification mode spawns parallel agents for DOI/metadata…",
+      "license": "",
+      "path": "skills/claude-research/skills/bib-validate/SKILL.md",
+      "tags": [
+        "citations"
+      ]
+    },
+    {
+      "name": "causal-design",
+      "collection": "claude-research",
+      "trigger": "Use when you need to design or audit an identification strategy for an observational study.",
+      "license": "",
+      "path": "skills/claude-research/skills/causal-design/SKILL.md",
+      "tags": [
+        "causal-inference",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "code-archaeology",
+      "collection": "claude-research",
+      "trigger": "Use when you need to review and understand old code, data, or analysis files.",
+      "license": "",
+      "path": "skills/claude-research/skills/code-archaeology/SKILL.md"
+    },
+    {
+      "name": "devils-advocate",
+      "collection": "claude-research",
+      "trigger": "Use when you need to challenge research assumptions or stress-test arguments.",
+      "license": "",
+      "path": "skills/claude-research/skills/devils-advocate/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "docx",
+      "collection": "claude-research",
+      "trigger": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of 'Word doc', 'word document', '.docx', or requests to produce…",
+      "license": "Proprietary. LICENSE.txt has complete terms",
+      "path": "skills/claude-research/skills/docx/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "experiment-design",
+      "collection": "claude-research",
+      "trigger": "Use when you need power analysis, pre-analysis plans, QSF parsing, or survey design.",
+      "license": "",
+      "path": "skills/claude-research/skills/experiment-design/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "experiment"
+      ]
+    },
+    {
+      "name": "handoff",
+      "collection": "claude-research",
+      "trigger": "Use when you need to pass state to the next session in the current working directory. Writes a handoff.md file that the next session's SessionStart hook will read and delete.",
+      "license": "",
+      "path": "skills/claude-research/skills/handoff/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "init-paper-book",
+      "collection": "claude-research",
+      "trigger": "Use when you need to scaffold a NEW educational companion book for a LaTeX paper. Reads the paper, drafts 8 substantive chapters into the vault at ~/Research-Vault/books/{slug}/, copies bib +…",
+      "license": "",
+      "path": "skills/claude-research/skills/init-paper-book/SKILL.md",
+      "tags": [
+        "data",
+        "latex",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "init-project",
+      "collection": "claude-research",
+      "trigger": "Bootstrap a new research project. Interview for details, scaffold directory structure, create Overleaf symlink, initialise git, and create project context files.",
+      "license": "",
+      "path": "skills/claude-research/skills/init-project/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "init-project-course",
+      "collection": "claude-research",
+      "trigger": "Use when you need to bootstrap a university course or module folder.",
+      "license": "",
+      "path": "skills/claude-research/skills/init-project-course/skill.md"
+    },
+    {
+      "name": "init-project-light",
+      "collection": "claude-research",
+      "trigger": "Use when you need to bootstrap a lightweight project with minimal structure.",
+      "license": "",
+      "path": "skills/claude-research/skills/init-project-light/skill.md"
+    },
+    {
+      "name": "init-project-research",
+      "collection": "claude-research",
+      "trigger": "Use when you need to bootstrap a full research project with directory scaffold and Overleaf symlink.",
+      "license": "",
+      "path": "skills/claude-research/skills/init-project-research/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "insights-deck",
+      "collection": "claude-research",
+      "trigger": "Use when you need a timestamped Claude Code insights report and Beamer presentation.",
+      "license": "",
+      "path": "skills/claude-research/skills/insights-deck/SKILL.md",
+      "tags": [
+        "latex",
+        "presentation"
+      ]
+    },
+    {
+      "name": "interview-me",
+      "collection": "claude-research",
+      "trigger": "Use when you need to conduct a structured interview to extract knowledge or preferences.",
+      "license": "",
+      "path": "skills/claude-research/skills/interview-me/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "citations"
+      ]
+    },
+    {
+      "name": "latex",
+      "collection": "claude-research",
+      "trigger": "Use when you need to compile a LaTeX document — includes autonomous error resolution, citation audit, and quality scoring.",
+      "license": "",
+      "path": "skills/claude-research/skills/latex/SKILL.md",
+      "tags": [
+        "automation",
+        "citations",
+        "latex",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "latex-health-check",
+      "collection": "claude-research",
+      "trigger": "Use when you need to compile all LaTeX projects and check cross-project consistency.",
+      "license": "",
+      "path": "skills/claude-research/skills/latex-health-check/SKILL.md",
+      "tags": [
+        "latex",
+        "medical"
+      ]
+    },
+    {
+      "name": "latex-scaffold",
+      "collection": "claude-research",
+      "trigger": "Use when you need to convert a Markdown draft into a buildable LaTeX project.",
+      "license": "",
+      "path": "skills/claude-research/skills/latex-scaffold/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "latex-template",
+      "collection": "claude-research",
+      "trigger": "Use when you need to compare a project's LaTeX preamble against the working paper template.",
+      "license": "",
+      "path": "skills/claude-research/skills/latex-template/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "literature",
+      "collection": "claude-research",
+      "trigger": "Use when you need academic literature discovery, synthesis, or bibliography management. Supports standalone searches and end-to-end project pipelines with vault sync and auto-commit.",
+      "license": "",
+      "path": "skills/claude-research/skills/literature/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation",
+        "citations"
+      ]
+    },
+    {
+      "name": "memory-cleanup",
+      "collection": "claude-research",
+      "trigger": "Use when you need to prune duplicates and merge overlapping entries in MEMORY.md files.",
+      "license": "",
+      "path": "skills/claude-research/skills/memory-cleanup/SKILL.md"
+    },
+    {
+      "name": "multi-perspective",
+      "collection": "claude-research",
+      "trigger": "Use when you need to explore a research question from multiple independent perspectives.",
+      "license": "",
+      "path": "skills/claude-research/skills/multi-perspective/SKILL.md",
+      "tags": [
+        "ideation"
+      ]
+    },
+    {
+      "name": "pdf",
+      "collection": "claude-research",
+      "trigger": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart,…",
+      "license": "Proprietary. LICENSE.txt has complete terms",
+      "path": "skills/claude-research/skills/pdf/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "data",
+        "latex"
+      ]
+    },
+    {
+      "name": "pipeline-manifest",
+      "collection": "claude-research",
+      "trigger": "Use when you need to map scripts to their inputs, outputs, and paper figures/tables.",
+      "license": "",
+      "path": "skills/claude-research/skills/pipeline-manifest/SKILL.md",
+      "tags": [
+        "automation",
+        "data"
+      ]
+    },
+    {
+      "name": "postmortem",
+      "collection": "claude-research",
+      "trigger": "Use when you need a structured post-mortem after incidents, mistakes, or stuck sessions.",
+      "license": "",
+      "path": "skills/claude-research/skills/postmortem/SKILL.md"
+    },
+    {
+      "name": "pre-submission-report",
+      "collection": "claude-research",
+      "trigger": "Use when you need all quality checks run before submission, producing a single dated report.",
+      "license": "",
+      "path": "skills/claude-research/skills/pre-submission-report/SKILL.md"
+    },
+    {
+      "name": "project-deck",
+      "collection": "claude-research",
+      "trigger": "Use when you need to create a presentation deck to communicate project status.",
+      "license": "",
+      "path": "skills/claude-research/skills/project-deck/SKILL.md",
+      "tags": [
+        "presentation"
+      ]
+    },
+    {
+      "name": "project-safety",
+      "collection": "claude-research",
+      "trigger": "Use when you need to set up safety rules and folder structures for a research project.",
+      "license": "",
+      "path": "skills/claude-research/skills/project-safety/SKILL.md"
+    },
+    {
+      "name": "proofread",
+      "collection": "claude-research",
+      "trigger": "Use when you need academic proofreading of a LaTeX paper (11 check categories).",
+      "license": "",
+      "path": "skills/claude-research/skills/proofread/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "latex",
+        "writing"
+      ]
+    },
+    {
+      "name": "python-env",
+      "collection": "claude-research",
+      "trigger": "Use when you need Python environment management with uv (install, create venv, manage deps).",
+      "license": "",
+      "path": "skills/claude-research/skills/python-env/SKILL.md"
+    },
+    {
+      "name": "quarto-deck",
+      "collection": "claude-research",
+      "trigger": "Use when you need to generate a Reveal.js HTML presentation from Markdown.",
+      "license": "",
+      "path": "skills/claude-research/skills/quarto-deck/SKILL.md",
+      "tags": [
+        "presentation"
+      ]
+    },
+    {
+      "name": "save-context",
+      "collection": "claude-research",
+      "trigger": "Use when you need to save information from the current conversation to the context library.",
+      "license": "",
+      "path": "skills/claude-research/skills/save-context/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "session-health",
+      "collection": "claude-research",
+      "trigger": "Use when you need to check current context status and session health.",
+      "license": "",
+      "path": "skills/claude-research/skills/session-health/SKILL.md",
+      "tags": [
+        "latex",
+        "medical"
+      ]
+    },
+    {
+      "name": "session-log",
+      "collection": "claude-research",
+      "trigger": "Use when you need to create a timestamped progress log for a research session.",
+      "license": "",
+      "path": "skills/claude-research/skills/session-log/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "skill-extract",
+      "collection": "claude-research",
+      "trigger": "Extract reusable knowledge from the current session into a persistent skill.\\nUse when you discover something non-obvious, create a workaround, or develop\\na multi-step workflow that future sessions…",
+      "license": "",
+      "path": "skills/claude-research/skills/skill-extract/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "skill-preflight",
+      "collection": "claude-research",
+      "trigger": "Use when you need a pre-flight duplicate check before creating new skills or agents.",
+      "license": "",
+      "path": "skills/claude-research/skills/skill-preflight/SKILL.md"
+    },
+    {
+      "name": "split-pdf",
+      "collection": "claude-research",
+      "trigger": "Use when you need to download, split, and deeply read an academic PDF that is NOT in Paperpile (for Paperpile items, prefer paperpile get-pdf-text directly).",
+      "license": "",
+      "path": "skills/claude-research/skills/split-pdf/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "strategic-revision",
+      "collection": "claude-research",
+      "trigger": "Use when you receive referee comments for a paper (R&R, revise-and-resubmit) and need a DAG-validated revision master plan — atomic task extraction, dependency mapping, computational critical-path…",
+      "license": "",
+      "path": "skills/claude-research/skills/strategic-revision/SKILL.md",
+      "tags": [
+        "peer-review"
+      ]
+    },
+    {
+      "name": "synthetic-data",
+      "collection": "claude-research",
+      "trigger": "Use when you need to generate structurally realistic synthetic datasets for pilot testing or power analysis.",
+      "license": "",
+      "path": "skills/claude-research/skills/synthetic-data/SKILL.md",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "system-audit",
+      "collection": "claude-research",
+      "trigger": "Use when you need to run parallel audits across skills, hooks, agents, rules, and conventions.",
+      "license": "",
+      "path": "skills/claude-research/skills/system-audit/SKILL.md",
+      "tags": [
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "task-management",
+      "collection": "claude-research",
+      "trigger": "Use when you need help with daily planning, weekly reviews, meeting actions, or vault task queries.",
+      "license": "",
+      "path": "skills/claude-research/skills/task-management/SKILL.md"
+    },
+    {
+      "name": "update-focus",
+      "collection": "claude-research",
+      "trigger": "Use when you need to update current-focus.md with a structured session summary.",
+      "license": "",
+      "path": "skills/claude-research/skills/update-focus/SKILL.md"
+    },
+    {
+      "name": "update-project-doc",
+      "collection": "claude-research",
+      "trigger": "Use when you need to update a project's own CLAUDE.md, README.md, or docs/ to reflect current state.",
+      "license": "",
+      "path": "skills/claude-research/skills/update-project-doc/SKILL.md"
+    },
+    {
+      "name": "voice-analyzer",
+      "collection": "claude-research",
+      "trigger": "Use when you need to analyze writing samples to create a portable voice profile.",
+      "license": "",
+      "path": "skills/claude-research/skills/voice-analyzer/SKILL.md",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "voice-editor",
+      "collection": "claude-research",
+      "trigger": "Use when you need to edit content to match a specific voice profile.",
+      "license": "",
+      "path": "skills/claude-research/skills/voice-editor/SKILL.md"
+    },
+    {
+      "name": "xlsx",
+      "collection": "claude-research",
+      "trigger": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .csv, or .tsv file (e.g.,…",
+      "license": "Proprietary. LICENSE.txt has complete terms",
+      "path": "skills/claude-research/skills/xlsx/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation",
+        "citations",
+        "data"
       ]
     },
     {
@@ -5861,6 +6501,523 @@
     },
     {
       "name": "academic-writing",
+      "collection": "claude-skills-journalism",
+      "trigger": "Academic writing, research methodology, and scholarly communication workflows. Use when writing papers, literature reviews, grant proposals, conducting research, managing citations, preparing for…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/academic-writing/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation",
+        "citations",
+        "grants",
+        "literature-review",
+        "peer-review",
+        "writing"
+      ]
+    },
+    {
+      "name": "accessibility-compliance",
+      "collection": "claude-skills-journalism",
+      "trigger": "Web accessibility patterns for news sites, journalism tools, and academic platforms. Use when building accessible interfaces, auditing existing sites for WCAG compliance, writing alt text for news…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/accessibility-compliance/SKILL.md",
+      "tags": [
+        "data",
+        "latex",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "ai-writing-detox",
+      "collection": "claude-skills-journalism",
+      "trigger": "Eliminate AI-generated writing patterns that erode reader trust. Activate when writing articles, documentation, press releases, or any content where AI patterns would undermine credibility. For…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/ai-writing-detox/SKILL.md"
+    },
+    {
+      "name": "api-hardening",
+      "collection": "claude-skills-journalism",
+      "trigger": "API security hardening patterns. Use when implementing rate limiting, input validation, CORS configuration, API key management, request throttling, or protecting endpoints from abuse. Covers…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/security-toolkit/skills/api-hardening/SKILL.md"
+    },
+    {
+      "name": "brainstorming",
+      "collection": "claude-skills-journalism",
+      "trigger": "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation.",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/brainstorming/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "ideation"
+      ]
+    },
+    {
+      "name": "content-access",
+      "collection": "claude-skills-journalism",
+      "trigger": "Legal methods for accessing paywalled and geo-blocked content. Use when researching behind paywalls, accessing academic papers, bypassing geographic restrictions, or finding open access alternatives.…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/content-access/SKILL.md",
+      "tags": [
+        "writing"
+      ]
+    },
+    {
+      "name": "crisis-communications",
+      "collection": "claude-skills-journalism",
+      "trigger": "Crisis communication and rapid response workflows for journalists and communications professionals. Use when covering breaking news events, managing organizational communications during crises,…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/crisis-communications/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "data-journalism",
+      "collection": "claude-skills-journalism",
+      "trigger": "Data journalism workflows for analysis, visualization, and storytelling. Use when analyzing datasets, creating charts and maps, cleaning messy data, calculating statistics or building data-driven…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/data-journalism/SKILL.md",
+      "tags": [
+        "automation",
+        "data",
+        "statistics"
+      ]
+    },
+    {
+      "name": "digital-archive",
+      "collection": "claude-skills-journalism",
+      "trigger": "Digital archiving workflows with AI enrichment, entity extraction, and knowledge graph construction. Use when building content archives, implementing AI-powered categorization, extracting entities…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/digital-archive/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/dispatching-parallel-agents/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "Document design",
+      "collection": "claude-skills-journalism",
+      "trigger": "This skill should be used when the user asks to \"create a proposal\", \"design a report\", \"make a one-pager\", \"build a PDF\", \"create a newsletter\", \"design slides\", \"make event materials\", \"design a…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/pdf-playground/skills/document-design/SKILL.md",
+      "tags": [
+        "grants",
+        "presentation"
+      ]
+    },
+    {
+      "name": "editorial-workflow",
+      "collection": "claude-skills-journalism",
+      "trigger": "Manage editorial workflows for newsrooms and publications. Use when tracking story assignments, managing deadlines, coordinating editorial calendars, or establishing handoff protocols between…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/editorial-workflow/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "electron-dev",
+      "collection": "claude-skills-journalism",
+      "trigger": "Electron desktop application development with React, TypeScript, and Vite. Use when building desktop apps, implementing IPC communication, managing windows/tray, handling PTY terminals, integrating…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/electron-dev/SKILL.md"
+    },
+    {
+      "name": "executing-plans",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when you have a written implementation plan to execute in a separate session with review checkpoints",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/executing-plans/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "fact-check-workflow",
+      "collection": "claude-skills-journalism",
+      "trigger": "Structured workflow for fact-checking claims in journalism. Use when verifying statements for publication, rating claims for fact-check articles, or building pre-publication verification processes.…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/fact-check-workflow/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/finishing-a-development-branch/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "foia-requests",
+      "collection": "claude-skills-journalism",
+      "trigger": "Freedom of Information Act (FOIA) and public records request workflows. Use when drafting records requests, tracking submissions, understanding exemptions, appealing denials, or managing large…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/foia-requests/SKILL.md",
+      "tags": [
+        "automation",
+        "writing"
+      ]
+    },
+    {
+      "name": "free-apis-catalog",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when suggesting APIs for a project, looking for free data sources, building weekend projects that need external data, or when the user needs weather, news, finance, sports, ML, or entertainment…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/free-apis-catalog/SKILL.md"
+    },
+    {
+      "name": "interview-prep",
+      "collection": "claude-skills-journalism",
+      "trigger": "Prepare for journalism interviews with research checklists, question frameworks, and attribution guidelines. Use when preparing to interview sources, planning follow-up questions, or managing…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/interview-prep/SKILL.md"
+    },
+    {
+      "name": "interview-transcription",
+      "collection": "claude-skills-journalism",
+      "trigger": "Transcription workflows, recording management, and quote extraction for journalists. Use when processing audio/video recordings, generating transcripts with timestamps, extracting quotes for…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/interview-transcription/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "mobile-debugging",
+      "collection": "claude-skills-journalism",
+      "trigger": "Remote JavaScript console access and debugging on mobile devices. Use when debugging web pages on phones/tablets, accessing console errors without desktop DevTools, testing responsive designs on real…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/mobile-debugging/SKILL.md",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "newsletter-publishing",
+      "collection": "claude-skills-journalism",
+      "trigger": "Email newsletter workflows for journalists and researchers. Use when creating, managing, or optimizing email newsletters, building subscriber lists, designing email templates, analyzing engagement…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/newsletter-publishing/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "newsroom-style",
+      "collection": "claude-skills-journalism",
+      "trigger": "Enforce AP Style and newsroom conventions for journalism writing. Use when writing news articles, editing drafts, creating headlines, or converting notes into publishable copy. Ensures professional…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/newsroom-style/SKILL.md",
+      "tags": [
+        "writing"
+      ]
+    },
+    {
+      "name": "one-way-door",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use this skill when creating new files that represent architectural decisions — data models, infrastructure configs, auth boundaries, API contracts, CI/CD pipelines, or event systems. Flags…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/one-way-door/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "page-monitoring",
+      "collection": "claude-skills-journalism",
+      "trigger": "Web page monitoring, change detection, and availability tracking. Use when tracking content changes, detecting when pages go down, monitoring for updates, preserving content before deletion, or…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/page-monitoring/SKILL.md"
+    },
+    {
+      "name": "pdf-design",
+      "collection": "claude-skills-journalism",
+      "trigger": "Design and edit professional PDF reports and proposals with live preview",
+      "license": "",
+      "path": "skills/claude-skills-journalism/pdf-design/SKILL.md",
+      "tags": [
+        "grants"
+      ]
+    },
+    {
+      "name": "photo-metadata",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when preparing photos or images for a news wire, publication, photo CMS, or archive — embedding caption, byline, credit, alt text, keywords, copyright or Creative Commons license, and location…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/photo-metadata/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "project-memory",
+      "collection": "claude-skills-journalism",
+      "trigger": "Generate CLAUDE.md project memory files that transfer institutional knowledge, not obvious information. Use when setting up new journalism projects, onboarding collaborators, or documenting…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/project-templates-toolkit/skills/project-memory/SKILL.md",
+      "tags": [
+        "automation",
+        "grants"
+      ]
+    },
+    {
+      "name": "project-retrospective",
+      "collection": "claude-skills-journalism",
+      "trigger": "Generate LESSONS.md retrospective files that capture institutional knowledge, especially failures. Use when closing out journalism projects, investigations, events, or publications. Includes…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/project-templates-toolkit/skills/project-retrospective/SKILL.md"
+    },
+    {
+      "name": "python-pipeline",
+      "collection": "claude-skills-journalism",
+      "trigger": "Python data processing pipelines with modular architecture. Use when building content processing workflows, implementing dispatcher patterns, integrating Google Sheets/Drive APIs, or creating batch…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/python-pipeline/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "receiving-code-review",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/receiving-code-review/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "requesting-code-review",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when completing tasks, implementing major features, or before merging to verify work meets requirements",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/requesting-code-review/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "secure-auth",
+      "collection": "claude-skills-journalism",
+      "trigger": "Secure authentication implementation patterns. Use when implementing user login, registration, password reset, session management, JWT authentication, OAuth, MFA, or passkeys. Provides…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/security-toolkit/skills/secure-auth/SKILL.md"
+    },
+    {
+      "name": "security-checklist",
+      "collection": "claude-skills-journalism",
+      "trigger": "Pre-deployment security audit for web applications, organized by OWASP Top 10:2025 categories. Use when reviewing code before shipping, auditing an existing application, or when users mention…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/security-toolkit/skills/security-checklist/SKILL.md",
+      "tags": [
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "social-media-intelligence",
+      "collection": "claude-skills-journalism",
+      "trigger": "Social media monitoring, narrative tracking, and open-source intelligence for journalists. Use when tracking viral content spread, analyzing coordinated campaigns, monitoring breaking news on social…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/social-media-intelligence/SKILL.md"
+    },
+    {
+      "name": "source-verification",
+      "collection": "claude-skills-journalism",
+      "trigger": "Journalism source verification and fact-checking workflows. Use when verifying claims, checking source credibility, investigating social media accounts, reverse image searching, detecting…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/source-verification/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "story-pitch",
+      "collection": "claude-skills-journalism",
+      "trigger": "Craft effective story pitches for different publication types and formats. Use when pitching to editors, preparing query letters, or developing story angles. Includes templates for daily news,…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/journalism-core/skills/story-pitch/SKILL.md"
+    },
+    {
+      "name": "subagent-driven-development",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when executing implementation plans with independent tasks in the current session",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/subagent-driven-development/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "supply-chain-hardening",
+      "collection": "claude-skills-journalism",
+      "trigger": "Configure install-time cooldowns for npm/bun (minimum release age) and run a sandboxed pre-install scan when the cooldown has to be bypassed. Use when the user asks about supply-chain attacks,…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/security-toolkit/skills/supply-chain-hardening/SKILL.md",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "systematic-debugging",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/systematic-debugging/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "template-selector",
+      "collection": "claude-skills-journalism",
+      "trigger": "Choose the correct CLAUDE.md or LESSONS.md template for journalism projects. Use when starting a new project, setting up documentation, or unsure which template category fits best. Provides decision…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/project-templates-toolkit/skills/template-selector/SKILL.md"
+    },
+    {
+      "name": "test-driven-development",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when implementing any feature or bugfix, before writing implementation code",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/test-driven-development/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "test-first-bugs",
+      "collection": "claude-skills-journalism",
+      "trigger": "This skill should be used when the user reports a bug, describes unexpected behavior, says something is \"broken\", \"not working\", \"failing\", mentions an \"error\", \"issue\", or \"problem\" in code, or asks…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/test-first-bugs/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "using-git-worktrees",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/using-git-worktrees/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "using-superjawn",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/using-superjawn/SKILL.md"
+    },
+    {
+      "name": "verification-before-completion",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims;…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/verification-before-completion/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "vibe-coding",
+      "collection": "claude-skills-journalism",
+      "trigger": "Methodology for effective AI-assisted software development. Use when helping users build software with AI coding assistants, debugging AI-generated code, planning features for AI implementation,…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/vibe-coding/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "visual-explainer",
+      "collection": "claude-skills-journalism",
+      "trigger": "Generate self-contained HTML pages that visually explain systems, data stories, investigations, editorial workflows, and code changes. Use when the user asks for a diagram, architecture overview,…",
+      "license": "MIT",
+      "path": "skills/claude-skills-journalism/visual-explainer/SKILL.md",
+      "tags": [
+        "automation",
+        "data"
+      ]
+    },
+    {
+      "name": "web-archiving",
+      "collection": "claude-skills-journalism",
+      "trigger": "Web page archiving and retrieval from cached/deleted sources. Use when accessing unavailable pages, preserving web content, creating legal evidence archives, or building redundant archival workflows.…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/research-toolkit/skills/web-archiving/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "web-scraping",
+      "collection": "claude-skills-journalism",
+      "trigger": "Web scraping with anti-bot bypass, content extraction, undocumented APIs and poison pill detection. Use when extracting content from websites, handling paywalls, implementing scraping cascades or…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/web-scraping/SKILL.md"
+    },
+    {
+      "name": "web-ui-best-practices",
+      "collection": "claude-skills-journalism",
+      "trigger": "Signs of taste in web UI. Use when building or reviewing any user-facing web interface — dashboards, SaaS apps, marketing sites, internal tools. Covers interaction speed, navigation depth, visual…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/web-ui-best-practices/SKILL.md"
+    },
+    {
+      "name": "writing-plans",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when you have a spec or requirements for a multi-step task, before touching code",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/writing-plans/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "writing-skills",
+      "collection": "claude-skills-journalism",
+      "trigger": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+      "license": "",
+      "path": "skills/claude-skills-journalism/superjawn/skills/writing-skills/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "writing"
+      ]
+    },
+    {
+      "name": "zero-build-frontend",
+      "collection": "claude-skills-journalism",
+      "trigger": "Zero-build frontend development with CDN-loaded React, Tailwind CSS, and vanilla JavaScript. Use when building static web apps without bundlers, creating Leaflet maps, integrating Google Sheets as…",
+      "license": "",
+      "path": "skills/claude-skills-journalism/dev-toolkit/skills/zero-build-frontend/SKILL.md"
+    },
+    {
+      "name": "academic-writing",
       "collection": "co-researcher",
       "trigger": "You must use this when producing any research prose — literature reviews, syntheses, analyses, methodology descriptions, discussion sections, abstracts, or any written output intended for an academic…",
       "license": "",
@@ -6405,6 +7562,7 @@
       "license": "Proprietary. LICENSE.txt has complete terms",
       "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/xlsx/SKILL.md",
       "flags": [
+        "dup",
         "collision"
       ],
       "tags": [
@@ -7677,7 +8835,8 @@
       "license": "MIT",
       "path": "skills/empirical-research-skills/skills/07-Orchestra-Research-AI-Research-SKILLs/autoresearch-skill/SKILL.md",
       "flags": [
-        "dup"
+        "dup",
+        "collision"
       ],
       "tags": [
         "automation",
@@ -10640,7 +11799,10 @@
       "collection": "empirical-research-skills",
       "trigger": "Writes a session handoff report to handoffs/ with project state, work done, decisions, and next steps. Use at session end or after significant work.",
       "license": "",
-      "path": "skills/empirical-research-skills/skills/29-quarcs-lab-project20XXy/dot-claude/skills/handoff/SKILL.md"
+      "path": "skills/empirical-research-skills/skills/29-quarcs-lab-project20XXy/dot-claude/skills/handoff/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "handwriting-recognition-guide",
@@ -15783,6 +16945,9 @@
       "trigger": "Download, split, and deeply read academic PDFs. Use when asked to read, review, or summarize an academic paper. Splits PDFs into 4-page chunks, reads them in small batches, and produces structured…",
       "license": "",
       "path": "skills/empirical-research-skills/skills/13-scunning1975-MixtapeTools/skills/split-pdf/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "latex",
         "writing"
@@ -17043,6 +18208,216 @@
       ]
     },
     {
+      "name": "alpha-research",
+      "collection": "feynman",
+      "trigger": "Search, read, and query research papers via the `alpha` CLI (alphaXiv-backed). Use when the user asks about academic papers, wants to find research on a topic, needs to read a specific paper, ask…",
+      "license": "",
+      "path": "skills/feynman/skills/alpha-research/SKILL.md",
+      "tags": [
+        "paper-search",
+        "writing"
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collection": "feynman",
+      "trigger": "Autonomous experiment loop that tries ideas, measures results, keeps what works, and discards what doesn't. Use when the user asks to optimize a metric, run an experiment loop, improve performance…",
+      "license": "",
+      "path": "skills/feynman/skills/autoresearch/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation",
+        "experiment"
+      ]
+    },
+    {
+      "name": "contributing",
+      "collection": "feynman",
+      "trigger": "Contribute changes to the Feynman repository itself. Use when the task is to add features, fix bugs, update prompts or skills, change install or release behavior, improve docs, or prepare a focused…",
+      "license": "",
+      "path": "skills/feynman/skills/contributing/SKILL.md"
+    },
+    {
+      "name": "deep-research",
+      "collection": "feynman",
+      "trigger": "Run a thorough, source-heavy investigation on any topic. Use when the user asks for deep research, a comprehensive analysis, an in-depth report, or a multi-source investigation. Produces a cited…",
+      "license": "",
+      "path": "skills/feynman/skills/deep-research/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "docker",
+      "collection": "feynman",
+      "trigger": "Execute research code inside isolated Docker containers for safe replication, experiments, and benchmarks. Use when the user selects Docker as the execution environment or asks to run code safely, in…",
+      "license": "",
+      "path": "skills/feynman/skills/docker/SKILL.md",
+      "tags": [
+        "experiment",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "eli5",
+      "collection": "feynman",
+      "trigger": "Explain research, papers, or technical ideas in plain English with minimal jargon, concrete analogies, and clear takeaways. Use when the user says \"ELI5 this\", asks for a simple explanation of a…",
+      "license": "",
+      "path": "skills/feynman/skills/eli5/SKILL.md"
+    },
+    {
+      "name": "jobs",
+      "collection": "feynman",
+      "trigger": "Inspect active background research work including running processes, scheduled follow-ups, and pending tasks. Use when the user asks what's running, checks on background work, or wants to see…",
+      "license": "",
+      "path": "skills/feynman/skills/jobs/SKILL.md"
+    },
+    {
+      "name": "literature-review",
+      "collection": "feynman",
+      "trigger": "Run a literature review using paper search and primary-source synthesis. Use when the user asks for a lit review, paper survey, state of the art, or academic landscape summary on a research topic.",
+      "license": "",
+      "path": "skills/feynman/skills/literature-review/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "literature-review",
+        "paper-search"
+      ]
+    },
+    {
+      "name": "ml-training-recipe",
+      "collection": "feynman",
+      "trigger": "Find implementable ML training recipes from papers, datasets, docs, and code. Use when the user wants to fine-tune, train, reproduce, or choose a practical ML method, dataset, hyperparameter setup,…",
+      "license": "",
+      "path": "skills/feynman/skills/ml-training-recipe/SKILL.md",
+      "tags": [
+        "data",
+        "experiment"
+      ]
+    },
+    {
+      "name": "modal-compute",
+      "collection": "feynman",
+      "trigger": "Run GPU workloads on Modal's serverless infrastructure. Use when the user needs remote GPU compute for training, inference, benchmarks, or batch processing and Modal CLI is available.",
+      "license": "",
+      "path": "skills/feynman/skills/modal-compute/SKILL.md",
+      "tags": [
+        "experiment",
+        "statistics"
+      ]
+    },
+    {
+      "name": "paper-code-audit",
+      "collection": "feynman",
+      "trigger": "Compare a paper's claims against its public codebase. Use when the user asks to audit a paper, check code-claim consistency, verify reproducibility of a specific paper, or find mismatches between a…",
+      "license": "",
+      "path": "skills/feynman/skills/paper-code-audit/SKILL.md",
+      "tags": [
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "paper-writing",
+      "collection": "feynman",
+      "trigger": "Turn research findings into a polished paper-style draft with sections, equations, and citations. Use when the user asks to write a paper, draft a report, write up findings, or produce a technical…",
+      "license": "",
+      "path": "skills/feynman/skills/paper-writing/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "citations",
+        "writing"
+      ]
+    },
+    {
+      "name": "peer-review",
+      "collection": "feynman",
+      "trigger": "Simulate a tough but constructive peer review of an AI research artifact. Use when the user asks for a review, critique, feedback on a paper or draft, or wants to identify weaknesses before…",
+      "license": "",
+      "path": "skills/feynman/skills/peer-review/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "peer-review"
+      ]
+    },
+    {
+      "name": "preview",
+      "collection": "feynman",
+      "trigger": "Preview Markdown, LaTeX, PDF, or code artifacts in the browser or as PDF. Use when the user wants to review a written artifact, export a report, or view a rendered document.",
+      "license": "",
+      "path": "skills/feynman/skills/preview/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "replication",
+      "collection": "feynman",
+      "trigger": "Plan or execute a replication of a paper, claim, or benchmark. Use when the user asks to replicate results, reproduce an experiment, verify a claim empirically, or build a replication package.",
+      "license": "",
+      "path": "skills/feynman/skills/replication/SKILL.md",
+      "tags": [
+        "experiment",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "runpod-compute",
+      "collection": "feynman",
+      "trigger": "Provision and manage GPU pods on RunPod for long-running experiments. Use when the user needs persistent GPU compute with SSH access, large datasets, or multi-step experiments.",
+      "license": "",
+      "path": "skills/feynman/skills/runpod-compute/SKILL.md",
+      "tags": [
+        "data",
+        "experiment"
+      ]
+    },
+    {
+      "name": "session-log",
+      "collection": "feynman",
+      "trigger": "Write a durable session log capturing completed work, findings, open questions, and next steps. Use when the user asks to log progress, save session notes, write up what was done, or create a…",
+      "license": "",
+      "path": "skills/feynman/skills/session-log/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "session-search",
+      "collection": "feynman",
+      "trigger": "Search past Feynman session transcripts to recover prior work, conversations, and research context. Use when the user references something from a previous session, asks \"what did we do before\", or…",
+      "license": "",
+      "path": "skills/feynman/skills/session-search/SKILL.md",
+      "tags": [
+        "citations",
+        "latex"
+      ]
+    },
+    {
+      "name": "source-comparison",
+      "collection": "feynman",
+      "trigger": "Compare multiple sources on a topic and produce a grounded comparison matrix. Use when the user asks to compare papers, tools, approaches, frameworks, or claims across multiple sources.",
+      "license": "",
+      "path": "skills/feynman/skills/source-comparison/SKILL.md"
+    },
+    {
+      "name": "watch",
+      "collection": "feynman",
+      "trigger": "Set up a recurring research watch on a topic, company, paper area, or product surface. Use when the user asks to monitor a field, track new papers, watch for updates, or set up alerts on a research…",
+      "license": "",
+      "path": "skills/feynman/skills/watch/SKILL.md"
+    },
+    {
       "name": "academic-deep-research",
       "collection": "franklee-academic-research-skills",
       "trigger": "Transparent, rigorous research with full methodology — not a black-box API wrapper. Conducts exhaustive investigation through mandated 2-cycle research per theme, APA 7th citations, evidence…",
@@ -18135,7 +19510,8 @@
       "license": "",
       "path": "skills/franklee-academic-research-skills/project-management/split-pdf/SKILL.md",
       "flags": [
-        "dup"
+        "dup",
+        "collision"
       ],
       "tags": [
         "latex",
@@ -18288,6 +19664,236 @@
       "trigger": "Research what people actually say about any topic in the last 30 days. Pulls posts and engagement from Reddit, X, YouTube, TikTok, Hacker News, Polymarket, GitHub, and the web.",
       "license": "MIT",
       "path": "skills/last30days/skills/last30days/SKILL.md"
+    },
+    {
+      "name": "light-backend-coding",
+      "collection": "light-skills",
+      "trigger": "后端代码编写、逻辑强、安全性高、可读性好、版本控制、代码审查。当任务需要写实验代码、模型代码、数据处理代码、可视化代码、后端接口或系统逻辑时使用。要求逻辑清晰、安全、可读、可维护、便于复现/扩展/部署。支持 Git 版本管理、代码审查、注释规范、README、依赖管理、环境配置、运行说明与项目结构整理。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-backend-coding/SKILL.md"
+    },
+    {
+      "name": "light-citation",
+      "collection": "light-skills",
+      "trigger": "论文引用规划、审查与多格式生成。当用户需要处理参考文献、引用、bibtex 时使用。审查引用的关联度、真实性、权威性、时效性、数量、中外占比，是否引用了经典/最新/代表性/对比工作。避免虚假引用、过度引用、无关引用、堆砌、遗漏关键文献、低质量来源、引用与正文不匹配。生成 BibTeX/EndNote/GB-T 7714/APA/IEEE 等格式并按目标 venue 调整。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-citation/SKILL.md",
+      "tags": [
+        "citations",
+        "latex"
+      ]
+    },
+    {
+      "name": "light-competition",
+      "collection": "light-skills",
+      "trigger": "竞赛与项目申报材料辅助。当用户做统计建模、数学建模、互联网+、挑战杯、大创、创新创业、科研训练等项目时使用。辅助写申报书、项目计划书、商业计划书、路演 PPT、答辩稿、项目摘要、技术路线、创新点、可行性分析、市场分析、研究基础、预期成果、经费预算、团队分工。用于非论文投稿场景，可与论文/软著/专利/PPT 联动。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-competition/SKILL.md"
+    },
+    {
+      "name": "light-consistency",
+      "collection": "light-skills",
+      "trigger": "统一风格与一致性维护。在论文、PPT、图表、代码、项目文档之间保持术语一致、视觉风格一致、逻辑线索一致、创新点表述一致（常驻，所有任务后台生效）。避免同一项目在不同材料中出现说法不一致、指标名称不统一、图表风格混乱、创新点前后矛盾、方法名称变化、数据集名称不统一、论文与 PPT 逻辑不一致、软著与系统功能不一致。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-consistency/SKILL.md"
+    },
+    {
+      "name": "light-data-engineering",
+      "collection": "light-skills",
+      "trigger": "数据处理、数据质量分析与数据集构建。当用户需要清洗数据、处理缺失/异常值、特征工程、数据增强、划分数据集、评估数据质量，或需自建数据集（采集、标注规范、格式、说明文档、隐私合规、发布）时使用。在提 idea 前优先判断现有数据是否足以支撑研究。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-data-engineering/SKILL.md"
+    },
+    {
+      "name": "light-figure-drawing",
+      "collection": "light-skills",
+      "trigger": "从顶会大牛角度进行专业绘图与组图。当用户需要把规划好的图实际画出来时使用。按情况用 Python(matplotlib/seaborn/plotly/altair)、R(ggplot2)、MATLAB、Visio、Origin、LaTeX/TikZ、Illustrator、PowerPoint…",
+      "license": "",
+      "path": "skills/light-skills/skills/light-figure-drawing/SKILL.md",
+      "tags": [
+        "data",
+        "latex"
+      ]
+    },
+    {
+      "name": "light-figure-planning",
+      "collection": "light-skills",
+      "trigger": "根据论文内容规划应该做哪些图、哪些表、插在哪里、各起什么作用。当用户需要论文图表规划时使用。图表不限于统计图，也包括数据集真实效果图、模型输出示例、案例展示、可解释性可视化等。规划框架图、技术路线图、数据集示意图、模型结构图、算法流程图、结果对比/消融/敏感性图、真实效果图、统计表/对比表等，以审稿人标准判断哪些必做、哪些冗余。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-figure-planning/SKILL.md",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "light-file-reading",
+      "collection": "light-skills",
+      "trigger": "强大地读文件并学习——Word、PDF、PPTX、Excel、CSV、图片、视频、代码、压缩包等。当用户提供任何文件、问\"这个文件讲了什么\"、或任务需要理解已有材料时使用（常驻，自动触发）。不只提取文字，而是理解结构、逻辑、图表、数据、实验结果、格式要求、章节关系、视觉风格、隐含要求与可复用内容，并转化为可执行任务。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-file-reading/SKILL.md"
+    },
+    {
+      "name": "light-frontend-design",
+      "collection": "light-skills",
+      "trigger": "独特吸睛、审美好、有特色、美观全面的前端设计。当任务涉及前端界面、项目展示页、系统演示、大屏可视化、可视化平台、微信小程序 UI、移动端界面、设计系统、Tailwind…",
+      "license": "",
+      "path": "skills/light-skills/skills/light-frontend-design/SKILL.md"
+    },
+    {
+      "name": "light-idea-critique",
+      "collection": "light-skills",
+      "trigger": "以顶刊/顶会审稿人标准严格判断 idea 是否真有突破，还是常规组合、套壳、概念堆叠、缺乏理论深度或实验支撑。当用户问\"这个 idea 行不行/够不够创新/帮我挑刺\"，或 m03 产出 idea 后必须使用。先盲后明立标准、八维度加权打分、五视角对抗、反谄媚硬协议，给判决 + Revision Roadmap，引导回 m03。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-idea-critique/SKILL.md"
+    },
+    {
+      "name": "light-idea-generation",
+      "collection": "light-skills",
+      "trigger": "根据项目实际情况提出有潜力、有差异化、有亮点的研究 idea。当用户需要创新点、研究思路、提方案，或问\"这个方向/数据能做什么\"时使用。结合已有基础、数据条件、技术能力、时间周期、发表/竞赛/课题目标，说明为什么值得做、创新点、相对现有方法的优势、能解决的具体问题、适合的成果形式与投稿层次。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-idea-generation/SKILL.md"
+    },
+    {
+      "name": "light-ip-application",
+      "collection": "light-skills",
+      "trigger": "辅助软件著作权与专利申请。当用户需要做软著或专利材料时使用。软著：软件名称、功能说明、操作说明书、源代码整理、文档撰写、材料清单、流程、界面截图、功能模块说明、版本与完成日期。专利：判断是否可申发明/实用新型/外观，梳理技术问题、技术方案、有益效果、创新点、实施例、权利要求书与说明书草案、附图说明。最终文本须由专业代理人审核。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-ip-application/SKILL.md"
+    },
+    {
+      "name": "light-literature-search",
+      "collection": "light-skills",
+      "trigger": "强大地搜索并规范化整理科研资料。当用户需要调研某研究方向、找文献综述、了解某领域有哪些工作、搜集中英文论文/专利/标准/政策/数据集/开源项目/竞赛方案/行业报告/技术博客/官方文档时使用。不只罗列结果，而是筛选去重分类、判断可信度与重要性，整理为文献表、研究脉络、代表方法、优缺点对比与可复用资源。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-literature-search/SKILL.md"
+    },
+    {
+      "name": "light-memory-pm",
+      "collection": "light-skills",
+      "trigger": "上下文管理、记忆持久化与科研项目管理。当任务涉及长期项目、需要记住项目背景/进展/版本/偏好，或需要把项目拆成阶段任务时使用（常驻）。持续记住研究方向、已定 idea、数据、实验进度、论文/PPT/图表/代码版本、投稿记录、用户偏好、目标期刊。把项目拆成阶段任务并建立任务清单、时间线、里程碑、风险清单与版本记录。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-memory-pm/SKILL.md"
+    },
+    {
+      "name": "light-orchestrator",
+      "collection": "light-skills",
+      "trigger": "编排器。当用户给出跨多个阶段的大任务（如\"从这个数据集做到一篇论文\"\"帮我把这个项目从调研做到投稿\"）或要求\"继续/刚断了/接手/恢复上下文\"时，规划或恢复阶段化 pipeline，按 CONVENTIONS 阶段主线逐阶段调用相应技能，并在阶段间设置强制检查点（决策点 + 确认点），维护产物台账与断点交接。小任务（改摘要、画一张图、查引用）不走 pipeline，直接路由到单技能。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-orchestrator/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "light-paper-drafting",
+      "collection": "light-skills",
+      "trigger": "撰写论文初稿与单章节起草、重写、自检。当用户要写论文、写某个章节（标题/摘要/引言/相关工作/方法/实验/结果/讨论/结论/局限/未来工作）、重写某章节、或对草稿做失败模式自检时使用。五种模式 full/outline-only/abstract-only/section-redraft/self-review；以顶刊/顶会审稿人标准打磨，逻辑严谨、创新点突出、结论不夸大、claim 有引用支撑。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-paper-drafting/SKILL.md",
+      "tags": [
+        "writing"
+      ]
+    },
+    {
+      "name": "light-paper-polishing",
+      "collection": "light-skills",
+      "trigger": "对论文分模块润色——语言润色、逻辑重构、结构优化、创新点强化、论证补强、摘要精炼、引言增强、实验分析深化、结论提升。当用户需要改论文、觉得某段不通顺/逻辑弱/创新点不突出时使用。从审稿人角度找逻辑薄弱、论证不足、表达不专业、易被质疑、缺引用、需重组之处，给出具体修改方案与修改后文本。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-paper-polishing/SKILL.md"
+    },
+    {
+      "name": "light-project-structure",
+      "collection": "light-skills",
+      "trigger": "规范整洁的项目文件夹整理。当任务涉及新建项目、整理已有项目结构、规整文件命名与版本时使用。规划 data、src、models、results、figures、docs、paper、ppt、patent、software-copyright、experiments、logs、configs、references、assets、notebooks…",
+      "license": "",
+      "path": "skills/light-skills/skills/light-project-structure/SKILL.md",
+      "tags": [
+        "citations",
+        "data",
+        "experiment"
+      ]
+    },
+    {
+      "name": "light-research-ethics",
+      "collection": "light-skills",
+      "trigger": "科研伦理、学术规范与风险审查。在所有科研任务中默认检查学术不端、数据造假、图片重复使用、引用不规范、隐私泄露、版权、结论夸大、过度包装、论文代写、专利权属、软著材料不真实等风险（常驻，所有任务后台生效）。对论文、项目、软著、专利与比赛材料做合规审查，确保内容真实、规范、可解释、可追溯。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-research-ethics/SKILL.md"
+    },
+    {
+      "name": "light-research-plan",
+      "collection": "light-skills",
+      "trigger": "对已确认可行的 idea 制定极其详细的研究方案、实验设计与执行规划。当用户的 idea 已通过 m04 审查、需要把 idea 拆成可执行可复现的完整科研流程时使用。覆盖研究目标、技术路线、数据流程、实验/消融/敏感性/鲁棒性/显著性检验、时间安排、风险与备选，并保证全程可复现。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-research-plan/SKILL.md"
+    },
+    {
+      "name": "light-result-analysis",
+      "collection": "light-skills",
+      "trigger": "对执行出来的结果、实验数据、模型输出、图表结果进行详细专业深入的分析。当用户实验跑完、需要解读数据、问\"这些结果说明什么\"时使用。不只描述好坏，而是解释为什么、哪些结果证明方法有效、哪些暴露问题、哪些异常需排查、哪些规律可成为论文亮点、哪些需补充实验。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-result-analysis/SKILL.md"
+    },
+    {
+      "name": "light-review-rebuttal",
+      "collection": "light-skills",
+      "trigger": "审稿意见模拟与返修回复。当用户需要在投稿前预审论文、或收到真实审稿意见后做返修时使用。模拟顶刊/顶会审稿人严格审稿，给出贡献评价、优点、缺点、必改问题、建议补充实验、拒稿风险、可能追问。收到真实意见后分析审稿人关注点、制定返修策略、逐条撰写 response letter、修改论文对应部分。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-review-rebuttal/SKILL.md",
+      "tags": [
+        "peer-review"
+      ]
+    },
+    {
+      "name": "light-self-review",
+      "collection": "light-skills",
+      "trigger": "自动反思与自我审查。每次完成任务后自动检查是否存在逻辑漏洞、事实错误、格式问题、表达不清、创新不足、引用不准、结果夸大、审美不统一、重复内容、结构混乱、不可执行等问题（常驻，所有任务收尾时生效）。不一次性给出粗糙结果，而是先自我审查与迭代后再输出。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-self-review/SKILL.md"
+    },
+    {
+      "name": "light-slides",
+      "collection": "light-skills",
+      "trigger": "制作精美 PPT。当用户需要为论文、项目、竞赛、答辩、汇报、路演做幻灯片时使用。设计封面/目录/过渡/内容/图表/流程/时间线/对比/团队/结论/致谢等页。逻辑清晰、排版高级、审美统一、重点突出，按主题选风格（学术/科技/农业/医学/商务/极简/浅色/深色/数据可视化/竞赛路演）。不仅生成内容，还规划整套叙事逻辑、视觉风格、页面层次与演讲节奏。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-slides/SKILL.md",
+      "tags": [
+        "presentation"
+      ]
+    },
+    {
+      "name": "light-system-design",
+      "collection": "light-skills",
+      "trigger": "后端系统设计与数据库能力。当任务涉及系统架构、数据库设计、接口设计、权限/日志/异常/性能/部署时使用。设计 ER 图、数据表结构、接口文档、用户权限、数据流转、模块划分、API 规范、数据库索引、安全策略、部署方案，尤其适合科研系统、管理系统、数据分析平台、可视化平台、竞赛作品与软著项目。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-system-design/SKILL.md"
+    },
+    {
+      "name": "light-tool-selection",
+      "collection": "light-skills",
+      "trigger": "工具选择与多工具协同。根据任务自动判断适合用什么工具——搜索、Python、R、MATLAB、LaTeX、Word、Excel、PowerPoint、Visio、Origin、数据库、Git、前端/后端框架、绘图工具、文献管理工具等（常驻，所有任务后台生效）。不盲目用工具，而是按实际任务选最高效、最稳定、最专业的实现方式。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-tool-selection/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "light-typesetting",
+      "collection": "light-skills",
+      "trigger": "根据目标期刊/会议/学校/比赛要求做 LaTeX 或 Word 排版并编译导出最终 PDF/Word。当用户需要套模板、排版、解决编译错误、导出论文时使用。处理标题层级、页边距、目录、摘要、关键词、公式、图表、算法伪代码、参考文献、附录、页眉页脚、页码、单/双栏、编号、交叉引用，并检查 LaTeX 编译错误、Word 格式问题、引用错误、图片位置、字体一致性、编号混乱。",
+      "license": "",
+      "path": "skills/light-skills/skills/light-typesetting/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "light-venue-matching",
+      "collection": "light-skills",
+      "trigger": "投稿定位与期刊/会议匹配。当用户问投哪个期刊/会议、要评估录用可能性/录用概率、做投稿规划时使用。根据论文质量、方向、创新程度、实验完整性、语言水平、作者背景和预算，推荐中文/英文期刊、SCI/SSCI/EI/CCF/核心、国际/国内会议。分析投稿难度、方向匹配度、审稿周期、版面费、以可核查信号做录用可能性定性分级(高/中/低,不编百分比)、是否适合本科生/弱导师资源、预警风险，给出冲刺/稳妥/保…",
+      "license": "",
+      "path": "skills/light-skills/skills/light-venue-matching/SKILL.md"
     },
     {
       "name": "abstract-summarizer",
@@ -31480,6 +33086,9 @@
       "trigger": "Scaffold a LaTeX project (`latex/main.tex`, optional bibliography wiring, structure) from an existing Markdown draft. **Trigger**: latex scaffold, md→tex, LaTeX 项目骨架, 生成 main.tex. **Use when**: 需要…",
       "license": "",
       "path": "skills/research-units-pipeline/.codex/skills/latex-scaffold/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "automation",
         "citations",
@@ -33305,7 +34914,10 @@
       "collection": "scienceclaw",
       "trigger": "# Literature Search & Review",
       "license": "",
-      "path": "skills/scienceclaw/skills/literature/SKILL.md"
+      "path": "skills/scienceclaw/skills/literature/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "literature-review",
@@ -34952,7 +36564,8 @@
       "license": "",
       "path": "skills/scienceclaw/skills/systematic-debugging/SKILL.md",
       "flags": [
-        "dup"
+        "dup",
+        "collision"
       ]
     },
     {
@@ -34976,7 +36589,8 @@
       "license": "",
       "path": "skills/scienceclaw/skills/test-driven-development/SKILL.md",
       "flags": [
-        "dup"
+        "dup",
+        "collision"
       ]
     },
     {

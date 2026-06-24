@@ -70,5 +70,8 @@ jobs:
       - name: Validate safety report
         run: make safety-report-check
 
+      - name: Validate quality report
+        run: make quality-report-check
+
       - name: Count bundled skills
         run: make count-skills

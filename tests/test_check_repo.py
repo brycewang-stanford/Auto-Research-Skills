@@ -40,6 +40,14 @@ class SubmoduleIndexTests(unittest.TestCase):
         self.assertIsNone(check_repo.github_repo_slug("https://example.com/owner/repo.git"))
         self.assertIsNone(check_repo.github_repo_slug("https://github.com/owner"))
         self.assertIsNone(check_repo.github_repo_slug("https://github.com/owner/repo/tree/main"))
+        self.assertIsNone(check_repo.github_repo_slug("https://github.com/owner/repo?tab=readme"))
+        self.assertIsNone(check_repo.github_repo_slug("https://github.com/owner/repo#readme"))
+        self.assertIsNone(check_repo.github_repo_slug("git@github.com:owner/repo#readme"))
+
+    def test_safe_submodule_path_rejects_platform_specific_paths(self) -> None:
+        self.assertFalse(check_repo.safe_submodule_path("skills\\demo"))
+        self.assertFalse(check_repo.safe_submodule_path("C:/skills/demo"))
+        self.assertTrue(check_repo.safe_submodule_path("skills/demo"))
 
     def test_parse_gitmodules_reports_section_path_mismatch(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -597,6 +605,62 @@ class CatalogManifestTests(unittest.TestCase):
                 check_repo.check_catalog_manifest(skill_files, reporter)
 
         self.assertIn("duplicate_of target missing", "\n".join(reporter.errors))
+
+    def test_catalog_manifest_warns_on_watermarks_and_templates(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            current = root / "skills" / "collection" / "test-skill" / "SKILL.md"
+            current.parent.mkdir(parents=True)
+            current.write_text(
+                "<!-- collector banner -->\n---\nname: test-skill\ndescription: A brief description of what this skill does\n---\n",
+                encoding="utf-8",
+            )
+
+            catalog = root / "catalog" / "skills.json"
+            catalog.parent.mkdir(parents=True)
+            catalog.write_text(
+                json.dumps(
+                    {
+                        "totals": {
+                            "total_skill_files": 1,
+                            "unique_skills": 1,
+                            "collections": 1,
+                            "template_skills": 1,
+                            "without_frontmatter": 0,
+                            "rebundled_copies": 0,
+                        },
+                        "collections": [
+                            {
+                                "name": "collection",
+                                "skill_files": 1,
+                                "unique_skills": 1,
+                                "template_skills": 1,
+                                "rebundled_copies": 0,
+                            }
+                        ],
+                        "skills": [
+                            {
+                                "collection": "collection",
+                                "path": "skills/collection/test-skill/SKILL.md",
+                                "content_hash": "1111111111111111",
+                                "has_frontmatter": True,
+                                "is_template": True,
+                                "duplicate_of": "",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            reporter = check_repo.Reporter()
+            with mock.patch.object(check_repo, "ROOT", root):
+                check_repo.check_catalog_manifest([current], reporter)
+
+        self.assertEqual(reporter.errors, [])
+        messages = "\n".join(reporter.warnings)
+        self.assertIn("frontmatter hidden behind leading HTML comment", messages)
+        self.assertIn("placeholder/template skill", messages)
 
     def test_catalog_manifest_reports_duplicate_target_hash_mismatch(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

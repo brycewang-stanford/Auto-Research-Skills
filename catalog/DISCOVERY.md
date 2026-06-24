@@ -1,9 +1,18 @@
 # 🔭 Discovery — candidate skills not yet bundled
 
 A working dossier of **new** research-oriented skill/agent repos found online,
-de-duplicated against everything already bundled (`.gitmodules`, 76 repos) and
+de-duplicated against everything already bundled (`.gitmodules`, 83 repos) and
 against the existing backlog in [`../CURATION.md`](../CURATION.md). It extends
 that backlog with fresh finds and live signals.
+
+> **Now tool-assisted.** Candidate discovery and upstream-health tracking are
+> scripted: [`scripts/discover-skills.py`](../scripts/discover-skills.py) runs
+> curated GitHub searches and de-dupes hits against `.gitmodules` + this backlog
+> (writing `catalog/discovery-candidates.json`), and
+> [`scripts/check-submodule-health.py`](../scripts/check-submodule-health.py)
+> refreshes stars/license/staleness for every bundled repo into
+> [`HEALTH.md`](HEALTH.md). Both need a network + `$GITHUB_TOKEN`; neither edits
+> `.gitmodules`, the READMEs, or `STARS.md`.
 
 **Scope of this file is _discovery only_.** It deliberately does **not** edit
 `.gitmodules`, the READMEs, or `STARS.md` — those are being actively changed by
@@ -17,8 +26,9 @@ in one step **after**:
 
 **Method.** Surveyed public skill registries (skills.sh, skillsmd.dev,
 agentskills.so, mcpmarket) and GitHub topic searches; pulled live repo metadata
-via the GitHub API and did a first-pass README/security read. Stars and dates
-are as of **2026-05-31** and drift quickly — re-check before a PR.
+via the GitHub API and did a first-pass README/security read. The Tier 1–3
+tables below are as of **2026-05-31**; the "Fresh finds" section is from the
+**2026-06-23** scripted sweep. Stars and dates drift quickly — re-check before a PR.
 
 ---
 
@@ -26,7 +36,7 @@ are as of **2026-05-31** and drift quickly — re-check before a PR.
 
 | Candidate | ⭐ | License | Gap it fills | Suggested path | Security first-pass |
 |---|---:|---|---|---|---|
-| [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) | 3.5k | MIT | **Zotero / reference-manager** — the most-requested gap in CURATION.md. Semantic search, annotation extraction, citation analysis over a local Zotero library. | `skills/zotero-mcp` (MCP server; same shelf as `arxiv-mcp-server`) | Clean. `pip`/`uv` install, no shell pipes. Needs a Zotero API key (expected). |
+| ✅ [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) | 4.0k | MIT | **Zotero / reference-manager** — the most-requested gap in CURATION.md. Semantic search, annotation extraction, citation analysis over a local Zotero library. | **VENDORED 2026-06-23** at `skills/zotero-mcp` (see [`../docs/vendoring-2026-06-23.md`](../docs/vendoring-2026-06-23.md)) | Clean. Sole high finding is an `_obfuscate_sensitive()` print (defensive). |
 | [GPTomics/bioSkills](https://github.com/GPTomics/bioSkills) | 819 | MIT | **Bioinformatics breadth** — 528 `SKILL.md` across 63 categories (single-cell, variant calling, ChIP-seq, phylogenetics). | `skills/bioskills` | Low–moderate. Ships `install-*.sh` per agent; relies on external CLIs (samtools, GATK) + NCBI/UniProt. No credential harvesting seen. |
 | [ClawBio/ClawBio](https://github.com/ClawBio/ClawBio) | 891 | MIT | **Reproducible genomics** — 77 skills (27 production-ready); each skill is a versioned spec + validated Python + demo data. Architecture constrains the agent to vetted code rather than improvised scripts. | `skills/clawbio` | Low–moderate. Recommends the standard `curl … astral.sh/uv | sh` bootstrap; deps locked via `uv.lock`. Optional Galaxy API key. |
 | [jaechang-hits/SciAgent-Skills](https://github.com/jaechang-hits/SciAgent-Skills) | 186 | CC-BY-4.0¹ | **Domain-science depth** — 199 markdown skills (genomics, drug discovery, proteomics); reports BixBench 92%. | `skills/sciagent-skills` | Low runtime risk (markdown only). Setup uses `curl … pixi.sh/install.sh | bash` (toolchain bootstrap). |
@@ -42,6 +52,53 @@ the `LICENSE` file before vendoring.
 > `scientific-agent-skills` (already bundled) and `medical-research-skills`
 > (556 skills) already cover parts of biology/medicine — run the catalog
 > overlap check before adding a third.
+
+## Fresh finds — 2026-06-23 scripted sweep
+
+Surfaced by [`scripts/discover-skills.py`](../scripts/discover-skills.py)
+(curated GitHub searches, research-relevance filter, de-duped against
+`.gitmodules` + this backlog). Hand-triaged from the raw
+`catalog/discovery-candidates.json`; obvious off-scope hits (general agent
+harnesses, RAG platforms, SEO/finance/security/PM skills) were dropped. **None
+vendored yet** — each still needs the [CURATION.md second-review
+checklist](../CURATION.md#practical-review-checklist) (license + focused safety
+scan + overlap check) before a PR.
+
+> **Second-reviewed 2026-06-24, recommended round now vendored.** Verdicts in
+> [`../docs/second-review-2026-06-24.md`](../docs/second-review-2026-06-24.md).
+> ✅ Vendored: `HKUDS/DeepCode` → `systems/deepcode`, `uditgoenka/autoresearch`
+> → `skills/autoresearch`, `tmgthb/Autonomous-Agents` → `lists/autonomous-agents`,
+> `webfuse-com/awesome-autoresearch` → `lists/awesome-autoresearch` (repo 83→87).
+> Held: redundant deep-research agents (MiroThinker, DeepResearchAgent,
+> NanoResearch), `Leey21/awesome-ai-research-writing` (no license),
+> `trailofbits/skills` (security scope), `alirezarezvani/claude-skills` (broad dump).
+
+### Systems candidates (`systems/`) — deep-research & paper-to-code agents
+
+| Candidate | ⭐ | License | Gap it fills | Caveat |
+|---|---:|---|---|---|
+| [Alibaba-NLP/DeepResearch](https://github.com/Alibaba-NLP/DeepResearch) | 19.5k | Apache-2.0 | Tongyi Deep Research — leading open-source deep-research agent. Strongest systems candidate. | Large; confirm it is a runnable system vs. a model release. |
+| [HKUDS/DeepCode](https://github.com/HKUDS/DeepCode) | 15.8k | MIT | Open agentic coding: **Paper2Code** + Text2Web/Backend. Complements the bundled `systems/paper2code`. | Overlap check vs. `paper2code`. |
+| [MiroMindAI/MiroThinker](https://github.com/MiroMindAI/MiroThinker) | 8.3k | Apache-2.0 | Deep-research agent for complex research + prediction. | Model-centric; confirm agent scaffold. |
+| [SkyworkAI/DeepResearchAgent](https://github.com/SkyworkAI/DeepResearchAgent) | 3.5k | MIT | Hierarchical multi-agent deep-research system. | Overlap vs. existing deep-research systems. |
+| [OpenRaiser/NanoResearch](https://github.com/OpenRaiser/NanoResearch) | 1.5k | MIT | Lightweight autonomous research assistant. | Smaller; verify maturity. |
+
+### List candidates (`lists/`) — curated research indexes
+
+| Candidate | ⭐ | License | Note |
+|---|---:|---|---|
+| [Leey21/awesome-ai-research-writing](https://github.com/Leey21/awesome-ai-research-writing) | 29.4k | none | High-signal research-writing index; **no license** — confirm before adding. |
+| [webfuse-com/awesome-autoresearch](https://github.com/webfuse-com/awesome-autoresearch) | 2.3k | NOASSERTION | Autoresearch / autonomous-improvement-loop list — directly on-theme. |
+| [VoltAgent/awesome-ai-agent-papers](https://github.com/VoltAgent/awesome-ai-agent-papers) | 1.5k | MIT | 2026 AI-agent research-paper collection. |
+| [tmgthb/Autonomous-Agents](https://github.com/tmgthb/Autonomous-Agents) | 1.3k | MIT | Daily-updated autonomous-agent (LLM) research-paper list. |
+
+### Skill candidates (`skills/`)
+
+| Candidate | ⭐ | License | Note |
+|---|---:|---|---|
+| [uditgoenka/autoresearch](https://github.com/uditgoenka/autoresearch) | 5.2k | MIT | Claude Autoresearch Skill — Karpathy-inspired autonomous goal-directed iteration. |
+| [trailofbits/skills](https://github.com/trailofbits/skills) | 5.8k | CC-BY-SA-4.0 | Security-research / vuln-detection / audit skills. **Scope caveat:** security, not science — only if the hub broadens scope. |
+| [alirezarezvani/claude-skills](https://github.com/alirezarezvani/claude-skills) | 18.9k | MIT | 337 skills/agents/plugins — broad. **High collision surface**; not a research-only set. |
 
 ## Tier 2 — promising, but with a caveat
 
@@ -87,7 +144,7 @@ the deltas so the maintainer can re-decide:
 # Tier 1. Run ONE AT A TIME, then update both READMEs, regenerate STARS.md,
 # rebuild the catalog, and validate — exactly as CURATION.md prescribes.
 
-git submodule add https://github.com/54yyyu/zotero-mcp           skills/zotero-mcp
+# git submodule add https://github.com/54yyyu/zotero-mcp         skills/zotero-mcp  # ✅ DONE 2026-06-23
 git submodule add https://github.com/GPTomics/bioSkills          skills/bioskills
 git submodule add https://github.com/ClawBio/ClawBio             skills/clawbio
 git submodule add https://github.com/jaechang-hits/SciAgent-Skills skills/sciagent-skills

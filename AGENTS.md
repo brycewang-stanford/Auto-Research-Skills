@@ -21,6 +21,12 @@ observable, and easy to merge.
 - After adding, removing, or updating submodules under `skills/`, regenerate the
   catalog and update README headline counts when `scripts/check-repo.py` asks
   for it.
+- See [`docs/TOOLING.md`](docs/TOOLING.md) for the full generated-vs-source file
+  map, the data pipeline, and the `make`/CI check matrix.
+- See [`docs/landscape-2026.md`](docs/landscape-2026.md) for the field map that
+  explains the `skills/`/`systems/`/`benchmarks/`/`lists/` split and where
+  vendored projects sit in the wider ecosystem. New-vendoring decisions are
+  logged under `docs/` (latest: [`docs/vendoring-2026-06-23.md`](docs/vendoring-2026-06-23.md)).
 
 ## Validation
 

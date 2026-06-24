@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/已收录_skills-3%2C276-ff4e88?style=for-the-badge&labelColor=1f2330" alt="已收录 3,276 个 skills"></a>
+  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/已收录_skills-3%2C433-ff4e88?style=for-the-badge&labelColor=1f2330" alt="已收录 3,433 个 skills"></a>
 </p>
 
-<p align="center"><b>🧩 已收录 3,276 个 skills</b>，分布在 <b>77 个仓库</b> 中 —— 一次克隆拿到整套研究工具箱。</p>
+<p align="center"><b>🧩 已收录 3,433 个 skills</b>，分布在 <b>87 个仓库</b> 中 —— 一次克隆拿到整套研究工具箱。</p>
 
 <p align="center">
-  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/🧩_skills-3%2C276-ff4e88?style=flat-square" alt="3,276 skills"></a>
+  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/🧩_skills-3%2C433-ff4e88?style=flat-square" alt="3,433 skills"></a>
   <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Auto-Research-Skills?style=flat-square&color=ffd23f" alt="stars">
@@ -34,7 +34,7 @@
 
 ---
 
-> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**3,276 个 skills**、分布在 **77 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
+> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**3,433 个 skills**、分布在 **87 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
 
 ```bash
 # 推荐：先克隆，再让 setup.sh 处理顶层与嵌套子模块
@@ -50,7 +50,11 @@ cd Auto-Research-Skills
 >
 > 🧭 候选收录与筛选标准见 [**CURATION.md**](CURATION.md)：里面记录了通过 registry/GitHub 调研发现的候选 skills、评审标准与安全检查清单。
 >
+> 🗺️ 想了解整个自动化科研生态的全景，以及本仓库四个目录的划分逻辑，见 [**docs/landscape-2026.md**](docs/landscape-2026.md)（领域地图）。
+>
 > 🛠️ 维护者提交前建议运行 `make check`（或 [`CONTRIBUTING.md`](CONTRIBUTING.md) 中列出的等价命令）。`setup.sh` 会先初始化顶层子模块，再尽力初始化上游仓库声明过的嵌套子模块，避免单个上游嵌套映射问题阻塞整个 checkout。
+>
+> ⚠️ 不建议把所有 `skills/` 子模块一次性装进同一个 agent profile：不同集合里有不少同名但内容不同的技能，按名称解析时胜出者可能不确定。组合安装前请看 [`catalog/collisions.json`](catalog/collisions.json)，或启动本地静态服务后打开 [`site/collisions.html`](site/collisions.html)。
 
 ## 目录
 
@@ -107,10 +111,12 @@ cd Auto-Research-Skills
 
 | 项目 | ⭐ | 技术栈 | 说明 |
 |---|---|---|---|
+| [HKUDS/DeepCode](https://github.com/HKUDS/DeepCode) | ~15.8k | Python | 开源智能编码：论文转代码（Paper2Code）+ Text2Web + Text2Backend。 |
 | [going-doer/Paper2Code](https://github.com/going-doer/Paper2Code) | ~4.6k | Python | PaperCoder —— 将 ML 论文自动转为可运行的代码仓库。 |
 | [WecoAI/aideml](https://github.com/WecoAI/aideml) | ~1.3k | Python | AIDE —— ML 工程智能体，把建模当作代码优化搜索。 |
 | [Xiangyue-Zhang/auto-deep-researcher-24x7](https://github.com/Xiangyue-Zhang/auto-deep-researcher-24x7) | ~975 | Agent | 7×24 跑深度学习实验，Leader-Worker，常量内存。 |
 | [Just-Curieous/Curie](https://github.com/Just-Curieous/Curie) | ~360 | Python | 严谨、可复现的 ML 研究实验智能体。 |
+| [snap-stanford/POPPER](https://github.com/snap-stanford/POPPER) | ~275 | Python | 自动化假设检验：基于波普尔「序贯证伪」思想的多智能体框架（Stanford SNAP）。 |
 | [TheBlewish/Automated-AI-Web-Researcher-Ollama](https://github.com/TheBlewish/Automated-AI-Web-Researcher-Ollama) | ~3.0k | Ollama | 基于本地 LLM 的自动网络研究员。 |
 
 ## 🔬 领域科学智能体
@@ -135,7 +141,10 @@ cd Auto-Research-Skills
 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) 🧩 ⭐ | ~22.7k | Claude Code · Python | **重点。** 学术研究 → 写作 → 评审 → 修订 → 定稿流水线。 |
 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) 🧩 | ~13.4k | Claude Code · Python | Nature 级学术表达 + 科研绘图，Claude 与 Codex 双支持。 |
 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) 🧩 | ~10.8k | Markdown skills | ARIS —— 跨模型互审循环、想法发现、实验自动化，无框架锁定。 |
+| [companion-inc/feynman](https://github.com/companion-inc/feynman) 🧩 | ~8.1k | CLI · Codex · Claude Code | 开源 AI 研究 agent（CLI，基于 Pi + alphaXiv）：文献综述、深度研究、复现、同行评审等 20 个研究 skill，可装进 Codex/Claude。 |
+| [uditgoenka/autoresearch](https://github.com/uditgoenka/autoresearch) 🧩 | ~5.2k | Claude Code · Shell | Claude 自主研究 skill：受 Karpathy autoresearch 启发的自主目标迭代，内置命令安全护栏（拒绝 mkfs/dd/nc 等危险命令）。 |
 | [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) 🧩 | ~4.1k | Claude Code · MCP | 半自动科研助手；集成 Zotero + Obsidian + MCP。 |
+| [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) 🧩 | ~4.0k | MCP · Python | 把 Zotero 文献库接入任意 MCP 智能体：讨论论文、生成摘要、分析引用。 |
 | [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) 🧩 | ~2.8k | MCP | 在任意支持 MCP 的智能体中直接检索与抓取 arXiv 论文。 |
 | [K-Dense-AI/claude-scientific-writer](https://github.com/K-Dense-AI/claude-scientific-writer) 🧩 | ~1.9k | Claude Code · Python | 通用型科研写作助手。 |
 | [pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow) 🧩 | ~1.2k | Claude Code · LaTeX/R | 学者用的可 fork 模板：多智能体评审、质量门、复现协议。 |
@@ -143,9 +152,12 @@ cd Auto-Research-Skills
 | [lishix520/academic-paper-skills](https://github.com/lishix520/academic-paper-skills) 🧩 | ~768 | Claude Code · Python | 系统化的学术论文规划与写作框架。 |
 | [andrehuang/research-companion](https://github.com/andrehuang/research-companion) 🧩 | ~665 | Claude Code | 战略型科研思考智能体：选题评估、项目分诊、头脑风暴。 |
 | [EvoScientist/EvoSkills](https://github.com/EvoScientist/EvoSkills) | ~380 | Agent Skills | 面向 EvoScientist 式科学工作流的可安装技能与知识包。 |
+| [jamditis/claude-skills-journalism](https://github.com/jamditis/claude-skills-journalism) 🧩 | ~295 | Claude Code | 新闻/媒体/学术交叉的技能集：事实核查、FOIA 申请、数据新闻、学术写作等 54 个 skill。 |
 | [openags/auto-research](https://github.com/openags/auto-research) 🧩 | ~284 | Agent + UI | 跨领域通用「AI 科学家」。 |
 | [Boom5426/Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills) 🧩 | ~252 | Claude Code · TeX | Nature 风格论文的起草、修订、审稿与返修技能。 |
+| [Light0305/Light-skills](https://github.com/Light0305/Light-skills) 🧩 | ~151 | Claude Code · Codex | 全流程科研技能包：28 个技能覆盖调研 → 写作 → 审稿 → 投稿，配套 9 个可核查知识库与对抗式自检。 |
 | [poemswe/co-researcher](https://github.com/poemswe/co-researcher) 🧩 | ~101 | Claude Code · Codex · Gemini CLI | 跨 Claude Code、Codex、Gemini CLI 的多平台学术研究套件，含专门 agent 与 CLI 工作流。 |
+| [flonat/claude-research](https://github.com/flonat/claude-research) 🧩 | ~96 | Claude Code · Python | 面向 PhD 的完整科研基建：50 个 skills + agents + hooks + rules，含 /bib-validate、/pre-submission-report 等命令。 |
 | [LeonChaoX/qinyan-academic-skills](https://github.com/LeonChaoX/qinyan-academic-skills) | ~93 | Claude Code · Python | 「沁言」学术科研库 —— 177 个研究 Agent。 |
 | [lingzhi227/agent-research-skills](https://github.com/lingzhi227/agent-research-skills) | ~85 | Claude Code · Python | 系统化学术深度研究技能。 |
 | [andrehuang/academic-writing-agents](https://github.com/andrehuang/academic-writing-agents) | ~80 | Claude Code | 多智能体编排，含 10 个专职写作 Agent。 |
@@ -165,8 +177,10 @@ cd Auto-Research-Skills
 
 | 项目 | ⭐ | 说明 |
 |---|---|---|
+| [webfuse-com/awesome-autoresearch](https://github.com/webfuse-com/awesome-autoresearch) | ~2.3k | autoresearch / 自主改进循环系统精选（CC0 公共领域）。 |
 | [ai-boost/awesome-ai-for-science](https://github.com/ai-boost/awesome-ai-for-science) | ~1.6k | 跨领域的 AI for Science 工具、数据集与框架精选。 |
 | [VILA-Lab/Dive-into-Claude-Code](https://github.com/VILA-Lab/Dive-into-Claude-Code) | ~1.4k | 系统分析 Claude Code 在 AI 智能体系统设计中的应用。 |
+| [tmgthb/Autonomous-Agents](https://github.com/tmgthb/Autonomous-Agents) | ~1.3k | 每日更新的自主智能体（LLM）研究论文清单。 |
 | [handsome-rich/Awesome-Auto-Research-Tools](https://github.com/handsome-rich/Awesome-Auto-Research-Tools) | ~778 | 启发本仓库的那份清单。 |
 | [DavidZWZ/Awesome-Deep-Research](https://github.com/DavidZWZ/Awesome-Deep-Research) | ~759 | ACL 2026 —— agentic 深度研究资源。 |
 | [scienceaix/deepresearch](https://github.com/scienceaix/deepresearch) | ~430 | Deep Research 综述论文的配套清单。 |
@@ -177,14 +191,16 @@ cd Auto-Research-Skills
 
 ## 🗂️ 已收录仓库（子模块）
 
-**3,276 个 skills**、分布在 **77 个仓库**（每个都 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `./setup.sh` 即可全部拉取；只需要顶层仓库时可运行 `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh`。完整带 star 的榜单见 [STARS.md](STARS.md)。
+**3,433 个 skills**、分布在 **87 个仓库**（多数 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `./setup.sh` 即可全部拉取；只需要顶层仓库时可运行 `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh`。完整带 star 的榜单见 [STARS.md](STARS.md)。
 
-- **`skills/`** —— 36 个可复用技能集与插件合集
-- **`systems/`** —— 30 个端到端系统与自主智能体
+- **`skills/`** —— 42 个可复用技能集与插件合集
+- **`systems/`** —— 32 个端到端系统与自主智能体
 - **`benchmarks/`** —— 4 个自主研究 / ML 工程评测基准
-- **`lists/`** —— 7 个精选清单与综述
+- **`lists/`** —— 9 个精选清单与综述
 
 > 选学术研究类技能时，多个包功能有重叠：默认从 [`skills/academic-research-skills`](skills/academic-research-skills)（重点推荐、star 最高）开始；用 **Codex** 而非 Claude Code 选 [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) 或 [`skills/codex-academic-skills`](skills/codex-academic-skills)；做**经济/金融**选 [`skills/franklee-academic-research-skills`](skills/franklee-academic-research-skills)；想要 **LaTeX/Beamer + R 的可 fork 学术工作流**选 [`skills/claude-code-my-workflow`](skills/claude-code-my-workflow)；做**实证社科**选 [`skills/empirical-research-skills`](skills/empirical-research-skills)。
+>
+> 多个子模块含有同名技能。把集合安装到 Claude Code、Codex 或其他 agent 前，优先按项目选择一两个集合，而不是全量导入；同名冲突清单见 [`catalog/collisions.json`](catalog/collisions.json) 和 [`site/collisions.html`](site/collisions.html)。
 >
 > 想收录你的仓库？见 [CONTRIBUTING](CONTRIBUTING.md) —— 提一个 PR，在 `skills/`、`systems/`、`benchmarks/` 或 `lists/` 下添加子模块即可。
 

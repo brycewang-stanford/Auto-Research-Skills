@@ -210,6 +210,12 @@ def check_index_payload(payload: object) -> list[str]:
             if not isinstance(flags, list) or not all(isinstance(flag, str) for flag in flags):
                 errors.append(f"catalog/search-index.json skills[{i}].flags must be a list of strings")
             else:
+                duplicate_flags = sorted(flag for flag, count in Counter(flags).items() if count > 1)
+                if duplicate_flags:
+                    errors.append(
+                        f"catalog/search-index.json skills[{i}] has duplicate flags: "
+                        f"{', '.join(duplicate_flags)}"
+                    )
                 unknown = sorted(set(flags) - ALLOWED_SKILL_FLAGS)
                 if unknown:
                     errors.append(

@@ -28,6 +28,9 @@ echo "    skills/     -> reusable agent skills & plugin collections"
 echo "    systems/    -> end-to-end research systems & agents"
 echo "    benchmarks/ -> autonomous-research / ML-engineering benchmarks"
 echo "    lists/      -> curated awesome-lists & surveys"
+echo "    note: many collections define same-named skills; install collections into"
+echo "          agent profiles deliberately. See catalog/collisions.json or"
+echo "          serve the repo root and open site/collisions.html."
 echo
 if [ -f scripts/check-repo.py ]; then
   python3 scripts/check-repo.py || true
