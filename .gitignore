@@ -5,3 +5,6 @@ __pycache__/
 .venv/
 
 CLAUDE.md
+
+# Raw, drifty discovery intermediate; curated results live in catalog/DISCOVERY.md.
+catalog/discovery-candidates.json
