@@ -106,6 +106,8 @@ cannot tell its license from the `SKILL.md` alone. **Suggestion:** a
 soft recommendation in `CONTRIBUTING.md` that vendored collections prefer
 per-skill `license:` fields; not a blocker.
 
+For the complementary **per-repo** license picture (which submodules have no clear OSI license upstream, plus staleness), see [`HEALTH.md`](HEALTH.md), refreshed by `scripts/check-submodule-health.py`.
+
 ## 6. Placeholder / template skills (1)
 
 Skills still shipping an unedited Anthropic template (description "A brief description of what this skill does"), flagged `template` in the catalog:

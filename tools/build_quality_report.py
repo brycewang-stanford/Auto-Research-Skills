@@ -258,6 +258,11 @@ def render_report(data: dict, collision_rows: int, offender_rows: int) -> str:
         "soft recommendation in `CONTRIBUTING.md` that vendored collections prefer",
         "per-skill `license:` fields; not a blocker.",
         "",
+        "For the complementary **per-repo** license picture (which submodules "
+        "have no clear OSI license upstream, plus staleness), see "
+        "[`HEALTH.md`](HEALTH.md), refreshed by "
+        "`scripts/check-submodule-health.py`.",
+        "",
         f"## 6. Placeholder / template skills ({templates})",
         "",
     ])
