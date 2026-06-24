@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **433**
-- Critical: **235**
+- Findings: **418**
+- Critical: **220**
 - High: **198**
-- In `skill`/`script` files (not docs or examples): **203** (62 critical, 141 high)
+- In `skill`/`script` files (not docs or examples): **188** (47 critical, 141 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -31,7 +31,7 @@ so a downgraded critical no longer inflates the high+ report.
 |---|---:|
 | `docs` | 210 |
 | `script` | 138 |
-| `skill` | 62 |
+| `skill` | 47 |
 | `example` | 20 |
 | `other` | 3 |
 
@@ -39,7 +39,7 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Rule | Findings |
 |---|---:|
-| `remote-shell-pipe` | 201 |
+| `remote-shell-pipe` | 186 |
 | `credential-print` | 138 |
 | `echo-secret-value` | 35 |
 | `powershell-iex` | 32 |
@@ -51,15 +51,15 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Collection | Findings |
 |---|---:|
-| `scienceclaw` | 183 |
+| `scienceclaw` | 171 |
 | `scientific-agent-skills` | 63 |
 | `claude-scientific-writer` | 45 |
 | `feynman` | 32 |
-| `empirical-research-skills` | 24 |
+| `empirical-research-skills` | 23 |
 | `aris` | 12 |
 | `ai-research-skills` | 10 |
 | `academic-research-skills` | 8 |
-| `franklee-academic-research-skills` | 8 |
+| `franklee-academic-research-skills` | 7 |
 | `academicforge` | 6 |
 | `claude-scholar` | 6 |
 | `claude-research` | 5 |
@@ -71,7 +71,7 @@ so a downgraded critical no longer inflates the high+ report.
 | `arxiv-mcp-server` | 2 |
 | `light-skills` | 2 |
 | `claude-code-my-workflow` | 1 |
-| _Other_ | 6 |
+| _Other_ | 5 |
 
 ## Example Findings
 
@@ -87,22 +87,7 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | critical | skill | `remote-shell-pipe` | `skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/literature-review/SKILL.md:659` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
 | critical | skill | `remote-shell-pipe` | `skills/empirical-research-skills/skills/33-Galaxy-Dawn-claude-scholar/skills/uv-package-manager/SKILL.md:56` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | critical | skill | `powershell-iex` | `skills/empirical-research-skills/skills/33-Galaxy-Dawn-claude-scholar/skills/uv-package-manager/SKILL.md:59` | `irm https://astral.sh/uv/install.ps1 \| iex` |
-| critical | skill | `remote-shell-pipe` | `skills/empirical-research-skills/skills/43-wentorai-research-plugins/skills/domains/economics/imf-data-api-guide/SKILL.md:41` | `curl -s "https://www.imf.org/external/datamapper/api/v1" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/franklee-academic-research-skills/literature-review/deep-research-pro/SKILL.md:58` | `curl -sL "<url>" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/research-plugins/skills/domains/economics/imf-data-api-guide/SKILL.md:41` | `curl -s "https://www.imf.org/external/datamapper/api/v1" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/arxiv-search/SKILL.md:47` | `curl -s "http://export.arxiv.org/api/query?search_query=ti:large+language+model&max_results=5&sortBy=submittedDate&sortOrder=descending" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/chembl-drug/SKILL.md:98` | `curl -s "https://www.ebi.ac.uk/chembl/api/data/molecule/CHEMBL25.json" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/chemistry-tools/SKILL.md:110` | `curl -s "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/aspirin/JSON" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/crossref-search/SKILL.md:29` | `curl -s "https://api.crossref.org/works/10.1038/nature12373" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/crossref-search/SKILL.md:46` | `curl -s "https://api.crossref.org/works?query=machine+learning+protein+folding&rows=5&mailto=user@example.com" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/crossref-search/SKILL.md:68` | `curl -s "https://api.crossref.org/journals?query=nature+biotechnology&rows=5" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/crossref-search/SKILL.md:84` | `curl -s "https://api.crossref.org/funders?query=national+institutes+of+health&rows=5" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/crossref-search/SKILL.md:97` | `curl -s "https://api.crossref.org/works/10.1038/nature12373" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/dblp-search/SKILL.md:40` | `curl -s "https://dblp.org/search/publ/api?q=attention+is+all+you+need&format=json&h=5" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/dblp-search/SKILL.md:62` | `curl -s "https://dblp.org/pid/b/YoshuaBengio.xml?format=json" \| python3` |
 | critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/lean4-prover/SKILL.md:22` | `curl https://elan.lean-lang.org/install.sh -sSf \| sh` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/ncbi-entrez/SKILL.md:98` | `curl -s "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=gene&term=insulin[Gene]+AND+human[Organism]&retmode=json" \| python3` |
-| critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/world-bank-data/SKILL.md:77` | `curl -s "https://api.worldbank.org/v2/country/US;CN;IN/indicator/NY.GDP.PCAP.CD?format=json&date=2020:2023&per_page=100" \| python3` |
 | critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/xurl/SKILL.md:54` | `curl -fsSL https://raw.githubusercontent.com/xdevplatform/xurl/main/install.sh \| bash` |
 | critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/literature-review/SKILL.md:660` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
 | critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/nextflow/SKILL.md:40` | `curl -s https://get.nextflow.io \| bash` |
@@ -119,8 +104,23 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `credential-print` | `skills/aris/skills/skills-codex/qzcli/SKILL.md:87` | `echo 'YOUR_PASSWORD' \| qzcli login -u YOUR_USERNAME --password` |
 | high | skill | `credential-print` | `skills/empirical-research-skills/skills/07-Orchestra-Research-AI-Research-SKILLs/academic-plotting/SKILL.md:249` | `print(" Get a key at: https://aistudio.google.com/apikey` |
 | high | skill | `credential-print` | `skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/paper-illustration/SKILL.md:164` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
+| high | skill | `credential-print` | `skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/skills-codex/paper-illustration/SKILL.md:162` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
+| high | skill | `concealment-instruction` | `skills/nature-skills/plugins/nature-skills/skills/nature-figure/SKILL.md:16` | `do not reveal its path, filenames, or provenance in user` |
+| high | skill | `concealment-instruction` | `skills/nature-skills/skills/nature-figure/SKILL.md:16` | `do not reveal its path, filenames, or provenance in user` |
+| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:76` | `echo $GH_TOKEN` |
+| high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:76` | `echo $GH_TOKEN` |
+| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:348` | `echo $GH_TOKEN` |
+| high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:348` | `echo $GH_TOKEN` |
+| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:378` | `console.log(c.skills?.entries?.['gh-issues']?.apiKey` |
+| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:384` | `console.log(d.skills?.entries?.['gh-issues']?.apiKey` |
+| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:387` | `echo "Token: ${GH_TOKEN` |
+| high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:387` | `echo "Token: ${GH_TOKEN` |
+| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:716` | `echo $GH_TOKEN` |
+| high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:716` | `echo $GH_TOKEN` |
+| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:748` | `console.log(c.skills?.entries?.['gh-issues']?.apiKey` |
+| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:751` | `echo "Token: ${GH_TOKEN` |
 
-_Truncated 393 additional findings._
+_Truncated 378 additional findings._
 
 ## Regenerate
 

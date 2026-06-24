@@ -163,8 +163,13 @@ RULES = [
         "remote-shell-pipe",
         "critical",
         re.compile(
-            r"\b(?:curl|wget)\b[^\n|]{0,240}\|\s*"
-            r"(?:sudo\s+)?(?:sh|bash|zsh|python3?|perl|ruby)\b",
+            r"\b(?:curl|wget)\b[^\n|]{0,240}\|\s*(?:sudo\s+)?"
+            # Shells always execute the fetched bytes as code -> always flag.
+            r"(?:(?:sh|bash|zsh)\b"
+            # Scripting interpreters only execute the download itself when run
+            # bare (or `-`); `python3 -c/-m/script.py` treats the curl output as
+            # *data* on stdin, which is the common (benign) research-API parse.
+            r"|(?:python3?|perl|ruby)\b(?!\s+(?:-c\b|-m\b|[\w./~-]+\.(?:py|pl|rb)\b)))",
             re.IGNORECASE,
         ),
         "Remote downloads piped directly into an interpreter need explicit review.",
