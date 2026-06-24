@@ -118,7 +118,10 @@ make safety-scan SAFETY_ROOTS=skills/<name> SAFETY_CONTEXT=skill,script,other
 ```
 
 `catalog/SAFETY.md` leads with a "By Context" table and an "in skill/script
-files" headline so reviewers can triage the executable findings first.
+files" headline so reviewers can triage the executable findings first. For a
+classified walk-through of the current backlog (which findings are benign tool
+installers, scanner false positives, or genuinely worth a read), see
+[`safety-triage-2026-06-23.md`](safety-triage-2026-06-23.md).
 
 ## Conventions for generators
 
