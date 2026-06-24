@@ -256,3 +256,6 @@
 [submodule "lists/autonomous-agents"]
 	path = lists/autonomous-agents
 	url = https://github.com/tmgthb/Autonomous-Agents
+[submodule "lists/awesome-autoresearch"]
+	path = lists/awesome-autoresearch
+	url = https://github.com/webfuse-com/awesome-autoresearch

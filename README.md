@@ -12,7 +12,7 @@
   <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/已收录_skills-3%2C433-ff4e88?style=for-the-badge&labelColor=1f2330" alt="已收录 3,433 个 skills"></a>
 </p>
 
-<p align="center"><b>🧩 已收录 3,433 个 skills</b>，分布在 <b>86 个仓库</b> 中 —— 一次克隆拿到整套研究工具箱。</p>
+<p align="center"><b>🧩 已收录 3,433 个 skills</b>，分布在 <b>87 个仓库</b> 中 —— 一次克隆拿到整套研究工具箱。</p>
 
 <p align="center">
   <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/🧩_skills-3%2C433-ff4e88?style=flat-square" alt="3,433 skills"></a>
@@ -34,7 +34,7 @@
 
 ---
 
-> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**3,433 个 skills**、分布在 **86 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
+> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**3,433 个 skills**、分布在 **87 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
 
 ```bash
 # 推荐：先克隆，再让 setup.sh 处理顶层与嵌套子模块
@@ -177,6 +177,7 @@ cd Auto-Research-Skills
 
 | 项目 | ⭐ | 说明 |
 |---|---|---|
+| [webfuse-com/awesome-autoresearch](https://github.com/webfuse-com/awesome-autoresearch) | ~2.3k | autoresearch / 自主改进循环系统精选（CC0 公共领域）。 |
 | [ai-boost/awesome-ai-for-science](https://github.com/ai-boost/awesome-ai-for-science) | ~1.6k | 跨领域的 AI for Science 工具、数据集与框架精选。 |
 | [VILA-Lab/Dive-into-Claude-Code](https://github.com/VILA-Lab/Dive-into-Claude-Code) | ~1.4k | 系统分析 Claude Code 在 AI 智能体系统设计中的应用。 |
 | [tmgthb/Autonomous-Agents](https://github.com/tmgthb/Autonomous-Agents) | ~1.3k | 每日更新的自主智能体（LLM）研究论文清单。 |
@@ -190,12 +191,12 @@ cd Auto-Research-Skills
 
 ## 🗂️ 已收录仓库（子模块）
 
-**3,433 个 skills**、分布在 **86 个仓库**（多数 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `./setup.sh` 即可全部拉取；只需要顶层仓库时可运行 `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh`。完整带 star 的榜单见 [STARS.md](STARS.md)。
+**3,433 个 skills**、分布在 **87 个仓库**（多数 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `./setup.sh` 即可全部拉取；只需要顶层仓库时可运行 `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh`。完整带 star 的榜单见 [STARS.md](STARS.md)。
 
 - **`skills/`** —— 42 个可复用技能集与插件合集
 - **`systems/`** —— 32 个端到端系统与自主智能体
 - **`benchmarks/`** —— 4 个自主研究 / ML 工程评测基准
-- **`lists/`** —— 8 个精选清单与综述
+- **`lists/`** —— 9 个精选清单与综述
 
 > 选学术研究类技能时，多个包功能有重叠：默认从 [`skills/academic-research-skills`](skills/academic-research-skills)（重点推荐、star 最高）开始；用 **Codex** 而非 Claude Code 选 [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) 或 [`skills/codex-academic-skills`](skills/codex-academic-skills)；做**经济/金融**选 [`skills/franklee-academic-research-skills`](skills/franklee-academic-research-skills)；想要 **LaTeX/Beamer + R 的可 fork 学术工作流**选 [`skills/claude-code-my-workflow`](skills/claude-code-my-workflow)；做**实证社科**选 [`skills/empirical-research-skills`](skills/empirical-research-skills)。
 >
