@@ -29,8 +29,9 @@ End-to-end: read literature → form a hypothesis → write and run code → ana
 (see the arXiv "Why LLMs Aren't Scientists Yet" line of work) is that these
 systems are strong scaffolds but weak on genuine novelty judgment and
 experimental rigor. Vendored for study and capability reference, not as
-turn-key paper generators. A reproducibility-focused critique is the planned
-Week-3 deliverable.
+turn-key paper generators. See [`reproducibility-2026-06-23.md`](reproducibility-2026-06-23.md)
+for an evidence-grounded critique (a third of the `systems/` shelf carries a
+license gap or staleness flag before the science is even in question).
 
 ## 2. Deep-research / literature-synthesis engines
 
