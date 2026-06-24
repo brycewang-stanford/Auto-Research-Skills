@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **526**
+- Findings: **433**
 - Critical: **235**
-- High: **291**
-- In `skill`/`script` files (not docs or examples): **278** (62 critical, 216 high)
+- High: **198**
+- In `skill`/`script` files (not docs or examples): **203** (62 critical, 141 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -29,18 +29,18 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Context | Findings |
 |---|---:|
-| `docs` | 224 |
-| `script` | 202 |
-| `skill` | 72 |
-| `example` | 24 |
-| `other` | 4 |
+| `docs` | 210 |
+| `script` | 138 |
+| `skill` | 62 |
+| `example` | 20 |
+| `other` | 3 |
 
 ## By Rule
 
 | Rule | Findings |
 |---|---:|
-| `credential-print` | 231 |
 | `remote-shell-pipe` | 201 |
+| `credential-print` | 138 |
 | `echo-secret-value` | 35 |
 | `powershell-iex` | 32 |
 | `concealment-instruction` | 22 |
@@ -51,27 +51,27 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Collection | Findings |
 |---|---:|
-| `scienceclaw` | 230 |
+| `scienceclaw` | 183 |
 | `scientific-agent-skills` | 63 |
-| `claude-scientific-writer` | 50 |
+| `claude-scientific-writer` | 45 |
 | `feynman` | 32 |
-| `aris` | 32 |
-| `ai-research-skills` | 30 |
-| `empirical-research-skills` | 23 |
-| `academic-research-skills` | 9 |
+| `empirical-research-skills` | 24 |
+| `aris` | 12 |
+| `ai-research-skills` | 10 |
+| `academic-research-skills` | 8 |
 | `franklee-academic-research-skills` | 8 |
 | `academicforge` | 6 |
+| `claude-scholar` | 6 |
 | `claude-research` | 5 |
-| `claude-scholar` | 5 |
 | `last30days` | 5 |
 | `academic-research-skills-codex` | 4 |
 | `medical-research-skills` | 4 |
 | `nature-skills` | 4 |
 | `claudeblattman` | 3 |
 | `arxiv-mcp-server` | 2 |
-| `claude-skills-journalism` | 2 |
 | `light-skills` | 2 |
-| _Other_ | 7 |
+| `claude-code-my-workflow` | 1 |
+| _Other_ | 6 |
 
 ## Example Findings
 
@@ -109,18 +109,18 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/parallel-web/SKILL.md:57` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
 | critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/research-lookup/SKILL.md:264` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
 | critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/research-lookup/SKILL.md:476` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| high | skill | `credential-print` | `skills/ai-research-skills/01-model-architecture/litgpt/SKILL.md:309` | `print(token` |
-| high | skill | `credential-print` | `skills/ai-research-skills/01-model-architecture/rwkv/SKILL.md:78` | `print(pipeline.decode(token` |
-| high | skill | `credential-print` | `skills/ai-research-skills/02-tokenization/huggingface-tokenizers/SKILL.md:317` | `print(f"{token` |
-| high | skill | `credential-print` | `skills/ai-research-skills/04-mechanistic-interpretability/nnsight/SKILL.md:149` | `print(f"{model.tokenizer.decode(token` |
-| high | skill | `credential-print` | `skills/ai-research-skills/04-mechanistic-interpretability/saelens/SKILL.md:96` | `print(f"Token '{token` |
 | high | skill | `concealment-instruction` | `skills/ai-research-skills/06-post-training/trl-fine-tuning/SKILL.md:450` | `Secretly` |
-| high | skill | `credential-print` | `skills/ai-research-skills/14-agents/crewai/SKILL.md:171` | `print(result.token_usage) # Token` |
 | high | skill | `credential-print` | `skills/ai-research-skills/20-ml-paper-writing/academic-plotting/SKILL.md:234` | `print(" Get a key at: https://aistudio.google.com/apikey` |
 | high | skill | `credential-print` | `skills/aris/skills/paper-illustration/SKILL.md:205` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
 | high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:594` | `secretly` |
+| high | skill | `credential-print` | `skills/aris/skills/qzcli/SKILL.md:87` | `echo 'YOUR_PASSWORD' \| qzcli login -u YOUR_USERNAME --password` |
+| high | skill | `credential-print` | `skills/aris/skills/skills-codex/paper-illustration/SKILL.md:162` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
+| high | skill | `concealment-instruction` | `skills/aris/skills/skills-codex/proof-checker/SKILL.md:382` | `secretly` |
+| high | skill | `credential-print` | `skills/aris/skills/skills-codex/qzcli/SKILL.md:87` | `echo 'YOUR_PASSWORD' \| qzcli login -u YOUR_USERNAME --password` |
+| high | skill | `credential-print` | `skills/empirical-research-skills/skills/07-Orchestra-Research-AI-Research-SKILLs/academic-plotting/SKILL.md:249` | `print(" Get a key at: https://aistudio.google.com/apikey` |
+| high | skill | `credential-print` | `skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/paper-illustration/SKILL.md:164` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
 
-_Truncated 486 additional findings._
+_Truncated 393 additional findings._
 
 ## Regenerate
 

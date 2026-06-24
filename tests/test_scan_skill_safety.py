@@ -87,6 +87,39 @@ class ScanFileTests(unittest.TestCase):
             findings = scan.scan_file(path, min_severity="high")
         self.assertNotIn("echo-secret-value", [f.rule_id for f in findings])
 
+    def test_credential_print_flags_real_secrets(self) -> None:
+        for snippet in [
+            "print(api_key)",
+            'console.log("password is " + password)',
+            'print(f"access_token={access_token}")',
+            "logging.info(GITHUB_TOKEN)",
+        ]:
+            with tempfile.TemporaryDirectory() as tmp:
+                path = Path(tmp) / "leak.py"
+                path.write_text(snippet + "\n", encoding="utf-8")
+                findings = scan.scan_file(path, min_severity="high")
+            self.assertIn(
+                "credential-print", [f.rule_id for f in findings], snippet
+            )
+
+    def test_credential_print_ignores_bare_token_word(self) -> None:
+        # Regression: bare "token" is overwhelmingly benign — LLM token counts,
+        # tokenizer output, and security-conscious warnings. None should fire.
+        for snippet in [
+            'print(f"[{token}] no eligible issues")',
+            'print(f"Used {n} tokens")',
+            "print(tokenizer.decode(token_ids))",
+            'echo "✅ Audit clean — no leaked token found"',
+            'echo "Revoke the leaked token at the settings page"',
+        ]:
+            with tempfile.TemporaryDirectory() as tmp:
+                path = Path(tmp) / "benign.py"
+                path.write_text(snippet + "\n", encoding="utf-8")
+                findings = scan.scan_file(path, min_severity="high")
+            self.assertNotIn(
+                "credential-print", [f.rule_id for f in findings], snippet
+            )
+
     def test_scan_file_downgrades_reviewed_false_positive(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

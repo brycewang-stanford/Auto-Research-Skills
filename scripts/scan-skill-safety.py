@@ -218,7 +218,14 @@ RULES = [
         "high",
         re.compile(
             r"\b(?:print|echo|console\.log|logger\.(?:info|debug)|logging\.(?:info|debug))"
-            r"\b[^\n]{0,160}\b(?:API[_-]?KEY|TOKEN|SECRET|PASSWORD)\b",
+            r"\b[^\n]{0,160}\b(?:API[_-]?KEY|SECRET|PASSWORD|"
+            # A bare "token" is overwhelmingly benign (LLM token counts,
+            # tokenizer output, "revoke the leaked token" warnings). Only flag
+            # a credential-qualified token; the echo-secret-value rule still
+            # catches `echo $X_TOKEN`.
+            r"(?:ACCESS|API|AUTH|BEARER|REFRESH|OAUTH|PRIVATE|SESSION|"
+            r"GH|GITHUB|GITLAB|SLACK|NPM|PYPI|HF|HUGGINGFACE|OPENAI|"
+            r"ANTHROPIC|GOOGLE|AWS|AZURE)[_-]?TOKEN)\b",
             re.IGNORECASE,
         ),
         "Credentials should not be printed or logged into agent-visible output.",
