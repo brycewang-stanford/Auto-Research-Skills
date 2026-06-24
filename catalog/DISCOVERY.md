@@ -64,12 +64,14 @@ vendored yet** — each still needs the [CURATION.md second-review
 checklist](../CURATION.md#practical-review-checklist) (license + focused safety
 scan + overlap check) before a PR.
 
-> **Second-reviewed 2026-06-24.** All eight code-bearing candidates scanned
-> clean; verdicts (which to vendor, which to hold and why) are in
+> **Second-reviewed 2026-06-24, recommended round now vendored.** Verdicts in
 > [`../docs/second-review-2026-06-24.md`](../docs/second-review-2026-06-24.md).
-> Recommended next round: `HKUDS/DeepCode`, `uditgoenka/autoresearch`, and 1–2
-> autoresearch lists; hold the redundant deep-research agents and the broad/
-> off-scope skill dumps.
+> ✅ Vendored: `HKUDS/DeepCode` → `systems/deepcode`, `uditgoenka/autoresearch`
+> → `skills/autoresearch`, `tmgthb/Autonomous-Agents` → `lists/autonomous-agents`,
+> `webfuse-com/awesome-autoresearch` → `lists/awesome-autoresearch` (repo 83→87).
+> Held: redundant deep-research agents (MiroThinker, DeepResearchAgent,
+> NanoResearch), `Leey21/awesome-ai-research-writing` (no license),
+> `trailofbits/skills` (security scope), `alirezarezvani/claude-skills` (broad dump).
 
 ### Systems candidates (`systems/`) — deep-research & paper-to-code agents
 

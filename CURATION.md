@@ -46,6 +46,10 @@ to vendor as submodules yet.
 | [flonat/claude-research](https://github.com/flonat/claude-research) | `skills/claude-research` | Added 2026-06-23 (MIT, ~96★ — sub-bar exception for a complete PhD research-infra collection). One critical is the official Astral `uv` installer (benign). |
 | [jamditis/claude-skills-journalism](https://github.com/jamditis/claude-skills-journalism) | `skills/claude-skills-journalism` | Added 2026-06-23 (MIT, ~295★). Journalism/media/academia skills (fact-check, FOIA, data journalism). One high is a false-positive on a non-credential `token` variable. |
 | [snap-stanford/POPPER](https://github.com/snap-stanford/POPPER) | `systems/popper` | Added 2026-06-23 (~275★). Agentic sequential-falsification hypothesis testing (Stanford SNAP). ⚠️ no upstream license — vendored as a flagged exception; treat as all-rights-reserved until clarified. Scan clean. |
+| [HKUDS/DeepCode](https://github.com/HKUDS/DeepCode) | `systems/deepcode` | Added 2026-06-24 (MIT, ~15.8k★). Open agentic coding: Paper2Code + Text2Web/Backend; complements `paper2code`. 2 high findings are benign Chinese setup help-text. |
+| [uditgoenka/autoresearch](https://github.com/uditgoenka/autoresearch) | `skills/autoresearch` | Added 2026-06-24 (MIT, ~5.2k★). Karpathy-style autonomous-iteration Claude skill. The one critical (`mkfs`) is inside the skill's own command-refusal safety guard — defensive, not a leak. |
+| [tmgthb/Autonomous-Agents](https://github.com/tmgthb/Autonomous-Agents) | `lists/autonomous-agents` | Added 2026-06-24 (MIT, ~1.3k★). Daily-updated autonomous-agent research-paper list. |
+| [webfuse-com/awesome-autoresearch](https://github.com/webfuse-com/awesome-autoresearch) | `lists/awesome-autoresearch` | Added 2026-06-24 (CC0, ~2.3k★). Curated autoresearch / autonomous-improvement-loop systems. |
 
 ## Second-Review Queue
 

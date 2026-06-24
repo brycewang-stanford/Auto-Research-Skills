@@ -17,8 +17,13 @@ python3 scripts/scan-skill-safety.py <clone> --max-findings 0 \
 notably clean batch. Verdicts therefore turn on *scope fit*, *license*,
 *redundancy with already-vendored projects*, and *collision surface*, not safety.
 
-Reviewer: automated maintenance pass, 2026-06-24. Nothing here is vendored —
-these are recommendations for a future approved batch (one project per PR).
+Reviewer: automated maintenance pass, 2026-06-24.
+
+> **Update — the recommended batch is now vendored** (one project per commit):
+> `systems/deepcode` (`d938934`), `skills/autoresearch` (`6f9beb8`),
+> `lists/autonomous-agents` (`1984138`), `lists/awesome-autoresearch`
+> (`30e0609`). Repo total 83→87. The "hold" candidates below remain
+> un-vendored for the recorded reasons.
 
 ## Verdicts at a glance
 

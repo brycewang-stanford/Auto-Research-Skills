@@ -1,6 +1,6 @@
 # Autonomous-Research Systems — Comparison Matrix (2026)
 
-A decision-useful cross-comparison of the **31 systems** vendored under
+A decision-useful cross-comparison of the **32 systems** vendored under
 [`../systems/`](../systems/), grouped by the five-layer field map in
 [`landscape-2026.md`](landscape-2026.md). It pairs each system's *capability
 shape* (tier, domain, approach) with its *reproduction friction* (license +
@@ -22,7 +22,7 @@ hygiene — *not* a judgment of scientific quality:
 - 🔴 — **no license at all** → all-rights-reserved by default; a legal blocker to
   rerun-and-extend regardless of how good the science is.
 
-Tally across the shelf: **19 🟢 · 7 🟡 · 5 🔴**. The 5 🔴 (`ai-researcher`,
+Tally across the shelf: **20 🟢 · 7 🟡 · 5 🔴**. The 5 🔴 (`ai-researcher`,
 `auto-deep-research`, `autosurvey`, `popper`, `sibyl-system`) are the priority
 for upstream license issues.
 
@@ -74,6 +74,7 @@ for upstream license issues.
 
 | System | ⭐ | License | Last push | Repro | Approach |
 |---|---:|---|---|:--:|---|
+| [`systems/deepcode`](../systems/deepcode) | 15.8k | MIT | 1mo | 🟢 | Open agentic coding: Paper2Code + Text2Web + Text2Backend (vendored 2026-06-24). |
 | [`systems/aideml`](../systems/aideml) | 1.3k | MIT | 1mo | 🟢 | ML engineering as code-optimization tree search. |
 | [`systems/curie`](../systems/curie) | 361 | Apache-2.0 | 8mo | 🟢 | Rigorous, reproducible ML experimentation harness. |
 | [`systems/paper2code`](../systems/paper2code) | 4.7k | Apache-2.0 | 3mo | 🟢 | Turns an ML paper into a runnable code repo. |
