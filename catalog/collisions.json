@@ -812,6 +812,42 @@
       ]
     },
     {
+      "name": "autoresearch",
+      "collections": 4,
+      "distinct_bodies": 5,
+      "total_copies": 8,
+      "variants": [
+        {
+          "collection": "ai-research-skills",
+          "repo_url": "https://github.com/Orchestra-Research/AI-Research-SKILLs",
+          "trigger": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization…",
+          "path": "skills/ai-research-skills/0-autoresearch-skill/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "autoresearch",
+          "repo_url": "https://github.com/uditgoenka/autoresearch",
+          "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+          "path": "skills/autoresearch/.agents/skills/autoresearch/SKILL.md",
+          "bodies_in_collection": 3
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization…",
+          "path": "skills/empirical-research-skills/skills/07-Orchestra-Research-AI-Research-SKILLs/autoresearch-skill/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "feynman",
+          "repo_url": "https://github.com/companion-inc/feynman",
+          "trigger": "Autonomous experiment loop that tries ideas, measures results, keeps what works, and discards what doesn't. Use when the user asks to optimize a metric, run an…",
+          "path": "skills/feynman/skills/autoresearch/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "interview-me",
       "collections": 4,
       "distinct_bodies": 5,
@@ -2000,35 +2036,6 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Generate concise (3-4 page), focused medical treatment plans in LaTeX/PDF format for all clinical specialties. Supports general medical treatment,…",
           "path": "skills/scientific-agent-skills/skills/treatment-plans/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "autoresearch",
-      "collections": 3,
-      "distinct_bodies": 2,
-      "total_copies": 3,
-      "variants": [
-        {
-          "collection": "ai-research-skills",
-          "repo_url": "https://github.com/Orchestra-Research/AI-Research-SKILLs",
-          "trigger": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization…",
-          "path": "skills/ai-research-skills/0-autoresearch-skill/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Orchestrates end-to-end autonomous AI research projects using a two-loop architecture. The inner loop runs rapid experiment iterations with clear optimization…",
-          "path": "skills/empirical-research-skills/skills/07-Orchestra-Research-AI-Research-SKILLs/autoresearch-skill/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "feynman",
-          "repo_url": "https://github.com/companion-inc/feynman",
-          "trigger": "Autonomous experiment loop that tries ideas, measures results, keeps what works, and discards what doesn't. Use when the user asks to optimize a metric, run an…",
-          "path": "skills/feynman/skills/autoresearch/SKILL.md",
           "bodies_in_collection": 1
         }
       ]

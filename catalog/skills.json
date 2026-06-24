@@ -2,12 +2,12 @@
   "_generated_by": "tools/build_catalog.py",
   "_note": "Auto-generated. 'total_skill_files' is the raw SKILL.md count (matches the README headline and includes copies re-bundled by aggregator collections). 'unique_skills' de-duplicates by name+body content hash.",
   "totals": {
-    "total_skill_files": 3428,
-    "unique_skills": 2699,
-    "collections": 37,
+    "total_skill_files": 3433,
+    "unique_skills": 2702,
+    "collections": 38,
     "template_skills": 1,
     "without_frontmatter": 11,
-    "rebundled_copies": 729
+    "rebundled_copies": 731
   },
   "collections": [
     {
@@ -223,6 +223,14 @@
       "repo_url": "https://github.com/HKUSTDial/Supervisor-Skills",
       "skill_files": 7,
       "unique_skills": 7,
+      "template_skills": 0,
+      "rebundled_copies": 0
+    },
+    {
+      "name": "autoresearch",
+      "repo_url": "https://github.com/uditgoenka/autoresearch",
+      "skill_files": 5,
+      "unique_skills": 3,
       "template_skills": 0,
       "rebundled_copies": 0
     },
@@ -5235,6 +5243,86 @@
       "content_hash": "d9ddb5da52e12e3c",
       "duplicate_of": "",
       "nested_depth": 2
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "path": "skills/autoresearch/.agents/skills/autoresearch/SKILL.md",
+      "description": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "repo_url": "https://github.com/uditgoenka/autoresearch",
+      "license": "",
+      "version": "2.2.1",
+      "author": "",
+      "has_frontmatter": true,
+      "has_name": true,
+      "is_template": false,
+      "content_hash": "9fb8af3182530829",
+      "duplicate_of": "",
+      "nested_depth": 3
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "path": "skills/autoresearch/.claude/skills/autoresearch/SKILL.md",
+      "description": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "repo_url": "https://github.com/uditgoenka/autoresearch",
+      "license": "",
+      "version": "2.2.1",
+      "author": "",
+      "has_frontmatter": true,
+      "has_name": true,
+      "is_template": false,
+      "content_hash": "74770e7696e693c0",
+      "duplicate_of": "",
+      "nested_depth": 3
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "path": "skills/autoresearch/.opencode/skills/autoresearch/SKILL.md",
+      "description": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "repo_url": "https://github.com/uditgoenka/autoresearch",
+      "license": "",
+      "version": "2.2.1",
+      "author": "",
+      "has_frontmatter": true,
+      "has_name": true,
+      "is_template": false,
+      "content_hash": "5993eed4b83dce9a",
+      "duplicate_of": "",
+      "nested_depth": 3
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "path": "skills/autoresearch/claude-plugin/skills/autoresearch/SKILL.md",
+      "description": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "repo_url": "https://github.com/uditgoenka/autoresearch",
+      "license": "",
+      "version": "2.2.1",
+      "author": "",
+      "has_frontmatter": true,
+      "has_name": true,
+      "is_template": false,
+      "content_hash": "74770e7696e693c0",
+      "duplicate_of": "skills/autoresearch/.claude/skills/autoresearch/SKILL.md",
+      "nested_depth": 3
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "path": "skills/autoresearch/plugins/autoresearch/skills/autoresearch/SKILL.md",
+      "description": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "repo_url": "https://github.com/uditgoenka/autoresearch",
+      "license": "",
+      "version": "2.2.1",
+      "author": "",
+      "has_frontmatter": true,
+      "has_name": true,
+      "is_template": false,
+      "content_hash": "9fb8af3182530829",
+      "duplicate_of": "skills/autoresearch/.agents/skills/autoresearch/SKILL.md",
+      "nested_depth": 4
     },
     {
       "name": "audit-reproducibility",

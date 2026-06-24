@@ -250,3 +250,6 @@
 [submodule "systems/deepcode"]
 	path = systems/deepcode
 	url = https://github.com/HKUDS/DeepCode
+[submodule "skills/autoresearch"]
+	path = skills/autoresearch
+	url = https://github.com/uditgoenka/autoresearch

@@ -2,12 +2,12 @@
   "generated_by": "tools/build_index.py",
   "note": "Compact discovery index consumed by site/. The canonical, complete manifest is catalog/skills.json. Regenerate with `python3 tools/build_index.py`.",
   "totals": {
-    "skill_files": 3428,
-    "unique_skills": 2699,
-    "collections": 37,
+    "skill_files": 3433,
+    "unique_skills": 2702,
+    "collections": 38,
     "templates": 1,
     "no_frontmatter": 11,
-    "rebundled": 729,
+    "rebundled": 731,
     "name_collisions": 215
   },
   "tags": [
@@ -77,6 +77,12 @@
       "repo_url": "https://github.com/blazickjp/arxiv-mcp-server",
       "skill_files": 1,
       "unique_skills": 1
+    },
+    {
+      "name": "autoresearch",
+      "repo_url": "https://github.com/uditgoenka/autoresearch",
+      "skill_files": 5,
+      "unique_skills": 3
     },
     {
       "name": "claude-code-my-workflow",
@@ -3777,6 +3783,73 @@
         "citations",
         "latex",
         "paper-search"
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "license": "",
+      "path": "skills/autoresearch/.agents/skills/autoresearch/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "license": "",
+      "path": "skills/autoresearch/.claude/skills/autoresearch/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "license": "",
+      "path": "skills/autoresearch/.opencode/skills/autoresearch/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "license": "",
+      "path": "skills/autoresearch/claude-plugin/skills/autoresearch/SKILL.md",
+      "flags": [
+        "dup",
+        "collision"
+      ],
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "autoresearch",
+      "collection": "autoresearch",
+      "trigger": "Autonomous iteration loop: modify, verify, keep/discard against any metric",
+      "license": "",
+      "path": "skills/autoresearch/plugins/autoresearch/skills/autoresearch/SKILL.md",
+      "flags": [
+        "dup",
+        "collision"
+      ],
+      "tags": [
+        "automation"
       ]
     },
     {

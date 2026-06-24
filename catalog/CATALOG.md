@@ -9,14 +9,14 @@ An index of every individual skill bundled across all collections, so you can fi
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files (README headline number) | **3,428** |
-| Unique skills (de-duplicated by name + body) | **2,699** |
-| Copies re-bundled by aggregator collections | 729 |
+| `SKILL.md` files (README headline number) | **3,433** |
+| Unique skills (de-duplicated by name + body) | **2,702** |
+| Copies re-bundled by aggregator collections | 731 |
 | Placeholder / template skills | 1 |
 | Skills without YAML frontmatter | 11 |
-| Collections | 37 |
+| Collections | 38 |
 
-> The headline **3,428** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,699** of those skills are actually distinct — a ~21% redundancy rate worth knowing when you browse.
+> The headline **3,433** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,702** of those skills are actually distinct — a ~21% redundancy rate worth knowing when you browse.
 
 ## Collections
 
@@ -51,6 +51,7 @@ Sorted by skill count. Click a collection for its full skill list.
 | [academic-skills](collections/academic-skills.md) | 8 | 8 | 0 | 0 | [repo](https://github.com/chtc66/academic-skills) |
 | [research-skills](collections/research-skills.md) | 8 | 8 | 2 | 0 | [repo](https://github.com/luwill/research-skills) |
 | [supervisor-skills](collections/supervisor-skills.md) | 7 | 7 | 0 | 0 | [repo](https://github.com/HKUSTDial/Supervisor-Skills) |
+| [autoresearch](collections/autoresearch.md) | 5 | 3 | 0 | 0 | [repo](https://github.com/uditgoenka/autoresearch) |
 | [academic-research-skills](collections/academic-research-skills.md) | 4 | 4 | 0 | 0 | [repo](https://github.com/Imbad0202/academic-research-skills) |
 | [openclaw-search-skills](collections/openclaw-search-skills.md) | 3 | 3 | 0 | 0 | [repo](https://github.com/blessonism/openclaw-search-skills) |
 | [research-companion](collections/research-companion.md) | 3 | 3 | 1 | 0 | [repo](https://github.com/andrehuang/research-companion) |

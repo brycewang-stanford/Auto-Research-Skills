@@ -10,9 +10,9 @@ decisions live in [`../CURATION.md`](../CURATION.md). Regenerate with
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files on disk (README headline) | **3,428** |
-| Distinct skills (by content hash) | **2,699** |
-| Re-bundled copies | **729** (21%) |
+| `SKILL.md` files on disk (README headline) | **3,433** |
+| Distinct skills (by content hash) | **2,702** |
+| Re-bundled copies | **731** (21%) |
 
 Aggregator collections vendor other collections *inside themselves*, so
 the same skill is counted many times. The collections re-bundling the
@@ -31,7 +31,7 @@ scan order):
 | `aris` | 179 | 167 | 21 |
 
 **Suggestion:** keep the on-disk headline (it is honest about what is
-vendored) but cite the **2,699 unique** figure alongside it so
+vendored) but cite the **2,702 unique** figure alongside it so
 users are not misled about breadth. The catalog surfaces both.
 
 ## 2. Name collisions are the real usability hazard ⚠️
@@ -99,7 +99,7 @@ submodules are vendored read-only.
 
 ## 5. Only 28% of skills declare a license
 
-**945 / 3,428** skills carry a `license:` field in their
+**945 / 3,433** skills carry a `license:` field in their
 frontmatter. The rest inherit their repo's top-level license (if any) —
 fine, but it means a user copying a single skill out of a collection
 cannot tell its license from the `SKILL.md` alone. **Suggestion:** a

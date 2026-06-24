@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **326**
-- Critical: **220**
-- High: **106**
-- In `skill`/`script` files (not docs or examples): **98** (47 critical, 51 high)
+- Findings: **367**
+- Critical: **260**
+- High: **107**
+- In `skill`/`script` files (not docs or examples): **99** (48 critical, 51 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -29,21 +29,22 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Context | Findings |
 |---|---:|
-| `docs` | 208 |
-| `script` | 57 |
+| `docs` | 229 |
+| `script` | 58 |
+| `example` | 39 |
 | `skill` | 38 |
-| `example` | 20 |
 | `other` | 3 |
 
 ## By Rule
 
 | Rule | Findings |
 |---|---:|
-| `remote-shell-pipe` | 186 |
-| `credential-print` | 46 |
+| `remote-shell-pipe` | 214 |
+| `credential-print` | 47 |
 | `echo-secret-value` | 35 |
 | `powershell-iex` | 32 |
 | `concealment-instruction` | 22 |
+| `destructive-system-device` | 12 |
 | `obfuscated-exec` | 3 |
 | `reverse-shell` | 2 |
 
@@ -52,6 +53,7 @@ so a downgraded critical no longer inflates the high+ report.
 | Collection | Findings |
 |---|---:|
 | `scienceclaw` | 157 |
+| `autoresearch` | 41 |
 | `feynman` | 32 |
 | `scientific-agent-skills` | 23 |
 | `claude-scientific-writer` | 21 |
@@ -70,8 +72,7 @@ so a downgraded critical no longer inflates the high+ report.
 | `arxiv-mcp-server` | 2 |
 | `light-skills` | 2 |
 | `medical-research-skills` | 2 |
-| `claude-code-my-workflow` | 1 |
-| _Other_ | 5 |
+| _Other_ | 6 |
 
 ## Example Findings
 
@@ -117,10 +118,10 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `credential-print` | `skills/scientific-agent-skills/skills/rowan/SKILL.md:140` | `print(f"New secret created (old secret disabled): {new_secret.secret` |
 | high | skill | `credential-print` | `skills/scientific-agent-skills/skills/rowan/SKILL.md:777` | `print(f"Your webhook secret: {secret.secret` |
 | high | skill | `credential-print` | `skills/scientific-agent-skills/skills/rowan/SKILL.md:1039` | `print("API key not found. Set ROWAN_API_KEY env var or call rowan.api_key` |
+| critical | script | `destructive-system-device` | `skills/autoresearch/scripts/orchestrate.sh:256` | `mkfs.ext4` |
 | critical | script | `remote-shell-pipe` | `skills/claude-research/scripts/setup.sh:101` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
-| critical | script | `remote-shell-pipe` | `skills/empirical-research-skills/skills/17-DAAF-Contribution-Community-daaf/dot-claude/hooks/bash-safety.sh:16` | `curl <url> \| bash` |
 
-_Truncated 286 additional findings._
+_Truncated 327 additional findings._
 
 ## Regenerate
 
