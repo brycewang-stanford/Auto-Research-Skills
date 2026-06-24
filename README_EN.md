@@ -12,7 +12,7 @@
   <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-3%2C433-ff4e88?style=for-the-badge&labelColor=1f2330" alt="3,433 skills collected"></a>
 </p>
 
-<p align="center"><b>3,433 skills</b> bundled across <b>85 repos</b> — clone the whole research toolbox in one shot.</p>
+<p align="center"><b>3,433 skills</b> bundled across <b>86 repos</b> — clone the whole research toolbox in one shot.</p>
 
 <p align="center">
   <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-3%2C433-ff4e88?style=flat-square" alt="3,433 skills"></a>
@@ -34,7 +34,7 @@
 
 ---
 
-> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,433 skills** across **85 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
+> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **3,433 skills** across **86 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
 # recommended: clone first, then let setup.sh handle top-level + nested submodules
@@ -178,7 +178,7 @@ cd Auto-Research-Skills
 
 ## Bundled Repos (submodules)
 
-**3,433 skills** across **85 repos** (most with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
+**3,433 skills** across **86 repos** (most with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
 
 > Live ranking: see [**STARS.md**](STARS.md) — auto-refreshed weekly by [a GitHub Action](.github/workflows/update-stars.yml).
 >
@@ -293,12 +293,13 @@ cd Auto-Research-Skills
 
 ### Lists & Surveys (`lists/`)
 
-7 curated collections / survey repos on the auto-research landscape.
+8 curated collections / survey repos on the auto-research landscape.
 
 | Path | Source | Stars | What it is |
 |---|---|---|---|
 | `lists/awesome-ai-for-science` | [ai-boost/awesome-ai-for-science](https://github.com/ai-boost/awesome-ai-for-science) | ~1.6k | Curated AI-for-Science tools, datasets & frameworks across domains. |
 | `lists/dive-into-claude-code` | [VILA-Lab/Dive-into-Claude-Code](https://github.com/VILA-Lab/Dive-into-Claude-Code) | ~1.4k | Systematic analysis of Claude Code for designing AI-agent systems. |
+| `lists/autonomous-agents` | [tmgthb/Autonomous-Agents](https://github.com/tmgthb/Autonomous-Agents) | ~1.3k | Daily-updated index of autonomous-agent (LLM) research papers. |
 | `lists/awesome-auto-research-tools` | [handsome-rich/Awesome-Auto-Research-Tools](https://github.com/handsome-rich/Awesome-Auto-Research-Tools) | ~778 | The list that inspired this repo. |
 | `lists/awesome-deep-research` | [DavidZWZ/Awesome-Deep-Research](https://github.com/DavidZWZ/Awesome-Deep-Research) | ~759 | ACL 2026 — agentic deep-research resources. |
 | `lists/awesome-deep-research-survey` | [scienceaix/deepresearch](https://github.com/scienceaix/deepresearch) | ~430 | Companion list to the Deep Research survey paper. |
