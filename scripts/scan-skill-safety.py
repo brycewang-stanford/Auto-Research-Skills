@@ -223,7 +223,11 @@ RULES = [
         "high",
         re.compile(
             r"\b(?:print|echo|console\.log|logger\.(?:info|debug)|logging\.(?:info|debug))"
-            r"\b[^\n]{0,160}\b(?:API[_-]?KEY|SECRET|PASSWORD|"
+            # `(?<![/<-])` skips three benign classes where the keyword is not a
+            # real secret: a URL/path segment (`…/apikey`, `~/.config/notion/api_key`),
+            # an angle-bracket placeholder (`<password>`), and a CLI flag
+            # (`--password`). Real prints are preceded by `(`, `"`, `$`, space.
+            r"\b[^\n]{0,160}\b(?<![/<-])(?:API[_-]?KEY|SECRET|PASSWORD|"
             # A bare "token" is overwhelmingly benign (LLM token counts,
             # tokenizer output, "revoke the leaked token" warnings). Only flag
             # a credential-qualified token; the echo-secret-value rule still

@@ -67,6 +67,14 @@ Verdict: **no malicious concealment** in the catalog today.
 
 ## Residual false-positive classes (future precision candidates)
 
+> **Update 2026-06-24 — resolved.** Classes 1–2 below were fixed by adding a
+> `(?<![/<-])` lookbehind to `credential-print` (commit in the four-week pass):
+> it skips keywords inside a URL/path (`…/apikey`), an angle-bracket placeholder
+> (`<password>`), or a CLI flag (`--api-key`, `--password`). This removed a large
+> flag-documentation class too — `credential-print` dropped 122 → 32 tree-wide
+> and the executable-context must-review fell 188 → 98. Verified that no `$VAR`
+> value-derefs or `{…key}` interpolations were suppressed.
+
 Lower priority than today's two fixes, but recorded so the noise is understood:
 
 1. **`credential-print` on help-URLs** (~7): `echo "Get your key at

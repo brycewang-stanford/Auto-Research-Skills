@@ -147,6 +147,24 @@ class ScanFileTests(unittest.TestCase):
                 "credential-print", [f.rule_id for f in findings], snippet
             )
 
+    def test_credential_print_ignores_url_path_and_placeholder_keywords(self) -> None:
+        # Residual FP classes: keyword inside a URL/path, an angle-bracket
+        # placeholder, or a CLI flag — none are a printed secret value.
+        for snippet in [
+            'echo "Get your key from: https://aistudio.google.com/app/apikey"',
+            'print("Get a key at: https://aistudio.google.com/apikey")',
+            'echo "ntn_your_key_here" > ~/.config/notion/api_key',
+            "print('Usage: python dl.py <email> <password>')",
+            "echo 'YOUR_PASSWORD' | qzcli login -u YOUR_USERNAME --password",
+        ]:
+            with tempfile.TemporaryDirectory() as tmp:
+                path = Path(tmp) / "help.sh"
+                path.write_text(snippet + "\n", encoding="utf-8")
+                findings = scan.scan_file(path, min_severity="high")
+            self.assertNotIn(
+                "credential-print", [f.rule_id for f in findings], snippet
+            )
+
     def test_scan_file_downgrades_reviewed_false_positive(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

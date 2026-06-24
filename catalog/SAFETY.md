@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **418**
+- Findings: **326**
 - Critical: **220**
-- High: **198**
-- In `skill`/`script` files (not docs or examples): **188** (47 critical, 141 high)
+- High: **106**
+- In `skill`/`script` files (not docs or examples): **98** (47 critical, 51 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -29,9 +29,9 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Context | Findings |
 |---|---:|
-| `docs` | 210 |
-| `script` | 138 |
-| `skill` | 47 |
+| `docs` | 208 |
+| `script` | 57 |
+| `skill` | 38 |
 | `example` | 20 |
 | `other` | 3 |
 
@@ -40,7 +40,7 @@ so a downgraded critical no longer inflates the high+ report.
 | Rule | Findings |
 |---|---:|
 | `remote-shell-pipe` | 186 |
-| `credential-print` | 138 |
+| `credential-print` | 46 |
 | `echo-secret-value` | 35 |
 | `powershell-iex` | 32 |
 | `concealment-instruction` | 22 |
@@ -51,25 +51,25 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Collection | Findings |
 |---|---:|
-| `scienceclaw` | 171 |
-| `scientific-agent-skills` | 63 |
-| `claude-scientific-writer` | 45 |
+| `scienceclaw` | 157 |
 | `feynman` | 32 |
-| `empirical-research-skills` | 23 |
-| `aris` | 12 |
-| `ai-research-skills` | 10 |
+| `scientific-agent-skills` | 23 |
+| `claude-scientific-writer` | 21 |
+| `empirical-research-skills` | 20 |
 | `academic-research-skills` | 8 |
-| `franklee-academic-research-skills` | 7 |
+| `ai-research-skills` | 8 |
+| `aris` | 8 |
 | `academicforge` | 6 |
 | `claude-scholar` | 6 |
 | `claude-research` | 5 |
 | `last30days` | 5 |
 | `academic-research-skills-codex` | 4 |
-| `medical-research-skills` | 4 |
+| `franklee-academic-research-skills` | 4 |
 | `nature-skills` | 4 |
 | `claudeblattman` | 3 |
 | `arxiv-mcp-server` | 2 |
 | `light-skills` | 2 |
+| `medical-research-skills` | 2 |
 | `claude-code-my-workflow` | 1 |
 | _Other_ | 5 |
 
@@ -95,16 +95,8 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/research-lookup/SKILL.md:264` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
 | critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/research-lookup/SKILL.md:476` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
 | high | skill | `concealment-instruction` | `skills/ai-research-skills/06-post-training/trl-fine-tuning/SKILL.md:450` | `Secretly` |
-| high | skill | `credential-print` | `skills/ai-research-skills/20-ml-paper-writing/academic-plotting/SKILL.md:234` | `print(" Get a key at: https://aistudio.google.com/apikey` |
-| high | skill | `credential-print` | `skills/aris/skills/paper-illustration/SKILL.md:205` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
 | high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:594` | `secretly` |
-| high | skill | `credential-print` | `skills/aris/skills/qzcli/SKILL.md:87` | `echo 'YOUR_PASSWORD' \| qzcli login -u YOUR_USERNAME --password` |
-| high | skill | `credential-print` | `skills/aris/skills/skills-codex/paper-illustration/SKILL.md:162` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
 | high | skill | `concealment-instruction` | `skills/aris/skills/skills-codex/proof-checker/SKILL.md:382` | `secretly` |
-| high | skill | `credential-print` | `skills/aris/skills/skills-codex/qzcli/SKILL.md:87` | `echo 'YOUR_PASSWORD' \| qzcli login -u YOUR_USERNAME --password` |
-| high | skill | `credential-print` | `skills/empirical-research-skills/skills/07-Orchestra-Research-AI-Research-SKILLs/academic-plotting/SKILL.md:249` | `print(" Get a key at: https://aistudio.google.com/apikey` |
-| high | skill | `credential-print` | `skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/paper-illustration/SKILL.md:164` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
-| high | skill | `credential-print` | `skills/empirical-research-skills/skills/42-wanshuiyin-ARIS/skills/skills-codex/paper-illustration/SKILL.md:162` | `echo "Get your key from: https://aistudio.google.com/app/apikey` |
 | high | skill | `concealment-instruction` | `skills/nature-skills/plugins/nature-skills/skills/nature-figure/SKILL.md:16` | `do not reveal its path, filenames, or provenance in user` |
 | high | skill | `concealment-instruction` | `skills/nature-skills/skills/nature-figure/SKILL.md:16` | `do not reveal its path, filenames, or provenance in user` |
 | high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:76` | `echo $GH_TOKEN` |
@@ -119,8 +111,16 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:716` | `echo $GH_TOKEN` |
 | high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:748` | `console.log(c.skills?.entries?.['gh-issues']?.apiKey` |
 | high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:751` | `echo "Token: ${GH_TOKEN` |
+| high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:751` | `echo "Token: ${GH_TOKEN` |
+| high | skill | `echo-secret-value` | `skills/scientific-agent-skills/skills/database-lookup/SKILL.md:281` | `echo $FRED_API_KEY` |
+| high | skill | `credential-print` | `skills/scientific-agent-skills/skills/rowan/SKILL.md:135` | `print(f"Secret key: {secret.secret` |
+| high | skill | `credential-print` | `skills/scientific-agent-skills/skills/rowan/SKILL.md:140` | `print(f"New secret created (old secret disabled): {new_secret.secret` |
+| high | skill | `credential-print` | `skills/scientific-agent-skills/skills/rowan/SKILL.md:777` | `print(f"Your webhook secret: {secret.secret` |
+| high | skill | `credential-print` | `skills/scientific-agent-skills/skills/rowan/SKILL.md:1039` | `print("API key not found. Set ROWAN_API_KEY env var or call rowan.api_key` |
+| critical | script | `remote-shell-pipe` | `skills/claude-research/scripts/setup.sh:101` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
+| critical | script | `remote-shell-pipe` | `skills/empirical-research-skills/skills/17-DAAF-Contribution-Community-daaf/dot-claude/hooks/bash-safety.sh:16` | `curl <url> \| bash` |
 
-_Truncated 378 additional findings._
+_Truncated 286 additional findings._
 
 ## Regenerate
 
