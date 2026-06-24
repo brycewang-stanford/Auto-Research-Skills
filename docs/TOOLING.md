@@ -31,8 +31,13 @@ catalog artifact is derived from them and from `.gitmodules`.
         │
         └─ scan-skill-safety.py ─► build_safety_report.py ──► catalog/SAFETY.md
 
-scripts/update-stars.py ──► STARS.md   (scheduled weekly; reads GitHub API)
+scripts/update-stars.py          ──► STARS.md              (reads GitHub API; run intentionally)
+scripts/check-submodule-health.py ─► catalog/HEALTH.md      (reads GitHub API; run intentionally)
+scripts/discover-skills.py        ─► catalog/DISCOVERY.md   (manual triage of GitHub search hits)
 ```
+
+The bottom three tools need the **network** (GitHub API; `$GITHUB_TOKEN` lifts
+the rate limit) and are run on demand, *not* by the offline `make check`.
 
 ## Generated vs. hand-written files
 
@@ -50,7 +55,8 @@ Regenerate instead (see the next section).
 | [`../catalog/collisions.json`](../catalog/collisions.json) | `tools/build_index.py` | `skills.json` |
 | [`../catalog/SAFETY.md`](../catalog/SAFETY.md) | `tools/build_safety_report.py` | `scripts/scan-skill-safety.py` over `skills/` |
 | [`../catalog/QUALITY.md`](../catalog/QUALITY.md) | `tools/build_quality_report.py` | `skills.json` + `SKILL.md` files |
-| [`../STARS.md`](../STARS.md) | `scripts/update-stars.py` | GitHub API (scheduled) |
+| [`../STARS.md`](../STARS.md) | `scripts/update-stars.py` | GitHub API (run intentionally) |
+| [`../catalog/HEALTH.md`](../catalog/HEALTH.md) | `scripts/check-submodule-health.py` (`make health-report`) | GitHub API — live stars/license/staleness snapshot |
 
 Hand-written (safe to edit directly): the two READMEs, `AGENTS.md`,
 `CONTRIBUTING.md`, `CURATION.md`, [`../catalog/README.md`](../catalog/README.md),
