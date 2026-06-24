@@ -64,6 +64,13 @@ vendored yet** — each still needs the [CURATION.md second-review
 checklist](../CURATION.md#practical-review-checklist) (license + focused safety
 scan + overlap check) before a PR.
 
+> **Second-reviewed 2026-06-24.** All eight code-bearing candidates scanned
+> clean; verdicts (which to vendor, which to hold and why) are in
+> [`../docs/second-review-2026-06-24.md`](../docs/second-review-2026-06-24.md).
+> Recommended next round: `HKUDS/DeepCode`, `uditgoenka/autoresearch`, and 1–2
+> autoresearch lists; hold the redundant deep-research agents and the broad/
+> off-scope skill dumps.
+
 ### Systems candidates (`systems/`) — deep-research & paper-to-code agents
 
 | Candidate | ⭐ | License | Gap it fills | Caveat |

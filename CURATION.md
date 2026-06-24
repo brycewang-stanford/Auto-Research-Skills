@@ -78,6 +78,14 @@ A follow-up discovery batch — `zotero-mcp` plus three newly surfaced projects
 2026-06-23 and is logged in
 [`docs/vendoring-2026-06-23.md`](docs/vendoring-2026-06-23.md).
 
+A second-review of the 2026-06-23 scripted-discovery fresh finds is logged in
+[`docs/second-review-2026-06-24.md`](docs/second-review-2026-06-24.md): all
+eight code-bearing candidates scanned clean; the recommended next round is
+`HKUDS/DeepCode` + `uditgoenka/autoresearch` + 1–2 autoresearch lists, holding
+the redundant deep-research agents and broad/off-scope skill dumps. Upstream
+license-request drafts for the no-license vendored systems are in
+[`docs/upstream-license-requests-2026-06-24.md`](docs/upstream-license-requests-2026-06-24.md).
+
 ## Candidate Backlog
 
 Checked on 2026-05-31 with GitHub API metadata and `npx skills find` output.
