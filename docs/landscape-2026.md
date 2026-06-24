@@ -17,6 +17,10 @@ the fifth is the *evaluation* substrate that keeps everyone honest.
 End-to-end: read literature → form a hypothesis → write and run code → analyze
 → draft a paper, with minimal human intervention.
 
+> For a side-by-side of all 31 vendored systems (tier, domain, license,
+> staleness, reproduction-readiness) see the
+> [systems comparison matrix](systems-matrix-2026.md).
+
 | Project | In hub | Note |
 |---|---|---|
 | SakanaAI/AI-Scientist + v2 | [`systems/ai-scientist`](../systems/ai-scientist), [`systems/ai-scientist-v2`](../systems/ai-scientist-v2) | v2 uses agentic tree search and dropped v1's templates; first machine-authored paper to clear a workshop peer review. |
