@@ -247,3 +247,6 @@
 [submodule "systems/popper"]
 	path = systems/popper
 	url = https://github.com/snap-stanford/POPPER
+[submodule "systems/deepcode"]
+	path = systems/deepcode
+	url = https://github.com/HKUDS/DeepCode
