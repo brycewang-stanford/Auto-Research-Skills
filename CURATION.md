@@ -90,6 +90,78 @@ the redundant deep-research agents and broad/off-scope skill dumps. Upstream
 license-request drafts for the no-license vendored systems are in
 [`docs/upstream-license-requests-2026-06-24.md`](docs/upstream-license-requests-2026-06-24.md).
 
+## Discovery Round — 2026-07-11
+
+New trending research-automation repos surfaced via GitHub search/trending and
+verified through the GitHub API (existence, star count, and last-push recency
+all confirmed on 2026-07-11). None were already vendored or listed. All were
+added to the README curated tables as **list-only candidates** (no `🧩`); they
+are *not* vendored as submodules yet, so headline counts are unchanged. Vendor
+only after a second review and a focused safety scan, one project per PR.
+
+**Autonomous systems / AI scientists**
+
+| Candidate | ★ | License | Note |
+|---|---:|---|---|
+| [karpathy/autoresearch](https://github.com/karpathy/autoresearch) | ~90.8k | none | Karpathy's overnight autonomous-research loop on single-GPU nanochat training. Huge reach, but **no LICENSE file** — list-only; do not vendor/reuse code until licensing is clarified. |
+| [EvoScientist/EvoScientist](https://github.com/EvoScientist/EvoScientist) | ~4.1k | Apache-2.0 | Self-evolving multi-agent AI scientists. Distinct from the already-listed `EvoScientist/EvoSkills`. Strong vendor candidate pending safety scan. |
+| [ResearAI/DeepScientist](https://github.com/ResearAI/DeepScientist) | ~3.2k | none | Local-first autonomous research studio (TS UI + Python). No license — list-only. |
+| [OpenNSWM-Lab/FAROS](https://github.com/OpenNSWM-Lab/FAROS) | ~1.8k | none | Blueprint-driven AutoResearch runtime (idea→experiment→paper→review). No license — list-only. |
+| [OpenRaiser/NanoResearch](https://github.com/OpenRaiser/NanoResearch) | ~1.5k | MIT | Lightweight autonomous AI research assistant; skills/agent-based. Vendor candidate. |
+| [InternScience/InternAgent](https://github.com/InternScience/InternAgent) | ~1.4k | Apache-2.0 | Lab-backed (InternScience) long-horizon scientific-discovery framework. Vendor candidate. |
+| [zhu-minjun/Researcher](https://github.com/zhu-minjun/Researcher) | ~398 | custom (CycleResearcher-License) | Research-via-automated-review loop with released models. Custom license — list-only. |
+| [tsinghua-fib-lab/OmniScientist](https://github.com/tsinghua-fib-lab/OmniScientist) | ~153 | MIT | AI-scientist ecosystem encoding research infrastructure. Vendor candidate. |
+
+**Data-science / experiment agents**
+
+| Candidate | ★ | License | Note |
+|---|---:|---|---|
+| [ruc-datalab/DeepAnalyze](https://github.com/ruc-datalab/DeepAnalyze) | ~4.3k | MIT | Autonomous data-science agent; analysis → report. Vendor candidate for `systems/`. |
+| [starpig1129/DATAGEN](https://github.com/starpig1129/DATAGEN) | ~1.8k | MIT | LangGraph multi-agent research assistant (hypothesis → analysis → report). |
+
+**Deep research / literature synthesis**
+
+| Candidate | ★ | License | Note |
+|---|---:|---|---|
+| [AkariAsai/OpenScholar](https://github.com/AkariAsai/OpenScholar) | ~1.6k | Apache-2.0 | AllenAI/UW retrieval-augmented literature synthesis with grounded citations. Strong vendor candidate. |
+| [khoj-ai/openpaper](https://github.com/khoj-ai/openpaper) | ~376 | AGPL-3.0 | Paper-library workbench + AI lit review. **AGPL** — flag copyleft before vendoring. |
+
+**Skills & plugin collections**
+
+| Candidate | ★ | License | Note |
+|---|---:|---|---|
+| [openags/paper-search-mcp](https://github.com/openags/paper-search-mcp) | ~2.1k | MIT | Multi-source (arXiv/PubMed/bioRxiv) paper-search MCP + CLI + skills. **Top vendor pick** — fills the paper-discovery gap next to `arxiv-mcp-server`/`zotero-mcp`. |
+| [AIScientists-Dev/academic-humanizer](https://github.com/AIScientists-Dev/academic-humanizer) | ~343 | MIT | Single-purpose "strip AI-writing tells" finishing pass for papers/grants. Easy drop-in. |
+| [guhaohao0991/PaperClaw](https://github.com/guhaohao0991/PaperClaw) | ~242 | MIT | Generates topic-specific paper search-review-critique expert agents (OpenClaw). |
+| [Stars-OC/thesis-creator](https://github.com/Stars-OC/thesis-creator) | ~191 | MIT | Chinese undergrad-thesis writing skill with AIGC/plagiarism reduction. |
+| [ai4s-research/ai4s-skills](https://github.com/ai4s-research/ai4s-skills) | ~141 | MIT | 7-skill AI-for-Science pipeline with integrity audit. Clean modular design — vendor candidate. |
+| [LMDHQ-0420/ResearchPilot-Skills](https://github.com/LMDHQ-0420/ResearchPilot-Skills) | ~138 | MIT | 7-phase automated academic workflow. |
+| [SNL-UCSB/paper-writing-skill](https://github.com/SNL-UCSB/paper-writing-skill) | ~106 | MIT | Tightly-scoped editorial pipeline (UCSB); good "writing craft" module. |
+| [voidful/academic-skills](https://github.com/voidful/academic-skills) | ~103 | MIT | Cross-agent (Claude/Codex/Gemini) suite covering review + ideation phases. |
+
+**Benchmarks**
+
+| Candidate | ★ | License | Note |
+|---|---:|---|---|
+| [openai/mle-bench](https://github.com/openai/mle-bench) | ~1.6k | MIT | Reference ML-engineering-agent benchmark (75 Kaggle competitions). Strong benchmark vendor pick. |
+| [scicode-bench/SciCode](https://github.com/scicode-bench/SciCode) | ~213 | Apache-2.0 | LMs coding solutions to research-grade scientific problems. |
+| [HKUST-KnowComp/NewtonBench](https://github.com/HKUST-KnowComp/NewtonBench) | ~152 | MIT | ICLR 2026 — generalizable scientific-law discovery; complements DiscoveryBench/ScienceAgentBench. |
+| [Future-House/BixBench](https://github.com/Future-House/BixBench) | ~130 | Apache-2.0 | Computational-biology agent benchmark (FutureHouse; sibling of the bundled `aviary`). |
+
+**Domain science**
+
+| Candidate | ★ | License | Note |
+|---|---:|---|---|
+| [GENTEL-lab/OriGene](https://github.com/GENTEL-lab/OriGene) | ~218 | CC-BY-NC-SA-4.0 | Self-evolving "virtual disease biologist" for therapeutic-target discovery. **Non-commercial license** — list-only unless a non-commercial exception is acceptable. |
+
+**Suggested next vendoring order** (MIT/Apache, active, gap-filling; one PR each,
+each with a focused `make safety-scan` + `python3 scripts/check-repo.py`):
+`openags/paper-search-mcp` → `ai4s-research/ai4s-skills` → `openai/mle-bench`
+(benchmarks) → `AkariAsai/OpenScholar`. Hold no-license systems
+(`karpathy/autoresearch`, `ResearAI/DeepScientist`, `OpenNSWM-Lab/FAROS`),
+copyleft (`khoj-ai/openpaper`, AGPL), and non-commercial (`GENTEL-lab/OriGene`)
+as list-only until licensing is resolved.
+
 ## Candidate Backlog
 
 Checked on 2026-05-31 with GitHub API metadata and `npx skills find` output.
