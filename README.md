@@ -80,11 +80,19 @@ cd Auto-Research-Skills
 
 | 项目 | ⭐ | 技术栈 | 说明 |
 |---|---|---|---|
+| [karpathy/autoresearch](https://github.com/karpathy/autoresearch) | ~90.8k | Python | Karpathy 的过夜研究循环：AI 智能体在单卡 nanochat LLM 训练上自动提出、运行并评估实验。 |
 | [aiming-lab/AutoResearchClaw](https://github.com/aiming-lab/AutoResearchClaw) | ~12.8k | Agent | 全自主、自进化研究，从想法到论文。 |
 | [SakanaAI/AI-Scientist](https://github.com/SakanaAI/AI-Scientist) | ~13.8k | Python | 提想法、跑实验、写论文并自动评审。 |
 | [SakanaAI/AI-Scientist-v2](https://github.com/SakanaAI/AI-Scientist-v2) | ~6.4k | Python | v2 —— 智能体树搜索，产出 workshop 级论文，更少模板约束。 |
 | [SamuelSchmidgall/AgentLaboratory](https://github.com/SamuelSchmidgall/AgentLaboratory) | ~5.6k | Python | LLM 智能体充当研究助理，覆盖完整流水线。 |
 | [HKUDS/AI-Researcher](https://github.com/HKUDS/AI-Researcher) | ~5.4k | Python | NeurIPS 2025 —— 自主科学创新，从想法到论文。 |
+| [EvoScientist/EvoScientist](https://github.com/EvoScientist/EvoScientist) | ~4.1k | Python | 自进化多智能体 AI 科学家，持久记忆驱动的「vibe research」。 |
+| [ResearAI/DeepScientist](https://github.com/ResearAI/DeepScientist) | ~3.2k | TS · Python | 本地优先的自主研究工作室：基线复现 → 实验 → 论文级产出。 |
+| [OpenNSWM-Lab/FAROS](https://github.com/OpenNSWM-Lab/FAROS) | ~1.8k | Python | 蓝图驱动的 AutoResearch 运行时：想法 → 实验 → 写作 → 同行评审。 |
+| [OpenRaiser/NanoResearch](https://github.com/OpenRaiser/NanoResearch) | ~1.5k | Python | 轻量级自主 AI 研究助手（skills/agent 驱动），从选题到端到端研究。 |
+| [InternScience/InternAgent](https://github.com/InternScience/InternAgent) | ~1.4k | Python | 统一 agentic 框架，面向长时程、跨领域的自主科学发现。 |
+| [zhu-minjun/Researcher](https://github.com/zhu-minjun/Researcher) | ~398 | Python | CycleResearcher —— 通过自动评审改进自动研究的迭代循环。 |
+| [tsinghua-fib-lab/OmniScientist](https://github.com/tsinghua-fib-lab/OmniScientist) | ~153 | Python | AI 科学家生态，编码人类科研基建以自动化想法、文献、实验与写作。 |
 | [Sibyl-Research-Team/AutoResearch-SibylSystem](https://github.com/Sibyl-Research-Team/AutoResearch-SibylSystem) | ~247 | Claude Code | 自进化自主研究系统，原生构建于 Claude Code。 |
 | [ulab-uiuc/research-town](https://github.com/ulab-uiuc/research-town) | ~205 | Python | ICML 2025 —— 模拟人类科研社区的多智能体。 |
 
@@ -102,6 +110,8 @@ cd Auto-Research-Skills
 | [nickscamara/open-deep-research](https://github.com/nickscamara/open-deep-research) | ~6.2k | TypeScript | 开源深度研究复刻，基于 Firecrawl 抓取的网页数据推理。 |
 | [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research) | ~11.5k | LangGraph | 开源、可配置的深度研究智能体。 |
 | [Future-House/paper-qa](https://github.com/Future-House/paper-qa) | ~8.6k | Python | PaperQA2 —— 对科学 PDF 做高准确率、带引用的 RAG 问答。 |
+| [AkariAsai/OpenScholar](https://github.com/AkariAsai/OpenScholar) | ~1.6k | Python | 检索增强的科学文献综合系统，生成带引用的答案（AllenAI/UW）。 |
+| [khoj-ai/openpaper](https://github.com/khoj-ai/openpaper) | ~376 | TypeScript | 研究论文库工作台：阅读、标注、AI 文献综述一站式完成。 |
 | [HKUDS/Auto-Deep-Research](https://github.com/HKUDS/Auto-Deep-Research) | ~1.5k | Agent | 低成本、全自动的个人研究助手。 |
 | [AutoSurveys/AutoSurvey](https://github.com/AutoSurveys/AutoSurvey) | ~468 | Python | 多阶段流水线，自动生成文献综述。 |
 
@@ -112,6 +122,8 @@ cd Auto-Research-Skills
 | 项目 | ⭐ | 技术栈 | 说明 |
 |---|---|---|---|
 | [HKUDS/DeepCode](https://github.com/HKUDS/DeepCode) | ~15.8k | Python | 开源智能编码：论文转代码（Paper2Code）+ Text2Web + Text2Backend。 |
+| [ruc-datalab/DeepAnalyze](https://github.com/ruc-datalab/DeepAnalyze) | ~4.3k | Python | 号称首个自主数据科学 agentic LLM：自动分析海量数据并一键生成专业分析报告。 |
+| [starpig1129/DATAGEN](https://github.com/starpig1129/DATAGEN) | ~1.8k | LangGraph | AI 驱动的多智能体研究助手，自动化假设生成、数据分析与报告写作。 |
 | [going-doer/Paper2Code](https://github.com/going-doer/Paper2Code) | ~4.6k | Python | PaperCoder —— 将 ML 论文自动转为可运行的代码仓库。 |
 | [WecoAI/aideml](https://github.com/WecoAI/aideml) | ~1.3k | Python | AIDE —— ML 工程智能体，把建模当作代码优化搜索。 |
 | [Xiangyue-Zhang/auto-deep-researcher-24x7](https://github.com/Xiangyue-Zhang/auto-deep-researcher-24x7) | ~975 | Agent | 7×24 跑深度学习实验，Leader-Worker，常量内存。 |
@@ -130,6 +142,7 @@ cd Auto-Research-Skills
 | [zou-group/virtual-lab](https://github.com/zou-group/virtual-lab) | ~685 | 多智能体 | 一支 LLM「科学家」团队开展跨学科研究（斯坦福）。 |
 | [lamm-mit/SciAgentsDiscovery](https://github.com/lamm-mit/SciAgentsDiscovery) | ~611 | 材料 | MIT —— 多智能体自动科学发现与假设生成。 |
 | [Future-House/robin](https://github.com/Future-House/robin) | ~439 | 生物医学 | 多智能体科学发现；提出并验证了干性 AMD 候选药。 |
+| [GENTEL-lab/OriGene](https://github.com/GENTEL-lab/OriGene) | ~218 | 生物医学 | 自进化多智能体「虚拟疾病生物学家」，机制引导的治疗靶点发现（非商用许可）。 |
 | [gomesgroup/coscientist](https://github.com/gomesgroup/coscientist) | ~203 | 化学 | 基于 LLM 的自主化学研究（Nature 2023）。 |
 
 ## 🧩 研究技能与插件合集
@@ -146,6 +159,14 @@ cd Auto-Research-Skills
 | [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) 🧩 | ~4.1k | Claude Code · MCP | 半自动科研助手；集成 Zotero + Obsidian + MCP。 |
 | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) 🧩 | ~4.0k | MCP · Python | 把 Zotero 文献库接入任意 MCP 智能体：讨论论文、生成摘要、分析引用。 |
 | [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) 🧩 | ~2.8k | MCP | 在任意支持 MCP 的智能体中直接检索与抓取 arXiv 论文。 |
+| [openags/paper-search-mcp](https://github.com/openags/paper-search-mcp) | ~2.1k | MCP · Python | 跨 arXiv/PubMed/bioRxiv/medRxiv 等多源检索与下载论文的 MCP + CLI + skills。 |
+| [AIScientists-Dev/academic-humanizer](https://github.com/AIScientists-Dev/academic-humanizer) | ~343 | Claude · Codex · MorphMind | 去除论文与 NSF/NIH 基金申请中的「AI 味」，保留学术语气并把论点绑定到证据。 |
+| [guhaohao0991/PaperClaw](https://github.com/guhaohao0991/PaperClaw) | ~242 | OpenClaw · Python | 按主题生成论文检索—评审—批判专家 agent 的 OpenClaw skill。 |
+| [Stars-OC/thesis-creator](https://github.com/Stars-OC/thesis-creator) | ~191 | Claude Code · Python | 中文论文写作 skill：内容、ER 图、流程图生成，含本科论文降 AIGC/降重优化。 |
+| [ai4s-research/ai4s-skills](https://github.com/ai4s-research/ai4s-skills) | ~141 | Claude Code · Python | 7 个「AI for Science」skill：主题探索 → 文献综述 → 可运行实验 → 写作 → 诚信审计。 |
+| [LMDHQ-0420/ResearchPilot-Skills](https://github.com/LMDHQ-0420/ResearchPilot-Skills) | ~138 | Claude Code · Shell | 7 阶段自动化科研流程：方向探索、文献、想法、实验设计、代码、写作。 |
+| [SNL-UCSB/paper-writing-skill](https://github.com/SNL-UCSB/paper-writing-skill) | ~106 | Claude Code · Shell | 编码实战编辑原则与 5 阶段写作流水线（Brainstorm → Draft 0 → Evaluate → Write → Compress）。 |
+| [voidful/academic-skills](https://github.com/voidful/academic-skills) | ~103 | Claude · Codex · Gemini · TeX | 完整科研 skill 套件：论文阅读、想法生成、实验设计、证明/写作、同行评审。 |
 | [K-Dense-AI/claude-scientific-writer](https://github.com/K-Dense-AI/claude-scientific-writer) 🧩 | ~1.9k | Claude Code · Python | 通用型科研写作助手。 |
 | [pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow) 🧩 | ~1.2k | Claude Code · LaTeX/R | 学者用的可 fork 模板：多智能体评审、质量门、复现协议。 |
 | [mshumer/autonomous-researcher](https://github.com/mshumer/autonomous-researcher) 🧩 | ~804 | Agent | 轻量级自主研究智能体。 |
@@ -168,7 +189,11 @@ cd Auto-Research-Skills
 
 | 项目 | ⭐ | 衡量内容 | 说明 |
 |---|---|---|---|
+| [openai/mle-bench](https://github.com/openai/mle-bench) | ~1.6k | ML 工程 | 衡量 AI 智能体的机器学习工程能力（75 个 Kaggle 式竞赛任务）。 |
 | [snap-stanford/MLAgentBench](https://github.com/snap-stanford/MLAgentBench) | ~343 | ML 工程 | 智能体完成端到端 ML 实验任务。 |
+| [scicode-bench/SciCode](https://github.com/scicode-bench/SciCode) | ~213 | 科学编程 | 挑战语言模型为真实科研级科学问题编写代码解法。 |
+| [HKUST-KnowComp/NewtonBench](https://github.com/HKUST-KnowComp/NewtonBench) | ~152 | 科学定律发现 | ICLR 2026 —— 通过交互式实验评测 LLM 智能体的可泛化科学定律发现。 |
+| [Future-House/BixBench](https://github.com/Future-House/BixBench) | ~130 | 计算生物学 | 面向计算生物学/生信智能体的评测基准（FutureHouse）。 |
 | [Future-House/aviary](https://github.com/Future-House/aviary) | ~266 | 科学智能体任务 | 面向挑战性科学任务的 language-agent gym（FutureHouse）。 |
 | [allenai/discoverybench](https://github.com/allenai/discoverybench) | ~145 | 数据驱动发现 | LLM 能否从真实数据集中推导假设（AI2）。 |
 | [OSU-NLP-Group/ScienceAgentBench](https://github.com/OSU-NLP-Group/ScienceAgentBench) | ~138 | 数据驱动科学 | 在真实科研任务上严格评测智能体。 |
