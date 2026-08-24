@@ -151,6 +151,7 @@ cd Auto-Research-Skills
 | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) 🧩 | ~4.0k | MCP · Python | Connect your Zotero library to any MCP agent — discuss papers, summarize, analyze citations. |
 | [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) 🧩 | ~2.8k | MCP | Search & retrieve arXiv papers directly inside any MCP-capable agent. |
 | [openags/paper-search-mcp](https://github.com/openags/paper-search-mcp) | ~2.1k | MCP · Python | MCP + CLI + skills to search & download papers across arXiv, PubMed, bioRxiv, medRxiv, and more. |
+| [RetrogradeLabs/lune-mcp-server](https://github.com/RetrogradeLabs/lune-mcp-server) | ~3 | MCP · TypeScript | Full-text search over top-venue computer-science papers, citation traversal, cross-paper evidence extraction, and claim verification with verbatim quotes. |
 | [AIScientists-Dev/academic-humanizer](https://github.com/AIScientists-Dev/academic-humanizer) | ~343 | Claude · Codex · MorphMind | Strips generic "AI-writing tells" from papers and NSF/NIH grant proposals while keeping scholarly voice and claim-evidence alignment. |
 | [guhaohao0991/PaperClaw](https://github.com/guhaohao0991/PaperClaw) | ~242 | OpenClaw · Python | OpenClaw skill that generates topic-specific paper search-review-critique expert agents. |
 | [Stars-OC/thesis-creator](https://github.com/Stars-OC/thesis-creator) | ~191 | Claude Code · Python | Chinese thesis-writing skill (content, ER diagrams, flowcharts) with AIGC-detection / plagiarism-rate reduction for undergrad theses. |
