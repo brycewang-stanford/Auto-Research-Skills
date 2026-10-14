@@ -160,6 +160,7 @@ cd Auto-Research-Skills
 | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) 🧩 | ~4.0k | MCP · Python | 把 Zotero 文献库接入任意 MCP 智能体：讨论论文、生成摘要、分析引用。 |
 | [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) 🧩 | ~2.8k | MCP | 在任意支持 MCP 的智能体中直接检索与抓取 arXiv 论文。 |
 | [openags/paper-search-mcp](https://github.com/openags/paper-search-mcp) | ~2.1k | MCP · Python | 跨 arXiv/PubMed/bioRxiv/medRxiv 等多源检索与下载论文的 MCP + CLI + skills。 |
+| [RetrogradeLabs/lune-mcp-server](https://github.com/RetrogradeLabs/lune-mcp-server) | ~3 | MCP · TypeScript | 面向编码智能体的顶会计算机论文全文检索、引文追踪、跨论文证据提取与原文引述式论断核验。 |
 | [AIScientists-Dev/academic-humanizer](https://github.com/AIScientists-Dev/academic-humanizer) | ~343 | Claude · Codex · MorphMind | 去除论文与 NSF/NIH 基金申请中的「AI 味」，保留学术语气并把论点绑定到证据。 |
 | [guhaohao0991/PaperClaw](https://github.com/guhaohao0991/PaperClaw) | ~242 | OpenClaw · Python | 按主题生成论文检索—评审—批判专家 agent 的 OpenClaw skill。 |
 | [Stars-OC/thesis-creator](https://github.com/Stars-OC/thesis-creator) | ~191 | Claude Code · Python | 中文论文写作 skill：内容、ER 图、流程图生成，含本科论文降 AIGC/降重优化。 |
