@@ -37,6 +37,7 @@
 [submodule "skills/academicforge"]
 	path = skills/academicforge
 	url = https://github.com/HughYau/AcademicForge
+	branch = site-first
 [submodule "skills/deep-research-skills"]
 	path = skills/deep-research-skills
 	url = https://github.com/Weizhena/Deep-Research-skills

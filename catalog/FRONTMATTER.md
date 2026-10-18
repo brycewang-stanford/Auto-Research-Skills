@@ -26,13 +26,13 @@ and `description`. Recommended fields are reported, never required.
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files scanned | **3,433** |
-| Conform to required schema | **3,422** (100%) |
-| No YAML frontmatter at all | 11 |
+| `SKILL.md` files scanned | **5,897** |
+| Conform to required schema | **5,892** (100%) |
+| No YAML frontmatter at all | 4 |
 | Frontmatter but no `name` | 0 |
-| Frontmatter but no `description` | 0 |
-| Declare a `license` (recommended) | 945 (28%) |
-| Declare a `version` (recommended) | 318 (9%) |
+| Frontmatter but no `description` | 1 |
+| Declare a `license` (recommended) | 1,145 (19%) |
+| Declare a `version` (recommended) | 326 (6%) |
 
 ## Collections with non-conforming skills
 
@@ -41,10 +41,9 @@ auto-trigger them. Best fixed upstream.
 
 | Collection | Non-conforming | Of total |
 |---|---:|---:|
-| `empirical-research-skills` | 4 | 978 |
-| `claude-scientific-writer` | 3 | 81 |
-| `scienceclaw` | 2 | 293 |
-| `franklee-academic-research-skills` | 1 | 97 |
+| `scienceclaw` | 2 | 319 |
+| `franklee-academic-research-skills` | 1 | 2135 |
+| `medical-research-skills` | 1 | 605 |
 | `oneresearchclaw` | 1 | 16 |
 
 ---

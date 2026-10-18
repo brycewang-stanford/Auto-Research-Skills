@@ -19,23 +19,23 @@ at zero.
 
 | Signal | Skills with it | Share |
 |---|---:|---:|
-| `references/` | 1,135 | 33% |
-| `scripts/ or code` | 816 | 24% |
-| `examples/` | 84 | 2% |
-| `tests/` | 49 | 1% |
-| `evals/` | 160 | 5% |
-| `assets/` | 187 | 5% |
-| `templates/` | 46 | 1% |
-| `manifest.yaml` | 2 | 0% |
-| `requirements.txt` | 104 | 3% |
+| `references/` | 1,447 | 25% |
+| `scripts/ or code` | 1,035 | 18% |
+| `examples/` | 103 | 2% |
+| `tests/` | 73 | 1% |
+| `evals/` | 311 | 5% |
+| `assets/` | 246 | 4% |
+| `templates/` | 112 | 2% |
+| `manifest.yaml` | 24 | 0% |
+| `requirements.txt` | 99 | 2% |
 
 ## At a glance
 
 | Metric | Count |
 |---|---:|
-| Skills inspected | **3,433** |
-| Rich (≥3 signals) | **300** (9%) |
-| Bare (only `SKILL.md`) | 2,012 (59%) |
+| Skills inspected | **5,897** |
+| Rich (≥3 signals) | **442** (7%) |
+| Bare (only `SKILL.md`) | 4,038 (68%) |
 
 ## Deepest collections
 
@@ -46,25 +46,25 @@ than shipping bare prompts. Size is shown but does not drive the rank.
 | Collection | Skills | Rich | Rich % | Avg depth |
 |---|---:|---:|---:|---:|
 | `claude-deep-research-skill` | 1 | 1 | 100% | 5.0 |
-| `academic-research-skills` | 4 | 4 | 100% | 3.0 |
+| `research-skills` | 6 | 6 | 100% | 3.7 |
+| `light-skills` | 23 | 23 | 100% | 3.6 |
+| `academic-research-skills` | 5 | 5 | 100% | 3.2 |
 | `last30days` | 1 | 1 | 100% | 3.0 |
-| `light-skills` | 28 | 20 | 71% | 3.0 |
-| `claude-scientific-writer` | 81 | 30 | 37% | 2.0 |
-| `nature-skills` | 18 | 6 | 33% | 1.9 |
-| `medical-research-skills` | 556 | 141 | 25% | 2.1 |
-| `research-units-pipeline` | 109 | 23 | 21% | 1.4 |
+| `nature-skills` | 23 | 17 | 74% | 3.9 |
+| `claude-scientific-writer` | 78 | 42 | 54% | 2.3 |
+| `medical-research-skills` | 605 | 188 | 31% | 2.2 |
+| `scientific-agent-skills` | 177 | 45 | 25% | 1.9 |
+| `research-units-pipeline` | 108 | 23 | 21% | 1.5 |
 | `codex-academic-skills` | 24 | 5 | 21% | 1.7 |
-| `scientific-agent-skills` | 143 | 26 | 18% | 1.6 |
 | `claude-scholar` | 45 | 8 | 18% | 1.7 |
-| `franklee-academic-research-skills` | 97 | 12 | 12% | 0.8 |
-| `academicforge` | 15 | 1 | 7% | 0.5 |
-| `claude-skills-journalism` | 54 | 2 | 4% | 0.3 |
-| `scienceclaw` | 293 | 5 | 2% | 0.4 |
-| `empirical-research-skills` | 978 | 15 | 2% | 0.2 |
-| `academic-paper-skills` | 2 | 0 | 0% | 2.0 |
-| `x-research-skill` | 1 | 0 | 0% | 2.0 |
-| `openclaw-search-skills` | 3 | 0 | 0% | 1.7 |
-| `academic-skills` | 8 | 0 | 0% | 1.1 |
+| `ai-research-feedback` | 12 | 2 | 17% | 0.5 |
+| `supervisor-skills` | 12 | 1 | 8% | 1.2 |
+| `nature-paper-skills` | 28 | 2 | 7% | 1.2 |
+| `academicforge` | 33 | 2 | 6% | 0.6 |
+| `claude-skills-journalism` | 63 | 3 | 5% | 0.5 |
+| `claude-research` | 87 | 3 | 3% | 0.5 |
+| `franklee-academic-research-skills` | 2,135 | 42 | 2% | 0.2 |
+| `scienceclaw` | 319 | 5 | 2% | 0.3 |
 
 > Reading this: a high **Rich %** with a modest skill count is the
 > profile of a focused, production-grade collection. A large collection

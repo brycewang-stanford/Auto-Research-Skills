@@ -9,14 +9,14 @@ An index of every individual skill bundled across all collections, so you can fi
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files (README headline number) | **3,433** |
-| Unique skills (de-duplicated by name + body) | **2,702** |
-| Copies re-bundled by aggregator collections | 731 |
-| Placeholder / template skills | 1 |
-| Skills without YAML frontmatter | 11 |
-| Collections | 38 |
+| `SKILL.md` files (README headline number) | **5,897** |
+| Unique skills (de-duplicated by name + body) | **5,255** |
+| Copies re-bundled by aggregator collections | 642 |
+| Placeholder / template skills | 0 |
+| Skills without YAML frontmatter | 4 |
+| Collections | 41 |
 
-> The headline **3,433** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **2,702** of those skills are actually distinct — a ~21% redundancy rate worth knowing when you browse.
+> The headline **5,897** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **5,255** of those skills are actually distinct — a ~11% redundancy rate worth knowing when you browse.
 
 ## Collections
 
@@ -24,39 +24,42 @@ Sorted by skill count. Click a collection for its full skill list.
 
 | Collection | Skills | Unique | Re-bundled | Template | Source |
 |---|---:|---:|---:|---:|---|
-| [empirical-research-skills](collections/empirical-research-skills.md) | 978 | 946 | 571 | 1 | [repo](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) |
-| [medical-research-skills](collections/medical-research-skills.md) | 556 | 556 | 0 | 0 | [repo](https://github.com/aipoch/medical-research-skills) |
+| [franklee-academic-research-skills](collections/franklee-academic-research-skills.md) | 2135 | 2133 | 35 | 0 | [repo](https://github.com/franklee16/academic-research-skills) |
+| [empirical-research-skills](collections/empirical-research-skills.md) | 1172 | 1136 | 535 | 0 | [repo](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) |
+| [medical-research-skills](collections/medical-research-skills.md) | 605 | 605 | 0 | 0 | [repo](https://github.com/aipoch/medical-research-skills) |
 | [research-plugins](collections/research-plugins.md) | 473 | 473 | 464 | 0 | [repo](https://github.com/wentorai/research-plugins) |
-| [scienceclaw](collections/scienceclaw.md) | 293 | 293 | 25 | 0 | [repo](https://github.com/beita6969/ScienceClaw) |
-| [aris](collections/aris.md) | 179 | 167 | 21 | 0 | [repo](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) |
-| [scientific-agent-skills](collections/scientific-agent-skills.md) | 143 | 143 | 30 | 0 | [repo](https://github.com/K-Dense-AI/scientific-agent-skills) |
-| [research-units-pipeline](collections/research-units-pipeline.md) | 109 | 109 | 0 | 0 | [repo](https://github.com/WILLOSCAR/research-units-pipeline-skills) |
-| [ai-research-skills](collections/ai-research-skills.md) | 98 | 98 | 2 | 0 | [repo](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
-| [franklee-academic-research-skills](collections/franklee-academic-research-skills.md) | 97 | 90 | 53 | 0 | [repo](https://github.com/franklee16/academic-research-skills) |
-| [claude-scientific-writer](collections/claude-scientific-writer.md) | 81 | 34 | 35 | 0 | [repo](https://github.com/K-Dense-AI/claude-scientific-writer) |
-| [claude-skills-journalism](collections/claude-skills-journalism.md) | 54 | 54 | 0 | 0 | [repo](https://github.com/jamditis/claude-skills-journalism) |
-| [claude-research](collections/claude-research.md) | 50 | 50 | 1 | 0 | [repo](https://github.com/flonat/claude-research) |
-| [claude-scholar](collections/claude-scholar.md) | 45 | 45 | 27 | 0 | [repo](https://github.com/Galaxy-Dawn/claude-scholar) |
-| [claude-code-my-workflow](collections/claude-code-my-workflow.md) | 36 | 36 | 11 | 0 | [repo](https://github.com/pedrohcgs/claude-code-my-workflow) |
-| [light-skills](collections/light-skills.md) | 28 | 28 | 0 | 0 | [repo](https://github.com/Light0305/Light-skills) |
-| [co-researcher](collections/co-researcher.md) | 24 | 24 | 0 | 0 | [repo](https://github.com/poemswe/co-researcher) |
-| [codex-academic-skills](collections/codex-academic-skills.md) | 24 | 24 | 15 | 0 | [repo](https://github.com/zLanqing/codex-claude-academic-skills) |
-| [deep-research-skills](collections/deep-research-skills.md) | 20 | 13 | 20 | 0 | [repo](https://github.com/Weizhena/Deep-Research-skills) |
-| [feynman](collections/feynman.md) | 20 | 20 | 0 | 0 | [repo](https://github.com/companion-inc/feynman) |
-| [nature-paper-skills](collections/nature-paper-skills.md) | 18 | 18 | 1 | 0 | [repo](https://github.com/Boom5426/Nature-Paper-Skills) |
-| [nature-skills](collections/nature-skills.md) | 18 | 11 | 6 | 0 | [repo](https://github.com/Yuan1z0825/nature-skills) |
+| [scienceclaw](collections/scienceclaw.md) | 319 | 319 | 12 | 0 | [repo](https://github.com/beita6969/ScienceClaw) |
+| [aris](collections/aris.md) | 191 | 179 | 8 | 0 | [repo](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) |
+| [scientific-agent-skills](collections/scientific-agent-skills.md) | 177 | 177 | 0 | 0 | [repo](https://github.com/K-Dense-AI/scientific-agent-skills) |
+| [research-units-pipeline](collections/research-units-pipeline.md) | 108 | 108 | 0 | 0 | [repo](https://github.com/WILLOSCAR/research-units-pipeline-skills) |
+| [ai-research-skills](collections/ai-research-skills.md) | 98 | 98 | 1 | 0 | [repo](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
+| [claude-research](collections/claude-research.md) | 87 | 87 | 0 | 0 | [repo](https://github.com/flonat/claude-research) |
+| [claude-scientific-writer](collections/claude-scientific-writer.md) | 78 | 26 | 0 | 0 | [repo](https://github.com/K-Dense-AI/claude-scientific-writer) |
+| [claude-skills-journalism](collections/claude-skills-journalism.md) | 63 | 63 | 0 | 0 | [repo](https://github.com/jamditis/claude-skills-journalism) |
+| [claude-code-my-workflow](collections/claude-code-my-workflow.md) | 61 | 61 | 2 | 0 | [repo](https://github.com/pedrohcgs/claude-code-my-workflow) |
+| [claude-scholar](collections/claude-scholar.md) | 45 | 45 | 20 | 0 | [repo](https://github.com/Galaxy-Dawn/claude-scholar) |
+| [academicforge](collections/academicforge.md) | 33 | 33 | 0 | 0 | [repo](https://github.com/HughYau/AcademicForge) |
+| [nature-paper-skills](collections/nature-paper-skills.md) | 28 | 28 | 1 | 0 | [repo](https://github.com/Boom5426/Nature-Paper-Skills) |
+| [codex-academic-skills](collections/codex-academic-skills.md) | 24 | 24 | 3 | 0 | [repo](https://github.com/zLanqing/codex-claude-academic-skills) |
+| [light-skills](collections/light-skills.md) | 23 | 23 | 0 | 0 | [repo](https://github.com/Light0305/Light-skills) |
+| [nature-skills](collections/nature-skills.md) | 23 | 23 | 0 | 0 | [repo](https://github.com/Yuan1z0825/nature-skills) |
+| [deep-research-skills](collections/deep-research-skills.md) | 20 | 13 | 0 | 0 | [repo](https://github.com/Weizhena/Deep-Research-skills) |
+| [feynman](collections/feynman.md) | 16 | 16 | 0 | 0 | [repo](https://github.com/companion-inc/feynman) |
 | [oneresearchclaw](collections/oneresearchclaw.md) | 16 | 16 | 0 | 0 | [repo](https://github.com/gaotiexinqu/OneResearchClaw) |
-| [academicforge](collections/academicforge.md) | 15 | 15 | 2 | 0 | [repo](https://github.com/HughYau/AcademicForge) |
+| [co-researcher](collections/co-researcher.md) | 15 | 15 | 0 | 0 | [repo](https://github.com/poemswe/co-researcher) |
+| [ai-research-feedback](collections/ai-research-feedback.md) | 12 | 12 | 0 | 0 | [repo](https://github.com/claesbackman/AI-research-feedback) |
 | [phd-skills](collections/phd-skills.md) | 12 | 12 | 0 | 0 | [repo](https://github.com/fcakyon/phd-skills) |
+| [supervisor-skills](collections/supervisor-skills.md) | 12 | 12 | 0 | 0 | [repo](https://github.com/HKUSTDial/Supervisor-Skills) |
+| [claudeblattman](collections/claudeblattman.md) | 10 | 10 | 0 | 0 | [repo](https://github.com/chrisblattman/claudeblattman) |
 | [academic-skills](collections/academic-skills.md) | 8 | 8 | 0 | 0 | [repo](https://github.com/chtc66/academic-skills) |
-| [research-skills](collections/research-skills.md) | 8 | 8 | 2 | 0 | [repo](https://github.com/luwill/research-skills) |
-| [supervisor-skills](collections/supervisor-skills.md) | 7 | 7 | 0 | 0 | [repo](https://github.com/HKUSTDial/Supervisor-Skills) |
+| [research-skills](collections/research-skills.md) | 6 | 6 | 0 | 0 | [repo](https://github.com/luwill/research-skills) |
+| [academic-research-skills](collections/academic-research-skills.md) | 5 | 5 | 0 | 0 | [repo](https://github.com/Imbad0202/academic-research-skills) |
 | [autoresearch](collections/autoresearch.md) | 5 | 3 | 0 | 0 | [repo](https://github.com/uditgoenka/autoresearch) |
-| [academic-research-skills](collections/academic-research-skills.md) | 4 | 4 | 0 | 0 | [repo](https://github.com/Imbad0202/academic-research-skills) |
 | [openclaw-search-skills](collections/openclaw-search-skills.md) | 3 | 3 | 0 | 0 | [repo](https://github.com/blessonism/openclaw-search-skills) |
 | [research-companion](collections/research-companion.md) | 3 | 3 | 1 | 0 | [repo](https://github.com/andrehuang/research-companion) |
-| [academic-paper-skills](collections/academic-paper-skills.md) | 2 | 2 | 2 | 0 | [repo](https://github.com/lishix520/academic-paper-skills) |
-| [academic-research-skills-codex](collections/academic-research-skills-codex.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/Imbad0202/academic-research-skills-codex) |
+| [academic-paper-skills](collections/academic-paper-skills.md) | 2 | 2 | 0 | 0 | [repo](https://github.com/lishix520/academic-paper-skills) |
+| [academic-research-skills-codex](collections/academic-research-skills-codex.md) | 2 | 1 | 0 | 0 | [repo](https://github.com/Imbad0202/academic-research-skills-codex) |
+| [zotero-mcp](collections/zotero-mcp.md) | 2 | 2 | 0 | 0 | [repo](https://github.com/54yyyu/zotero-mcp) |
 | [arxiv-mcp-server](collections/arxiv-mcp-server.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/blazickjp/arxiv-mcp-server) |
 | [claude-deep-research-skill](collections/claude-deep-research-skill.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/199-biotechnologies/claude-deep-research-skill) |
 | [last30days](collections/last30days.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/mvanhorn/last30days-skill) |
@@ -69,31 +72,31 @@ Identical skills (same name + body) that appear in multiple collections — the 
 
 | Skill | Copies | Found in collections |
 |---|---:|---|
-| `scholar-evaluation` | 6 | `claude-scientific-writer`, `empirical-research-skills`, `scienceclaw`, `scientific-agent-skills` |
-| `research-add-fields` | 6 | `deep-research-skills`, `franklee-academic-research-skills` |
-| `research-add-items` | 6 | `deep-research-skills`, `franklee-academic-research-skills` |
-| `infographics` | 5 | `claude-scientific-writer`, `scienceclaw`, `scientific-agent-skills` |
 | `analyze-results` | 4 | `aris`, `empirical-research-skills` |
-| `proof-writer` | 4 | `aris`, `empirical-research-skills` |
-| `clinical-reports` | 4 | `claude-scientific-writer`, `scientific-agent-skills` |
-| `hypothesis-generation` | 4 | `claude-scientific-writer`, `scientific-agent-skills` |
-| `literature-review` | 4 | `claude-scientific-writer`, `empirical-research-skills` |
-| `peer-review` | 4 | `claude-scientific-writer`, `empirical-research-skills` |
-| `research-grants` | 4 | `claude-scientific-writer`, `empirical-research-skills` |
-| `scientific-critical-thinking` | 4 | `claude-scientific-writer`, `empirical-research-skills` |
-| `research` | 4 | `deep-research-skills`, `franklee-academic-research-skills` |
-| `research-deep` | 4 | `deep-research-skills`, `franklee-academic-research-skills` |
-| `research-report` | 4 | `deep-research-skills`, `franklee-academic-research-skills` |
-| `formula-derivation` | 3 | `aris`, `empirical-research-skills` |
 | `pixel-art` | 3 | `aris`, `empirical-research-skills` |
-| `dse-loop` | 3 | `aris`, `empirical-research-skills` |
 | `system-profile` | 3 | `aris`, `empirical-research-skills` |
 | `devils-advocate` | 3 | `claude-code-my-workflow`, `empirical-research-skills` |
-| `proofread` | 3 | `claude-code-my-workflow`, `empirical-research-skills` |
-| `review-r` | 3 | `claude-code-my-workflow`, `empirical-research-skills` |
-| `xlsx` | 3 | `claude-research`, `codex-academic-skills`, `scienceclaw` |
-| `nature-data` | 3 | `claude-scholar`, `nature-skills` |
-| `nature-response` | 3 | `claude-scholar`, `nature-skills` |
+| `python-panel-data` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `r-econometrics` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `stata-regression` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `beamer-presentation` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `econ-visualization` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `api-data-fetcher` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `stata-data-cleaning` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `lit-review-assistant` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `general-equilibrium-model-builder` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `academic-paper-writer` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `latex-tables` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `data-analysis` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `lit-review` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `review-paper` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `proof-writer` | 3 | `empirical-research-skills`, `franklee-academic-research-skills` |
+| `unpaywall-api` | 3 | `empirical-research-skills`, `research-plugins` |
+| `latex-posters` | 3 | `franklee-academic-research-skills`, `scienceclaw` |
+| `creative-thinking-for-research` | 2 | `ai-research-skills`, `scienceclaw` |
+| `feishu-notify` | 2 | `aris`, `empirical-research-skills` |
+| `feishu-notify` | 2 | `aris`, `empirical-research-skills` |
+| `paper-illustration` | 2 | `aris`, `empirical-research-skills` |
 
 ---
 

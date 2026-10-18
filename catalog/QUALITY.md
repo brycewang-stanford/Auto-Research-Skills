@@ -10,9 +10,9 @@ decisions live in [`../CURATION.md`](../CURATION.md). Regenerate with
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files on disk (README headline) | **3,433** |
-| Distinct skills (by content hash) | **2,702** |
-| Re-bundled copies | **731** (21%) |
+| `SKILL.md` files on disk (README headline) | **5,897** |
+| Distinct skills (by content hash) | **5,255** |
+| Re-bundled copies | **642** (11%) |
 
 Aggregator collections vendor other collections *inside themselves*, so
 the same skill is counted many times. The collections re-bundling the
@@ -21,40 +21,40 @@ scan order):
 
 | Collection | Files | Unique | Re-bundled |
 |---|---:|---:|---:|
-| `empirical-research-skills` | 978 | 946 | 571 |
+| `empirical-research-skills` | 1,172 | 1,136 | 535 |
 | `research-plugins` | 473 | 473 | 464 |
-| `franklee-academic-research-skills` | 97 | 90 | 53 |
-| `claude-scientific-writer` | 81 | 34 | 35 |
-| `scientific-agent-skills` | 143 | 143 | 30 |
-| `claude-scholar` | 45 | 45 | 27 |
-| `scienceclaw` | 293 | 293 | 25 |
-| `aris` | 179 | 167 | 21 |
+| `franklee-academic-research-skills` | 2,135 | 2,133 | 35 |
+| `claude-scholar` | 45 | 45 | 20 |
+| `scienceclaw` | 319 | 319 | 12 |
+| `aris` | 191 | 179 | 8 |
+| `codex-academic-skills` | 24 | 24 | 3 |
+| `claude-code-my-workflow` | 61 | 61 | 2 |
 
 **Suggestion:** keep the on-disk headline (it is honest about what is
-vendored) but cite the **2,702 unique** figure alongside it so
+vendored) but cite the **5,255 unique** figure alongside it so
 users are not misled about breadth. The catalog surfaces both.
 
 ## 2. Name collisions are the real usability hazard ⚠️
 
-**215 skill names** resolve to *different content* across
+**283 skill names** resolve to *different content* across
 collections — the same name means different things depending on which
 collection an agent loaded. Most colliding names:
 
 | Skill name | Distinct bodies | Appears in |
 |---|---:|---|
-| `paper-writing` | 9 | `aris`, `empirical-research-skills`, `feynman`, `phd-skills`, `scienceclaw` |
+| `literature-review` | 12 | `academicforge`, `claude-scientific-writer`, `co-researcher`, `codex-academic-skills`, `empirical-research-skills`, `feynman`, `franklee-academic-research-skills`, `medical-research-skills`, `scienceclaw`, `scientific-agent-skills` |
+| `paper-writing` | 11 | `aris`, `empirical-research-skills`, `feynman`, `franklee-academic-research-skills`, `phd-skills`, `scienceclaw` |
+| `paper-figure` | 9 | `aris`, `empirical-research-skills`, `franklee-academic-research-skills` |
+| `paper-plan` | 9 | `aris`, `empirical-research-skills`, `franklee-academic-research-skills` |
+| `paper-write` | 9 | `aris`, `empirical-research-skills`, `franklee-academic-research-skills` |
+| `research-review` | 9 | `aris`, `empirical-research-skills`, `feynman` |
+| `novelty-check` | 9 | `aris`, `empirical-research-skills` |
+| `citation-management` | 8 | `claude-scientific-writer`, `codex-academic-skills`, `empirical-research-skills`, `franklee-academic-research-skills`, `medical-research-skills`, `scienceclaw`, `scientific-agent-skills` |
 | `auto-paper-improvement-loop` | 8 | `aris`, `empirical-research-skills` |
 | `auto-review-loop` | 8 | `aris`, `empirical-research-skills` |
-| `paper-figure` | 8 | `aris`, `empirical-research-skills` |
-| `paper-plan` | 8 | `aris`, `empirical-research-skills` |
-| `paper-write` | 8 | `aris`, `empirical-research-skills` |
 | `research-refine` | 8 | `aris`, `empirical-research-skills` |
-| `literature-review` | 7 | `claude-scientific-writer`, `co-researcher`, `codex-academic-skills`, `empirical-research-skills`, `feynman`, `franklee-academic-research-skills`, `scienceclaw`, `scientific-agent-skills` |
-| `grant-proposal` | 7 | `aris`, `co-researcher`, `empirical-research-skills` |
-| `research-ideation` | 7 | `claude-code-my-workflow`, `claude-scholar`, `empirical-research-skills` |
-| `peer-review` | 6 | `claude-scientific-writer`, `co-researcher`, `empirical-research-skills`, `feynman`, `franklee-academic-research-skills`, `medical-research-skills`, `scienceclaw`, `scientific-agent-skills` |
-| `citation-management` | 6 | `claude-scientific-writer`, `codex-academic-skills`, `empirical-research-skills`, `franklee-academic-research-skills`, `medical-research-skills`, `scienceclaw`, `scientific-agent-skills` |
-| _… and 203 more_ | | |
+| `deep-research` | 7 | `academic-research-skills`, `claude-deep-research-skill`, `empirical-research-skills`, `feynman`, `franklee-academic-research-skills`, `scienceclaw`, `supervisor-skills` |
+| _… and 271 more_ | | |
 
 This matters because most agent runtimes resolve skills **by name**. If
 a user installs two collections that both ship a `paper-writing`, which
@@ -64,22 +64,18 @@ per-collection pages show what each colliding name actually does.
 
 ## 3. Watermark banners hide frontmatter from strict loaders ⚠️
 
-**28 skills** carry a watermark HTML comment (e.g. a collector
+**0 skills** carry a watermark HTML comment (e.g. a collector
 banner) **prepended above** the `---` frontmatter delimiter. A naive
 parser — or a runtime that requires frontmatter on line 1 — sees the
 comment first and treats the skill as having **no `name`/`description`**,
 so it silently will not trigger.
-
-| Collection | Watermarked skills |
-|---|---:|
-| `empirical-research-skills` | 28 |
 
 The catalog handles this (it strips a leading comment block before
 parsing). But for the agents that *consume* these skills it is a real
 defect worth an upstream fix; a prepended watermark that breaks skill
 discovery is also a mild supply-chain smell.
 
-## 4. 11 skills genuinely have no frontmatter
+## 4. 4 skills genuinely have no frontmatter
 
 After recovering the watermarked ones, these files ship no YAML
 frontmatter, so they will not auto-trigger by `name`/`description` in
@@ -87,8 +83,6 @@ runtimes that require it:
 
 | Collection | Skills without frontmatter |
 |---|---:|
-| `empirical-research-skills` | 4 |
-| `claude-scientific-writer` | 3 |
 | `scienceclaw` | 2 |
 | `franklee-academic-research-skills` | 1 |
 | `oneresearchclaw` | 1 |
@@ -97,9 +91,9 @@ The catalog still lists them (falling back to the directory name + first
 paragraph) and tags each `no-fm`. These are best fixed upstream, since
 submodules are vendored read-only.
 
-## 5. Only 28% of skills declare a license
+## 5. Only 19% of skills declare a license
 
-**945 / 3,433** skills carry a `license:` field in their
+**1,145 / 5,897** skills carry a `license:` field in their
 frontmatter. The rest inherit their repo's top-level license (if any) —
 fine, but it means a user copying a single skill out of a collection
 cannot tell its license from the `SKILL.md` alone. **Suggestion:** a
@@ -108,11 +102,9 @@ per-skill `license:` fields; not a blocker.
 
 For the complementary **per-repo** license picture (which submodules have no clear OSI license upstream, plus staleness), see [`HEALTH.md`](HEALTH.md), refreshed by `scripts/check-submodule-health.py`.
 
-## 6. Placeholder / template skills (1)
+## 6. Placeholder / template skills (0)
 
-Skills still shipping an unedited Anthropic template (description "A brief description of what this skill does"), flagged `template` in the catalog:
-
-- `skills/empirical-research-skills/test-skill/SKILL.md`
+No unedited template skills detected. ✅
 
 Harmless, but a good signal for the consistency checker so future
 template leakage is caught.

@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **367**
-- Critical: **260**
-- High: **107**
-- In `skill`/`script` files (not docs or examples): **99** (48 critical, 51 high)
+- Findings: **450**
+- Critical: **322**
+- High: **128**
+- In `skill`/`script` files (not docs or examples): **142** (75 critical, 67 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -29,50 +29,50 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Context | Findings |
 |---|---:|
-| `docs` | 229 |
-| `script` | 58 |
-| `example` | 39 |
-| `skill` | 38 |
-| `other` | 3 |
+| `docs` | 256 |
+| `script` | 91 |
+| `example` | 52 |
+| `skill` | 41 |
+| `other` | 10 |
 
 ## By Rule
 
 | Rule | Findings |
 |---|---:|
-| `remote-shell-pipe` | 214 |
-| `credential-print` | 47 |
-| `echo-secret-value` | 35 |
-| `powershell-iex` | 32 |
-| `concealment-instruction` | 22 |
-| `destructive-system-device` | 12 |
+| `remote-shell-pipe` | 268 |
+| `credential-print` | 58 |
+| `concealment-instruction` | 41 |
+| `powershell-iex` | 33 |
+| `echo-secret-value` | 26 |
+| `destructive-system-device` | 17 |
+| `reverse-shell` | 4 |
 | `obfuscated-exec` | 3 |
-| `reverse-shell` | 2 |
 
 ## Top Collections
 
 | Collection | Findings |
 |---|---:|
 | `scienceclaw` | 157 |
-| `autoresearch` | 41 |
-| `feynman` | 32 |
-| `scientific-agent-skills` | 23 |
-| `claude-scientific-writer` | 21 |
-| `empirical-research-skills` | 20 |
+| `empirical-research-skills` | 57 |
+| `autoresearch` | 49 |
+| `feynman` | 25 |
+| `nature-paper-skills` | 19 |
+| `last30days` | 18 |
+| `academic-research-skills-codex` | 16 |
+| `franklee-academic-research-skills` | 15 |
+| `academicforge` | 11 |
+| `claude-skills-journalism` | 11 |
+| `scientific-agent-skills` | 9 |
+| `aris` | 9 |
 | `academic-research-skills` | 8 |
 | `ai-research-skills` | 8 |
-| `aris` | 8 |
-| `academicforge` | 6 |
 | `claude-scholar` | 6 |
-| `claude-research` | 5 |
-| `last30days` | 5 |
-| `academic-research-skills-codex` | 4 |
-| `franklee-academic-research-skills` | 4 |
-| `nature-skills` | 4 |
-| `claudeblattman` | 3 |
-| `arxiv-mcp-server` | 2 |
-| `light-skills` | 2 |
-| `medical-research-skills` | 2 |
-| _Other_ | 6 |
+| `claudeblattman` | 5 |
+| `research-skills` | 5 |
+| `zotero-mcp` | 5 |
+| `claude-scientific-writer` | 4 |
+| `co-researcher` | 3 |
+| _Other_ | 10 |
 
 ## Example Findings
 
@@ -82,24 +82,32 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 |---|---|---|---|---|
 | critical | skill | `remote-shell-pipe` | `skills/claude-scholar/skills/uv-package-manager/SKILL.md:56` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | critical | skill | `powershell-iex` | `skills/claude-scholar/skills/uv-package-manager/SKILL.md:59` | `irm https://astral.sh/uv/install.ps1 \| iex` |
-| critical | skill | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/parallel-web/SKILL.md:56` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| critical | skill | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/research-lookup/SKILL.md:256` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| critical | skill | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/research-lookup/SKILL.md:455` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/claude-scientific-writer/.claude/skills/literature-review/SKILL.md:224` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/claude-scientific-writer/scientific_writer/.claude/skills/literature-review/SKILL.md:224` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/literature-review/SKILL.md:224` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/co-researcher/skills/literature-review/SKILL.md:30` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | critical | skill | `remote-shell-pipe` | `skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/literature-review/SKILL.md:659` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
 | critical | skill | `remote-shell-pipe` | `skills/empirical-research-skills/skills/33-Galaxy-Dawn-claude-scholar/skills/uv-package-manager/SKILL.md:56` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | critical | skill | `powershell-iex` | `skills/empirical-research-skills/skills/33-Galaxy-Dawn-claude-scholar/skills/uv-package-manager/SKILL.md:59` | `irm https://astral.sh/uv/install.ps1 \| iex` |
+| critical | skill | `remote-shell-pipe` | `skills/franklee-academic-research-skills/science-skills/uv/SKILL.md:26` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/lean4-prover/SKILL.md:22` | `curl https://elan.lean-lang.org/install.sh -sSf \| sh` |
 | critical | skill | `remote-shell-pipe` | `skills/scienceclaw/skills/xurl/SKILL.md:54` | `curl -fsSL https://raw.githubusercontent.com/xdevplatform/xurl/main/install.sh \| bash` |
-| critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/literature-review/SKILL.md:660` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/nextflow/SKILL.md:40` | `curl -s https://get.nextflow.io \| bash` |
-| critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/parallel-web/SKILL.md:57` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/research-lookup/SKILL.md:264` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
-| critical | skill | `remote-shell-pipe` | `skills/scientific-agent-skills/skills/research-lookup/SKILL.md:476` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| high | skill | `concealment-instruction` | `skills/academicforge/skills/claude-science/customize/SKILL.md:210` | `Do NOT tell the user` |
+| high | skill | `echo-secret-value` | `skills/academicforge/skills/claude-science/managed-model-endpoints/SKILL.md:144` | `echo "$NVIDIA_API_KEY` |
 | high | skill | `concealment-instruction` | `skills/ai-research-skills/06-post-training/trl-fine-tuning/SKILL.md:450` | `Secretly` |
-| high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:594` | `secretly` |
-| high | skill | `concealment-instruction` | `skills/aris/skills/skills-codex/proof-checker/SKILL.md:382` | `secretly` |
-| high | skill | `concealment-instruction` | `skills/nature-skills/plugins/nature-skills/skills/nature-figure/SKILL.md:16` | `do not reveal its path, filenames, or provenance in user` |
-| high | skill | `concealment-instruction` | `skills/nature-skills/skills/nature-figure/SKILL.md:16` | `do not reveal its path, filenames, or provenance in user` |
+| high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:681` | `secretly` |
+| high | skill | `concealment-instruction` | `skills/aris/skills/skills-codex/proof-checker/SKILL.md:444` | `secretly` |
+| high | skill | `credential-print` | `skills/claude-skills-journalism/research-toolkit/skills/page-monitoring/SKILL.md:214` | `print any secret` |
+| high | skill | `concealment-instruction` | `skills/empirical-research-skills/skills/58-charlescoverdale-econstack/longlist/SKILL.md:402` | `Do not show it to the user` |
+| high | skill | `concealment-instruction` | `skills/empirical-research-skills/skills/58-charlescoverdale-econstack/longlist/SKILL.md:518` | `Do not show stakeholder lists, ToC steps, or lens-by-lens working in the output. The user` |
+| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Econometric-Theory-Skills/skills/ectheory-identification-strategy/SKILL.md:59` | `secretly` |
+| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Econometric-Theory-Skills/skills/ectheory-review-process/SKILL.md:38` | `secretly` |
+| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Econometrica-Skills/skills/ecta-theory-model/SKILL.md:13` | `secretly` |
+| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Econometrica-Skills/skills/ecta-theory-model/SKILL.md:87` | `secretly` |
+| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Journal-of-Economic-Theory-Skills/skills/jet-rebuttal/SKILL.md:19` | `secretly` |
+| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Journal-of-Political-Economy-Skills/skills/jpe-theory-model/SKILL.md:64` | `secretly` |
+| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/nature-skills-main/nature-figure/SKILL.md:16` | `do not reveal its path, filenames, or provenance in user` |
+| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/research-workflow/codex-paper-skills-main/paper_skills/proof-checker/SKILL.md:372` | `secretly` |
 | high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:76` | `echo $GH_TOKEN` |
 | high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:76` | `echo $GH_TOKEN` |
 | high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:348` | `echo $GH_TOKEN` |
@@ -112,16 +120,8 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:716` | `echo $GH_TOKEN` |
 | high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:748` | `console.log(c.skills?.entries?.['gh-issues']?.apiKey` |
 | high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:751` | `echo "Token: ${GH_TOKEN` |
-| high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:751` | `echo "Token: ${GH_TOKEN` |
-| high | skill | `echo-secret-value` | `skills/scientific-agent-skills/skills/database-lookup/SKILL.md:281` | `echo $FRED_API_KEY` |
-| high | skill | `credential-print` | `skills/scientific-agent-skills/skills/rowan/SKILL.md:135` | `print(f"Secret key: {secret.secret` |
-| high | skill | `credential-print` | `skills/scientific-agent-skills/skills/rowan/SKILL.md:140` | `print(f"New secret created (old secret disabled): {new_secret.secret` |
-| high | skill | `credential-print` | `skills/scientific-agent-skills/skills/rowan/SKILL.md:777` | `print(f"Your webhook secret: {secret.secret` |
-| high | skill | `credential-print` | `skills/scientific-agent-skills/skills/rowan/SKILL.md:1039` | `print("API key not found. Set ROWAN_API_KEY env var or call rowan.api_key` |
-| critical | script | `destructive-system-device` | `skills/autoresearch/scripts/orchestrate.sh:256` | `mkfs.ext4` |
-| critical | script | `remote-shell-pipe` | `skills/claude-research/scripts/setup.sh:101` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 
-_Truncated 327 additional findings._
+_Truncated 410 additional findings._
 
 ## Regenerate
 
