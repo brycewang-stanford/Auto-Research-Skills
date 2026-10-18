@@ -19,6 +19,41 @@ to vendor as submodules yet.
 - Prefer adding uncertain projects here first. Vendor them only after a second
   review and a clean `python3 scripts/check-repo.py` run.
 
+## Scored Vendoring Rubric
+
+The bar above is a prose gate; this rubric makes a *close* decision legible.
+It is modeled on the "what this is / is not / allowed / prohibited" positioning
+of the strongest vendored collection
+([`skills/academic-research-skills`](skills/academic-research-skills)) and on the
+design patterns in [`docs/skill-design-patterns.md`](docs/skill-design-patterns.md).
+Score a candidate only when the default bar is already met; use it to compare
+borderline candidates, not to override the checklist below.
+
+**Gates (any red ⇒ do not vendor, regardless of score):**
+
+- **License** — no clear, redistributable upstream license. (A missing license
+  means all-rights-reserved; vendor only as a flagged exception, as with
+  `systems/popper`.)
+- **Safety** — an unmitigated finding in executable instructions: credential
+  harvesting, `curl | sh`, `rm -rf`/`mkfs` outside a refusal guard, hidden
+  network calls, or prompt-injection that hides behavior from the user. See
+  [`SECURITY.md`](SECURITY.md).
+
+**Weighted signals (score each 0–2; a strong candidate clears ~8/12):**
+
+| Signal | 0 | 1 | 2 | How to measure |
+|---|---|---|---|---|
+| **Fit** | tangential to research | adjacent | squarely research-agent | scope in `README` / SKILL triggers |
+| **Distinctiveness** | duplicates a bundled collection | overlaps but adds some | fills a real gap | [`catalog/CATALOG.md`](catalog/CATALOG.md) + collisions |
+| **Depth** | bare prompts only | some references/scripts | rich (refs + scripts + examples/evals/tests) | [`catalog/MATURITY.md`](catalog/MATURITY.md) |
+| **Frontmatter** | many skills no `name`/`description` | mostly conforming | conforming + `license`/`version` | [`catalog/FRONTMATTER.md`](catalog/FRONTMATTER.md) |
+| **Maintenance** | stale/abandoned | occasional | active, versioned, changelog | commit history / releases |
+| **Guardrails** | none | some | explicit red lines + honest limits | SKILL.md + any `SECURITY.md`/positioning |
+
+Record the gate results and the six sub-scores in the second-review note, so a
+later reviewer can see *why* a borderline candidate cleared or was held. A high
+score never overrides a red gate.
+
 ## External Sources Checked
 
 - `npx skills find` via the public skills registry surfaced install-count

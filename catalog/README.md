@@ -24,6 +24,8 @@ builds the compact discovery index and collision data.
 | [`SAFETY.md`](SAFETY.md) | ✅ | Heuristic high-severity safety scan summary for vendored skill collections. |
 | [`../site/`](../site/) | ✍️ | Static browser for the compact discovery index; serve the repo root and open `/site/`. |
 | [`QUALITY.md`](QUALITY.md) | ✅ | Redundancy, name-collision, watermark, frontmatter, and license findings + suggestions for maintainers. |
+| [`FRONTMATTER.md`](FRONTMATTER.md) | ✅ | Per-collection `SKILL.md` frontmatter conformance against a minimal `name`/`description` schema, plus license/version coverage. |
+| [`MATURITY.md`](MATURITY.md) | ✅ | Per-skill depth signals (references/scripts/examples/evals/tests) and a per-collection production-grade ranking. |
 | [`DISCOVERY.md`](DISCOVERY.md) | ✍️ | Vetted candidate skills **not yet bundled**, with live signals and ready-to-run vendoring commands. |
 
 ## Regenerate
@@ -32,8 +34,10 @@ Run after submodules are added, removed, or updated:
 
 ```bash
 make catalog  # writes generated catalog manifests, indexes, and pages
-make safety-report   # refreshes the heuristic safety summary
-make quality-report  # refreshes the redundancy/collision/license findings
+make safety-report      # refreshes the heuristic safety summary
+make quality-report     # refreshes the redundancy/collision/license findings
+make frontmatter-report # refreshes the frontmatter conformance report
+make maturity-report    # refreshes the per-skill depth / maturity report
 make check    # verifies generated files are current, writes nothing
 ```
 
