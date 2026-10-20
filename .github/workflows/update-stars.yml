@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Refresh STARS.md
+      - name: Refresh STARS.md and README Top 20
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 scripts/update-stars.py
@@ -29,10 +29,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain STARS.md)" ]; then
-            git add STARS.md
+          if [ -n "$(git status --porcelain STARS.md README.md README_EN.md)" ]; then
+            git add STARS.md README.md README_EN.md
             git commit -m "chore: refresh star counts [skip ci]"
             git push
           else
-            echo "STARS.md unchanged."
+            echo "Star counts unchanged."
           fi

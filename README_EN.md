@@ -34,6 +34,37 @@
 
 ---
 
+## 🏆 Top 20 by Stars
+
+<!-- TOP20:START -->
+> The 20 most-starred bundled repos, auto-refreshed weekly by [`scripts/update-stars.py`](scripts/update-stars.py) (last: 2026-10-20). Full ranking in [STARS.md](STARS.md).
+
+| # | Repo | ⭐ Stars | Type | Bundled at |
+|:-:|---|--:|:-:|---|
+| 🥇 | [bytedance/deer-flow](https://github.com/bytedance/deer-flow) | 84.2k | System | [`systems/deer-flow`](systems/deer-flow) |
+| 🥈 | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | 64.8k | Skills | [`skills/last30days`](skills/last30days) |
+| 🥉 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | 53.0k | Skills | [`skills/academic-research-skills`](skills/academic-research-skills) |
+| 4 | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | 53.0k | Skills | [`skills/scientific-agent-skills`](skills/scientific-agent-skills) |
+| 5 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | 49.4k | Skills | [`skills/nature-skills`](skills/nature-skills) |
+| 6 | [stanford-oval/storm](https://github.com/stanford-oval/storm) | 31.7k | System | [`systems/storm`](systems/storm) |
+| 7 | [assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher) | 30.2k | System | [`systems/gpt-researcher`](systems/gpt-researcher) |
+| 8 | [dzhng/deep-research](https://github.com/dzhng/deep-research) | 19.8k | System | [`systems/deep-research`](systems/deep-research) |
+| 9 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | 17.7k | Skills | [`skills/aris`](skills/aris) |
+| 10 | [HKUDS/DeepCode](https://github.com/HKUDS/DeepCode) | 16.7k | System | [`systems/deepcode`](systems/deepcode) |
+| 11 | [SakanaAI/AI-Scientist](https://github.com/SakanaAI/AI-Scientist) | 14.8k | System | [`systems/ai-scientist`](systems/ai-scientist) |
+| 12 | [aiming-lab/AutoResearchClaw](https://github.com/aiming-lab/AutoResearchClaw) | 14.7k | System | [`systems/autoresearchclaw`](systems/autoresearchclaw) |
+| 13 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | 13.7k | Skills | [`skills/ai-research-skills`](skills/ai-research-skills) |
+| 14 | [Imbad0202/academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | 13.2k | Skills | [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) |
+| 15 | [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research) | 12.7k | System | [`systems/open-deep-research`](systems/open-deep-research) |
+| 16 | [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills) | 10.1k | Skills | [`skills/supervisor-skills`](skills/supervisor-skills) |
+| 17 | [companion-inc/feynman](https://github.com/companion-inc/feynman) | 10.0k | Skills | [`skills/feynman`](skills/feynman) |
+| 18 | [Future-House/paper-qa](https://github.com/Future-House/paper-qa) | 9.4k | System | [`systems/paper-qa`](systems/paper-qa) |
+| 19 | [LearningCircuit/local-deep-research](https://github.com/LearningCircuit/local-deep-research) | 9.4k | System | [`systems/local-deep-research`](systems/local-deep-research) |
+| 20 | [Master-cai/Research-Paper-Writing-Skills](https://github.com/Master-cai/Research-Paper-Writing-Skills) | 7.6k | Skills | [`skills/paper-writing-skills`](skills/paper-writing-skills) |
+<!-- TOP20:END -->
+
+---
+
 > **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **5,897 skills** across **87 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
@@ -48,6 +79,7 @@ cd Auto-Research-Skills
 
 ## Table of Contents
 
+- [🏆 Top 20 by Stars](#-top-20-by-stars)
 - [End-to-End Autonomous Research Systems](#end-to-end-autonomous-research-systems)
 - [Deep Research & Literature Synthesis](#deep-research--literature-synthesis)
 - [Automated Experiment & Code Agents](#automated-experiment--code-agents)

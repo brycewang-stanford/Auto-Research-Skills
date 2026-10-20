@@ -64,5 +64,34 @@ class ParseSubmodulesTests(unittest.TestCase):
         self.assertEqual(result, [("skills/good", "owner/good")])
 
 
+class ReadmeTopTests(unittest.TestCase):
+    def test_render_top_ranks_and_skips_missing_counts(self) -> None:
+        rows = [(2500, "systems/b", "o/b"), (900, "skills/a", "o/a"), (-1, "lists/c", "o/c")]
+        block = update_stars.render_top(rows, "en", "2026-01-01")
+
+        self.assertTrue(block.startswith(update_stars.TOP_START))
+        self.assertTrue(block.endswith(update_stars.TOP_END))
+        self.assertIn("| 🥇 | [o/b](https://github.com/o/b) | 2.5k | System |", block)
+        self.assertIn("| 🥈 | [o/a](https://github.com/o/a) | 900 | Skills |", block)
+        self.assertNotIn("o/c", block)
+
+    def test_update_readmes_replaces_only_marked_block(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            readme = root / "README_EN.md"
+            readme.write_text(
+                f"intro\n{update_stars.TOP_START}\nstale\n{update_stars.TOP_END}\noutro\n",
+                encoding="utf-8",
+            )
+            with mock.patch.object(update_stars, "ROOT", root):
+                update_stars.update_readmes([(10, "skills/a", "o/a")], "2026-01-01")
+            text = readme.read_text(encoding="utf-8")
+
+        self.assertNotIn("stale", text)
+        self.assertTrue(text.startswith("intro\n"))
+        self.assertTrue(text.endswith("outro\n"))
+        self.assertIn("[o/a](https://github.com/o/a)", text)
+
+
 if __name__ == "__main__":
     unittest.main()
