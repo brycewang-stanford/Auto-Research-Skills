@@ -257,6 +257,7 @@ Stars and install counts are approximate and should be refreshed before a PR.
 | [shoei05/claude-code-zotero-skill](https://github.com/shoei05/claude-code-zotero-skill) | Focused Zotero local API skill for import/search/collection workflows. | ~11 stars; `zotero` skill ~143 installs | Track as a gap-specific Zotero candidate; likely too small to vendor now. |
 | [FuZhiyu/ResearchProjectTemplate](https://github.com/FuZhiyu/ResearchProjectTemplate) | AI-friendly Git research-project template with Zotero paper-reader skill. | ~8 stars; `zotero-paper-reader` skill ~425 installs | Monitor; template may be useful even if repo maturity is low. |
 | [Delphine-L/claude_global](https://github.com/Delphine-L/claude_global) | Galaxy and bioinformatics-focused global skills. | ~13 stars; `bioinformatics-fundamentals` skill ~260 installs | Track for bioinformatics gap coverage; not ready for top-level vendoring. |
+| [RetrogradeLabs/lune-mcp-server](https://github.com/RetrogradeLabs/lune-mcp-server) | MCP client for the hosted Lune Research service: full-text search over top-venue CS papers, citation traversal, quote-backed claim checking. | ~4 stars; MIT; on the official MCP Registry | Self-listing PR #8 declined 2026-10-20 (vendor-authored, needs a Lune account/API key). Revisit as a README row once it shows independent adoption. |
 
 ## Practical Review Checklist
 
