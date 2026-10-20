@@ -18,6 +18,8 @@ class SignalDetectionTests(unittest.TestCase):
         (root / "SKILL.md").write_text("---\nname: x\n---\n", encoding="utf-8")
         for d in dirs:
             (root / d).mkdir()
+            # git cannot track empty dirs, so real signal dirs always hold a file.
+            (root / d / "README.md").write_text("x", encoding="utf-8")
         for f in files:
             (root / f).write_text("x", encoding="utf-8")
         return root
@@ -38,6 +40,17 @@ class SignalDetectionTests(unittest.TestCase):
     def test_evals_signal_from_dir_or_json(self) -> None:
         self.assertIn("evals", bmr._dir_signals(self._dir_with(dirs=("evals",))))
         self.assertIn("evals", bmr._dir_signals(self._dir_with(files=("evals.json",))))
+
+    def test_clutter_only_dirs_are_not_signals(self) -> None:
+        # A tests/ dir whose tracked files were removed upstream but whose
+        # __pycache__ survived locally must not differ from a fresh CI clone.
+        d = self._dir_with()
+        (d / "tests" / "__pycache__").mkdir(parents=True)
+        (d / "tests" / "__pycache__" / "t.cpython-312.pyc").write_text("x", encoding="utf-8")
+        (d / "examples").mkdir()
+        (d / "examples" / ".DS_Store").write_text("x", encoding="utf-8")
+        (d / "references").mkdir()
+        self.assertEqual(bmr._dir_signals(d), set())
 
     def test_manifest_and_requirements(self) -> None:
         s = bmr._dir_signals(self._dir_with(files=("manifest.yaml", "requirements.txt")))
@@ -70,6 +83,7 @@ class ScanTests(unittest.TestCase):
             (root / "skills" / "c" / "s").mkdir(parents=True)
             (root / "skills" / "c" / "s" / "SKILL.md").write_text("x", encoding="utf-8")
             (root / "skills" / "c" / "s" / "references").mkdir()
+            (root / "skills" / "c" / "s" / "references" / "guide.md").write_text("x", encoding="utf-8")
             catalog = {
                 "skills": [
                     {"path": "skills/c/s/SKILL.md", "collection": "c"},

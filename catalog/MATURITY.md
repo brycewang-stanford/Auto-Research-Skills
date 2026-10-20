@@ -22,7 +22,7 @@ at zero.
 | `references/` | 1,558 | 26% |
 | `scripts/ or code` | 1,110 | 18% |
 | `examples/` | 103 | 2% |
-| `tests/` | 81 | 1% |
+| `tests/` | 78 | 1% |
 | `evals/` | 381 | 6% |
 | `assets/` | 255 | 4% |
 | `templates/` | 116 | 2% |
@@ -34,7 +34,7 @@ at zero.
 | Metric | Count |
 |---|---:|
 | Skills inspected | **6,087** |
-| Rich (≥3 signals) | **460** (8%) |
+| Rich (≥3 signals) | **457** (8%) |
 | Bare (only `SKILL.md`) | 4,080 (67%) |
 
 ## Deepest collections
@@ -53,7 +53,7 @@ than shipping bare prompts. Size is shown but does not drive the rank.
 | `nature-skills` | 23 | 17 | 74% | 3.9 |
 | `claude-scientific-writer` | 78 | 42 | 54% | 2.3 |
 | `medical-research-skills` | 605 | 188 | 31% | 2.2 |
-| `scientific-agent-skills` | 177 | 45 | 25% | 1.9 |
+| `scientific-agent-skills` | 177 | 42 | 24% | 1.9 |
 | `research-units-pipeline` | 108 | 23 | 21% | 1.5 |
 | `codex-academic-skills` | 24 | 5 | 21% | 1.7 |
 | `bionemo-agent-toolkit` | 70 | 14 | 20% | 2.0 |

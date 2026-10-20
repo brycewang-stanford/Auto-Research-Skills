@@ -72,6 +72,27 @@ class SkillDepth:
         return self.score == 0
 
 
+# Local-only clutter that git never checks out. A directory holding nothing but
+# these (e.g. a `tests/` dir whose tracked files were deleted upstream but whose
+# `__pycache__` survived locally) must not count as a signal, or the report
+# would differ between a developer checkout and a fresh CI clone.
+_CLUTTER_DIRS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
+_CLUTTER_FILES = {".ds_store", "thumbs.db"}
+
+
+def _has_content(directory: Path) -> bool:
+    """True when ``directory`` contains at least one non-clutter file."""
+    try:
+        for path in directory.rglob("*"):
+            if any(part in _CLUTTER_DIRS for part in path.relative_to(directory).parts):
+                continue
+            if path.is_file() and path.name.lower() not in _CLUTTER_FILES:
+                return True
+    except OSError:
+        return False
+    return False
+
+
 def _dir_signals(skill_dir: Path) -> set[str]:
     """Inspect a skill directory for supporting-asset depth signals."""
     signals: set[str] = set()
@@ -80,8 +101,16 @@ def _dir_signals(skill_dir: Path) -> set[str]:
     except OSError:
         return signals
 
-    dir_names = {e.name.lower() for e in entries if e.is_dir()}
-    file_names = {e.name.lower() for e in entries if e.is_file()}
+    dir_names = {
+        e.name.lower()
+        for e in entries
+        if e.is_dir() and e.name not in _CLUTTER_DIRS and _has_content(e)
+    }
+    file_names = {
+        e.name.lower()
+        for e in entries
+        if e.is_file() and e.name.lower() not in _CLUTTER_FILES
+    }
 
     if "references" in dir_names or "reference" in dir_names:
         signals.add("references")

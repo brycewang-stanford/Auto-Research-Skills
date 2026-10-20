@@ -356,8 +356,11 @@ def render_report(kits: dict[str, list[Pick]], total_skills: int) -> str:
         ]
         for i, p in enumerate(picks, 1):
             depth = ", ".join(SIGNAL_LABELS[s] for s in p.signals) or "bare prompt"
+            # Skill files live inside submodules, which the no-submodule CI docs
+            # check cannot see; link the collection dir and print the path.
             lines.append(
-                f"| {i} | [`{md_escape(p.name)}`](../{p.path}) | `{p.collection}` | "
+                f"| {i} | **`{md_escape(p.name)}`**<br><sub>`{md_escape(p.path)}`</sub> | "
+                f"[`{p.collection}`](../skills/{p.collection}) | "
                 f"{md_escape(depth)} | {md_escape(short(p.description))} |"
             )
         lines.append("")

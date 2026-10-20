@@ -14,9 +14,9 @@ than just *countable*.
 | `SKILL.md` files on disk | 3,433 (pointers from June) | **6,087** | [`../catalog/skills.json`](../catalog/skills.json) |
 | Distinct skills (content hash) | ~2,700 | **5,410** | `catalog/skills.json` |
 | Colliding skill names | — | 309 | [`../catalog/collisions.json`](../catalog/collisions.json) |
-| "Rich" skills (≥3 depth signals) | 442 after bump | **460** | [`../catalog/MATURITY.md`](../catalog/MATURITY.md) |
+| "Rich" skills (≥3 depth signals) | 442 after bump | **457** | [`../catalog/MATURITY.md`](../catalog/MATURITY.md) |
 | Safety findings in `skill`/`script` files | 142 after bump | 163 (+21, all triaged benign) | [`../catalog/SAFETY.md`](../catalog/SAFETY.md) |
-| Repo unit tests | 175 | **185** | `make test` |
+| Repo unit tests | 175 | **186** | `make test` |
 | Generated reports checked in CI | 4 | **7** | [`../.github/workflows/repo-check.yml`](../.github/workflows/repo-check.yml) |
 
 ## What was done
@@ -55,9 +55,16 @@ than just *countable*.
      which refuses to overwrite.
    - **Checks:** wired into `make check` and CI with a `--check` drift guard,
      plus 8 tests.
-7. **Closed a CI gap.** The frontmatter and maturity reports added in `7df561a`
-   were in `make check` but not in the CI catalog job. All three new or merged
-   generators are now validated in CI.
+7. **Closed a CI gap and fixed what it exposed.** The frontmatter and
+   maturity reports added in `7df561a` were in `make check` but not in the CI
+   catalog job. All three generators are now validated in CI.
+   - The first CI run caught `MATURITY.md` drifting between a developer
+     checkout and a fresh clone. A `tests/` dir containing only a leftover
+     `__pycache__` counted as a depth signal. `_dir_signals` now ignores
+     clutter-only dirs, with a regression test.
+   - The same run caught STARTER-KITS.md linking to files inside submodules,
+     which the no-submodule docs job can't see. It now links collection dirs
+     and prints skill paths instead.
 8. **Updated the docs:**
    - READMEs: 32 new rows, star-sorted, 🧩 marks, counts, and a starter-kit
      callout.

@@ -48,6 +48,7 @@ class StarterKitTests(unittest.TestCase):
             if s["name"] in rich:
                 for sub in ("references", "scripts", "examples"):
                     (d / sub).mkdir()
+                    (d / sub / "README.md").write_text("x", encoding="utf-8")
         return skills
 
     def _kits(self, skills, flagged=()):
