@@ -1,0 +1,824 @@
+{
+ "_generated_by": "tools/build_starter_kits.py",
+ "_note": "Collision-free, safety-gated skill picks per research stage. Do not hand-edit.",
+ "stages": [
+  {
+   "key": "ideation",
+   "title": "Ideation & research questions",
+   "skills": [
+    {
+     "name": "good-question",
+     "collection": "franklee-academic-research-skills",
+     "path": "skills/franklee-academic-research-skills/brainstorm-presearch/good-question-main/SKILL.md",
+     "skill_dir": "skills/franklee-academic-research-skills/brainstorm-presearch/good-question-main",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "evals",
+      "assets"
+     ]
+    },
+    {
+     "name": "light-idea-critique",
+     "collection": "light-skills",
+     "path": "skills/light-skills/skills/light-idea-critique/SKILL.md",
+     "skill_dir": "skills/light-skills/skills/light-idea-critique",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "templates"
+     ]
+    },
+    {
+     "name": "idea-brief",
+     "collection": "research-units-pipeline",
+     "path": "skills/research-units-pipeline/.codex/skills/idea-brief/SKILL.md",
+     "skill_dir": "skills/research-units-pipeline/.codex/skills/idea-brief",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "assets"
+     ]
+    },
+    {
+     "name": "hypothesis-generation",
+     "collection": "claude-scientific-writer",
+     "path": "skills/claude-scientific-writer/.claude/skills/hypothesis-generation/SKILL.md",
+     "skill_dir": "skills/claude-scientific-writer/.claude/skills/hypothesis-generation",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code",
+      "assets"
+     ]
+    },
+    {
+     "name": "aim-and-hypothesis-designer",
+     "collection": "medical-research-skills",
+     "path": "skills/medical-research-skills/awesome-med-research-skills/Protocol Design/aim-and-hypothesis-designer/SKILL.md",
+     "skill_dir": "skills/medical-research-skills/awesome-med-research-skills/Protocol Design/aim-and-hypothesis-designer",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "evals"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "literature",
+   "title": "Literature search & review",
+   "skills": [
+    {
+     "name": "literature-review",
+     "collection": "medical-research-skills",
+     "path": "skills/medical-research-skills/scientific-skills/Academic Writing/literature-review/SKILL.md",
+     "skill_dir": "skills/medical-research-skills/scientific-skills/Academic Writing/literature-review",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code",
+      "evals",
+      "assets"
+     ]
+    },
+    {
+     "name": "literature-review-master",
+     "collection": "franklee-academic-research-skills",
+     "path": "skills/franklee-academic-research-skills/lit-review/literature-review-master-main/SKILL.md",
+     "skill_dir": "skills/franklee-academic-research-skills/lit-review/literature-review-master-main",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "templates"
+     ]
+    },
+    {
+     "name": "light-literature-search",
+     "collection": "light-skills",
+     "path": "skills/light-skills/skills/light-literature-search/SKILL.md",
+     "skill_dir": "skills/light-skills/skills/light-literature-search",
+     "license": "",
+     "depth_signals": [
+      "code",
+      "examples",
+      "assets",
+      "templates"
+     ]
+    },
+    {
+     "name": "medical-imaging-review",
+     "collection": "research-skills",
+     "path": "skills/research-skills/medical-imaging-review/SKILL.md",
+     "skill_dir": "skills/research-skills/medical-imaging-review",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "tests"
+     ]
+    },
+    {
+     "name": "deep-research",
+     "collection": "academic-research-skills",
+     "path": "skills/academic-research-skills/deep-research/SKILL.md",
+     "skill_dir": "skills/academic-research-skills/deep-research",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "examples",
+      "templates"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "reading",
+   "title": "Paper reading & notes",
+   "skills": [
+    {
+     "name": "paper-reader",
+     "collection": "dailypaper-skills",
+     "path": "skills/dailypaper-skills/skills/paper-reader/SKILL.md",
+     "skill_dir": "skills/dailypaper-skills/skills/paper-reader",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "assets"
+     ]
+    },
+    {
+     "name": "nature-reader",
+     "collection": "nature-skills",
+     "path": "skills/nature-skills/skills/nature-reader/SKILL.md",
+     "skill_dir": "skills/nature-skills/skills/nature-reader",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "evals",
+      "manifest"
+     ]
+    },
+    {
+     "name": "zotero-obsidian-bridge",
+     "collection": "empirical-research-skills",
+     "path": "skills/empirical-research-skills/skills/33-Galaxy-Dawn-claude-scholar/skills/zotero-obsidian-bridge/SKILL.md",
+     "skill_dir": "skills/empirical-research-skills/skills/33-Galaxy-Dawn-claude-scholar/skills/zotero-obsidian-bridge",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples"
+     ]
+    },
+    {
+     "name": "daily-paper-generator",
+     "collection": "claude-scholar",
+     "path": "skills/claude-scholar/skills/daily-paper-generator/SKILL.md",
+     "skill_dir": "skills/claude-scholar/skills/daily-paper-generator",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples"
+     ]
+    },
+    {
+     "name": "pdf",
+     "collection": "claude-research",
+     "path": "skills/claude-research/skills/pdf/SKILL.md",
+     "skill_dir": "skills/claude-research/skills/pdf",
+     "license": "Proprietary. LICENSE.txt has complete terms",
+     "depth_signals": [
+      "references",
+      "code"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "experiment",
+   "title": "Experiment design & reproduction",
+   "skills": [
+    {
+     "name": "reproducibility-check",
+     "collection": "medical-research-skills",
+     "path": "skills/medical-research-skills/scientific-skills/Other/reproducibility-check/SKILL.md",
+     "skill_dir": "skills/medical-research-skills/scientific-skills/Other/reproducibility-check",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "evals",
+      "assets"
+     ]
+    },
+    {
+     "name": "light-research-plan",
+     "collection": "light-skills",
+     "path": "skills/light-skills/skills/light-research-plan/SKILL.md",
+     "skill_dir": "skills/light-skills/skills/light-research-plan",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "templates"
+     ]
+    },
+    {
+     "name": "ai-research-reproduction",
+     "collection": "rigorpilot-skills",
+     "path": "skills/rigorpilot-skills/skills/ai-research-reproduction/SKILL.md",
+     "skill_dir": "skills/rigorpilot-skills/skills/ai-research-reproduction",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "assets"
+     ]
+    },
+    {
+     "name": "experimental-design",
+     "collection": "scientific-agent-skills",
+     "path": "skills/scientific-agent-skills/skills/experimental-design/SKILL.md",
+     "skill_dir": "skills/scientific-agent-skills/skills/experimental-design",
+     "license": "MIT license",
+     "depth_signals": [
+      "references",
+      "code"
+     ]
+    },
+    {
+     "name": "stata-replication",
+     "collection": "empirical-research-skills",
+     "path": "skills/empirical-research-skills/skills/64-tmonk-mcp-stata/skills/stata-replication/SKILL.md",
+     "skill_dir": "skills/empirical-research-skills/skills/64-tmonk-mcp-stata/skills/stata-replication",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "analysis",
+   "title": "Data analysis & statistics",
+   "skills": [
+    {
+     "name": "econometric-research-writing",
+     "collection": "franklee-academic-research-skills",
+     "path": "skills/franklee-academic-research-skills/data-analysis/econometric-research-writing/SKILL.md",
+     "skill_dir": "skills/franklee-academic-research-skills/data-analysis/econometric-research-writing",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "tests",
+      "assets"
+     ]
+    },
+    {
+     "name": "exploratory-data-analysis",
+     "collection": "medical-research-skills",
+     "path": "skills/medical-research-skills/scientific-skills/Data Analysis/exploratory-data-analysis/SKILL.md",
+     "skill_dir": "skills/medical-research-skills/scientific-skills/Data Analysis/exploratory-data-analysis",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code",
+      "evals",
+      "assets"
+     ]
+    },
+    {
+     "name": "stata-table-builder",
+     "collection": "empirical-research-skills",
+     "path": "skills/empirical-research-skills/skills/64-tmonk-mcp-stata/skills/stata-table-builder/SKILL.md",
+     "skill_dir": "skills/empirical-research-skills/skills/64-tmonk-mcp-stata/skills/stata-table-builder",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code"
+     ]
+    },
+    {
+     "name": "nature-statistics",
+     "collection": "nature-skills",
+     "path": "skills/nature-skills/skills/nature-statistics/SKILL.md",
+     "skill_dir": "skills/nature-skills/skills/nature-statistics",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "manifest"
+     ]
+    },
+    {
+     "name": "statistical-analysis",
+     "collection": "codex-academic-skills",
+     "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/statistical-analysis/SKILL.md",
+     "skill_dir": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/statistical-analysis",
+     "license": "MIT license",
+     "depth_signals": [
+      "references",
+      "code"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "writing",
+   "title": "Paper drafting & polishing",
+   "skills": [
+    {
+     "name": "light-paper-writing",
+     "collection": "light-skills",
+     "path": "skills/light-skills/skills/light-paper-writing/SKILL.md",
+     "skill_dir": "skills/light-skills/skills/light-paper-writing",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "templates"
+     ]
+    },
+    {
+     "name": "nature-writing",
+     "collection": "nature-skills",
+     "path": "skills/nature-skills/skills/nature-writing/SKILL.md",
+     "skill_dir": "skills/nature-skills/skills/nature-writing",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "tests",
+      "templates",
+      "manifest"
+     ]
+    },
+    {
+     "name": "scientific-writing",
+     "collection": "claude-scientific-writer",
+     "path": "skills/claude-scientific-writer/.claude/skills/scientific-writing/SKILL.md",
+     "skill_dir": "skills/claude-scientific-writer/.claude/skills/scientific-writing",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code",
+      "assets"
+     ]
+    },
+    {
+     "name": "latex-paper-en",
+     "collection": "empirical-research-skills",
+     "path": "skills/empirical-research-skills/skills/35-bahayonghang-academic-writing-skills/skills/latex-paper-en/SKILL.md",
+     "skill_dir": "skills/empirical-research-skills/skills/35-bahayonghang-academic-writing-skills/skills/latex-paper-en",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "evals"
+     ]
+    },
+    {
+     "name": "conference-abstract-writer",
+     "collection": "medical-research-skills",
+     "path": "skills/medical-research-skills/awesome-med-research-skills/Academic Writing/conference-abstract-writer/SKILL.md",
+     "skill_dir": "skills/medical-research-skills/awesome-med-research-skills/Academic Writing/conference-abstract-writer",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code",
+      "evals"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "figures",
+   "title": "Figures, tables & LaTeX",
+   "skills": [
+    {
+     "name": "latex-document",
+     "collection": "franklee-academic-research-skills",
+     "path": "skills/franklee-academic-research-skills/output-tools/latex-document-skill-main/SKILL.md",
+     "skill_dir": "skills/franklee-academic-research-skills/output-tools/latex-document-skill-main",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "tests",
+      "assets",
+      "requirements"
+     ]
+    },
+    {
+     "name": "nature-figure",
+     "collection": "nature-skills",
+     "path": "skills/nature-skills/skills/nature-figure/SKILL.md",
+     "skill_dir": "skills/nature-skills/skills/nature-figure",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "tests",
+      "evals",
+      "assets",
+      "manifest",
+      "requirements"
+     ]
+    },
+    {
+     "name": "light-figure",
+     "collection": "light-skills",
+     "path": "skills/light-skills/skills/light-figure/SKILL.md",
+     "skill_dir": "skills/light-skills/skills/light-figure",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "assets",
+      "templates"
+     ]
+    },
+    {
+     "name": "sample-group-sankey-plot",
+     "collection": "medical-research-skills",
+     "path": "skills/medical-research-skills/awesome-med-research-skills/Data Analysis/sample-group-sankey-plot/SKILL.md",
+     "skill_dir": "skills/medical-research-skills/awesome-med-research-skills/Data Analysis/sample-group-sankey-plot",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code",
+      "tests",
+      "evals"
+     ]
+    },
+    {
+     "name": "latex-thesis-zh",
+     "collection": "empirical-research-skills",
+     "path": "skills/empirical-research-skills/skills/35-bahayonghang-academic-writing-skills/skills/latex-thesis-zh/SKILL.md",
+     "skill_dir": "skills/empirical-research-skills/skills/35-bahayonghang-academic-writing-skills/skills/latex-thesis-zh",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "evals"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "review",
+   "title": "Peer review, rebuttal & revision",
+   "skills": [
+    {
+     "name": "nature-response",
+     "collection": "nature-skills",
+     "path": "skills/nature-skills/skills/nature-response/SKILL.md",
+     "skill_dir": "skills/nature-skills/skills/nature-response",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "tests",
+      "templates",
+      "manifest"
+     ]
+    },
+    {
+     "name": "paper-audit",
+     "collection": "empirical-research-skills",
+     "path": "skills/empirical-research-skills/skills/35-bahayonghang-academic-writing-skills/skills/paper-audit/SKILL.md",
+     "skill_dir": "skills/empirical-research-skills/skills/35-bahayonghang-academic-writing-skills/skills/paper-audit",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "evals",
+      "templates"
+     ]
+    },
+    {
+     "name": "academic-paper-reviewer",
+     "collection": "academic-research-skills",
+     "path": "skills/academic-research-skills/academic-paper-reviewer/SKILL.md",
+     "skill_dir": "skills/academic-research-skills/academic-paper-reviewer",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "examples",
+      "templates"
+     ]
+    },
+    {
+     "name": "strategic-revision",
+     "collection": "claude-research",
+     "path": "skills/claude-research/skills/strategic-revision/SKILL.md",
+     "skill_dir": "skills/claude-research/skills/strategic-revision",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "templates"
+     ]
+    },
+    {
+     "name": "paper-revision",
+     "collection": "franklee-academic-research-skills",
+     "path": "skills/franklee-academic-research-skills/review-revise/paper-revision-master/SKILL.md",
+     "skill_dir": "skills/franklee-academic-research-skills/review-revise/paper-revision-master",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "assets"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "integrity",
+   "title": "Citations & research integrity",
+   "skills": [
+    {
+     "name": "light-citation",
+     "collection": "light-skills",
+     "path": "skills/light-skills/skills/light-citation/SKILL.md",
+     "skill_dir": "skills/light-skills/skills/light-citation",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "assets",
+      "templates"
+     ]
+    },
+    {
+     "name": "nature-citation",
+     "collection": "nature-skills",
+     "path": "skills/nature-skills/skills/nature-citation/SKILL.md",
+     "skill_dir": "skills/nature-skills/skills/nature-citation",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "tests",
+      "evals",
+      "manifest"
+     ]
+    },
+    {
+     "name": "citation-management",
+     "collection": "claude-scientific-writer",
+     "path": "skills/claude-scientific-writer/.claude/skills/citation-management/SKILL.md",
+     "skill_dir": "skills/claude-scientific-writer/.claude/skills/citation-management",
+     "license": "MIT License",
+     "depth_signals": [
+      "references",
+      "code",
+      "assets"
+     ]
+    },
+    {
+     "name": "scipilot-cite-skill",
+     "collection": "franklee-academic-research-skills",
+     "path": "skills/franklee-academic-research-skills/reference-citation/scipilot-cite-skill-main/SKILL.md",
+     "skill_dir": "skills/franklee-academic-research-skills/reference-citation/scipilot-cite-skill-main",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code",
+      "assets",
+      "requirements"
+     ]
+    },
+    {
+     "name": "citation-network",
+     "collection": "medical-research-skills",
+     "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/citation-network/SKILL.md",
+     "skill_dir": "skills/medical-research-skills/scientific-skills/Evidence Insight/citation-network",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code",
+      "evals"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "grants",
+   "title": "Grant & proposal writing",
+   "skills": [
+    {
+     "name": "grant-specific-aims-writer",
+     "collection": "medical-research-skills",
+     "path": "skills/medical-research-skills/awesome-med-research-skills/Academic Writing/grant-specific-aims-writer/SKILL.md",
+     "skill_dir": "skills/medical-research-skills/awesome-med-research-skills/Academic Writing/grant-specific-aims-writer",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code",
+      "evals"
+     ]
+    },
+    {
+     "name": "research-proposal",
+     "collection": "research-skills",
+     "path": "skills/research-skills/research-proposal/SKILL.md",
+     "skill_dir": "skills/research-skills/research-proposal",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "tests",
+      "assets"
+     ]
+    },
+    {
+     "name": "research-grants",
+     "collection": "scientific-agent-skills",
+     "path": "skills/scientific-agent-skills/skills/research-grants/SKILL.md",
+     "skill_dir": "skills/scientific-agent-skills/skills/research-grants",
+     "license": "MIT license",
+     "depth_signals": [
+      "references",
+      "assets"
+     ]
+    },
+    {
+     "name": "academic-grant",
+     "collection": "franklee-academic-research-skills",
+     "path": "skills/franklee-academic-research-skills/grant-writing/academic-grant/SKILL.md",
+     "skill_dir": "skills/franklee-academic-research-skills/grant-writing/academic-grant",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code"
+     ]
+    },
+    {
+     "name": "grant-proposal",
+     "collection": "aris",
+     "path": "skills/aris/skills/grant-proposal/SKILL.md",
+     "skill_dir": "skills/aris/skills/grant-proposal",
+     "license": "",
+     "depth_signals": []
+    }
+   ]
+  },
+  {
+   "key": "presentation",
+   "title": "Slides, posters & dissemination",
+   "skills": [
+    {
+     "name": "scholar-slides",
+     "collection": "research-skills",
+     "path": "skills/research-skills/scholar-slides/SKILL.md",
+     "skill_dir": "skills/research-skills/scholar-slides",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "tests",
+      "assets",
+      "requirements"
+     ]
+    },
+    {
+     "name": "html-ppt",
+     "collection": "franklee-academic-research-skills",
+     "path": "skills/franklee-academic-research-skills/presentations/html-ppt-skill-main/SKILL.md",
+     "skill_dir": "skills/franklee-academic-research-skills/presentations/html-ppt-skill-main",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "examples",
+      "assets",
+      "templates"
+     ]
+    },
+    {
+     "name": "ppt-master",
+     "collection": "medical-research-skills",
+     "path": "skills/medical-research-skills/scientific-skills/Other/ppt-master/SKILL.md",
+     "skill_dir": "skills/medical-research-skills/scientific-skills/Other/ppt-master",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code",
+      "evals",
+      "templates",
+      "requirements"
+     ]
+    },
+    {
+     "name": "scientific-slides",
+     "collection": "claude-scientific-writer",
+     "path": "skills/claude-scientific-writer/.claude/skills/scientific-slides/SKILL.md",
+     "skill_dir": "skills/claude-scientific-writer/.claude/skills/scientific-slides",
+     "license": "MIT license",
+     "depth_signals": [
+      "references",
+      "code",
+      "assets"
+     ]
+    },
+    {
+     "name": "explorable-beamer",
+     "collection": "ai-research-feedback",
+     "path": "skills/ai-research-feedback/Skills/explorable-beamer/SKILL.md",
+     "skill_dir": "skills/ai-research-feedback/Skills/explorable-beamer",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code",
+      "assets"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "lifescience",
+   "title": "Life-science databases & tools",
+   "skills": [
+    {
+     "name": "gene-protein-expression-matrix-normalization",
+     "collection": "medical-research-skills",
+     "path": "skills/medical-research-skills/awesome-med-research-skills/Data Analysis/gene-protein-expression-matrix-normalization/SKILL.md",
+     "skill_dir": "skills/medical-research-skills/awesome-med-research-skills/Data Analysis/gene-protein-expression-matrix-normalization",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code",
+      "tests",
+      "evals"
+     ]
+    },
+    {
+     "name": "protein-binder-design",
+     "collection": "bionemo-agent-toolkit",
+     "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/protein-binder-design/SKILL.md",
+     "skill_dir": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/protein-binder-design",
+     "license": "Apache-2.0",
+     "depth_signals": [
+      "references",
+      "code",
+      "evals",
+      "assets"
+     ]
+    },
+    {
+     "name": "genomic-coordinates",
+     "collection": "scientific-agent-skills",
+     "path": "skills/scientific-agent-skills/skills/genomic-coordinates/SKILL.md",
+     "skill_dir": "skills/scientific-agent-skills/skills/genomic-coordinates",
+     "license": "MIT",
+     "depth_signals": [
+      "references",
+      "code"
+     ]
+    },
+    {
+     "name": "alphafold-database-fetch-and-analyze",
+     "collection": "deepmind-science-skills",
+     "path": "skills/deepmind-science-skills/skills/alphafold_database_fetch_and_analyze/SKILL.md",
+     "skill_dir": "skills/deepmind-science-skills/skills/alphafold_database_fetch_and_analyze",
+     "license": "",
+     "depth_signals": [
+      "references",
+      "code"
+     ]
+    },
+    {
+     "name": "uniprot-database",
+     "collection": "scienceclaw",
+     "path": "skills/scienceclaw/skills/uniprot-database/SKILL.md",
+     "skill_dir": "skills/scienceclaw/skills/uniprot-database",
+     "license": "Unknown",
+     "depth_signals": [
+      "references",
+      "code"
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -85,6 +85,13 @@ score never overrides a red gate.
 | [uditgoenka/autoresearch](https://github.com/uditgoenka/autoresearch) | `skills/autoresearch` | Added 2026-06-24 (MIT, ~5.2k★). Karpathy-style autonomous-iteration Claude skill. The one critical (`mkfs`) is inside the skill's own command-refusal safety guard — defensive, not a leak. |
 | [tmgthb/Autonomous-Agents](https://github.com/tmgthb/Autonomous-Agents) | `lists/autonomous-agents` | Added 2026-06-24 (MIT, ~1.3k★). Daily-updated autonomous-agent research-paper list. |
 | [webfuse-com/awesome-autoresearch](https://github.com/webfuse-com/awesome-autoresearch) | `lists/awesome-autoresearch` | Added 2026-06-24 (CC0, ~2.3k★). Curated autoresearch / autonomous-improvement-loop systems. |
+| [google-deepmind/science-skills](https://github.com/google-deepmind/science-skills) | `skills/deepmind-science-skills` | Added 2026-10-20 (Apache-2.0, ~3.3k★). First big-lab science skill pack (AlphaGenome, AFDB, UniProt, 30+ DBs). Only finding is the official `uv` installer quoted in its `uv` skill. |
+| [openags/paper-search-mcp](https://github.com/openags/paper-search-mcp) | `skills/paper-search-mcp` | Added 2026-10-20 (MIT, ~2.9k★). The July round's top pick: multi-source paper search MCP + CLI + skills. Scan clean. |
+| [mikubaka88/CCFA-Skills](https://github.com/mikubaka88/CCFA-Skills) · [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill) | `skills/ccfa-skills` · `skills/research-writing-skill` | Added 2026-10-20 (MIT, ~3.2k★ / ~3.5k★). Top-CS-venue storyline/integrity family and the leading Chinese research-writing assistant. Both scan clean; CCFA is a 373 MB checkout. |
+| [huangkiki/dailypaper-skills](https://github.com/huangkiki/dailypaper-skills) · [lllllllama/RigorPilot-Skills](https://github.com/lllllllama/RigorPilot-Skills) · [K-Dense-AI/science-superpowers](https://github.com/K-Dense-AI/science-superpowers) · [ai4s-research/ai4s-skills](https://github.com/ai4s-research/ai4s-skills) | `skills/…` | Added 2026-10-20 (Apache/MIT). Paper monitoring, README-first reproduction, research-process discipline, AI4S pipeline. Clean, except one benign fixture in RigorPilot. |
+| [NVIDIA-BioNeMo/bionemo-agent-toolkit](https://github.com/NVIDIA-BioNeMo/bionemo-agent-toolkit) | `skills/bionemo-agent-toolkit` | Added 2026-10-20 (Apache-2.0 code, CC-BY-4.0 skills). GPU structural biology/genomics NIM skills. 18 high findings are the documented `docker login --password-stdin` (benign). |
+| 6 systems: [OpenResearch](https://github.com/alphaXiv/OpenResearch), [EvoScientist](https://github.com/EvoScientist/EvoScientist), [DeepAnalyze](https://github.com/ruc-datalab/DeepAnalyze), [EvoMap/AutoResearch](https://github.com/EvoMap/AutoResearch), [Arbor](https://github.com/RUC-NLPIR/Arbor), [AI-Scientist-v3](https://github.com/SakanaAI/AI-Scientist-v3) | `systems/…` | Added 2026-10-20. All OSI-licensed and pushed within ~1 month. Findings are agent-CLI/toolchain installers or defensive guards. **OpenResearch ships an opt-out telemetry feedback skill**; see the log. |
+| 4 benchmarks ([deep_research_bench](https://github.com/Ayanami0730/deep_research_bench), [ASI-Bench](https://github.com/apexin-ai/ASI-Bench), [asta-bench](https://github.com/allenai/asta-bench), [SciCode](https://github.com/scicode-bench/SciCode)) + 2 lists ([Awesome-Vibe-Research](https://github.com/modelscope/Awesome-Vibe-Research), [awesome-academic-research-skills](https://github.com/kael-odin/awesome-academic-research-skills)) | `benchmarks/…` · `lists/…` | Added 2026-10-20. Fills the deep-research, project-level-autonomy and discovery-breadth benchmark gaps. Full triage in [`docs/vendoring-2026-10-20.md`](docs/vendoring-2026-10-20.md). |
 
 ## Second-Review Queue
 
@@ -95,10 +102,13 @@ counts drift; refresh them on the day of the PR.
 | Priority | Candidate | Current second-review question | Required evidence before vendoring |
 |---:|---|---|---|
 | ✅ done | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) | ~~Does it cleanly fill the Zotero/reference-manager gap without duplicating `arxiv-mcp-server`?~~ | **Vendored 2026-06-23** at `skills/zotero-mcp` (commit `c6935db`); see [`docs/vendoring-2026-06-23.md`](docs/vendoring-2026-06-23.md). |
-| 2 | [ClawBio/ClawBio](https://github.com/ClawBio/ClawBio) | If adding one bioinformatics collection, is reproducible-code-first coverage more useful than breadth? | Fresh license check, overlap note against `scientific-agent-skills` and `medical-research-skills`, focused safety scan, and catalog count impact estimate. |
-| 3 | [GPTomics/bioSkills](https://github.com/GPTomics/bioSkills) | Does the 500+ skill breadth justify the additional collision/redundancy surface? | Same evidence as ClawBio, plus a name-collision estimate before adding the submodule. |
+| 2 | [ClawBio/ClawBio](https://github.com/ClawBio/ClawBio) | (2026-10-19: ~1.2k★, still pushed daily, GitHub license `NOASSERTION`.) If adding one bioinformatics collection, is reproducible-code-first coverage more useful than breadth? | Fresh license check, overlap note against `scientific-agent-skills` and `medical-research-skills`, focused safety scan, and catalog count impact estimate. |
+| ❌ drop | [GPTomics/bioSkills](https://github.com/GPTomics/bioSkills) | ~~Does the 500+ skill breadth justify the additional collision/redundancy surface?~~ | **Archived upstream** (checked 2026-10-19). Dropped; prefer ClawBio once its license resolves. |
 | 4 | [jaechang-hits/SciAgent-Skills](https://github.com/jaechang-hits/SciAgent-Skills) | Is the license/provenance story clear enough for per-skill reuse? | Confirm the repo license file, check any per-skill license metadata, run focused safety scan, then decide whether to prefer it over ClawBio/bioSkills. |
 | hold | [EvoScientist/EvoSkills](https://github.com/EvoScientist/EvoSkills) | Has the `nano-banana` credential-print issue been fixed upstream? | Do not vendor until the second reviewer confirms the unsafe `echo $GOOGLE_API_KEY` guidance is gone or isolated to non-executable docs. |
+| 5 | [mims-harvard/ToolUniverse](https://github.com/mims-harvard/ToolUniverse) | Can its 531-skill `plugin/` be vendored without flooding the collision surface? | Name-collision estimate against `scientific-agent-skills` / `medical-research-skills`, vendoring-scope decision (whole repo vs. plugin only), focused scan. |
+| 6 | [InternScience/ResearchClawBench](https://github.com/InternScience/ResearchClawBench) | Strong benchmark, but ~2.5 GB of task data. | Vendor if upstream splits task data out (or a sparse/partial-clone story is documented in `setup.sh`). |
+| hold | [TobiasLee/Rebuttal-Skill](https://github.com/TobiasLee/Rebuttal-Skill) · [anthropics/life-sciences](https://github.com/anthropics/life-sciences) | Fill real gaps (rebuttal; official life-sciences marketplace) but ship no license. | Upstream license; then the standard scan. |
 | hold | [zsyggg/paper-craft-skills](https://github.com/zsyggg/paper-craft-skills) | Is license/provenance explicit enough for a copied-skill workflow? | License/provenance confirmation plus focused safety scan. |
 
 Second-review notes should record reviewer, date, commit/tag inspected, commands
@@ -124,6 +134,25 @@ eight code-bearing candidates scanned clean; the recommended next round is
 the redundant deep-research agents and broad/off-scope skill dumps. Upstream
 license-request drafts for the no-license vendored systems are in
 [`docs/upstream-license-requests-2026-06-24.md`](docs/upstream-license-requests-2026-06-24.md).
+
+## Discovery Round — 2026-10-20
+
+Two parallel web/GitHub sweeps (skills; systems/benchmarks/lists) covering
+July–October 2026, de-duplicated against everything above. **21 projects were
+vendored** (9 skills, 6 systems, 4 benchmarks, 2 lists → 108 repos). **11 were
+added as list-only README rows.** Copycat and star-farmed repos were rejected.
+Per-project license, size, scan triage, and verdicts are in
+[`docs/vendoring-2026-10-20.md`](docs/vendoring-2026-10-20.md). The field-level
+context is in the
+[Q3 2026 update](docs/landscape-2026.md#q3-2026-update-july--october) of the
+landscape map.
+
+Status of the July round's suggested order, as of 2026-10-19:
+`openags/paper-search-mcp` ✅ vendored · `ai4s-research/ai4s-skills` ✅ vendored ·
+`openai/mle-bench` ⏸ hold (GitHub now reports `NOASSERTION`, was MIT; no push
+since 2026-04) · `AkariAsai/OpenScholar` ⏸ hold (no push since 2025-08). Also
+vendored from that round: `EvoScientist/EvoScientist` and
+`ruc-datalab/DeepAnalyze`.
 
 ## Discovery Round — 2026-07-11
 

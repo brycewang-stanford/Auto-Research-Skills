@@ -260,3 +260,66 @@
 [submodule "lists/awesome-autoresearch"]
 	path = lists/awesome-autoresearch
 	url = https://github.com/webfuse-com/awesome-autoresearch
+[submodule "skills/deepmind-science-skills"]
+	path = skills/deepmind-science-skills
+	url = https://github.com/google-deepmind/science-skills
+[submodule "skills/paper-search-mcp"]
+	path = skills/paper-search-mcp
+	url = https://github.com/openags/paper-search-mcp
+[submodule "skills/ccfa-skills"]
+	path = skills/ccfa-skills
+	url = https://github.com/mikubaka88/CCFA-Skills
+[submodule "skills/science-superpowers"]
+	path = skills/science-superpowers
+	url = https://github.com/K-Dense-AI/science-superpowers
+[submodule "skills/rigorpilot-skills"]
+	path = skills/rigorpilot-skills
+	url = https://github.com/lllllllama/RigorPilot-Skills
+[submodule "skills/dailypaper-skills"]
+	path = skills/dailypaper-skills
+	url = https://github.com/huangkiki/dailypaper-skills
+[submodule "skills/bionemo-agent-toolkit"]
+	path = skills/bionemo-agent-toolkit
+	url = https://github.com/NVIDIA-BioNeMo/bionemo-agent-toolkit
+[submodule "skills/ai4s-skills"]
+	path = skills/ai4s-skills
+	url = https://github.com/ai4s-research/ai4s-skills
+[submodule "skills/research-writing-skill"]
+	path = skills/research-writing-skill
+	url = https://github.com/Norman-bury/research-writing-skill
+[submodule "systems/ai-scientist-v3"]
+	path = systems/ai-scientist-v3
+	url = https://github.com/SakanaAI/AI-Scientist-v3
+[submodule "systems/openresearch"]
+	path = systems/openresearch
+	url = https://github.com/alphaXiv/OpenResearch
+[submodule "systems/evomap-autoresearch"]
+	path = systems/evomap-autoresearch
+	url = https://github.com/EvoMap/AutoResearch
+[submodule "systems/arbor"]
+	path = systems/arbor
+	url = https://github.com/RUC-NLPIR/Arbor
+[submodule "systems/evoscientist"]
+	path = systems/evoscientist
+	url = https://github.com/EvoScientist/EvoScientist
+[submodule "systems/deepanalyze"]
+	path = systems/deepanalyze
+	url = https://github.com/ruc-datalab/DeepAnalyze
+[submodule "benchmarks/asi-bench"]
+	path = benchmarks/asi-bench
+	url = https://github.com/apexin-ai/ASI-Bench
+[submodule "benchmarks/deep-research-bench"]
+	path = benchmarks/deep-research-bench
+	url = https://github.com/Ayanami0730/deep_research_bench
+[submodule "benchmarks/asta-bench"]
+	path = benchmarks/asta-bench
+	url = https://github.com/allenai/asta-bench
+[submodule "benchmarks/scicode"]
+	path = benchmarks/scicode
+	url = https://github.com/scicode-bench/SciCode
+[submodule "lists/awesome-vibe-research"]
+	path = lists/awesome-vibe-research
+	url = https://github.com/modelscope/Awesome-Vibe-Research
+[submodule "lists/awesome-academic-research-skills"]
+	path = lists/awesome-academic-research-skills
+	url = https://github.com/kael-odin/awesome-academic-research-skills

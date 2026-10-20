@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **450**
-- Critical: **322**
-- High: **128**
-- In `skill`/`script` files (not docs or examples): **142** (75 critical, 67 high)
+- Findings: **499**
+- Critical: **327**
+- High: **172**
+- In `skill`/`script` files (not docs or examples): **163** (78 critical, 85 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -29,21 +29,21 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Context | Findings |
 |---|---:|
-| `docs` | 256 |
-| `script` | 91 |
+| `docs` | 284 |
+| `script` | 92 |
+| `skill` | 61 |
 | `example` | 52 |
-| `skill` | 41 |
 | `other` | 10 |
 
 ## By Rule
 
 | Rule | Findings |
 |---|---:|
-| `remote-shell-pipe` | 268 |
-| `credential-print` | 58 |
-| `concealment-instruction` | 41 |
-| `powershell-iex` | 33 |
-| `echo-secret-value` | 26 |
+| `remote-shell-pipe` | 272 |
+| `credential-print` | 74 |
+| `echo-secret-value` | 50 |
+| `concealment-instruction` | 45 |
+| `powershell-iex` | 34 |
 | `destructive-system-device` | 17 |
 | `reverse-shell` | 4 |
 | `obfuscated-exec` | 3 |
@@ -55,6 +55,7 @@ so a downgraded critical no longer inflates the high+ report.
 | `scienceclaw` | 157 |
 | `empirical-research-skills` | 57 |
 | `autoresearch` | 49 |
+| `bionemo-agent-toolkit` | 40 |
 | `feynman` | 25 |
 | `nature-paper-skills` | 19 |
 | `last30days` | 18 |
@@ -71,8 +72,7 @@ so a downgraded critical no longer inflates the high+ report.
 | `research-skills` | 5 |
 | `zotero-mcp` | 5 |
 | `claude-scientific-writer` | 4 |
-| `co-researcher` | 3 |
-| _Other_ | 10 |
+| _Other_ | 22 |
 
 ## Example Findings
 
@@ -87,6 +87,8 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | critical | skill | `remote-shell-pipe` | `skills/claude-scientific-writer/skills/literature-review/SKILL.md:224` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
 | critical | skill | `remote-shell-pipe` | `skills/co-researcher/skills/literature-review/SKILL.md:30` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | critical | skill | `remote-shell-pipe` | `skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/literature-review/SKILL.md:659` | `curl -fsSL https://parallel.ai/install.sh \| bash` |
+| critical | skill | `remote-shell-pipe` | `skills/deepmind-science-skills/skills/uv/SKILL.md:37` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
+| critical | skill | `powershell-iex` | `skills/deepmind-science-skills/skills/uv/SKILL.md:39` | `irm https://astral.sh/uv/install.ps1 \| iex` |
 | critical | skill | `remote-shell-pipe` | `skills/empirical-research-skills/skills/33-Galaxy-Dawn-claude-scholar/skills/uv-package-manager/SKILL.md:56` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | critical | skill | `powershell-iex` | `skills/empirical-research-skills/skills/33-Galaxy-Dawn-claude-scholar/skills/uv-package-manager/SKILL.md:59` | `irm https://astral.sh/uv/install.ps1 \| iex` |
 | critical | skill | `remote-shell-pipe` | `skills/franklee-academic-research-skills/science-skills/uv/SKILL.md:26` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
@@ -97,31 +99,29 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `concealment-instruction` | `skills/ai-research-skills/06-post-training/trl-fine-tuning/SKILL.md:450` | `Secretly` |
 | high | skill | `concealment-instruction` | `skills/aris/skills/proof-checker/SKILL.md:681` | `secretly` |
 | high | skill | `concealment-instruction` | `skills/aris/skills/skills-codex/proof-checker/SKILL.md:444` | `secretly` |
+| high | skill | `credential-print` | `skills/bionemo-agent-toolkit/nim-skills/boltz2-nim/SKILL.md:63` | `echo "$NGC_API_KEY" \| docker login nvcr.io --username '$oauthtoken` |
+| high | skill | `echo-secret-value` | `skills/bionemo-agent-toolkit/nim-skills/boltz2-nim/SKILL.md:63` | `echo "$NGC_API_KEY` |
+| high | skill | `credential-print` | `skills/bionemo-agent-toolkit/nim-skills/evo2-nim/SKILL.md:134` | `echo "$NGC_API_KEY" \| docker login nvcr.io --username '$oauthtoken` |
+| high | skill | `echo-secret-value` | `skills/bionemo-agent-toolkit/nim-skills/evo2-nim/SKILL.md:134` | `echo "$NGC_API_KEY` |
+| high | skill | `credential-print` | `skills/bionemo-agent-toolkit/nim-skills/msa-search-nim/SKILL.md:70` | `echo "$NGC_API_KEY" \| docker login nvcr.io --username '$oauthtoken` |
+| high | skill | `echo-secret-value` | `skills/bionemo-agent-toolkit/nim-skills/msa-search-nim/SKILL.md:70` | `echo "$NGC_API_KEY` |
+| high | skill | `echo-secret-value` | `skills/bionemo-agent-toolkit/nim-skills/openfold3-nim/SKILL.md:78` | `printf '%s\n' "$NGC_API_KEY` |
+| high | skill | `credential-print` | `skills/bionemo-agent-toolkit/nim-skills/rfdiffusion-nim/SKILL.md:57` | `echo "$NGC_API_KEY" \| docker login nvcr.io --username '$oauthtoken` |
+| high | skill | `echo-secret-value` | `skills/bionemo-agent-toolkit/nim-skills/rfdiffusion-nim/SKILL.md:57` | `echo "$NGC_API_KEY` |
+| high | skill | `credential-print` | `skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/boltz2-nim/SKILL.md:63` | `echo "$NGC_API_KEY" \| docker login nvcr.io --username '$oauthtoken` |
+| high | skill | `echo-secret-value` | `skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/boltz2-nim/SKILL.md:63` | `echo "$NGC_API_KEY` |
+| high | skill | `credential-print` | `skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/evo2-nim/SKILL.md:134` | `echo "$NGC_API_KEY" \| docker login nvcr.io --username '$oauthtoken` |
+| high | skill | `echo-secret-value` | `skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/evo2-nim/SKILL.md:134` | `echo "$NGC_API_KEY` |
+| high | skill | `credential-print` | `skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/msa-search-nim/SKILL.md:70` | `echo "$NGC_API_KEY" \| docker login nvcr.io --username '$oauthtoken` |
+| high | skill | `echo-secret-value` | `skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/msa-search-nim/SKILL.md:70` | `echo "$NGC_API_KEY` |
+| high | skill | `echo-secret-value` | `skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/openfold3-nim/SKILL.md:78` | `printf '%s\n' "$NGC_API_KEY` |
+| high | skill | `credential-print` | `skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/rfdiffusion-nim/SKILL.md:57` | `echo "$NGC_API_KEY" \| docker login nvcr.io --username '$oauthtoken` |
+| high | skill | `echo-secret-value` | `skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/rfdiffusion-nim/SKILL.md:57` | `echo "$NGC_API_KEY` |
 | high | skill | `credential-print` | `skills/claude-skills-journalism/research-toolkit/skills/page-monitoring/SKILL.md:214` | `print any secret` |
 | high | skill | `concealment-instruction` | `skills/empirical-research-skills/skills/58-charlescoverdale-econstack/longlist/SKILL.md:402` | `Do not show it to the user` |
 | high | skill | `concealment-instruction` | `skills/empirical-research-skills/skills/58-charlescoverdale-econstack/longlist/SKILL.md:518` | `Do not show stakeholder lists, ToC steps, or lens-by-lens working in the output. The user` |
-| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Econometric-Theory-Skills/skills/ectheory-identification-strategy/SKILL.md:59` | `secretly` |
-| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Econometric-Theory-Skills/skills/ectheory-review-process/SKILL.md:38` | `secretly` |
-| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Econometrica-Skills/skills/ecta-theory-model/SKILL.md:13` | `secretly` |
-| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Econometrica-Skills/skills/ecta-theory-model/SKILL.md:87` | `secretly` |
-| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Journal-of-Economic-Theory-Skills/skills/jet-rebuttal/SKILL.md:19` | `secretly` |
-| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/Awesome-Journal-Skills-main/Journal-of-Political-Economy-Skills/skills/jpe-theory-model/SKILL.md:64` | `secretly` |
-| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/nature-skills-main/nature-figure/SKILL.md:16` | `do not reveal its path, filenames, or provenance in user` |
-| high | skill | `concealment-instruction` | `skills/franklee-academic-research-skills/research-workflow/codex-paper-skills-main/paper_skills/proof-checker/SKILL.md:372` | `secretly` |
-| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:76` | `echo $GH_TOKEN` |
-| high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:76` | `echo $GH_TOKEN` |
-| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:348` | `echo $GH_TOKEN` |
-| high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:348` | `echo $GH_TOKEN` |
-| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:378` | `console.log(c.skills?.entries?.['gh-issues']?.apiKey` |
-| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:384` | `console.log(d.skills?.entries?.['gh-issues']?.apiKey` |
-| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:387` | `echo "Token: ${GH_TOKEN` |
-| high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:387` | `echo "Token: ${GH_TOKEN` |
-| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:716` | `echo $GH_TOKEN` |
-| high | skill | `echo-secret-value` | `skills/scienceclaw/skills/gh-issues/SKILL.md:716` | `echo $GH_TOKEN` |
-| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:748` | `console.log(c.skills?.entries?.['gh-issues']?.apiKey` |
-| high | skill | `credential-print` | `skills/scienceclaw/skills/gh-issues/SKILL.md:751` | `echo "Token: ${GH_TOKEN` |
 
-_Truncated 410 additional findings._
+_Truncated 459 additional findings._
 
 ## Regenerate
 

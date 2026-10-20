@@ -15,6 +15,28 @@ collections as untrusted third-party code is the whole point of this hub's
 tooling. See [`CURATION.md`](CURATION.md) and
 [`catalog/SAFETY.md`](catalog/SAFETY.md).
 
+### Why this is not hypothetical (2026 incidents)
+
+- Unit 42 documented malicious ClawHub skills that **passed marketplace
+  scanning**. One padded its README to ~22 MB to evade scanners, and others
+  needed no malware payload at all (affiliate-link injection, token
+  front-running): [Unit 42, 2026-06-23](https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk/).
+- A Cloud Security Alliance note tallies the "ClawHavoc" campaign and two
+  payload-free techniques: metadata-only discovery manipulation and semantic
+  compliance hijacking. Pattern scanners miss both:
+  [CSA, 2026-06-24](https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-skill-supply-chain-attacks-20260624-csa/).
+- During the [2026-10-20 discovery round](docs/vendoring-2026-10-20.md#rejected--suspicious)
+  we found an uncredited re-upload of a vendored pack and a cluster of
+  star-farmed look-alike repos.
+
+The practical consequences for this hub:
+
+1. Pin to reviewed upstream commits. Submodules do this by construction.
+2. Re-scan on every bump.
+3. Prefer canonical upstreams over re-uploads.
+4. Treat the heuristic scanner as necessary but not sufficient. A human still
+   reads every `SKILL.md` trigger that a new collection adds.
+
 ## In scope
 
 Report these against **this repository** (the hub's own code and curation):

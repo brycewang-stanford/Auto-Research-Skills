@@ -73,5 +73,14 @@ jobs:
       - name: Validate quality report
         run: make quality-report-check
 
+      - name: Validate frontmatter report
+        run: make frontmatter-report-check
+
+      - name: Validate maturity report
+        run: make maturity-report-check
+
+      - name: Validate starter kits
+        run: make starter-kits-check
+
       - name: Count bundled skills
         run: make count-skills

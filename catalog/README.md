@@ -1,7 +1,7 @@
 # 📚 catalog/ — skill discovery layer
 
 This hub bundles dozens of upstream collections as git submodules. Together
-they ship **3,324 `SKILL.md` files (≈2,596 unique)** — but until now there was
+they ship **6,087 `SKILL.md` files (≈5,410 unique)** — but until now there was
 no way to browse or search an *individual* skill without grepping every
 submodule. This directory fixes that.
 
@@ -26,6 +26,7 @@ builds the compact discovery index and collision data.
 | [`QUALITY.md`](QUALITY.md) | ✅ | Redundancy, name-collision, watermark, frontmatter, and license findings + suggestions for maintainers. |
 | [`FRONTMATTER.md`](FRONTMATTER.md) | ✅ | Per-collection `SKILL.md` frontmatter conformance against a minimal `name`/`description` schema, plus license/version coverage. |
 | [`MATURITY.md`](MATURITY.md) | ✅ | Per-skill depth signals (references/scripts/examples/evals/tests) and a per-collection production-grade ranking. |
+| [`STARTER-KITS.md`](STARTER-KITS.md) · [`starter-kits.json`](starter-kits.json) | ✅ | **Start here.** One collision-free, safety-gated kit of 5 skills per research stage (ideation → literature → … → slides), installable with `tools/build_starter_kits.py --install <stage>`. |
 | [`DISCOVERY.md`](DISCOVERY.md) | ✍️ | Vetted candidate skills **not yet bundled**, with live signals and ready-to-run vendoring commands. |
 
 ## Regenerate
@@ -38,6 +39,7 @@ make safety-report      # refreshes the heuristic safety summary
 make quality-report     # refreshes the redundancy/collision/license findings
 make frontmatter-report # refreshes the frontmatter conformance report
 make maturity-report    # refreshes the per-skill depth / maturity report
+make starter-kits       # refreshes the per-stage starter kits (STARTER-KITS.md + JSON)
 make check    # verifies generated files are current, writes nothing
 ```
 

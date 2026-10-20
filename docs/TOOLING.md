@@ -29,6 +29,12 @@ catalog artifact is derived from them and from `.gitmodules`.
         │
         ├─► build_quality_report.py ──► catalog/QUALITY.md   (reads skills.json + SKILL.md)
         │
+        ├─► check_frontmatter.py     ──► catalog/FRONTMATTER.md
+        ├─► build_maturity_report.py ──► catalog/MATURITY.md
+        │
+        ├─► build_starter_kits.py  ──► catalog/STARTER-KITS.md + starter-kits.json
+        │     (reuses maturity depth signals + the safety scanner as a gate)
+        │
         └─ scan-skill-safety.py ─► build_safety_report.py ──► catalog/SAFETY.md
 
 scripts/update-stars.py          ──► STARS.md              (reads GitHub API; run intentionally)
@@ -55,6 +61,9 @@ Regenerate instead (see the next section).
 | [`../catalog/collisions.json`](../catalog/collisions.json) | `tools/build_index.py` | `skills.json` |
 | [`../catalog/SAFETY.md`](../catalog/SAFETY.md) | `tools/build_safety_report.py` | `scripts/scan-skill-safety.py` over `skills/` |
 | [`../catalog/QUALITY.md`](../catalog/QUALITY.md) | `tools/build_quality_report.py` | `skills.json` + `SKILL.md` files |
+| [`../catalog/FRONTMATTER.md`](../catalog/FRONTMATTER.md) | `tools/check_frontmatter.py` | `skills.json` + `SKILL.md` files |
+| [`../catalog/MATURITY.md`](../catalog/MATURITY.md) | `tools/build_maturity_report.py` | `skills.json` + skill directories |
+| [`../catalog/STARTER-KITS.md`](../catalog/STARTER-KITS.md), [`../catalog/starter-kits.json`](../catalog/starter-kits.json) | `tools/build_starter_kits.py` | `skills.json` + skill dirs + safety scanner |
 | [`../STARS.md`](../STARS.md) | `scripts/update-stars.py` | GitHub API (run intentionally) |
 | [`../catalog/HEALTH.md`](../catalog/HEALTH.md) | `scripts/check-submodule-health.py` (`make health-report`) | GitHub API — live stars/license/staleness snapshot |
 
@@ -71,6 +80,7 @@ When you add, remove, or bump a submodule:
 make catalog          # rebuilds skills.json/csv, CATALOG.md, collections/, and the index
 make safety-report    # rebuilds catalog/SAFETY.md
 make quality-report   # rebuilds catalog/QUALITY.md
+make frontmatter-report maturity-report starter-kits
 ```
 
 Then update the README headline counts if `scripts/check-repo.py` asks, and run
@@ -97,6 +107,9 @@ files on disk).
 | `index-check` | `search-index.json`/`collisions.json` current | yes | catalog |
 | `safety-report-check` | `catalog/SAFETY.md` current | yes | catalog |
 | `quality-report-check` | `catalog/QUALITY.md` current | yes | catalog |
+| `frontmatter-report-check` | `catalog/FRONTMATTER.md` current | yes | catalog |
+| `maturity-report-check` | `catalog/MATURITY.md` current | yes | catalog |
+| `starter-kits-check` | `catalog/STARTER-KITS.md` + JSON current | yes | catalog |
 | `count-skills` | bundled `SKILL.md` tally | n/a | catalog |
 
 `pytest` is pinned to `tests/` by [`../pytest.ini`](../pytest.ini); without it a

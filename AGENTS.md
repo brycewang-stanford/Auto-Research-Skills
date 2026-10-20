@@ -26,7 +26,9 @@ observable, and easy to merge.
 - See [`docs/landscape-2026.md`](docs/landscape-2026.md) for the field map that
   explains the `skills/`/`systems/`/`benchmarks/`/`lists/` split and where
   vendored projects sit in the wider ecosystem. New-vendoring decisions are
-  logged under `docs/` (latest: [`docs/vendoring-2026-06-23.md`](docs/vendoring-2026-06-23.md)).
+  logged under `docs/` (latest: [`docs/vendoring-2026-10-20.md`](docs/vendoring-2026-10-20.md)).
+- After any submodule change also run `make starter-kits`; the kits depend on
+  catalog content and safety findings.
 
 ## Validation
 
@@ -52,4 +54,5 @@ Findings are manual-review prompts, not automatic rejection.
 
 - Summarize which files you changed and which checks passed.
 - Mention known warnings separately, especially the current
-  `skills/claude-scholar` nested-gitlink warning.
+  `skills/claude-scholar` and `skills/franklee-academic-research-skills`
+  nested-gitlink warnings (upstream layout, not actionable here).

@@ -30,6 +30,14 @@ via the GitHub API and did a first-pass README/security read. The Tier 1–3
 tables below are as of **2026-05-31**; the "Fresh finds" section is from the
 **2026-06-23** scripted sweep. Stars and dates drift quickly — re-check before a PR.
 
+> **2026-10-20 round.** Nine more skill collections were vendored:
+> `deepmind-science-skills`, `paper-search-mcp`, `ccfa-skills`,
+> `research-writing-skill`, `dailypaper-skills`, `rigorpilot-skills`,
+> `bionemo-agent-toolkit`, `science-superpowers` and `ai4s-skills`. Twelve
+> systems, benchmarks and lists were also added. `GPTomics/bioSkills` (Tier 1
+> below) is now **archived** upstream. Details are in
+> [`../docs/vendoring-2026-10-20.md`](../docs/vendoring-2026-10-20.md).
+
 ---
 
 ## Tier 1 — strong candidates (clear license, active, fills a real gap)

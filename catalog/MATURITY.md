@@ -19,13 +19,13 @@ at zero.
 
 | Signal | Skills with it | Share |
 |---|---:|---:|
-| `references/` | 1,447 | 25% |
-| `scripts/ or code` | 1,035 | 18% |
+| `references/` | 1,558 | 26% |
+| `scripts/ or code` | 1,110 | 18% |
 | `examples/` | 103 | 2% |
-| `tests/` | 73 | 1% |
-| `evals/` | 311 | 5% |
-| `assets/` | 246 | 4% |
-| `templates/` | 112 | 2% |
+| `tests/` | 81 | 1% |
+| `evals/` | 381 | 6% |
+| `assets/` | 255 | 4% |
+| `templates/` | 116 | 2% |
 | `manifest.yaml` | 24 | 0% |
 | `requirements.txt` | 99 | 2% |
 
@@ -33,9 +33,9 @@ at zero.
 
 | Metric | Count |
 |---|---:|
-| Skills inspected | **5,897** |
-| Rich (≥3 signals) | **442** (7%) |
-| Bare (only `SKILL.md`) | 4,038 (68%) |
+| Skills inspected | **6,087** |
+| Rich (≥3 signals) | **460** (8%) |
+| Bare (only `SKILL.md`) | 4,080 (67%) |
 
 ## Deepest collections
 
@@ -56,15 +56,15 @@ than shipping bare prompts. Size is shown but does not drive the rank.
 | `scientific-agent-skills` | 177 | 45 | 25% | 1.9 |
 | `research-units-pipeline` | 108 | 23 | 21% | 1.5 |
 | `codex-academic-skills` | 24 | 5 | 21% | 1.7 |
+| `bionemo-agent-toolkit` | 70 | 14 | 20% | 2.0 |
 | `claude-scholar` | 45 | 8 | 18% | 1.7 |
 | `ai-research-feedback` | 12 | 2 | 17% | 0.5 |
+| `ai4s-skills` | 7 | 1 | 14% | 1.4 |
+| `dailypaper-skills` | 7 | 1 | 14% | 1.0 |
+| `rigorpilot-skills` | 11 | 1 | 9% | 2.0 |
 | `supervisor-skills` | 12 | 1 | 8% | 1.2 |
 | `nature-paper-skills` | 28 | 2 | 7% | 1.2 |
 | `academicforge` | 33 | 2 | 6% | 0.6 |
-| `claude-skills-journalism` | 63 | 3 | 5% | 0.5 |
-| `claude-research` | 87 | 3 | 3% | 0.5 |
-| `franklee-academic-research-skills` | 2,135 | 42 | 2% | 0.2 |
-| `scienceclaw` | 319 | 5 | 2% | 0.3 |
 
 > Reading this: a high **Rich %** with a modest skill count is the
 > profile of a focused, production-grade collection. A large collection

@@ -1,6 +1,6 @@
 # Autonomous-Research Systems — Comparison Matrix (2026)
 
-A decision-useful cross-comparison of the **32 systems** vendored under
+A decision-useful cross-comparison of the **38 systems** vendored under
 [`../systems/`](../systems/), grouped by the five-layer field map in
 [`landscape-2026.md`](landscape-2026.md). It pairs each system's *capability
 shape* (tier, domain, approach) with its *reproduction friction* (license +
@@ -22,7 +22,7 @@ hygiene — *not* a judgment of scientific quality:
 - 🔴 — **no license at all** → all-rights-reserved by default; a legal blocker to
   rerun-and-extend regardless of how good the science is.
 
-Tally across the shelf: **20 🟢 · 7 🟡 · 5 🔴**. The 5 🔴 (`ai-researcher`,
+Tally across the shelf: **26 🟢 · 7 🟡 · 5 🔴** (the six systems added 2026-10-20 are all 🟢). The 5 🔴 (`ai-researcher`,
 `auto-deep-research`, `autosurvey`, `popper`, `sibyl-system`) are the priority
 for upstream license issues.
 
@@ -40,6 +40,10 @@ for upstream license issues.
 | [`systems/autonomous-researcher`](../systems/autonomous-researcher) | 803 | MIT | 7mo | 🟢 | Lightweight single-agent researcher. |
 | [`systems/sibyl-system`](../systems/sibyl-system) | 257 | none | 3mo | 🔴 | Self-evolving, Claude-Code-native. |
 | [`systems/auto-research`](../systems/auto-research) | 1 | MIT | 1mo | 🟢 | Generalist "AI Scientist" with a UI (the UI repo). |
+| [`systems/openresearch`](../systems/openresearch) | 7.4k | MIT | 1d | 🟢 | Harness that turns Claude Code / Codex / Cursor into research agents; one git worktree per run. Opt-out telemetry (`orx telemetry off`). *(added 2026-10-20)* |
+| [`systems/evoscientist`](../systems/evoscientist) | 5.0k | Apache-2.0 | 2d | 🟢 | Self-evolving multi-agent scientists with persistent memory; ships its own `curl \| bash` injection guard. *(added 2026-10-20)* |
+| [`systems/evomap-autoresearch`](../systems/evomap-autoresearch) | 3.2k | Apache-2.0 | 1mo | 🟢 | Idea → paper-ready evidence; ≥3-model idea review, keeps negative results, resumable. *(added 2026-10-20)* |
+| [`systems/ai-scientist-v3`](../systems/ai-scientist-v3) | 408 | Apache-2.0 | 1d | 🟢 | v3 rebuilt as **skills that drive coding agents** through a Dockerized six-phase pipeline (arXiv 2610.18933). Runs agents with full permissions inside containers. *(added 2026-10-20)* |
 
 ## Tier 2 — Deep-research / literature-synthesis engines
 
@@ -78,6 +82,8 @@ for upstream license issues.
 | [`systems/aideml`](../systems/aideml) | 1.3k | MIT | 1mo | 🟢 | ML engineering as code-optimization tree search. |
 | [`systems/curie`](../systems/curie) | 361 | Apache-2.0 | 8mo | 🟢 | Rigorous, reproducible ML experimentation harness. |
 | [`systems/paper2code`](../systems/paper2code) | 4.7k | Apache-2.0 | 3mo | 🟢 | Turns an ML paper into a runnable code repo. |
+| [`systems/deepanalyze`](../systems/deepanalyze) | 4.7k | MIT | 6d | 🟢 | Agentic LLM for autonomous data science → analyst report. *(added 2026-10-20)* |
+| [`systems/arbor`](../systems/arbor) | 1.1k | Apache-2.0 | 1mo | 🟢 | Hypothesis-tree experiment optimizer; README claims 86% any-medal on MLE-Bench Lite (self-reported). *(added 2026-10-20)* |
 
 ## Tier 5 — Research-community simulation
 

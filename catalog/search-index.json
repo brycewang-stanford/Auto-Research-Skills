@@ -2,13 +2,13 @@
   "generated_by": "tools/build_index.py",
   "note": "Compact discovery index consumed by site/. The canonical, complete manifest is catalog/skills.json. Regenerate with `python3 tools/build_index.py`.",
   "totals": {
-    "skill_files": 5897,
-    "unique_skills": 5255,
-    "collections": 41,
+    "skill_files": 6087,
+    "unique_skills": 5410,
+    "collections": 50,
     "templates": 0,
     "no_frontmatter": 4,
-    "rebundled": 642,
-    "name_collisions": 283
+    "rebundled": 677,
+    "name_collisions": 309
   },
   "tags": [
     "automation",
@@ -73,6 +73,12 @@
       "unique_skills": 98
     },
     {
+      "name": "ai4s-skills",
+      "repo_url": "https://github.com/ai4s-research/ai4s-skills",
+      "skill_files": 7,
+      "unique_skills": 7
+    },
+    {
       "name": "aris",
       "repo_url": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep",
       "skill_files": 191,
@@ -89,6 +95,18 @@
       "repo_url": "https://github.com/uditgoenka/autoresearch",
       "skill_files": 5,
       "unique_skills": 3
+    },
+    {
+      "name": "bionemo-agent-toolkit",
+      "repo_url": "https://github.com/NVIDIA-BioNeMo/bionemo-agent-toolkit",
+      "skill_files": 70,
+      "unique_skills": 35
+    },
+    {
+      "name": "ccfa-skills",
+      "repo_url": "https://github.com/mikubaka88/CCFA-Skills",
+      "skill_files": 17,
+      "unique_skills": 17
     },
     {
       "name": "claude-code-my-workflow",
@@ -145,10 +163,22 @@
       "unique_skills": 24
     },
     {
+      "name": "dailypaper-skills",
+      "repo_url": "https://github.com/huangkiki/dailypaper-skills",
+      "skill_files": 7,
+      "unique_skills": 7
+    },
+    {
       "name": "deep-research-skills",
       "repo_url": "https://github.com/Weizhena/Deep-Research-skills",
       "skill_files": 20,
       "unique_skills": 13
+    },
+    {
+      "name": "deepmind-science-skills",
+      "repo_url": "https://github.com/google-deepmind/science-skills",
+      "skill_files": 40,
+      "unique_skills": 40
     },
     {
       "name": "empirical-research-skills",
@@ -211,6 +241,12 @@
       "unique_skills": 3
     },
     {
+      "name": "paper-search-mcp",
+      "repo_url": "https://github.com/openags/paper-search-mcp",
+      "skill_files": 2,
+      "unique_skills": 2
+    },
+    {
       "name": "paper-writing-skills",
       "repo_url": "https://github.com/Master-cai/Research-Paper-Writing-Skills",
       "skill_files": 1,
@@ -245,6 +281,24 @@
       "repo_url": "https://github.com/WILLOSCAR/research-units-pipeline-skills",
       "skill_files": 108,
       "unique_skills": 108
+    },
+    {
+      "name": "research-writing-skill",
+      "repo_url": "https://github.com/Norman-bury/research-writing-skill",
+      "skill_files": 20,
+      "unique_skills": 20
+    },
+    {
+      "name": "rigorpilot-skills",
+      "repo_url": "https://github.com/lllllllama/RigorPilot-Skills",
+      "skill_files": 11,
+      "unique_skills": 11
+    },
+    {
+      "name": "science-superpowers",
+      "repo_url": "https://github.com/K-Dense-AI/science-superpowers",
+      "skill_files": 16,
+      "unique_skills": 16
     },
     {
       "name": "scienceclaw",
@@ -1977,6 +2031,87 @@
       "path": "skills/ai-research-skills/18-multimodal/whisper/SKILL.md",
       "tags": [
         "latex"
+      ]
+    },
+    {
+      "name": "ai4s-agent",
+      "collection": "ai4s-skills",
+      "trigger": "Use when the user wants an end-to-end AI4S research pipeline — broad direction or specific topic in, full research package out (exploration + literature survey + experiment + paper). Meta-skill that…",
+      "license": "",
+      "path": "skills/ai4s-skills/skills/ai4s-agent/SKILL.md",
+      "tags": [
+        "automation",
+        "experiment"
+      ]
+    },
+    {
+      "name": "experiment-suite",
+      "collection": "ai4s-skills",
+      "trigger": "Use when the user has a research question and needs a complete experiment package — design document, runnable code, results (measured or simulated with honest provenance), publication-grade figures,…",
+      "license": "",
+      "path": "skills/ai4s-skills/skills/experiment-suite/SKILL.md",
+      "tags": [
+        "data",
+        "experiment",
+        "ideation",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "integrity-auditor",
+      "collection": "ai4s-skills",
+      "trigger": "Use when the user wants a paper audited for integrity issues — image misuse, numerical anomalies, logical gaps — and needs a reviewable evidence report. Works on external papers (PDF / DOI / arXiv)…",
+      "license": "",
+      "path": "skills/ai4s-skills/skills/integrity-auditor/SKILL.md",
+      "tags": [
+        "paper-search",
+        "reproducibility",
+        "writing"
+      ]
+    },
+    {
+      "name": "literature-survey",
+      "collection": "ai4s-skills",
+      "trigger": "Use when the user wants a comprehensive literature survey on a specific research topic. Outputs a complete PDF survey (6–20 pages, 60+ real citations, 100+ recommended) with LaTeX source,…",
+      "license": "",
+      "path": "skills/ai4s-skills/skills/literature-survey/SKILL.md",
+      "tags": [
+        "citations",
+        "data",
+        "latex"
+      ]
+    },
+    {
+      "name": "mindmap-render",
+      "collection": "ai4s-skills",
+      "trigger": "Generate beautiful, high-resolution mindmaps from Markdown unordered lists. Outputs interactive HTML, HD PNG, and PDF with colorful branch themes.",
+      "license": "",
+      "path": "skills/ai4s-skills/skills/mindmap-render/SKILL.md"
+    },
+    {
+      "name": "paper-writer",
+      "collection": "ai4s-skills",
+      "trigger": "Use when the user wants a complete, publication-grade research paper on a specific topic — produces 200+ real citations, 4–8 publication-grade figures, and 7 sections of substantive prose compiled to…",
+      "license": "",
+      "path": "skills/ai4s-skills/skills/paper-writer/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "citations",
+        "data",
+        "writing"
+      ]
+    },
+    {
+      "name": "research-explorer",
+      "collection": "ai4s-skills",
+      "trigger": "Use when the user has a vague research direction and wants to explore feasible specific topics. Outputs a structured analysis with candidate topics, innovation/feasibility scoring, and a pre-survey…",
+      "license": "",
+      "path": "skills/ai4s-skills/skills/research-explorer/SKILL.md",
+      "tags": [
+        "ideation",
+        "literature-review"
       ]
     },
     {
@@ -4397,6 +4532,972 @@
       ],
       "tags": [
         "automation"
+      ]
+    },
+    {
+      "name": "boltz2-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use Boltz2 NIM for biomolecular structure prediction and binding affinity. Invoke for Boltz2, protein structures, protein-ligand/DNA/RNA complexes, SMILES or CCD ligands, pIC50/IC50 affinity scoring,…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/boltz2-nim/SKILL.md",
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "boltz2-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use Boltz2 NIM for biomolecular structure prediction and binding affinity. Invoke for Boltz2, protein structures, protein-ligand/DNA/RNA complexes, SMILES or CCD ligands, pIC50/IC50 affinity scoring,…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/boltz2-nim/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "codonfm-embed",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Validate coding-sequence CSVs, extract public CodonFM/Encodon embeddings, and choose checkpoints for downstream property modeling.",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/codonfm/codonfm-embed/SKILL.md"
+    },
+    {
+      "name": "codonfm-embed",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Validate coding-sequence CSVs, extract public CodonFM/Encodon embeddings, and choose checkpoints for downstream property modeling.",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/codonfm-embed/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "codonfm-finetune",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Fine-tune public CodonFM Encodon checkpoints on labeled coding-sequence or coding-variant data using LoRA, head-only, or full fine-tuning. Use when a user explicitly asks to fine-tune CodonFM or…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/codonfm/codonfm-finetune/SKILL.md",
+      "tags": [
+        "automation",
+        "data",
+        "statistics"
+      ]
+    },
+    {
+      "name": "codonfm-finetune",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Fine-tune public CodonFM Encodon checkpoints on labeled coding-sequence or coding-variant data using LoRA, head-only, or full fine-tuning. Use when a user explicitly asks to fine-tune CodonFM or…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/codonfm-finetune/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "automation",
+        "data",
+        "statistics"
+      ]
+    },
+    {
+      "name": "codonfm-score",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Validate, prepare, or run public CodonFM Encodon masked-codon variant scoring and review compatibility of its scoring workflows. Use only when the user explicitly requests CodonFM or Encodon, or that…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/codonfm/codonfm-score/SKILL.md",
+      "tags": [
+        "automation",
+        "latex"
+      ]
+    },
+    {
+      "name": "codonfm-score",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Validate, prepare, or run public CodonFM Encodon masked-codon variant scoring and review compatibility of its scoring workflows. Use only when the user explicitly requests CodonFM or Encodon, or that…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/codonfm-score/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "automation",
+        "latex"
+      ]
+    },
+    {
+      "name": "codonfm-setup",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Set up the public CodonFM v1 repository and download public Encodon checkpoints. Use for requests to build or launch the CodonFM development container, configure local data/checkpoint mounts, verify…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/codonfm/codonfm-setup/SKILL.md",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "codonfm-setup",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Set up the public CodonFM v1 repository and download public Encodon checkpoints. Use for requests to build or launch the CodonFM development container, configure local data/checkpoint mounts, verify…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/codonfm-setup/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "complexa-binder-design",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Run a complete protein binder design campaign with NVIDIA Proteina-Complexa: resolve a target structure and hotspots from a name/sequence/PDB, co-design binder sequence+structure with reward-guided…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/complexa-binder-design/SKILL.md",
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "complexa-binder-design",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Run a complete protein binder design campaign with NVIDIA Proteina-Complexa: resolve a target structure and hotspots from a name/sequence/PDB, co-design binder sequence+structure with reward-guided…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/workflows/generative-protein-binder-design/complexa-binder-design/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "complexa-design",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "End-to-end Proteina-Complexa design pipeline driver. Reach for this skill whenever the user wants to \"design a binder\", \"design binders for X\", \"run complexa design\", \"de novo binder\", \"PDL1 binder\",…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/proteina-complexa/complexa-design/SKILL.md",
+      "tags": [
+        "automation",
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "complexa-design",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "End-to-end Proteina-Complexa design pipeline driver. Reach for this skill whenever the user wants to \"design a binder\", \"design binders for X\", \"run complexa design\", \"de novo binder\", \"PDL1 binder\",…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/complexa-design/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "automation",
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "complexa-evaluate-pdbs",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Standalone evaluation of an existing PDB directory with Proteina-Complexa. Use this skill whenever the user wants to \"evaluate PDB files\", \"re-fold these designs\", \"compute interface pAE\", \"compute…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/proteina-complexa/complexa-evaluate-pdbs/SKILL.md",
+      "tags": [
+        "bioinformatics",
+        "data",
+        "experiment"
+      ]
+    },
+    {
+      "name": "complexa-evaluate-pdbs",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Standalone evaluation of an existing PDB directory with Proteina-Complexa. Use this skill whenever the user wants to \"evaluate PDB files\", \"re-fold these designs\", \"compute interface pAE\", \"compute…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/complexa-evaluate-pdbs/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "bioinformatics",
+        "data",
+        "experiment"
+      ]
+    },
+    {
+      "name": "complexa-setup",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "First-time setup, environment configuration, and model-weight installation for Proteina-Complexa. Reach for this skill whenever the user says \"set up complexa\", \"install complexa\", \"configure my…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/proteina-complexa/complexa-setup/SKILL.md",
+      "tags": [
+        "automation",
+        "bioinformatics",
+        "data"
+      ]
+    },
+    {
+      "name": "complexa-setup",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "First-time setup, environment configuration, and model-weight installation for Proteina-Complexa. Reach for this skill whenever the user says \"set up complexa\", \"install complexa\", \"configure my…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/complexa-setup/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "automation",
+        "bioinformatics",
+        "data"
+      ]
+    },
+    {
+      "name": "complexa-sweep",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use this skill whenever the user wants to run a parameter sweep over a Proteina-Complexa design pipeline — cartesian-product hyperparameter scans, Pareto search over generation/reward/evaluation…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/proteina-complexa/complexa-sweep/SKILL.md",
+      "tags": [
+        "automation",
+        "bioinformatics",
+        "experiment"
+      ]
+    },
+    {
+      "name": "complexa-sweep",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use this skill whenever the user wants to run a parameter sweep over a Proteina-Complexa design pipeline — cartesian-product hyperparameter scans, Pareto search over generation/reward/evaluation…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/complexa-sweep/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "automation",
+        "bioinformatics",
+        "experiment"
+      ]
+    },
+    {
+      "name": "complexa-target",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use this skill whenever the user wants to add, register, edit, list, show, or validate a Proteina-Complexa design target for any pipeline — protein binder (default), ligand binder, or AME / enzyme…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/proteina-complexa/complexa-target/SKILL.md",
+      "tags": [
+        "automation",
+        "bioinformatics",
+        "data"
+      ]
+    },
+    {
+      "name": "complexa-target",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use this skill whenever the user wants to add, register, edit, list, show, or validate a Proteina-Complexa design target for any pipeline — protein binder (default), ligand binder, or AME / enzyme…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/complexa-target/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "automation",
+        "bioinformatics",
+        "data"
+      ]
+    },
+    {
+      "name": "cuequivariance",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Build and debug cuEquivariance irreps, custom Irrep subclasses, Clebsch-Gordan tensor products, and equivariant or segmented polynomials. Use for cuequivariance core descriptors and IrDictPolynomial…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/library-skills/cuequivariance/SKILL.md"
+    },
+    {
+      "name": "cuequivariance",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Build and debug cuEquivariance irreps, custom Irrep subclasses, Clebsch-Gordan tensor products, and equivariant or segmented polynomials. Use for cuequivariance core descriptors and IrDictPolynomial…",
+      "license": "",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/cuequivariance/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "diffdock-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Run DiffDock molecular docking via NVIDIA NIM to predict small-molecule binding poses against protein targets. Use for DiffDock, molecular docking, ligand docking, blind docking, SMILES or SDF…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/diffdock-nim/SKILL.md",
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "diffdock-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Run DiffDock molecular docking via NVIDIA NIM to predict small-molecule binding poses against protein targets. Use for DiffDock, molecular docking, ligand docking, blind docking, SMILES or SDF…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/diffdock-nim/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "drug-discovery-pipeline",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "NOTE: molecule and target inputs and your NGC_API_KEY are transmitted to external NVIDIA-hosted API endpoints on every call. Use local NIM containers for confidential or proprietary data. Run a…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/meta-skills/drug-discovery-pipeline/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation",
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "drug-discovery-pipeline",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "NOTE: molecule and target inputs and your NGC_API_KEY are transmitted to external NVIDIA-hosted API endpoints on every call. Use local NIM containers for confidential or proprietary data. Run a…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/drug-discovery-pipeline/SKILL.md",
+      "flags": [
+        "dup",
+        "collision"
+      ],
+      "tags": [
+        "automation",
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "evo2-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Generate and analyze DNA sequences using NVIDIA's Evo 2 BioNeMo NIM microservice. Use for Evo2/Evo 2, DNA generation, genomic sequence generation, hosted generation, local Docker deployment, local…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/evo2-nim/SKILL.md",
+      "tags": [
+        "automation",
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "evo2-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Generate and analyze DNA sequences using NVIDIA's Evo 2 BioNeMo NIM microservice. Use for Evo2/Evo 2, DNA generation, genomic sequence generation, hosted generation, local Docker deployment, local…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/evo2-nim/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "automation",
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "genmol-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Generate novel drug-like molecules using the GenMol NIM microservice. Use for de novo generation, scaffold decoration, motif extension, lead optimization, SAFE notation, QED or LogP ranking, hosted…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/genmol-nim/SKILL.md"
+    },
+    {
+      "name": "genmol-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Generate novel drug-like molecules using the GenMol NIM microservice. Use for de novo generation, scaffold decoration, motif extension, lead optimization, SAFE notation, QED or LogP ranking, hosted…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/genmol-nim/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "genomics-workflow-acceleration",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use when accelerating existing genomics workflows with NVIDIA Parabricks, improving runtime or price/performance, converting pipeline steps to GPUs, or comparing CPU and GPU workflow outputs. Adds…",
+      "license": "CC-BY-4.0 AND Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/library-skills/genomics-workflow-acceleration/SKILL.md",
+      "tags": [
+        "automation",
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "genomics-workflow-acceleration",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use when accelerating existing genomics workflows with NVIDIA Parabricks, improving runtime or price/performance, converting pipeline steps to GPUs, or comparing CPU and GPU workflow outputs. Adds…",
+      "license": "CC-BY-4.0 AND Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/genomics-workflow-acceleration/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "automation",
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "kermt-add-cmim-pretrain",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Convert a grover_base checkpoint (encoder-only or encoder + vocab heads) into a hybrid checkpoint by adding a randomly-initialized cMIM decoder + latent_dist, then continue pretraining on the user's…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/kermt/kermt-add-cmim-pretrain/SKILL.md"
+    },
+    {
+      "name": "kermt-add-cmim-pretrain",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Convert a grover_base checkpoint (encoder-only or encoder + vocab heads) into a hybrid checkpoint by adding a randomly-initialized cMIM decoder + latent_dist, then continue pretraining on the user's…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/kermt-add-cmim-pretrain/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "kermt-continue-pretrain",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Continue pretraining from an existing KERMT checkpoint. The skill validates the user's checkpoint and pretrain CSV, prepares the data into shard/vocab/features form, then launches pretrain_ddp.py…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/kermt/kermt-continue-pretrain/SKILL.md"
+    },
+    {
+      "name": "kermt-continue-pretrain",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Continue pretraining from an existing KERMT checkpoint. The skill validates the user's checkpoint and pretrain CSV, prepares the data into shard/vocab/features form, then launches pretrain_ddp.py…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/kermt-continue-pretrain/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "kermt-embed",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Extract per-molecule embeddings from any encoder-bearing KERMT checkpoint (grover_base / cmim / hybrid / finetuned). Writes one .npy per readout type (atom_from_atom, bond_from_atom, atom_from_bond,…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/kermt/kermt-embed/SKILL.md"
+    },
+    {
+      "name": "kermt-embed",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Extract per-molecule embeddings from any encoder-bearing KERMT checkpoint (grover_base / cmim / hybrid / finetuned). Writes one .npy per readout type (atom_from_atom, bond_from_atom, atom_from_bond,…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/kermt-embed/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "kermt-finetune",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Finetune a pretrained KERMT encoder on a labeled CSV. The skill validates the input checkpoint (must be a pretrain ckpt — grover_base / cmim / hybrid), validates the labeled CSV, prepares the data…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/kermt/kermt-finetune/SKILL.md",
+      "tags": [
+        "experiment"
+      ]
+    },
+    {
+      "name": "kermt-finetune",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Finetune a pretrained KERMT encoder on a labeled CSV. The skill validates the input checkpoint (must be a pretrain ckpt — grover_base / cmim / hybrid), validates the labeled CSV, prepares the data…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/kermt-finetune/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "experiment"
+      ]
+    },
+    {
+      "name": "kermt-infer",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Run predictions with a finetuned KERMT checkpoint on a SMILES-only CSV. The skill validates that the input ckpt has task FFN heads (refuses pretrain ckpts with a redirect to kermt-finetune),…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/kermt/kermt-infer/SKILL.md"
+    },
+    {
+      "name": "kermt-infer",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Run predictions with a finetuned KERMT checkpoint on a SMILES-only CSV. The skill validates that the input ckpt has task FFN heads (refuses pretrain ckpts with a redirect to kermt-finetune),…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/kermt-infer/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "kermt-monitor",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Check progress for a detached KERMT run (pretrain, finetune, or any kermt_run_detached invocation). Reads run.json, queries docker for container state, tails the pretrain/finetune log, and parses…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/kermt/kermt-monitor/SKILL.md"
+    },
+    {
+      "name": "kermt-monitor",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Check progress for a detached KERMT run (pretrain, finetune, or any kermt_run_detached invocation). Reads run.json, queries docker for container state, tails the pretrain/finetune log, and parses…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/kermt-monitor/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "kermt-pretrain-scratch",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Pretrain a fresh KERMT model from scratch on a user-provided corpus. Builds a new vocabulary from the corpus, instantiates the model architecture from defaults, and launches pretrain_ddp.py inside…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/kermt/kermt-pretrain-scratch/SKILL.md"
+    },
+    {
+      "name": "kermt-pretrain-scratch",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Pretrain a fresh KERMT model from scratch on a user-provided corpus. Builds a new vocabulary from the corpus, instantiates the model architecture from defaults, and launches pretrain_ddp.py inside…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/kermt-pretrain-scratch/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "kermt-setup",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Bootstrap the KERMT agent environment — verify host docker + nvidia-container-toolkit, build the kermt:latest image from the repo's Dockerfile if it doesn't yet exist, and run a GPU smoke test inside…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/open-models-skills/kermt/kermt-setup/SKILL.md"
+    },
+    {
+      "name": "kermt-setup",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Bootstrap the KERMT agent environment — verify host docker + nvidia-container-toolkit, build the kermt:latest image from the repo's Dockerfile if it doesn't yet exist, and run a GPU smoke test inside…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/kermt-setup/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "molmim-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use this skill for MolMIM, NVIDIA's BioNeMo NIM microservice for small-molecule latent-space generation and optimization. Invoke for MolMIM, molecular embeddings, hidden states, latent decoding,…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/molmim-nim/SKILL.md"
+    },
+    {
+      "name": "molmim-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use this skill for MolMIM, NVIDIA's BioNeMo NIM microservice for small-molecule latent-space generation and optimization. Invoke for MolMIM, molecular embeddings, hidden states, latent decoding,…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/molmim-nim/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "msa-search-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Generate multiple sequence alignments (MSAs) for protein sequences using the ColabFold MSA-Search NIM. Use for homolog search, UniRef30/ColabFold env searches, A3M or FASTA alignments, paired MSA…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/msa-search-nim/SKILL.md",
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "msa-search-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Generate multiple sequence alignments (MSAs) for protein sequences using the ColabFold MSA-Search NIM. Use for homolog search, UniRef30/ColabFold env searches, A3M or FASTA alignments, paired MSA…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/msa-search-nim/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "msa-structure-prediction-pipeline",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "NOTE: your protein sequence and the retrieved MSA alignment are transmitted to external NVIDIA-hosted APIs (health.api.nvidia.com) on every call. Use local NIM containers for confidential or…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/meta-skills/msa-structure-prediction-pipeline/SKILL.md",
+      "tags": [
+        "automation",
+        "bioinformatics",
+        "latex",
+        "medical"
+      ]
+    },
+    {
+      "name": "msa-structure-prediction-pipeline",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "NOTE: your protein sequence and the retrieved MSA alignment are transmitted to external NVIDIA-hosted APIs (health.api.nvidia.com) on every call. Use local NIM containers for confidential or…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/msa-structure-prediction-pipeline/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "automation",
+        "bioinformatics",
+        "latex",
+        "medical"
+      ]
+    },
+    {
+      "name": "nvmolkit-usage",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use when writing or debugging nvMolKit Python code for GPU-accelerated RDKit fingerprints, similarity, conformers, clustering, and molecular searches.",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/library-skills/nvmolkit-usage/SKILL.md"
+    },
+    {
+      "name": "nvmolkit-usage",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use when writing or debugging nvMolKit Python code for GPU-accelerated RDKit fingerprints, similarity, conformers, clustering, and molecular searches.",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/nvmolkit-usage/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "openfold2-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use this skill for OpenFold2, NVIDIA's BioNeMo NIM microservice for monomer protein structure prediction. Invoke whenever the user mentions OpenFold2, AlphaFold2-like monomer folding, protein…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/openfold2-nim/SKILL.md",
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "openfold2-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use this skill for OpenFold2, NVIDIA's BioNeMo NIM microservice for monomer protein structure prediction. Invoke whenever the user mentions OpenFold2, AlphaFold2-like monomer folding, protein…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/openfold2-nim/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "openfold3-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use this skill for OpenFold3, NVIDIA's BioNeMo NIM microservice for biomolecular structure prediction. Invoke whenever the user mentions OpenFold3 or needs protein, protein-ligand, protein-DNA/RNA,…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/openfold3-nim/SKILL.md",
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "openfold3-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Use this skill for OpenFold3, NVIDIA's BioNeMo NIM microservice for biomolecular structure prediction. Invoke whenever the user mentions OpenFold3 or needs protein, protein-ligand, protein-DNA/RNA,…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/openfold3-nim/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "parabricks",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Plan NVIDIA Parabricks pbrun commands, translate CPU options and check runtime readiness. Use for individual tools, including planning-only questions.",
+      "license": "CC-BY-4.0 AND Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/library-skills/parabricks/SKILL.md"
+    },
+    {
+      "name": "parabricks",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Plan NVIDIA Parabricks pbrun commands, translate CPU options and check runtime readiness. Use for individual tools, including planning-only questions.",
+      "license": "CC-BY-4.0 AND Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/parabricks/SKILL.md",
+      "flags": [
+        "dup"
+      ]
+    },
+    {
+      "name": "protein-binder-design",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Orchestrate an end-to-end de novo protein binder design campaign against a protein target by composing BioNeMo NIM skills. Use for binder design, minibinder design, de novo binders, RFdiffusion +…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/protein-binder-design/SKILL.md",
+      "tags": [
+        "automation",
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "protein-binder-design",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Orchestrate an end-to-end de novo protein binder design campaign against a protein target by composing BioNeMo NIM skills. Use for binder design, minibinder design, de novo binders, RFdiffusion +…",
+      "license": "Apache-2.0",
+      "path": "skills/bionemo-agent-toolkit/workflows/generative-protein-binder-design/protein-binder-design/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "automation",
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "proteinmpnn-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Run ProteinMPNN inverse folding via NVIDIA NIM to design protein sequences for a target backbone. Sends user-provided PDB files and design parameters to NVIDIA's hosted API, authenticated with an…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/proteinmpnn-nim/SKILL.md",
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "proteinmpnn-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Run ProteinMPNN inverse folding via NVIDIA NIM to design protein sequences for a target backbone. Sends user-provided PDB files and design parameters to NVIDIA's hosted API, authenticated with an…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/proteinmpnn-nim/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "rfdiffusion-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Run RFDiffusion protein backbone design via NVIDIA NIM. Use for de novo protein backbones, motif scaffolding, binder design, hotspot residues, contigs syntax, diffusion steps, hosted NVIDIA API…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/nim-skills/rfdiffusion-nim/SKILL.md",
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "rfdiffusion-nim",
+      "collection": "bionemo-agent-toolkit",
+      "trigger": "Run RFDiffusion protein backbone design via NVIDIA NIM. Use for de novo protein backbones, motif scaffolding, binder design, hotspot residues, contigs syntax, diffusion steps, hosted NVIDIA API…",
+      "license": "Apache-2.0 AND CC-BY-4.0",
+      "path": "skills/bionemo-agent-toolkit/skills/bionemo-agent-toolkit/skills/rfdiffusion-nim/SKILL.md",
+      "flags": [
+        "dup"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "ccf-common",
+      "collection": "ccfa-skills",
+      "trigger": "Required shared preflight for every CCFA skill after ccf-humanization: apply routing, scope, prerequisites, evidence rules, handoffs, and artifact contracts. Also maintain and audit these shared…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-common/SKILL.md",
+      "tags": [
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "ccf-experiment-designer",
+      "collection": "ccfa-skills",
+      "trigger": "Design CCF experiment protocols and evidence schemas: datasets, baselines, metrics, ablations, and result-table contents. Use for 设计实验, 消融, benchmark planning, and 结果表证据结构. Preserve real values.…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-experiment-designer/SKILL.md",
+      "tags": [
+        "data",
+        "experiment"
+      ]
+    },
+    {
+      "name": "ccf-humanization",
+      "collection": "ccfa-skills",
+      "trigger": "Required first preflight before every CCFA skill, including research, review, retrieval, experiments, visuals, and maintenance. Keep reasoning and communication direct, remove empty defensive…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-humanization/SKILL.md",
+      "tags": [
+        "experiment"
+      ]
+    },
+    {
+      "name": "ccf-idea-optimizer",
+      "collection": "ccfa-skills",
+      "trigger": "Develop and optimize rough CCF research ideas into problems, insights, mechanisms, and evidence plans. Use for 优化idea, 具象化idea, 找方向, 方向探索, and rescue routes when development is the requested…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-idea-optimizer/SKILL.md",
+      "tags": [
+        "ideation",
+        "peer-review",
+        "writing"
+      ]
+    },
+    {
+      "name": "ccf-idea-reviewer",
+      "collection": "ccfa-skills",
+      "trigger": "Assess research ideas for value, novelty, insight, and mechanism. Use for 思路审核, 靠谱吗, 值得做吗, 创新够不够, idea review, scoring, and ranking; no numeric-score request is needed. Default to concept-only review…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-idea-reviewer/SKILL.md",
+      "tags": [
+        "experiment",
+        "ideation",
+        "peer-review",
+        "writing"
+      ]
+    },
+    {
+      "name": "ccf-integrity-auditor",
+      "collection": "ccfa-skills",
+      "trigger": "Audit existing CCF claims, numbers, terminology, and citations against supplied or verified evidence. Use for 引用核验, claim审计, 数字一致性, and BibTeX/context checks. Full scientific review belongs to…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-integrity-auditor/SKILL.md",
+      "tags": [
+        "citations",
+        "latex",
+        "peer-review",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "ccf-literature-monitor",
+      "collection": "ccfa-skills",
+      "trigger": "Scan recent arXiv/OpenReview papers, venue feeds, labs, and competitors for overlap. Use for 竞品监控, 新论文追踪, 论文跟踪, and recurring novelty watch. Give dated evidence and changes since the prior scan.…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-literature-monitor/SKILL.md",
+      "tags": [
+        "ideation",
+        "literature-review",
+        "paper-search"
+      ]
+    },
+    {
+      "name": "ccf-literature-searcher",
+      "collection": "ccfa-skills",
+      "trigger": "Find and verify external literature, prior art, datasets, benchmarks, and citation candidates. Use for 文献检索, 相关工作, benchmark搜索, and research opportunity maps. Recurring recent-paper watch belongs to…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-literature-searcher/SKILL.md",
+      "tags": [
+        "citations",
+        "data",
+        "experiment",
+        "reproducibility",
+        "writing"
+      ]
+    },
+    {
+      "name": "ccf-paper-reviewer",
+      "collection": "ccfa-skills",
+      "trigger": "Review manuscript claims, evidence, and writing without rewriting. Use for 文章审核, 审稿, 稿件有什么硬伤, 结论站得住吗, 投稿成熟度, writing review, and version comparison. Return a structured scientific or writing review;…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-paper-reviewer/SKILL.md",
+      "tags": [
+        "peer-review",
+        "writing"
+      ]
+    },
+    {
+      "name": "ccf-paper-to-exemplar",
+      "collection": "ccfa-skills",
+      "trigger": "Distill supplied paper PDFs into writing exemplar cards and register a requested personal library. Use for PDF to writing exemplar, 写作范例, and reusable paper-writing patterns. Preserve attribution;…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-paper-to-exemplar/SKILL.md",
+      "tags": [
+        "data",
+        "grants",
+        "writing"
+      ]
+    },
+    {
+      "name": "ccf-paper-writer",
+      "collection": "ccfa-skills",
+      "trigger": "Draft, revise, polish, compress, or presentation-adapt CCF manuscript prose. Use for 写作, 润色论文, research documents to complete papers, 完整初稿, 实验留空, 改写, 压缩论文, abstracts, sections, and slides. Draft…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-paper-writer/SKILL.md",
+      "tags": [
+        "peer-review",
+        "presentation",
+        "writing"
+      ]
+    },
+    {
+      "name": "ccf-pipeline-orchestrator",
+      "collection": "ccfa-skills",
+      "trigger": "Plan or coordinate CCF research stages, goals, gates, artifacts, and ccfa.yaml state. Use for 任务拆解, 流程规划, project status, and explicitly requested end-to-end coordination. Specialist skills own…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-pipeline-orchestrator/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "ccf-project-scaffolder",
+      "collection": "ccfa-skills",
+      "trigger": "Initialize CCF project folders, LaTeX templates, artifact directories, and ccfa.yaml. Use for 项目初始化, 目录搭建, template setup, and reproducible workspace scaffolding. Preserve existing files. Workflow…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-project-scaffolder/SKILL.md",
+      "tags": [
+        "automation",
+        "latex",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "ccf-rebuttal-writer",
+      "collection": "ccfa-skills",
+      "trigger": "Write CCF rebuttals, author responses, revision ledgers, response letters, and conservative resubmission plans. Use for 审稿意见回复, rebuttal, revision ledger, and 重投迁移. Ground promises in feasible…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-rebuttal-writer/SKILL.md",
+      "tags": [
+        "peer-review",
+        "writing"
+      ]
+    },
+    {
+      "name": "ccf-skill-forger",
+      "collection": "ccfa-skills",
+      "trigger": "Maintain and audit Codex/CCFA skills, triggers, references, scripts, docs/SVG diagrams, installation dependencies, and release validation. Use for skill维护, GPT model adaptation, and family routing…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-skill-forger/SKILL.md",
+      "tags": [
+        "citations",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "ccf-submission-checker",
+      "collection": "ccfa-skills",
+      "trigger": "Check CCF venue rules and submission packages: template, pages, anonymity, PDF build, metadata, and reproducibility. Use for 投稿检查, 会议格式, page limits, and artifact readiness. Verify current official…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-submission-checker/SKILL.md",
+      "tags": [
+        "reproducibility",
+        "writing"
+      ]
+    },
+    {
+      "name": "ccf-visual-composer",
+      "collection": "ccfa-skills",
+      "trigger": "Render and redesign scientific figures, visual tables, and method/architecture diagrams from supplied content, including biological data. Use for 绘图美化, 排版, 配色, GPT Image 2 generation, pure SVG, and…",
+      "license": "",
+      "path": "skills/ccfa-skills/ccf-visual-composer/SKILL.md",
+      "tags": [
+        "data",
+        "experiment",
+        "writing"
       ]
     },
     {
@@ -8846,6 +9947,69 @@
       ]
     },
     {
+      "name": "daily-papers",
+      "collection": "dailypaper-skills",
+      "trigger": "Recommend today’s papers or papers from the past N days/week; run discovery, review, and priority-paper notes. English triggers: \"recommend papers\", \"daily papers\", \"papers from the past week\".…",
+      "license": "",
+      "path": "skills/dailypaper-skills/skills/daily-papers/SKILL.md"
+    },
+    {
+      "name": "daily-papers-fetch",
+      "collection": "dailypaper-skills",
+      "trigger": "Fetch, rank, and enrich recent arXiv and Hugging Face papers. English triggers: \"fetch papers\", \"fetch papers from the last three days\". This is pipeline stage 1. 论文抓取（3 步流水线的第 1 步）。抓取 arXiv +…",
+      "license": "",
+      "path": "skills/dailypaper-skills/skills/daily-papers-fetch/SKILL.md",
+      "tags": [
+        "automation",
+        "paper-search"
+      ]
+    },
+    {
+      "name": "daily-papers-notes",
+      "collection": "dailypaper-skills",
+      "trigger": "Generate full notes for must-read recommendations, maintain concepts, and backfill links. English triggers: \"generate paper notes\", \"batch paper notes\". This is pipeline stage 3. 论文笔记生成（3 步流水线的第 3…",
+      "license": "",
+      "path": "skills/dailypaper-skills/skills/daily-papers-notes/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "daily-papers-review",
+      "collection": "dailypaper-skills",
+      "trigger": "Review fetched papers and write evidence-based recommendations with reading priorities. English triggers: \"review fetched papers\", \"generate paper recommendations\". This is pipeline stage 2. 论文点评（3…",
+      "license": "",
+      "path": "skills/dailypaper-skills/skills/daily-papers-review/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "generate-mocs",
+      "collection": "dailypaper-skills",
+      "trigger": "Refresh paper and concept indexes (maps of content). English triggers: \"refresh indexes\", \"update paper and concept indexes\", \"refresh MOCs\". 重新生成 Obsidian 里的目录页 / 导航页（MOC）。…",
+      "license": "",
+      "path": "skills/dailypaper-skills/skills/generate-mocs/SKILL.md"
+    },
+    {
+      "name": "github-trending",
+      "collection": "dailypaper-skills",
+      "trigger": "Discover trending GitHub repositories and research-related project updates. English triggers: \"weekly GitHub trending\", \"daily GitHub trending\", \"monthly GitHub trending\". 抓取 GitHub 上 star…",
+      "license": "",
+      "path": "skills/dailypaper-skills/skills/github-trending/SKILL.md"
+    },
+    {
+      "name": "paper-reader",
+      "collection": "dailypaper-skills",
+      "trigger": "Use when user asks to \"read paper\", \"analyze paper\", \"summarize paper\", \"读论文\", \"分析文献\", \"帮我看一下这篇paper\", \"论文笔记\", or provides a PDF file that appears to be an academic paper. Specialized for CV/DL…",
+      "license": "",
+      "path": "skills/dailypaper-skills/skills/paper-reader/SKILL.md",
+      "tags": [
+        "citations",
+        "writing"
+      ]
+    },
+    {
       "name": "research",
       "collection": "deep-research-skills",
       "trigger": "Conduct preliminary research on a topic and generate research outline. For academic research, benchmark research, technology selection, etc.",
@@ -9017,6 +10181,515 @@
       "trigger": "将deep调研结果汇总为markdown报告，覆盖所有字段，跳过不确定值。",
       "license": "",
       "path": "skills/deep-research-skills/skills/research-zh/research-report/SKILL.md"
+    },
+    {
+      "name": "alphafold-database-fetch-and-analyze",
+      "collection": "deepmind-science-skills",
+      "trigger": "Retrieve and analyze AlphaFold predicted structures for a protein. Use when the user provides a specific UniProt Accession ID and wants structural confidence metrics (pLDDT), domain boundary…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/alphafold_database_fetch_and_analyze/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "alphagenome-atlas-website-links",
+      "collection": "deepmind-science-skills",
+      "trigger": "Constructs deep-links and URLs for the AlphaGenome Atlas website. Supports generating single-variant exploration links (1-based chr:pos:ref>alt), genomic locus views (1-based closed chr:start-end),…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/alphagenome_atlas_website_links/SKILL.md",
+      "tags": [
+        "bioinformatics",
+        "citations",
+        "data"
+      ]
+    },
+    {
+      "name": "alphagenome-single-variant-analysis",
+      "collection": "deepmind-science-skills",
+      "trigger": "Analyzes genetic variant effects on gene expression (RNA-seq), chromatin accessibility (DNASE), histone marks (ChIP), and transcription factors using the AlphaGenome API. Use when the user asks about…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/alphagenome_single_variant_analysis/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics",
+        "medical"
+      ]
+    },
+    {
+      "name": "alphagenome-variant-impact-score",
+      "collection": "deepmind-science-skills",
+      "trigger": "Score, annotate, and analyze the functional impact of genetic variants using AlphaGenome Variant Impact (AVI) scores. Query variants in chr:pos:ref>alt format, annotate VCF/tabular callsets, perform…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/alphagenome_variant_impact_score/SKILL.md"
+    },
+    {
+      "name": "chembl-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query the ChEMBL database for bioactive molecules, drug targets, bioactivity data, approved drugs, and chemical structures. Use when the user asks about compounds, targets, IC50/Ki values, drug…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/chembl_database/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "clinical-trials-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query ClinicalTrials.gov via APIv2. Use when you want to search for trials by condition, drug, location, status, or phase; retrieve trial details by NCT ID; check eligibility/inclusion criteria;…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/clinical_trials_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "medical"
+      ]
+    },
+    {
+      "name": "clinvar-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Use when needing clinical significance, pathogenicity classifications (e.g., Pathogenic, Benign, VUS), clinical evidence rationales, or finding \"hard positive\" benchmark controls for human genomic…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/clinvar_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics",
+        "experiment",
+        "medical"
+      ]
+    },
+    {
+      "name": "credentials",
+      "collection": "deepmind-science-skills",
+      "trigger": "Instructions for handling API keys and credentials safely, verifying their presence, and prompting the user to add them if missing using a safe protocol.",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/credentials/SKILL.md"
+    },
+    {
+      "name": "dbsnp-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Use when you want to look up, map, and search for short genetic variants (SNPs, indels) in NCBI's dbSNP database. Resolves between rsIDs, genomic coordinates in VCF format, and HGVS strings. For an…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/dbsnp_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics",
+        "medical"
+      ]
+    },
+    {
+      "name": "embl-ebi-ols",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query and search the EMBL-EBI Ontology Lookup Service (OLS) for biomedical ontology terms, definitions, and hierarchies across 250+ ontologies (e.g., GO, DOID, HP). Use when the user asks to search…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/embl_ebi_ols/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "medical",
+        "statistics"
+      ]
+    },
+    {
+      "name": "encode-ccres-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query the ENCODE Registry of cis-Regulatory Elements (cCREs) via the SCREEN GraphQL API, or make custom queries to the ENCODE Portal REST API for experiments and files (ChIP-seq peaks, etc.). Use…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/encode_ccres_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "experiment"
+      ]
+    },
+    {
+      "name": "ensembl-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query the Ensembl database to resolve gene, transcript, and protein IDs, fetch genomic or protein sequences, retrieve gene structures (exons), and get variant consequence and effect predictions…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/ensembl_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "foldseek-structural-search",
+      "collection": "deepmind-science-skills",
+      "trigger": "Performs 3D structural searches of proteins against various databases (PDB, AlphaFold, CATH, MGnify, etc.) using the Foldseek API. Use ONLY when the user provides a physical 3D coordinate file (.cif,…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/foldseek_structural_search/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "gnomad-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query the Genome Aggregation Database (gnomAD). Use when determining the rarity or allele frequency of specific genetic variants, retrieving gene constraint metrics (pLI, LOEUF) to assess…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/gnomad_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics",
+        "medical"
+      ]
+    },
+    {
+      "name": "gtex-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Use when you want to retrieve quantitative RNA expression data and variant eQTL information from the GTEx (Genotype-Tissue Expression) Project across 54 non-diseased tissue sites.",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/gtex_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "latex",
+        "medical"
+      ]
+    },
+    {
+      "name": "human-protein-atlas-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Use when you want to retrieve semi-quantitative protein expression and spatial localisation data from the Human Protein Atlas (HPA).",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/human_protein_atlas_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "interpro-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Identify domains, families, and sites in proteins; find all proteins in a family or sharing a domain; explore species distribution for a domain; annotate genomes with protein families and GO terms.…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/interpro_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "jaspar-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query the JASPAR database for Transcription Factor (TF) binding profiles. Use when retrieving Position Frequency Matrices (PFMs) or Position Weight Matrices (PWMs) for specific TFs, resolving gene…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/jaspar_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "grants"
+      ]
+    },
+    {
+      "name": "literature-search-arxiv",
+      "collection": "deepmind-science-skills",
+      "trigger": "Search for scientific papers, preprints, and publications on arXiv. Extract metadata, abstracts, and download full-text PDFs or HTML versions of papers. Use when the user asks to find research…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/literature_search_arxiv/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "latex",
+        "paper-search",
+        "writing"
+      ]
+    },
+    {
+      "name": "literature-search-biorxiv",
+      "collection": "deepmind-science-skills",
+      "trigger": "Browse, filter, and download life sciences, biology, and medical preprints from bioRxiv and medRxiv. Supports fetching paper metadata by DOI, and browsing by date range with category and keyword…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/literature_search_biorxiv/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "medical"
+      ]
+    },
+    {
+      "name": "literature-search-europepmc",
+      "collection": "deepmind-science-skills",
+      "trigger": "Search Europe PMC for scientific literature and download open-access full texts and PDFs. Retrieve full-text XML/plain text by PMCID, get citation lists and bibliography.",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/literature_search_europepmc/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "citations",
+        "latex"
+      ]
+    },
+    {
+      "name": "literature-search-openalex",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query the OpenAlex scholarly database for research papers, authors, institutions, topics, sources, publishers, funders, geo-locations, and keywords. Use when searching academic papers, resolving…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/literature_search_openalex/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "citations",
+        "paper-search",
+        "writing"
+      ]
+    },
+    {
+      "name": "ncbi-sequence-fetch",
+      "collection": "deepmind-science-skills",
+      "trigger": "Retrieve protein and nucleotide sequences from NCBI databases using E-utilities. Supports direct accession lookup, CDS translation, gene+organism search, locus lookup, PubMed-linked sequences, patent…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/ncbi_sequence_fetch/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics",
+        "paper-search"
+      ]
+    },
+    {
+      "name": "openfda-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query, search, and download data from the openFDA API for drugs, devices, foods, tobacco, cosmetics, animal and veterinary products, substances, and transparency data. Use for FDA adverse events,…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/openfda_database/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "opentargets-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query Open Targets Platform for target-disease associations, drug target discovery, tractability/safety data, genetics/omics evidence, known drugs, for therapeutic target identification.",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/opentargets_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "medical"
+      ]
+    },
+    {
+      "name": "pdb-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Use when you want to search for or download experimentally-determined 3D structures for biomolecules (proteins, nucleic acids, bound ligands). Supports searching by sequence similarity, structure…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/pdb_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics",
+        "experiment"
+      ]
+    },
+    {
+      "name": "predictingthepast",
+      "collection": "deepmind-science-skills",
+      "trigger": "Ancient text restoration, attribution, dating, contextualization, and embedding via Aeneas (Latin) / Ithaca (Ancient Greek). Use when asked to \"restore\", \"attribute\", \"date\", \"contextualize\", \"find…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/predictingthepast/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "protein-sequence-msa",
+      "collection": "deepmind-science-skills",
+      "trigger": "Performs multiple sequence alignment of proteins with EBI Clustal Omega. Use when you need to align multiple sequences to assess similarity, domain conservation, or key residue conservation. Supports…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/protein_sequence_msa/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "protein-sequence-similarity-search",
+      "collection": "deepmind-science-skills",
+      "trigger": "Searches for homologous protein sequences using MMseqs2 (fast, default) or BLAST (comprehensive, fallback). Trigger this whenever the user provides a protein sequence or FASTA file and asks to find…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/protein_sequence_similarity_search/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "pubchem-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query PubChem, search by name/CID/SMILES, retrieve properties, similarity/substructure searches, bioactivity, for cheminformatics. Use when a user asks about a specific chemical, drug, or molecule.",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/pubchem_database/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "pubmed-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Search PubMed for scientific literature, including published clinical trials. Fetch abstracts and full text. Link published research to biological databases (gene, protein, nucleotide, PubChem) to…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/pubmed_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics",
+        "citations",
+        "latex",
+        "medical",
+        "paper-search",
+        "writing"
+      ]
+    },
+    {
+      "name": "pymol",
+      "collection": "deepmind-science-skills",
+      "trigger": "Visualize, analyze, and render protein and molecular structures using PyMOL. Use when the user wants to create images of protein structures, perform structural alignments or superposition, measure…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/pymol/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "quickgo-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query the QuickGO and Evidence & Conclusion Ontology (ECO) REST API. Use this when you need to map genes to biological processes, molecular functions, or cellular components, find genes associated…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/quickgo_database/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "reactome-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query the Reactome database (Analysis and Content Services). Use when the user asks about pathway analysis, gene list enrichment, retrieving results by token, finding unmapped or not-found…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/reactome_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "citations"
+      ]
+    },
+    {
+      "name": "string-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Query the STRING database for protein-protein interactions (PPIs), functional enrichment, and homology. Use when the user asks about interactions between specific proteins, interaction evidence,…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/string_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "ucsc-conservation-and-tfbs",
+      "collection": "deepmind-science-skills",
+      "trigger": "Fetch Evolutionary Conservation scores (phyloP, phastCons) and Transcription Factor Binding Sites (TFBS) from the UCSC Genome Browser. Use when analyzing whether genomic variants or regions are…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/ucsc_conservation_and_tfbs/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "unibind-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Queries the UniBind database for experimentally validated transcription factor (TF) binding sites. Use when retrieving direct TF-DNA interaction datasets, downloading binding site coordinates…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/unibind_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "data",
+        "experiment"
+      ]
+    },
+    {
+      "name": "uniprot-database",
+      "collection": "deepmind-science-skills",
+      "trigger": "Access protein metadata, function, taxonomy, and sequences across UniProtKB, UniParc, and UniRef. Use when searching for proteins, mapping identifiers, or retrieving functional annotations and…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/uniprot_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "bioinformatics"
+      ]
+    },
+    {
+      "name": "uv",
+      "collection": "deepmind-science-skills",
+      "trigger": "Checks whether the uv Python package manager is installed and installs it if missing. Ensures uv is on PATH. Use when another skill requires uv as a prerequisite.",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/uv/SKILL.md",
+      "flags": [
+        "collision"
+      ]
+    },
+    {
+      "name": "workflow-skill-creator",
+      "collection": "deepmind-science-skills",
+      "trigger": "Distills a completed user workflow or interaction into a reusable agent skill. Use when the user asks to turn their workflow, interaction, or multi-step process into a skill, or when they say \"make…",
+      "license": "",
+      "path": "skills/deepmind-science-skills/skills/workflow_skill_creator/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "automation"
+      ]
     },
     {
       "name": "a1",
@@ -23869,6 +25542,9 @@
       "trigger": "Retrieve and analyze AlphaFold predicted structures for a protein. Use when the user provides a specific UniProt Accession ID and wants structural confidence metrics (pLDDT), domain boundary…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/alphafold_database_fetch_and_analyze/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "bioinformatics"
       ]
@@ -23879,6 +25555,9 @@
       "trigger": "Analyzes genetic variant effects on gene expression (RNA-seq), chromatin accessibility (DNASE), histone marks (ChIP), and transcription factors using the AlphaGenome API. Use when the user asks about…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/alphagenome_single_variant_analysis/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "bioinformatics",
         "medical"
@@ -26429,6 +28108,9 @@
       "trigger": "Query ClinicalTrials.gov via APIv2. Use when you want to search for trials by condition, drug, location, status, or phase; retrieve trial details by NCT ID; check eligibility/inclusion criteria;…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/clinical_trials_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "medical"
       ]
@@ -27409,6 +29091,9 @@
       "trigger": "Use when you want to look up, map, and search for short genetic variants (SNPs, indels) in NCBI's dbSNP database. Resolves between rsIDs, genomic coordinates in VCF format, and HGVS strings. For an…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/dbsnp_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "bioinformatics",
         "medical"
@@ -28286,6 +29971,9 @@
       "trigger": "Query and search the EMBL-EBI Ontology Lookup Service (OLS) for biomedical ontology terms, definitions, and hierarchies across 250+ ontologies (e.g., GO, DOID, HP). Use when the user asks to search…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/embl_ebi_ols/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "medical",
         "statistics"
@@ -28320,6 +30008,9 @@
       "trigger": "Query the ENCODE Registry of cis-Regulatory Elements (cCREs) via the SCREEN GraphQL API, or make custom queries to the ENCODE Portal REST API for experiments and files (ChIP-seq peaks, etc.). Use…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/encode_ccres_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "experiment"
       ]
@@ -29082,6 +30773,9 @@
       "trigger": "Performs 3D structural searches of proteins against various databases (PDB, AlphaFold, CATH, MGnify, etc.) using the Foldseek API. Use ONLY when the user provides a physical 3D coordinate file (.cif,…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/foldseek_structural_search/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "bioinformatics"
       ]
@@ -29672,6 +31366,9 @@
       "trigger": "Use when you want to retrieve quantitative RNA expression data and variant eQTL information from the GTEx (Genotype-Tissue Expression) Project across 54 non-diseased tissue sites.",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/gtex_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "latex",
         "medical"
@@ -29703,6 +31400,9 @@
       "trigger": "Use when you want to retrieve semi-quantitative protein expression and spatial localisation data from the Human Protein Atlas (HPA).",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/human_protein_atlas_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "bioinformatics"
       ]
@@ -30883,6 +32583,9 @@
       "trigger": "Identify domains, families, and sites in proteins; find all proteins in a family or sharing a domain; explore species distribution for a domain; annotate genomes with protein families and GO terms.…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/interpro_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "bioinformatics"
       ]
@@ -32022,6 +33725,9 @@
       "trigger": "Query the JASPAR database for Transcription Factor (TF) binding profiles. Use when retrieving Position Frequency Matrices (PFMs) or Position Weight Matrices (PWMs) for specific TFs, resolving gene…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/jaspar_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "grants"
       ]
@@ -37185,6 +38891,9 @@
       "trigger": "Search for scientific papers, preprints, and publications on arXiv. Extract metadata, abstracts, and download full-text PDFs or HTML versions of papers. Use when the user asks to find research…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/literature_search_arxiv/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "latex",
         "paper-search",
@@ -37197,6 +38906,9 @@
       "trigger": "Browse, filter, and download life sciences, biology, and medical preprints from bioRxiv and medRxiv. Supports fetching paper metadata by DOI, and browsing by date range with category and keyword…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/literature_search_biorxiv/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "medical"
       ]
@@ -37207,6 +38919,9 @@
       "trigger": "Search Europe PMC for scientific literature and download open-access full texts and PDFs. Retrieve full-text XML/plain text by PMCID, get citation lists and bibliography.",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/literature_search_europepmc/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "citations",
         "latex"
@@ -37218,6 +38933,9 @@
       "trigger": "Query the OpenAlex scholarly database for research papers, authors, institutions, topics, sources, publishers, funders, geo-locations, and keywords. Use when searching academic papers, resolving…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/literature_search_openalex/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "citations",
         "paper-search",
@@ -39043,6 +40761,9 @@
       "trigger": "Retrieve protein and nucleotide sequences from NCBI databases using E-utilities. Supports direct accession lookup, CDS translation, gene+organism search, locus lookup, PubMed-linked sequences, patent…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/ncbi_sequence_fetch/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "bioinformatics",
         "paper-search"
@@ -39447,7 +41168,10 @@
       "collection": "franklee-academic-research-skills",
       "trigger": "Query, search, and download data from the openFDA API for drugs, devices, foods, tobacco, cosmetics, animal and veterinary products, substances, and transparency data. Use for FDA adverse events,…",
       "license": "",
-      "path": "skills/franklee-academic-research-skills/science-skills/openfda_database/SKILL.md"
+      "path": "skills/franklee-academic-research-skills/science-skills/openfda_database/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "opentargets-database",
@@ -41187,6 +42911,9 @@
       "trigger": "Performs multiple sequence alignment of proteins with EBI Clustal Omega. Use when you need to align multiple sequences to assess similarity, domain conservation, or key residue conservation. Supports…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/protein_sequence_msa/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "bioinformatics"
       ]
@@ -41197,6 +42924,9 @@
       "trigger": "Searches for homologous protein sequences using MMseqs2 (fast, default) or BLAST (comprehensive, fallback). Trigger this whenever the user provides a protein sequence or FASTA file and asks to find…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/protein_sequence_similarity_search/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "bioinformatics"
       ]
@@ -41552,6 +43282,9 @@
       "trigger": "Visualize, analyze, and render protein and molecular structures using PyMOL. Use when the user wants to create images of protein structures, perform structural alignments or superposition, measure…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/pymol/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "bioinformatics"
       ]
@@ -41882,7 +43615,10 @@
       "collection": "franklee-academic-research-skills",
       "trigger": "Query the QuickGO and Evidence & Conclusion Ontology (ECO) REST API. Use this when you need to map genes to biological processes, molecular functions, or cellular components, find genes associated…",
       "license": "",
-      "path": "skills/franklee-academic-research-skills/science-skills/quickgo_database/SKILL.md"
+      "path": "skills/franklee-academic-research-skills/science-skills/quickgo_database/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "r-analyst",
@@ -44782,6 +46518,9 @@
       "trigger": "Fetch Evolutionary Conservation scores (phyloP, phastCons) and Transcription Factor Binding Sites (TFBS) from the UCSC Genome Browser. Use when analyzing whether genomic variants or regions are…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/ucsc_conservation_and_tfbs/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "bioinformatics"
       ]
@@ -44804,6 +46543,9 @@
       "trigger": "Queries the UniBind database for experimentally validated transcription factor (TF) binding sites. Use when retrieving direct TF-DNA interaction datasets, downloading binding site coordinates…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/unibind_database/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "data",
         "experiment"
@@ -44899,7 +46641,10 @@
       "collection": "franklee-academic-research-skills",
       "trigger": "Checks whether the uv Python package manager is installed and installs it if missing. Ensures uv is on PATH. Use when another skill requires uv as a prerequisite.",
       "license": "",
-      "path": "skills/franklee-academic-research-skills/science-skills/uv/SKILL.md"
+      "path": "skills/franklee-academic-research-skills/science-skills/uv/SKILL.md",
+      "flags": [
+        "collision"
+      ]
     },
     {
       "name": "vaex",
@@ -44951,6 +46696,9 @@
       "trigger": "Distills a completed user workflow or interaction into a reusable agent skill. Use when the user asks to turn their workflow, interaction, or multi-step process into a skill, or when they say \"make…",
       "license": "",
       "path": "skills/franklee-academic-research-skills/science-skills/workflow_skill_creator/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "automation"
       ]
@@ -52931,6 +54679,30 @@
       "path": "skills/openclaw-search-skills/search-layer/SKILL.md"
     },
     {
+      "name": "paper-search",
+      "collection": "paper-search-mcp",
+      "trigger": "Search, download, and read academic papers from 20+ sources (arXiv, PubMed, Semantic Scholar, CrossRef, etc). Use when the user asks to find papers, search for research, look up academic literature,…",
+      "license": "",
+      "path": "skills/paper-search-mcp/claude-code/SKILL.md",
+      "tags": [
+        "latex",
+        "paper-search",
+        "writing"
+      ]
+    },
+    {
+      "name": "paper-search",
+      "collection": "paper-search-mcp",
+      "trigger": "Search, download, and read academic papers through the paper-search MCP tools (mcp__paper-search__*), covering arXiv, PubMed, bioRxiv, Semantic Scholar, Crossref, OpenAlex and 15+ other sources. Use…",
+      "license": "",
+      "path": "skills/paper-search-mcp/dsh/skills/paper-search/SKILL.md",
+      "tags": [
+        "latex",
+        "paper-search",
+        "writing"
+      ]
+    },
+    {
       "name": "research-paper-writing",
       "collection": "paper-writing-skills",
       "trigger": "Improve academic paper writing quality for ML/CV/NLP-style papers with clear section structure, paragraph flow, and reviewer-facing presentation. Use when drafting or revising Abstract, Introduction,…",
@@ -59881,6 +61653,501 @@
       "path": "skills/research-units-pipeline/.codex/skills/writer-selfloop/SKILL.md"
     },
     {
+      "name": "brainstorming-research",
+      "collection": "research-writing-skill",
+      "trigger": "Use before writing any paper - clarifies paper type, discipline, topic, methodology, and chapter structure through natural dialogue",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/brainstorming-research/SKILL.md",
+      "tags": [
+        "ideation"
+      ]
+    },
+    {
+      "name": "environment-setup",
+      "collection": "research-writing-skill",
+      "trigger": "Use when Python environment setup is needed for data visualization or conda installation is required",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/environment-setup/SKILL.md",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "evidence-driven-writing",
+      "collection": "research-writing-skill",
+      "trigger": "Use when writing or revising Introduction, Related Work, background, literature synthesis, or any section where references must drive claims",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/evidence-driven-writing/SKILL.md",
+      "tags": [
+        "citations",
+        "literature-review"
+      ]
+    },
+    {
+      "name": "experiment-results-planning",
+      "collection": "research-writing-skill",
+      "trigger": "Use when designing experiments, result tables, mock planning data, evaluation protocols, or results sections before real data are final",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/experiment-results-planning/SKILL.md",
+      "tags": [
+        "data",
+        "experiment"
+      ]
+    },
+    {
+      "name": "figures-diagram",
+      "collection": "research-writing-skill",
+      "trigger": "Use when creating flowcharts, architecture diagrams, or conceptual diagrams - generates prompts for image AI",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/figures-diagram/SKILL.md",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "figures-python",
+      "collection": "research-writing-skill",
+      "trigger": "Use when creating data visualizations for papers - generates publication-quality plots with top-journal color schemes",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/figures-python/SKILL.md",
+      "tags": [
+        "data"
+      ]
+    },
+    {
+      "name": "latex-output",
+      "collection": "research-writing-skill",
+      "trigger": "Use when user requests LaTeX format output or has provided school/journal LaTeX templates",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/latex-output/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "literature-review",
+      "collection": "research-writing-skill",
+      "trigger": "Use when writing literature review sections - guides searching, organizing, and synthesizing academic sources",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/literature-review/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "literature-review"
+      ]
+    },
+    {
+      "name": "paper-orchestration",
+      "collection": "research-writing-skill",
+      "trigger": "Use when a research-writing task spans multiple sections, medium-sized revisions, full-paper drafting, or repeated quality failures",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/paper-orchestration/SKILL.md",
+      "tags": [
+        "automation",
+        "writing"
+      ]
+    },
+    {
+      "name": "peer-review",
+      "collection": "research-writing-skill",
+      "trigger": "Use before submission or when reviewing papers - provides evaluation checklists, bias detection, and self-review templates",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/peer-review/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "experiment",
+        "peer-review"
+      ]
+    },
+    {
+      "name": "prompts-collection",
+      "collection": "research-writing-skill",
+      "trigger": "Use for translation, polishing, or de-AI-ification of academic text - provides ready-to-use prompt templates",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/prompts-collection/SKILL.md",
+      "tags": [
+        "latex"
+      ]
+    },
+    {
+      "name": "research-writing-assistant",
+      "collection": "research-writing-skill",
+      "trigger": "Use when writing academic papers, theses, or research articles - supports brainstorming, chapter writing, literature review, and LaTeX output",
+      "license": "",
+      "path": "skills/research-writing-skill/SKILL.md",
+      "tags": [
+        "ideation",
+        "latex",
+        "literature-review",
+        "writing"
+      ]
+    },
+    {
+      "name": "statistical-analysis",
+      "collection": "research-writing-skill",
+      "trigger": "Use when planning or reporting statistical analysis - provides test selection, execution code, and APA format guidelines",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/statistical-analysis/SKILL.md",
+      "flags": [
+        "collision"
+      ],
+      "tags": [
+        "statistics"
+      ]
+    },
+    {
+      "name": "using-research-writing",
+      "collection": "research-writing-skill",
+      "trigger": "Use when starting any research writing task - establishes workflow and routes to appropriate skills",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/using-research-writing/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "verification",
+      "collection": "research-writing-skill",
+      "trigger": "Use when about to claim work is complete, a chapter is finished, or references are verified - requires running verification commands and confirming output before making any success claims",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/verification/SKILL.md",
+      "tags": [
+        "citations"
+      ]
+    },
+    {
+      "name": "writing-chapters",
+      "collection": "research-writing-skill",
+      "trigger": "Use when writing paper chapters - requires completed brainstorming, writes one chapter at a time with user confirmation",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/writing-chapters/SKILL.md",
+      "tags": [
+        "ideation"
+      ]
+    },
+    {
+      "name": "writing-core",
+      "collection": "research-writing-skill",
+      "trigger": "Use when writing or revising academic papers, especially Chinese journal manuscripts, that need natural prose, de-AI-ification, Markdown formatting, or quality checks",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/writing-core/SKILL.md",
+      "tags": [
+        "writing"
+      ]
+    },
+    {
+      "name": "writing-humanities",
+      "collection": "research-writing-skill",
+      "trigger": "Use when writing humanities or social science papers - provides discipline-specific writing guidance",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/writing-humanities/SKILL.md"
+    },
+    {
+      "name": "writing-law",
+      "collection": "research-writing-skill",
+      "trigger": "Use when writing law papers - provides legal writing conventions, citation formats, and argumentation guidance",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/writing-law/SKILL.md",
+      "tags": [
+        "citations"
+      ]
+    },
+    {
+      "name": "writing-medical",
+      "collection": "research-writing-skill",
+      "trigger": "Use when writing medical, biological, or clinical research papers - provides IMRaD structure and reporting guidelines",
+      "license": "",
+      "path": "skills/research-writing-skill/skills/writing-medical/SKILL.md",
+      "tags": [
+        "medical",
+        "paper-search"
+      ]
+    },
+    {
+      "name": "ai-research-explore",
+      "collection": "rigorpilot-skills",
+      "trigger": "Rigor Explore compatible skill slug for meaningful and potentially novel deep learning research candidates. Use when the researcher has chosen the task family, dataset, benchmark, evaluation method,…",
+      "license": "",
+      "path": "skills/rigorpilot-skills/skills/ai-research-explore/SKILL.md",
+      "tags": [
+        "citations",
+        "data",
+        "experiment",
+        "ideation",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "ai-research-reproduction",
+      "collection": "rigorpilot-skills",
+      "trigger": "Rigor Reproduce compatible skill slug for README-first deep learning repository reproduction. Use when the user wants an end-to-end, minimal-trustworthy flow that reads the repository first, selects…",
+      "license": "",
+      "path": "skills/rigorpilot-skills/skills/ai-research-reproduction/SKILL.md",
+      "tags": [
+        "automation",
+        "experiment",
+        "statistics"
+      ]
+    },
+    {
+      "name": "analyze-project",
+      "collection": "rigorpilot-skills",
+      "trigger": "Rigor Analyze / Rigor Audit read-only skill for deep learning research repositories. Use when the user wants to read and understand a repository, inspect model structure and training or inference…",
+      "license": "",
+      "path": "skills/rigorpilot-skills/skills/analyze-project/SKILL.md",
+      "tags": [
+        "reproducibility",
+        "statistics"
+      ]
+    },
+    {
+      "name": "env-and-assets-bootstrap",
+      "collection": "rigorpilot-skills",
+      "trigger": "Rigor Setup skill for README-first deep learning repo reproduction. Use when the task is specifically to prepare a conservative conda-first environment, checkpoint and dataset path assumptions, cache…",
+      "license": "",
+      "path": "skills/rigorpilot-skills/skills/env-and-assets-bootstrap/SKILL.md",
+      "tags": [
+        "automation",
+        "data"
+      ]
+    },
+    {
+      "name": "explore-code",
+      "collection": "rigorpilot-skills",
+      "trigger": "Rigor Improve implementation leaf skill for auditable candidate implementation in deep learning research repositories. Use when the researcher explicitly authorizes exploratory work on an isolated…",
+      "license": "",
+      "path": "skills/rigorpilot-skills/skills/explore-code/SKILL.md",
+      "tags": [
+        "automation",
+        "data",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "explore-run",
+      "collection": "rigorpilot-skills",
+      "trigger": "Rigor Improve / Rigor Explore run leaf skill for bounded exploratory evidence in deep learning research repositories. Use when the researcher explicitly authorizes exploratory runs such as…",
+      "license": "",
+      "path": "skills/rigorpilot-skills/skills/explore-run/SKILL.md",
+      "tags": [
+        "automation",
+        "experiment",
+        "grants"
+      ]
+    },
+    {
+      "name": "minimal-run-and-audit",
+      "collection": "rigorpilot-skills",
+      "trigger": "Rigor Run skill for README-first deep learning repo reproduction. Use when the task is specifically to capture or normalize evidence from the selected smoke test or documented inference or evaluation…",
+      "license": "",
+      "path": "skills/rigorpilot-skills/skills/minimal-run-and-audit/SKILL.md",
+      "tags": [
+        "automation",
+        "experiment",
+        "reproducibility",
+        "statistics"
+      ]
+    },
+    {
+      "name": "paper-context-resolver",
+      "collection": "rigorpilot-skills",
+      "trigger": "Rigor Paper Context helper for README-first deep learning repo reproduction. Use only when the README and repository files leave a narrow reproduction-critical gap and the task is to resolve a…",
+      "license": "",
+      "path": "skills/rigorpilot-skills/skills/paper-context-resolver/SKILL.md",
+      "tags": [
+        "data",
+        "experiment",
+        "latex"
+      ]
+    },
+    {
+      "name": "repo-intake-and-plan",
+      "collection": "rigorpilot-skills",
+      "trigger": "Rigor Intake helper for README-first deep learning repo reproduction. Use when the task is specifically to scan a repository, read the README and common project files, extract documented commands,…",
+      "license": "",
+      "path": "skills/rigorpilot-skills/skills/repo-intake-and-plan/SKILL.md",
+      "tags": [
+        "automation",
+        "experiment",
+        "statistics"
+      ]
+    },
+    {
+      "name": "run-train",
+      "collection": "rigorpilot-skills",
+      "trigger": "Rigor Train skill for deep learning research repositories. Use when a documented or selected training command should be run conservatively for startup verification, short-run verification, full…",
+      "license": "",
+      "path": "skills/rigorpilot-skills/skills/run-train/SKILL.md",
+      "tags": [
+        "automation"
+      ]
+    },
+    {
+      "name": "safe-debug",
+      "collection": "rigorpilot-skills",
+      "trigger": "Rigor Debug / Rigor Audit skill for deep learning research work. Use when the user pastes a traceback, terminal error, CUDA OOM, checkpoint load failure, shape mismatch, NaN loss symptom, or training…",
+      "license": "",
+      "path": "skills/rigorpilot-skills/skills/safe-debug/SKILL.md",
+      "tags": [
+        "medical",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "designing-the-analysis",
+      "collection": "science-superpowers",
+      "trigger": "Use when you have an approved research question and need a concrete analysis plan, before touching outcome data or fitting any model",
+      "license": "",
+      "path": "skills/science-superpowers/skills/designing-the-analysis/SKILL.md",
+      "tags": [
+        "ideation"
+      ]
+    },
+    {
+      "name": "dispatching-parallel-investigations",
+      "collection": "science-superpowers",
+      "trigger": "Use when facing 2+ independent investigations that can proceed without shared state - parallel literature survey, multi-dataset replication, or pre-specified robustness checks",
+      "license": "",
+      "path": "skills/science-superpowers/skills/dispatching-parallel-investigations/SKILL.md",
+      "tags": [
+        "data",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "establishing-feasibility-first",
+      "collection": "science-superpowers",
+      "trigger": "Use when your human partner has explicitly opted into exploratory or feasibility mode - a compute-heavy simulation, an unproven pipeline, an unbenchmarked solver, an untested cluster job - or when…",
+      "license": "",
+      "path": "skills/science-superpowers/skills/establishing-feasibility-first/SKILL.md",
+      "tags": [
+        "automation",
+        "experiment"
+      ]
+    },
+    {
+      "name": "executing-analysis",
+      "collection": "science-superpowers",
+      "trigger": "Use when you have a pre-registered analysis plan to execute inline in this session with review checkpoints, on a platform without subagents",
+      "license": "",
+      "path": "skills/science-superpowers/skills/executing-analysis/SKILL.md"
+    },
+    {
+      "name": "framing-research-questions",
+      "collection": "science-superpowers",
+      "trigger": "You MUST use this before any data analysis or investigation - before exploring a dataset, loading or profiling data, running a model, computing a statistic, or testing an idea, and before any outcome…",
+      "license": "",
+      "path": "skills/science-superpowers/skills/framing-research-questions/SKILL.md",
+      "tags": [
+        "data",
+        "ideation",
+        "statistics"
+      ]
+    },
+    {
+      "name": "investigating-anomalous-results",
+      "collection": "science-superpowers",
+      "trigger": "Use when a result is surprising, impossible, contradicts a sanity check, a pipeline fails, a model won't converge, or a replication fails - before adjusting anything",
+      "license": "",
+      "path": "skills/science-superpowers/skills/investigating-anomalous-results/SKILL.md",
+      "tags": [
+        "automation",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "preregistering-analysis",
+      "collection": "science-superpowers",
+      "trigger": "Use before running any confirmatory analysis or looking at outcome data, when testing a hypothesis, computing a p-value, or about to claim an effect - locks predictions and decision rules before…",
+      "license": "",
+      "path": "skills/science-superpowers/skills/preregistering-analysis/SKILL.md",
+      "tags": [
+        "statistics"
+      ]
+    },
+    {
+      "name": "receiving-critical-review",
+      "collection": "science-superpowers",
+      "trigger": "Use when receiving critical feedback on an analysis or manuscript, before implementing suggestions, especially if feedback seems unclear or methodologically questionable - requires verification, not…",
+      "license": "",
+      "path": "skills/science-superpowers/skills/receiving-critical-review/SKILL.md",
+      "tags": [
+        "writing"
+      ]
+    },
+    {
+      "name": "reporting-and-archiving-findings",
+      "collection": "science-superpowers",
+      "trigger": "Use when an analysis is complete and verified, and you need to decide how to report it and archive the work for reproducibility",
+      "license": "",
+      "path": "skills/science-superpowers/skills/reporting-and-archiving-findings/SKILL.md",
+      "tags": [
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "requesting-red-team-review",
+      "collection": "science-superpowers",
+      "trigger": "Use after completing an analysis or before reporting a finding, to have a skeptical reviewer attack the conclusion before you believe it",
+      "license": "",
+      "path": "skills/science-superpowers/skills/requesting-red-team-review/SKILL.md",
+      "tags": [
+        "peer-review"
+      ]
+    },
+    {
+      "name": "setting-up-reproducible-analysis",
+      "collection": "science-superpowers",
+      "trigger": "Use when starting analysis work that needs isolation, or before executing a pre-registered plan - ensures an isolated, reproducible workspace with pinned environment, fixed seeds, and immutable raw…",
+      "license": "",
+      "path": "skills/science-superpowers/skills/setting-up-reproducible-analysis/SKILL.md",
+      "tags": [
+        "data",
+        "reproducibility"
+      ]
+    },
+    {
+      "name": "subagent-driven-analysis",
+      "collection": "science-superpowers",
+      "trigger": "Use when executing a pre-registered analysis plan with mostly independent steps in the current session",
+      "license": "",
+      "path": "skills/science-superpowers/skills/subagent-driven-analysis/SKILL.md"
+    },
+    {
+      "name": "surveying-prior-work",
+      "collection": "science-superpowers",
+      "trigger": "Use after framing a question and before designing an analysis, or when choosing a method, judging whether a result is novel, or needing a prior effect size for a power calculation",
+      "license": "",
+      "path": "skills/science-superpowers/skills/surveying-prior-work/SKILL.md"
+    },
+    {
+      "name": "using-science-superpowers",
+      "collection": "science-superpowers",
+      "trigger": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
+      "license": "",
+      "path": "skills/science-superpowers/skills/using-science-superpowers/SKILL.md"
+    },
+    {
+      "name": "verifying-results-before-claiming",
+      "collection": "science-superpowers",
+      "trigger": "Use when about to claim a result, effect, significance, or that an analysis reproduces, before reporting or writing it up - requires running the analysis fresh and reading the actual output first;…",
+      "license": "",
+      "path": "skills/science-superpowers/skills/verifying-results-before-claiming/SKILL.md"
+    },
+    {
+      "name": "writing-science-skills",
+      "collection": "science-superpowers",
+      "trigger": "Use when creating new skills, editing existing skills, or verifying skills work before deployment",
+      "license": "",
+      "path": "skills/science-superpowers/skills/writing-science-skills/SKILL.md",
+      "tags": [
+        "writing"
+      ]
+    },
+    {
       "name": "1password",
       "collection": "scienceclaw",
       "trigger": "Set up and use 1Password CLI (op). Use when installing the CLI, enabling desktop app integration, signing in (single or multi-account), or reading/injecting/running secrets via op.",
@@ -60491,6 +62758,9 @@
       "trigger": "Orchestrates a full drug discovery workflow from target identification through lead optimization. Use when searching for drug candidates against a biological target, evaluating compound libraries, or…",
       "license": "",
       "path": "skills/scienceclaw/skills/drug-discovery-pipeline/SKILL.md",
+      "flags": [
+        "collision"
+      ],
       "tags": [
         "automation",
         "bioinformatics"

@@ -1,13 +1,13 @@
 {
   "generated_by": "tools/build_index.py",
   "note": "Skill names that mean different things across collections. Most agent runtimes resolve skills by name, so installing two of these collections at once makes the winner undefined. Pick deliberately.",
-  "count": 283,
+  "count": 309,
   "collisions": [
     {
       "name": "literature-review",
-      "collections": 10,
-      "distinct_bodies": 12,
-      "total_copies": 15,
+      "collections": 11,
+      "distinct_bodies": 13,
+      "total_copies": 16,
       "variants": [
         {
           "collection": "academicforge",
@@ -66,6 +66,13 @@
           "bodies_in_collection": 1
         },
         {
+          "collection": "research-writing-skill",
+          "repo_url": "https://github.com/Norman-bury/research-writing-skill",
+          "trigger": "Use when writing literature review sections - guides searching, organizing, and synthesizing academic sources",
+          "path": "skills/research-writing-skill/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
           "collection": "scienceclaw",
           "repo_url": "https://github.com/beita6969/ScienceClaw",
           "trigger": "Conduct comprehensive, systematic literature reviews using multiple academic databases (PubMed, arXiv, bioRxiv, Semantic Scholar, etc.). This skill should be…",
@@ -77,6 +84,70 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Conducts systematic, scoping, and narrative literature reviews using PubMed, arXiv, bioRxiv, Semantic Scholar, and other appropriate sources. Use for research…",
           "path": "skills/scientific-agent-skills/skills/literature-review/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "peer-review",
+      "collections": 8,
+      "distinct_bodies": 8,
+      "total_copies": 10,
+      "variants": [
+        {
+          "collection": "claude-scientific-writer",
+          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
+          "trigger": "Prepare evidence-bounded, constructive peer-review drafts and structured manuscript assessments. Use for authorized review of scientific manuscripts,…",
+          "path": "skills/claude-scientific-writer/.claude/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "co-researcher",
+          "repo_url": "https://github.com/poemswe/co-researcher",
+          "trigger": "You must use this when critiquing academic manuscripts, evaluating methodological rigor, or providing structured reviewer feedback.",
+          "path": "skills/co-researcher/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
+          "path": "skills/empirical-research-skills/skills/04-K-Dense-AI-claude-scientific-writer/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
+          "path": "skills/franklee-academic-research-skills/review-revise/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Conduct professional peer reviews for papers or theses, providing structured evaluations and improvement suggestions; use when you need a pre-submission…",
+          "path": "skills/medical-research-skills/scientific-skills/Academic Writing/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "research-writing-skill",
+          "repo_url": "https://github.com/Norman-bury/research-writing-skill",
+          "trigger": "Use before submission or when reviewing papers - provides evaluation checklists, bias detection, and self-review templates",
+          "path": "skills/research-writing-skill/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Conducts structured peer review of scientific manuscripts including methodological evaluation, statistical assessment, clarity analysis, and constructive…",
+          "path": "skills/scienceclaw/skills/peer-review/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Prepares evidence-bounded, constructive peer-review drafts and structured manuscript assessments. Supports authorized review of scientific manuscripts,…",
+          "path": "skills/scientific-agent-skills/skills/peer-review/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -191,63 +262,6 @@
           "repo_url": "https://github.com/HKUSTDial/Supervisor-Skills",
           "trigger": "Runs a deep, survey-grade literature investigation on a research topic: freezes research questions, searches from multiple adversarial perspectives, verifies…",
           "path": "skills/supervisor-skills/skills/deep-research/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "peer-review",
-      "collections": 7,
-      "distinct_bodies": 7,
-      "total_copies": 9,
-      "variants": [
-        {
-          "collection": "claude-scientific-writer",
-          "repo_url": "https://github.com/K-Dense-AI/claude-scientific-writer",
-          "trigger": "Prepare evidence-bounded, constructive peer-review drafts and structured manuscript assessments. Use for authorized review of scientific manuscripts,…",
-          "path": "skills/claude-scientific-writer/.claude/skills/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "co-researcher",
-          "repo_url": "https://github.com/poemswe/co-researcher",
-          "trigger": "You must use this when critiquing academic manuscripts, evaluating methodological rigor, or providing structured reviewer feedback.",
-          "path": "skills/co-researcher/skills/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
-          "path": "skills/empirical-research-skills/skills/04-K-Dense-AI-claude-scientific-writer/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Systematic peer review toolkit. Evaluate methodology, statistics, design, reproducibility, ethics, figure integrity, reporting standards, for manuscript and…",
-          "path": "skills/franklee-academic-research-skills/review-revise/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Conduct professional peer reviews for papers or theses, providing structured evaluations and improvement suggestions; use when you need a pre-submission…",
-          "path": "skills/medical-research-skills/scientific-skills/Academic Writing/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Conducts structured peer review of scientific manuscripts including methodological evaluation, statistical assessment, clarity analysis, and constructive…",
-          "path": "skills/scienceclaw/skills/peer-review/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Prepares evidence-bounded, constructive peer-review drafts and structured manuscript assessments. Supports authorized review of scientific manuscripts,…",
-          "path": "skills/scientific-agent-skills/skills/peer-review/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -646,6 +660,49 @@
       ]
     },
     {
+      "name": "statistical-analysis",
+      "collections": 5,
+      "distinct_bodies": 5,
+      "total_copies": 5,
+      "variants": [
+        {
+          "collection": "codex-academic-skills",
+          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
+          "trigger": "Guided statistical analysis with test selection and reporting. Use when you need help choosing appropriate tests for your data, assumption checking, power…",
+          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/statistical-analysis/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Guided statistical analysis for test selection, assumption checks, power analysis, and APA-style reporting. Use when you need to choose an appropriate…",
+          "path": "skills/medical-research-skills/scientific-skills/Data Analysis/statistical-analysis/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "research-writing-skill",
+          "repo_url": "https://github.com/Norman-bury/research-writing-skill",
+          "trigger": "Use when planning or reporting statistical analysis - provides test selection, execution code, and APA format guidelines",
+          "path": "skills/research-writing-skill/skills/statistical-analysis/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Guided statistical analysis with test selection and reporting. Use when you need help choosing appropriate tests for your data, assumption checking, power…",
+          "path": "skills/scienceclaw/skills/statistical-analysis/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scientific-agent-skills",
+          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
+          "trigger": "Guided statistical analysis for research data - test selection, assumption checking, effect sizes, power analysis, Bayesian alternatives, and APA-formatted…",
+          "path": "skills/scientific-agent-skills/skills/statistical-analysis/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "exploratory-data-analysis",
       "collections": 5,
       "distinct_bodies": 4,
@@ -919,6 +976,114 @@
       ]
     },
     {
+      "name": "chembl-database",
+      "collections": 4,
+      "distinct_bodies": 4,
+      "total_copies": 4,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query the ChEMBL database for bioactive molecules, drug targets, bioactivity data, approved drugs, and chemical structures. Use when the user asks about…",
+          "path": "skills/deepmind-science-skills/skills/chembl_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query the ChEMBL database for bioactive molecules, drug targets, bioactivity data, approved drugs, and chemical structures. Use when the user asks about…",
+          "path": "skills/franklee-academic-research-skills/science-skills/chembl_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Query the ChEMBL database for bioactive molecules, targets, bioactivities, and approved drugs; use this when you need to filter by physicochemical properties…",
+          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/chembl-database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Query ChEMBL bioactive molecules and drug discovery data. Search compounds by structure/properties, retrieve bioactivity data (IC50, Ki), find inhibitors,…",
+          "path": "skills/scienceclaw/skills/chembl-database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "clinvar-database",
+      "collections": 4,
+      "distinct_bodies": 4,
+      "total_copies": 4,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Use when needing clinical significance, pathogenicity classifications (e.g., Pathogenic, Benign, VUS), clinical evidence rationales, or finding \"hard positive\"…",
+          "path": "skills/deepmind-science-skills/skills/clinvar_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Use when needing clinical significance, pathogenicity classifications (e.g., Pathogenic, Benign, VUS), clinical evidence rationales, or finding \"hard positive\"…",
+          "path": "skills/franklee-academic-research-skills/science-skills/clinvar_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Utilities for querying the NCBI ClinVar database to retrieve variant records, clinical significance, and phenotype relationships; use when searching variants…",
+          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/clinvar-database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Query NCBI ClinVar for variant clinical significance. Search by gene/position, interpret pathogenicity classifications, access via E-utilities API or FTP,…",
+          "path": "skills/scienceclaw/skills/clinvar-database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "ensembl-database",
+      "collections": 4,
+      "distinct_bodies": 4,
+      "total_copies": 4,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query the Ensembl database to resolve gene, transcript, and protein IDs, fetch genomic or protein sequences, retrieve gene structures (exons), and get variant…",
+          "path": "skills/deepmind-science-skills/skills/ensembl_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query the Ensembl database to resolve gene, transcript, and protein IDs, fetch genomic or protein sequences, retrieve gene structures (exons), and get variant…",
+          "path": "skills/franklee-academic-research-skills/science-skills/ensembl_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Access Ensembl REST API for vertebrate genomic data; use when you need gene/ID lookups, sequence retrieval, variant effect prediction (VEP), or…",
+          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/ensembl-database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Query Ensembl genome database REST API for 250+ species. Gene lookups, sequence retrieval, variant analysis, comparative genomics, orthologs, VEP predictions,…",
+          "path": "skills/scienceclaw/skills/ensembl-database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "experiment-design",
       "collections": 4,
       "distinct_bodies": 4,
@@ -1027,6 +1192,42 @@
       ]
     },
     {
+      "name": "pdb-database",
+      "collections": 4,
+      "distinct_bodies": 4,
+      "total_copies": 4,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Use when you want to search for or download experimentally-determined 3D structures for biomolecules (proteins, nucleic acids, bound ligands). Supports…",
+          "path": "skills/deepmind-science-skills/skills/pdb_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Use when you want to search for or download experimentally-determined 3D structures for biomolecules (proteins, nucleic acids, bound ligands). Supports…",
+          "path": "skills/franklee-academic-research-skills/science-skills/pdb_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Access the RCSB Protein Data Bank (PDB) to search, download, and programmatically retrieve 3D macromolecular structures and metadata; use when you need…",
+          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/pdb-database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Access RCSB PDB for 3D protein/nucleic acid structures. Search by text/sequence/structure, download coordinates (PDB/mmCIF), retrieve metadata, for structural…",
+          "path": "skills/scienceclaw/skills/pdb-database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "pdf",
       "collections": 4,
       "distinct_bodies": 4,
@@ -1059,6 +1260,42 @@
           "trigger": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to…",
           "path": "skills/scienceclaw/skills/pdf-anthropic/SKILL.md",
           "bodies_in_collection": 2
+        }
+      ]
+    },
+    {
+      "name": "pubmed-database",
+      "collections": 4,
+      "distinct_bodies": 4,
+      "total_copies": 4,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Search PubMed for scientific literature, including published clinical trials. Fetch abstracts and full text. Link published research to biological databases…",
+          "path": "skills/deepmind-science-skills/skills/pubmed_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Search PubMed for scientific literature, including published clinical trials. Fetch abstracts and full text. Link published research to biological databases…",
+          "path": "skills/franklee-academic-research-skills/science-skills/pubmed_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Direct REST API access to PubMed. Advanced Boolean/MeSH queries, E-utilities API, batch processing, citation management. For Python workflows, prefer biopython…",
+          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/pubmed-database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Direct REST API access to PubMed. Advanced Boolean/MeSH queries, E-utilities API, batch processing, citation management. For Python workflows, prefer biopython…",
+          "path": "skills/scienceclaw/skills/pubmed-database/SKILL.md",
+          "bodies_in_collection": 1
         }
       ]
     },
@@ -1279,42 +1516,6 @@
       ]
     },
     {
-      "name": "statistical-analysis",
-      "collections": 4,
-      "distinct_bodies": 4,
-      "total_copies": 4,
-      "variants": [
-        {
-          "collection": "codex-academic-skills",
-          "repo_url": "https://github.com/zLanqing/codex-claude-academic-skills",
-          "trigger": "Guided statistical analysis with test selection and reporting. Use when you need help choosing appropriate tests for your data, assumption checking, power…",
-          "path": "skills/codex-academic-skills/scientific-toolkit-skill/references/scientific-skills/statistical-analysis/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Guided statistical analysis for test selection, assumption checks, power analysis, and APA-style reporting. Use when you need to choose an appropriate…",
-          "path": "skills/medical-research-skills/scientific-skills/Data Analysis/statistical-analysis/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Guided statistical analysis with test selection and reporting. Use when you need help choosing appropriate tests for your data, assumption checking, power…",
-          "path": "skills/scienceclaw/skills/statistical-analysis/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scientific-agent-skills",
-          "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
-          "trigger": "Guided statistical analysis for research data - test selection, assumption checking, effect sizes, power analysis, Bayesian alternatives, and APA-formatted…",
-          "path": "skills/scientific-agent-skills/skills/statistical-analysis/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
       "name": "statsmodels",
       "collections": 4,
       "distinct_bodies": 4,
@@ -1346,6 +1547,78 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Fits and diagnoses Python statistical models including OLS, GLM, discrete and mixed models, ARIMA and SARIMAX. Supports coefficient inference, marginal…",
           "path": "skills/scientific-agent-skills/skills/statsmodels/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "string-database",
+      "collections": 4,
+      "distinct_bodies": 4,
+      "total_copies": 4,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query the STRING database for protein-protein interactions (PPIs), functional enrichment, and homology. Use when the user asks about interactions between…",
+          "path": "skills/deepmind-science-skills/skills/string_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query the STRING database for protein-protein interactions (PPIs), functional enrichment, and homology. Use when the user asks about interactions between…",
+          "path": "skills/franklee-academic-research-skills/science-skills/string_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Access the STRING database to map identifiers, retrieve protein–protein interaction networks, and run functional/PPI enrichment when you need interaction…",
+          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/string-database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Query STRING API for protein-protein interactions (59M proteins, 20B interactions). Network analysis, GO/KEGG enrichment, interaction discovery, 5000+ species,…",
+          "path": "skills/scienceclaw/skills/string-database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "uniprot-database",
+      "collections": 4,
+      "distinct_bodies": 4,
+      "total_copies": 4,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Access protein metadata, function, taxonomy, and sequences across UniProtKB, UniParc, and UniRef. Use when searching for proteins, mapping identifiers, or…",
+          "path": "skills/deepmind-science-skills/skills/uniprot_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Access protein metadata, function, taxonomy, and sequences across UniProtKB, UniParc, and UniRef. Use when searching for proteins, mapping identifiers, or…",
+          "path": "skills/franklee-academic-research-skills/science-skills/uniprot_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "medical-research-skills",
+          "repo_url": "https://github.com/aipoch/medical-research-skills",
+          "trigger": "Direct REST API access to UniProt for protein search, entry retrieval, and identifier mapping; use when you need programmatic UniProtKB queries or…",
+          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/uniprot-database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Direct REST API access to UniProt. Protein searches, FASTA retrieval, ID mapping, Swiss-Prot/TrEMBL. For Python workflows with multiple databases, prefer…",
+          "path": "skills/scienceclaw/skills/uniprot-database/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -1916,35 +2189,6 @@
       ]
     },
     {
-      "name": "chembl-database",
-      "collections": 3,
-      "distinct_bodies": 3,
-      "total_copies": 3,
-      "variants": [
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Query the ChEMBL database for bioactive molecules, drug targets, bioactivity data, approved drugs, and chemical structures. Use when the user asks about…",
-          "path": "skills/franklee-academic-research-skills/science-skills/chembl_database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Query the ChEMBL database for bioactive molecules, targets, bioactivities, and approved drugs; use this when you need to filter by physicochemical properties…",
-          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/chembl-database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Query ChEMBL bioactive molecules and drug discovery data. Search compounds by structure/properties, retrieve bioactivity data (IC50, Ki), find inhibitors,…",
-          "path": "skills/scienceclaw/skills/chembl-database/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
       "name": "clinical-decision-support",
       "collections": 3,
       "distinct_bodies": 3,
@@ -2003,35 +2247,6 @@
       ]
     },
     {
-      "name": "clinvar-database",
-      "collections": 3,
-      "distinct_bodies": 3,
-      "total_copies": 3,
-      "variants": [
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Use when needing clinical significance, pathogenicity classifications (e.g., Pathogenic, Benign, VUS), clinical evidence rationales, or finding \"hard positive\"…",
-          "path": "skills/franklee-academic-research-skills/science-skills/clinvar_database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Utilities for querying the NCBI ClinVar database to retrieve variant records, clinical significance, and phenotype relationships; use when searching variants…",
-          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/clinvar-database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Query NCBI ClinVar for variant clinical significance. Search by gene/position, interpret pathogenicity classifications, access via E-utilities API or FTP,…",
-          "path": "skills/scienceclaw/skills/clinvar-database/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
       "name": "devils-advocate",
       "collections": 3,
       "distinct_bodies": 3,
@@ -2061,35 +2276,6 @@
       ]
     },
     {
-      "name": "ensembl-database",
-      "collections": 3,
-      "distinct_bodies": 3,
-      "total_copies": 3,
-      "variants": [
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Query the Ensembl database to resolve gene, transcript, and protein IDs, fetch genomic or protein sequences, retrieve gene structures (exons), and get variant…",
-          "path": "skills/franklee-academic-research-skills/science-skills/ensembl_database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Access Ensembl REST API for vertebrate genomic data; use when you need gene/ID lookups, sequence retrieval, variant effect prediction (VEP), or…",
-          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/ensembl-database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Query Ensembl genome database REST API for 250+ species. Gene lookups, sequence retrieval, variant analysis, comparative genomics, orthologs, VEP predictions,…",
-          "path": "skills/scienceclaw/skills/ensembl-database/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
       "name": "generate-image",
       "collections": 3,
       "distinct_bodies": 3,
@@ -2114,6 +2300,35 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Generates or edits images with AI models through the OpenRouter Image API (Gemini, Seedream, Recraft, GPT-Image, Riverflow). Use for photos, illustrations,…",
           "path": "skills/scientific-agent-skills/skills/generate-image/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "gnomad-database",
+      "collections": 3,
+      "distinct_bodies": 3,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query the Genome Aggregation Database (gnomAD). Use when determining the rarity or allele frequency of specific genetic variants, retrieving gene constraint…",
+          "path": "skills/deepmind-science-skills/skills/gnomad_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query the Genome Aggregation Database (gnomAD). Use when determining the rarity or allele frequency of specific genetic variants, retrieving gene constraint…",
+          "path": "skills/franklee-academic-research-skills/science-skills/gnomad_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Query gnomAD (Genome Aggregation Database) for population allele frequencies, variant constraint scores (pLI, LOEUF), and loss-of-function intolerance.…",
+          "path": "skills/scienceclaw/skills/gnomad-database/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -2380,6 +2595,35 @@
       ]
     },
     {
+      "name": "opentargets-database",
+      "collections": 3,
+      "distinct_bodies": 3,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query Open Targets Platform for target-disease associations, drug target discovery, tractability/safety data, genetics/omics evidence, known drugs, for…",
+          "path": "skills/deepmind-science-skills/skills/opentargets_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query Open Targets Platform for target-disease associations, drug target discovery, tractability/safety data, genetics/omics evidence, known drugs, for…",
+          "path": "skills/franklee-academic-research-skills/science-skills/opentargets_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Query Open Targets Platform for target-disease associations, drug target discovery, tractability/safety data, genetics/omics evidence, known drugs, for…",
+          "path": "skills/scienceclaw/skills/opentargets-database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "paper-lookup",
       "collections": 3,
       "distinct_bodies": 3,
@@ -2438,6 +2682,35 @@
       ]
     },
     {
+      "name": "paper-writer",
+      "collections": 3,
+      "distinct_bodies": 3,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "ai4s-skills",
+          "repo_url": "https://github.com/ai4s-research/ai4s-skills",
+          "trigger": "Use when the user wants a complete, publication-grade research paper on a specific topic — produces 200+ real citations, 4–8 publication-grade figures, and 7…",
+          "path": "skills/ai4s-skills/skills/paper-writer/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "empirical-research-skills",
+          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
+          "trigger": "Automatically write empirical sections of academic papers in LaTeX by reading tables/figures from a PDF. Trigger when user wants to write a paper from…",
+          "path": "skills/empirical-research-skills/skills/67-econfin-workflow-toolkit/paper-writer/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "supervisor-skills",
+          "repo_url": "https://github.com/HKUSTDial/Supervisor-Skills",
+          "trigger": "Drafts publishable paper prose from the author's own materials, from a single paragraph to a full manuscript, across STEM and non-STEM fields. Every factual…",
+          "path": "skills/supervisor-skills/skills/paper-writer/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "parallel-web",
       "collections": 3,
       "distinct_bodies": 3,
@@ -2462,35 +2735,6 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Uses Parallel CLI for web search, URL extraction, deep research, structured data enrichment, entity discovery, and recurring web monitoring. Best for requests…",
           "path": "skills/scientific-agent-skills/skills/parallel-web/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "pdb-database",
-      "collections": 3,
-      "distinct_bodies": 3,
-      "total_copies": 3,
-      "variants": [
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Use when you want to search for or download experimentally-determined 3D structures for biomolecules (proteins, nucleic acids, bound ligands). Supports…",
-          "path": "skills/franklee-academic-research-skills/science-skills/pdb_database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Access the RCSB Protein Data Bank (PDB) to search, download, and programmatically retrieve 3D macromolecular structures and metadata; use when you need…",
-          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/pdb-database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Access RCSB PDB for 3D protein/nucleic acid structures. Search by text/sequence/structure, download coordinates (PDB/mmCIF), retrieve metadata, for structural…",
-          "path": "skills/scienceclaw/skills/pdb-database/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -2583,30 +2827,59 @@
       ]
     },
     {
-      "name": "pubmed-database",
+      "name": "pubchem-database",
       "collections": 3,
       "distinct_bodies": 3,
       "total_copies": 3,
       "variants": [
         {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Search PubMed for scientific literature, including published clinical trials. Fetch abstracts and full text. Link published research to biological databases…",
-          "path": "skills/franklee-academic-research-skills/science-skills/pubmed_database/SKILL.md",
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query PubChem, search by name/CID/SMILES, retrieve properties, similarity/substructure searches, bioactivity, for cheminformatics. Use when a user asks about a…",
+          "path": "skills/deepmind-science-skills/skills/pubchem_database/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Direct REST API access to PubMed. Advanced Boolean/MeSH queries, E-utilities API, batch processing, citation management. For Python workflows, prefer biopython…",
-          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/pubmed-database/SKILL.md",
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query PubChem, search by name/CID/SMILES, retrieve properties, similarity/substructure searches, bioactivity, for cheminformatics. Use when a user asks about a…",
+          "path": "skills/franklee-academic-research-skills/science-skills/pubchem_database/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "scienceclaw",
           "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Direct REST API access to PubMed. Advanced Boolean/MeSH queries, E-utilities API, batch processing, citation management. For Python workflows, prefer biopython…",
-          "path": "skills/scienceclaw/skills/pubmed-database/SKILL.md",
+          "trigger": "Query PubChem via PUG-REST API/PubChemPy (110M+ compounds). Search by name/CID/SMILES, retrieve properties, similarity/substructure searches, bioactivity, for…",
+          "path": "skills/scienceclaw/skills/pubchem-database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "reactome-database",
+      "collections": 3,
+      "distinct_bodies": 3,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query the Reactome database (Analysis and Content Services). Use when the user asks about pathway analysis, gene list enrichment, retrieving results by token,…",
+          "path": "skills/deepmind-science-skills/skills/reactome_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query the Reactome database (Analysis and Content Services). Use when the user asks about pathway analysis, gene list enrichment, retrieving results by token,…",
+          "path": "skills/franklee-academic-research-skills/science-skills/reactome_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Query Reactome REST API for pathway analysis, enrichment, gene-pathway mapping, disease pathways, molecular interactions, expression analysis, for systems…",
+          "path": "skills/scienceclaw/skills/reactome-database/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -2844,35 +3117,6 @@
       ]
     },
     {
-      "name": "string-database",
-      "collections": 3,
-      "distinct_bodies": 3,
-      "total_copies": 3,
-      "variants": [
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Query the STRING database for protein-protein interactions (PPIs), functional enrichment, and homology. Use when the user asks about interactions between…",
-          "path": "skills/franklee-academic-research-skills/science-skills/string_database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Access the STRING database to map identifiers, retrieve protein–protein interaction networks, and run functional/PPI enrichment when you need interaction…",
-          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/string-database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Query STRING API for protein-protein interactions (59M proteins, 20B interactions). Network analysis, GO/KEGG enrichment, interaction discovery, 5000+ species,…",
-          "path": "skills/scienceclaw/skills/string-database/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
       "name": "sympy",
       "collections": 3,
       "distinct_bodies": 3,
@@ -2955,35 +3199,6 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Formats and structurally validates local treatment-plan documentation after clinical decisions have already been supplied and verified by authorized licensed…",
           "path": "skills/scientific-agent-skills/skills/treatment-plans/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "uniprot-database",
-      "collections": 3,
-      "distinct_bodies": 3,
-      "total_copies": 3,
-      "variants": [
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Access protein metadata, function, taxonomy, and sequences across UniProtKB, UniParc, and UniRef. Use when searching for proteins, mapping identifiers, or…",
-          "path": "skills/franklee-academic-research-skills/science-skills/uniprot_database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "medical-research-skills",
-          "repo_url": "https://github.com/aipoch/medical-research-skills",
-          "trigger": "Direct REST API access to UniProt for protein search, entry retrieval, and identifier mapping; use when you need programmatic UniProtKB queries or…",
-          "path": "skills/medical-research-skills/scientific-skills/Evidence Insight/uniprot-database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Direct REST API access to UniProt. Protein searches, FASTA retrieval, ID mapping, Swiss-Prot/TrEMBL. For Python workflows with multiple databases, prefer…",
-          "path": "skills/scienceclaw/skills/uniprot-database/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -4542,6 +4757,50 @@
       ]
     },
     {
+      "name": "alphafold-database-fetch-and-analyze",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Retrieve and analyze AlphaFold predicted structures for a protein. Use when the user provides a specific UniProt Accession ID and wants structural confidence…",
+          "path": "skills/deepmind-science-skills/skills/alphafold_database_fetch_and_analyze/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Retrieve and analyze AlphaFold predicted structures for a protein. Use when the user provides a specific UniProt Accession ID and wants structural confidence…",
+          "path": "skills/franklee-academic-research-skills/science-skills/alphafold_database_fetch_and_analyze/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "alphagenome-single-variant-analysis",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Analyzes genetic variant effects on gene expression (RNA-seq), chromatin accessibility (DNASE), histone marks (ChIP), and transcription factors using the…",
+          "path": "skills/deepmind-science-skills/skills/alphagenome_single_variant_analysis/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Analyzes genetic variant effects on gene expression (RNA-seq), chromatin accessibility (DNASE), histone marks (ChIP), and transcription factors using the…",
+          "path": "skills/franklee-academic-research-skills/science-skills/alphagenome_single_variant_analysis/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "anndata",
       "collections": 2,
       "distinct_bodies": 2,
@@ -4806,6 +5065,28 @@
       ]
     },
     {
+      "name": "clinical-trials-database",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query ClinicalTrials.gov via APIv2. Use when you want to search for trials by condition, drug, location, status, or phase; retrieve trial details by NCT ID;…",
+          "path": "skills/deepmind-science-skills/skills/clinical_trials_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query ClinicalTrials.gov via APIv2. Use when you want to search for trials by condition, drug, location, status, or phase; retrieve trial details by NCT ID;…",
+          "path": "skills/franklee-academic-research-skills/science-skills/clinical_trials_database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "clinicaltrials-database",
       "collections": 2,
       "distinct_bodies": 2,
@@ -5026,6 +5307,28 @@
       ]
     },
     {
+      "name": "dbsnp-database",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Use when you want to look up, map, and search for short genetic variants (SNPs, indels) in NCBI's dbSNP database. Resolves between rsIDs, genomic coordinates…",
+          "path": "skills/deepmind-science-skills/skills/dbsnp_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Use when you want to look up, map, and search for short genetic variants (SNPs, indels) in NCBI's dbSNP database. Resolves between rsIDs, genomic coordinates…",
+          "path": "skills/franklee-academic-research-skills/science-skills/dbsnp_database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "deeptools",
       "collections": 2,
       "distinct_bodies": 2,
@@ -5136,6 +5439,28 @@
       ]
     },
     {
+      "name": "drug-discovery-pipeline",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 3,
+      "variants": [
+        {
+          "collection": "bionemo-agent-toolkit",
+          "repo_url": "https://github.com/NVIDIA-BioNeMo/bionemo-agent-toolkit",
+          "trigger": "NOTE: molecule and target inputs and your NGC_API_KEY are transmitted to external NVIDIA-hosted API endpoints on every call. Use local NIM containers for…",
+          "path": "skills/bionemo-agent-toolkit/nim-skills/meta-skills/drug-discovery-pipeline/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "scienceclaw",
+          "repo_url": "https://github.com/beita6969/ScienceClaw",
+          "trigger": "Orchestrates a full drug discovery workflow from target identification through lead optimization. Use when searching for drug candidates against a biological…",
+          "path": "skills/scienceclaw/skills/drug-discovery-pipeline/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "econ-write",
       "collections": 2,
       "distinct_bodies": 2,
@@ -5175,6 +5500,50 @@
           "repo_url": "https://github.com/wentorai/research-plugins",
           "trigger": "10 econometrics skills. Trigger: causal analysis, regression models, treatment effects, panel data. Design: method-centric guides with R/Python code and…",
           "path": "skills/research-plugins/skills/analysis/econometrics/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "embl-ebi-ols",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query and search the EMBL-EBI Ontology Lookup Service (OLS) for biomedical ontology terms, definitions, and hierarchies across 250+ ontologies (e.g., GO, DOID,…",
+          "path": "skills/deepmind-science-skills/skills/embl_ebi_ols/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query and search the EMBL-EBI Ontology Lookup Service (OLS) for biomedical ontology terms, definitions, and hierarchies across 250+ ontologies (e.g., GO, DOID,…",
+          "path": "skills/franklee-academic-research-skills/science-skills/embl_ebi_ols/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "encode-ccres-database",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query the ENCODE Registry of cis-Regulatory Elements (cCREs) via the SCREEN GraphQL API, or make custom queries to the ENCODE Portal REST API for experiments…",
+          "path": "skills/deepmind-science-skills/skills/encode_ccres_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query the ENCODE Registry of cis-Regulatory Elements (cCREs) via the SCREEN GraphQL API, or make custom queries to the ENCODE Portal REST API for experiments…",
+          "path": "skills/franklee-academic-research-skills/science-skills/encode_ccres_database/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -5378,6 +5747,28 @@
       ]
     },
     {
+      "name": "foldseek-structural-search",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Performs 3D structural searches of proteins against various databases (PDB, AlphaFold, CATH, MGnify, etc.) using the Foldseek API. Use ONLY when the user…",
+          "path": "skills/deepmind-science-skills/skills/foldseek_structural_search/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Performs 3D structural searches of proteins against various databases (PDB, AlphaFold, CATH, MGnify, etc.) using the Foldseek API. Use ONLY when the user…",
+          "path": "skills/franklee-academic-research-skills/science-skills/foldseek_structural_search/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "gene-database",
       "collections": 2,
       "distinct_bodies": 2,
@@ -5439,28 +5830,6 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Queries 20+ bioinformatics resources through CLI/Python. Supports quick lookups of gene info, BLAST/BLAT, viral sequence downloads, PDB/mmCIF structures, G2P…",
           "path": "skills/scientific-agent-skills/skills/gget/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "gnomad-database",
-      "collections": 2,
-      "distinct_bodies": 2,
-      "total_copies": 2,
-      "variants": [
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Query the Genome Aggregation Database (gnomAD). Use when determining the rarity or allele frequency of specific genetic variants, retrieving gene constraint…",
-          "path": "skills/franklee-academic-research-skills/science-skills/gnomad_database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Query gnomAD (Genome Aggregation Database) for population allele frequencies, variant constraint scores (pLI, LOEUF), and loss-of-function intolerance.…",
-          "path": "skills/scienceclaw/skills/gnomad-database/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -5532,6 +5901,28 @@
       ]
     },
     {
+      "name": "gtex-database",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Use when you want to retrieve quantitative RNA expression data and variant eQTL information from the GTEx (Genotype-Tissue Expression) Project across 54…",
+          "path": "skills/deepmind-science-skills/skills/gtex_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Use when you want to retrieve quantitative RNA expression data and variant eQTL information from the GTEx (Genotype-Tissue Expression) Project across 54…",
+          "path": "skills/franklee-academic-research-skills/science-skills/gtex_database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "handoff",
       "collections": 2,
       "distinct_bodies": 2,
@@ -5571,6 +5962,28 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Extracts and preprocesses whole-slide histology image tiles with Histolab. Use for WSI inspection, tissue masks, random/grid/score-based tile extraction, H&E…",
           "path": "skills/scientific-agent-skills/skills/histolab/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "human-protein-atlas-database",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Use when you want to retrieve semi-quantitative protein expression and spatial localisation data from the Human Protein Atlas (HPA).",
+          "path": "skills/deepmind-science-skills/skills/human_protein_atlas_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Use when you want to retrieve semi-quantitative protein expression and spatial localisation data from the Human Protein Atlas (HPA).",
+          "path": "skills/franklee-academic-research-skills/science-skills/human_protein_atlas_database/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -5659,6 +6072,50 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Plans and audits use of ChicagoHAI HypoGeniC/HypoRefine for LLM-assisted hypothesis generation from labeled text datasets. Use for the `hypogenic` package, its…",
           "path": "skills/scientific-agent-skills/skills/hypogenic/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "interpro-database",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Identify domains, families, and sites in proteins; find all proteins in a family or sharing a domain; explore species distribution for a domain; annotate…",
+          "path": "skills/deepmind-science-skills/skills/interpro_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Identify domains, families, and sites in proteins; find all proteins in a family or sharing a domain; explore species distribution for a domain; annotate…",
+          "path": "skills/franklee-academic-research-skills/science-skills/interpro_database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "jaspar-database",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query the JASPAR database for Transcription Factor (TF) binding profiles. Use when retrieving Position Frequency Matrices (PFMs) or Position Weight Matrices…",
+          "path": "skills/deepmind-science-skills/skills/jaspar_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query the JASPAR database for Transcription Factor (TF) binding profiles. Use when retrieving Position Frequency Matrices (PFMs) or Position Weight Matrices…",
+          "path": "skills/franklee-academic-research-skills/science-skills/jaspar_database/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -5791,6 +6248,94 @@
           "repo_url": "https://github.com/beita6969/ScienceClaw",
           "trigger": "Comprehensive multi-database scientific literature search orchestrating Semantic Scholar, OpenAlex, arXiv, PubMed, and CrossRef. Use when: (1) systematic…",
           "path": "skills/scienceclaw/skills/literature-search/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "literature-search-arxiv",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Search for scientific papers, preprints, and publications on arXiv. Extract metadata, abstracts, and download full-text PDFs or HTML versions of papers. Use…",
+          "path": "skills/deepmind-science-skills/skills/literature_search_arxiv/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Search for scientific papers, preprints, and publications on arXiv. Extract metadata, abstracts, and download full-text PDFs or HTML versions of papers. Use…",
+          "path": "skills/franklee-academic-research-skills/science-skills/literature_search_arxiv/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "literature-search-biorxiv",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Browse, filter, and download life sciences, biology, and medical preprints from bioRxiv and medRxiv. Supports fetching paper metadata by DOI, and browsing by…",
+          "path": "skills/deepmind-science-skills/skills/literature_search_biorxiv/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Browse, filter, and download life sciences, biology, and medical preprints from bioRxiv and medRxiv. Supports fetching paper metadata by DOI, and browsing by…",
+          "path": "skills/franklee-academic-research-skills/science-skills/literature_search_biorxiv/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "literature-search-europepmc",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Search Europe PMC for scientific literature and download open-access full texts and PDFs. Retrieve full-text XML/plain text by PMCID, get citation lists and…",
+          "path": "skills/deepmind-science-skills/skills/literature_search_europepmc/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Search Europe PMC for scientific literature and download open-access full texts and PDFs. Retrieve full-text XML/plain text by PMCID, get citation lists and…",
+          "path": "skills/franklee-academic-research-skills/science-skills/literature_search_europepmc/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "literature-search-openalex",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query the OpenAlex scholarly database for research papers, authors, institutions, topics, sources, publishers, funders, geo-locations, and keywords. Use when…",
+          "path": "skills/deepmind-science-skills/skills/literature_search_openalex/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query the OpenAlex scholarly database for research papers, authors, institutions, topics, sources, publishers, funders, geo-locations, and keywords. Use when…",
+          "path": "skills/franklee-academic-research-skills/science-skills/literature_search_openalex/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -6082,6 +6627,28 @@
       ]
     },
     {
+      "name": "ncbi-sequence-fetch",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Retrieve protein and nucleotide sequences from NCBI databases using E-utilities. Supports direct accession lookup, CDS translation, gene+organism search, locus…",
+          "path": "skills/deepmind-science-skills/skills/ncbi_sequence_fetch/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Retrieve protein and nucleotide sequences from NCBI databases using E-utilities. Supports direct accession lookup, CDS translation, gene+organism search, locus…",
+          "path": "skills/franklee-academic-research-skills/science-skills/ncbi_sequence_fetch/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "neuropixels-analysis",
       "collections": 2,
       "distinct_bodies": 2,
@@ -6148,23 +6715,23 @@
       ]
     },
     {
-      "name": "opentargets-database",
+      "name": "openfda-database",
       "collections": 2,
       "distinct_bodies": 2,
       "total_copies": 2,
       "variants": [
         {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Query Open Targets Platform for target-disease associations, drug target discovery, tractability/safety data, genetics/omics evidence, known drugs, for…",
-          "path": "skills/franklee-academic-research-skills/science-skills/opentargets_database/SKILL.md",
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query, search, and download data from the openFDA API for drugs, devices, foods, tobacco, cosmetics, animal and veterinary products, substances, and…",
+          "path": "skills/deepmind-science-skills/skills/openfda_database/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Query Open Targets Platform for target-disease associations, drug target discovery, tractability/safety data, genetics/omics evidence, known drugs, for…",
-          "path": "skills/scienceclaw/skills/opentargets-database/SKILL.md",
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query, search, and download data from the openFDA API for drugs, devices, foods, tobacco, cosmetics, animal and veterinary products, substances, and…",
+          "path": "skills/franklee-academic-research-skills/science-skills/openfda_database/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -6275,28 +6842,6 @@
           "repo_url": "https://github.com/luwill/research-skills",
           "trigger": "Use when the user wants visually striking, shareable slide-deck IMAGES from any content — an article, blog post, topic, or paper — where look-and-feel matters…",
           "path": "skills/research-skills/paper-slide-deck/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "paper-writer",
-      "collections": 2,
-      "distinct_bodies": 2,
-      "total_copies": 2,
-      "variants": [
-        {
-          "collection": "empirical-research-skills",
-          "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
-          "trigger": "Automatically write empirical sections of academic papers in LaTeX by reading tables/figures from a PDF. Trigger when user wants to write a paper from…",
-          "path": "skills/empirical-research-skills/skills/67-econfin-workflow-toolkit/paper-writer/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "supervisor-skills",
-          "repo_url": "https://github.com/HKUSTDial/Supervisor-Skills",
-          "trigger": "Drafts publishable paper prose from the author's own materials, from a single paragraph to a full manuscript, across STEM and non-STEM fields. Every factual…",
-          "path": "skills/supervisor-skills/skills/paper-writer/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -6478,23 +7023,45 @@
       ]
     },
     {
-      "name": "pubchem-database",
+      "name": "protein-sequence-msa",
       "collections": 2,
       "distinct_bodies": 2,
       "total_copies": 2,
       "variants": [
         {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Query PubChem, search by name/CID/SMILES, retrieve properties, similarity/substructure searches, bioactivity, for cheminformatics. Use when a user asks about a…",
-          "path": "skills/franklee-academic-research-skills/science-skills/pubchem_database/SKILL.md",
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Performs multiple sequence alignment of proteins with EBI Clustal Omega. Use when you need to align multiple sequences to assess similarity, domain…",
+          "path": "skills/deepmind-science-skills/skills/protein_sequence_msa/SKILL.md",
           "bodies_in_collection": 1
         },
         {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Query PubChem via PUG-REST API/PubChemPy (110M+ compounds). Search by name/CID/SMILES, retrieve properties, similarity/substructure searches, bioactivity, for…",
-          "path": "skills/scienceclaw/skills/pubchem-database/SKILL.md",
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Performs multiple sequence alignment of proteins with EBI Clustal Omega. Use when you need to align multiple sequences to assess similarity, domain…",
+          "path": "skills/franklee-academic-research-skills/science-skills/protein_sequence_msa/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "protein-sequence-similarity-search",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Searches for homologous protein sequences using MMseqs2 (fast, default) or BLAST (comprehensive, fallback). Trigger this whenever the user provides a protein…",
+          "path": "skills/deepmind-science-skills/skills/protein_sequence_similarity_search/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Searches for homologous protein sequences using MMseqs2 (fast, default) or BLAST (comprehensive, fallback). Trigger this whenever the user provides a protein…",
+          "path": "skills/franklee-academic-research-skills/science-skills/protein_sequence_similarity_search/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -6583,6 +7150,28 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Analyzes, validates, converts, and transforms materials structures and computed materials data with pymatgen. Use for local phase diagrams, symmetry…",
           "path": "skills/scientific-agent-skills/skills/pymatgen/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "pymol",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Visualize, analyze, and render protein and molecular structures using PyMOL. Use when the user wants to create images of protein structures, perform structural…",
+          "path": "skills/deepmind-science-skills/skills/pymol/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Visualize, analyze, and render protein and molecular structures using PyMOL. Use when the user wants to create images of protein structures, perform structural…",
+          "path": "skills/franklee-academic-research-skills/science-skills/pymol/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -6698,6 +7287,28 @@
       ]
     },
     {
+      "name": "quickgo-database",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Query the QuickGO and Evidence & Conclusion Ontology (ECO) REST API. Use this when you need to map genes to biological processes, molecular functions, or…",
+          "path": "skills/deepmind-science-skills/skills/quickgo_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Query the QuickGO and Evidence & Conclusion Ontology (ECO) REST API. Use this when you need to map genes to biological processes, molecular functions, or…",
+          "path": "skills/franklee-academic-research-skills/science-skills/quickgo_database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "qutip",
       "collections": 2,
       "distinct_bodies": 2,
@@ -6737,28 +7348,6 @@
           "repo_url": "https://github.com/K-Dense-AI/scientific-agent-skills",
           "trigger": "Cheminformatics toolkit for fine-grained molecular control. SMILES/SDF parsing, descriptors (MW, LogP, TPSA), fingerprints, substructure search, 2D/3D…",
           "path": "skills/scientific-agent-skills/skills/rdkit/SKILL.md",
-          "bodies_in_collection": 1
-        }
-      ]
-    },
-    {
-      "name": "reactome-database",
-      "collections": 2,
-      "distinct_bodies": 2,
-      "total_copies": 2,
-      "variants": [
-        {
-          "collection": "franklee-academic-research-skills",
-          "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Query the Reactome database (Analysis and Content Services). Use when the user asks about pathway analysis, gene list enrichment, retrieving results by token,…",
-          "path": "skills/franklee-academic-research-skills/science-skills/reactome_database/SKILL.md",
-          "bodies_in_collection": 1
-        },
-        {
-          "collection": "scienceclaw",
-          "repo_url": "https://github.com/beita6969/ScienceClaw",
-          "trigger": "Query Reactome REST API for pathway analysis, enrichment, gene-pathway mapping, disease pathways, molecular interactions, expression analysis, for systems…",
-          "path": "skills/scienceclaw/skills/reactome-database/SKILL.md",
           "bodies_in_collection": 1
         }
       ]
@@ -7226,6 +7815,72 @@
       ]
     },
     {
+      "name": "ucsc-conservation-and-tfbs",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Fetch Evolutionary Conservation scores (phyloP, phastCons) and Transcription Factor Binding Sites (TFBS) from the UCSC Genome Browser. Use when analyzing…",
+          "path": "skills/deepmind-science-skills/skills/ucsc_conservation_and_tfbs/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Fetch Evolutionary Conservation scores (phyloP, phastCons) and Transcription Factor Binding Sites (TFBS) from the UCSC Genome Browser. Use when analyzing…",
+          "path": "skills/franklee-academic-research-skills/science-skills/ucsc_conservation_and_tfbs/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "unibind-database",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Queries the UniBind database for experimentally validated transcription factor (TF) binding sites. Use when retrieving direct TF-DNA interaction datasets,…",
+          "path": "skills/deepmind-science-skills/skills/unibind_database/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Queries the UniBind database for experimentally validated transcription factor (TF) binding sites. Use when retrieving direct TF-DNA interaction datasets,…",
+          "path": "skills/franklee-academic-research-skills/science-skills/unibind_database/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "uv",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Checks whether the uv Python package manager is installed and installs it if missing. Ensures uv is on PATH. Use when another skill requires uv as a…",
+          "path": "skills/deepmind-science-skills/skills/uv/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Checks whether the uv Python package manager is installed and installs it if missing. Ensures uv is on PATH. Use when another skill requires uv as a…",
+          "path": "skills/franklee-academic-research-skills/science-skills/uv/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
       "name": "vaex",
       "collections": 2,
       "distinct_bodies": 2,
@@ -7287,6 +7942,28 @@
           "repo_url": "https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills",
           "trigger": "Perform adversarial visual audit of Quarto or Beamer slides checking for overflow, font consistency, box fatigue, and layout issues.",
           "path": "skills/empirical-research-skills/skills/12-pedrohcgs-claude-code-my-workflow/dot-claude/skills/visual-audit/SKILL.md",
+          "bodies_in_collection": 1
+        }
+      ]
+    },
+    {
+      "name": "workflow-skill-creator",
+      "collections": 2,
+      "distinct_bodies": 2,
+      "total_copies": 2,
+      "variants": [
+        {
+          "collection": "deepmind-science-skills",
+          "repo_url": "https://github.com/google-deepmind/science-skills",
+          "trigger": "Distills a completed user workflow or interaction into a reusable agent skill. Use when the user asks to turn their workflow, interaction, or multi-step…",
+          "path": "skills/deepmind-science-skills/skills/workflow_skill_creator/SKILL.md",
+          "bodies_in_collection": 1
+        },
+        {
+          "collection": "franklee-academic-research-skills",
+          "repo_url": "https://github.com/franklee16/academic-research-skills",
+          "trigger": "Distills a completed user workflow or interaction into a reusable agent skill. Use when the user asks to turn their workflow, interaction, or multi-step…",
+          "path": "skills/franklee-academic-research-skills/science-skills/workflow_skill_creator/SKILL.md",
           "bodies_in_collection": 1
         }
       ]

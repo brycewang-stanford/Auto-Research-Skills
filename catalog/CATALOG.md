@@ -9,14 +9,14 @@ An index of every individual skill bundled across all collections, so you can fi
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files (README headline number) | **5,897** |
-| Unique skills (de-duplicated by name + body) | **5,255** |
-| Copies re-bundled by aggregator collections | 642 |
+| `SKILL.md` files (README headline number) | **6,087** |
+| Unique skills (de-duplicated by name + body) | **5,410** |
+| Copies re-bundled by aggregator collections | 677 |
 | Placeholder / template skills | 0 |
 | Skills without YAML frontmatter | 4 |
-| Collections | 41 |
+| Collections | 50 |
 
-> The headline **5,897** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **5,255** of those skills are actually distinct — a ~11% redundancy rate worth knowing when you browse.
+> The headline **6,087** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **5,410** of those skills are actually distinct — a ~11% redundancy rate worth knowing when you browse.
 
 ## Collections
 
@@ -35,23 +35,31 @@ Sorted by skill count. Click a collection for its full skill list.
 | [ai-research-skills](collections/ai-research-skills.md) | 98 | 98 | 1 | 0 | [repo](https://github.com/Orchestra-Research/AI-Research-SKILLs) |
 | [claude-research](collections/claude-research.md) | 87 | 87 | 0 | 0 | [repo](https://github.com/flonat/claude-research) |
 | [claude-scientific-writer](collections/claude-scientific-writer.md) | 78 | 26 | 0 | 0 | [repo](https://github.com/K-Dense-AI/claude-scientific-writer) |
+| [bionemo-agent-toolkit](collections/bionemo-agent-toolkit.md) | 70 | 35 | 0 | 0 | [repo](https://github.com/NVIDIA-BioNeMo/bionemo-agent-toolkit) |
 | [claude-skills-journalism](collections/claude-skills-journalism.md) | 63 | 63 | 0 | 0 | [repo](https://github.com/jamditis/claude-skills-journalism) |
 | [claude-code-my-workflow](collections/claude-code-my-workflow.md) | 61 | 61 | 2 | 0 | [repo](https://github.com/pedrohcgs/claude-code-my-workflow) |
 | [claude-scholar](collections/claude-scholar.md) | 45 | 45 | 20 | 0 | [repo](https://github.com/Galaxy-Dawn/claude-scholar) |
+| [deepmind-science-skills](collections/deepmind-science-skills.md) | 40 | 40 | 0 | 0 | [repo](https://github.com/google-deepmind/science-skills) |
 | [academicforge](collections/academicforge.md) | 33 | 33 | 0 | 0 | [repo](https://github.com/HughYau/AcademicForge) |
 | [nature-paper-skills](collections/nature-paper-skills.md) | 28 | 28 | 1 | 0 | [repo](https://github.com/Boom5426/Nature-Paper-Skills) |
 | [codex-academic-skills](collections/codex-academic-skills.md) | 24 | 24 | 3 | 0 | [repo](https://github.com/zLanqing/codex-claude-academic-skills) |
 | [light-skills](collections/light-skills.md) | 23 | 23 | 0 | 0 | [repo](https://github.com/Light0305/Light-skills) |
 | [nature-skills](collections/nature-skills.md) | 23 | 23 | 0 | 0 | [repo](https://github.com/Yuan1z0825/nature-skills) |
 | [deep-research-skills](collections/deep-research-skills.md) | 20 | 13 | 0 | 0 | [repo](https://github.com/Weizhena/Deep-Research-skills) |
+| [research-writing-skill](collections/research-writing-skill.md) | 20 | 20 | 0 | 0 | [repo](https://github.com/Norman-bury/research-writing-skill) |
+| [ccfa-skills](collections/ccfa-skills.md) | 17 | 17 | 0 | 0 | [repo](https://github.com/mikubaka88/CCFA-Skills) |
 | [feynman](collections/feynman.md) | 16 | 16 | 0 | 0 | [repo](https://github.com/companion-inc/feynman) |
 | [oneresearchclaw](collections/oneresearchclaw.md) | 16 | 16 | 0 | 0 | [repo](https://github.com/gaotiexinqu/OneResearchClaw) |
+| [science-superpowers](collections/science-superpowers.md) | 16 | 16 | 0 | 0 | [repo](https://github.com/K-Dense-AI/science-superpowers) |
 | [co-researcher](collections/co-researcher.md) | 15 | 15 | 0 | 0 | [repo](https://github.com/poemswe/co-researcher) |
 | [ai-research-feedback](collections/ai-research-feedback.md) | 12 | 12 | 0 | 0 | [repo](https://github.com/claesbackman/AI-research-feedback) |
 | [phd-skills](collections/phd-skills.md) | 12 | 12 | 0 | 0 | [repo](https://github.com/fcakyon/phd-skills) |
 | [supervisor-skills](collections/supervisor-skills.md) | 12 | 12 | 0 | 0 | [repo](https://github.com/HKUSTDial/Supervisor-Skills) |
+| [rigorpilot-skills](collections/rigorpilot-skills.md) | 11 | 11 | 0 | 0 | [repo](https://github.com/lllllllama/RigorPilot-Skills) |
 | [claudeblattman](collections/claudeblattman.md) | 10 | 10 | 0 | 0 | [repo](https://github.com/chrisblattman/claudeblattman) |
 | [academic-skills](collections/academic-skills.md) | 8 | 8 | 0 | 0 | [repo](https://github.com/chtc66/academic-skills) |
+| [ai4s-skills](collections/ai4s-skills.md) | 7 | 7 | 0 | 0 | [repo](https://github.com/ai4s-research/ai4s-skills) |
+| [dailypaper-skills](collections/dailypaper-skills.md) | 7 | 7 | 0 | 0 | [repo](https://github.com/huangkiki/dailypaper-skills) |
 | [research-skills](collections/research-skills.md) | 6 | 6 | 0 | 0 | [repo](https://github.com/luwill/research-skills) |
 | [academic-research-skills](collections/academic-research-skills.md) | 5 | 5 | 0 | 0 | [repo](https://github.com/Imbad0202/academic-research-skills) |
 | [autoresearch](collections/autoresearch.md) | 5 | 3 | 0 | 0 | [repo](https://github.com/uditgoenka/autoresearch) |
@@ -59,6 +67,7 @@ Sorted by skill count. Click a collection for its full skill list.
 | [research-companion](collections/research-companion.md) | 3 | 3 | 1 | 0 | [repo](https://github.com/andrehuang/research-companion) |
 | [academic-paper-skills](collections/academic-paper-skills.md) | 2 | 2 | 0 | 0 | [repo](https://github.com/lishix520/academic-paper-skills) |
 | [academic-research-skills-codex](collections/academic-research-skills-codex.md) | 2 | 1 | 0 | 0 | [repo](https://github.com/Imbad0202/academic-research-skills-codex) |
+| [paper-search-mcp](collections/paper-search-mcp.md) | 2 | 2 | 0 | 0 | [repo](https://github.com/openags/paper-search-mcp) |
 | [zotero-mcp](collections/zotero-mcp.md) | 2 | 2 | 0 | 0 | [repo](https://github.com/54yyyu/zotero-mcp) |
 | [arxiv-mcp-server](collections/arxiv-mcp-server.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/blazickjp/arxiv-mcp-server) |
 | [claude-deep-research-skill](collections/claude-deep-research-skill.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/199-biotechnologies/claude-deep-research-skill) |
