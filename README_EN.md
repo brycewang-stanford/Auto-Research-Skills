@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-6%2C087-ff4e88?style=for-the-badge&labelColor=1f2330" alt="6,087 skills collected"></a>
+  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-6%2C089-ff4e88?style=for-the-badge&labelColor=1f2330" alt="6,089 skills collected"></a>
 </p>
 
-<p align="center"><b>6,087 skills</b> bundled across <b>108 repos</b> — clone the whole research toolbox in one shot.</p>
+<p align="center"><b>6,089 skills</b> bundled across <b>110 repos</b> — clone the whole research toolbox in one shot.</p>
 
 <p align="center">
-  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-6%2C087-ff4e88?style=flat-square" alt="6,087 skills"></a>
+  <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-6%2C089-ff4e88?style=flat-square" alt="6,089 skills"></a>
   <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Auto-Research-Skills?style=flat-square&color=ffd23f" alt="stars">
@@ -27,10 +27,13 @@
 
 ---
 
-### Featured Skill
+### Featured Skills
 
 > **[Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills)** &nbsp;·&nbsp; ~52.7k stars &nbsp;·&nbsp; 🧩 bundled
 > Academic Research Skills for Claude Code — a full **research → write → review → revise → finalize** pipeline, covering literature review and peer review. Vendored here at [`skills/academic-research-skills`](skills/academic-research-skills).
+
+> 🏆 **#1 for social science** &nbsp;·&nbsp; **[brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills)** &nbsp;·&nbsp; ~4.7k stars &nbsp;·&nbsp; 🧩 bundled
+> The go-to skill library for **empirical social science**: 23,000+ agent skills across **8 social-science disciplines**, from identification strategy and data cleaning to regression tables and a reproducible paper. Pair it with [`skills/stata-code`](skills/stata-code) to run DiD / IV / RDD in Stata straight from your agent. Vendored here at [`skills/empirical-research-skills`](skills/empirical-research-skills).
 
 ---
 
@@ -45,18 +48,18 @@
 | 🥈 | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | 64.8k | Skills | [`skills/last30days`](skills/last30days) |
 | 🥉 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | 53.0k | Skills | [`skills/academic-research-skills`](skills/academic-research-skills) |
 | 4 | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | 53.0k | Skills | [`skills/scientific-agent-skills`](skills/scientific-agent-skills) |
-| 5 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | 49.4k | Skills | [`skills/nature-skills`](skills/nature-skills) |
+| 5 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | 49.5k | Skills | [`skills/nature-skills`](skills/nature-skills) |
 | 6 | [stanford-oval/storm](https://github.com/stanford-oval/storm) | 31.7k | System | [`systems/storm`](systems/storm) |
 | 7 | [assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher) | 30.2k | System | [`systems/gpt-researcher`](systems/gpt-researcher) |
 | 8 | [dzhng/deep-research](https://github.com/dzhng/deep-research) | 19.8k | System | [`systems/deep-research`](systems/deep-research) |
-| 9 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | 17.7k | Skills | [`skills/aris`](skills/aris) |
+| 9 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | 17.8k | Skills | [`skills/aris`](skills/aris) |
 | 10 | [HKUDS/DeepCode](https://github.com/HKUDS/DeepCode) | 16.7k | System | [`systems/deepcode`](systems/deepcode) |
 | 11 | [SakanaAI/AI-Scientist](https://github.com/SakanaAI/AI-Scientist) | 14.8k | System | [`systems/ai-scientist`](systems/ai-scientist) |
 | 12 | [aiming-lab/AutoResearchClaw](https://github.com/aiming-lab/AutoResearchClaw) | 14.7k | System | [`systems/autoresearchclaw`](systems/autoresearchclaw) |
 | 13 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | 13.7k | Skills | [`skills/ai-research-skills`](skills/ai-research-skills) |
 | 14 | [Imbad0202/academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | 13.2k | Skills | [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) |
 | 15 | [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research) | 12.7k | System | [`systems/open-deep-research`](systems/open-deep-research) |
-| 16 | [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills) | 10.1k | Skills | [`skills/supervisor-skills`](skills/supervisor-skills) |
+| 16 | [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills) | 10.2k | Skills | [`skills/supervisor-skills`](skills/supervisor-skills) |
 | 17 | [companion-inc/feynman](https://github.com/companion-inc/feynman) | 10.0k | Skills | [`skills/feynman`](skills/feynman) |
 | 18 | [Future-House/paper-qa](https://github.com/Future-House/paper-qa) | 9.4k | System | [`systems/paper-qa`](systems/paper-qa) |
 | 19 | [LearningCircuit/local-deep-research](https://github.com/LearningCircuit/local-deep-research) | 9.4k | System | [`systems/local-deep-research`](systems/local-deep-research) |
@@ -65,7 +68,7 @@
 
 ---
 
-> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **6,087 skills** across **108 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
+> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **6,089 skills** across **110 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
 # recommended: clone first, then let setup.sh handle top-level + nested submodules
@@ -193,6 +196,7 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
 | [companion-inc/feynman](https://github.com/companion-inc/feynman) 🧩 | ~10.0k | CLI · Codex · Claude Code | Open-source AI research agent (CLI) on Pi + alphaXiv; 20 research skills — lit review, deep research, replication, peer review — installable into Codex/Claude. |
 | [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) 🧩 | ~5.8k | Claude Code · MCP | Semi-automated research assistant; Zotero + Obsidian + MCP integration. |
 | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) 🧩 | ~5.5k | MCP · Python | Connect your Zotero library to any MCP agent — discuss papers, summarize, analyze citations. |
+| [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) 🧩 | ~4.7k | Claude Code · Codex | **🏆 #1 for social science.** 23,000+ agent skills for empirical research across 8 social-science disciplines. |
 | [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill) 🧩 | ~3.5k | Claude Code · Python | Popular Chinese-community research-writing assistant (科研写作助手): structure, polishing, figure/table text, submission prep. |
 | [Adkid-Zephyr/anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill) | ~3.5k | Agent Skills | Lightweight anti-defensive / anti-hedging academic-writing principles (CN/EN). Prompt-style; list-only. |
 | [google-deepmind/science-skills](https://github.com/google-deepmind/science-skills) 🧩 | ~3.3k | Agent Skills · Python | Google DeepMind's science skill pack — 40 grounded, token-efficient skills over AlphaGenome, AFDB, UniProt and 30+ databases/tools. |
@@ -225,7 +229,9 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
 | [andrehuang/academic-writing-agents](https://github.com/andrehuang/academic-writing-agents) | ~218 | Claude Code | Multi-agent orchestrator with 10 specialist writing agents. |
 | [voidful/academic-skills](https://github.com/voidful/academic-skills) | ~136 | Claude · Codex · Gemini · TeX | Full research skill suite: paper reading, idea generation, experiment design, proof/paper writing, peer review. |
 | [poemswe/co-researcher](https://github.com/poemswe/co-researcher) 🧩 | ~132 | Claude Code · Codex · Gemini CLI | Multi-platform academic research suite with specialized agents and CLI workflows. |
+| [brycewang-stanford/stata-code](https://github.com/brycewang-stanford/stata-code) 🧩 | ~51 | Python · MCP · VS Code | Agent-native Stata bridge: run DiD / IV / RDD and publication-ready tables from Claude Code, Jupyter or VS Code, cross-validated with StatsPAI. |
 | [openags/auto-research](https://github.com/openags/auto-research) 🧩 | ~11 | Agent + UI | Generalist "AI Scientist" across fields. |
+| [brycewang-stanford/md2](https://github.com/brycewang-stanford/md2) 🧩 | ~5 | Web · CLI · MCP | Write once in Markdown, publish to WeChat, Zhihu, Xiaohongshu and X — themes, XHS cards, threads and covers. |
 
 ## Benchmarks & Evaluation
 
@@ -268,7 +274,7 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
 
 ## Bundled Repos (submodules)
 
-**6,087 skills** across **108 repos** (most with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
+**6,089 skills** across **110 repos** (most with 100+ stars) are vendored as shallow git submodules across four folders, sorted by stars within each. Run `./setup.sh` to fetch them all; use `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh` when you only need the top-level bundles.
 
 > Live ranking: see [**STARS.md**](STARS.md) — auto-refreshed weekly by [a GitHub Action](.github/workflows/update-stars.yml).
 >
@@ -286,7 +292,7 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
 
 ### Skills & Plugin Collections (`skills/`)
 
-51 reusable skill sets and plugins that drop into coding agents.
+53 reusable skill sets and plugins that drop into coding agents.
 
 | Path | Source | Stars | What it gives you |
 |---|---|---|---|
@@ -304,7 +310,7 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
 | `skills/claude-scholar` | [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) | ~5.8k | Semi-automated research assistant; Zotero + Obsidian + MCP. |
 | `skills/zotero-mcp` | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) | ~5.5k | MCP server connecting your Zotero library to any agent — discuss papers, summarize, analyze citations. |
 | `skills/codex-academic-skills` | [zLanqing/codex-claude-academic-skills](https://github.com/zLanqing/codex-claude-academic-skills) | ~5.0k | Three academic skills: reading, writing, scientific computing. |
-| `skills/empirical-research-skills` | [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) | ~4.7k | 23k+ agent skills for empirical research across social sciences. |
+| `skills/empirical-research-skills` | [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) | ~4.7k | **🏆 #1 for social science.** 23k+ agent skills for empirical research across 8 social-science disciplines. |
 | `skills/research-writing-skill` | [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill) | ~3.5k | Popular Chinese-community research-writing assistant (科研写作助手): structure, polishing, figure/table text, submission prep. |
 | `skills/deepmind-science-skills` | [google-deepmind/science-skills](https://github.com/google-deepmind/science-skills) | ~3.3k | Google DeepMind's science skill pack — 40 grounded, token-efficient skills over AlphaGenome, AFDB, UniProt and 30+ databases/tools. |
 | `skills/arxiv-mcp-server` | [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) | ~3.2k | MCP server to search & fetch arXiv papers from any agent. |
@@ -341,6 +347,8 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
 | `skills/franklee-academic-research-skills` | [franklee16/academic-research-skills](https://github.com/franklee16/academic-research-skills) | ~223 | Claude Code skills for econ/finance academic research. |
 | `skills/claude-research` | [flonat/claude-research](https://github.com/flonat/claude-research) | ~146 | PhD-grade Claude Code infrastructure: 50 skills + agents + hooks + rules (/bib-validate, /pre-submission-report, …). |
 | `skills/co-researcher` | [poemswe/co-researcher](https://github.com/poemswe/co-researcher) | ~132 | Multi-platform research suite: literature review, methodology, synthesis, peer review, ethics, grants. |
+| `skills/stata-code` | [brycewang-stanford/stata-code](https://github.com/brycewang-stanford/stata-code) | ~51 | Agent-native Stata bridge (MCP + VS Code + Jupyter) for DiD / IV / RDD and publication-ready tables. |
+| `skills/md2` | [brycewang-stanford/md2](https://github.com/brycewang-stanford/md2) | ~5 | Markdown → WeChat / Zhihu / Xiaohongshu / X publishing (web app, CLI, MCP, skill). |
 
 ### Systems & Agents (`systems/`)
 

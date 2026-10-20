@@ -323,3 +323,9 @@
 [submodule "lists/awesome-academic-research-skills"]
 	path = lists/awesome-academic-research-skills
 	url = https://github.com/kael-odin/awesome-academic-research-skills
+[submodule "skills/stata-code"]
+	path = skills/stata-code
+	url = https://github.com/brycewang-stanford/stata-code
+[submodule "skills/md2"]
+	path = skills/md2
+	url = https://github.com/brycewang-stanford/md2

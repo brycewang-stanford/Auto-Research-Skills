@@ -147,6 +147,16 @@ context is in the
 [Q3 2026 update](docs/landscape-2026.md#q3-2026-update-july--october) of the
 landscape map.
 
+**Follow-up, 2026-10-20:** vendored two maintainer projects for the empirical
+social-science stack, [`brycewang-stanford/stata-code`](https://github.com/brycewang-stanford/stata-code)
+(agent-native Stata bridge; MIT) and [`brycewang-stanford/md2`](https://github.com/brycewang-stanford/md2)
+(Markdown → WeChat / Zhihu / Xiaohongshu / X publishing; MIT) → **110 repos**.
+The focused safety scan flagged 3 lines in stata-code, all false positives: two
+are example strings in its own command-blocking policy (docstring + test), and
+the third prints only that a CI secret is unset. ARIS and
+Auto-Empirical-Research-Skills were already vendored; the README now spotlights
+the latter as the #1 pick for social science.
+
 Status of the July round's suggested order, as of 2026-10-19:
 `openags/paper-search-mcp` ✅ vendored · `ai4s-research/ai4s-skills` ✅ vendored ·
 `openai/mle-bench` ⏸ hold (GitHub now reports `NOASSERTION`, was MIT; no push

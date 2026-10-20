@@ -9,14 +9,14 @@ An index of every individual skill bundled across all collections, so you can fi
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files (README headline number) | **6,087** |
-| Unique skills (de-duplicated by name + body) | **5,410** |
+| `SKILL.md` files (README headline number) | **6,089** |
+| Unique skills (de-duplicated by name + body) | **5,412** |
 | Copies re-bundled by aggregator collections | 677 |
 | Placeholder / template skills | 0 |
 | Skills without YAML frontmatter | 4 |
-| Collections | 50 |
+| Collections | 52 |
 
-> The headline **6,087** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **5,410** of those skills are actually distinct — a ~11% redundancy rate worth knowing when you browse.
+> The headline **6,089** counts every `SKILL.md` on disk. Aggregator collections re-bundle other collections inside themselves, so only **5,412** of those skills are actually distinct — a ~11% redundancy rate worth knowing when you browse.
 
 ## Collections
 
@@ -72,7 +72,9 @@ Sorted by skill count. Click a collection for its full skill list.
 | [arxiv-mcp-server](collections/arxiv-mcp-server.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/blazickjp/arxiv-mcp-server) |
 | [claude-deep-research-skill](collections/claude-deep-research-skill.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/199-biotechnologies/claude-deep-research-skill) |
 | [last30days](collections/last30days.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/mvanhorn/last30days-skill) |
+| [md2](collections/md2.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/brycewang-stanford/md2) |
 | [paper-writing-skills](collections/paper-writing-skills.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/Master-cai/Research-Paper-Writing-Skills) |
+| [stata-code](collections/stata-code.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/brycewang-stanford/stata-code) |
 | [x-research-skill](collections/x-research-skill.md) | 1 | 1 | 0 | 0 | [repo](https://github.com/rohunvora/x-research-skill) |
 
 ## Most re-bundled skills

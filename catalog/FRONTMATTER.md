@@ -26,8 +26,8 @@ and `description`. Recommended fields are reported, never required.
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files scanned | **6,087** |
-| Conform to required schema | **6,082** (100%) |
+| `SKILL.md` files scanned | **6,089** |
+| Conform to required schema | **6,084** (100%) |
 | No YAML frontmatter at all | 4 |
 | Frontmatter but no `name` | 0 |
 | Frontmatter but no `description` | 1 |

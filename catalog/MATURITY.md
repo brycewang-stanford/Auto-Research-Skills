@@ -19,7 +19,7 @@ at zero.
 
 | Signal | Skills with it | Share |
 |---|---:|---:|
-| `references/` | 1,558 | 26% |
+| `references/` | 1,559 | 26% |
 | `scripts/ or code` | 1,110 | 18% |
 | `examples/` | 103 | 2% |
 | `tests/` | 78 | 1% |
@@ -33,9 +33,9 @@ at zero.
 
 | Metric | Count |
 |---|---:|
-| Skills inspected | **6,087** |
+| Skills inspected | **6,089** |
 | Rich (≥3 signals) | **457** (8%) |
-| Bare (only `SKILL.md`) | 4,080 (67%) |
+| Bare (only `SKILL.md`) | 4,081 (67%) |
 
 ## Deepest collections
 

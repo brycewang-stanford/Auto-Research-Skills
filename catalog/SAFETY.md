@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **499**
-- Critical: **327**
-- High: **172**
-- In `skill`/`script` files (not docs or examples): **163** (78 critical, 85 high)
+- Findings: **502**
+- Critical: **329**
+- High: **173**
+- In `skill`/`script` files (not docs or examples): **165** (79 critical, 86 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -30,17 +30,17 @@ so a downgraded critical no longer inflates the high+ report.
 | Context | Findings |
 |---|---:|
 | `docs` | 284 |
-| `script` | 92 |
+| `script` | 93 |
 | `skill` | 61 |
-| `example` | 52 |
-| `other` | 10 |
+| `example` | 53 |
+| `other` | 11 |
 
 ## By Rule
 
 | Rule | Findings |
 |---|---:|
-| `remote-shell-pipe` | 272 |
-| `credential-print` | 74 |
+| `remote-shell-pipe` | 274 |
+| `credential-print` | 75 |
 | `echo-secret-value` | 50 |
 | `concealment-instruction` | 45 |
 | `powershell-iex` | 34 |
@@ -72,7 +72,7 @@ so a downgraded critical no longer inflates the high+ report.
 | `research-skills` | 5 |
 | `zotero-mcp` | 5 |
 | `claude-scientific-writer` | 4 |
-| _Other_ | 22 |
+| _Other_ | 25 |
 
 ## Example Findings
 
@@ -121,7 +121,7 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `concealment-instruction` | `skills/empirical-research-skills/skills/58-charlescoverdale-econstack/longlist/SKILL.md:402` | `Do not show it to the user` |
 | high | skill | `concealment-instruction` | `skills/empirical-research-skills/skills/58-charlescoverdale-econstack/longlist/SKILL.md:518` | `Do not show stakeholder lists, ToC steps, or lens-by-lens working in the output. The user` |
 
-_Truncated 459 additional findings._
+_Truncated 462 additional findings._
 
 ## Regenerate
 

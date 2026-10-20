@@ -9,13 +9,13 @@
 </p>
 
 <p align="center">
-  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/已收录_skills-6%2C087-ff4e88?style=for-the-badge&labelColor=1f2330" alt="已收录 6,087 个 skills"></a>
+  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/已收录_skills-6%2C089-ff4e88?style=for-the-badge&labelColor=1f2330" alt="已收录 6,089 个 skills"></a>
 </p>
 
-<p align="center"><b>🧩 已收录 6,087 个 skills</b>，分布在 <b>108 个仓库</b> 中 —— 一次克隆拿到整套研究工具箱。</p>
+<p align="center"><b>🧩 已收录 6,089 个 skills</b>，分布在 <b>110 个仓库</b> 中 —— 一次克隆拿到整套研究工具箱。</p>
 
 <p align="center">
-  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/🧩_skills-6%2C087-ff4e88?style=flat-square" alt="6,087 skills"></a>
+  <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/🧩_skills-6%2C089-ff4e88?style=flat-square" alt="6,089 skills"></a>
   <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Auto-Research-Skills?style=flat-square&color=ffd23f" alt="stars">
@@ -32,6 +32,9 @@
 > **[Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills)** &nbsp;·&nbsp; ~52.7k ⭐ &nbsp;·&nbsp; 🧩 已收录
 > 面向 Claude Code 的学术研究技能集 —— 完整的 **research → write → review → revise → finalize** 流水线，覆盖文献综述与同行评审。收录于 [`skills/academic-research-skills`](skills/academic-research-skills)。
 
+> 🏆 **社会科学第一** &nbsp;·&nbsp; **[brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills)** &nbsp;·&nbsp; ~4.7k ⭐ &nbsp;·&nbsp; 🧩 已收录
+> **社科实证研究**首选技能库：覆盖 **8 大社会科学学科**的 23,000+ 个 agent 技能，从识别策略、数据清洗到回归表格与可复现论文全流程。搭配 [`skills/stata-code`](skills/stata-code)，可直接让智能体在 Stata 中跑 DiD / IV / RDD。收录于 [`skills/empirical-research-skills`](skills/empirical-research-skills)。
+
 ---
 
 ## 🏆 Star 排行榜 Top 20
@@ -45,18 +48,18 @@
 | 🥈 | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | 64.8k | 技能 | [`skills/last30days`](skills/last30days) |
 | 🥉 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | 53.0k | 技能 | [`skills/academic-research-skills`](skills/academic-research-skills) |
 | 4 | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | 53.0k | 技能 | [`skills/scientific-agent-skills`](skills/scientific-agent-skills) |
-| 5 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | 49.4k | 技能 | [`skills/nature-skills`](skills/nature-skills) |
+| 5 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | 49.5k | 技能 | [`skills/nature-skills`](skills/nature-skills) |
 | 6 | [stanford-oval/storm](https://github.com/stanford-oval/storm) | 31.7k | 系统 | [`systems/storm`](systems/storm) |
 | 7 | [assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher) | 30.2k | 系统 | [`systems/gpt-researcher`](systems/gpt-researcher) |
 | 8 | [dzhng/deep-research](https://github.com/dzhng/deep-research) | 19.8k | 系统 | [`systems/deep-research`](systems/deep-research) |
-| 9 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | 17.7k | 技能 | [`skills/aris`](skills/aris) |
+| 9 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | 17.8k | 技能 | [`skills/aris`](skills/aris) |
 | 10 | [HKUDS/DeepCode](https://github.com/HKUDS/DeepCode) | 16.7k | 系统 | [`systems/deepcode`](systems/deepcode) |
 | 11 | [SakanaAI/AI-Scientist](https://github.com/SakanaAI/AI-Scientist) | 14.8k | 系统 | [`systems/ai-scientist`](systems/ai-scientist) |
 | 12 | [aiming-lab/AutoResearchClaw](https://github.com/aiming-lab/AutoResearchClaw) | 14.7k | 系统 | [`systems/autoresearchclaw`](systems/autoresearchclaw) |
 | 13 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | 13.7k | 技能 | [`skills/ai-research-skills`](skills/ai-research-skills) |
 | 14 | [Imbad0202/academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | 13.2k | 技能 | [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) |
 | 15 | [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research) | 12.7k | 系统 | [`systems/open-deep-research`](systems/open-deep-research) |
-| 16 | [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills) | 10.1k | 技能 | [`skills/supervisor-skills`](skills/supervisor-skills) |
+| 16 | [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills) | 10.2k | 技能 | [`skills/supervisor-skills`](skills/supervisor-skills) |
 | 17 | [companion-inc/feynman](https://github.com/companion-inc/feynman) | 10.0k | 技能 | [`skills/feynman`](skills/feynman) |
 | 18 | [Future-House/paper-qa](https://github.com/Future-House/paper-qa) | 9.4k | 系统 | [`systems/paper-qa`](systems/paper-qa) |
 | 19 | [LearningCircuit/local-deep-research](https://github.com/LearningCircuit/local-deep-research) | 9.4k | 系统 | [`systems/local-deep-research`](systems/local-deep-research) |
@@ -65,7 +68,7 @@
 
 ---
 
-> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**6,087 个 skills**、分布在 **108 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
+> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**6,089 个 skills**、分布在 **110 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
 
 ```bash
 # 推荐：先克隆，再让 setup.sh 处理顶层与嵌套子模块
@@ -199,6 +202,7 @@ cd Auto-Research-Skills
 | [uditgoenka/autoresearch](https://github.com/uditgoenka/autoresearch) 🧩 | ~6.6k | Claude Code · Shell | Claude 自主研究 skill：受 Karpathy autoresearch 启发的自主目标迭代，内置命令安全护栏（拒绝 mkfs/dd/nc 等危险命令）。 |
 | [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) 🧩 | ~5.8k | Claude Code · MCP | 半自动科研助手；集成 Zotero + Obsidian + MCP。 |
 | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) 🧩 | ~5.5k | MCP · Python | 把 Zotero 文献库接入任意 MCP 智能体：讨论论文、生成摘要、分析引用。 |
+| [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) 🧩 | ~4.7k | Claude Code · Codex | **🏆 社会科学第一。** 覆盖 8 大社科学科的 23,000+ 个实证研究 agent 技能。 |
 | [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill) 🧩 | ~3.5k | Claude Code · Python | 中文社区热门科研写作助手：论文结构、润色、图表文字与投稿准备。 |
 | [Adkid-Zephyr/anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill) | ~3.5k | Agent Skills | 极致轻量的“反防御性写作”学术写作原则（中英）。偏提示词形态，仅列出。 |
 | [google-deepmind/science-skills](https://github.com/google-deepmind/science-skills) 🧩 | ~3.3k | Agent Skills · Python | Google DeepMind 官方科学技能包——40 个接地气、省 token 的技能，接入 AlphaGenome、AFDB、UniProt 等 30+ 数据库与工具。 |
@@ -233,7 +237,9 @@ cd Auto-Research-Skills
 | [flonat/claude-research](https://github.com/flonat/claude-research) 🧩 | ~146 | Claude Code · Python | 面向 PhD 的完整科研基建：50 个 skills + agents + hooks + rules，含 /bib-validate、/pre-submission-report 等命令。 |
 | [voidful/academic-skills](https://github.com/voidful/academic-skills) | ~136 | Claude · Codex · Gemini · TeX | 完整科研 skill 套件：论文阅读、想法生成、实验设计、证明/写作、同行评审。 |
 | [poemswe/co-researcher](https://github.com/poemswe/co-researcher) 🧩 | ~132 | Claude Code · Codex · Gemini CLI | 跨 Claude Code、Codex、Gemini CLI 的多平台学术研究套件，含专门 agent 与 CLI 工作流。 |
+| [brycewang-stanford/stata-code](https://github.com/brycewang-stanford/stata-code) 🧩 | ~51 | Python · MCP · VS Code | 面向实证研究的智能体 Stata 桥接器：在 Claude Code、Jupyter、VS Code 中跑 DiD / IV / RDD 与出版级表格，支持 StatsPAI 交叉验证。 |
 | [openags/auto-research](https://github.com/openags/auto-research) 🧩 | ~11 | Agent + UI | 跨领域通用「AI 科学家」。 |
+| [brycewang-stanford/md2](https://github.com/brycewang-stanford/md2) 🧩 | ~5 | Web · CLI · MCP | 一篇 Markdown，发遍公众号、知乎、小红书和 X：主题、小红书卡片、X 长推与封面。 |
 
 ## 📊 评测基准
 
@@ -277,9 +283,9 @@ cd Auto-Research-Skills
 
 ## 🗂️ 已收录仓库（子模块）
 
-**6,087 个 skills**、分布在 **108 个仓库**（多数 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `./setup.sh` 即可全部拉取；只需要顶层仓库时可运行 `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh`。完整带 star 的榜单见 [STARS.md](STARS.md)。
+**6,089 个 skills**、分布在 **110 个仓库**（多数 100+ ⭐）中，以浅克隆子模块形式收录在四个目录中，各自按 star 排序。运行 `./setup.sh` 即可全部拉取；只需要顶层仓库时可运行 `ARS_SKIP_NESTED_SUBMODULES=1 ./setup.sh`。完整带 star 的榜单见 [STARS.md](STARS.md)。
 
-- **`skills/`** —— 51 个可复用技能集与插件合集
+- **`skills/`** —— 53 个可复用技能集与插件合集
 - **`systems/`** —— 38 个端到端系统与自主智能体
 - **`benchmarks/`** —— 8 个自主研究 / ML 工程评测基准
 - **`lists/`** —— 11 个精选清单与综述

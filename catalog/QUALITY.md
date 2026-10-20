@@ -10,8 +10,8 @@ decisions live in [`../CURATION.md`](../CURATION.md). Regenerate with
 
 | Metric | Count |
 |---|---:|
-| `SKILL.md` files on disk (README headline) | **6,087** |
-| Distinct skills (by content hash) | **5,410** |
+| `SKILL.md` files on disk (README headline) | **6,089** |
+| Distinct skills (by content hash) | **5,412** |
 | Re-bundled copies | **677** (11%) |
 
 Aggregator collections vendor other collections *inside themselves*, so
@@ -31,7 +31,7 @@ scan order):
 | `claude-code-my-workflow` | 61 | 61 | 2 |
 
 **Suggestion:** keep the on-disk headline (it is honest about what is
-vendored) but cite the **5,410 unique** figure alongside it so
+vendored) but cite the **5,412 unique** figure alongside it so
 users are not misled about breadth. The catalog surfaces both.
 
 ## 2. Name collisions are the real usability hazard ⚠️
@@ -93,7 +93,7 @@ submodules are vendored read-only.
 
 ## 5. Only 20% of skills declare a license
 
-**1,197 / 6,087** skills carry a `license:` field in their
+**1,197 / 6,089** skills carry a `license:` field in their
 frontmatter. The rest inherit their repo's top-level license (if any) —
 fine, but it means a user copying a single skill out of a collection
 cannot tell its license from the `SKILL.md` alone. **Suggestion:** a
