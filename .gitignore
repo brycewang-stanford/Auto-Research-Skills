@@ -8,3 +8,7 @@ CLAUDE.md
 
 # Raw, drifty discovery intermediate; curated results live in catalog/DISCOVERY.md.
 catalog/discovery-candidates.json
+
+# Social-media poster drafts (txt + png), kept local only.
+academic-research-ai.txt
+academic-research-ai.png
