@@ -40,30 +40,30 @@
 ## 🏆 Star 排行榜 Top 20
 
 <!-- TOP20:START -->
-> 按 GitHub star 数排名的前 20 个已收录仓库，由 [`scripts/update-stars.py`](scripts/update-stars.py) 每周自动刷新（最近：2026-10-20）。完整榜单见 [STARS.md](STARS.md)。
+> 按 GitHub star 数排名的前 20 个已收录仓库，由 [`scripts/update-stars.py`](scripts/update-stars.py) 每周自动刷新（最近：2026-10-26）。完整榜单见 [STARS.md](STARS.md)。
 
 | # | 仓库 | ⭐ Stars | 类别 | 收录位置 |
 |:-:|---|--:|:-:|---|
-| 🥇 | [bytedance/deer-flow](https://github.com/bytedance/deer-flow) | 84.2k | 系统 | [`systems/deer-flow`](systems/deer-flow) |
-| 🥈 | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | 64.8k | 技能 | [`skills/last30days`](skills/last30days) |
-| 🥉 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | 53.0k | 技能 | [`skills/academic-research-skills`](skills/academic-research-skills) |
-| 4 | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | 53.0k | 技能 | [`skills/scientific-agent-skills`](skills/scientific-agent-skills) |
-| 5 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | 49.5k | 技能 | [`skills/nature-skills`](skills/nature-skills) |
+| 🥇 | [bytedance/deer-flow](https://github.com/bytedance/deer-flow) | 84.4k | 系统 | [`systems/deer-flow`](systems/deer-flow) |
+| 🥈 | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | 65.5k | 技能 | [`skills/last30days`](skills/last30days) |
+| 🥉 | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | 54.7k | 技能 | [`skills/scientific-agent-skills`](skills/scientific-agent-skills) |
+| 4 | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | 54.0k | 技能 | [`skills/academic-research-skills`](skills/academic-research-skills) |
+| 5 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | 50.7k | 技能 | [`skills/nature-skills`](skills/nature-skills) |
 | 6 | [stanford-oval/storm](https://github.com/stanford-oval/storm) | 31.7k | 系统 | [`systems/storm`](systems/storm) |
-| 7 | [assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher) | 30.2k | 系统 | [`systems/gpt-researcher`](systems/gpt-researcher) |
+| 7 | [assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher) | 30.3k | 系统 | [`systems/gpt-researcher`](systems/gpt-researcher) |
 | 8 | [dzhng/deep-research](https://github.com/dzhng/deep-research) | 19.8k | 系统 | [`systems/deep-research`](systems/deep-research) |
-| 9 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | 17.8k | 技能 | [`skills/aris`](skills/aris) |
-| 10 | [HKUDS/DeepCode](https://github.com/HKUDS/DeepCode) | 16.7k | 系统 | [`systems/deepcode`](systems/deepcode) |
+| 9 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | 18.1k | 技能 | [`skills/aris`](skills/aris) |
+| 10 | [HKUDS/DeepCode](https://github.com/HKUDS/DeepCode) | 16.8k | 系统 | [`systems/deepcode`](systems/deepcode) |
 | 11 | [SakanaAI/AI-Scientist](https://github.com/SakanaAI/AI-Scientist) | 14.8k | 系统 | [`systems/ai-scientist`](systems/ai-scientist) |
-| 12 | [aiming-lab/AutoResearchClaw](https://github.com/aiming-lab/AutoResearchClaw) | 14.7k | 系统 | [`systems/autoresearchclaw`](systems/autoresearchclaw) |
-| 13 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | 13.7k | 技能 | [`skills/ai-research-skills`](skills/ai-research-skills) |
-| 14 | [Imbad0202/academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | 13.2k | 技能 | [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) |
+| 12 | [aiming-lab/AutoResearchClaw](https://github.com/aiming-lab/AutoResearchClaw) | 14.8k | 系统 | [`systems/autoresearchclaw`](systems/autoresearchclaw) |
+| 13 | [Orchestra-Research/AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) | 14.0k | 技能 | [`skills/ai-research-skills`](skills/ai-research-skills) |
+| 14 | [Imbad0202/academic-research-skills-codex](https://github.com/Imbad0202/academic-research-skills-codex) | 13.5k | 技能 | [`skills/academic-research-skills-codex`](skills/academic-research-skills-codex) |
 | 15 | [langchain-ai/open_deep_research](https://github.com/langchain-ai/open_deep_research) | 12.7k | 系统 | [`systems/open-deep-research`](systems/open-deep-research) |
-| 16 | [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills) | 10.2k | 技能 | [`skills/supervisor-skills`](skills/supervisor-skills) |
+| 16 | [HKUSTDial/Supervisor-Skills](https://github.com/HKUSTDial/Supervisor-Skills) | 10.7k | 技能 | [`skills/supervisor-skills`](skills/supervisor-skills) |
 | 17 | [companion-inc/feynman](https://github.com/companion-inc/feynman) | 10.0k | 技能 | [`skills/feynman`](skills/feynman) |
-| 18 | [Future-House/paper-qa](https://github.com/Future-House/paper-qa) | 9.4k | 系统 | [`systems/paper-qa`](systems/paper-qa) |
+| 18 | [Future-House/paper-qa](https://github.com/Future-House/paper-qa) | 9.5k | 系统 | [`systems/paper-qa`](systems/paper-qa) |
 | 19 | [LearningCircuit/local-deep-research](https://github.com/LearningCircuit/local-deep-research) | 9.4k | 系统 | [`systems/local-deep-research`](systems/local-deep-research) |
-| 20 | [Master-cai/Research-Paper-Writing-Skills](https://github.com/Master-cai/Research-Paper-Writing-Skills) | 7.6k | 技能 | [`skills/paper-writing-skills`](skills/paper-writing-skills) |
+| 20 | [Master-cai/Research-Paper-Writing-Skills](https://github.com/Master-cai/Research-Paper-Writing-Skills) | 7.8k | 技能 | [`skills/paper-writing-skills`](skills/paper-writing-skills) |
 <!-- TOP20:END -->
 
 ---
