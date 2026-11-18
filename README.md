@@ -1,8 +1,8 @@
 <div align="center">
-  <img src="readme_cn.png" alt="Auto-Research-Skills 中文海报" width="100%">
+  <img src="readme_cn.png" alt="Free-Research-Crew (免费助研团) 中文海报" width="100%">
 </div>
 
-<h1 align="center">Auto-Research-Skills</h1>
+<h1 align="center">Free-Research-Crew (免费助研团)</h1>
 
 <p align="center">
   <b>自动化研究 <i>技能</i> 与智能体的精选合集</b> —— 从想法 → 实验 → 论文，全程自动驾驶。
@@ -18,7 +18,7 @@
   <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/🧩_skills-6%2C089-ff4e88?style=flat-square" alt="6,089 skills"></a>
   <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
-  <img src="https://img.shields.io/github/stars/brycewang-stanford/Auto-Research-Skills?style=flat-square&color=ffd23f" alt="stars">
+  <img src="https://img.shields.io/github/stars/brycewang-stanford/Free-Research-Crew?style=flat-square&color=ffd23f" alt="stars">
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-7ee0a8?style=flat-square" alt="PRs welcome"></a>
   <a href="https://github.com/brycewang-stanford/StatsPAI"><img src="https://img.shields.io/badge/Powered%20by-StatsPAI-orange" alt="Powered by StatsPAI"></a>
 </p>
@@ -72,8 +72,8 @@
 
 ```bash
 # 推荐：先克隆，再让 setup.sh 处理顶层与嵌套子模块
-git clone https://github.com/brycewang-stanford/Auto-Research-Skills.git
-cd Auto-Research-Skills
+git clone https://github.com/brycewang-stanford/Free-Research-Crew.git
+cd Free-Research-Crew
 ./setup.sh
 
 # 已经克隆过？补齐缺失子模块

@@ -1,6 +1,6 @@
 # Security Policy
 
-Auto-Research-Skills is a **curation hub**: it vendors third-party skill
+Free-Research-Crew is a **curation hub**: it vendors third-party skill
 collections, systems, benchmarks, and lists as git submodules, and ships a
 small amount of first-party Python tooling to catalog and audit them. This
 policy states what the hub is responsible for, what it is not, and how to report

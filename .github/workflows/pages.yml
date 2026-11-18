@@ -48,8 +48,8 @@ jobs:
             '<meta charset="utf-8">' \
             '<meta http-equiv="refresh" content="0; url=./site/">' \
             '<link rel="canonical" href="./site/">' \
-            '<title>Auto-Research-Skills · Skill Catalog</title>' \
-            '<p>Redirecting to the <a href="./site/">Auto-Research-Skills catalog</a>.</p>' \
+            '<title>Free-Research-Crew (免费助研团) · Skill Catalog</title>' \
+            '<p>Redirecting to the <a href="./site/">Free-Research-Crew catalog</a>.</p>' \
             > _site/index.html
 
       - name: Upload Pages artifact

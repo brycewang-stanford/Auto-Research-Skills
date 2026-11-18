@@ -1,5 +1,5 @@
 /*
- * Name-collision resolver for the Auto-Research-Skills hub.
+ * Name-collision resolver for the Free-Research-Crew hub.
  *
  * Loads catalog/collisions.json (produced by tools/build_index.py) and renders,
  * for every skill name that means different things across collections, what

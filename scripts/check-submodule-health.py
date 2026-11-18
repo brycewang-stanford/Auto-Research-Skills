@@ -75,7 +75,7 @@ def fetch_repo(slug: str) -> dict | None:
     """Return the raw GitHub repo object, or None on error."""
     req = urllib.request.Request(API + slug)
     req.add_header("Accept", "application/vnd.github+json")
-    req.add_header("User-Agent", "Auto-Research-Skills health checker")
+    req.add_header("User-Agent", "Free-Research-Crew health checker")
     token = os.environ.get("GITHUB_TOKEN")
     if token:
         req.add_header("Authorization", f"Bearer {token}")

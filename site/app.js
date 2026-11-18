@@ -1,5 +1,5 @@
 /*
- * Discovery browser for the Auto-Research-Skills hub.
+ * Discovery browser for the Free-Research-Crew hub.
  *
  * Loads catalog/search-index.json (produced by tools/build_index.py) and lets
  * you search, rank, filter, sort, and inspect every bundled skill — entirely

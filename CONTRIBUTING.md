@@ -1,4 +1,4 @@
-# Contributing to Auto-Research-Skills
+# Contributing to Free-Research-Crew (免费助研团)
 
 Thanks for helping grow the toolbox! Two ways to contribute:
 

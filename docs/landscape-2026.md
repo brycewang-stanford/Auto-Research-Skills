@@ -68,7 +68,7 @@ Vertical tool-use + reasoning, often the highest real-world research value.
 ## 4. Composable agent skills ⭐ (this hub's focus)
 
 The fastest-growing, most fragmented layer: portable, plug-in skills for
-Claude Code / Codex / any LLM agent. This is where Auto-Research-Skills lives —
+Claude Code / Codex / any LLM agent. This is where Free-Research-Crew lives —
 see [`README.md`](../README.md) for the full vendored set. Highlights:
 
 - [`skills/academic-research-skills`](../skills/academic-research-skills) — research → write → review → revise → finalize.

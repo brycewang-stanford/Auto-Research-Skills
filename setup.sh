@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Auto-Research-Skills — one-shot setup.
+# Free-Research-Crew — one-shot setup.
 # Fetches every bundled submodule (skills/, systems/, benchmarks/, lists/) shallowly.
 set -euo pipefail
 

@@ -71,7 +71,7 @@ def parse_submodules() -> list[tuple[str, str]]:
 def get_stars(slug: str) -> int | None:
     req = urllib.request.Request(API + slug)
     req.add_header("Accept", "application/vnd.github+json")
-    req.add_header("User-Agent", "Auto-Research-Skills star refresher")
+    req.add_header("User-Agent", "Free-Research-Crew star refresher")
     token = os.environ.get("GITHUB_TOKEN")
     if token:
         req.add_header("Authorization", f"Bearer {token}")

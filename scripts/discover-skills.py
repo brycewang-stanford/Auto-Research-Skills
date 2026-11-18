@@ -132,7 +132,7 @@ def search(query: str, token: str | None, per_page: int = 50) -> list[dict]:
     )
     req = urllib.request.Request(f"{SEARCH_API}?{params}")
     req.add_header("Accept", "application/vnd.github+json")
-    req.add_header("User-Agent", "Auto-Research-Skills discovery")
+    req.add_header("User-Agent", "Free-Research-Crew discovery")
     if token:
         req.add_header("Authorization", f"Bearer {token}")
     try:
