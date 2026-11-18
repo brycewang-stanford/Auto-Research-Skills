@@ -192,3 +192,37 @@ Next time (results):
 - Every analysed outcome is reported with Romano-Wolf; no survey item is read.
 - Literature review still pending: spot-check card2018, lalonde1986 ($886, SE 476),
   crump2009 ([0.1, 0.9]).
+
+## code-r1 (2026-11-18T13:59Z), verdict: pass (post hoc; analysis had already run)
+Checked code/*.py against plan.json line by line. I re-implemented the primary estimator independently and reproduced
+theta_rep0 and theta_rep4 exactly. The EM tau equals the direct observed-likelihood MLE within $0.6. My own RF
+re-implementation gives -12.5 against the recorded -10.0, the gap from region column order. All analysis code mtimes
+(13:03-13:06Z) are after the gate and before main-aipw (13:12Z). No leakage was found. Open, all minor: F1, the
+sensitivity strongest/weakest ordering, chosen in code (age vs educ near-tie on equiv); F2, the relative-effect CI uses
+psi_bar (4% narrower); F3, the Hajek IPW clipping is not in the plan (0 clipped); F4, the O1/O2-conditional H1b branch
+is not coded (dormant).
+Next time (results/paper): the paper must state the sensitivity ordering criterion and must not present the
+additive bias transfer (OLS tau00 -126.5 vs AIPW -9.8) as exact. earn75 is not robust for any target, so the paper
+must say unobserved selection of that strength could produce the result. rob-diff74 = -1,087 must be reported
+prominently and not explained away.
+
+## results-r1 (2026-11-18T14:00Z), verdict: revise
+Checked and held:
+- The design (plan.json without tasks and gates) is identical at commit 274c4d6 (gate), HEAD and the working copy.
+- Every analysis run started after the gate (13:00:13Z), ran once, and ran in plan order.
+- validate and --strict are OK.
+- I re-executed the primary and RF AIPW in a scratch copy (scratchpad/ws). Both match the ledger exactly: -9.794 and -10.006. Their per-rep thetas differ, so the close agreement is a coincidence, not reused nuisances.
+- Mixed nuisances give +11.9 (GBM g with RF m) and -68.9 (RF g with logit m).
+- H1 and TOST formulas are correct. O1/O2 pass. The disagreement rule is applied mechanically, including the IPW point test (-191 inside [-358, 338]). The RW stepdown code is correct, with 0 detected.
+- The sensitivity reading rule is applied, with earnings75 stated (NOT robust, all targets). tau00 equals the OLS coefficient.
+- Every id in design.claim_ids is present. No survey item is read, and there is no recoding.
+- NOTES table numbers equal the metrics.
+- Raw group means: re78 treated 7,930 vs control 11,393. Naive -3,463, DiD74 -1,291, DiD75 +1,348.
+Findings: F1 major (H1b claim lacks the scope from the sensitivity rule and diff74), F2 major (NOTES gives only the pro-primary reading of diff74), F3 minor (unplanned unadjusted secondary CIs; benefits78 [2.5, 171] excludes 0), F4 minor (psi_bar-based relative CI and RW/max-t omit the between-split variance, about 4% narrower; NOTES misstates the direction), F5 minor (figures todo; wellbeing max-t in SD units not claimed).
+Suspicions:
+- The memory prediction "H1b likely untestable" was wrong: SE 177.6, not ~253. H1b passes, so the danger has moved to overclaiming equivalence.
+- Watch the paper: the abstract must not say "smaller than M" without the earnings75 sentence. Watch for diff74 being called "biased downward" or relegated to an appendix. Watch for benefits78 being described as an effect.
+Next time (results-r2 or paper):
+- Check that primary-h1b-decision is reworded; that a claim with the mandated earnings75 sentence and the earnings74 non-robustness for t_E exists; that diff74 decision claims exist; and that the NOTES diff74 sentence is fixed.
+- Check that the sec-*-ci claims are dropped or relabelled; that the F4 caveat is stated; and that the figures exist.
+- Literature review still pending: spot-check card2018, lalonde1986 ($886, SE 476), crump2009 ([0.1, 0.9]).
