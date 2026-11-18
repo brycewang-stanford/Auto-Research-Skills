@@ -246,6 +246,13 @@ class CrewWorkspaceTest(unittest.TestCase):
         problems = crew.check_replication(self.ws, crew.read_runs(self.ws)[0], required=True)
         self.assertTrue(any("older than the latest run" in p for p in problems))
 
+    def test_log_entries_cannot_be_in_the_future(self) -> None:
+        self.assertEqual(call("log", str(self.ws), "--role", "scout", "--action", "done")[0], 0)
+        self.assertEqual(self.errors(), [])
+        with (self.ws / "log.jsonl").open("a") as handle:
+            handle.write(json.dumps({"time": "2999-01-01T00:00:00Z", "role": "scout", "action": "x"}) + "\n")
+        self.assertTrue(any("in the future" in e for e in self.errors()))
+
     def test_citations_need_verified_sources(self) -> None:
         (self.ws / "refs.bib").write_text("@article{known2020,\n  title={A},\n}\n")
         self.assertTrue(any("no verification record" in e for e in self.errors()))

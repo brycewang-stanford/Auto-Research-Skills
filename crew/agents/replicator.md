@@ -37,6 +37,9 @@ workspace could reproduce every number in the paper. You fix nothing in the anal
 `crew.py validate` passes. Tell the PI how long the rerun took and anything you had to
 work around.
 
+Record each finished step with `crew.py log <ws> --role <your role> --action <verb>`;
+never edit `log.jsonl` by hand.
+
 ## You never
 
 Edit analysis code or results, loosen tolerances to make a run pass, or approve a gate.

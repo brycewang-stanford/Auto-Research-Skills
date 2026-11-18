@@ -1,0 +1,105 @@
+{
+  "id": "question-r1",
+  "target": "question",
+  "round": 1,
+  "created": "2026-11-18T11:56:13Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "log.jsonl",
+    ".gitignore"
+  ],
+  "kill_argument": "The main hypothesis compares one 'accuracy drop' averaged over datasets, but the datasets are not named. The brief restricts the study to datasets that ship with scikit-learn, and those are tiny and near ceiling. In a 5-seed untuned pilot I ran outside the workspace, the sign of the RF-minus-GBDT drop changes with the dataset. On iris RF loses 29 points and GBDT 15. On wine GBDT loses 23 and RF 13. On digits RF loses 2 and GBDT 11. The seed SD on iris and wine is 5 to 13 points. So whichever datasets go into the average decide H1, and that choice is still open. A 40% flip also means different things for different numbers of classes: 60/40 signal in a binary task, 60% against 4.4% per wrong class on digits. That makes the average mix quantities that cannot be compared. H2 is an existential claim ('at least one dataset') with no rule about seed noise, so a chance reversal confirms it. Nothing in the plan says whether tuning and early stopping see noisy or clean validation labels, and that choice fixes what the study measures. What I tried that held: novelty. I searched for a tuned RF/GBDT/LR comparison under symmetric noise with clean test labels and found none, so the contribution survives as a protocol contribution.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "H1's answer ('averaged over datasets') depends on a dataset choice that the question leaves open. The admissible pool (iris n=150, wine n=178, breast_cancer n=569, digits n=1797, plus any fetch_* loaders) gives conflicting directions. In my untuned 5-seed pilot (80/20 stratified split, 40% flips to a uniformly chosen other class; scikit-learn defaults with HistGradientBoosting early_stopping=True) the RF-minus-GBDT drop was +0.15 on iris, -0.10 on wine, -0.05 on breast_cancer and -0.09 on digits. The pooled mean flips depending on whether iris or digits is included. Separately, a 40% symmetric flip leaves a 0.6 vs 0.4 signal in binary tasks but 0.6 vs 0.044 per wrong class in 10-class digits. Averaging absolute drops across tasks with different numbers of classes therefore mixes noise severities that cannot be compared.",
+      "evidence": "plan.json hypotheses[0] ('Averaged over datasets'); plan.json design.data empty; data/manifest.json datasets []",
+      "remedy": "Before any analysis run, name the dataset list and the rule that selected it. Report H1 per dataset and state the aggregate as a count of datasets with a difference outside seed noise, not as a pooled mean. Either restrict to one number of classes, or also express noise as a fraction of the maximum symmetric rate (K-1)/K.",
+      "response": "PI: datasets now named in the question (breast_cancer, credit-g, adult, covtype; none used in the pilot); H1 is decided per dataset with a count rule, never pooled.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "H1 and H3 have no decision rule. 'Larger' and 'loses the least' do not define the drop metric (absolute points, relative to clean accuracy, or normalized to chance), the comparison (difference in drops paired by seed and split), the interval or test, or the smallest difference that counts. The brief requires that 'differences inside the noise are reported as no difference', but the hypotheses do not say how a difference is shown to lie outside it. With 5 seeds and test sets of 30-114 examples, my pilot's drop SD was 0.03-0.13, about as large as the differences between methods. As written, an author can choose the metric and the rule after seeing results.",
+      "evidence": "plan.json hypotheses[0], hypotheses[2]; crew/bench/seeds/cs-label-noise/task.json requirements[3]",
+      "remedy": "Before the question gate, rewrite H1 and H3 with a fixed metric: absolute clean-test accuracy at 0% minus at 40%, paired by seed. Add a fixed rule, for example a 95% interval across seeds that excludes 0, and say what result would count as 'no difference'. Plan more seeds or repeated splits where the test set is under 100 examples.",
+      "response": "PI: decision rule added to H1 and H2: paired drop differences over 10 seeds, 95% t-interval, supported/contradicted/inconclusive thresholds.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "open",
+      "text": "H2 is close to true by construction. It is an existential claim over datasets ('reverses ... on at least one of the datasets') with no requirement that either ordering lies outside seed noise. On scikit-learn's toy datasets the three methods sit within about 1 point of each other at 0% noise (pilot: breast_cancer RF 0.970 vs GBDT 0.965, wine 0.994 vs 0.978, iris 0.953 vs 0.947). A sign change from noise alone is therefore likely. The scout already reached this conclusion (sources/notes.md, H2 paragraph: 'a weak hypothesis that the literature makes very likely to hold'), but plan.json kept the wording.",
+      "evidence": "plan.json hypotheses[1]; sources/notes.md 'Novelty verdict' H2 bullet",
+      "remedy": "Count a reversal only when the ordering at 0% and the reverse ordering at 40% are both outside seed noise on the same dataset. The cheaper option is to drop H2 as a hypothesis and report rankings descriptively.",
+      "response": "PI: the ranking-reversal hypothesis is dropped; rankings are reported descriptively.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "open",
+      "text": "The estimand depends on whether the validation labels used for hyperparameter tuning and for GBDT early stopping are noisy or clean, and the question does not say which. Clean validation labels give every method an oracle that a practitioner with noisy labels lacks. Early stopping on a clean holdout is a different method from early stopping on noisy labels, and the second is what Eisenbürger et al. and HistGradientBoosting's internal validation_fraction do. Hyperparameters such as RF min_samples_leaf and LR's C are exactly the controls that van Rooyen et al. tie to noise robustness. Which labels pick them can therefore decide H1 and H3. In my untuned pilot, RF with default fully grown trees lost 29 points on iris against 13 for LR, which shows how much these hyperparameters move the outcome.",
+      "evidence": "plan.json question ('the same tuning budget'); plan.json contribution; plan.json design.method empty",
+      "remedy": "State in the question that validation labels carry the same noise as training labels (the realistic case), or that they are clean (an upper bound), and give the reason. Specify 'same tuning budget' as a count of configurations or of fits per method.",
+      "response": "PI: validation labels are noisy (a practitioner only has noisy labels); the numeric tuning budget is fixed in the design. The question now states noisy validation.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "major",
+      "status": "open",
+      "text": "The scope words promise more than the resources allow. 'Modern gradient boosting' names no implementation, although morampudi2026 (which the crew cites) reports that GBDT robustness rankings depend on the library. 'Standard tabular datasets' is not what the brief allows: scikit-learn's bundled loaders are toy sets, and digits is 8x8 images, not tabular data. A finding on 3-4 toy datasets supports a claim about those datasets and that implementation only (tracks/cs.md: 'Three small datasets support a claim about those datasets').",
+      "evidence": "plan.json question; plan.json hypotheses[0] ('modern gradient-boosted trees'); claims.jsonl c-morampudi",
+      "remedy": "Narrow the wording. Name the implementation (for example scikit-learn HistGradientBoostingClassifier, log-loss, early stopping on a held-out fraction) and replace 'standard tabular datasets' with the named datasets.",
+      "response": "PI: implementations named (HistGradientBoostingClassifier, RandomForestClassifier, L2 logistic regression); 'standard tabular datasets' replaced by the four named datasets.",
+      "ruling": ""
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The hypothesis text says Eisenbürger et al. (2024) 'dispute' that boosting is fragile compared with random forests. That paper studies XGBoost alone and finds it robust in absolute terms. It makes no comparison with RF, so it cannot dispute an RF-versus-GBDT ordering. The contribution also states a universal negative ('a controlled comparison that previous studies did not make'). Neither the scout's search nor mine found such a study, but absence from a search does not establish the claim.",
+      "evidence": "plan.json hypotheses[0] (last sentence); plan.json contribution; sources/notes.md eisenburger2024 entry ('It does not compare with RF or LR')",
+      "remedy": "Say that Eisenbürger et al. report GBDT robustness without an RF comparison, and write 'that we found' in the contribution.",
+      "response": "Scout: corrected sources/notes.md (verdict H1 bullet and eisenburger2024 entry) and claim c-eisenburger to say Eisenbürger et al. study XGBoost alone, with no RF or other comparison, so they are context, not evidence on the RF-vs-GBDT ordering; the 'that we found' wording is in the notes, but plan.json is the PI's to change.",
+      "ruling": ""
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "The hypothesis numbers in sources/notes.md do not match plan.json. In the notes, H1 is 'every method loses accuracy' (marked already answered) and H3 is the GBDT-vs-RF comparison. In plan.json, H1 is the GBDT-vs-RF comparison and H3 is about LR. A reader who follows the notes will apply the 'already answered' verdict to the wrong hypothesis. plan.json's H3 (LR loses least) also gets no novelty assessment in the notes. Le Baher et al., which found LR only slightly sensitive, bears on it directly.",
+      "evidence": "sources/notes.md 'Novelty verdict' H1/H2/H3 bullets; plan.json hypotheses",
+      "remedy": "Relabel the notes to the current hypotheses and add a novelty line for plan.json H3, citing lebaher2020.",
+      "response": "Scout: verdicts in sources/notes.md now match the current plan.json exactly: H1 (GBDT drop > RF drop, per dataset) is open/contested, and H2 (LR smallest drop) is partly answered, citing lebaher2020's 'small sensibility' finding and its limits. Ranking reversals moved to a 'descriptive, not tested' note, and a line on prior label-noise work on breast_cancer, credit-g, adult and covtype was added.",
+      "ruling": ""
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "open",
+      "text": "'Flipped uniformly at random' does not say how labels are flipped. It could mean replacing the label with a uniformly chosen different class (the effective rate equals the nominal rate) or drawing uniformly over all K classes (the effective rate is r(K-1)/K). It also does not say whether exactly round(r*n) labels are flipped or each label is flipped independently with probability r.",
+      "evidence": "plan.json question; plan.json contribution",
+      "remedy": "Write one sentence: exactly round(r*n_train) training labels, chosen uniformly without replacement, are each replaced by a uniformly chosen different class, and test and validation labels are handled as F4 decides.",
+      "response": "PI: noise defined as an exact fraction of training labels, each replaced by a different class uniformly at random.",
+      "ruling": ""
+    }
+  ]
+}

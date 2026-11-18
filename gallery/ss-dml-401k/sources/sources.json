@@ -1,0 +1,144 @@
+{
+  "chernozhukov2018dml": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1111/ectj.12097",
+    "url": "https://arxiv.org/abs/1608.00060",
+    "note": "Full text arXiv:1608.00060v7 (PDF, pdftotext). Metadata from Crossref. Table 2 values cross-checked against the journal HTML at https://academic.oup.com/ectj/article/21/1/C1/5056401: identical."
+  },
+  "chernozhukov2004": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1162/0034653041811734",
+    "url": "https://ideas.repec.org/a/tpr/restat/v86y2004i3p735-751.html",
+    "note": "Metadata from Crossref; abstract from IDEAS/RePEc. Full text paywalled, not read."
+  },
+  "poterba1994": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.nber.org/chapters/c7341.pdf",
+    "note": "NBER chapter PDF, text extracted. Uses SIPP 1984-1986 panels, not 1991."
+  },
+  "poterba1995": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1016/0047-2727(94)01462-W",
+    "url": "https://ideas.repec.org/a/eee/pubeco/v58y1995i1p1-32.html",
+    "note": "Metadata from Crossref (published 1995-09; DML paper cites it as 1994b). Abstract from IDEAS (IDEAS notes it is borrowed from another version). ScienceDirect returned 403."
+  },
+  "abadie2003": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "doi-resolved",
+    "doi": "10.1016/S0304-4076(02)00201-4",
+    "note": "Crossref metadata only. Cited only because the authors' replication code says the SIPP 1991 sample follows Abadie (2003)."
+  },
+  "bach2022doubleml": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.jmlr.org/papers/volume23/21-0862/21-0862.pdf",
+    "note": "JMLR PDF read; no DOI. JMLR 23 (2022) 1-6."
+  },
+  "bach2024doublemlr": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.18637/jss.v108.i03",
+    "url": "https://www.jstatsoft.org/article/view/v108i03"
+  },
+  "chernozhukov2017aerpp": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1257/aer.p20171038",
+    "url": "https://arxiv.org/abs/1701.08687",
+    "note": "AER metadata from Crossref; full text and appendix Tables 1-2 read from arXiv:1701.08687v1. AER PDF not reachable (HTML returned)."
+  },
+  "dmlongithub": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://github.com/VC2015/DMLonGitHub",
+    "note": "Repo metadata via GitHub API; 401K.R, Moment_Functions.R and LICENSE.Rmd read. Data file not downloaded."
+  },
+  "ahrens2024ddml": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1177/1536867X241233641",
+    "url": "https://arxiv.org/abs/2301.09397",
+    "note": "Stata Journal metadata from Crossref; text read from arXiv:2301.09397v3."
+  },
+  "chernozhukov2024causalml": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://arxiv.org/abs/2403.02467",
+    "note": "arXiv PDF v0.1.1 (March 4, 2024) read; chapter 10 Table 10.4."
+  },
+  "chernozhukov2026lss": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1162/REST.a.1705",
+    "url": "https://arxiv.org/abs/2112.13398",
+    "note": "DOI resolves to direct.mit.edu; Crossref gives REStat 2026, pages 1-45. Text read from arXiv:2112.13398v6."
+  },
+  "doubleml401kdocs": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://docs.doubleml.org/stable/examples/py_double_ml_pension.html",
+    "note": "Web page read via fetch tool (summarized extraction). fetch_401K source read directly from GitHub DoubleML/doubleml-for-py main."
+  },
+  "belloni2017": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3982/ECTA12723",
+    "url": "https://arxiv.org/abs/1311.2645",
+    "note": "Econometrica metadata from Crossref; text from arXiv:1311.2645v8 Sec. 7 (9,915 SIPP 1991 households; same data as Chernozhukov & Hansen 2004)."
+  },
+  "wuthrich2023": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1162/rest_a_01128",
+    "url": "https://arxiv.org/abs/1903.08704",
+    "note": "REStat metadata from Crossref; text from arXiv:1903.08704v9 Sec. 5.2.1 (outcome total wealth, post double lasso)."
+  },
+  "ahrens2025modelavg": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1002/jae.3103",
+    "url": "https://arxiv.org/abs/2401.01645",
+    "note": "JAE metadata from Crossref; text from arXiv:2401.01645v2 (401(k)-calibrated simulation)."
+  },
+  "ahrens2025intro": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://arxiv.org/abs/2504.08324",
+    "note": "arXiv:2504.08324v2 (12 Feb 2026) read; 401(k)-calibrated simulation on 9,915 observations."
+  },
+  "doubleml401krdocs": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://docs.doubleml.org/stable/examples/R_double_ml_pension.html",
+    "note": "Web page read via fetch tool (summarized extraction)."
+  },
+  "mendez2026": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://carlos-mendez.rbind.io/post/python_doubleml_pension/",
+    "note": "Web page read via fetch tool (summarized extraction). Informal tutorial, not peer reviewed."
+  }
+}

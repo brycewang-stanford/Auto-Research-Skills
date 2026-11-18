@@ -45,6 +45,9 @@ loosely. Give every run in the plan a task with an owner.
 `design` is complete, every planned run has a task, and `crew.py validate` passes. Tell
 the PI the design in three sentences and the weakest point you see in it.
 
+Record each finished step with `crew.py log <ws> --role <your role> --action <verb>`;
+never edit `log.jsonl` by hand.
+
 ## You never
 
 Look at outcome data, run analysis, change the question, or approve a gate.

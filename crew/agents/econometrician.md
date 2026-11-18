@@ -45,6 +45,9 @@ Every run in the plan has a successful record, `claims.jsonl` covers every numbe
 paper will report, and `crew.py validate` passes. Tell the PI the main estimate with its
 uncertainty, which hypotheses it supports or contradicts, and every deviation.
 
+Record each finished step with `crew.py log <ws> --role <your role> --action <verb>`;
+never edit `log.jsonl` by hand.
+
 ## You never
 
 Run analysis outside `crew.py run`, edit a script after its run without rerunning,

@@ -1,0 +1,115 @@
+{
+  "id": "question-r1",
+  "target": "question",
+  "round": 1,
+  "created": "2026-11-18T11:58:04Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "plan.json",
+    "crew.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "log.jsonl",
+    ".gitignore"
+  ],
+  "kill_argument": "The main hypothesis cannot tell a faithful replication from a sloppy one. H2 accepts any estimate within half the published standard error (about $650) of the published cell. That SE measures sampling uncertainty, and a replication on the same 9,915 households shares that sampling draw. What a replication can actually vary is software, tuning and the random splits. The paper's own Table 2 shows how large the split noise is: from sqrt(adjusted SE^2 - median SE^2), the spread of estimates across splits is roughly $190-450 for the flexible learners. The Monte Carlo error of a median over 100 splits is therefore about $25-55, which is 12 to 27 times smaller than the tolerance. The authors' own two runs (AER P&P 2017 vs EJ 2018) differ by at most $33 at 5 folds. Implementations that ignore the protocol already pass: DoubleML's 3-fold, single-split random forest (8,910, -$337) and tree (8,260, -$611), and Long Story Short's forest (9,002, -$245), are all within $650 of the 5-fold cells. A 'yes' to H2 would be uninformative. I attacked the published benchmark and it held: Table 2 Panel B in arXiv:1608.00060v7 matches notes.md cell for cell.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "H2's tolerance (half the published SE, about $650) is calibrated to sampling error, not to what a same-data replication can vary. The published table implies a split-to-split spread of about $190-450 for the flexible learners, so the median over 100 splits has a Monte Carlo error of about $25-55 per cell. The authors' 2017 and 2018 runs differ by at most $33 (5-fold) and $154 (2-fold). Non-protocol reanalyses (DoubleML 3-fold RF -$337, tree -$611; Long Story Short RF -$245) already fall inside $650. H2 therefore has almost no power to detect a wrong implementation. 'Within $650' is not evidence of reproduction.",
+      "evidence": "plan.json hypotheses[1] (H2); sources/notes.md section 1 Table 2 Panel B and section 2 (AER P&P, DoubleML docs, chernozhukov2026lss). Reviewer check: Table 2 re-read from arXiv:1608.00060v7 p.42; DoubleML pension page re-fetched 2026-11-18.",
+      "remedy": "Set a per-cell tolerance from the published table: e.g. 2-3 times the implied Monte Carlo error of the median (sqrt(adjSE^2 - medSE^2)*1.25/sqrt(S)), or the 2017-vs-2018 gap. Keep the half-SE band only as a secondary statement that 'substantive conclusions agree'.",
+      "response": "PI: H2 tolerance is now per cell, derived from the split-to-split SD backed out of the published bracketed and parenthesized SE rows, and the number of splits on each side.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "As written, the question cannot be answered within the seed budget (laptop CPU, 60 minutes). The published procedure is 100 splits x (2+5 folds) x 2 nuisance functions x 7 columns, and Ensemble and Best refit every learner. I timed scikit-learn on synthetic data of the study's size (n=7,932 training rows, 9 covariates, 8 cores). One 1,000-tree forest takes 3.5 s for the regression and 0.9 s for the classifier, so the Forest column alone is about 28 s per split, or about 45 min for S=100. One gradient-boosting fit (1,000 trees, depth 2, subsample 0.5) takes 4.2 s before any CV tuning, so Boosting alone is about 100 min. The plan neither states S nor admits it must deviate from S=100.",
+      "evidence": "plan.json question ('median over repeated sample splits', 'cell-by-cell replication of Table 2, Panel B'); seed task.json budget; reviewer timing script in scratchpad (RF reg 3.47 s, RF clf 0.92 s, GBM 4.17 s).",
+      "remedy": "Narrow the question before the design gate: fix S (e.g. 10-20) and drop or defer Ensemble and Best. State the resulting Monte Carlo error and report it as a deviation from the published protocol. If S < 100, F1's tolerance must use that S.",
+      "response": "PI: the number of splits is reduced and fixed in the design to fit the budget; Ensemble and Best are dropped; both are stated in the contribution and will be listed as deviations.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "open",
+      "text": "The question promises a cell-by-cell replication of Table 2, Panel B, but the main hypothesis covers only 8 of 14 point estimates and none of the 28 SE cells. Lasso, Ensemble and Best are excluded from H2. Lasso is the cell most sensitive to implementation: it needs the dictionary from the code, and hdm::rlasso has no exact Python equivalent. It is also the noisiest cell, with an implied split spread of about $860-1,120 against about $300-450 for the others. Leaving it out of the match test, and testing it only by rank (H3), removes the cell most likely to fail. The seed also requires one plr-<learner> value per learner, but the plan does not say whether that value is the 2-fold or the 5-fold estimate. That leaves room to report whichever is closer.",
+      "evidence": "plan.json question vs hypotheses[1]; sources/notes.md 'Details the paper text does NOT state' (lasso dictionary, rlasso c=1.1); seed task.json requirements[4].",
+      "remedy": "Either include Lasso (and the SEs) in H2 with its own noise-based tolerance, or narrow the question to 'flexible-learner point estimates' and say so. Pre-commit now that plr-<learner> reports the 5-fold estimate (the headline row).",
+      "response": "PI: all 10 cells (5 learners incl. lasso x 2 fold counts) are in H2; claim ids become plr-<learner>-<k>fold; replicated SEs are reported and compared descriptively.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "open",
+      "text": "The contribution claims the study will separate 'differences due to software and learner tuning from sampling variation across splits'. No hypothesis or planned comparison can do this. With one reimplementation, software and tuning differences cannot be told apart. That requires a reference arm that runs the authors' public 401K.R and Moment_Functions.R on the same sipp1991.dta, so that implementation differences are measured against the authors' own code and not against a printed number.",
+      "evidence": "plan.json contribution; sources/notes.md section 1 (DMLonGitHub code is public, set.seed(1211)).",
+      "remedy": "Cheapest: drop the decomposition from the contribution. Otherwise, add an R reference arm (authors' code, fixed seed, reduced S) and a hypothesis comparing the two implementations cell by cell.",
+      "response": "PI: claim to separate software from tuning dropped from the contribution.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "major",
+      "status": "open",
+      "text": "The estimand drifts between documents. The seed asks for 'the average effect' and crew.json asks 'Does 401(k) eligibility raise net financial assets?'. The PLR coefficient is a variance-weighted average of heterogeneous effects, not the ATE. The same published table shows the gap: the IRM ATE is 7,170-8,105 at 5 folds, against PLR 8,187-9,247, a difference of about $1,000-1,400. The PLR coefficient is causal only under conditional exogeneity of eligibility, and the notes record that the cited support for it (Poterba et al.) uses other SIPP waves. If the paper calls the replicated PLR coefficient 'the average effect', it will overclaim.",
+      "evidence": "crew.json title; seed task.json question; plan.json hypotheses[0] ('effect of eligibility'); sources/notes.md section 1 (Panel A values) and section 3 item 1.",
+      "remedy": "Narrow the wording: call the target 'the PLR coefficient on eligibility (Table 2, Panel B)' and treat its causal reading as inherited from the original paper, not tested here. No new analysis needed.",
+      "response": "PI: estimand narrowed to the PLR coefficient on eligibility throughout the question.",
+      "ruling": ""
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "H1 is already answered and is near-certain: every prior estimate has t of about 6-7, and the Scout says 'H1 is effectively already answered'. As a hypothesis it carries no information.",
+      "evidence": "plan.json hypotheses[0]; sources/notes.md section 5.",
+      "remedy": "Relabel it as a sanity check, not a hypothesis.",
+      "response": "PI: H1 relabelled as a sanity check.",
+      "ruling": ""
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "H3 depends on implementation choices that are not yet fixed. On the same data, the DoubleML lasso estimate moves from 5,722 to 8,975 depending on the dictionary. Without a pre-committed dictionary and penalty rule, H3 can be made to pass or fail. 'Smaller than the estimates from flexible learners' also does not say whether it must hold against all four learners or against their average.",
+      "evidence": "plan.json hypotheses[2]; sources/notes.md section 2 (DoubleML lasso basic vs flexible).",
+      "remedy": "At the design gate, fix the dictionary (the 401K.R formula) and the penalty (rlasso-equivalent, c=1.1, heteroskedastic), and state that H3 requires lasso < each of the four learners, for each K.",
+      "response": "PI: H3 now requires lasso < each flexible learner at the same fold count; the lasso specification is fixed at the design gate.",
+      "ruling": ""
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "open",
+      "text": "Three loose terms. (a) 'Independent open-source software' is undefined: DoubleML is co-authored by Chernozhukov, and hdm is the authors' own package. (b) 'Half of the published standard error (about $650)' does not say which SE row: half the median SE is $648-682 and half the adjusted SE is $664-714. (c) notes.md section 5 still describes H2's tolerance as 'one published SE (about $1,300)', which no longer matches plan.json.",
+      "evidence": "plan.json question, hypotheses[1]; sources/notes.md section 5 last bullet.",
+      "remedy": "Define 'independent' (e.g. 'not the authors' R code') and name the SE row. Have the Scout update the stale sentence in notes.md.",
+      "response": "PI: 'independent' now means implemented by the crew with scikit-learn learners, not the authors' code (and not DoubleML); the tolerance no longer uses a published SE row; the Scout is correcting its notes. Scout: notes.md §5 no longer uses the one-SE band; it states the per-cell split-noise tolerance from plan.json H2 with implied values per cell, H3 as lasso < each learner per K, H1 as a sanity check, and the seed's plr-<learner>-<k>fold claims.",
+      "ruling": ""
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "open",
+      "text": "The novelty claim that no cell-by-cell replication of Table 2 Panel B exists rests partly on sources that were found but not read: the carlos-mendez DoubleML lab, the Erasmus thesis, Belloni et al. (2017) and Wüthrich & Zhu. The DoubleML R 401(k) vignette was not checked either.",
+      "evidence": "sources/notes.md section 4.",
+      "remedy": "Read those items, or weaken the claim to 'none of the sources we read'.",
+      "response": "Scout: read all named items plus the DoubleML R vignette and two Ahrens et al. preprints (notes.md §4a); none replicates Table 2 Panel B cell by cell, so the claim stands but is now worded as 'none of the sources we found and read', with GitHub code not systematically searched.",
+      "ruling": ""
+    }
+  ]
+}

@@ -31,7 +31,7 @@ work good.
   paper/                 main.tex, numbers.tex (generated), ai-use.tex, figures
   reviews/<id>/          review.json and the Reviewer's memory
   replication.json       result of the last clean rerun (written by the tool)
-  log.jsonl              who did what, when
+  log.jsonl              who did what, when (append only with `crew.py log`)
 ```
 
 ## Gates
@@ -169,6 +169,7 @@ python3 crew.py validate <ws> [--strict]
 python3 crew.py gate <ws> <gate> request|approve|reject [--by "<human>"] [--note "…"]
 python3 crew.py run <ws> --id … --role … --kind … [--code …] [--input …] [--metrics …] -- <command>
 python3 crew.py numbers <ws>
+python3 crew.py log <ws> --role <role> --action <verb> [--detail "…"]
 python3 crew.py rerun <ws> [--rtol 1e-6] [--reuse-data]
 python3 cross_review.py <ws> <target> <round> [--model …]   # Reviewer on another provider's model
 ```

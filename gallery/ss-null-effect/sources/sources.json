@@ -1,0 +1,185 @@
+{
+  "lalonde1986": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://ideas.repec.org/a/aea/aecrev/v76y1986i4p604-20.html",
+    "note": "No DOI exists (AER 1986; JSTOR stable 1806062 via IDEAS link). Metadata and abstract from IDEAS/RePEc. Full text read from a third-party scan of the published article (gwern.net/doc/economics/1986-lalonde.pdf, pdftotext). Male NSW experimental estimate $886 (SE $476) and AFDC women $851 (SE $317), 1982 dollars: Table 5 and Table 4 notes, p. 616; conclusion section IV, p. 617."
+  },
+  "dehejia1999": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1080/01621459.1999.10473858",
+    "url": "https://www.nber.org/papers/w6586",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Full text read from the NBER Working Paper 6586 PDF (pdftotext); numbers quoted in notes come from that version (Section 2.2, Table 3 discussion, Conclusion) and may differ slightly from the JASA text."
+  },
+  "dehejia2002": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1162/003465302317331982",
+    "url": "https://www.nber.org/papers/w6829",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Full text read from the NBER Working Paper 6829 PDF (pdftotext): Section 5 results and Section 6 conclusion. Numbers may differ slightly from the REStat text."
+  },
+  "smith2005": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1016/j.jeconom.2004.04.011",
+    "url": "https://economics.sas.upenn.edu/sites/default/files/filevault/working-papers/01-035.pdf",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Published abstract read on IDEAS (https://ideas.repec.org/a/eee/econom/v125y2005i1-2p305-353.html). Full text read from PIER Working Paper 01-035 (version dated 22 Nov 2000); no numbers from it are used. Journal full text paywalled, not read."
+  },
+  "dehejia2005": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1016/j.jeconom.2004.04.012",
+    "url": "https://users.nber.org/~rdehejia/papers/practical_pscore.pdf",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Full text read from the author-hosted journal proof (J. Econometrics 125 (2005) 355-364): abstract and Section 5 Conclusion."
+  },
+  "rosenbaum1983": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1093/biomet/70.1.41",
+    "url": "https://doi.org/10.1093/biomet/70.1.41",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "robins1994": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1080/01621459.1994.10476818",
+    "url": "https://doi.org/10.1080/01621459.1994.10476818",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "bang2005": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1111/j.1541-0420.2005.00377.x",
+    "url": "https://doi.org/10.1111/j.1541-0420.2005.00377.x",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "hirano2003": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1111/1468-0262.00442",
+    "url": "https://doi.org/10.1111/1468-0262.00442",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "chernozhukov2018dml": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1111/ectj.12097",
+    "url": "https://doi.org/10.1111/ectj.12097",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "imbens2004": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1162/003465304323023651",
+    "url": "https://www.nber.org/papers/t0294",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Full text read from NBER Technical Working Paper 294 (October 2003): Section 3.4 (mixed methods, double robustness) and Section 5.1 (indirect tests of unconfoundedness using lagged outcomes)."
+  },
+  "imbens2009": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1257/jel.47.1.5",
+    "url": "https://www.nber.org/papers/w14251",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Full text read from NBER Working Paper 14251 (August 2008): Section 5 normalized-difference rule of thumb (one quarter), discussion of LaLonde data, trimming illustration, pseudo-outcome tests."
+  },
+  "imbens2003": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1257/000282803321946921",
+    "url": "https://doi.org/10.1257/000282803321946921",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Opening text read via OpenAlex (AER Papers & Proceedings; no formal abstract). Only the paper's aim is cited."
+  },
+  "crump2009": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1093/biomet/asn055",
+    "url": "https://www.nber.org/papers/t0330",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Published abstract read via OpenAlex. Full text read from NBER Technical Working Paper 330 ('Moving the Goalposts...'), Section 7 application to the Dehejia-Wahba PSID sample. Numbers in notes are from the working paper."
+  },
+  "benjamini1995": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1111/j.2517-6161.1995.tb02031.x",
+    "url": "https://doi.org/10.1111/j.2517-6161.1995.tb02031.x",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "romano2005": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1111/j.1468-0262.2005.00615.x",
+    "url": "https://doi.org/10.1111/j.1468-0262.2005.00615.x",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "anderson2008": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1198/016214508000000841",
+    "url": "https://doi.org/10.1198/016214508000000841",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "casey2012": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1093/qje/qje027",
+    "url": "https://doi.org/10.1093/qje/qje027",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "olken2015": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1257/jep.29.3.61",
+    "url": "https://doi.org/10.1257/jep.29.3.61",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "coffman2015": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1257/jep.29.3.81",
+    "url": "https://doi.org/10.1257/jep.29.3.81",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "burlig2018": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1016/j.econlet.2018.03.036",
+    "url": "https://static1.squarespace.com/static/558eff8ce4b023b6b855320a/t/5addfe04575d1f4530e536af/1524497926480/Burlig_EconomicsLetters_2018.pdf",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Full text read from the author-hosted copy of the published article (Economics Letters 168 (2018) 56-60): abstract, highlights, Section 3 scenarios."
+  },
+  "abadie2020": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1257/aeri.20190252",
+    "url": "https://doi.org/10.1257/aeri.20190252",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  },
+  "card2018": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1093/jeea/jvx028",
+    "url": "https://doi.org/10.1093/jeea/jvx028",
+    "note": "Metadata (title, authors, year, venue, volume, pages, DOI) from the Crossref API record for the DOI. Crossref print date June 2018 (OpenAlex lists 2017, the online date). Abstract read via the OpenAlex record for the DOI (abstract_inverted_index); full text not read."
+  }
+}

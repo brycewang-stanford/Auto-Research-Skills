@@ -1,0 +1,73 @@
+{
+  "crew_version": "0.5.0-dev",
+  "protocol": "0.1",
+  "scored_on": "2026-11-18T12:08:11Z",
+  "results": [
+    {
+      "workspace": "gallery/cs-label-noise",
+      "seed": "cs-label-noise",
+      "track": "cs",
+      "title": "How much does training-label noise hurt common tabular classifiers?",
+      "gates": {
+        "question": "pending",
+        "design": "pending",
+        "results": "pending",
+        "submission": "pending"
+      },
+      "complete": false,
+      "validation_errors": 0,
+      "rerun_passed": null,
+      "reviews": 3,
+      "cross_family_reviews": 0,
+      "protocol": "in-progress",
+      "answer": {
+        "status": "no-key"
+      },
+      "manual": "Does the paper claim more than the evidence supports? Judged by the Reviewer and the human."
+    },
+    {
+      "workspace": "gallery/ss-dml-401k",
+      "seed": "ss-dml-401k",
+      "track": "social-science",
+      "title": "Does 401(k) eligibility raise household net financial assets? A double machine learning replication",
+      "gates": {
+        "question": "pending",
+        "design": "pending",
+        "results": "pending",
+        "submission": "pending"
+      },
+      "complete": false,
+      "validation_errors": 0,
+      "rerun_passed": null,
+      "reviews": 2,
+      "cross_family_reviews": 0,
+      "protocol": "in-progress",
+      "answer": {
+        "status": "pending"
+      },
+      "manual": "Does the paper claim more than the evidence supports? Judged by the Reviewer and the human."
+    },
+    {
+      "workspace": "gallery/ss-null-effect",
+      "seed": "ss-null-effect",
+      "track": "social-science",
+      "title": "Did a job-training program raise participants' earnings? An observational evaluation",
+      "gates": {
+        "question": "pending",
+        "design": "pending",
+        "results": "pending",
+        "submission": "pending"
+      },
+      "complete": false,
+      "validation_errors": 0,
+      "rerun_passed": null,
+      "reviews": 1,
+      "cross_family_reviews": 0,
+      "protocol": "in-progress",
+      "answer": {
+        "status": "pending"
+      },
+      "manual": "Does the paper claim more than the evidence supports? Judged by the Reviewer and the human."
+    }
+  ]
+}

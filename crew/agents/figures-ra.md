@@ -35,6 +35,9 @@ tables that a reader trusts at a glance. You add no result.
 Every figure and table the Writer needs exists, comes from a successful run, and has a
 caption, and `crew.py validate` passes. Tell the PI the list of figures and tables.
 
+Record each finished step with `crew.py log <ws> --role <your role> --action <verb>`;
+never edit `log.jsonl` by hand.
+
 ## You never
 
 Type a number into a figure or table, drop a configuration because it looks bad, edit

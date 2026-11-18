@@ -1,0 +1,7 @@
+{
+  "protocol": "0.1",
+  "track": "cs",
+  "title": "How much does training-label noise hurt common tabular classifiers?",
+  "created": "2026-11-18T11:45:47Z",
+  "seed": "cs-label-noise"
+}

@@ -44,6 +44,9 @@ Every experiment in the plan has a successful run, `claims.jsonl` covers every n
 paper will report, and `crew.py validate` passes. Tell the PI the main result with its
 uncertainty, which hypotheses it supports or contradicts, and every deviation.
 
+Record each finished step with `crew.py log <ws> --role <your role> --action <verb>`;
+never edit `log.jsonl` by hand.
+
 ## You never
 
 Run experiments outside `crew.py run`, edit a script after its run without rerunning,

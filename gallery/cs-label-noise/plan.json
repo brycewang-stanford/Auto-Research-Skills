@@ -1,0 +1,42 @@
+{
+  "question": "When an exact fraction rho in {0, 0.1, 0.2, 0.3, 0.4} of training labels is replaced by a different class chosen uniformly at random, does gradient boosting with log-loss and early stopping (scikit-learn HistGradientBoostingClassifier) lose more clean-test accuracy than a random forest (scikit-learn RandomForestClassifier), and how do both compare with L2-regularized logistic regression, on four tabular classification datasets retrieved through scikit-learn's loaders (breast_cancer, bundled; credit-g and adult via fetch_openml; covtype via fetch_covtype), each capped at a stratified sample of at most 5,000 rows, when every method gets the same tuning budget on noisy validation labels?",
+  "hypotheses": [
+    "H1 (main): On each dataset, gradient boosting loses more accuracy than the random forest between rho=0 and rho=0.4. Measure: the drop in clean-test accuracy from rho=0 to rho=0.4, paired by seed. Decision rule per dataset: supported if the 95% t-interval of the mean paired difference in drops (GBDT minus RF, 10 seeds) lies above zero AND the mean difference is at least 1 accuracy point AND GBDT is not more accurate than RF at rho=0.4 (so the larger drop is not just more headroom); contradicted if the interval lies below zero with a mean difference of at least 1 point; otherwise inconclusive. Overall: supported if supported on at least 3 of 4 datasets and contradicted on none; contradicted if contradicted on at least 2; otherwise inconclusive. Never pooled across datasets.",
+    "H2: On each dataset, tuned logistic regression loses the least accuracy of the three methods between rho=0 and rho=0.4. Per dataset: supported only if BOTH pairwise intervals (LR minus GBDT, LR minus RF, in drops) lie below zero with mean differences of at least 1 point AND logistic regression is not less accurate than either tree method at rho=0.4 (a smaller drop from a lower start is not robustness); contradicted if either interval lies above zero with a mean difference of at least 1 point; otherwise inconclusive. Same overall count rule as H1."
+  ],
+  "contribution": "A controlled comparison that, in the work we found, has not been made: log-loss gradient boosting with early stopping, random forests and logistic regression, with an equal tuning budget, an exact symmetric flip rate, clean test labels, per-dataset results that report accuracy at every noise rate and the majority-class rate next to each drop, and seed-level uncertainty. Rankings at each noise rate are reported descriptively, not tested.",
+  "design": {
+    "summary": "",
+    "method": "",
+    "data": "",
+    "analysis_plan": [],
+    "threats": []
+  },
+  "tasks": [
+    {
+      "id": "q-novelty",
+      "title": "Prior work on label-noise robustness of tabular classifiers; novelty check",
+      "owner": "scout",
+      "status": "done"
+    }
+  ],
+  "gates": {
+    "question": {
+      "status": "pending"
+    },
+    "design": {
+      "status": "pending"
+    },
+    "results": {
+      "status": "pending"
+    },
+    "submission": {
+      "status": "pending"
+    }
+  },
+  "disclosures": [
+    "2026-11-18: During the round-1 review of the question, the Reviewer ran an untuned 5-seed pilot of the three methods on iris, wine and digits outside the workspace. Its results informed the revised question (per-dataset reporting, decision rules). None of those three datasets is in the study.",
+    "2026-11-18: Dataset choice. The seed brief asks for datasets that ship with scikit-learn. Its bundled classification sets are iris, wine, digits and breast_cancer; the first three were used in the Reviewer's pilot and digits is image data, so only breast_cancer remains. The PI therefore added three tabular datasets retrieved through scikit-learn loaders: adult and covtype, because prior label-noise studies used them (Le Baher et al.; Eisenbuerger et al.), and credit-g, a small imbalanced dataset with no prior label-noise study that we found. This departs from the brief. Exact OpenML data_id, version and file hash are pinned in data/manifest.json before any run."
+  ],
+  "seed_definition": "A seed redraws, in this order: the stratified subsample (where a dataset exceeds 5,000 rows), the 60/20/20 train/validation/test split, the set of training and validation labels that are flipped and their new classes, and the models' own randomness. Test labels are never flipped."
+}

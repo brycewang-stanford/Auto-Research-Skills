@@ -1,0 +1,284 @@
+# Scout notes: ss-dml-401k (task q-novelty)
+
+Compiled by the Scout on 2026-11-18. Every number below was read from a fetched document;
+where it comes from is given next to it. I did not open the seed's `answer.json`.
+
+## 1. Target: Chernozhukov et al. (2018), 401(k) eligibility application
+
+Source read: arXiv:1608.00060v7 (3 Nov 2024), full PDF, Section 6.2 (pp. 41-44 of the
+preprint). Metadata (journal, volume 21(1), pages C1-C68, DOI 10.1111/ectj.12097) from
+Crossref. I also compared Table 2 with the journal's HTML (academic.oup.com, article
+5056401) and every Table 2 value in both panels (estimates and both SE rows) matches the arXiv text. Table number and panel are the
+same in both versions. `[chernozhukov2018dml]`
+
+### Published partially linear (PLR) estimates: Table 2, Panel B
+
+"Estimated Effect of 401(k) Eligibility on Net Financial Assets", Panel B "Partially
+Linear Regression Model". DML2 estimator, 100 sample splits, point estimate is the
+median over splits. `[brackets]` give the median SE across splits; `(parentheses)` give
+the SE adjusted for variation across splits by the median method (eq. 3.14). US dollars.
+
+| Cross-fitting | Lasso | Reg. Tree | Forest | Boosting | Neural Net | Ensemble | Best |
+|---|---|---|---|---|---|---|---|
+| 2-fold estimate | 7717 | 8709 | 9116 | 8759 | 8950 | 9010 | 9125 |
+| 2-fold [median SE] | [1346] | [1363] | [1302] | [1339] | [1335] | [1309] | [1304] |
+| 2-fold (adjusted SE) | (1749) | (1427) | (1377) | (1382) | (1408) | (1344) | (1357) |
+| 5-fold estimate | 8187 | 8871 | 9247 | 9110 | 9038 | 9166 | 9215 |
+| 5-fold [median SE] | [1298] | [1358] | [1295] | [1314] | [1322] | [1299] | [1294] |
+| 5-fold (adjusted SE) | (1558) | (1418) | (1328) | (1328) | (1355) | (1310) | (1312) |
+
+For context, the same table's Panel A (interactive model, ATE, propensity trimmed at
+0.01/0.99) reports 5-fold estimates of 7170 (Lasso), 7993, 8105, 7713, 7788, 7839 and
+7753 (Best). Table 3 reports the LATE of participation (5-fold Forest 11764). The
+estimate with no controls is $19,559 (SE 1,413) (text, p. 43).
+
+### Specification as stated in the paper
+
+- **Outcome Y:** net financial assets: IRA balances + 401(k) balances + checking
+  accounts + U.S. saving bonds + other interest-earning accounts + other interest-earning
+  assets + stocks + mutual funds, minus non-mortgage debt.
+- **Treatment D:** indicator for eligibility to enroll in a 401(k) plan.
+- **Controls X (raw):** age, income, family size, years of education, married indicator,
+  two-earner indicator, defined-benefit pension indicator, IRA participation indicator,
+  home ownership indicator (9 variables).
+- **Model:** PLR, Y = D·θ0 + g0(X) + U, D = m0(X) + V (eqs. 1.1-1.2 / 4.1-4.2).
+- **Data:** "the same data as in Chernozhukov and Hansen (2004)"; the identification
+  argument is attributed to Poterba et al. (1994a, 1994b), who the paper says use the
+  1991 SIPP.
+- **Learners:** same as the Bonus example (Section 6.1) with one change. Reg. Tree is
+  one CART tree, penalty chosen by 10-fold CV. Forest has 1000 trees. Boosting uses
+  boosted regression trees with parameters chosen by 10-fold CV. The neural net has
+  **8 neurons and decay 0.01** in the 401(k) example. Lasso uses the Belloni et al. (2012)
+  data-driven penalty on an expanded dictionary; the other learners use the raw
+  covariates. Ensemble is a weighted average of Lasso, Boosting, Forest and Neural Net,
+  with weights summing to one, chosen by 5-fold CV MSE. Best picks, separately for each
+  nuisance function, the method with the best out-of-sample prediction.
+- **Cross-fitting:** DML2 (Definition 3.2): one pooled solution of the averaged score
+  over K folds. K = 2 and K = 5 are reported separately.
+- **Repeated splits and aggregation:** S = 100 random partitions. Point estimate =
+  median of the 100 estimates. SE in parentheses = sqrt of median{σ̂²_s + (θ̂_s −
+  θ̃_median)²} (Definition 3.3, eq. 3.14). SE in brackets = median of the per-split SEs.
+
+### Details the paper text does NOT state (taken from the authors' public code instead)
+
+From `https://github.com/VC2015/DMLonGitHub`, files `401K.R` and `Moment_Functions.R`,
+read on 2026-11-18. The repository was last pushed 2018-05-07. `[dmlongithub]`
+
+- **Sample size:** the paper text does not give N. The seed brief, ddml (Ahrens et al.
+  2024, Sec. 6.1: "n = 9915 households from the 1991 SIPP") and the DoubleML 401(k)
+  example (9,915 observations) all agree. Treat **N = 9,915** as confirmed by two
+  secondary sources, not by the 2018 paper itself.
+- **Variable names in `sipp1991.dta`:** `net_tfa` (Y), `e401` (D), `age inc educ fsize
+  marr twoearn db pira hown` (X). `p401` (participation) is used for the LATE.
+- **Data provenance stated in code:** "Data source: SIPP 1991 (Abadie, 2003)"; "the
+  sample selection and variable construction follow Abadie (2003)". `[abadie2003]`
+- **PLR score:** the code estimates θ by an OLS regression without intercept of the
+  outcome residual on the treatment residual (`lm(ry ~ rz - 1)`), pooled across folds,
+  with HC standard errors (`vcovHC(type='HC')`). This is the Robinson partialling-out
+  score (paper eq. 4.4), not the score in eq. 4.3. DoubleML's `score='partialling out'`
+  matches it.
+- **Lasso dictionary in code:** `(poly(age,6) + poly(inc,8) + poly(educ,4) +
+  poly(fsize,2) + marr + twoearn + db + pira + hown)^2`, i.e. raw polynomials plus all
+  pairwise interactions, fitted with `hdm::rlasso` (c = 1.1, heteroskedastic penalty).
+  The paper text does not give this dictionary for the 401(k) example.
+- **Other tuning in code:** Boosting is gbm with 1000 trees, shrinkage 0.01,
+  interaction depth 2, bag fraction 0.5 and 5-fold CV. Forest is randomForest with 1000
+  trees and node size 5 (regression) or 1 (classification). The neural net is nnet with
+  size 8, decay 0.01 and maxit 1000. The trees are rpart. Seed `set.seed(1211)`. The
+  public `401K.R` runs `nfold=2`; the 5-fold column needs `nfold=5`.
+
+### Where the data can be downloaded, and terms
+
+- `https://github.com/VC2015/DMLonGitHub/raw/master/sipp1991.dta` (260,726 bytes per the
+  GitHub API listing). This is the URL that DoubleML's `fetch_401K()` reads
+  (`doubleml/datasets/fetch_401K.py` on the `main` branch). I did not download the data;
+  that is the Econometrician's job.
+- **License/terms:** the repository's `LICENSE.Rmd` is an MIT-style permission notice,
+  "Copyright 2017 Victor Chernozhukov, Denis Chetverikov, Mert Demirer, Esther Duflo,
+  Whitney Newey, James Robins", granted for "this software and associated documentation
+  files". GitHub reports the license as "Other" (NOASSERTION). No separate data license
+  is stated. The underlying SIPP is a U.S. Census Bureau public-use survey. Record the
+  license in the manifest as "MIT-style notice on the replication repository; no
+  explicit data license; derived from public-use SIPP 1991".
+
+## 2. Other verified sources
+
+- **Chernozhukov & Hansen (2004)**, REStat 86(3):735-751. `[chernozhukov2004]` Read:
+  Crossref metadata and the IDEAS abstract; the full text is paywalled. The paper
+  instruments 401(k) participation with eligibility in SIPP data and estimates quantile
+  treatment effects on wealth measures. Effects on net financial assets are positive and
+  significant across the distribution, with evidence of substitution in the upper tail.
+  The 2018 paper names this as the source of its data. I could not confirm N or the
+  SIPP wave from its own text.
+- **Poterba, Venti & Wise (1994)**, "401(k) Plans and Tax-Deferred Saving", in Wise
+  (ed.), *Studies in the Economics of Aging*, pp. 105-142. `[poterba1994]` Read: full
+  NBER chapter PDF. It uses the **1984, 1985 and 1986 SIPP panels** (covering 1984 and
+  1987), not the 1991 SIPP.
+- **Poterba, Venti & Wise (1995)**, JPubE 58(1):1-32. `[poterba1995]` Read: Crossref
+  metadata and the IDEAS abstract. The 2018 paper cites it as "1994b", but Crossref dates
+  the issue to September 1995. It uses the 1984, 1987 and 1991 SIPP and finds little
+  evidence that 401(k) contributions crowd out other personal saving.
+- **Abadie (2003)**, J. Econometrics 113(2):231-263. `[abadie2003]` Crossref metadata
+  only. It is cited only because the authors' code names it as the sample's origin.
+- **Bach, Chernozhukov, Kurz & Spindler (2022)**, JMLR 23(53):1-6, DoubleML for Python.
+  `[bach2022doubleml]` Full text read. It implements DML, is MIT-licensed, and is built
+  on scikit-learn.
+- **Bach, Kurz, Chernozhukov, Spindler & Klaassen (2024)**, JSS 108(3), DoubleML for R.
+  `[bach2024doublemlr]` Full text read. It presents 401(k) as the motivating PLR example
+  and points to an online 401(k) vignette. Its worked code example uses the Bonus data.
+- **Chernozhukov et al. (2017)**, AER P&P 107(5):261-265. `[chernozhukov2017aerpp]`
+  Crossref metadata; the appendix was read from arXiv:1701.08687v1. It is an earlier run
+  of the same 401(k) exercise by the same authors, with Table 1 (mean over splits) and
+  Table 2 (median over splits). Its Table 2, Panel B (PLR, median), 5-fold row is
+  8202 (1581), 8894 (1440), 9252 (1400), 9089 (1378), 9065 (1393), 9199 (1379) and 9232
+  (1359). Its 2-fold row is 7707, 8770, 9204, 8746, 9104, 9061 and 9129. Compared with the 2018
+  Table 2, Panel B, the gaps are at most $33 in the 5-fold row (Forest: 9252 vs 9247) and
+  at most $154 in the 2-fold row (Neural Net: 9104 vs 8950). This suggests how much the
+  published numbers move between two runs of the authors' own procedure.
+- **Ahrens, Hansen, Schaffer & Wiemann (2024)**, Stata Journal 24(1):3-45, ddml.
+  `[ahrens2024ddml]` Text from arXiv:2301.09397v3. In Sec. 6.1 the 401(k) PLR on
+  `sipp1991.dta` has n = 9915, 4 folds and 1 resample, with robust SEs. The short-stacked
+  estimate is 9748.788 (1331.364). Across 9 learner pairs the estimates range from
+  5986.657 (OLS/OLS) to 10103.630. The paper does not compare with the 2018 Table 2.
+- **Chernozhukov, Hansen, Kallus, Spindler & Syrgkanis (2024)**, *Applied Causal
+  Inference Powered by ML and AI* (arXiv:2403.02467 v0.1.1). `[chernozhukov2024causalml]`
+  Ch. 10, Table 10.4, reprints the 2018 5-fold results. **Discrepancy:** its "Lasso"
+  column shows 8871 (PLR) and 7993 (IRM), which are the 2018 *Reg. Tree* values. The 2018
+  Lasso values (8187 PLR, 7170 IRM) are missing. Use the 2018 paper, not the book, as
+  the benchmark.
+- **Chernozhukov, Cinelli, Newey, Sharma & Syrgkanis (2026)**, "Long Story Short",
+  REStat (advance article, DOI 10.1162/REST.a.1705). `[chernozhukov2026lss]` Text from
+  arXiv:2112.13398v6. Table 1 gives a PLM DML random-forest estimate of 9,002 (1,394) and
+  an NPM estimate of 7,949 (1,245), plus sensitivity bounds. The covariate list in the
+  text omits the defined-benefit indicator.
+- **DoubleML documentation, "Python: Impact of 401(k) on Financial Wealth"**.
+  `[doubleml401kdocs]` Read through a fetch tool. Data from `fetch_401K`, N = 9,915. PLR
+  uses 3-fold cross-fitting, with n_rep not set. Results: Lasso basic 5,722.46
+  (1,380.58), Lasso flexible 8,974.79 (1,324.32), Random forest 8,909.63 (1,321.82),
+  Tree 8,260.06 (1,348.62), XGBoost 8,336.66 (1,391.03). The page does not compare with
+  the 2018 Table 2. These values come from a summarizing fetch, so the Econometrician
+  should not treat them as authoritative.
+
+## 3. Discrepancies to carry forward
+
+1. **SIPP year of Poterba et al.** The 2018 paper says Poterba et al. (1994a, 1994b) "use
+   data from the 1991 SIPP". The 1994 chapter actually uses the 1984-86 SIPP panels; the
+   1995 JPubE article uses 1984, 1987 and 1991. Do not repeat the 2018 sentence as fact.
+2. **Citation year.** The JPubE article is 1995 (Crossref), although the 2018 paper calls
+   it 1994b.
+3. **Data lineage.** The 2018 paper says the data are those of Chernozhukov & Hansen
+   (2004). The authors' code says the sample follows Abadie (2003). Both are consistent
+   with the single public file `sipp1991.dta`.
+4. **N is not in the 2018 text.** 9,915 is stated by Belloni et al. (2017, Sec. 7: "9,915
+   observations at the household level drawn from the 1991 SIPP", same data as
+   Chernozhukov & Hansen 2004). Two of the 2018 authors are co-authors there. ddml,
+   DoubleML docs and the seed brief agree.
+5. **PLR score and Lasso dictionary** are only in the code, not the paper (see above).
+6. **Version drift.** The published numbers match arXiv v7 exactly. The 2017 AER P&P run
+   differs by up to $33 (5-fold) and $154 (2-fold). The CausalML book reprint has a column error.
+
+## 4. Unverified / not added
+
+- Chernozhukov & Hansen (2004) full text (paywalled): N, SIPP wave and variable
+  construction were not checked against it directly. Belloni et al. (2017) restates them.
+- Poterba, Venti & Wise (1995) full text: ScienceDirect returned 403. NBER WP 4391 was
+  downloaded but is a scanned PDF with no text layer.
+- Abadie (2003): metadata only; its sample description was not read.
+- Christian Hansen's 2004 MIT PhD thesis (DSpace 1721.1/29431): metadata only, not
+  added.
+- The AER P&P published PDF itself: aeaweb returned HTML. Numbers come from the arXiv
+  preprint.
+- The supplementary appendices of Belloni et al. (2017) and of the 2018 paper were not
+  read.
+
+## 4a. Sources read for review finding F9 (2026-11-18)
+
+I read each item below to test the claim that no cell-by-cell replication of Table 2,
+Panel B exists.
+
+| Source | Read | What it does with the 401(k) data | Cell-by-cell Table 2 replication? |
+|---|---|---|---|
+| Belloni et al. (2017) `[belloni2017]` | arXiv v8 full text, Sec. 7 | N = 9,915 (1991 SIPP), Y = net financial assets. Estimates ATE/LATE/QTE with post-lasso on 35/311/1756-term dictionaries, without cross-fitting. Predates the 2018 paper. | No. Different estimator; it is not a replication. |
+| Wüthrich & Zhu (2023) `[wuthrich2023]` | arXiv v9 full text, Sec. 5.2.1 | N = 9,915. Y = **total wealth**. Post double lasso on 167/272 controls, plus subsampling to study omitted-variable bias. | No. Different outcome and estimator. |
+| DoubleML R vignette `[doubleml401krdocs]` | fetched page | PLR with 3 folds (n_rep not stated). glmnet basic 6133 (1465), glmnet flexible 9580 (1325), ranger 9127 (1313), rpart 8210 (1324), xgboost 8700 (1360). Says the `polynomial_features` option "can be used to replicate the models" of the 2018 paper but reports no comparison. | No |
+| Mendez (2026) online tutorial `[mendez2026]` | fetched page | DoubleML Python with 3 folds in code, although the text says 5. PLR: Lasso 9,370.81 (1,326.47), RF 8,835.46 (1,309.07), Tree 7,822.51 (1,321.78), XGBoost 8,892.39 (1,398.65). Cites the 2018 paper only in the references. | No |
+| Ahrens et al. (2025, JAE) `[ahrens2025modelavg]` | arXiv v2 full text | Uses the 401(k) data to calibrate a Monte Carlo study of stacking, and replicates a Wüthrich & Zhu figure. | No |
+| Ahrens et al. (2026) DML introduction `[ahrens2025intro]` | arXiv v2 full text | 401(k)-calibrated simulation on the 9,915 observations. | No |
+| Raina, Erasmus BSc thesis (thesis.eur.nl/pub/73637) | full PDF | Simulation study replicating Belloni et al. (2011). It never uses the 401(k) data: the only "401" in the text is a page number. Not added to `refs.bib`. | No |
+| The carlos-mendez.rbind.io "web_app" page from the first search | not read separately | It is the interactive companion of the Mendez tutorial above. | n/a |
+
+I also ran an extended web search for replications of Table 2 with 2-/5-fold, 100-split
+median aggregation. It returned only the original papers and the items above. This is a
+search of the open web, arXiv and documentation sites, not of GitHub code or
+unpublished course materials. **The claim therefore stands, but only as "none of the
+sources we found and read".**
+
+## 5. Novelty / replication-status verdict
+
+Revised 2026-11-18 after review question-r1, against the current `plan.json` question
+and hypotheses.
+
+**Partly answered: the effect is known; the cell-by-cell reproduction is not.**
+
+- The PLR coefficient on eligibility is well established. The authors themselves ran
+  the exercise twice (AER P&P 2017; Econometrics Journal 2018). DML re-estimates of the
+  same 401(k) PLR on the same `sipp1991.dta` exist in:
+  - ddml (Ahrens et al. 2024): 9,749
+  - Long Story Short (Chernozhukov et al. 2026): 9,002
+  - the DoubleML Python and R documentation: 8,910 and 9,127 with random forests
+  - an online tutorial (Mendez 2026): 8,835 with random forests
+  - the CausalML textbook, which reprints the 2018 table
+
+  All of these are positive and significant, at roughly $8-10k. **H1 is a sanity check
+  whose answer is already known**, which is how the current plan labels it.
+- **None of the sources we found and read** reproduces Table 2, Panel B cell by cell
+  under its protocol: K = 2 and 5, S = 100 splits with median aggregation, and the
+  eq. 3.14 SE, compared side by side with the published cells. ddml uses 4 folds and 1
+  resample. DoubleML Python/R and Mendez use 3 folds with no stated repetitions. Long
+  Story Short reports one forest estimate. Belloni et al. (2017) and Wüthrich & Zhu
+  (2023) use other estimators, and Wüthrich & Zhu use another outcome. Ahrens et al.
+  (2025, 2026) use the data only to calibrate simulations. See §4a. Code-only replications
+  on GitHub or in course materials were not searched systematically, so the absence claim
+  is limited to the literature and documentation we read.
+- So the current question is not done yet: an implementation written by the crew with
+  scikit-learn learners, checked cell by cell for 5 learners x 2 fold counts. It is
+  incremental, not new knowledge about 401(k) plans.
+- **Closest prior work:**
+  - Chernozhukov et al. (2017, AER P&P), a second run by the same authors. Compared with
+    2018, its PLR median estimates differ by $5-33 at 5 folds and by up to $154 at 2 folds.
+  - Ahrens et al. (2024, ddml): same data and model, but not the published protocol.
+- **Implications for the current hypotheses:**
+  - **H2** now uses a per-cell split-noise tolerance (`plan.json` hypotheses[1]). Each
+    cell's split-to-split SD is sd_split = sqrt(SE_adj^2 − SE_med^2) from the published
+    Panel B. The SE of a median over S splits is 1.2533·sd_split/sqrt(S). The tolerance
+    is 2·sqrt(se_rep^2 + se_pub^2), with S = 100 on the published side. The published
+    values imply the numbers below. The last two columns are illustrative only: they
+    assume the crew's split SD equals the published one. The real tolerance uses the
+    crew's S as fixed at the design gate.
+
+    | Learner | K | Published | [med SE] | (adj SE) | sd_split | se_pub (S=100) | tol if S=10 | tol if S=20 |
+    |---|---|---|---|---|---|---|---|---|
+    | lasso | 2 | 7717 | 1346 | 1749 | 1117 | 140.0 | 928 | 686 |
+    | tree | 2 | 8709 | 1363 | 1427 | 423 | 53.0 | 351 | 259 |
+    | forest | 2 | 9116 | 1302 | 1377 | 448 | 56.2 | 373 | 275 |
+    | boosting | 2 | 8759 | 1339 | 1382 | 342 | 42.9 | 284 | 210 |
+    | nnet | 2 | 8950 | 1335 | 1408 | 447 | 56.1 | 372 | 275 |
+    | lasso | 5 | 8187 | 1298 | 1558 | 862 | 108.0 | 716 | 529 |
+    | tree | 5 | 8871 | 1358 | 1418 | 408 | 51.1 | 339 | 251 |
+    | forest | 5 | 9247 | 1295 | 1328 | 294 | 36.9 | 245 | 181 |
+    | boosting | 5 | 9110 | 1314 | 1328 | 192 | 24.1 | 160 | 118 |
+    | nnet | 5 | 9038 | 1322 | 1355 | 297 | 37.3 | 247 | 182 |
+
+    These tolerances are much tighter than the old one-SE band. For comparison, the
+    authors' 2017-vs-2018 gaps are $5-33 at 5 folds and up to $154 at 2 folds (Neural Net
+    2-fold: 154, still inside its tolerance even at S = 100, where it would be 159). Prior
+    non-protocol estimates would *not* all pass at 5 folds. For example, DoubleML Python
+    3-fold RF 8,910 is $337 below the 5-fold forest cell, which is outside 181-245.
+  - **H3** now requires, at each fold count, lasso < each of the four flexible learners.
+    It holds in the published table at both K: 2-fold 7717 < 8709, 8759, 8950, 9116;
+    5-fold 8187 < 8871, 9038, 9110, 9247.
+- **Seed requirement (updated seed task):** the seed now asks for one result claim
+  **per learner and fold count**, with id `plr-<learner>-<k>fold`, learner in {lasso,
+  tree, forest, boosting, nnet} and k in {2, 5}. That makes 10 claims, each valued as the
+  PLR coefficient on eligibility in 1991 US dollars. Each maps one-to-one to a cell of
+  the table above. Ensemble and Best are not part of the seed or the plan.

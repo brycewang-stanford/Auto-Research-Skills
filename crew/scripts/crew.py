@@ -584,6 +584,25 @@ def validate(ws: Path, strict: bool = False) -> tuple[list[str], list[str]]:
         if accepted and not str(gate.get("note", "")).strip():
             errors.append(f"plan.json: gates.{name} accepts open findings without a note explaining why")
 
+    # activity log: written only by the tool, so its times can be trusted
+    log_path = ws / "log.jsonl"
+    if log_path.exists():
+        limit = datetime.now(timezone.utc).timestamp() + 300
+        for number, line in enumerate(log_path.read_text(encoding="utf-8").splitlines(), 1):
+            if not line.strip():
+                continue
+            try:
+                entry = json.loads(line)
+            except json.JSONDecodeError:
+                errors.append(f"log.jsonl:{number}: not valid JSON; append with `crew.py log`")
+                continue
+            when = parse_time(entry.get("time")) if isinstance(entry, dict) else None
+            if when is None:
+                errors.append(f"log.jsonl:{number}: time missing or malformed; append with `crew.py log`")
+            elif when.timestamp() > limit:
+                errors.append(f"log.jsonl:{number}: time {entry.get('time')} is in the future; "
+                              "never write log.jsonl by hand, use `crew.py log`")
+
     # paper
     numbers_path = ws / "paper" / "numbers.tex"
     if macros:
@@ -899,6 +918,13 @@ def cmd_rerun(args: argparse.Namespace) -> int:
     return 0 if passed else 1
 
 
+def cmd_log(args: argparse.Namespace) -> int:
+    ws = require_workspace(args.workspace)
+    append_log(ws, args.role, args.action, args.detail or "")
+    print(f"Logged: {args.role} {args.action}")
+    return 0
+
+
 def cmd_numbers(args: argparse.Namespace) -> int:
     ws = require_workspace(args.workspace)
     claims, errors = read_claims(ws)
@@ -963,6 +989,13 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--reuse-data", action="store_true",
                    help="keep files listed in data/manifest.json instead of re-downloading them")
     p.set_defaults(func=cmd_rerun)
+
+    p = sub.add_parser("log", help="append an entry to log.jsonl with the current time")
+    p.add_argument("workspace")
+    p.add_argument("--role", required=True, choices=ROLES)
+    p.add_argument("--action", required=True, help="short verb, e.g. sources-verified")
+    p.add_argument("--detail", help="one line of detail")
+    p.set_defaults(func=cmd_log)
 
     p = sub.add_parser("numbers", help="render paper/numbers.tex from claims.jsonl")
     p.add_argument("workspace")

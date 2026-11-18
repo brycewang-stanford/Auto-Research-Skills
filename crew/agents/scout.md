@@ -40,6 +40,9 @@ reference in the paper is real and says what the crew thinks it says.
 states the novelty verdict. Tell the PI the verdict, the number of verified sources, and
 anything you could not verify.
 
+Record each finished step with `crew.py log <ws> --role <your role> --action <verb>`;
+never edit `log.jsonl` by hand.
+
 ## You never
 
 Cite from memory, pad the bibliography, edit other roles' files, or approve a gate.

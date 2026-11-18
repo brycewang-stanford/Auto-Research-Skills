@@ -1,0 +1,65 @@
+{
+  "question": "In the synthetic 4,000-person extract supplied with the task, what is the average effect on the treated (ATT) of enrolling in the voluntary 1976-77 job-training program (the enrolment indicator in the file) on participants' 1978 earnings (re78), under the assumption that enrolment is independent of potential outcomes given eleven pre-program covariates (age, educ, married, urban, region, children, health_limit, re74, re75, unemp74, unemp75), and is that effect smaller in magnitude than $1,000?",
+  "hypotheses": [
+    "H1 (primary): the ATT on re78 is zero; two-sided test at 5%. The paper reports the point estimate and 95% confidence interval and never states 'no effect' on the basis of a non-rejection alone.",
+    "H1b (equivalence, primary): the ATT on re78 lies within (-$1,000, +$1,000); two one-sided tests at 5% (equivalently, the 90% CI inside the margin). The margin is fixed now, before any outcome is examined, from context: the experimental benchmark for a comparable program is $1,794 in 1982 dollars (Dehejia & Wahba) and short-run effects across many evaluations average close to zero (Card, Kluve & Weber 2018). Only if H1b is supported may the paper say the effect is smaller than $1,000.",
+    "H2 (secondary family): the ATTs on re79, employed78, hours78, benefits78 and wellbeing78. Each is reported with its estimate, a Romano-Wolf familywise-adjusted p-value over these five outcomes, and simultaneous (max-t) 95% confidence intervals; uncorrected p-values are shown next to adjusted ones."
+  ],
+  "contribution": "A pre-specified observational evaluation in which the estimand, the conditioning set, the closed list of outcomes and their multiple-testing corrections, and an equivalence margin are all fixed while every outcome is still unexamined, with every analysed outcome reported. The data are synthetic; no claim is made about any real program.",
+  "design": {
+    "summary": "",
+    "method": "",
+    "data": "",
+    "analysis_plan": [],
+    "threats": []
+  },
+  "tasks": [
+    {
+      "id": "q-novelty",
+      "title": "Prior work on evaluating job-training programs with observational data; methods for selection on observables",
+      "owner": "scout",
+      "status": "done"
+    }
+  ],
+  "gates": {
+    "question": {
+      "status": "pending"
+    },
+    "design": {
+      "status": "pending"
+    },
+    "results": {
+      "status": "pending"
+    },
+    "submission": {
+      "status": "pending"
+    }
+  },
+  "outcomes": {
+    "primary": [
+      "re78"
+    ],
+    "secondary_family": [
+      "re79",
+      "employed78",
+      "hours78",
+      "benefits78",
+      "wellbeing78"
+    ],
+    "not_analysed": "survey_q01-survey_q20: their timing relative to the program is not documented, so they can be neither confounders nor outcomes with confidence. They are not used as covariates and not analysed as outcomes; this is stated as a limitation.",
+    "relative_effect_denominator": "The ATT as a percentage of participants' estimated counterfactual mean re78 (mean re78 of participants minus the ATT), not the non-participant mean."
+  },
+  "covariates": [
+    "age",
+    "educ",
+    "married",
+    "urban",
+    "region",
+    "children",
+    "health_limit",
+    "re74",
+    "re75",
+    "unemp74",
+    "unemp75"
+  ]
+}

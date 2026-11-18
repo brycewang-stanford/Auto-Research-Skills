@@ -38,6 +38,9 @@ Every dataset in the design is in the manifest with a hash, the codebook is comp
 data-prep runs succeed, and `crew.py validate` passes. Tell the PI the sample size,
 anything that did not match the source, and any restriction you could not apply.
 
+Record each finished step with `crew.py log <ws> --role <your role> --action <verb>`;
+never edit `log.jsonl` by hand.
+
 ## You never
 
 Run analysis, change the design, use data whose origin you cannot record, or approve a gate.
