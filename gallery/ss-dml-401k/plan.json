@@ -2,7 +2,7 @@
   "question": "Does an implementation of the published double machine learning procedure, written by the crew with scikit-learn learners rather than taken from the authors' code, reproduce Table 2, Panel B of Chernozhukov et al. (2018): the partially linear model (PLR) coefficient on 401(k) eligibility in a regression of net financial assets on eligibility and nine controls, for five nuisance learners (lasso, regression tree, random forest, boosting, neural network) at 2- and 5-fold cross-fitting, aggregated by the median over repeated sample splits, on the same 1991 SIPP extract?",
   "hypotheses": [
     "H1 (sanity check, already established in the literature): every replicated PLR coefficient is positive with a 95% confidence interval that excludes zero.",
-    "H2 (main): every one of the 10 replicated cells (5 learners x 2 fold counts) lies within its split-noise tolerance of the published cell. For each cell, the published table's two standard-error rows give the median absolute deviation of estimates across splits as MAD = sqrt(SE_adj^2 - SE_med^2) (parenthesized minus bracketed, squared; Chernozhukov et al. 2018, eq. 3.14); the split-to-split standard deviation is sd_split = 1.4826 * MAD; the standard error of a median over S splits is 1.2533 * sd_split / sqrt(S); and the tolerance is 2.81 * sqrt(se_rep^2 + se_pub^2), with S = 100 for the published cell and, for the replication, a number of splits fixed per learner at the design gate (100 for the inexpensive learners: lasso, tree and, if the budget allows, the neural network; as many as the budget allows for forest and boosting). The 1.4826 factor assumes approximately normal split-to-split variation with roughly constant within-split variance; if within-split variance differs across splits the true factor lies between 1 and 1.4826, which makes the tolerance conservative. The crew's own observed split spread is reported as a diagnostic only and never used to change a tolerance. 2.81 is the two-sided Bonferroni critical value for 10 cells at a 5% familywise level, so a faithful re-implementation fails H2 about 5% of the time. Power: a shift equal to a cell's tolerance is detected only about half the time; the shift detected with 80% probability is about 1.30 times the tolerance. Before any analysis the design states, for every cell, the tolerance and the 80%-power detectable shift in dollars. A cell whose 80%-power detectable shift exceeds half of its published bracketed (median) standard error is reported as 'not testable at this resolution': if it lies outside its tolerance it counts as an H2 failure, and if it lies inside it is not counted as a pass (amended at the design stage, design-r1 F1); half a published standard error is the smallest discrepancy this study treats as substantively meaningful. A pass therefore means 'no shift larger than the stated per-cell tolerance was detected', not 'identical'. A cell outside its tolerance is evidence that software, tuning or learner differences, not split randomness, move the estimate. Each cell's difference is also reported in units of the published bracketed (median) standard error.",
+    "H2 (main): every one of the 10 replicated cells (5 learners x 2 fold counts) lies within its split-noise tolerance of the published cell. For each cell, the published table's two standard-error rows give the median absolute deviation of estimates across splits as MAD = sqrt(SE_adj^2 - SE_med^2) (parenthesized minus bracketed, squared; Chernozhukov et al. 2018, eq. 3.14); the split-to-split standard deviation is sd_split = 1.4826 * MAD; the standard error of a median over S splits is 1.2533 * sd_split / sqrt(S); and the tolerance is 2.81 * sqrt(se_rep^2 + se_pub^2), with S = 100 for the published cell and, for the replication, a number of splits fixed per learner at the design gate (100 for the inexpensive learners: lasso, tree and, if the budget allows, the neural network; as many as the budget allows for forest and boosting). The 1.4826 factor assumes approximately normal split-to-split variation with roughly constant within-split variance; if within-split variance differs across splits the true factor lies between 1 and 1.4826, which makes the tolerance conservative. The crew's own observed split spread is reported as a diagnostic only and never used to change a tolerance. 2.81 is the two-sided Bonferroni critical value for 10 cells at a 5% familywise level, so a re-implementation with no port deviation fails H2 about 5% of the time. The pre-gate port check (check-learner-ports, synthetic data, 2-fold size only) measured a forest shift of -$216 and, after the lasso port was corrected to include hdm's zero threshold (code review code-r1 F1; re-run of check-learner-ports), a lasso shift of $0 (+$0.04); if they carry over, H2 fails about 33% of the time from these known deviations and split noise alone, mostly through the 5-fold forest cell (amended at the design stage, design-r2 F7). Power: a shift equal to a cell's tolerance is detected only about half the time; the shift detected with 80% probability is about 1.30 times the tolerance. Before any analysis the design states, for every cell, the tolerance and the 80%-power detectable shift in dollars. A cell whose 80%-power detectable shift exceeds half of its published bracketed (median) standard error is reported as 'not testable at this resolution': if it lies outside its tolerance it counts as an H2 failure, and if it lies inside it is not counted as a pass (amended at the design stage, design-r1 F1); half a published standard error is the smallest discrepancy this study treats as substantively meaningful. A pass therefore means 'no shift larger than the stated per-cell tolerance was detected', not 'identical'. A cell outside its tolerance is evidence that software, tuning or learner differences, not split randomness, move the estimate; it is read as 'consistent with the measured port deviation' only if its difference has the same sign as the measured shift and |difference - shift| <= tolerance, and otherwise as 'not explained by the measured deviation' (design.decision_rules.H2_reading_of_failures). Each cell's difference is also reported in units of the published bracketed (median) standard error.",
     "H3: for each fold count, the lasso-based point estimate is smaller than the point estimate from each of the four flexible learners, as in the published table, using the lasso specification fixed at the design gate. Point estimates are compared directly; lasso runs at 100 splits to reduce split noise, and the design states the probability that H3 fails from split noise alone under an exact replication of the published values."
   ],
   "contribution": "An independent re-implementation and logged cell-by-cell check of a canonical double machine learning application, with a tolerance derived from the published split-to-split variation, so that the published estimates are either reproduced to within the stated per-cell tolerance by code the authors did not write, or the cells that are not reproduced are identified. The study does not attempt to separate software from tuning differences; Ensemble and Best columns are not replicated.",
@@ -14,10 +14,10 @@
     "learners": {
       "lasso": {
         "dictionary": "401K.R xl: (poly(age,6,raw=TRUE) + poly(inc,8,raw=TRUE) + poly(educ,4,raw=TRUE) + poly(fsize,2,raw=TRUE) + marr + twoearn + db + pira + hown)^2 = 25 main-effect columns + 250 products of columns from different terms (no squares of a term with itself beyond the polynomial powers) = 275 columns, raw powers as in the code. Built from the covariates only. p = 275 in the penalty formula even if some columns are constant or duplicated in a training fold; constant columns are dropped before fitting.",
-        "Y_learner": "hdm::rlasso(post = FALSE, intercept = TRUE, heteroskedastic, X-independent penalty), re-implemented: center X and Y on the training fold; gamma = 0.1/log(n); lambda0 = 2 c sqrt(n) qnorm(1 - gamma/(2p)) with c = 0.5 (see deviation note); starting residuals = OLS residuals of Y on the 5 columns most correlated with Y (hdm init_values); loadings psi_j = sqrt(mean(x_ij^2 e_i^2)); then up to 15 times: solve min sum(y - Xb)^2 + lambda0 sum(psi_j |b_j|) with sklearn.linear_model.Lasso(alpha = lambda0/(2n), fit_intercept = False, tol = 1e-6, max_iter = 100000) on columns x_j/psi_j (coefficients divided back by psi_j); e = lasso residuals (post = FALSE); update psi_j; stop when |sd(e) - previous sd| < 1e-5. Columns are first divided by their training-fold SD, which leaves the solution unchanged (the loadings absorb the scale) and avoids overflow-scale arithmetic with inc^8 terms. Prediction = mean(Y) + (X - mean(X)) b.",
+        "Y_learner": "hdm::rlasso(post = FALSE, intercept = TRUE, heteroskedastic, X-independent penalty), re-implemented: center X and Y on the training fold; gamma = 0.1/log(n); lambda0 = 2 c sqrt(n) qnorm(1 - gamma/(2p)) with c = 0.5 (see deviation note); starting residuals = OLS residuals of Y on the 5 columns most correlated with Y (hdm init_values); loadings psi_j = sqrt(mean(x_ij^2 e_i^2)); then up to 15 times: solve min sum(y - Xb)^2 + lambda0 sum(psi_j |b_j|) with sklearn.linear_model.Lasso(alpha = lambda0/(2n), fit_intercept = False, tol = 1e-6, max_iter = 100000) on columns x_j/psi_j (coefficients divided back by psi_j); e = lasso residuals (post = FALSE); zero threshold, exactly as hdm (PI ruling on code-r1 F1, remedy (a)): after every solve, the coefficients are expressed on the centered but otherwise unscaled dictionary columns (raw powers and products, i.e. undoing both the SD scaling and the loadings) and every coefficient with |b_j| < 1e-6 is set to 0, with no re-optimization; hdm does this inside LassoShooting.fit, control$zeroThreshold = 10^(-6), line 'w[abs(w) < control$zeroThreshold] <- 0' (R/LassoShooting.fit.R line 80 in 0.1.0, line 79 in 0.2.0, 0.2.3 and 0.3.2, github.com/cran/hdm tags), which rlasso.default calls with its default control on every iteration; e = residuals from the thresholded coefficients (post = FALSE); update psi_j from that e; stop when |sd(e) - previous sd| < 1e-5. The final prediction uses the thresholded coefficients of the last iteration; rlasso's own control$threshold is NULL in the authors' call and does nothing. The threshold is in absolute units, so its effect depends on the scale of Y and of each column. The D lasso (rlassologit, glmnet) has no such threshold and is unchanged. Columns are first divided by their training-fold SD, which leaves the solution unchanged (the loadings absorb the scale) and avoids overflow-scale arithmetic with inc^8 terms. Prediction = mean(Y) + (X - mean(X)) b.",
         "D_learner": "hdm::rlassologit(post = FALSE, intercept = TRUE, c = 1.1): glmnet binomial at lambda = lambda0/(2n), lambda0 = (c/2) sqrt(n) qnorm(1 - gamma/(2p)), standardize = TRUE, no loading iteration. Re-implemented as sklearn.linear_model.LogisticRegression(l1_ratio = 1.0, C = 2/lambda0, solver = 'liblinear', intercept_scaling = 100, tol = 1e-6, max_iter = 1000) on columns standardized by training-fold mean and population SD; prediction = predicted probability.",
-        "penalty_constant_note": "401K.R passes c = 1.1 (RLasso <- list(penalty = list(homoscedastic = FALSE, X.dependent.lambda = FALSE, lambda.start = NULL, c = 1.1), intercept = TRUE), no gamma), and cond_comp() calls it with post = FALSE for method 'RLasso'. hdm source on github.com/cran/hdm (tags 0.1.0 R/rlasso.R line 145, 0.2.0 R/rlasso.R line 159): if (post == FALSE & (!exists('c', where = penalty) | is.na(match('penalty', names(as.list(match.call)))))) penalty$c = 0.5; as.list(match.call) lists the formals of the function match.call, which never include 'penalty', so c becomes 0.5 for every post = FALSE call. Tag 0.2.3 (CRAN 2018-01-23 to 2019-01-18) keeps c = 1.1; 0.3.2 sets c = 0.5 when the penalty list equals the default. Primary: c = 0.5 for the Y lasso (the behaviour of hdm 0.1.0/0.2.0, the versions on CRAN until 2018-01, and of 0.3.2), c = 1.1 for rlassologit (its c is honoured in every version). check-learner-ports records the c that the authors' exact call path (rlassoF -> rlasso.formula) uses in the installed hdm (metrics lasso_c_eff_y, lasso_c_eff_d, hdm_version); task s-hdm-source asks the Scout to record the hdm source reading in sources/. If lasso_c_eff_y is not 0.5, the primary stays c = 0.5 (it rests on the 2016-2018 versions, not on the installed one) and the PI is told before the design gate. sens-lasso-c11 uses c = 1.1 for Y; it is never a claim value.",
-        "deviation_from_authors": "Same dictionary and penalty rule as hdm, but the optimization is solved by scikit-learn coordinate descent to tol 1e-6 on standardized columns instead of hdm's LassoShooting.fit (maxIter 1000, absolute optTol 1e-5 on raw-scale coefficients, started from init_values), and the logistic lasso by liblinear (intercept penalized 100 times more weakly than a slope rather than not at all) instead of glmnet. The hdm version the authors ran is unknown, so the effective c for Y (0.5 or 1.1) is an assumption. Measured against the authors' call in check-learner-ports."
+        "penalty_constant_note": "401K.R passes c = 1.1 (RLasso <- list(penalty = list(homoscedastic = FALSE, X.dependent.lambda = FALSE, lambda.start = NULL, c = 1.1), intercept = TRUE), no gamma), and cond_comp() calls it with post = FALSE for method 'RLasso'. hdm source on github.com/cran/hdm (tags 0.1.0 R/rlasso.R line 145, 0.2.0 R/rlasso.R line 159): if (post == FALSE & (!exists('c', where = penalty) | is.na(match('penalty', names(as.list(match.call)))))) penalty$c = 0.5; as.list(match.call) lists the formals of the function match.call, which never include 'penalty', so c becomes 0.5 for every post = FALSE call. Tag 0.2.3 (CRAN 2018-01-23 to 2019-01-18) keeps c = 1.1; 0.3.2 sets c = 0.5 when the penalty list equals the default. Primary: c = 0.5 for the Y lasso (the behaviour of hdm 0.1.0/0.2.0, the versions on CRAN until 2018-01, and of 0.3.2), c = 1.1 for rlassologit (its c is honoured in every version). Logged evidence: check-learner-ports ran the authors' exact call path (rlassoF -> rlasso.formula) in the installed hdm 0.3.2 and recorded lasso_c_eff_y = 0.5 and lasso_c_eff_d = 1.1. The statement about hdm 0.1.0/0.2.0 rests on reading their source and is recorded in sources/ by the Scout (task s-hdm-source); until then it is unverified in the workspace. The Designer's earlier check of hdm 0.3.2 on random numbers (log.jsonl, design-written) was not logged as a run and is superseded by check-learner-ports. Where any workspace file says the authors' Y lasso uses c = 1.1, that is the value passed in 401K.R, not the value hdm 0.1.0/0.2.0/0.3.2 applies. sens-lasso-c11 uses c = 1.1 for Y; it is never a claim value.",
+        "deviation_from_authors": "Same dictionary and penalty rule as hdm, but the optimization is solved by scikit-learn coordinate descent to tol 1e-6 on standardized columns instead of hdm's LassoShooting.fit (maxIter 1000, absolute optTol 1e-5 on raw-scale coefficients, started from init_values), and the logistic lasso by liblinear (intercept penalized 100 times more weakly than a slope rather than not at all) instead of glmnet. The hdm version the authors ran is unknown, so the effective c for Y (0.5 or 1.1) is an assumption. Measured against the authors' call in check-learner-ports. Code review code-r1 F1 found that the first port omitted hdm's 1e-6 zero threshold; with that threshold removed from hdm, Python and hdm predictions agreed to about $0.1 RMS on synthetic folds, so the threshold, not early stopping of LassoShooting, explains the first check's -$87 lasso shift. The port now includes it (Y_learner)."
       },
       "tree": {
         "spec": "Authors: rpart(formula, data) with defaults (method chosen automatically: 'anova' for both Y and the numeric 0/1 D, because ML_Functions.R tree() never passes its method argument; cp = 0.01, minsplit = 20, minbucket = 7, maxdepth = 30, xval = 10), pruned at the cptable CP with minimum xerror (no 1-SE rule). Crew: sklearn.tree.DecisionTreeRegressor(criterion = 'squared_error', min_samples_split = 20, min_samples_leaf = 7, max_depth = 30, random_state = seed) for Y and for D. Candidate subtrees = the cost-complexity pruning path of the fully grown tree with alpha/Var_pop(y) >= 0.01 (rpart cp = sklearn ccp_alpha / root impurity), plus cp = 0.01 itself. Each candidate i is scored by 10-fold CV (KFold(10, shuffle = True, random_state = seed)) at the geometric mean of its cp and the next larger cp (1.0 for the root), as rpart does; the first minimum of the summed squared CV error is chosen and the final tree is fitted with ccp_alpha = that geometric mean x Var_pop(y_train).",
@@ -25,7 +25,7 @@
       },
       "forest": {
         "spec": "Authors: randomForest(ntree = 1000, replace = TRUE, default mtry = floor(9/3) = 3), nodesize 5 for Y and 1 for D, both as regression forests (RF() is called with reg = TRUE for D). Crew: sklearn.ensemble.RandomForestRegressor(n_estimators = 1000, max_features = 3, bootstrap = True, min_samples_leaf = 1, min_samples_split = 6 for Y and 2 for D, criterion = 'squared_error', n_jobs = 1, random_state = seed). randomForest makes a node terminal when it holds <= nodesize rows, so min_samples_split = nodesize + 1.",
-        "deviation_from_authors": "Different random-number streams and bootstrap draws; sklearn's split search and tie handling; S = 40 splits instead of 100 (budget). The size of the combined deviation is measured, on synthetic data, by check-learner-ports."
+        "deviation_from_authors": "Different random-number streams and bootstrap draws; sklearn's split search and tie handling; S = 40 splits instead of 100 (budget). The size of the combined deviation is measured, on synthetic data, by check-learner-ports. Measured: shift -$216 (SE $9) on synthetic data, D forest; kept as specified by PI ruling (a)."
       },
       "boosting": {
         "spec": "Authors: gbm(n.trees = 1000, shrinkage = 0.01, interaction.depth = 2, bag.fraction = 0.5, train.fraction = 1, n.minobsinnode = 10 (default), cv.folds = 5), distribution 'gaussian' for Y and 'adaboost' for D, prediction at gbm.perf(method = 'cv'), D on the response scale 1/(1 + exp(-2f)). Crew: Y: sklearn.ensemble.GradientBoostingRegressor(loss = 'squared_error', n_estimators = 1000, learning_rate = 0.01, subsample = 0.5, max_leaf_nodes = 3, max_depth = None, min_samples_leaf = 10, random_state = seed); D: GradientBoostingClassifier(loss = 'exponential', same settings), predict_proba = expit(2f). Tuning rule (on nuisance prediction loss only): 5-fold CV (KFold(5, shuffle = True, random_state = seed)) on the training folds; each CV model's staged predictions give the held-out loss for 1..1000 trees (squared error for Y, exponential loss exp(-(2d - 1) f) for D), summed over the 5 folds; best = argmin; the model refitted on all training folds with 1000 trees predicts with its first 'best' trees (staged prediction). gbm interaction.depth = 2 means two splits, i.e. three leaves, grown best-first, which is max_leaf_nodes = 3.",
@@ -42,8 +42,8 @@
       "nnet": 100,
       "forest": 40,
       "boosting": 30,
-      "rule": "Fixed from synthetic timing only (run timing-synthetic: the nine real covariates, a synthetic outcome and treatment from arbitrary formulas, never net_tfa or e401, no eligibility coefficient). S is not changed after any analysis run starts. If the budget is exceeded, the overrun is reported; no run is cut short or re-run with fewer splits.",
-      "timing_estimate": "Serial seconds per split (2-fold + 5-fold, Y and D, synthetic outcome, 4,957/7,932 training rows; runs/timing-synthetic/timing.json): lasso 7.4, tree 7.9, nnet 4.0, forest 47.5, boosting 127.7 (6 fits per nuisance fit because of the 5-fold CV for the number of trees). Planned serial work: lasso 100 x 7.4 = 743 s, tree 793 s, nnet 395 s, forest 40 x 47.5 = 1,899 s, boosting 30 x 127.7 = 3,831 s, sens-lasso-c11 743 s, check-noctrl and verdict about 5 s: about 8,400 s. Measured speed-up of joblib n_jobs = -1 on this 8-core Apple M3 (4 performance + 4 efficiency cores), three measurements: 3.3 to 4.1. Estimated wall time 34-43 minutes (boosting 16-19, forest 8-10, the rest 11-14), a 1.4x margin under 60 minutes for slower real-data fits. S = 50/40 for forest/boosting would need about 51 minutes at the slowest measured speed-up and was rejected."
+      "rule": "Fixed from synthetic timing only (run timing-synthetic: the nine real covariates, a synthetic outcome and treatment, never net_tfa or e401, no eligibility coefficient). PI ruling on design-r2 F11 (b): the split counts stay as fixed even though check-learner-ports ran its Python phase 2.0-2.4 times slower than the timing model predicts (254 s wall against 104-129 s), which would put the main runs at about 70-100 minutes; if they exceed the 60-minute budget the overrun is disclosed, not traded for power. S is not changed after any analysis run starts; no run is cut short or re-run with fewer splits.",
+      "timing_estimate": "Serial seconds per split (2-fold + 5-fold, Y and D, synthetic outcome, 4,957/7,932 training rows; runs/timing-synthetic/timing.json): lasso 7.4, tree 7.9, nnet 4.0, forest 47.5, boosting 127.7 (6 fits per nuisance fit because of the 5-fold CV for the number of trees). Planned serial work: lasso 100 x 7.4 = 743 s, tree 793 s, nnet 395 s, forest 40 x 47.5 = 1,899 s, boosting 30 x 127.7 = 3,831 s, sens-lasso-c11 743 s, check-noctrl and verdict about 5 s: about 8,400 s. Measured speed-up of joblib n_jobs = -1 on this 8-core Apple M3 (4 performance + 4 efficiency cores), three measurements: 3.3 to 4.1. Estimated wall time 34-43 minutes (boosting 16-19, forest 8-10, the rest 11-14), a 1.4x margin under 60 minutes for slower real-data fits. S = 50/40 for forest/boosting would need about 51 minutes at the slowest measured speed-up and was rejected. Caveat (design review F11): the only end-to-end timing of the final ports (check-learner-ports, Python phase) was 2.0-2.4 times slower than this model, so 70-100 minutes is possible; see rule."
     },
     "tolerance_table": [
       {
@@ -68,7 +68,16 @@
           8542
         ],
         "counts_as_failure_if_outside": true,
-        "counts_as_pass_if_inside": false
+        "counts_as_pass_if_inside": false,
+        "port_shift_measured": 0.0,
+        "port_shift_se": 0.1,
+        "port_shift_source": "check-learner-ports (re-run 2026-11-18 with the zero threshold; first run -86.7, SE 15.9), synthetic outcome, 2-fold training size only",
+        "p_outside_given_shift": 0.005,
+        "p_outside_given_shift_2se_range": [
+          0.005,
+          0.005
+        ],
+        "p_outside_if_shift_x4_5": 0.005
       },
       {
         "claim_id": "plr-tree-2fold",
@@ -92,7 +101,15 @@
           9021
         ],
         "counts_as_failure_if_outside": true,
-        "counts_as_pass_if_inside": true
+        "counts_as_pass_if_inside": true,
+        "port_shift_measured": -24.7,
+        "port_shift_se": 25.7,
+        "port_shift_source": "check-learner-ports, synthetic outcome, 2-fold training size only",
+        "p_outside_given_shift": 0.006,
+        "p_outside_given_shift_2se_range": [
+          0.006,
+          0.017
+        ]
       },
       {
         "claim_id": "plr-forest-2fold",
@@ -116,7 +133,15 @@
           9554
         ],
         "counts_as_failure_if_outside": true,
-        "counts_as_pass_if_inside": true
+        "counts_as_pass_if_inside": true,
+        "port_shift_measured": -216.0,
+        "port_shift_se": 9.4,
+        "port_shift_source": "check-learner-ports, synthetic outcome, 2-fold training size only",
+        "p_outside_given_shift": 0.077,
+        "p_outside_given_shift_2se_range": [
+          0.061,
+          0.096
+        ]
       },
       {
         "claim_id": "plr-boosting-2fold",
@@ -140,7 +165,15 @@
           9131
         ],
         "counts_as_failure_if_outside": true,
-        "counts_as_pass_if_inside": true
+        "counts_as_pass_if_inside": true,
+        "port_shift_measured": -4.7,
+        "port_shift_se": 2.6,
+        "port_shift_source": "check-learner-ports, synthetic outcome, 2-fold training size only",
+        "p_outside_given_shift": 0.005,
+        "p_outside_given_shift_2se_range": [
+          0.005,
+          0.005
+        ]
       },
       {
         "claim_id": "plr-nnet-2fold",
@@ -164,7 +197,15 @@
           9280
         ],
         "counts_as_failure_if_outside": true,
-        "counts_as_pass_if_inside": true
+        "counts_as_pass_if_inside": true,
+        "port_shift_measured": -3.0,
+        "port_shift_se": 16.1,
+        "port_shift_source": "check-learner-ports, synthetic outcome, 2-fold training size only",
+        "p_outside_given_shift": 0.005,
+        "p_outside_given_shift_2se_range": [
+          0.005,
+          0.007
+        ]
       },
       {
         "claim_id": "plr-lasso-5fold",
@@ -188,7 +229,16 @@
           8823
         ],
         "counts_as_failure_if_outside": true,
-        "counts_as_pass_if_inside": false
+        "counts_as_pass_if_inside": false,
+        "port_shift_measured": 0.0,
+        "port_shift_se": 0.1,
+        "port_shift_source": "check-learner-ports (re-run 2026-11-18 with the zero threshold; first run -86.7, SE 15.9), synthetic outcome, 2-fold training size only; K = 5 not checked, the 2-fold shift is assumed",
+        "p_outside_given_shift": 0.005,
+        "p_outside_given_shift_2se_range": [
+          0.005,
+          0.005
+        ],
+        "p_outside_if_shift_x4_5": 0.005
       },
       {
         "claim_id": "plr-tree-5fold",
@@ -212,7 +262,15 @@
           9172
         ],
         "counts_as_failure_if_outside": true,
-        "counts_as_pass_if_inside": true
+        "counts_as_pass_if_inside": true,
+        "port_shift_measured": -24.7,
+        "port_shift_se": 25.7,
+        "port_shift_source": "check-learner-ports, synthetic outcome, 2-fold training size only; K = 5 not checked, the 2-fold shift is assumed",
+        "p_outside_given_shift": 0.006,
+        "p_outside_given_shift_2se_range": [
+          0.006,
+          0.018
+        ]
       },
       {
         "claim_id": "plr-forest-5fold",
@@ -236,7 +294,15 @@
           9534
         ],
         "counts_as_failure_if_outside": true,
-        "counts_as_pass_if_inside": true
+        "counts_as_pass_if_inside": true,
+        "port_shift_measured": -216.0,
+        "port_shift_se": 9.4,
+        "port_shift_source": "check-learner-ports, synthetic outcome, 2-fold training size only; K = 5 not checked, the 2-fold shift is assumed",
+        "p_outside_given_shift": 0.244,
+        "p_outside_given_shift_2se_range": [
+          0.19,
+          0.305
+        ]
       },
       {
         "claim_id": "plr-boosting-5fold",
@@ -260,7 +326,15 @@
           9319
         ],
         "counts_as_failure_if_outside": true,
-        "counts_as_pass_if_inside": true
+        "counts_as_pass_if_inside": true,
+        "port_shift_measured": -4.7,
+        "port_shift_se": 2.6,
+        "port_shift_source": "check-learner-ports, synthetic outcome, 2-fold training size only; K = 5 not checked, the 2-fold shift is assumed",
+        "p_outside_given_shift": 0.005,
+        "p_outside_given_shift_2se_range": [
+          0.005,
+          0.005
+        ]
       },
       {
         "claim_id": "plr-nnet-5fold",
@@ -284,15 +358,24 @@
           9257
         ],
         "counts_as_failure_if_outside": true,
-        "counts_as_pass_if_inside": true
+        "counts_as_pass_if_inside": true,
+        "port_shift_measured": -3.0,
+        "port_shift_se": 16.1,
+        "port_shift_source": "check-learner-ports, synthetic outcome, 2-fold training size only; K = 5 not checked, the 2-fold shift is assumed",
+        "p_outside_given_shift": 0.005,
+        "p_outside_given_shift_2se_range": [
+          0.005,
+          0.01
+        ]
       }
     ],
     "decision_rules": {
       "H1": "Fails if any of the 10 replicated cells has theta_med <= 0 or theta_med - 1.96 x adjusted SE (eq. 3.14) <= 0.",
-      "H2": "Per cell: inside if |theta_rep - theta_pub| <= tolerance in design.tolerance_table (2.81 x sqrt(se_rep^2 + se_pub^2), se = 1.2533 x 1.4826 x sqrt(adj^2 - med^2) / sqrt(S), published S = 100, replication S as in design.splits). One-sided not-testable rule (design review F1): every one of the 10 cells that is outside its tolerance is an H2 failure, lasso included. A cell inside its tolerance counts as a pass only if it is testable; the two lasso cells (80%-power detectable shift $1,072 > $673 = half the bracketed SE at K = 2; $827 > $649 at K = 5) inside their tolerance are reported as 'inside the tolerance, not testable at this resolution' and are not counted as passes. H2 holds if no cell is outside and all 8 testable cells are inside. Size: 2.81 is the Bonferroni value for all 10 cells, so a faithful re-implementation fails H2 with probability at most about 5% (10 x 0.5%), under the normal and constant-variance approximation, which makes the tolerances conservative. A pass means 'no shift larger than the cell's 80%-power detectable shift was detected', never 'identical'. Every cell's difference is also reported in units of the published bracketed (median) SE. This replaces the 'does not count toward H2 either way' wording of plan.json hypotheses[1], which the PI must amend (the Designer does not edit hypotheses).",
+      "H2": "Per cell: inside if |theta_rep - theta_pub| <= tolerance in design.tolerance_table (2.81 x sqrt(se_rep^2 + se_pub^2), se = 1.2533 x 1.4826 x sqrt(adj^2 - med^2) / sqrt(S), published S = 100, replication S as in design.splits). One-sided not-testable rule (design review F1): every one of the 10 cells that is outside its tolerance is an H2 failure, lasso included. A cell inside its tolerance counts as a pass only if it is testable; the two lasso cells (80%-power detectable shift $1,072 > $673 = half the bracketed SE at K = 2; $827 > $649 at K = 5) inside their tolerance are reported as 'inside the tolerance, not testable at this resolution' and are not counted as passes. H2 holds if no cell is outside and all 8 testable cells are inside. Size: 2.81 is the Bonferroni value for all 10 cells, so a re-implementation with no port deviation fails H2 with probability at most about 5% (10 x 0.5%), under the normal and constant-variance approximation; with the port shifts measured before the gate the rate is about 33% (decision_rules.H2_size_under_measured_ports). A pass means 'no shift larger than the cell's 80%-power detectable shift was detected', never 'identical'. Every cell's difference is also reported in units of the published bracketed (median) SE. hypotheses[1] carries the same rule.",
       "H3": "Fails if, at K = 2 or at K = 5, the replicated lasso theta_med is >= the replicated theta_med of any of tree, forest, boosting, nnet (point estimates, main runs only). Probability of failing from split noise alone under an exact replication of the published values (cells independent normal around the published values with se_rep from design.tolerance_table, 4 million draws): about 7e-5; the smallest margin is tree at K = 5 ($684, z = 3.9). Shared splits correlate the cells positively, which lowers it further. sens-lasso-c11 is evaluated against H3 too, but only descriptively.",
       "claims": "Exactly one claim per cell, id plr-<learner>-<k>fold (learner in lasso, tree, forest, boosting, nnet; k in 2, 5), value = metric theta_k<k> of run main-<learner>, in 1991 US dollars. Claim values come only from these five runs with the configurations fixed here (design_constraints[0]); a run labelled exploratory never supplies a claim value.",
-      "H2_reading_of_failures": "Descriptive only, never changes the verdict (design review F5). For every cell the verdict run also reports a replication-spread tolerance tol_obs = 2.81 x sqrt(se_rep_obs^2 + se_pub^2), with se_rep_obs = 1.2533 x 1.4826 x MAD_s(theta_s) / sqrt(S) from the crew's own split estimates (se_pub unchanged). Next to every cell outside its tolerance the paper states, with wording fixed now: if |diff| <= tol_obs, 'outside the planned tolerance but inside the tolerance implied by our own split-to-split spread: the failure may reflect a noisier implementation (a variance difference), not only a shift of its centre'; if |diff| > tol_obs, 'outside both tolerances: the centre of our estimate differs from the published one'. Either way the cell fails H2."
+      "H2_reading_of_failures": "Fixed now (design review F5, F7). Every cell outside its tolerance fails H2, whatever the reading. Each such cell gets exactly one of two readings from its measured port shift (design.tolerance_table.port_shift_measured, from check-learner-ports): 'consistent with the measured port deviation' only if the cell's difference diff = theta_rep - theta_pub has the same sign as the measured shift and |diff - shift| <= the cell's tolerance; otherwise 'not explained by the measured deviation'. Because the shift was measured on a synthetic outcome at the 2-fold training size only, the K = 5 readings and the lasso readings (whose shift scales with the outcome's residual noise, design review F9) carry that caveat in the paper. In addition, descriptive only: tol_obs = 2.81 x sqrt(se_rep_obs^2 + se_pub^2), se_rep_obs = 1.2533 x 1.4826 x MAD_s(theta_s) / sqrt(S) from the crew's own split estimates; if |diff| <= tol_obs the paper adds 'inside the tolerance implied by our own split-to-split spread: part of the failure may be a variance difference', otherwise 'outside both tolerances'. No reading changes the verdict.",
+      "H2_size_under_measured_ports": "Design review F7. With no port deviation, the 10-cell Bonferroni rule fails a faithful re-implementation about 5% of the time. check-learner-ports measured, on synthetic data at the 2-fold training size, shifts of forest -$216 (SE $9), lasso +$0.04 (SE $0.06; re-run of 2026-11-18 after the zero-threshold correction of code-r1 F1; the first run's -$87 (SE $16) came from the omitted threshold), tree -$25 (SE $26), boosting -$5 (SE $3) and nnet -$3 (SE $16). If those shifts carry over to net_tfa, each cell falls outside its tolerance with the probability in design.tolerance_table.p_outside_given_shift: forest K = 5 0.24 (0.19-0.31 for the shift +-2 SE), forest K = 2 0.08, the others (lasso included) 0.005-0.006. H2 then fails about 33% of the time from the known port deviations and split noise alone (cells treated as independent), and still about 33% if the lasso shift is scaled by the outcome SD ratio (x4.5, design review F9), because the corrected lasso shift is essentially zero (with the first run's -$87 it was about 46%). K = 5 was not checked; the 2-fold shift is assumed for it. These numbers are fixed before any analysis run and reported next to the H2 verdict; they do not change any tolerance."
     },
     "data": "Source: data/raw/sipp1991.dta from github.com/VC2015/DMLonGitHub (the authors' replication file; sha256 1123d5f0...b4b2 in data/manifest.json), prepared by the Data RA into data/derived/sipp1991.csv (run prepare-sipp). Unit: household (9,915 rows, 1991 SIPP extract). Sample: all 9,915 rows, no restriction, and no switching (design.sample_rule) (the authors' code does not subset; data/CODEBOOK.md notes that the file is Abadie's extract before his $10,000-$200,000 income restriction, and that restriction is not applied). Y = net_tfa (net total financial assets, US dollars). D = e401 (0/1 eligibility). X = age, inc, educ, fsize, marr, twoearn, db, pira, hown, raw as stored, for tree, forest, boosting and nnet; the 275-column 401K.R dictionary for lasso. No missing values are imputed; if a variable has missing values the run stops and the PI is told. The covariates were read for the synthetic timing study; the Designer has not looked at Y or D values.",
     "analysis_plan": [
@@ -305,7 +388,7 @@
       "6. main-boosting (S = 30): claims plr-boosting-2fold, plr-boosting-5fold; H1, H2, H3.",
       "Each main run is `crew.py run --kind analysis` of code/dml_plr.py --learner <name> --splits <S>, input data/derived/sipp1991.csv, and writes a flat metrics file with, for k in 2 and 5: theta_k<k>, se_med_k<k>, se_adj_k<k>, n_splits, n_obs, published_k<k>, diff_k<k>, diff_in_pub_se_k<k> (diff / published bracketed SE), tolerance_k<k>, mds80_k<k>, testable_k<k>, within_tol_k<k>, split_mad_k<k> and split_sd_obs_k<k> (= 1.4826 x MAD of the theta_s), implied_mad_obs_k<k> (= sqrt(se_adj^2 - se_med^2) of the replication), theta_min_k<k>, theta_max_k<k>, rmse_l_k<k> and rmse_m_k<k> (median over splits of out-of-fold RMSE of l_hat and m_hat), m_out_01_k<k> (median share of out-of-fold m_hat outside [0.01, 0.99]), and for nnet nnet_iter_med_y/d. Per-split theta_s and sigma_s go to runs/main-<learner>/splits.csv and wall time to runs/main-<learner>/timing.json, both declared as --output and not as metrics (crew.py rerun compares every metric at rtol 1e-6, and wall time never reproduces).",
       "7. sens-lasso-c11 (analysis, S = 100): main-lasso with c = 1.1 for the Y lasso, everything else identical. Purpose: how much the lasso cells and the H3 ordering depend on which hdm version the authors ran. Reported next to the main lasso cells; never a claim value for plr-lasso-<k>fold and never a reason to change the primary lasso.",
-      "8. verdict (analysis): code/verdict.py reads runs/*/metrics.json of runs 1-7 (as --input) and evaluates H1, H2 (per cell and overall, testable cells only), H3 (main runs; and descriptively with sens-lasso-c11), the side-by-side published vs replicated table (estimate, bracketed SE, adjusted SE), the baseline (design.baseline: mean net_tfa of ineligible households, SD of net_tfa, each cell as a percentage and in SD units), the descriptive replication-spread tolerance tol_obs for every cell (decision_rules.H2_reading_of_failures), and the diagnostics below. It reads data/derived/sipp1991.csv (for the baseline) besides the run metrics. Tolerances, S and testability are constants copied from plan.json and asserted equal to it.",
+      "8. verdict (analysis): code/verdict.py reads runs/*/metrics.json of runs 1-7 (as --input) and evaluates H1, H2 (per cell and overall, with the one-sided not-testable rule of decision_rules.H2), H3 (main runs; and descriptively with sens-lasso-c11), the side-by-side published vs replicated table (estimate, bracketed SE, adjusted SE), the baseline (design.baseline: mean net_tfa of ineligible households, SD of net_tfa, each cell as a percentage and in SD units), the descriptive replication-spread tolerance tol_obs for every cell (decision_rules.H2_reading_of_failures), and the diagnostics below. It reads data/derived/sipp1991.csv (for the baseline) and runs/check-learner-ports/metrics.json (code-r1 F3), both declared as --input, besides the run metrics, and copies the port-check results into its own flat metrics so that they can back result claims and macros: for each learner L, port_shift_L, port_shift_se_L, port_rms_L, port_rms_seed_L, port_pass_L, and lasso_c_eff_y, lasso_c_eff_d. It also writes, per cell, the reading of decision_rules.H2_reading_of_failures. Tolerances, S and testability are constants copied from plan.json and asserted equal to it.",
       "9. Diagnostics reported in the paper, never used to change a tolerance, S or a claim: (a) observed split spread, and the tol_obs reading of every failed cell, 1.4826 x MAD(theta_s) and the replication's own sqrt(adj^2 - med^2) versus the published implied values; (b) replicated bracketed and adjusted SEs versus the published ones (descriptive, all 20, as promised in response to question-review F3); (c) out-of-fold RMSE of l_hat and m_hat by learner and K; (d) overlap: share of m_hat outside [0.01, 0.99]; (e) nnet L-BFGS iteration counts; (f) wall time per run against the timing estimate. Figure (figures-ra): per learner and K, the distribution of theta_s with the published median and the H2 acceptance interval."
     ],
     "candidate_deviations": {
@@ -316,7 +399,8 @@
       ],
       "lasso": [
         "Penalty constant for the Y lasso: c = 0.5 assumed (hdm 0.1/0.2.0/0.3.x behaviour); c = 1.1 if the authors ran hdm 0.2.3 (sens-lasso-c11 shows the size).",
-        "Optimizer: exact coordinate-descent solution versus hdm LassoShooting stopped at maxIter 1000 / optTol 1e-5 on raw-scale columns with powers up to inc^8.",
+        "hdm's zeroThreshold = 1e-6 on unscaled coefficients: now ported exactly; residual differences would come from coefficients near the threshold, where float rounding can decide whether a coefficient is zeroed.",
+        "Optimizer: exact coordinate-descent solution versus hdm LassoShooting (maxIter 1000, optTol 1e-5). The code review found this does not matter at synthetic scale (tightening optTol and maxIter in hdm changed nothing); the earlier attribution of the lasso shift to it was wrong.",
         "Logistic lasso: liblinear with a weakly penalized intercept versus glmnet.",
         "Dictionary built from raw powers in float64; collinear or constant columns in a fold."
       ],
@@ -325,7 +409,8 @@
         "Cross-validation fold assignment for the pruning choice; split tie-breaking."
       ],
       "forest": [
-        "Random-number streams and bootstrap draws; split-search details of randomForest versus sklearn; nodesize mapped to min_samples_split = nodesize + 1."
+        "sklearn's split search does not stop until a valid split is found, even if it has to inspect more than max_features features (scikit-learn max_features documentation), whereas randomForest's regTree makes the node terminal when none of the mtry sampled variables splits it. With five binary covariates among nine and nodesize 1 for D, sklearn trees can grow deeper and fit m_hat more noisily, which matches the higher Python m_hat RMSE in check-learner-ports (design review F8; not verified by a run).",
+        "Random-number streams and bootstrap draws; other split-search details of randomForest versus sklearn; nodesize mapped to min_samples_split = nodesize + 1."
       ],
       "boosting": [
         "Split criterion (friedman_mse) and leaf values for the exponential loss differ from gbm.",
@@ -350,7 +435,9 @@
       "Budget: if real-data fits are much slower than synthetic ones the 60-minute budget can be exceeded. S is not reduced after the runs start; the overrun is reported (diagnostic 9f).",
       "Clean-rerun drift: nnet and lasso use BLAS-dependent floating point, so a rerun on another machine may differ beyond rtol 1e-6. Addressed by seeding every fit and by the Replicator rerunning first on this machine; any cross-machine difference is reported, not hidden.",
       "Standard errors are HC0 at the household level, as published; eligibility varies by employer but the file has no employer identifier, so clustering is impossible. Reported as a limitation; it does not affect point estimates or H2.",
-      "check-learner-ports itself has limits: synthetic outcome, only the 2-fold training size, 10 units; a port that passes it can still differ on net_tfa. Reported as a limitation."
+      "check-learner-ports itself has limits: synthetic outcome, only the 2-fold training size, 10 units; a port that passes it can still differ on net_tfa. Reported as a limitation.",
+      "Known port deviation (forest -$216 on synthetic data; the lasso's first-run -$87 was removed by porting hdm's zero threshold, re-run shift +$0.04): H2's false-failure rate rises from about 5% to about 33%. Addressed by pricing it in before the gate (decision_rules.H2_size_under_measured_ports), by the fixed reading rule for failed cells, and by disclosing it; not by re-tuning (PI ruling (a)). K = 5 was not checked.",
+      "Budget: the end-to-end port timing suggests 70-100 minutes for the main runs against 60. PI ruling (b): the overrun, if any, is disclosed; S is not reduced."
     ],
     "check_learner_ports": {
       "purpose": "Design review F2/F3: measure, before the design gate and on synthetic data only, how far each scikit-learn port (the functions code/dml_plr.py uses in the main runs) is from the R function called exactly as the authors call it, with the difference between two R seeds as the yardstick.",
@@ -370,10 +457,14 @@
       },
       "synthetic_units": "X = the nine real covariates of data/derived/sipp1991.csv (read with usecols; the only real data used). U = 10 units, u = 1..10, each drawn with numpy.random.default_rng(SeedSequence([4011, u])): D ~ Bernoulli(expit(-1.5 + 0.25 i + 0.4 db - 0.001 (age - 40)^2)) and Y = 9000 D + 1500 (age - 40) + 900 sign(i)|i|^1.5 + 3000 pira + 2000 hown + 600 (educ - 12) + 8000 t_3, i = inc/10^4 (the timing_synthetic.py formulas plus a known effect of 9000), and one random 2-fold partition (training size 4,957, as in the K = 2 cells). K = 5 is not checked, to keep the run near 12 minutes; that a port matching at 4,957 training rows also matches at 7,932 is an assumption. Python port seeds: SeedSequence([4011, u, fold, learner index, nuisance]). R seeds: A = 100000 + u, B = 200000 + u (each plus the learner index).",
       "metrics": "Flat runs/check-learner-ports/metrics.json; for each learner L: theta_py_mean_L, theta_ra_mean_L (means over units; truth 9000), shift_L = mean_u(theta_py - theta_RA), shift_se_L = sd_u(theta_py - theta_RA)/sqrt(10), rms_port_L = sqrt(mean_u (theta_py - theta_RA)^2), rms_seed_L = sqrt(mean_u (theta_RB - theta_RA)^2), cor_l_min_L and cor_m_min_L (minimum over units of the correlation of out-of-fold predictions, py vs R seed A), rmse_l_py_L, rmse_l_ra_L, rmse_m_py_L, rmse_m_ra_L (medians over units), location_ok_L, spread_ok_L, pass_L; plus lasso_c_eff_y, lasso_c_eff_d, hdm_version, rpart_version, randomForest_version, gbm_version, nnet_version, sklearn_version. Per-unit theta values go to runs/check-learner-ports/units.csv (--output). All values are deterministic given the seeds, so crew.py rerun can compare them.",
-      "pass_rules": "Fixed now. Tree, forest, boosting, nnet: location_ok if |shift| <= max(2.262 x shift_se, $25) (t with 9 df, 5% two-sided); spread_ok if rms_port <= max(1.75 x rms_seed, $25) (1.75 is about the square root of the 95% point of F(10, 10): a port exactly as noisy as R passes about 95% of the time); pass = location_ok and spread_ok. Lasso (deterministic, rms_seed = 0): pass if max_u |theta_py - theta_RA| <= $25 and cor_l_min and cor_m_min >= 0.999, with the Python port run at the c the R call reports (lasso_c_eff_y). $25 is 12% of the smallest H2 tolerance ($209).",
-      "on_failure": "A failure is recorded as a measured deviation: shift and rms in dollars on synthetic data, written in runs/NOTES.md, reported in the paper next to that learner's cells and used as the first candidate explanation if a cell fails H2. The port is never re-tuned to pass. The only allowed change is fixing code that does not implement the configuration written in design.learners (a bug, identified in the code review), after which the check is re-run with --replace and both results are kept in runs/NOTES.md.",
+      "pass_rules": "Fixed now. Tree, forest, boosting, nnet: location_ok if |shift| <= max(2.262 x shift_se, $25) (t with 9 df, 5% two-sided); spread_ok if rms_port <= max(1.75 x rms_seed, $25) (1.75 is about the square root of the 95% point of F(10, 10): a port exactly as noisy as R passes about 95% of the time); pass = location_ok and spread_ok. Lasso (deterministic, rms_seed = 0): pass if max_u |theta_py - theta_RA| <= $25 and cor_l_min and cor_m_min >= 0.999, with the Python port run at the c the R call reports (lasso_c_eff_y). $25 is 12% of the smallest H2 tolerance ($209). See scale_limitation: all dollar amounts here are synthetic.",
+      "on_failure": "A failure is recorded as a measured deviation (shift and rms in synthetic dollars) in runs/NOTES.md, in design.tolerance_table and in the paper next to that learner's cells. The port is never re-tuned to pass. The only allowed change is fixing code that does not implement the configuration written in design.learners (a bug, identified in the code review), after which the check is re-run with --replace and both results are kept in runs/NOTES.md. How a failed main cell is read against the measured shift is fixed in decision_rules.H2_reading_of_failures.",
       "time": "R on this machine, one call each on random numbers: randomForest 1000 trees 16.6 s, gbm with cv.folds = 5 3.6 s, nnet 0.8 s, rlasso 0.1 s; about 190 s of R and 42 s of Python per unit, 2,300 s in all, about 10-12 minutes wall with n_jobs = -1. Not part of the 60-minute analysis budget (no analysis run), but crew.py rerun repeats it.",
-      "command": "python3 /Users/brycewang/Auto-Research-Skills/crew/scripts/crew.py run /Users/brycewang/Auto-Research-Skills/gallery/ss-dml-401k --id check-learner-ports --role econometrician --kind data-prep --code code/check_learner_ports.py --code code/check_learner_ports.R --code code/authors/ML_Functions.R --code code/dml_plr.py --input data/derived/sipp1991.csv --output runs/check-learner-ports/units.csv --metrics runs/check-learner-ports/metrics.json -- .venv/bin/python code/check_learner_ports.py"
+      "command": "python3 /Users/brycewang/Auto-Research-Skills/crew/scripts/crew.py run /Users/brycewang/Auto-Research-Skills/gallery/ss-dml-401k --id check-learner-ports --role econometrician --kind data-prep --code code/check_learner_ports.py --code code/check_learner_ports.R --code code/authors/ML_Functions.R --code code/dml_plr.py --input data/derived/sipp1991.csv --output runs/check-learner-ports/units.csv --metrics runs/check-learner-ports/metrics.json -- .venv/bin/python code/check_learner_ports.py",
+      "result": "Run 2026-11-18 (runs/check-learner-ports): tree, boosting and nnet pass (shifts -$25, -$5, -$3, inside R's seed-to-seed spread); forest fails (shift -$216, SE $9, on 10 of 10 units; port rms $218 vs R seed rms $16, 13 times; out-of-fold m_hat RMSE 0.480 vs 0.472); lasso fails the $25 rule (shift -$87, SE $16, max $151; cor_l_min 0.994, cor_m_min 0.99999); the authors' rlasso call path uses c = 0.5 for Y and c = 1.1 for D in hdm 0.3.2 (lasso_c_eff_y, lasso_c_eff_d). PI ruling on design-r2 (a): the forest port stays as specified (no custom forest); the deviation is disclosed and priced into H2 (decision_rules.H2_size_under_measured_ports). Superseded for the lasso by the re-run after code-r1 F1 (see rerun_after_code_change); the first result stays in runs/NOTES.md. Re-run 2026-11-18 after adding hdm's zero threshold to the Y-lasso port (code-r1 F1, PI remedy (a)): lasso passes (shift +$0.04, SE $0.06, max |theta_py - theta_RA| $0.36, rms $0.19; cor_l_min 0.99999997, cor_m_min 0.99999); tree, forest, boosting and nnet metrics are identical to the first run (their code did not change; the run is deterministic); forest still fails. lasso_c_eff_y 0.5, lasso_c_eff_d 1.1 unchanged.",
+      "scale_limitation": "Design review F9. The synthetic outcome has an out-of-fold residual RMSE of about $14,300 (rmse_l_ra_*), while net_tfa has SD $63,523 and a long right tail. A deviation in the Y nuisance (the lasso: cor_l_min 0.994 against cor_m_min 0.99999) moves theta in proportion to the outcome's residual noise, so the measured -$87 lasso shift may understate the real-data shift several-fold (about -$390 if scaled by the SD ratio, 4.5). A deviation in the D nuisance (the forest) scales with theta itself and should carry over roughly unchanged. The $25 floors in the pass rules and the lasso's 'max <= $25' rule are in synthetic dollars and have the same scale problem: they are not real-data tolerances, and a pass under them does not certify a real-data difference below $25. Update after the re-run: the corrected lasso port's shift is +$0.04 (max $0.36), so the scaling concern for the lasso now applies only to residual differences near the threshold (candidate_deviations.lasso), which the synthetic check cannot size; the threshold acts in absolute units, so on net_tfa's scale it can zero different coefficients than on the synthetic outcome, in both implementations alike.",
+      "rerun_after_code_change": "PI ruling on code-r1 F1: after the threshold is added to code/dml_plr.py, check-learner-ports is re-run with the same command plus --replace. The first result (lasso shift -$87, SE $16; forest -$216; others as in check_learner_ports.result) is kept, with its date, in runs/NOTES.md. Updating design.tolerance_table's port_shift_measured, port_shift_se, p_outside columns, decision_rules.H2_size_under_measured_ports and the matching numbers in hypotheses[1] from the re-run is the Econometrician's job (task e-port-rerun), using the formulas already fixed here (p_outside = P(|N(shift, tolerance/2.81)| > tolerance)); the formulas and the reading rule do not change.",
+      "command_rerun": "python3 /Users/brycewang/Auto-Research-Skills/crew/scripts/crew.py run /Users/brycewang/Auto-Research-Skills/gallery/ss-dml-401k --id check-learner-ports --role econometrician --kind data-prep --replace --code code/check_learner_ports.py --code code/check_learner_ports.R --code code/authors/ML_Functions.R --code code/dml_plr.py --input data/derived/sipp1991.csv --output runs/check-learner-ports/units.csv --metrics runs/check-learner-ports/metrics.json -- .venv/bin/python code/check_learner_ports.py"
     },
     "sample_rule": "Design review F4. The only sample for every claim, hypothesis and diagnostic is all 9,915 rows of data/derived/sipp1991.csv. Switching sample is forbidden, whatever check-noctrl shows: the 9,275-row Abadie (2003) income band ($10,000 <= inc <= $200,000) is never used for a claim, a main run or a re-run. check-noctrl computes the no-controls OLS on the band as well, as a pre-stated descriptive data diagnostic only, so that a data discrepancy can be described without a second analysis being chosen after the fact.",
     "baseline": "Design review F6. Computed in the verdict run from data/derived/sipp1991.csv: mean net_tfa of ineligible households (e401 = 0), the SD of net_tfa over all 9,915 rows, and mean net_tfa of eligible households, each a metric. Every replicated and published cell is also reported as a percentage of the ineligible mean and in SD units. Descriptive only."
@@ -399,7 +490,7 @@
     },
     {
       "id": "d-design",
-      "title": "Write plan.json design: estimator, learners, S, tolerance table, decision rules, analysis plan, threats; revised for design-r1 (F1-F6)",
+      "title": "Write plan.json design: estimator, learners, S, tolerance table, decision rules, analysis plan, threats; revised for design-r1 (F1-F6) design-r2 (F7-F11) and code-r1 (F1, F3)",
       "owner": "designer",
       "status": "done"
     },
@@ -422,10 +513,28 @@
       "status": "done"
     },
     {
+      "id": "e-notes-fix",
+      "title": "Correct runs/NOTES.md: forest port rms ratio '21x' -> '13x'; label the hdm-convergence explanation of the lasso shift an unlogged conjecture (no script, run or output)",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "e-port-rerun",
+      "title": "Add hdm's 1e-6 zero threshold to the lasso port, re-run check-learner-ports with --replace (first result kept in runs/NOTES.md, NOTES lasso explanation corrected per code-r1 F2), then update the tolerance-table port-shift and p_outside columns, H2_size_under_measured_ports and hypotheses[1] numbers",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "e-verdict-ports",
+      "title": "verdict.py: read runs/check-learner-ports/metrics.json as --input and copy per-learner port deviations into its metrics (code-r1 F3)",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
       "id": "s-hdm-source",
       "title": "Record in sources/ the hdm source reading behind the penalty constant (cran/hdm tags 0.1.0, 0.2.0, 0.2.3, 0.3.2, R/rlasso.R)",
       "owner": "scout",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-code",
@@ -533,7 +642,8 @@
   },
   "disclosures": [
     "2026-11-18: During the round-1 review of the question, the Reviewer timed a single random-forest and boosting fit to check feasibility. No estimate of the eligibility coefficient was computed.",
-    "2026-11-18: After the question gate, H2's 'not testable' rule was made one-sided at the Reviewer's request (design-r1 F1): a not-testable cell outside its tolerance now fails H2. This makes H2 stricter; the human sees it at the design gate."
+    "2026-11-18: After the question gate, H2's 'not testable' rule was made one-sided at the Reviewer's request (design-r1 F1): a not-testable cell outside its tolerance now fails H2. This makes H2 stricter; the human sees it at the design gate.",
+    "2026-11-18: After the question gate, the sentence in H2 stating its false-failure rate was amended at the PI's request (design-r2 F7) to give the rate under the deviations measured by the pre-gate port check (about 33%, up to 46% if the lasso shift scales with net_tfa), and a reading rule for failed cells was added. The human sees this at the design gate."
   ],
   "design_constraints": [
     "Every plr-<learner>-<k>fold claim value comes only from the learner configuration fixed at the design gate. If a cell fails H2, the learner is not re-tuned to make it pass; any later run is labelled exploratory and never becomes a claim value.",

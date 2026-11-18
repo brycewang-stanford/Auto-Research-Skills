@@ -166,3 +166,76 @@ Check next round:
 - F3-F6: wording or plan changes.
 - Code stage: dml_plr.py should match design.method. Check the SeedSequence-to-int conversion, the
   LogisticRegression l1_ratio/liblinear call, and that numpy.median is used on splits.
+
+## design-r2 (2026-11-18): revise, 0 critical / 1 major / 4 minor open
+
+Status: F1-F6 are resolved. F1: the one-sided NT rule is in hypotheses[1], decision_rules and
+verdict.py h2_holds. F3: lasso_c_eff_y = 0.5 and c_eff_d = 1.1 are logged under hdm 0.3.2.
+New: F7 (major), F8-F11 (minor).
+
+The check-learner-ports results: tree, boosting and nnet pass. Lasso fails (-$87, Y side).
+Forest fails (-$216, SE 9, D side, m_hat RMSE 0.480 vs 0.472). The design was not revised
+after the check.
+
+Suspicions:
+- F7: the forest shift looks like attenuation from a noisier m_hat. It is proportional to theta,
+  so it should carry over to net_tfa. My arithmetic: the forest K=5 cell fails H2 with p of
+  about 0.24 and K=2 with about 0.08. Expect H2 to fail on forest. Watch for the explanation
+  being chosen after the results, and for "consistent with the port deviation" used without
+  the sign and magnitude check.
+- F8: I think the cause is sklearn continuing the split search beyond max_features, whereas
+  randomForest makes the node terminal. NOTES blames the nodesize mapping instead. This is
+  not verified.
+- F9: the synthetic Y scale is about 1/4.5 of net_tfa's SD, with light tails. The Y-side lasso
+  deviation may be several times larger on real data. Watch for "-$87 = 11% of tolerance"
+  in the paper.
+- F11: the Python phase was 2.0-2.4x slower than the timing model. Expect a 70-100 minute
+  main analysis. Check that S is unchanged and that the overrun is disclosed.
+- NOTES "21x" is arithmetic for 13x. Check the numbers in NOTES every round.
+
+What I ran: arithmetic only (forest failure probabilities from the tolerance_table SEs and
+the synthetic shifts; a crude lasso rescaling). I read the marginal net_tfa summary only.
+No models were fitted. No e401-net_tfa relationship was computed or seen.
+
+Check next round / at code:
+- F7: a per-cell failure probability and a fixed reading rule in plan.json; the hypotheses[1]
+  5% sentence amended; an explicit PI decision on the forest port.
+- F8 candidate added. F9 wording. F10: s-hdm-source done, the KKT diagnostic logged or
+  dropped, the sources/notes.md c = 1.1 line fixed. F11: re-timing or an accepted overrun.
+- Code stage: dml_plr.py vs design.method; SeedSequence-to-int; liblinear l1_ratio; the median
+  over splits; that verdict.py uses the measured-deviation reading rule exactly as fixed.
+
+## code-r1 (2026-11-18): revise, 0 critical / 1 major / 2 minor open
+
+The code matches design.method:
+- DML2 pooled score and HC0 SE (equal to statsmodels).
+- eq. 3.14 aggregation; np.median over splits.
+- SeedSequence to int through generate_state.
+- liblinear with l1_ratio = 1 applies L1.
+- The S guard on main-* runs works.
+- The verdict reading wording is verbatim from the plan.
+- H1-H3 logic checked on fabricated synthetic metrics.
+- No leakage: scaling is done per training fold, and the dictionary is a fixed map.
+- The R driver is faithful to cond_comp (re-checked against 401K.R and Moment_Functions.R).
+
+Findings:
+- F1 (major): hdm LassoShooting.fit zeroThreshold = 1e-6 on raw-scale coefficients is in every
+  hdm version since 0.1.0. It is absent from design.learners.lasso and from the port. Turning it
+  off in hdm makes R equal to Python within $0.1-0.2 RMS on 4 synthetic folds, so it explains the
+  whole -$87 lasso deviation. The threshold is in absolute units, so its effect on net_tfa is
+  unknown in size and sign.
+- F2: NOTES blames non-convergence (wrong).
+- F3: verdict.py does not re-export the port-check deviations. check-learner-ports is data-prep,
+  so its numbers cannot become claims or macros.
+
+What I ran: hdm variants and the port on synthetic units only. dml_plr, check_noctrl and
+verdict ran on a synthetic net_tfa/e401 in the scratchpad. No real e401-net_tfa quantity was
+computed.
+
+Check next round:
+- F1: was the design amended (threshold) and check-learner-ports re-run with --replace, both
+  results kept? Or was the deviation stated as identified?
+- That any amendment predates every analysis run (log.jsonl and run timestamps).
+- F3: verdict --input includes runs/check-learner-ports/metrics.json.
+- Forest: still unexplained (design-r2 F8 suspicion: sklearn keeps searching beyond
+  max_features). The code matches the design, so this is not a code finding.

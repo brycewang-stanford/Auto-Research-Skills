@@ -56,6 +56,7 @@ TOLERANCE_TABLE = {
     ("nnet", 5): dict(published=9038, se_pub=55.2, se_med=1322, se_adj=1355, tolerance=219, mds80=285, testable=True),
 }
 MAD_TO_SD = 1.4826
+ZERO_THRESHOLD = 1e-6  # hdm LassoShooting.fit control$zeroThreshold (all hdm versions)
 
 
 def assert_plan_constants(plan_path: Path = Path("plan.json")) -> None:
@@ -106,7 +107,8 @@ def dictionary(X: np.ndarray) -> np.ndarray:
 
 # ====================================================================== learners
 def rlasso_fit_predict(Xtr, ytr, Xte, c=0.5, num_iter=15, tol=1e-5):
-    """Port of hdm::rlasso(post = FALSE, intercept = TRUE), heteroskedastic, X-independent penalty.
+    """Port of hdm::rlasso(post = FALSE, intercept = TRUE), heteroskedastic, X-independent penalty,
+    including LassoShooting.fit's 1e-6 zero threshold on unscaled coefficients after every solve.
 
     Returns (predictions on Xte, info dict with lambda0, n, p, iterations)."""
     from sklearn.linear_model import Lasso, LinearRegression
@@ -114,6 +116,7 @@ def rlasso_fit_predict(Xtr, ytr, Xte, c=0.5, num_iter=15, tol=1e-5):
     sd = Xtr.std(axis=0)
     keep = sd > 0  # constant columns dropped before fitting
     Xs, Xts = Xtr[:, keep] / sd[keep], Xte[:, keep] / sd[keep]  # scale only; loadings absorb it
+    sd_keep = sd[keep]
     mx, my = Xs.mean(axis=0), ytr.mean()
     Xc, yc = Xs - mx, ytr - my
     gamma = 0.1 / np.log(n)
@@ -129,7 +132,10 @@ def rlasso_fit_predict(Xtr, ytr, Xte, c=0.5, num_iter=15, tol=1e-5):
     for it in range(1, num_iter + 1):
         model = Lasso(alpha=lam0 / (2 * n), fit_intercept=False, tol=1e-6, max_iter=100000)
         model.fit(Xc / psi, yc)
-        coef = model.coef_ / psi
+        coef = model.coef_ / psi  # coefficients on the SD-scaled centered columns
+        # hdm LassoShooting.fit zeroThreshold: w[abs(w) < 1e-6] <- 0 on the centered but
+        # otherwise unscaled dictionary columns, no re-optimization (design.learners.lasso.Y_learner)
+        coef[np.abs(coef / sd_keep) < ZERO_THRESHOLD] = 0.0
         e = yc - Xc @ coef
         s1 = e.std(ddof=1)
         psi = np.sqrt((Xc ** 2 * e[:, None] ** 2).mean(axis=0))

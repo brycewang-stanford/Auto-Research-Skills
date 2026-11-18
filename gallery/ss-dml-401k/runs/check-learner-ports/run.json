@@ -6,8 +6,8 @@
     ".venv/bin/python",
     "code/check_learner_ports.py"
   ],
-  "started": "2026-11-18T13:13:16Z",
-  "finished": "2026-11-18T13:29:47Z",
+  "started": "2026-11-18T13:49:54Z",
+  "finished": "2026-11-18T14:02:00Z",
   "exit_code": 0,
   "code": [
     {
@@ -24,7 +24,7 @@
     },
     {
       "path": "code/dml_plr.py",
-      "sha256": "052382f4a868997d42857ce123bd94a9da0e1df8c04e67d98cc0ad1d83750853"
+      "sha256": "65c48587a89c37efca296cd4b30d502ba23d047c77f22848989e89ee2a681484"
     }
   ],
   "inputs": [
@@ -36,11 +36,11 @@
   "outputs": [
     {
       "path": "runs/check-learner-ports/units.csv",
-      "sha256": "6bd2df7ed98714f2899bae7b072d96a13f341019d2e5d5aaf7415c07f6c64f0b"
+      "sha256": "f7b4c732709c29fcf349218098b2df6f373168e2dd69a1601e732e4a5e060aca"
     },
     {
       "path": "runs/check-learner-ports/metrics.json",
-      "sha256": "88fd8aeff8c05fe47782bb11c0e2c73f0823bc63542dac257c8d254883c1ad66"
+      "sha256": "4753ede6c13e3f69f248955e948d7d3753c45eb7dc2a3ed381edfd27a86fccb8"
     }
   ],
   "metrics": {
@@ -60,25 +60,25 @@
     "R_version": "4.5.2",
     "sklearn_version": "1.9.1",
     "numpy_version": "2.5.5",
-    "theta_py_mean_lasso": 9112.961106286943,
+    "theta_py_mean_lasso": 9199.68496357989,
     "theta_ra_mean_lasso": 9199.640340262331,
     "theta_rb_mean_lasso": 9199.640340262331,
-    "shift_lasso": -86.67923397538834,
-    "shift_se_lasso": 15.86769423643866,
-    "rms_port_lasso": 98.89056115722114,
+    "shift_lasso": 0.04462331755894411,
+    "shift_se_lasso": 0.06178787666058511,
+    "rms_port_lasso": 0.19065916130618923,
     "rms_seed_lasso": 0.0,
-    "max_abs_port_lasso": 151.18940725325774,
-    "cor_l_min_lasso": 0.9942097983186802,
+    "max_abs_port_lasso": 0.3580277129076421,
+    "cor_l_min_lasso": 0.9999999731135114,
     "cor_m_min_lasso": 0.9999914643665623,
     "cor_l_min_seed_lasso": 0.9999999999999998,
     "cor_m_min_seed_lasso": 0.9999999999999998,
-    "rmse_l_py_lasso": 14272.012365039614,
+    "rmse_l_py_lasso": 14423.862722231617,
     "rmse_l_ra_lasso": 14423.967870111584,
     "rmse_m_py_lasso": 0.46000113967680023,
     "rmse_m_ra_lasso": 0.45999821394667595,
-    "location_ok_lasso": false,
-    "spread_ok_lasso": false,
-    "pass_lasso": false,
+    "location_ok_lasso": true,
+    "spread_ok_lasso": true,
+    "pass_lasso": true,
     "theta_py_mean_tree": 9245.551056339442,
     "theta_ra_mean_tree": 9270.240207478024,
     "theta_rb_mean_tree": 9243.702260134927,
@@ -157,7 +157,7 @@
     "pass_nnet": true,
     "nnet_iter_med_py_y": 80.5,
     "nnet_iter_med_py_d": 1000.0,
-    "n_pass": 3
+    "n_pass": 4
   },
   "metrics_file": "runs/check-learner-ports/metrics.json",
   "env": {

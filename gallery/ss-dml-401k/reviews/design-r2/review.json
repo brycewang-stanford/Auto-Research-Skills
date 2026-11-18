@@ -1,0 +1,151 @@
+{
+  "id": "design-r2",
+  "target": "design",
+  "round": 2,
+  "created": "2026-11-18T13:37:35Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r1/review.json",
+    "plan.json",
+    "claims.jsonl",
+    "log.jsonl",
+    "runs/NOTES.md",
+    "runs/check-learner-ports/metrics.json",
+    "runs/check-learner-ports/run.json",
+    "runs/check-learner-ports/stdout.log",
+    "runs/check-learner-ports/stderr.log",
+    "runs/check-learner-ports/units.csv (forest rows)",
+    "runs/check-learner-ports/units/r_versions.json",
+    "runs/timing-synthetic/timing.json",
+    "code/check_learner_ports.py",
+    "code/check_learner_ports.R",
+    "code/authors/ML_Functions.R (RF function)",
+    "code/dml_plr.py (learner ports, _job, run)",
+    "code/timing_synthetic.py (lasso prototype, main)",
+    "code/verdict.py (H2 lines, grep)",
+    "data/derived/sipp1991_summary.json (marginal net_tfa/e401/age/inc summaries only)",
+    "sources/notes.md (grep hdm)",
+    "crew/agents/reviewer.md",
+    "crew/PROTOCOL.md (review format)",
+    "crew/bench/seeds/ss-dml-401k/task.json (seed; answer.json not opened)"
+  ],
+  "kill_argument": "The pre-gate port check answered the question the design was waiting on, and the design ignored the answer. The crew's random forest is not randomForest. On all 10 synthetic units its estimate lies below R's (mean -$216, SE $9, 13 times R's seed-to-seed rms). The gap sits in the D forest, whose out-of-fold error is higher in Python (0.480 vs 0.472). That is the signature of attenuation from a noisier m_hat. Such a bias scales with theta itself, so it should carry over to net_tfa. At that shift the K=5 forest cell (tolerance $287) fails H2 about 24% of the time and the K=2 cell about 8%, against the 0.5% per cell the plan still promises. hypotheses[1] still calls H2's size 5% and reads any failure as evidence of software or learner differences. No fixed rule says when the known deviation explains a failure. The H2 headline will largely re-measure a deviation known before the gate. What held: tree, boosting and nnet match R within R's own seed noise. The authors' call path uses c = 0.5 for the Y lasso, as assumed. The one-sided NT rule is in the hypotheses, the decision rules and verdict.py.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The 'not testable' (NT) rule discards rejections as well as passes. hypotheses[1] and design.decision_rules.H2 say an NT cell 'does not count toward H2 either way', and design.tolerance_table marks both lasso cells testable = false. NT is justified by power (the 80%-power detectable shift is $1,072 / $827, more than half the bracketed SE). Power limits what a pass means. It does not weaken a rejection: the per-cell critical value 2.81 is the Bonferroni value for all 10 cells, so counting a lasso rejection keeps the familywise size at or below 5%. As written, a lasso cell $1,500 off still leaves 'H2 holds'. That is the cell most likely to move: no rlasso in scikit-learn, an assumed penalty constant, and off-protocol lasso estimates $788-2,465 from the published cells (sources/notes.md section 5). H3 catches only an upward lasso shift large enough to cross a flexible learner.",
+      "evidence": "plan.json hypotheses[1]; plan.json design.decision_rules.H2; design.tolerance_table rows plr-lasso-2fold and plr-lasso-5fold (testable: false); sources/notes.md section 5, off-protocol lasso rows",
+      "response": "Designer: one-sided rule in design.decision_rules.H2 and tolerance_table (counts_as_failure_if_outside true for all 10, counts_as_pass_if_inside false for lasso); size <= 5% over 10 cells; hypotheses[1] wording needs a PI edit.",
+      "ruling": "hypotheses[1] now says an NT cell outside its tolerance is an H2 failure and inside is not a pass; design.decision_rules.H2 and every tolerance_table row (counts_as_failure_if_outside true for all 10, counts_as_pass_if_inside false for lasso) agree; code/verdict.py h2_holds = n_outside == 0 and all 8 testable inside. The change is disclosed in plan.json disclosures[1].",
+      "remedy": "Cheaper than any new run: make NT one-sided before any analysis run. An NT cell inside its tolerance is reported as 'not testable at this resolution'. An NT cell outside its tolerance is a detected discrepancy and makes H2 fail. Keep 2.81 for all 10 cells and state the familywise size (at most 5%)."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Only the lasso port is checked against the authors' software (analysis_plan[0], purpose 'show the lasso is the authors' lasso, not a lookalike'). The four learners that make up all eight testable cells are never compared with rpart, randomForest, gbm or nnet. Yet design.learners lists known deviations for each. nnet: identity instead of logistic output, unpenalized biases, Glorot instead of U(-0.7, 0.7) initialization, and L-BFGS-B stopping after about 88 iterations for Y on an absolute 2.2e-9 loss change against nnet's reltol 1e-8 / maxit 1000. On [0,1]-scaled net_tfa the loss is far below 1, so that is a relative tolerance two to three orders of magnitude looser (runs/timing-synthetic/timing.json: iters_mean_nnet_y 87.8, and restarts add nothing). Tree: a sklearn pruning path and different CV folds. Boosting: friedman_mse and sklearn's exponential-loss leaf values. Any of these can plausibly move a cell by more than its $209-438 tolerance. Under design_constraints[1] a failed cell can then only be 'explained' by a conjecture from the list, and the seed asks the crew to explain differences. The cost of measuring this is low: rpart 4.1.24, randomForest 4.7.1.2, gbm 2.3.1 and nnet 7.3.20 are installed here (I checked package versions only and ran no model).",
+      "evidence": "plan.json design.analysis_plan[0]; design.learners.{tree,forest,boosting,nnet}.deviation_from_authors; design_constraints[1]; runs/timing-synthetic/timing.json",
+      "response": "Designer: added pre-gate data-prep run check-learner-ports (design.check_learner_ports, analysis_plan[0], task e-learner-ports): all five ports vs the authors' ML_Functions.R calls on 10 synthetic units, R-seed spread as yardstick, pass rules fixed, failures recorded as measured deviations, never re-tuned.",
+      "ruling": "check-learner-ports ran (runs/check-learner-ports/run.json, exit 0) with all five ports against the authors' verbatim ML_Functions.R calls (git blob checked), R-seed yardstick and pass rules fixed before the run. Its results raise a new problem, F7.",
+      "remedy": "Extend step 0 into a data-prep run, check-learner-ports, on the same synthetic Y/D draws built from the real covariates (never net_tfa or e401). For each learner and nuisance, compare held-out predictions from the crew port with those of the R function called exactly as ML_Functions.R calls it. Use the R-versus-R spread across two seeds as the yardstick for the stochastic learners. Optionally also compare theta on a synthetic outcome with a known coefficient. Fix pass thresholds now. Record a failure as a measured deviation, with its size, before any analysis run. Do not re-tune afterwards."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The primary Y-lasso penalty constant (c = 0.5) rests on a check with no record in the workspace. log.jsonl (designer design-written) says 'verified by running hdm 0.3.2 on random numbers', but there is no script, run or output. The reading of the CRAN hdm tags is not in sources/. The authors' RLasso argument list (401K.R) also has no gamma, and rlassoF predicts on lm(...)$x, which includes the intercept column. The planned check-lasso-port does not say it reproduces that call path.",
+      "evidence": "plan.json design.learners.lasso.penalty_constant_note and analysis_plan[0]; log.jsonl 2026-11-18T12:46:21Z; authors' 401K.R (RLasso list) and ML_Functions.R rlassoF",
+      "response": "Designer: check-learner-ports runs the exact rlassoF -> rlasso/rlassologit path from a verbatim ML_Functions.R and records lasso_c_eff_y/d and hdm_version; hdm source lines are in penalty_constant_note and task s-hdm-source puts them in sources/.",
+      "ruling": "code/check_learner_ports.R calls rlassoF with the authors' RLasso list (c = 1.1, no gamma, intercept TRUE, post FALSE); metrics lasso_c_eff_y = 0.5 and lasso_c_eff_d = 1.1 under hdm 0.3.2 are now logged results. The historical-version part (s-hdm-source) is still todo; carried in F10.",
+      "remedy": "In check-lasso-port, call hdm through the formula interface with the authors' exact argument list (penalty list with c = 1.1 and no gamma, intercept = TRUE, post = FALSE), predict as rlassoF does, and record which crew c (0.5 or 1.1) matches. That turns the c = 0.5 assumption into a logged result."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "check-noctrl leaves an open fork. If the full-sample no-controls estimate misses $19,559, the crew 'stops until the PI decides', with no rule set in advance. data/CODEBOOK.md has already found the obvious alternative: the 9,275-row Abadie income band, which the authors' code says it follows. Choosing the sample after seeing the raw eligibility gap is the fork the track rules forbid.",
+      "evidence": "plan.json design.analysis_plan[1]; data/CODEBOOK.md 'Discrepancies' item 1",
+      "response": "Designer: design.sample_rule: all 9,915 rows only, switching forbidden; the 9,275 Abadie band appears only as a pre-stated descriptive no-controls OLS in check-noctrl; a mismatch is reported and the main runs proceed.",
+      "ruling": "design.sample_rule fixes all 9,915 rows and forbids switching; the Abadie band is a pre-stated descriptive diagnostic in check-noctrl.",
+      "remedy": "State now which alternative samples are admissible (for example only the 9,275-row band) and the rule for switching. Any switch is a disclosed deviation, and both samples' main runs are then reported."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "se_rep assumes the crew's split-to-split SD equals the published one. hypotheses[1] then reads a cell outside its tolerance as 'evidence that software, tuning or learner differences, not split randomness, move the estimate'. A port that is noisier across splits fails more often than 0.5% per cell even when its centre matches, for example nnet with one random start and early stopping. Such a failure is a variance difference, not a location shift. The design has no pre-set wording for this case. Diagnostic 9a is reported, but nothing links it to how a failure is read.",
+      "evidence": "plan.json hypotheses[1] (last sentences); design.analysis_plan[9](a); design.threats[4]",
+      "response": "Designer: decision_rules.H2_reading_of_failures adds tol_obs from our own split MAD next to every failed cell, with fixed wording (variance difference vs centre shift); never changes the verdict.",
+      "ruling": "design.decision_rules.H2_reading_of_failures adds tol_obs with fixed wording and never changes the verdict.",
+      "remedy": "Keep the published-noise tolerance as the only test. Next to each failed cell, pre-specify a descriptive tolerance recomputed with the crew's observed 1.4826 x MAD. If the failure disappears under it, word the result as 'outside tolerance, consistent with higher split noise in the replication'."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The track's design rules ask for effect sizes against a meaningful baseline. The design reports dollars and units of the published SE only. No baseline is planned, such as mean net_tfa of ineligible households or the SD of net_tfa.",
+      "evidence": "crew/tracks/social-science.md 'Design rules'; plan.json design.analysis_plan[8]-[9]",
+      "response": "Designer: design.baseline: verdict reports mean net_tfa of ineligible households, SD of net_tfa and each cell as % and SD units.",
+      "ruling": "design.baseline adds the ineligible mean, eligible mean and SD of net_tfa, descriptive only.",
+      "remedy": "Add one pre-specified baseline quantity to the verdict run; it is descriptive and changes no test."
+    },
+    {
+      "id": "F7",
+      "severity": "major",
+      "status": "open",
+      "text": "The port check measured a forest deviation large enough to change what H2 means, and the design was not revised after it (log.jsonl: last design-revised 13:01:45Z, check finished 13:29:47Z). On all 10 synthetic units the Python forest theta lies below R seed A (shift -$216, SE $9; rms_port $218 against rms_seed $16, i.e. 13x, not the '21x' in runs/NOTES.md). The gap sits in the D forest: median out-of-fold RMSE of m_hat 0.4798 (Python) vs 0.4715 (R), cor 0.973 vs 0.995 between R seeds. A noisier cross-fitted m_hat attenuates the partialling-out ratio by roughly E[(m - m_hat)^2]/E[(D - m_hat)^2], a bias proportional to theta itself, so with published forest cells near $9,100-9,250 (synthetic truth 9,000) the shift should carry over to net_tfa roughly unchanged. My arithmetic with the tolerance_table's se_rep and se_pub: at a -$216 shift the K = 5 forest cell (tolerance $287, combined SE $102) falls outside its tolerance with probability about 0.24 (0.19-0.31 for shift +/- 2 SE) and the K = 2 cell ($438, SE $156) about 0.08, against the 0.005 per cell the plan states. hypotheses[1] still says 'a faithful re-implementation fails H2 about 5% of the time' and reads any cell outside its tolerance as evidence that 'software, tuning or learner differences, not split randomness, move the estimate'. design.check_learner_ports.on_failure says only that the measured deviation is the 'first candidate explanation', with no rule for when it does or does not explain a failed cell. So the main headline (H2) will largely re-measure a deviation already known before the gate, and the attribution is left open until after the results. The forest K = 5 cell, where the effect is largest, was not checked (K = 2 only).",
+      "evidence": "runs/check-learner-ports/metrics.json (shift_forest, shift_se_forest, rms_port_forest, rms_seed_forest, rmse_m_py_forest, rmse_m_ra_forest, cor_m_min_forest, cor_m_min_seed_forest); runs/check-learner-ports/units.csv (forest rows, 10/10 negative); runs/NOTES.md 'Measured deviations' item 2; plan.json hypotheses[1]; design.decision_rules.H2; design.check_learner_ports.on_failure; design.tolerance_table rows plr-forest-2fold and plr-forest-5fold; log.jsonl",
+      "response": "Designer: tolerance_table now carries each cell's measured port shift and p_outside (forest K=5 0.24, K=2 0.08); decision_rules.H2_size_under_measured_ports and hypotheses[1] state H2's false-failure rate (~33%, ~46% with lasso rescaled); reading rule fixed (same sign and |diff - shift| <= tol, else 'not explained'); K=5 not checked is stated.",
+      "ruling": "",
+      "remedy": "No new run is needed. Before the gate: (a) state in plan.json, per cell, the measured synthetic shift and the H2 failure probability it implies (forest about 0.08 / 0.24; lasso, see F9), and amend the 5% size sentence in hypotheses[1] to say it holds for a port without a measured deviation; (b) fix a reading rule now, for example: a cell outside its tolerance is described as 'consistent with the port deviation measured on synthetic data' only if diff has the sign of shift_L and |diff - shift_L| <= tolerance, and otherwise as 'not explained by the measured port deviation'; a forest pass is reported as a pass despite the measured shift; (c) the PI decides explicitly, before the gate, whether the forest port stays as it is, with the deviation disclosed. Re-implementing the forest to match randomForest is possible only on synthetic evidence and before the gate, with check-learner-ports re-run and both results kept. The narrowing in (a)-(b) is cheaper."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "open",
+      "text": "The candidate list for the forest (design.candidate_deviations.forest) leaves out the most likely cause of the measured D-forest deviation. design_constraints[1] lets the paper explain a failed cell only with a candidate on that list. runs/NOTES.md conjectures 'the mapping of nodesize to min_samples_split = nodesize + 1', but design.learners.forest already argues that mapping is right: randomForest marks a node with <= nodesize rows terminal. A documented difference is missing. scikit-learn's max_features documentation states that the split search 'does not stop until at least one valid partition of the node samples is found, even if it requires to effectively inspect more than max_features features'. randomForest's regTree marks the node terminal when none of the mtry sampled variables gives a split. With five binary covariates among nine and nodesize 1 for D, the sklearn trees should then grow deeper and overfit m_hat more. That matches the higher Python m_hat RMSE. I have not verified this by running anything.",
+      "evidence": "plan.json design.candidate_deviations.forest; design.learners.forest.spec; design_constraints[1]; runs/NOTES.md item 2 'Candidate explanation'; code/dml_plr.py forest_fit_predict",
+      "response": "Designer: candidate_deviations.forest now leads with sklearn's split search continuing beyond max_features vs randomForest's terminal node (unverified).",
+      "ruling": "",
+      "remedy": "Add the max_features search-continuation difference to candidate_deviations.forest before the gate. Optionally, on one synthetic unit only, compare the mean number of leaves of the D trees in Python and in R (randomForest treesize()) and record the result as a data-prep run."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "open",
+      "text": "The port deviations are stated in synthetic dollars and compared with real-data tolerances, but the synthetic outcome is on a different scale. Synthetic Y has an out-of-fold residual RMSE of about $14,300 (rmse_l_ra_*) and t_3 noise times 8,000. net_tfa has SD $63,523, p99 $219,922 and max $1,536,798 (data/derived/sipp1991_summary.json, marginal summary only). The lasso deviation sits in the Y lasso (cor_l_min 0.994, cor_m_min 0.99999), so its effect on theta should scale with the outcome's residual noise, not with theta. runs/NOTES.md's '-$87, about 11% / 14% of the lasso tolerance' can therefore understate the real-data deviation several-fold. A crude rescaling by the SD ratio (x4.5, about -$390) would move the K = 5 lasso failure probability from about 0.01 to about 0.14. The $25 floors in the pass rules and the 'max <= $25' lasso rule have the same scale problem. The forest deviation (D side, proportional to theta) is less affected (F7).",
+      "evidence": "runs/check-learner-ports/metrics.json rmse_l_*; code/check_learner_ports.py make_unit; data/derived/sipp1991_summary.json net_tfa; runs/NOTES.md item 1; design.check_learner_ports.pass_rules",
+      "response": "Designer: check_learner_ports.scale_limitation states that synthetic dollars (residual RMSE ~$14,300 vs SD $63,523) can understate the Y-side lasso shift ~4.5x and that the $25 floors are synthetic; p_outside_if_shift_x4_5 recorded for lasso cells.",
+      "ruling": "",
+      "remedy": "Narrow the wording, which is cheaper than a rerun. Report each port deviation in synthetic units (for example shift / synthetic theta SE, and shift / rms_seed) and say it is on a synthetic outcome lighter-tailed and about 4.5 times smaller in scale than net_tfa. Do not present a Y-side deviation as a percentage of a real-data tolerance. Fix the NOTES '21x' (it is 13x)."
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "open",
+      "text": "Two pieces of evidence the design relies on are not recorded. (1) runs/NOTES.md supports the lasso explanation, 'hdm's solution is unconverged', with 'an unlogged scratchpad diagnostic on one 400-row synthetic training fold' (KKT violations). That is a different training size from the check's, and there is no script, run or output. (2) The primary c = 0.5 rests on the claim that hdm 0.1.0 / 0.2.0, the versions the authors could have run, reset c to 0.5. Task s-hdm-source, which was to put that source reading in sources/, is still 'todo'. check-learner-ports shows only that the installed 0.3.2 does this. sources/notes.md line 82 still says the authors fit rlasso with 'c = 1.1'.",
+      "evidence": "runs/NOTES.md item 1 'Evidence for that explanation'; plan.json tasks s-hdm-source (todo); design.learners.lasso.penalty_constant_note; sources/notes.md line 82",
+      "response": "Designer: penalty_constant_note now cites the logged check-learner-ports result (c_eff_y 0.5, c_eff_d 1.1), marks the hdm 0.1.0/0.2.0 reading unverified until s-hdm-source (Scout, doing), and supersedes my unlogged check; no design statement says the applied Y-lasso c is 1.1. NOTES.md fix is task e-notes-fix. Scout: s-hdm-source done — sources/hdm_penalty.md quotes the c-setting lines of hdm 0.1.0/0.2.0/0.2.3/0.3.1/0.3.2 from CRAN tarballs (sha256, file:line): Y-lasso c = 0.5 in 0.1.0 (other λ0 formula, ≈0.62 in qnorm terms), 0.2.0, 0.3.1, 0.3.2 and 1.1 only in 0.2.3; D-logit 1.1 always; Table 2 numbers date to Dec 2016–Jun 2017 (arXiv v4→v5), when CRAN had 0.2.0, but the authors' installed version is unrecorded; notes.md line 82 corrected.",
+      "ruling": "",
+      "remedy": "Either log the KKT diagnostic as a data-prep run on synthetic data, or drop it from NOTES and from any paper text. Complete s-hdm-source before the gate, and correct the c = 1.1 line in sources/notes.md to note the effective c."
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "open",
+      "text": "The timing behind design.splits is contradicted by the only end-to-end timing of the final ports. The check's Python phase (10 units, K = 2, all five learners, the dml_plr.py functions, loky n_jobs = -1, one BLAS thread per fit) took 254 s wall. The design's timing model predicts about 425 s serial (42.5 s per unit from runs/timing-synthetic/timing.json, as design.check_learner_ports.time also says) divided by the 3.3-4.1 speed-up, i.e. 104-129 s. That is 2.0-2.4 times faster than measured. Possible reasons: the final rlasso_fit_predict drops the warm_start the prototype timed (runs/NOTES.md); the prototype timed lasso and nnet without the one-thread BLAS limit the main runs impose; other workloads were running on the machine. If the ratio carries over, the 34-43 minute estimate becomes about 70-100 minutes against the 60-minute budget. design.splits.rule forbids changing S after the runs start, so the gate is the last legitimate point to re-fix S.",
+      "evidence": "runs/check-learner-ports/stdout.log ('Python ports done: 200 fits, 254 s wall'); runs/timing-synthetic/timing.json; design.splits.timing_estimate; design.check_learner_ports.time; code/dml_plr.py rlasso_fit_predict vs code/timing_synthetic.py",
+      "response": "Designer: PI ruling (b) recorded in design.splits.rule and threats: S stays; a budget overrun (70-100 min possible) is disclosed, not traded for power.",
+      "ruling": "",
+      "remedy": "Before the gate, re-time dml_plr.run itself on a synthetic Y/D (one or two splits per learner, the real parallel setup) and re-fix S from that. Or have the PI accept now, in plan.json, a disclosed overrun with S unchanged."
+    }
+  ],
+  "notes": "Run by the Reviewer, recorded here: (1) arithmetic only, on the published-table tolerance_table and the synthetic check-learner-ports metrics: the H2 outside-tolerance probability of each forest cell at the measured shift (normal, se = sqrt(se_rep^2 + se_pub^2)), and a crude lasso rescaling by the SD ratio of net_tfa to synthetic Y; (2) I read the marginal summary of net_tfa in data/derived/sipp1991_summary.json (no joint statistics). No model was fitted. No study-data estimate was computed. No relationship between e401 and net_tfa was computed or viewed. The brief's request to 'judge whether the design still holds' was treated as a question, not as a conclusion."
+}

@@ -79,7 +79,13 @@ read on 2026-11-18. The repository was last pushed 2018-05-07. `[dmlongithub]`
   matches it.
 - **Lasso dictionary in code:** `(poly(age,6) + poly(inc,8) + poly(educ,4) +
   poly(fsize,2) + marr + twoearn + db + pira + hown)^2`, i.e. raw polynomials plus all
-  pairwise interactions, fitted with `hdm::rlasso` (c = 1.1, heteroskedastic penalty).
+  pairwise interactions, fitted with `hdm::rlasso(post = FALSE)`, heteroskedastic penalty. 401K.R *passes*
+  c = 1.1, but the *effective* c depends on the hdm version (see `sources/hdm_penalty.md`).
+  It is 0.5 for the Y lasso in hdm 0.2.0, the CRAN release current when the Table 2 numbers
+  were produced (Dec 2016 to Jun 2017), and in 0.3.1 and 0.3.2. It is 1.1 only in 0.2.3
+  (released 2018-01-23). It is 0.5 with a different λ0 formula, about 0.62 in qnorm terms,
+  in 0.1.0. The D logistic lasso (`rlassologit`) uses c = 1.1 in every version. The
+  authors' installed hdm version is not recorded anywhere.
   The paper text does not give this dictionary for the 401(k) example.
 - **Other tuning in code:** Boosting is gbm with 1000 trees, shrinkage 0.01,
   interaction depth 2, bag fraction 0.5 and 5-fold CV. Forest is randomForest with 1000

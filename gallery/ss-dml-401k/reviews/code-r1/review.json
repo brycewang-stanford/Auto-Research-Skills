@@ -1,0 +1,63 @@
+{
+  "id": "code-r1",
+  "target": "code",
+  "round": 1,
+  "created": "2026-11-18T13:47:03Z",
+  "reviewer": {"model": "claude-opus-5-5", "independence": "fresh-context"},
+  "files_read": [
+    "plan.json",
+    "code/dml_plr.py",
+    "code/check_noctrl.py",
+    "code/verdict.py",
+    "code/check_learner_ports.py",
+    "code/check_learner_ports.R",
+    "code/authors/ML_Functions.R",
+    "runs/NOTES.md",
+    "runs/check-learner-ports/metrics.json",
+    "runs/check-learner-ports/run.json",
+    "runs/check-learner-ports/units.csv",
+    "runs/check-learner-ports/units/unit01.csv",
+    "runs/check-learner-ports/units/unit08.csv",
+    "runs/check-learner-ports/units/r_unit01_A.csv",
+    "runs/check-learner-ports/units/r_unit08_A.csv",
+    "data/derived/sipp1991.csv",
+    "data/raw/sipp1991.dta",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r1/review.json"
+  ],
+  "kill_argument": "The lasso port is not the authors' lasso, and the crew has the wrong explanation for why. hdm's LassoShooting.fit has set every coefficient below 1e-6 to zero since version 0.1.0 (control zeroThreshold = 10^-6). It does this on raw-scale columns such as inc^8 and age^6, and the zeroed coefficients feed the residuals and loadings of each of up to 15 rlasso iterations. rlasso_fit_predict solves the exact lasso on standardized columns and has no threshold. I switched that one control off in hdm on four synthetic training folds. R and Python then agreed to within $0.09-0.19 RMS in predictions, compared with $44-2,368 with the threshold on. The whole -$87 measured lasso deviation is therefore this step, not the optimizer non-convergence that NOTES.md blames. design.learners.lasso does not mention the threshold, so the code faithfully implements a specification that departs from the authors on a deterministic step that is cheap to port, and on_failure forbids the fix. The lasso anchors H3 and can fail H2. What held up: DML2 score, HC0, eq. 3.14, partitions and seeds, tolerance constants, H1-H3 logic, no leakage, the R driver, and the tree, boosting and nnet ports. The forest deviation matches the design and is still unexplained.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "The Y-lasso port leaves out a deterministic step of the authors' estimator. In every hdm version (0.1.0, 0.2.0, 0.2.3 on github.com/cran/hdm R/LassoShooting.fit.R, lines 79-80, and the installed 0.3.2), LassoShooting.fit ends with w[abs(w) < control$zeroThreshold] <- 0, with zeroThreshold = 1e-6. It applies this to coefficients on centered, unscaled dictionary columns, so small raw coefficients on high powers and products (e.g. inc^2:db) are dropped. rlasso.default then computes e1 and the new loadings from the thresholded coefficients. rlasso_fit_predict (code/dml_plr.py lines 129-138) solves the untruncated problem on columns scaled by their SD. design.learners.lasso and candidate_deviations.lasso do not mention the threshold either. The code therefore matches the design, and the design does not match hdm. On synthetic folds, with c = 0.5 and the R call path exactly as in check_learner_ports.R, I compared hdm's default with hdm after setting zeroThreshold = 0 by assignInNamespace. Python vs hdm default: prediction RMS $44 / $1,855 / $2,368 / $2,325 (unit 1 folds 1-2, unit 8 folds 1-2); hdm's default reproduced r_unit*_A.csv exactly. Python vs hdm without the threshold: RMS $0.09 / $0.12 / $0.11 / $0.19, correlation > 0.99999999995. Also tightening optTol to 1e-14 and maxIter to 1e5 changes nothing beyond removing the threshold. The threshold is in absolute units, so its effect depends on the scale of Y and of the columns. The synthetic -$87 therefore does not transfer to net_tfa in size or in sign (compare design-r2 F9). Because no analysis run exists yet, changing the port now is not a forking path.",
+      "evidence": "code/dml_plr.py rlasso_fit_predict lines 129-138 (no thresholding of coef / sd); plan.json design.learners.lasso.Y_learner and deviation_from_authors (no threshold); plan.json design.check_learner_ports.on_failure (only code that departs from design.learners may be fixed); hdm:::LassoShooting.fit control = list(maxIter = 1000, optTol = 1e-5, zeroThreshold = 1e-6), last two lines; runs/check-learner-ports/metrics.json pass_lasso = false, shift_lasso = -86.7.",
+      "response": "Econometrician: remedy (a) implemented per the amended design.learners.lasso.Y_learner (|coef/sd| < 1e-6 -> 0 after every solve); check-learner-ports re-run with --replace: lasso now passes (shift +$0.04, SE $0.06, max $0.36, cor_l_min 0.99999997).",
+      "ruling": "",
+      "remedy": "Option (a), the faithful port: the PI or Designer amends design.learners.lasso.Y_learner to add 'after each solve, set to zero every coefficient whose raw-scale value |coef_j / sd_j| < 1e-6, before computing e and psi'. The Econometrician implements it and re-runs check-learner-ports with --replace, keeping both results in NOTES.md. I expect max |theta_py - theta_RA| to fall well under $25. Option (b), cheaper: keep the port, list the threshold as the identified lasso deviation in candidate_deviations.lasso and in the paper, and say plainly that the lasso cells test the exact-lasso solution, not hdm's output."
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "open",
+      "text": "runs/NOTES.md (Measured deviations, item 1) attributes the lasso deviation to LassoShooting stopping early (maxIter, optTol) and cites an unlogged KKT diagnostic. My test contradicts this. Raising maxIter and tightening optTol while keeping the threshold was not needed: removing the threshold alone closes the gap to cents. Under on_failure, this note becomes the 'first candidate explanation' in the paper if a lasso cell fails H2, so the wrong mechanism would be published.",
+      "evidence": "runs/NOTES.md, section 'Measured deviations (recorded, not re-tuned)', item 1, 'Candidate explanation' and 'Evidence for that explanation' bullets.",
+      "response": "Econometrician: runs/NOTES.md now attributes the first run's -$87 to the omitted zero threshold (citing this review's unlogged diagnostic), retracts the early-stopping conjecture, and labels my KKT check as unlogged.",
+      "ruling": "",
+      "remedy": "Replace the conjecture with the identified mechanism (F1). Either log the zeroThreshold comparison as a data-prep run on synthetic units, or cite this review."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "No analysis run outputs the port-check deviations that the design promises to report 'next to that learner's cells' (shift, rms_port, rms_seed and pass per learner). check-learner-ports is a data-prep run, and crew.py validate accepts only analysis runs as support for result claims. Its numbers therefore cannot become claims or macros. The Writer would have to type them, which the protocol forbids, or leave them out. verdict.py does not read runs/check-learner-ports/metrics.json.",
+      "evidence": "code/verdict.py main() inputs (no check-learner-ports metrics); crew/scripts/crew.py claim validation ('is not an analysis run'); plan.json design.check_learner_ports.on_failure.",
+      "response": "Econometrician: verdict.py now takes runs/check-learner-ports/metrics.json as --input and copies port_shift/port_shift_se/port_rms/port_rms_seed/port_pass per learner plus lasso_c_eff_y/d into its metrics; the verdict command in runs/NOTES.md includes the input.",
+      "ruling": "",
+      "remedy": "Add --input runs/check-learner-ports/metrics.json to the verdict run. Have verdict.py copy port_shift_<L>, port_shift_se_<L>, port_rms_<L>, port_rms_seed_<L> and port_pass_<L> into runs/verdict/metrics.json."
+    }
+  ],
+  "notes": "What I ran (reviewer, unlogged, scratchpad only; synthetic outcomes and treatments only, with no e401-net_tfa relationship computed or seen): (1) fetched 401K.R and Moment_Functions.R at ff35d21e to confirm that the plinear DML2 pools residuals and that trim is unused, that arguments match the R driver, and that cond_comp drops nodesize/dist/method entries as check_learner_ports.R assumes; (2) hdm rlasso variants (default, zeroThreshold = 0, zeroThreshold = 0 with optTol 1e-14 and maxIter 1e5) on runs/check-learner-ports/units unit01 (folds 1, 2) and unit08 (folds 1, 2), compared with rlasso_fit_predict at c = 0.5; (3) read the column names and types of data/raw/sipp1991.dta (no factor columns, so nnetF's maxs[k] indexing is safe); (4) read the nine covariates of data/derived/sipp1991.csv, built a synthetic net_tfa/e401 from check_learner_ports.make_unit (theta = 9000), and ran dml_plr.py for all five learners (S = 1-2; theta_k2 8,560-8,929), check_noctrl.py, and verdict.py on fabricated metrics that exercise outside, inside, NT-inside and H3-fail branches (all correct); (5) checked dml2_theta's HC0 SE against statsmodels HC0 (equal to 1e-15), the eq. 3.14 aggregation against the authors' median-of-sqrt form (difference 1e-5 at S = 100), and liblinear with l1_ratio = 1 (applies L1). The main-* S guard refused --splits 2 as designed."
+}

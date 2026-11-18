@@ -1,8 +1,9 @@
 """verdict (analysis plan 8-9): evaluate H1-H3 from the run metrics, with the fixed decision rules.
 
 Inputs (declared with --input): runs/check-noctrl/metrics.json, runs/main-<learner>/metrics.json
-for the five learners, runs/sens-lasso-c11/metrics.json and data/derived/sipp1991.csv (baseline
-only). Tolerances, S and testability are the constants in code/dml_plr.py, asserted equal to
+for the five learners, runs/sens-lasso-c11/metrics.json, runs/check-learner-ports/metrics.json
+(port deviations, copied into this run's metrics so they can back claims; code-r1 F3) and
+data/derived/sipp1991.csv (baseline only). Tolerances, S and testability are the constants in code/dml_plr.py, asserted equal to
 plan.json design (plan.json is read for that assertion only).
 
 Decision rules (plan.json design.decision_rules), never changed by what the results show:
@@ -12,7 +13,10 @@ Decision rules (plan.json design.decision_rules), never changed by what the resu
       outside and all 8 testable cells are inside.
   H3  fails if, at K = 2 or K = 5, the lasso theta_med >= the theta_med of any flexible learner
       (main runs only; sens-lasso-c11 evaluated descriptively).
-Descriptive only: tol_obs reading of failed cells, side-by-side table, baseline, diagnostics.
+Reading of failed cells (decision_rules.H2_reading_of_failures; never changes the verdict):
+'consistent with the measured port deviation' if diff has the sign of the learner's measured
+port shift and |diff - shift| <= tolerance, else 'not explained by the measured deviation'; plus
+the descriptive tol_obs note. Also descriptive: side-by-side table, baseline, diagnostics.
 
 Writes runs/verdict/metrics.json (flat).
 """
@@ -36,10 +40,11 @@ Z_H1 = 1.96
 BONF = 2.81
 SE_MEDIAN_FACTOR = 1.2533
 FLEXIBLE = ["tree", "forest", "boosting", "nnet"]
-READING_INSIDE_OBS = ("outside the planned tolerance but inside the tolerance implied by our own "
-                      "split-to-split spread: the failure may reflect a noisier implementation "
-                      "(a variance difference), not only a shift of its centre")
-READING_OUTSIDE_BOTH = "outside both tolerances: the centre of our estimate differs from the published one"
+READING_PORT_CONSISTENT = "consistent with the measured port deviation"
+READING_PORT_NOT_EXPLAINED = "not explained by the measured deviation"
+OBS_INSIDE = ("inside the tolerance implied by our own split-to-split spread: part of the failure "
+              "may be a variance difference")
+OBS_OUTSIDE = "outside both tolerances"
 STATUS_NT_INSIDE = "inside the tolerance, not testable at this resolution"
 
 
@@ -52,6 +57,9 @@ def main() -> None:
     noctrl = load("runs/check-noctrl/metrics.json")
     main_runs = {l: load(f"runs/main-{l}/metrics.json") for l in LEARNERS}
     sens = load("runs/sens-lasso-c11/metrics.json")
+    ports = load("runs/check-learner-ports/metrics.json")
+    plan_rows = {(r["learner"], r["folds"]): r
+                 for r in json.loads(Path("plan.json").read_text(encoding="utf-8"))["design"]["tolerance_table"]}
     for l, m in main_runs.items():
         assert m["learner"] == l and m["n_splits"] == SPLITS[l] and m["n_obs"] == 9915, l
     assert main_runs["lasso"]["lasso_c_y"] == 0.5 and sens["lasso_c_y"] == 1.1
@@ -68,7 +76,14 @@ def main() -> None:
                "baseline_sd_net_tfa": sd_y,
                "noctrl_coef": noctrl["full_coef"], "noctrl_diff": noctrl["full_diff"],
                "noctrl_data_discrepancy": noctrl["data_discrepancy"],
-               "noctrl_band_coef": noctrl["band_coef"]}
+               "noctrl_band_coef": noctrl["band_coef"],
+               "lasso_c_eff_y": ports["lasso_c_eff_y"], "lasso_c_eff_d": ports["lasso_c_eff_d"]}
+    for l in LEARNERS:  # port-check results (synthetic data, 2-fold training size only)
+        v[f"port_shift_{l}"] = ports[f"shift_{l}"]
+        v[f"port_shift_se_{l}"] = ports[f"shift_se_{l}"]
+        v[f"port_rms_{l}"] = ports[f"rms_port_{l}"]
+        v[f"port_rms_seed_{l}"] = ports[f"rms_seed_{l}"]
+        v[f"port_pass_{l}"] = ports[f"pass_{l}"]
 
     h1_ok, n_outside, n_testable_inside, n_testable = True, 0, 0, 0
     for l in LEARNERS:
@@ -103,9 +118,15 @@ def main() -> None:
             # descriptive tol_obs (decision_rules.H2_reading_of_failures)
             se_rep_obs = SE_MEDIAN_FACTOR * MAD_TO_SD * m[f"split_mad_k{k}"] / math.sqrt(SPLITS[l])
             tol_obs = BONF * math.sqrt(se_rep_obs ** 2 + ref["se_pub"] ** 2)
-            reading = ""
+            shift = ports[f"shift_{l}"]
+            # the design table carries the same measured shift (rounded to 0.1)
+            assert abs(plan_rows[(l, k)]["port_shift_measured"] - shift) < 0.051, (cell, shift)
+            reading, obs_note = "", ""
             if not inside:
-                reading = READING_INSIDE_OBS if abs(diff) <= tol_obs else READING_OUTSIDE_BOTH
+                same_sign = np.sign(diff) == np.sign(shift)
+                reading = (READING_PORT_CONSISTENT if same_sign and abs(diff - shift) <= ref["tolerance"]
+                           else READING_PORT_NOT_EXPLAINED)
+                obs_note = OBS_INSIDE if abs(diff) <= tol_obs else OBS_OUTSIDE
             published_mad = math.sqrt(ref["se_adj"] ** 2 - ref["se_med"] ** 2)
             v.update({
                 f"rep_theta_{cell}": theta, f"rep_se_med_{cell}": se_med, f"rep_se_adj_{cell}": se_adj,
@@ -116,6 +137,7 @@ def main() -> None:
                 f"tolerance_{cell}": ref["tolerance"], f"testable_{cell}": ref["testable"],
                 f"h2_inside_{cell}": bool(inside), f"h2_status_{cell}": status,
                 f"tol_obs_{cell}": tol_obs, f"h2_reading_{cell}": reading,
+                f"h2_obs_note_{cell}": obs_note,
                 f"split_sd_obs_{cell}": m[f"split_sd_obs_k{k}"],
                 f"split_sd_pub_{cell}": MAD_TO_SD * published_mad,
                 f"implied_mad_obs_{cell}": m[f"implied_mad_obs_k{k}"], f"implied_mad_pub_{cell}": published_mad,

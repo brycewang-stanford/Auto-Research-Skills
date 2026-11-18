@@ -28,11 +28,16 @@ Choices the design left open (implementation details, not tuning):
 - Main-run wall time goes to `runs/<id>/timing.json` (an `--output`, never a metric).
 - The R package versions are recorded as comments in `code/requirements.txt`.
 
-Smoke test, unlogged and in the scratchpad: every learner of `dml_plr.run`, `check_noctrl.py`
+Smoke test (**unlogged**, scratchpad only, not a run): every learner of `dml_plr.run`, `check_noctrl.py`
 and `verdict.py` ran end to end with S = 1-2 on a synthetic outcome and treatment saved under
 the names net_tfa/e401. Those numbers are meaningless and are not reported.
 
-## 2026-11-18: check-learner-ports (data-prep, synthetic only)
+## 2026-11-18, first run: check-learner-ports (data-prep, synthetic only)
+
+Superseded for the lasso by the re-run below, after the lasso port gained hdm's zero
+threshold (code-r1 F1). The first run's record is in git at commit b57c415
+(`runs/check-learner-ports/run.json`, `metrics.json`, `units.csv`). The forest, tree,
+boosting and nnet code did not change.
 
 Command, exactly as in `design.check_learner_ports.command`. Exit 0, 13:13:16-13:29:47 UTC,
 **990 s wall** (R phase 725 s for 20 calls, 4,877 s summed; Python phase 254 s for 200 fits).
@@ -67,33 +72,41 @@ Pass rules, fixed in the design:
 
 Per-unit values are in `runs/check-learner-ports/units.csv`.
 
-### Measured deviations (recorded, not re-tuned)
+### Measured deviations in the first run (recorded, not re-tuned)
 
 1. **Lasso.** The Python port's theta is **$87 lower** on average than the authors' rlasso
    path (unit range -$3 to -$151; 10 of 10 units negative). The deviation sits in the
    **Y lasso** (out-of-fold prediction correlation 0.994-0.998). The D logistic lasso agrees
    (0.99999). It is about 11% of the K = 2 lasso tolerance ($825) and 14% of the K = 5
    tolerance ($636).
-   - Candidate explanation (conjecture, from design.candidate_deviations.lasso): the
-     optimizer. hdm's LassoShooting.fit stops at maxIter 1000 or a 1e-5 absolute change on
-     raw-scale columns up to inc^8. The Python port solves the same penalized problem to
-     tol 1e-6 on standardized columns.
-   - Evidence for that explanation: an unlogged scratchpad diagnostic on one 400-row
-     synthetic training fold. There, hdm's final coefficients violate the lasso optimality
-     (KKT) conditions by many orders of magnitude on the zero coefficients, while both
-     implementations select 10 columns. This is consistent with an unconverged R solution,
-     not with a different penalty.
-   - I found no place where `rlasso_fit_predict` departs from design.learners.lasso, so no
-     code was changed.
+   - **Corrected explanation (code-r1 F1/F2).** The shift comes from hdm's zero threshold.
+     LassoShooting.fit ends every solve with `w[abs(w) < control$zeroThreshold] <- 0`
+     (zeroThreshold = 1e-6). It applies this to coefficients on the centered, unscaled
+     dictionary columns, and rlasso uses the thresholded coefficients for the residuals and
+     loadings of every iteration. The first port had no threshold.
+   - Evidence: the Reviewer's diagnostic (reviews/code-r1, notes item 2; unlogged,
+     scratchpad, synthetic units 1 and 8). With the threshold switched off in hdm, R and
+     Python predictions agreed to $0.09-0.19 RMS. Tightening hdm's optTol and maxIter changed
+     nothing.
+   - **Retracted:** my first note blamed LassoShooting stopping early (maxIter, optTol). That
+     was an unlogged conjecture, with no script, run or output in the workspace. Its only
+     support was an **unlogged** scratchpad KKT check on one 400-row synthetic fold, which I
+     misread: the "violations" I saw are what thresholding raw-scale coefficients on columns
+     like inc^8 produces, not a sign that the solver had not converged.
+   - The design was amended (design.learners.lasso.Y_learner, PI ruling on code-r1 F1,
+     remedy (a)), the threshold was ported, and the check was re-run (below).
 2. **Forest.** The Python port's theta is **$216 lower** (unit range -$165 to -$258; 10 of 10
-   negative). That is 21x the R seed-to-seed rms ($16), about 49% of the K = 2 forest
+   negative). The port rms ($218) is 13x the R seed-to-seed rms ($16). The shift is about 49% of the K = 2 forest
    tolerance ($438) and 75% of the K = 5 tolerance ($287).
    - The deviation sits in the **D forest** (nodesize 1): the m-hat correlation with R is
      0.973, against 0.995 between two R seeds. The out-of-fold RMSE of m-hat is 0.4798 in
      Python and 0.4715 in R. The Y forest agrees as closely as two R seeds do.
-   - Candidate explanation (conjecture, from design.candidate_deviations.forest): the
-     mapping of randomForest's nodesize to `min_samples_split = nodesize + 1`, or
-     split-search differences, at nodesize = 1. Not tested.
+   - Candidate explanations (conjectures, design.candidate_deviations.forest; not tested by
+     any run):
+     - sklearn keeps searching beyond max_features until it finds a valid split, while
+       randomForest makes the node terminal;
+     - the nodesize mapping;
+     - other split-search details.
    - The code matches design.learners.forest exactly, so nothing was changed.
 3. Passes, with notes:
    - **Tree.** 9 units within $5. Unit 9 is -$255, which is no bigger than the R seed spread
@@ -108,6 +121,58 @@ paper reports them next to the lasso and forest cells, and they are the first ca
 explanation if those cells fail H2. The check was done at K = 2 only, at 4,957-4,958 training
 rows. That the deviations carry over to K = 5 is an assumption.
 
+## 2026-11-18, re-run: check-learner-ports after the lasso zero-threshold fix (code-r1 F1)
+
+Code change, the only one, made under on_failure's bug clause after the PI's ruling (remedy (a)):
+`rlasso_fit_predict` in `code/dml_plr.py` now applies hdm's `zeroThreshold = 1e-6` after every
+solve, as design.learners.lasso.Y_learner was amended to say. Each coefficient is expressed on
+the centered, unscaled dictionary column (`coef / sd`), every coefficient with |b_j| < 1e-6 is
+set to 0, with no re-optimization, and the residuals, loadings and the final prediction use the
+thresholded coefficients. No other learner changed.
+
+Before the re-run I checked the change on one 800-row synthetic unit (**unlogged**, scratchpad
+only). The Y-lasso prediction correlation with hdm rose from 0.9987 to 0.99999.
+
+Command: design.check_learner_ports.command_rerun (the stored command plus `--replace`). Exit
+0, 13:49:54-14:02:00 UTC, **725 s wall** (R phase 610 s, Python phase 110 s).
+
+| Learner | shift (se) | rms port | rms seed | max abs | cor l / m min | Result |
+|---|---|---|---|---|---|---|
+| lasso | **+0.04** (0.06) | 0.19 | 0 | **0.36** | **0.99999997** / 0.99999 | **pass** (was FAIL: -87, max 151, cor_l 0.994) |
+| tree | -24.7 (25.7) | 80.8 | 83.9 | 255 | 0.9951 / 0.9654 | pass (identical to the first run) |
+| forest | **-216.0** (9.4) | **217.9** | 16.4 | 258 | 0.9993 / **0.9732** | **FAIL** (identical to the first run) |
+| boosting | -4.7 (2.6) | 9.1 | 8.7 | 18 | 0.9996 / 0.9983 | pass (identical) |
+| nnet | -3.0 (16.1) | 48.2 | 33.6 | 79 | 0.9983 / 0.9206 | pass (identical) |
+
+- The tree, forest, boosting and nnet metrics equal the first run's to the last digit. Their
+  code did not change and the run is deterministic, so this also shows the check reproduces.
+- `lasso_c_eff_y = 0.5` and `lasso_c_eff_d = 1.1` are unchanged.
+- The remaining measured deviation is the forest's -$216, in the D forest. It is disclosed and
+  priced into H2, and the port is kept as specified (PI ruling on design-r2 (a)).
+- In plan.json I updated, from this run, with the design's fixed formula
+  p = P(|N(shift, tol/2.81)| > tol):
+  - design.tolerance_table lasso rows: port_shift_measured 0.0, se 0.1, p_outside 0.005,
+    2-SE range [0.005, 0.005], x4.5 0.005;
+  - decision_rules.H2_size_under_measured_ports, hypotheses[1] and threats[12]: H2's
+    false-failure rate stays about 33% (33.1%). The lasso-rescaled variant falls from about
+    46% to about 33%.
+
+### Post-run code change (does not affect any run)
+
+`code/verdict.py` (code-r1 F3) now:
+
+- declares `runs/check-learner-ports/metrics.json` as an `--input`;
+- copies `port_shift_<L>`, `port_shift_se_<L>`, `port_rms_<L>`, `port_rms_seed_<L>`,
+  `port_pass_<L>`, `lasso_c_eff_y` and `lasso_c_eff_d` into its metrics;
+- writes the amended reading of failed cells
+  (decision_rules.H2_reading_of_failures: 'consistent with the measured port deviation' /
+  'not explained by the measured deviation', plus the descriptive tol_obs note).
+
+I smoke-tested it on the synthetic metrics (**unlogged**, scratchpad).
+
+Note: the lasso's measured shift is +$0.04. A failed lasso cell will therefore in practice
+always read 'not explained by the measured deviation'.
+
 ## Main analysis runs: commands (NOT executed; they run only after the design gate)
 
 All are run from the repository with `WS=/Users/brycewang/Auto-Research-Skills/gallery/ss-dml-401k`
@@ -121,7 +186,7 @@ python3 $CREW run $WS --id main-nnet --role econometrician --kind analysis --cod
 python3 $CREW run $WS --id main-forest --role econometrician --kind analysis --code code/dml_plr.py --input data/derived/sipp1991.csv --output runs/main-forest/splits.csv --output runs/main-forest/timing.json --metrics runs/main-forest/metrics.json -- .venv/bin/python code/dml_plr.py --learner forest --splits 40
 python3 $CREW run $WS --id main-boosting --role econometrician --kind analysis --code code/dml_plr.py --input data/derived/sipp1991.csv --output runs/main-boosting/splits.csv --output runs/main-boosting/timing.json --metrics runs/main-boosting/metrics.json -- .venv/bin/python code/dml_plr.py --learner boosting --splits 30
 python3 $CREW run $WS --id sens-lasso-c11 --role econometrician --kind analysis --code code/dml_plr.py --input data/derived/sipp1991.csv --output runs/sens-lasso-c11/splits.csv --output runs/sens-lasso-c11/timing.json --metrics runs/sens-lasso-c11/metrics.json -- .venv/bin/python code/dml_plr.py --learner lasso --splits 100 --lasso-c-y 1.1 --run-id sens-lasso-c11
-python3 $CREW run $WS --id verdict --role econometrician --kind analysis --code code/verdict.py --code code/dml_plr.py --input runs/check-noctrl/metrics.json --input runs/main-lasso/metrics.json --input runs/main-tree/metrics.json --input runs/main-nnet/metrics.json --input runs/main-forest/metrics.json --input runs/main-boosting/metrics.json --input runs/sens-lasso-c11/metrics.json --input data/derived/sipp1991.csv --metrics runs/verdict/metrics.json -- .venv/bin/python code/verdict.py
+python3 $CREW run $WS --id verdict --role econometrician --kind analysis --code code/verdict.py --code code/dml_plr.py --input runs/check-noctrl/metrics.json --input runs/main-lasso/metrics.json --input runs/main-tree/metrics.json --input runs/main-nnet/metrics.json --input runs/main-forest/metrics.json --input runs/main-boosting/metrics.json --input runs/sens-lasso-c11/metrics.json --input runs/check-learner-ports/metrics.json --input data/derived/sipp1991.csv --metrics runs/verdict/metrics.json -- .venv/bin/python code/verdict.py
 ```
 
 `dml_plr.py` refuses a `main-*` run whose S differs from design.splits.

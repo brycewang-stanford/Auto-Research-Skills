@@ -140,5 +140,12 @@
     "method": "fetched-fulltext",
     "url": "https://carlos-mendez.rbind.io/post/python_doubleml_pension/",
     "note": "Web page read via fetch tool (summarized extraction). Informal tutorial, not peer reviewed."
+  },
+  "hdm_cran": {
+    "url": "https://cran.r-project.org/src/contrib/Archive/hdm/",
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "note": "Source tarballs 0.1.0, 0.2.0, 0.2.3, 0.3.1 (Archive) and 0.3.2 (src/contrib) downloaded; R/rlasso.R and R/rlassologit.R read; sha256 and line references in sources/hdm_penalty.md."
   }
 }
