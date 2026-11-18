@@ -44,7 +44,10 @@ A good research assistant is expensive and hard to find. **Free-Research-Crew** 
 | **Designer** | Locks the study design before any outcome is seen |
 | **Econometrician** | Social-science track: data, estimation, robustness |
 | **Experimenter** | CS track: experiments with seeds and fair baselines |
+| **Data RA** | Fetches and documents the data, with provenance and a codebook |
+| **Figures RA** | Builds every figure and table by script from logged runs |
 | **Writer** | Drafts the LaTeX paper from recorded claims only |
+| **Replicator** | Rebuilds the environment and reruns everything from scratch |
 | **Reviewer** | Attacks everyone else's work; no gate passes while it has an open critical objection |
 
 ### Why "free"?
