@@ -1,0 +1,130 @@
+{
+  "id": "design-r3",
+  "target": "design",
+  "round": 3,
+  "created": "2026-11-18T12:52:30Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "../../crew/agents/reviewer.md",
+    "../../crew/PROTOCOL.md",
+    "../../crew/bench/seeds/cs-label-noise/task.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r1/review.json",
+    "reviews/design-r2/review.json",
+    "plan.json",
+    "plan.json at HEAD (git show, for a section-level diff)",
+    "crew.json",
+    "log.jsonl",
+    "data/manifest.json (head)",
+    "refs.bib (grep for Nadeau/Bengio)",
+    "sources/sources.json (search for nadeau keys)",
+    "sources/notes.md (grep for Nadeau)",
+    "runs/ (listing)"
+  ],
+  "kill_argument": "The design is built to return 'inconclusive' on its main question. H1 overall needs support on max(2, ceil(0.75 n)) informative datasets and no contradiction. credit-g has about 5 points of headroom, so it will likely be excluded by the 5-point rule or flagged 'unstable denominator' (re-split SD of about 3 points on 200 test rows against a 1.49 S half-width puts the lower bound of h near 0). H1 then needs all of breast_cancer, adult and covtype, and breast_cancer is judged with a Nadeau-Bengio half-width of 1.49 S that no number of seeds lowers below 1.13 S. A hostile referee will say the headline verdict is set by the interval's width, not by the learners. This is a stated power limit (threats[3], disclosures[2]) that biases nothing, so it is not a finding. Held under attack: the F7 interval split and its arithmetic; the F9 denominator rule; the F8 wording; question, hypotheses and seed_definition unchanged from HEAD; no analysis run; plan.json hash matches the logged one; validate passes. Still open: nadeau2003 is missing from refs.bib and sources.json (F10b), and the ranking 'within noise' rule disagrees with the decision interval (F11).",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The per-dataset intervals that decide H1 and H2 understate uncertainty on breast_cancer and credit-g (re-splits of fixed rows; percentile bootstrap at n=10 under-covers).",
+      "evidence": "plan.json design.method STATISTICS 'Decision interval' bullet; design.threats[3]; disclosures[2].",
+      "response": "Designer: design.method now decides every comparison on all four datasets with a delta-method Nadeau-Bengio corrected SE (factor 1/J + n_te/n_tr) and a t(9) 95% interval; the seed bootstrap is descriptive only; threats[3] is corrected; the interval change is disclosed.",
+      "ruling": "Resolved for breast_cancer and credit-g: the influence values l_ks = [(a0-a4) - r(a0-m)]/h are the correct first-order linearization of a ratio of seed means, the correction and t(9) quantile are as requested, threats[3] is accurate, and the change is disclosed before any run. Extending the same factor to adult and covtype is a new problem, filed as F7."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The ablations attributed mechanism by comparing outcome categories, not by testing the change.",
+      "evidence": "plan.json design.method STATISTICS 'Ablation attribution' bullet; design.analysis_plan[9]-[11].",
+      "response": "Designer: each ablation now tests Delta = D_main - D_ablation from the same seeds with the corrected paired t(9) interval and attributes a mechanism only if the interval excludes 0 and |Delta| >= 0.05; otherwise the ablation is reported descriptively, and categories are never compared.",
+      "ruling": "Resolved. Delta is formed from per-seed differences of influence values on shared seeds; the A2 construction (main rho=0 accuracy reused, since clean and noisy validation labels coincide at rho=0) is correct; categories are explicitly never compared. The denominator handling for the ablation ratios is unspecified (F9)."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "HGB early stopping in scikit-learn 1.9.1 keeps the post-plateau iterations (no rollback) and categoricals enter as one-hot; the design did not say so.",
+      "evidence": "plan.json design.method step 5 GBDT; design.summary; design.threats[10].",
+      "response": "Designer: design.method step 5 and the scope threat now state that HGB keeps the 20 post-plateau iterations (no rollback to the best iteration) and takes one-hot categoricals; descriptives report n_iter_ and n_iter_ - 20.",
+      "ruling": "Resolved. The description matches what I read in the sklearn 1.9.1 source in round 1, and threats[10] limits claims to this configuration."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Two departures from the seed task requirements (flipped validation labels; 'inconclusive' versus 'no difference') were not disclosed.",
+      "evidence": "plan.json disclosures[3] and [4]; design.method STATISTICS 'Per-dataset outcome' bullet.",
+      "response": "Designer: two disclosures added: validation labels are flipped (A2 is the clean-validation variant), and 'no meaningful difference' is the brief's 'no difference' while an interval containing 0 that is wider is 'no detectable difference (inconclusive)'.",
+      "ruling": "Resolved. Both disclosures are present and accurate. Note F7: under the new interval the 'no meaningful difference' category that carries the brief's 'no difference' may be practically unreachable."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The one-hour budget rested on an unstated 8-core assumption and had no contingency chosen in advance.",
+      "evidence": "plan.json disclosures[5]; design.method COMPUTE AND CONTINGENCY; design.threats[9]; runs/timing-covtype-stress.",
+      "response": "Designer: the 8-core Apple M3 is disclosed as the hardware; a contingency triggered only by main-rho0's wall time drops A1, then A2, if the projected total exceeds 45 minutes (A3 costs no fits), never seeds, rates, N, datasets or methods; a harder synthetic covtype GBDT re-timing (run timing-covtype-stress) came out cheaper, 20 s per cell.",
+      "ruling": "Resolved. Hardware is disclosed and the contingency is fixed in advance, triggered only by a wall time that carries no information about noise effects; rho=0 cells are the most expensive per cell in both timing runs, so 7 x W0 is not optimistic. The inference drawn from the stress run is a separate, minor problem (F8)."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "design.data was silent on adult's 52 exact duplicate rows.",
+      "evidence": "plan.json design.data adult bullet.",
+      "response": "Designer: design.data keeps adult's 52 exact duplicates, because they are in the pinned reference data used by other studies and expected train-test duplicate pairs are under 0.15 per seed, the same for every method.",
+      "ruling": "Resolved. I checked the arithmetic: 52 x (5000/48842)^2 = 0.55 pairs per sample, and 0.55 x 2 x 0.6 x 0.2 = 0.13 train-test pairs per seed."
+    },
+    {
+      "id": "F7",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The Nadeau-Bengio factor is applied where its assumption fails, and it sets a precision floor that the design neither states nor can lower. (a) The factor's n_te/n_tr term models the correlation between estimates from re-splits of one fixed set of rows. adult and covtype draw a new stratified 5,000-row sample per seed from 48,842 and 581,012 rows: two seeds' training sets share about 3000^2/48842 = 184 and 3000^2/581012 = 15 rows (6% and 0.5%), so the seed estimates are close to independent and the uncorrected t(9) interval is about right there. Calling the 4.33x variance factor 'conservative' hides that it halves the resolution on exactly the two datasets with 1,000-row test sets. (b) Because n_te/n_tr = 1/3 does not shrink with J, the half-width is 2.262 x sqrt(0.1 + 1/3) x S = 1.49 S at J = 10 and at least 1.96 x sqrt(1/3) x S = 1.13 S however many seeds are run, where S is the across-seed SD of the per-seed contrast u_s. 'No meaningful difference' needs the whole interval inside (-0.05, 0.05), so S < 0.034 even at D = 0: on adult (headroom about 10 points) that is a per-seed SD of the paired drop difference below about 0.3 accuracy points, against a binomial SD of about 1.1 points for a single accuracy on 1,000 test rows. The outcome that carries the brief's 'no difference' (disclosures[4]) is therefore close to unreachable on every dataset, and the 3-of-4 overall rule needs at least one of the two small datasets to come out 'supported'. No precision or minimum-detectable-difference statement is given, so the reader cannot tell an 'inconclusive' produced by the data from one produced by the interval. (My numbers are arithmetic on assumed binomial variances; I ran nothing.)",
+      "evidence": "plan.json design.method STATISTICS 'Decision interval' bullet ('The same correction is applied on all four datasets ... conservative on adult and covtype'); design.threats[3]; design.data adult and covtype bullets (row counts); disclosures[2] and [4]. Resolved by either (a) applying the n_te/n_tr correction only where seeds re-split the same rows (breast_cancer, credit-g) and using the uncorrected t(9) interval, or a correction scaled by the expected overlap (about 5000/48842 and 5000/581012 of n_te/n_tr), on adult and covtype, fixed now before any run; or (b) the cheaper route: keep the interval but state in design.threats[3] and the disclosures that it is deliberately over-conservative on adult and covtype, that its half-width cannot fall below 1.13 S whatever J is, and that 'no meaningful difference' is expected to be unreachable, so 'inconclusive' outcomes are not evidence that the methods behave alike. Either way, add one sentence giving the half-width as a multiple of S so the result can be read against it.",
+      "response": "Designer: Nadeau-Bengio correction now only on breast_cancer and credit-g (half-width 1.49 S); plain paired t(9) on adult and covtype (0.72 S), justified by ~184 and ~15 shared training rows between seeds; reachability of 'no meaningful difference' stated per dataset (covtype only, adult marginal) and disclosed.",
+      "ruling": "Resolved. design.method 'Decision interval' now applies c = 1/J + n_te/n_tr only on breast_cancer and credit-g and c = 1/J on adult and covtype, with the overlap justification (about 184 and 15 shared training rows, about 20 and 2 test rows) and the residual narrowness on adult stated. I checked the stated half-widths and reachability bounds: t(0.975,9) = 2.262; 2.262 x sqrt(0.1) = 0.72 S and 2.262 x sqrt(0.433) = 1.49 S; S < 0.070 and S < 0.034 for 'no meaningful difference' at D = 0. threats[3] and disclosures[2] match, and both say an 'inconclusive' result is never evidence that the methods behave alike. The same c is carried to the h-stability check and the ablation Delta intervals."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The stress run does not test the concern it is cited for. Lower class separation and more clusters make the synthetic problem harder to learn, so validation loss plateaus sooner and GBDT stops earlier (mean 67 iterations against 132-193 in timing-synthetic). The costly case for covtype is the opposite: a problem with much learnable structure on which validation loss keeps improving for hundreds of iterations at low learning rates. 'So the main estimate is not optimistic on that axis' does not follow from this run. The budget is still protected by the W0-triggered contingency, because rho=0 covtype GBDT cells run in main-rho0, so this is a wording problem, not a threat.",
+      "evidence": "code/timing_covtype_stress.py make_hard (n_clusters_per_class=4, class_sep=0.8); runs/timing-covtype-stress/timing.json mean_iter_hard 66.9; plan.json design.method COMPUTE AND CONTINGENCY ('so the main estimate is not optimistic on that axis'); design.analysis_plan[1]. Resolved by deleting that clause and saying the contingency, not the stress run, guards the covtype GBDT cost; the per-iteration bound (529 CPU-minutes) can stay.",
+      "response": "Designer: 'not optimistic' clause deleted; design.method and analysis_plan[1] now say a harder problem stops earlier, so the stress run does not bound the costly case and the main-rho0 contingency guards it.",
+      "ruling": "Resolved. The 'not optimistic' clause is gone; design.method COMPUTE AND CONTINGENCY and analysis_plan[1] now say a harder problem stops earlier, so the stress run does not bound the costly case, and that the W0-triggered contingency guards it."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The ablation ratios have denominators that neither the exclusion nor the unstable-denominator rule covers. A1's r_GBDT-noES = (A_noES(0) - A_noES(0.4)) / (A_noES(0) - m) uses the no-early-stopping model's own rho=0 headroom, which exclusion.json never checks; A3's r from test_acc_half likewise uses the half-budget rho=0 accuracy. The headroom-stability rule is stated only for the main comparisons. As written the code author must invent a rule for these after results exist.",
+      "evidence": "plan.json design.method STATISTICS 'Unstable denominator', 'Ablation attribution' and 'Exclusion' bullets ('The ablations use the same informative sets'); design.analysis_plan[9] and [11]. Resolved by one sentence: the ablations use the main exclusion sets unchanged, and the unstable-denominator rule is applied to each ablation's own rho=0 headroom (A1: GBDT-noES; A3: half-budget accuracies), reporting 'inconclusive (unstable denominator)' for Delta when it fails.",
+      "response": "Designer: the unstable-denominator rule now also applies to A1's GBDT-noES rho=0 headroom and A3's half-budget rho=0 headroom, with Delta reported 'inconclusive (unstable denominator)' when it fails; ablations keep the main exclusion sets.",
+      "ruling": "Resolved. design.method 'Unstable denominator' now applies the h-interval rule to A1's GBDT-noES rho=0 headroom and A3's half-budget rho=0 headroom (A2 correctly shares the main rho=0 accuracies), and 'Exclusion' says the ablations keep the main exclusion sets. analysis_plan[9] and [11] and the task titles say the same."
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "open",
+      "text": "Text that the Experimenter and Writer will read still describes the superseded procedure, and the new method's source is not on record. (a) Task e-tests reads 'r, D, bootstrap intervals and outcomes', and tasks e-abl-noes, e-abl-cleanval and e-abl-budget read 'recompute H1 (and H2)', not the Delta tests. The approved hypotheses keep the percentile bootstrap; leaving them unedited and disclosing the change (disclosures[2]) is right, but the tasks should not contradict design.method. (b) The decision interval now rests on Nadeau and Bengio (2003), but there is no refs.bib entry or sources.json record for it, so the paper cannot cite it as it stands.",
+      "evidence": "refs.bib (no Nadeau/Bengio entry); sources/sources.json (no nadeau2003 key); plan.json design.method 'Decision interval' bullet '(nadeau2003)'; plan.json disclosures[2]; plan.json tasks dt-pin status 'doing'. Resolved by a refs.bib entry and a sources.json record for Nadeau & Bengio (2003), Machine Learning 52:239-281, verified from the source, and by setting dt-pin to done.",
+      "response": "PI: nadeau2003 is now in refs.bib with a fetched-abstract record (the formula itself is not yet verified from full text and will not be attributed to it until it is); dt-pin set to done.",
+      "ruling": "Part (a) is fixed: tasks e-tests, e-abl-noes, e-abl-cleanval, e-abl-budget and f-figures now name the paired t(9) intervals and the Delta tests. Part (b) is not: design.method cites 'nadeau2003' and disclosures[2] names Nadeau-Bengio (2003), but refs.bib has no Nadeau or Bengio entry and sources/sources.json has no nadeau2003 record (checked by grep this round). The response says the Scout 'is adding' it; nothing is in the files yet. crew.py validate passes only because no paper cites it yet. Stays open (minor) until a verified record exists. Separately, task dt-pin is still 'doing' although log.jsonl records fetch-data and prepare-data done and data/manifest.json is pinned; update the status."
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "open",
+      "text": "The 'within noise' rule for rankings is not the study's own noise standard, and it is looser than the decision interval on the two fixed-row datasets. design.method labels a ranking difference at a given rho 'within noise' only when the SD of the paired per-seed accuracy difference exceeds the mean gap, i.e. when |gap| < 1 SD. The study's own paired t(9) interval for the same difference has half-width 2.262 x sqrt(1/J + n_te/n_tr) x SD = 1.49 SD on breast_cancer and credit-g, and 0.72 SD on adult and covtype. So on breast_cancer and credit-g a gap between 1.0 and 1.49 SD is reported as a ranking difference although the study's corrected interval includes 0 (the brief's requirement 4 says differences inside the noise are reported as no difference); on adult and covtype a gap between 0.72 and 1.0 SD is called 'within noise' although the interval excludes 0. Rankings answer the brief's second question ('does the ranking of the three change?'), so these labels will be read as findings even though the contribution calls them descriptive.",
+      "evidence": "plan.json design.method STATISTICS, last bullet ('a ranking difference whose paired seed-difference SD exceeds the mean gap is labelled within noise'); design.method 'Decision interval' bullet (c per dataset); crew/bench/seeds/cs-label-noise/task.json question and requirements[3]; plan.json contribution. Resolved by one sentence fixed before the gate: a pairwise ranking difference at each rho is labelled 'within noise' when the dataset's paired t(9) interval of the accuracy difference (with the same c as the decision interval) includes 0; it stays descriptive and decides no hypothesis.",
+      "response": "PI: 'within noise' now uses the dataset's paired t(9) interval with the same correction as the decision intervals.",
+      "ruling": ""
+    }
+  ]
+}

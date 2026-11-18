@@ -1,0 +1,42 @@
+{
+  "id": "timing-covtype-stress",
+  "role": "designer",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/timing_covtype_stress.py"
+  ],
+  "started": "2026-11-18T12:43:22Z",
+  "finished": "2026-11-18T12:43:57Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/timing_covtype_stress.py",
+      "sha256": "3d305732118588880472e8c71ca488073753b8b8d7456bab2350de55abd4d8bd"
+    },
+    {
+      "path": "code/timing_synthetic.py",
+      "sha256": "708c9768a071e57ba85c6d39a95086dbfbf19c6343e934614c8e02d8813fce43"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "runs/timing-covtype-stress/timing.json",
+      "sha256": "ab35c978bce9006886b33d3b5db2ad3da598a892c4bb2abdfebc632038751577"
+    },
+    {
+      "path": "runs/timing-covtype-stress/metrics.json",
+      "sha256": "3ea9ff3e6e90ae2fc6c80197b012f720345f0179a215c8b6ce09cd2bf1707bf7"
+    }
+  ],
+  "metrics": {
+    "timed_cells": 8,
+    "timed_candidates_per_cell": 20
+  },
+  "metrics_file": "runs/timing-covtype-stress/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

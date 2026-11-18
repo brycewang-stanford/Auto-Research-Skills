@@ -1,0 +1,93 @@
+{
+  "id": "design-r1",
+  "target": "design",
+  "round": 1,
+  "created": "2026-11-18T12:41:00Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "../../crew/agents/reviewer.md",
+    "../../crew/PROTOCOL.md",
+    "../../crew/tracks/cs.md",
+    "../../crew/bench/seeds/cs-label-noise/task.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r4/review.json",
+    "plan.json",
+    "crew.json",
+    "log.jsonl",
+    "claims.jsonl",
+    "sources/notes.md",
+    "data/manifest.json",
+    "data/CODEBOOK.md",
+    "code/requirements.txt",
+    "code/timing_synthetic.py",
+    "code/fetch_data.py (imports only)",
+    "code/prepare_data.py (imports only)",
+    "runs/timing-synthetic/run.json",
+    "runs/timing-synthetic/metrics.json",
+    "runs/timing-synthetic/timing.json",
+    "runs/prepare-data/metrics.json",
+    ".gitignore",
+    ".venv/lib/python3.14/site-packages/sklearn/ensemble/_hist_gradient_boosting/gradient_boosting.py (fit loop, _should_stop, X_val handling)"
+  ],
+  "kill_argument": "H1 and H2 are decided per dataset from intervals that measure the wrong variance. On breast_cancer and credit-g every seed re-splits the same 569 or 1,000 rows, so the ten 'replicates' share most of their training and test rows; the spread across seeds is re-splitting noise of one fixed sample, not the sampling variance a per-dataset claim is about. The Nadeau-Bengio correction for this design widens the standard error about 2.1x on both datasets, and a percentile bootstrap over 10 seeds covers about 90%, not 95%. The planned intervals there are roughly 40% as wide as honest ones, so 'supported' on half the datasets can come from split noise, and the ablations then read mechanism from changes between these noisy categories. What I attacked that held: test labels are never flipped; selection and early stopping see only noisy validation labels; HGB early stopping is explicit and uses the supplied X_val (checked in sklearn 1.9.1 source); flips are exact and nested; splits, candidates and random_state are shared across rates and methods; question-r4 F16 is fixed by a ratio of seed means; data are pinned; no analysis run exists.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "The per-dataset intervals that decide H1 and H2 understate uncertainty on breast_cancer and credit-g. Those two datasets are used whole in every seed (no cap applies), so the 10 seeds are 10 random re-splits of the same 569 or 1,000 rows; training sets overlap by about 60% of rows and test sets overlap heavily. Variance across such re-splits is known to underestimate the variance relevant to a claim about the dataset's learning problem (Nadeau & Bengio 2003, Machine Learning 52:239-281); their corrected resampled variance multiplies the naive variance of the mean by (1 + J*n_test/n_train), a factor of about 4.3 here (SE x2.08 with J=10, 114/341 and 200/600). Separately, a percentile bootstrap of a mean over n=10 has coverage of about 90% at nominal 95% (it behaves like z=1.96*sqrt(9/10)=1.86 against t(9)=2.26). Combined, the planned intervals are about 40% the width of a corrected t-type interval on these two datasets, and 'supported'/'contradicted'/'no meaningful difference' on them can be produced by re-split noise. threats[3] says 'The seed definition redraws the split, so test-sampling variance is inside the interval'; that is not true when the rows are fixed. adult and covtype (5,000-row subsamples from 48,842 and 581,012 rows) are much less affected.",
+      "evidence": "plan.json design.method STATISTICS 'Bootstrap' bullet; plan.json hypotheses[0] 'Intervals: paired bootstrap over seeds ... 95% percentile interval'; plan.json seed_definition; plan.json design.threats[3]; design.method step 2 sizes 341/114/114 and 600/200/200. Resolved by either (a) pre-specifying, before the design gate, a corrected interval for breast_cancer and credit-g (e.g. inflate the bootstrap SE of D by sqrt(1 + J*n_test/n_train) and use the t(9) quantile, or a studentized/BCa interval with that correction) and applying it in code/analyze.py, or (b) the cheaper route: narrowing the claim so that on those two datasets the intervals are stated as conditional on the fixed rows ('variability over random splits of these 569 rows'), never as a statement about the dataset's population, and correcting threats[3]. Either way, fix the 90%-coverage issue by a t-based or BCa interval or by stating the actual nominal level.",
+      "response": "Designer: design.method now decides every comparison on all four datasets with a delta-method Nadeau-Bengio corrected SE (factor 1/J + n_te/n_tr) and a t(9) 95% interval; the seed bootstrap is descriptive only; threats[3] is corrected; the interval change is disclosed.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "The ablations attribute mechanism by comparing outcome categories, not by testing the change. A1 says 'if H1's per-dataset outcome changes category without early stopping, the result is about early stopping'; A2 says 'If an H1 or H2 outcome holds only with noisy selection, the paper says the ordering comes from model selection'; A3 reads 'whether the H1/H2 outcomes depend on the tuning budget' the same way. With 10 seeds and wide intervals (F1), a move between 'supported' and 'inconclusive' happens by chance; the difference between a significant and a non-significant result is not itself significant. As written, a chance category flip will be reported as evidence for an explanation, which is the part of the paper the track says must test the explanation.",
+      "evidence": "plan.json design.analysis_plan[8] (abl-noes), [9] (abl-cleanval), [10] (abl-budget); design.summary 'Three ablations test the explanation'. Resolved by pre-specifying a paired interval for the change itself, e.g. Delta = D_main - D_ablation (and D1, D2 analogues) computed on the same shared seed-resample index matrix (with the F1 correction where it applies), and attributing only when that interval excludes 0 and |Delta| >= 0.05; otherwise the paper says the ablation did not distinguish the explanations. Cheaper alternative: drop the attribution sentences and report the ablation outcomes descriptively next to the main ones.",
+      "response": "Designer: each ablation now tests Delta = D_main - D_ablation from the same seeds with the corrected paired t(9) interval and attributes a mechanism only if the interval excludes 0 and |Delta| >= 0.05; otherwise the ablation is reported descriptively, and categories are never compared.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "The design describes the GBDT arm as 'early stopping' without saying what scikit-learn 1.9.1 actually returns. HistGradientBoosting stops when none of the last n_iter_no_change scores beats the score n_iter_no_change+1 iterations back, and keeps every iteration it fitted; it does not roll back to the best validation-loss iteration. With n_iter_no_change=20 the fitted model carries about 20 boosting rounds past the plateau, at learning rates up to 0.3, on noisy labels. Categorical features also enter as one-hot columns (categorical_features=None), not through HGB's native categorical handling. Both are legitimate choices, but the claims will be about this exact configuration, and a reader will assume best-iteration early stopping as in XGBoost/LightGBM (the comparison literature: eisenburger2024).",
+      "evidence": "plan.json design.method step 5 GBDT; .venv sklearn/ensemble/_hist_gradient_boosting/gradient_boosting.py _should_stop (lines ~1088-1104) and the fit loop's 'if should_early_stop: break' with no truncation of _predictors; plan.json design.threats[10]. Resolved by stating both properties in design.method and in the scope threat (and later the paper), and reporting n_iter_ next to the stopping point it implies. No new experiment needed.",
+      "response": "Designer: design.method step 5 and the scope threat now state that HGB keeps the 20 post-plateau iterations (no rollback to the best iteration) and takes one-hot categoricals; descriptives report n_iter_ and n_iter_ - 20.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "Two departures from the seed task's stated requirements are not in plan.json disclosures. (a) Requirement 2 says 'Noise is injected into training labels only; test labels stay clean'; the design also flips validation labels. (b) Requirement 4 says 'differences inside the noise are reported as no difference'; threats[3] says such differences are 'reported as inconclusive, never as no difference'. Both choices are defensible (noisy validation labels were the question-stage ruling on F4; 'inconclusive' is more accurate), but the task is scored on 'every requirement above is met', so an undisclosed reinterpretation reads as non-compliance.",
+      "evidence": "crew/bench/seeds/cs-label-noise/task.json requirements[1] and [3]; plan.json design.method step 3; plan.json design.threats[3]; plan.json disclosures (two entries, neither covers these). Resolved by adding a disclosure for each that states the interpretation (validation labels are part of the labelled data available to the learner, with A2 as the clean-validation variant; an interval containing 0 is reported as 'no detectable difference (inconclusive)').",
+      "response": "Designer: two disclosures added: validation labels are flipped (A2 is the clean-validation variant), and 'no meaningful difference' is the brief's 'no difference' while an interval containing 0 that is wider is 'no detectable difference (inconclusive)'.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "The one-hour budget is met only under an unstated hardware assumption, and the overrun plan is 'report it'. timing-synthetic measured about 134 CPU-minutes, so the 60-minute requirement needs at least 3 fully used cores; the plan assumes 8 workers. The synthetic shapes may understate real covtype GBDT cost: at rho=0 the synthetic covtype GBDT stopped at 132-193 iterations on average while max_iter=1000 and K=7 trees per iteration are allowed, and covtype GBDT is already the most expensive cell. The clean rerun by the Replicator must also fit the budget. threats[9] fixes N=20 and says an overrun is reported, so the requirement could fail with no remedy chosen in advance.",
+      "evidence": "runs/timing-synthetic/timing.json (timing_cpu_seconds 669.7 for 64 cells; full_plan_estimates_by_N['20'].cpu_minutes 133.6; covtype gbdt cells gbdt_mean_iter 131.9-192.85); plan.json design.summary 'about 20 minutes of wall time on 8 laptop cores'; plan.json design.threats[9]; task.json budget. Resolved by naming the hardware (8 cores) as the reading of 'laptop CPU' in disclosures, and, if desired, pre-specifying now a contingency triggered only by the wall time of main-rho0 (which carries no information about noise effects), e.g. a fixed reduction applied to all methods alike.",
+      "response": "Designer: the 8-core Apple M3 is disclosed as the hardware; a contingency triggered only by main-rho0's wall time drops A1, then A2, if the projected total exceeds 45 minutes (A3 costs no fits), never seeds, rates, N, datasets or methods; a harder synthetic covtype GBDT re-timing (run timing-covtype-stress) came out cheaper, 20 s per cell.",
+      "ruling": ""
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The Data RA asked the design to decide whether adult's 52 exact duplicate rows are kept; design.data is silent (it speaks only to missing values and fnlwgt). Kept duplicates can place identical rows in train and test. The effect is negligible at a 5,000-row subsample (expected well under one duplicated pair per seed), so this is a specification gap, not a threat.",
+      "evidence": "data/CODEBOOK.md adult 'Duplicate rows' and 'The design should say whether duplicates are kept'; plan.json design.data adult bullet. Resolved by one sentence in design.data.",
+      "response": "Designer: design.data keeps adult's 52 exact duplicates, because they are in the pinned reference data used by other studies and expected train-test duplicate pairs are under 0.15 per seed, the same for every method.",
+      "ruling": ""
+    }
+  ]
+}

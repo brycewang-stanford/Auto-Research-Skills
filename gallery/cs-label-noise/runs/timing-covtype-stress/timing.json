@@ -1,0 +1,91 @@
+{
+  "note": "Synthetic data only; times are machine-dependent and are not ledger metrics.",
+  "wall_seconds": 31.157407584018074,
+  "cells": [
+    {
+      "dataset": "covtype",
+      "method": "gbdt",
+      "rho": 0.0,
+      "seed": 0,
+      "cell_seconds": 29.818800707987975,
+      "mean_fit_seconds": 1.4535220729070715,
+      "max_fit_seconds": 5.920000458019786,
+      "gbdt_mean_iter": 109.7
+    },
+    {
+      "dataset": "covtype",
+      "method": "gbdt",
+      "rho": 0.0,
+      "seed": 1,
+      "cell_seconds": 29.378417542029638,
+      "mean_fit_seconds": 1.4343661228456768,
+      "max_fit_seconds": 7.013242958986666,
+      "gbdt_mean_iter": 99.75
+    },
+    {
+      "dataset": "covtype",
+      "method": "gbdt",
+      "rho": 0.0,
+      "seed": 2,
+      "cell_seconds": 27.015296875033528,
+      "mean_fit_seconds": 1.3185247105982854,
+      "max_fit_seconds": 3.3507358750212006,
+      "gbdt_mean_iter": 100.3
+    },
+    {
+      "dataset": "covtype",
+      "method": "gbdt",
+      "rho": 0.0,
+      "seed": 3,
+      "cell_seconds": 23.207008166005835,
+      "mean_fit_seconds": 1.1211370980046922,
+      "max_fit_seconds": 2.4993085419991985,
+      "gbdt_mean_iter": 68.45
+    },
+    {
+      "dataset": "covtype",
+      "method": "gbdt",
+      "rho": 0.4,
+      "seed": 0,
+      "cell_seconds": 14.134463166992646,
+      "mean_fit_seconds": 0.6888816646503984,
+      "max_fit_seconds": 2.1151153329992667,
+      "gbdt_mean_iter": 45.45
+    },
+    {
+      "dataset": "covtype",
+      "method": "gbdt",
+      "rho": 0.4,
+      "seed": 1,
+      "cell_seconds": 11.39895666699158,
+      "mean_fit_seconds": 0.5574884562054649,
+      "max_fit_seconds": 1.2564663330558687,
+      "gbdt_mean_iter": 32.6
+    },
+    {
+      "dataset": "covtype",
+      "method": "gbdt",
+      "rho": 0.4,
+      "seed": 2,
+      "cell_seconds": 14.208766583004035,
+      "mean_fit_seconds": 0.6941485875518992,
+      "max_fit_seconds": 1.8593131249654107,
+      "gbdt_mean_iter": 48.15
+    },
+    {
+      "dataset": "covtype",
+      "method": "gbdt",
+      "rho": 0.4,
+      "seed": 3,
+      "cell_seconds": 11.754495250002947,
+      "mean_fit_seconds": 0.5742894312512362,
+      "max_fit_seconds": 1.4922031660098583,
+      "gbdt_mean_iter": 30.85
+    }
+  ],
+  "mean_cell_seconds_hard": 20.114525619756023,
+  "mean_iter_hard": 66.90625,
+  "covtype_gbdt_cpu_minutes_hard": 20.114525619756023,
+  "seconds_per_boosting_iteration_worst_params": 0.02645173333992716,
+  "covtype_gbdt_cpu_minutes_upper_bound_all_fits_1000_iter": 529.0346667985432
+}

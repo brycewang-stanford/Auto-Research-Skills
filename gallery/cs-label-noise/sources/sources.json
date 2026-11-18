@@ -112,5 +112,13 @@
     "verified_by": "scout",
     "method": "fetched-abstract",
     "note": "Metadata and abstract from Crossref (MDPI page returned 403)."
+  },
+  "nadeau2003": {
+    "doi": "10.1023/A:1024068626366",
+    "url": "https://doi.org/10.1023/A:1024068626366",
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "note": "Metadata from Crossref (Machine Learning 52(3):239-281, Sept 2003) and the Springer landing page; full abstract from mlanthology.org/mlj/2003/nadeau2003mlj-inference. Full text NOT read: Springer PDF blocked automated access (bot check; browser PDF viewer gave no text). The (1/J + n2/n1) correction factor is therefore not verified from this source."
   }
 }

@@ -290,3 +290,21 @@ plan.json):
   not fetched.
 - The full text of Nawaz et al. (2025) is behind an OpenReview browser check. Their noise
   model and whether test folds were kept clean are unverified.
+
+## Added for the design stage (design-r2 F10)
+
+- **nadeau2003**: Nadeau & Bengio, "Inference for the Generalization Error", Machine
+  Learning 52(3):239-281, 2003, DOI 10.1023/A:1024068626366. *Abstract read* (metadata from
+  Crossref and the Springer landing page; abstract from mlanthology.org).
+  - The abstract says tests should account for the variability due to the choice of
+    training set, not only test examples. Ignoring it can grossly underestimate the
+    variance of the CV estimator.
+  - It also says that all variance estimators based only on the CV results must be biased,
+    and that the proposed estimators give tests with correct size and good power in
+    simulations.
+  - **Unverified:** the specific correction factor (1/J + n_test/n_train) behind the
+    "corrected resampled t-test" is not in the abstract, and the full text could not be
+    fetched (Springer blocked automated access). Claim `c-nadeau` is therefore worded at
+    abstract level and does not state the factor. Before the paper states the formula with
+    this citation, someone with access must check the full text and record the section or
+    equation number.

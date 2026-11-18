@@ -100,3 +100,86 @@ Design stage checklist (carry over):
 - RF grid over min_samples_leaf/max_features; LR C grid reaching strong regularization; tuned C reported per rate.
 - covtype class 4 (~24 rows in a 5k sample): does the stratified split work, and do flips work with K=7?
 - Compute timing only on synthetic data, logged.
+
+## design-r1 (2026-11-18): verdict revise. No critical; F1-F2 major, F3-F6 minor open.
+
+State at review: runs are fetch-data, prepare-data (label/feature counts only; no model imports) and timing-synthetic
+(make_classification only). No analysis run. crew.py validate OK. Question-stage F16 is handled in hypotheses: ratio of
+seed means, joint paired bootstrap, 5-point exclusion from rho=0 only, unstable-resample count. F17 wording fixed
+("lose a larger share ... above the majority-class rate"). Checklist from question-r4 all satisfied in design.method
+(explicit early_stopping=True with X_val = noisy 20% split; nested exact flips; shared split/candidates/random_state;
+RF grid over min_samples_leaf/max_features/max_samples; LR C down to 1e-4; tuned C reported per rho; covtype class asserts).
+
+I checked sklearn 1.9.1 source (.venv): HGB uses the supplied X_val; _should_stop compares to the score
+n_iter_no_change+1 back and the fit loop never truncates predictors -> no rollback to best iteration (F3).
+Arithmetic only (no data): percentile bootstrap at n=10 ~ 90% coverage; Nadeau-Bengio SE factor sqrt(1+10*114/341)=2.08,
+sqrt(1+10*200/600)=2.08.
+
+Open:
+- F1 (major): seed intervals on breast_cancer/credit-g are re-splits of fixed rows -> too narrow; plus percentile
+  undercoverage. Remedy: corrected t/BCa interval, or narrow claims to "over re-splits of these rows" and fix threats[3].
+- F2 (major): ablations attribute mechanism from category changes. Remedy: paired interval for D_main - D_ablation from the
+  shared index matrix, or descriptive only.
+- F3 HGB no-rollback + one-hot scope; F4 undisclosed reinterpretation of task requirements (noisy val labels; "inconclusive"
+  vs "no difference"); F5 compute assumes 8 cores, synthetic may understate covtype GBDT; F6 adult duplicates unstated.
+
+Next round / code stage:
+- Verify analyze.py implements whatever F1/F2 remedy is chosen, exactly, with the shared rng(20261119) index matrix.
+- Verify exclusion-check run precedes main-noisy in runs/ timestamps and log.jsonl; analyze.py reads exclusion.json only.
+- Verify experiment.py: fit(X_tr, y_tr_noisy, X_val=X_va, y_val=y_va_noisy); selection scored on noisy val; test predicted
+  once (plus test_acc_half); preprocessing fit on train features only; flip asserts; SeedSequence([20261118,d,s]).spawn(5)
+  order; candidates per method via spawn(4); no clean-val use outside A2.
+- Watch for any change to seeds, N, datasets, thresholds after main-rho0 exists.
+
+## design-r2 (2026-11-18): verdict revise. No critical; F7 major, F8-F10 minor open. F1-F6 resolved.
+
+State at review: runs are fetch-data, prepare-data, timing-synthetic and timing-covtype-stress (all data-prep; the
+stress run uses make_classification only). No analysis run. Manifest pins credit-g (OpenML 31 v1), adult (1590 v2),
+covtype (archive sha256) and breast_cancer with sha256. crew.py validate OK. I ran nothing; arithmetic only.
+
+Checked and held: delta-method influence l_ks = [(a0-a4) - r(a0-m)]/h is the right linearization of a ratio of seed
+means; Delta tests for ablations on shared seeds; A2 reuses main rho=0 (correct); HGB no-rollback stated; 4 new
+disclosures accurate; contingency 7 x W0 (rho=0 is the costliest cell); adult duplicate arithmetic (0.13 pairs/seed).
+
+Open:
+- F7 (major): N-B factor applied to adult/covtype where seeds draw near-independent 5k samples (overlap 184 / 15
+  training rows), so SE doubled needlessly; n_te/n_tr term gives a J-independent floor (half-width >= 1.13 S; 1.49 S at
+  J=10); 'no meaningful difference' needs S < 0.034, effectively unreachable. Remedy: N-B only on breast_cancer/credit-g
+  (or overlap-scaled), or disclose the over-conservatism and the floor.
+- F8: stress run made the problem harder -> earlier stopping; it cannot show the estimate is not optimistic. Wording.
+- F9: ablation denominators (GBDT-noES rho=0 headroom, half-budget headroom) not covered by stability rule.
+- F10: stale task titles (bootstrap / "recompute H1"); Nadeau & Bengio 2003 not in refs.bib/sources.json.
+
+Next round / code stage:
+- Whichever F7 choice: check analyze.py uses exactly the stated factor per dataset, n_tr/n_te as in method
+  (341/114, 600/200, 3000/1000), t.ppf(0.975, 9), and that the bootstrap never decides an outcome.
+- Unstable-denominator check uses the corrected interval of h; check it is computed from rho=0 values only.
+- Check log order: main-rho0 -> exclusion-check -> main-noisy; W0 contingency decision logged before ablations.
+- Prior code-stage checklist from design-r1 still applies (noisy X_val in HGB fit, flip asserts, SeedSequence order,
+  candidate spawn(4) order lr/rf/gbdt/gbdt_noes, single test prediction plus test_acc_half).
+
+## design-r3 (2026-11-18): verdict pass. No critical or major open; F10 (part b) and F11 minor open. F7, F8, F9 resolved.
+
+State at review: runs are still only fetch-data, prepare-data, timing-synthetic, timing-covtype-stress. No analysis run.
+plan.json sha256 4cfb882b... matches the designer's logged hash. question, hypotheses, contribution, seed_definition unchanged
+from HEAD; only the design sections changed. validate OK. I ran nothing on any data; arithmetic only (t(0.975,9)=2.262;
+0.72 S and 1.49 S; S < 0.070 and S < 0.034).
+
+Open:
+- F10b: nadeau2003 cited in design.method and disclosures[2] but no refs.bib entry and no sources.json record. dt-pin still 'doing'.
+- F11: the ranking 'within noise' rule (SD > mean gap) is looser than the 1.49 S corrected interval on breast_cancer/credit-g and
+  stricter than 0.72 S on adult/covtype. Remedy: use the dataset's paired t(9) interval with the same c.
+
+Strongest remaining objection (power, not bias): credit-g will likely be excluded or 'unstable denominator', so H1 overall needs
+all three of breast_cancer/adult/covtype, and breast_cancer is judged at 1.49 S. Expect 'inconclusive' overall; the paper must
+lead with per-dataset D, S and half-width and must not dress up an inconclusive result.
+
+Code stage checklist:
+- analyze.py: c = 0.1 + n_te/n_tr only for breast_cancer (114/341) and credit-g (200/600); c = 0.1 for adult/covtype; t.ppf(0.975, 9);
+  the same c in the h-stability check (lower bound < 0.01) and the Delta intervals; the bootstrap never decides an outcome; outcome order
+  supported, contradicted, no meaningful difference, inconclusive; the overall rule max(2, ceil(0.75 n)).
+- Stability rule applied to GBDT-noES rho=0 (A1) and to half-budget rho=0 (A3); ablations use the main exclusion.json unchanged.
+- Ledger order main-rho0 -> exclusion-check -> main-noisy; W0 contingency decision logged before the ablations.
+- Prior checklist: noisy X_val in the HGB fit; flip asserts; SeedSequence([20261118,d,s]).spawn(5) order; candidate spawn(4) order
+  lr/rf/gbdt/gbdt_noes; a single test prediction plus test_acc_half; preprocessing fit on training features only.
+- Whatever the ranking rule becomes (F11), check that analyze.py implements it as written.
