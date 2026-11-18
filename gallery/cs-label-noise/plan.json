@@ -63,13 +63,13 @@
       "id": "rv-design",
       "title": "Review the design (target 'design') before the design gate",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "g-design",
       "title": "Request the design gate after the design review",
       "owner": "pi",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "dt-pin",
@@ -81,61 +81,61 @@
       "id": "e-code",
       "title": "Write code/experiment.py, code/exclusion.py and code/analyze.py exactly as in design.method",
       "owner": "experimenter",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-code",
       "title": "Review the experiment code against design.method before any analysis run (target 'code')",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-main-rho0",
       "title": "Run main-rho0: 120 clean-label cells",
       "owner": "experimenter",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-exclusion",
       "title": "Run exclusion-check on rho=0 cells only, before main-noisy",
       "owner": "experimenter",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-main-noisy",
       "title": "Run main-noisy: 480 cells at rho 0.1-0.4",
       "owner": "experimenter",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-tests",
       "title": "Run h-tests: r, D, D1, D2 with paired t(9) decision intervals (Nadeau-Bengio corrected on breast_cancer and credit-g, plain on adult and covtype), S and half-width, headroom-stability check, descriptive bootstrap, outcomes for H1 and H2",
       "owner": "experimenter",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-describe",
       "title": "Run descriptives: accuracy at every rho, majority rates, drops, rankings, tuned hyperparameters, flip-count checks",
       "owner": "experimenter",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-abl-noes",
       "title": "Run abl-noes (A1): GBDT without early stopping at rho 0 and 0.4; test Delta = D_main - D_noES with the dataset's paired t(9) interval (attribute only if it excludes 0 and |Delta| >= 0.05); headroom-stability check on GBDT-noES",
       "owner": "experimenter",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-abl-cleanval",
       "title": "Run abl-cleanval (A2): selection and early stopping on clean validation labels at rho 0.4; test Delta, Delta1, Delta2 with the dataset's paired t(9) interval (attribute only if it excludes 0 and |Delta| >= 0.05)",
       "owner": "experimenter",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-abl-budget",
       "title": "Run abl-budget (A3): best of the first 10 candidates; test Delta, Delta1, Delta2 with the dataset's paired t(9) interval (attribute only if it excludes 0 and |Delta| >= 0.05); headroom-stability check on half-budget accuracies",
       "owner": "experimenter",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "f-figures",

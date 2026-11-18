@@ -104,29 +104,45 @@ max(2, ceil(0.75 x 3)) = 3 of 3.
 
 | Dataset | H1: D = r_GB - r_RF [95% CI] | H1 | H2: D1 = r_LR - r_GB | D2 = r_LR - r_RF | H2 |
 |---|---|---|---|---|---|
-| breast_cancer | +0.264 [-0.014, +0.543] | inconclusive | -0.034 [-0.497, +0.428] | +0.230 [-0.189, +0.648] | inconclusive |
+| breast_cancer | +0.264 [-0.014, +0.543] | no detectable difference (inconclusive) | -0.034 [-0.497, +0.428] | +0.230 [-0.189, +0.648] | no detectable difference (inconclusive) |
 | credit-g | (+0.236 [-1.253, +1.725]) | excluded | (-1.009) | (-0.773) | excluded |
-| adult | +0.112 [-0.217, +0.440] | inconclusive | -0.167 [-0.481, +0.147] | -0.055 [-0.184, +0.073] | inconclusive |
-| covtype | +0.073 [+0.022, +0.124] | **supported** | -0.090 [-0.138, -0.041] | -0.016 [-0.059, +0.026] | inconclusive |
+| adult | +0.112 [-0.217, +0.440] | no detectable difference (inconclusive) | -0.167 [-0.481, +0.147] | -0.055 [-0.184, +0.073] | no detectable difference (inconclusive) |
+| covtype | +0.073 [+0.022, +0.124] | **supported** | -0.090 [-0.138, -0.041] | -0.016 [-0.059, +0.026] | no detectable difference (inconclusive) |
 
 Overall: **H1 inconclusive** (1 supported, 2 inconclusive, 0 contradicted of 3); **H2
 inconclusive** (0 supported, 3 inconclusive, 0 contradicted of 3). No headroom interval fell
 below 1 point on the informative datasets, so no outcome was set by the unstable-denominator
-rule. Reporting words, per design.method: 'inconclusive' is written 'no detectable
-difference (inconclusive)'. The claim texts and metrics use the short label.
+rule. Reporting words, per design.method: a per-dataset 'inconclusive' outcome is written 'no
+detectable difference (inconclusive)', as in the table above and in the outcome claims' text.
+The run metrics keep the short label. The overall verdicts are the count rule's 'inconclusive'.
 
 ### Ablations (attribute only if the Delta interval excludes 0 and |Delta| >= 0.05)
 
 - **A1 (no early stopping):** not attributed on breast_cancer (Delta -0.143 [-0.461, +0.176]),
   adult (-0.135 [-0.341, +0.072]) or covtype (+0.013 [-0.024, +0.050]). On credit-g (excluded)
   the GBDT-noES headroom also failed the stability check.
-- **A2 (clean-validation selection at rho 0.4):** **attributed on adult for the H1 contrast:
-  Delta = -0.370 [-0.709, -0.030].** With clean-validation selection, D_abl = +0.481
-  [+0.302, +0.661], larger than D_main = +0.112. So on adult, noisy model selection shrinks
-  GBDT's excess loss relative to RF; it does not create it. Every other A2 Delta was not
-  attributed (adult Delta1/Delta2, all of breast_cancer and covtype).
-- **A3 (half budget):** not attributed anywhere. The largest is covtype Delta = +0.032
-  [-0.018, +0.083].
+- **A2 (clean validation labels at rho 0.4, for both model selection and GBDT early
+  stopping):** under the pre-registered rule, the H1 contrast on adult is 'attributed':
+  Delta = -0.370 [-0.709, -0.030]. **This cannot be assigned to model selection.** A2 changes
+  two things at once: the labels used to select among candidates, and the labels GBDT's early
+  stopping monitors (so the cleanval GBDT candidates are different fits; the LR and RF fits are
+  identical to main). The ablation does not separate the two. Direction: the H1 gap is larger
+  under clean-label selection and stopping (D_abl = +0.481 [+0.302, +0.661]) than under the
+  main noisy-label procedure (D_main = +0.112). In the ledger, r_GBDT rises from 0.726 to 0.877
+  and r_RF falls from 0.614 to 0.396 (`adult.{gbdt,rf}.cleanval.r` against the h-tests `r`).
+  The RF part is a pure selection effect, because the RF fits are the same. The GBDT part
+  mixes a change in fits with a change in selection. The results review (results-r1 F1) traced
+  the GBDT part mainly to longer early stopping on clean log-loss, using the cell table's
+  `n_iter`, which is not a ledger metric and is not claimed here. **Read against multiplicity
+  (results-r1 F2):** this is 1 of 21 ablation Delta tests on informative datasets (A1 3, A2 9,
+  A3 9) whose interval excludes 0, about what chance gives at 95%. Its upper end, -0.030, sits
+  on adult's plain t(9) interval, which design.method calls slightly narrow because of about 6%
+  training-row overlap between seeds. No multiplicity correction was planned. Every other A2
+  Delta was not attributed (adult Delta1 and Delta2, all of breast_cancer and covtype).
+- **A3 (half budget):** not attributed anywhere. The largest point estimates are breast_cancer
+  Delta1 = +0.067 and Delta2 = +0.048. The interval closest to excluding 0 is covtype Delta2 =
+  +0.017 [-0.005, +0.040] (corrected per results-r1 F3; the earlier text wrongly named covtype
+  Delta = +0.032 as the largest).
 
 ## Surprises and things the paper should say
 
@@ -134,10 +150,12 @@ difference (inconclusive)'. The claim texts and metrics use the short label.
    descriptive seed bootstrap gives [0.173, 0.390]. The Nadeau-Bengio correction is what makes
    this outcome inconclusive (this power limit was stated in advance in design-r3). It cannot
    be reported as support.
-2. **Results against H2:** on breast_cancer, LR loses a larger share than RF (r 0.560 vs 0.330;
-   D2 = +0.230, absolute drop 0.190 vs 0.105), the opposite of H2. The interval includes 0. On
-   adult and covtype, LR's point estimates are in H2's direction against GBDT but not
-   separable from RF.
+2. **H2 point estimates on breast_cancer:** LR's point estimate of r is larger than RF's (0.560
+   vs 0.330; D2 = +0.230, absolute drops 0.190 vs 0.105). The interval [-0.189, +0.648]
+   includes 0, so this is no detectable difference (inconclusive), not a difference
+   (disclosures[4]), and it is reported only as a point estimate opposite in sign to H2's
+   prediction (corrected per results-r1 F4). On adult and covtype, the point estimates of D1
+   are negative (in H2's direction); D2 is not separable from 0.
 3. **credit-g:** r exceeds 1 for every method (1.5 to 2.5). At rho = 0.4 all three fall
    below the 0.700 majority rate (A(0.4) 0.638 to 0.675). The dataset is excluded, so this is
    descriptive only.
@@ -154,6 +172,14 @@ difference (inconclusive)'. The claim texts and metrics use the short label.
    training accuracies match exactly across the two processes. The full clean rerun is the
    Replicator's task (`r-rerun`).
 
+## Response to results-r1 (PI ruling: wording only, no new or repeated analysis)
+
+F1 and F2: the A2 wording on adult is narrowed above and in the A2 claims' text, and a count
+claim (`c-abl-count`, 1 of 21) is added. F3: the A3 sentence is corrected. F4: the
+breast_cancer D2 wording is corrected, and the outcome claims use 'no detectable difference
+(inconclusive)'. Claim values, macros and formats are unchanged; `paper/numbers.tex` was
+regenerated. F5 (task board) is the PI's.
+
 ## Deviations from the approved design
 
 None. The contingency was evaluated as written and did not trigger. The code-r1 fixes (exact
@@ -163,7 +189,7 @@ open; none was chosen after seeing results.
 
 ## Claims
 
-`claims.jsonl` holds 1,193 result claims generated by `code/make_claims.py`. That script runs
+`claims.jsonl` holds 1,194 result claims (1,193 plus the results-r1 count claim) generated by `code/make_claims.py`. That script runs
 no computation: it copies each `value` from `runs/<id>/run.json` metrics. The claims cover the
 accuracy table (mean and SD at every rate), the majority rates, headrooms, drops and r, every D
 and Delta with its decision interval, S, half-width and bootstrap interval, the outcomes and

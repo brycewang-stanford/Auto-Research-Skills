@@ -212,3 +212,34 @@ Results-stage checklist:
 - A1 compares two different candidate streams (gbdt vs gbdt_noes), as designed. An 'attributed' A1 result mixes early stopping with
   different random configurations; the paper should say so.
 - Claims: 'inconclusive' is never written 'no difference'; S and the half-width are next to every D.
+
+## results-r1 (2026-11-18): verdict revise. No critical; F1 major, F2-F5 minor open.
+
+State at review: every planned run executed in order: main-rho0 -> contingency log (W0 306 s, 7 x W0 = 35.7 min, no contingency) ->
+exclusion-check -> main-noisy -> h-tests -> descriptives -> abl-noes -> abl-cleanval -> abl-budget. exclusion.json hash 3cd031b3 is an
+output of exclusion-check and an input of every later run. code-r1 F1/F2 were fixed at 13:18:10, before main-rho0 at 13:18:31. validate OK.
+
+What I ran: I copied code/ and results/ to the scratchpad and reran exclusion.py and every analyze.py mode. All 2,887 metrics match the
+ledger. An independent recompute of r, h, drop, D/D1/D2, S and the intervals from the cell CSVs (my own code) matches. Covtype per-seed
+drop difference: 7 of 10 seeds positive. I did not retrain any model.
+
+Outcomes: H1 inconclusive (covtype supported, D 0.073 [0.022, 0.124]; breast_cancer and adult inconclusive; credit-g excluded on GBDT
+headroom 0.035). H2 inconclusive on all three. Ablations: 1 of 21 Delta tests on informative datasets attributed (A2 adult Delta, -0.370
+[-0.709, -0.030]).
+
+Open:
+- F1 (major): A2 confounds selection with the early-stopping monitor. On adult, cleanval GBDT runs longer (median n_iter 64 -> 268) and its
+  selected clean-val accuracy is LOWER (0.795 -> 0.786), so the fits changed. Delta splits into about +0.151 from GBDT and +0.218 from RF
+  (RF fits identical, so that part is genuine selection). The NOTES 'noisy model selection shrinks...' sentence misattributes. Remedy:
+  narrow the wording, or add cleanval n_iter / val_acc metrics to abl-cleanval and rerun it.
+- F2: 1 of 21 attributions, upper bound -0.030, on adult's slightly narrow interval. Report the count.
+- F3: NOTES 'largest A3 Delta' wrong. F4: 'Results against H2' wording; bare 'inconclusive'. F5: plan.json tasks stale.
+
+Next round / paper stage:
+- The paper must not say noisy selection explains anything on adult. It must mention the A2 selection/early-stopping confound.
+- The breast_cancer bootstrap [0.173, 0.390] must never be cited as support for H1.
+- Covtype support is per-dataset only; the title and abstract must say that H1 overall is inconclusive.
+- If abl-cleanval is rerun with new metrics, check that its code hash changes, that analyze.py changes only by adding metrics, and that
+  every other metric is unchanged.
+- Credit-g r > 1 (below the majority floor): descriptive only, never in the H1 count.
+- Figures (f-figures) and the replicator rerun are not done yet; check them at the paper stage.

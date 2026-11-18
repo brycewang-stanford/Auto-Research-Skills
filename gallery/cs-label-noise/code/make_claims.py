@@ -37,8 +37,13 @@ def num(cid: str, run: str, metric: str, text: str, macro: str, fmt: str) -> Non
                    "value": value, "macro": macro, "format": fmt})
 
 
-def word(cid: str, run: str, metric: str, template: str) -> None:
+REPORT_WORDS = {"inconclusive": "no detectable difference (inconclusive)"}   # design.method 'Reporting words'
+
+
+def word(cid: str, run: str, metric: str, template: str, outcome: bool = False) -> None:
     value = metrics(run)[metric]
+    if outcome:
+        value = REPORT_WORDS.get(value, value)
     claims.append({"id": cid, "kind": "result", "text": template.format(value),
                    "support": [{"run": run, "metric": metric}]})
 
@@ -107,12 +112,12 @@ def main() -> None:
             num(f"c-r-{dc}-{mc}", run, f"{d}.{k}.r", f"Share of headroom lost r between rho=0 and 0.4, {MNAME[k]} on {d}.", f"R{dc}{mc}", ".3f")
         ivclaims(run, f"{d}.H1.D", f"c-h1-{dc}", f"HOneD{dc}", f"H1 on {d}, D = r_GBDT - r_RF")
         num(f"c-h1-{dc}-ddrop", run, f"{d}.H1.D.ddrop", f"H1 on {d}: difference in absolute drops, GBDT minus RF.", f"HOneDdrop{dc}", ".3f")
-        word(f"c-h1-{dc}-out", run, f"{d}.H1.outcome", f"H1 outcome on {d}: {{}}.")
+        word(f"c-h1-{dc}-out", run, f"{d}.H1.outcome", f"H1 outcome on {d}: {{}}.", outcome=True)
         for j, other in ((1, "gbdt"), (2, "rf")):
             jw = "One" if j == 1 else "Two"
             ivclaims(run, f"{d}.H2.D{j}", f"c-h2-{dc}-d{j}", f"HTwoD{jw}{dc}", f"H2 on {d}, D{j} = r_LR - r_{other.upper()}")
             num(f"c-h2-{dc}-d{j}-ddrop", run, f"{d}.H2.D{j}.ddrop", f"H2 on {d}: difference in absolute drops, LR minus {other.upper()}.", f"HTwoD{jw}Ddrop{dc}", ".3f")
-        word(f"c-h2-{dc}-out", run, f"{d}.H2.outcome", f"H2 outcome on {d}: {{}}.")
+        word(f"c-h2-{dc}-out", run, f"{d}.H2.outcome", f"H2 outcome on {d}: {{}}.", outcome=True)
     for hyp, hw in (("H1", "HOne"), ("H2", "HTwo")):
         for key, kw in (("n_informative", "NInf"), ("n_supported", "NSup"), ("n_contradicted", "NCon"),
                         ("n_no_meaningful_difference", "NNmd"), ("n_inconclusive", "NInc"), ("n_unstable", "NUns"),
@@ -132,12 +137,21 @@ def main() -> None:
         ivclaims(run, f"{d}.A1.D_abl", f"c-a1-{dc}-dabl", f"AOneDabl{dc}", f"A1 on {d}, D_abl = r_GBDT-noES - r_RF")
         ivclaims(run, f"{d}.A1.Delta", f"c-a1-{dc}-delta", f"AOneDelta{dc}", f"A1 on {d}, Delta = D_main - D_abl", boot=False)
         word(f"c-a1-{dc}-status", run, f"{d}.A1.Delta.status", f"A1 (early stopping) on {d}: {{}}.")
+    a2 = "A2 (clean validation labels for both model selection and GBDT early stopping, which this ablation does not separate)"
     for run, tag, tw in (("abl-cleanval", "A2", "ATwo"), ("abl-budget", "A3", "AThree")):
+        name = a2 if tag == "A2" else "A3 (best of the first 10 candidates)"
         for d, dc in DS.items():
             for lab, dn, lw in (("Delta", "D", ""), ("Delta1", "D1", "One"), ("Delta2", "D2", "Two")):
-                ivclaims(run, f"{d}.{tag}.{dn}_abl", f"c-{tag.lower()}-{dc}-{dn.lower()}abl", f"{tw}D{lw}abl{dc}", f"{tag} on {d}, {dn} under the ablation")
-                ivclaims(run, f"{d}.{tag}.{lab}", f"c-{tag.lower()}-{dc}-{lab.lower()}", f"{tw}Delta{lw}{dc}", f"{tag} on {d}, {lab} = {dn}_main - {dn}_abl", boot=False)
-                word(f"c-{tag.lower()}-{dc}-{lab.lower()}-status", run, f"{d}.{tag}.{lab}.status", f"{tag} {lab} on {d}: {{}}.")
+                ivclaims(run, f"{d}.{tag}.{dn}_abl", f"c-{tag.lower()}-{dc}-{dn.lower()}abl", f"{tw}D{lw}abl{dc}", f"{name} on {d}, {dn} under the ablation")
+                ivclaims(run, f"{d}.{tag}.{lab}", f"c-{tag.lower()}-{dc}-{lab.lower()}", f"{tw}Delta{lw}{dc}", f"{name} on {d}, {lab} = {dn}_main - {dn}_abl", boot=False)
+                text = f"{name} {lab} on {d}: {{}}."
+                if (tag, d, lab) == ("A2", "adult", "Delta"):
+                    text = (f"{name} Delta on adult: {{}} under the pre-registered rule (interval excludes 0 and |Delta| >= 0.05). "
+                            "Because A2 changes both the selection labels and the labels GBDT's early stopping monitors, the effect "
+                            "cannot be assigned to model selection. Direction: the H1 gap D is larger under clean-label selection "
+                            "and stopping than under the main noisy-label procedure (Delta < 0). The interval's upper end is close to 0, "
+                            "and it is the plain t(9) interval that design.method calls slightly narrow on adult.")
+                word(f"c-{tag.lower()}-{dc}-{lab.lower()}-status", run, f"{d}.{tag}.{lab}.status", text)
             for k in ("lr", "rf", "gbdt"):
                 if tag == "A2":
                     num(f"c-acc-{dc}-{MT[k]}-cv", run, f"{d}.{k}.cleanval.rho0.4.acc_mean", f"Mean clean-test accuracy at rho=0.4 of {MNAME[k]} on {d} selected on clean validation labels.", f"Acc{dc}{MT[k]}Cv", ".3f")
@@ -146,6 +160,21 @@ def main() -> None:
                     for rho, rc in ((0.0, "Zero"), (0.4, "Four")):
                         num(f"c-acc-{dc}-{MT[k]}-half-{rc}", run, f"{d}.{k}.half.rho{rho:g}.acc_mean", f"Mean clean-test accuracy of {MNAME[k]} on {d} at rho={rho:g}, best of the first 10 candidates.", f"Acc{dc}{MT[k]}Half{rc}", ".3f")
                     num(f"c-r-{dc}-{MT[k]}-half", run, f"{d}.{k}.half.r", f"Share of headroom lost by {MNAME[k]} on {d} with half the tuning budget.", f"R{dc}{MT[k]}Half", ".3f")
+
+    support = []
+    for run, tag, labs in (("abl-noes", "A1", ("Delta",)), ("abl-cleanval", "A2", ("Delta", "Delta1", "Delta2")),
+                           ("abl-budget", "A3", ("Delta", "Delta1", "Delta2"))):
+        for d in DS:
+            for lab in labs:
+                if metrics(run)[f"{d}.{tag}.{lab}.status"] != "excluded (uninformative)":
+                    support.append({"run": run, "metric": f"{d}.{tag}.{lab}.status"})
+    hits = [s for s in support if metrics(s["run"])[s["metric"]] == "attributed"]
+    claims.append({"id": "c-abl-count", "kind": "result",
+                   "text": (f"Of the {len(support)} ablation Delta tests on informative datasets (A1 3, A2 9, A3 9), "
+                            f"{len(hits)} has an interval that excludes 0 and |Delta| >= 0.05: A2 Delta on adult. "
+                            "About one such interval is expected by chance at 95% across this many tests; "
+                            "no multiplicity correction was planned."),
+                   "support": support})
 
     kept = []
     for line in CLAIMS.read_text(encoding="utf-8").splitlines():
