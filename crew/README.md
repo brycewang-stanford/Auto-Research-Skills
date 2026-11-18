@@ -27,6 +27,15 @@ Or, from a clone, load it for one session: `claude --plugin-dir ./crew`.
 
 Needs Python 3.9+ and, to compile papers, a LaTeX installation.
 
+To give a role extra skills from the hub, install its role kit (from a clone, after
+`./setup.sh`):
+
+```bash
+python3 tools/build_starter_kits.py --install-role reviewer --dest ~/.claude/skills
+```
+
+For Codex, see [`adapters/codex/`](adapters/codex/).
+
 ## Use
 
 ```text

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crew Scoreboard · Free-Research-Crew (免费助研团)</title>
+    <meta name="description" content="Bench results for the Free-Research-Crew research agents: protocol checks, answer keys and cross-family reviews for every seed paper.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      .back { color: var(--teal); font-weight: 700; text-decoration: none; }
+      .back:hover { text-decoration: underline; }
+      .lead { max-width: 72ch; color: var(--muted); line-height: 1.5; }
+      .board { width: 100%; border-collapse: collapse; font-size: 14px; }
+      .board th, .board td { text-align: left; padding: 10px 8px; border-top: 1px solid var(--line); vertical-align: top; }
+      .board th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+      .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; border: 1px solid var(--line); }
+      .pass { color: #1d7a46; border-color: #1d7a46; }
+      .fail { color: var(--coral); border-color: var(--coral); }
+      .wait { color: var(--muted); }
+      .wrap { overflow-x: auto; }
+      .note { color: var(--muted); font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <div>
+          <p class="eyebrow"><a href="index.html" class="back">← Skill Catalog</a></p>
+          <h1>Crew Scoreboard</h1>
+          <p class="lead">Every seed paper the crew has worked on, scored by
+            <code>crew/bench/score.py</code>: does the workspace pass strict validation, did a human
+            approve all four gates, does a clean rerun reproduce every number, and does the result
+            match the seed's hidden answer key. Failures are listed with successes.</p>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="wrap">
+        <table class="board">
+          <thead>
+            <tr><th>Paper</th><th>Track</th><th>Gates</th><th>Protocol</th><th>Answer</th><th>Rerun</th><th>Reviews</th></tr>
+          </thead>
+          <tbody id="rows"><tr><td colspan="7" class="note">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <p class="note" id="meta"></p>
+    </main>
+    <script>
+      (function () {
+        const rows = document.getElementById("rows");
+        const meta = document.getElementById("meta");
+        const repo = "https://github.com/brycewang-stanford/Free-Research-Crew/tree/main/";
+        function tag(value) {
+          const span = document.createElement("span");
+          const text = value === true ? "pass" : value === false ? "fail" : (value || "—");
+          span.className = "tag " + (text === "pass" ? "pass" : text === "fail" ? "fail" : "wait");
+          span.textContent = text;
+          return span;
+        }
+        function cell(content) {
+          const td = document.createElement("td");
+          if (content instanceof Node) td.appendChild(content); else td.textContent = content;
+          return td;
+        }
+        fetch("../gallery/scoreboard.json")
+          .then((response) => { if (!response.ok) throw new Error(response.status); return response.json(); })
+          .then((data) => {
+            rows.textContent = "";
+            (data.results || []).forEach((r) => {
+              const tr = document.createElement("tr");
+              const link = document.createElement("a");
+              link.href = repo + r.workspace;
+              link.textContent = r.title || r.seed;
+              tr.appendChild(cell(link));
+              tr.appendChild(cell(r.track));
+              const approved = Object.values(r.gates || {}).filter((s) => s === "approved").length;
+              tr.appendChild(cell(approved + "/4"));
+              tr.appendChild(cell(tag(r.protocol)));
+              tr.appendChild(cell(tag(r.answer && r.answer.status)));
+              tr.appendChild(cell(tag(r.rerun_passed === null ? "not run" : r.rerun_passed)));
+              tr.appendChild(cell(r.reviews + " (" + r.cross_family_reviews + " cross-family)"));
+              rows.appendChild(tr);
+            });
+            if (!rows.children.length) rows.appendChild(cell("No scored papers yet."));
+            meta.textContent = "Scored " + data.scored_on + " · protocol v" + data.protocol + " · crew " + data.crew_version;
+          })
+          .catch(() => { rows.textContent = ""; rows.appendChild(cell("Could not load gallery/scoreboard.json.")); });
+      })();
+    </script>
+  </body>
+</html>

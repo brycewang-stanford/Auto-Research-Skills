@@ -7,13 +7,53 @@
     "units": "1991 US dollars"
   },
   "published": {
-    "plr_2fold": {"lasso": 7717, "reg_tree": 8709, "forest": 9116, "boosting": 8759, "neural_net": 8950, "ensemble": 9010, "best": 9125},
-    "plr_5fold": {"lasso": 8187, "reg_tree": 8871, "forest": 9247, "boosting": 9110, "neural_net": 9038, "ensemble": 9166, "best": 9215},
-    "se_range": [1294, 1749]
+    "plr_2fold": {
+      "lasso": 7717,
+      "reg_tree": 8709,
+      "forest": 9116,
+      "boosting": 8759,
+      "neural_net": 8950,
+      "ensemble": 9010,
+      "best": 9125
+    },
+    "plr_5fold": {
+      "lasso": 8187,
+      "reg_tree": 8871,
+      "forest": 9247,
+      "boosting": 9110,
+      "neural_net": 9038,
+      "ensemble": 9166,
+      "best": 9215
+    },
+    "se_range": [
+      1294,
+      1749
+    ]
   },
   "pass_if": [
     "Each replicated PLR estimate that uses a flexible learner (tree, forest, boosting, neural net) lies in [7400, 10600], i.e. within about one published standard error of the published range 8709-9247.",
     "The paper states the published estimate it compares against, and that number appears in Table 2, Panel B.",
     "The workspace passes `crew.py validate --strict`."
-  ]
+  ],
+  "machine_check": {
+    "claims": {
+      "plr-tree": [
+        7400,
+        10600
+      ],
+      "plr-forest": [
+        7400,
+        10600
+      ],
+      "plr-boosting": [
+        7400,
+        10600
+      ],
+      "plr-nnet": [
+        7400,
+        10600
+      ]
+    },
+    "min_matched": 2
+  }
 }

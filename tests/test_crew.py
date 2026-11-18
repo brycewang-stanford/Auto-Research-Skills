@@ -297,6 +297,47 @@ class CrewWorkspaceTest(unittest.TestCase):
         self.assertIn("submission  approved", out)
 
 
+SCORE_SPEC = importlib.util.spec_from_file_location("crew_score", ROOT / "crew" / "bench" / "score.py")
+score = importlib.util.module_from_spec(SCORE_SPEC)
+SCORE_SPEC.loader.exec_module(score)
+
+
+class BenchScoreTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.ws = Path(self.tmp.name) / "ws"
+        call("init", str(self.ws), "--track", "social-science", "--title", "T")
+
+    def claims(self, values: dict) -> None:
+        with (self.ws / "claims.jsonl").open("w") as handle:
+            for claim_id, value in values.items():
+                handle.write(json.dumps({"id": claim_id, "kind": "result", "text": "x",
+                                         "support": [{"run": "r"}], "value": value}) + "\n")
+
+    def test_bounds_check(self) -> None:
+        key = {"machine_check": {"claims": {"plr-forest": [7400, 10600], "plr-tree": [7400, 10600]},
+                                 "min_matched": 2}}
+        self.claims({"plr-forest": 9100.0, "plr-tree": 8800.0})
+        self.assertEqual(score.check_answer(self.ws, key)["status"], "pass")
+        self.claims({"plr-forest": 9100.0, "plr-tree": 12000.0})
+        self.assertEqual(score.check_answer(self.ws, key)["status"], "fail")
+        self.claims({"plr-forest": 9100.0})
+        self.assertEqual(score.check_answer(self.ws, key)["status"], "fail")
+
+    def test_interval_must_contain_zero(self) -> None:
+        key = {"machine_check": {"interval_contains_zero": ["lo", "hi"]}}
+        self.claims({"lo": -250.0, "hi": 180.0})
+        self.assertEqual(score.check_answer(self.ws, key)["status"], "pass")
+        self.claims({"lo": 20.0, "hi": 400.0})
+        self.assertEqual(score.check_answer(self.ws, key)["status"], "fail")
+
+    def test_every_answer_key_has_a_machine_check_or_none(self) -> None:
+        for key_path in (ROOT / "crew" / "bench" / "seeds").glob("*/answer.json"):
+            rule = json.loads(key_path.read_text()).get("machine_check", {})
+            self.assertTrue(set(rule) <= {"claims", "min_matched", "interval_contains_zero"}, key_path)
+
+
 class PluginFilesTest(unittest.TestCase):
     def test_manifests_agree(self) -> None:
         plugin = json.loads((ROOT / "crew" / ".claude-plugin" / "plugin.json").read_text())
@@ -314,6 +355,12 @@ class PluginFilesTest(unittest.TestCase):
             self.assertTrue(text.startswith(f"---\nname: {name}\n"), name)
             self.assertIn("\ndescription: ", text)
         self.assertIn("reviewer", agents)
+
+    def test_every_role_has_a_role_kit(self) -> None:
+        from tools import build_starter_kits as kits
+        self.assertEqual(set(kits.ROLE_KITS), set(crew.ROLES) - {"pi"})
+        for stages in kits.ROLE_KITS.values():
+            self.assertTrue(set(stages) <= set(kits.STAGE_KEYS))
 
     def test_seed_tasks_are_well_formed(self) -> None:
         seeds = sorted((ROOT / "crew" / "bench" / "seeds").iterdir())

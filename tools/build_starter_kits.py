@@ -129,6 +129,19 @@ STAGES: tuple[Stage, ...] = (
 )
 STAGE_KEYS = tuple(s.key for s in STAGES)
 
+# Free-Research-Crew roles (crew/agents/*.md) -> the stage kits that serve each role.
+ROLE_KITS: dict[str, tuple[str, ...]] = {
+    "scout": ("literature", "reading", "integrity"),
+    "designer": ("ideation", "experiment"),
+    "data-ra": ("analysis",),
+    "econometrician": ("analysis",),
+    "experimenter": ("experiment", "analysis"),
+    "figures-ra": ("figures",),
+    "writer": ("writing", "figures"),
+    "reviewer": ("review", "integrity"),
+    "replicator": ("experiment",),
+}
+
 TRIGGER_RE = re.compile(r"\b(use when|use this|use for|trigger|triggers|when the user|when user)\b", re.I)
 SAFE_NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$")
 
@@ -401,7 +414,12 @@ def render_json(kits: dict[str, list[Pick]]) -> str:
 
 def install(kits: dict[str, list[Pick]], stage: str, dest: Path, dry_run: bool,
             force: bool, root: Path = ROOT) -> int:
-    keys = STAGE_KEYS if stage == "all" else (stage,)
+    if stage == "all":
+        keys = STAGE_KEYS
+    elif stage.startswith("role:"):
+        keys = ROLE_KITS[stage[len("role:"):]]
+    else:
+        keys = (stage,)
     picks = [p for k in keys for p in kits.get(k, [])]
     if not picks:
         print(f"ERROR: no skills in kit {stage!r}", file=sys.stderr)
@@ -449,6 +467,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--check", action="store_true", help="verify outputs are current without writing")
     parser.add_argument("--install", metavar="STAGE", choices=STAGE_KEYS + ("all",),
                         help="copy a kit's skill directories into --dest")
+    parser.add_argument("--install-role", metavar="ROLE", choices=tuple(ROLE_KITS),
+                        help="copy the kits that serve a Free-Research-Crew role into --dest")
     parser.add_argument("--dest", type=Path, help="target skills directory for --install")
     parser.add_argument("--dry-run", action="store_true", help="with --install: print the plan only")
     parser.add_argument("--force", action="store_true", help="with --install: replace existing skill dirs")
@@ -460,10 +480,13 @@ def main(argv: list[str] | None = None) -> int:
     catalog = json.loads(SKILLS_JSON.read_text(encoding="utf-8"))
     kits = build_kits(catalog["skills"])
 
-    if args.install:
+    if args.install and args.install_role:
+        parser.error("use --install or --install-role, not both")
+    if args.install or args.install_role:
         if args.dest is None:
-            parser.error("--install requires --dest")
-        return install(kits, args.install, args.dest, args.dry_run, args.force)
+            parser.error("--install and --install-role require --dest")
+        kit = args.install or f"role:{args.install_role}"
+        return install(kits, kit, args.dest, args.dry_run, args.force)
 
     report = render_report(kits, len(catalog["skills"]))
     data = render_json(kits)

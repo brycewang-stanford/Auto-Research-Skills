@@ -9,8 +9,23 @@
     "The Scout finds and records the published estimates, standard errors and specification, with the table number.",
     "The data file is fetched from a public source and recorded in the manifest with its hash.",
     "Estimates use cross-fitting and are repeated over several sample splits.",
-    "The paper reports the published and replicated estimates side by side."
+    "The paper reports the published and replicated estimates side by side.",
+    "For each nuisance learner used, record a result claim with id `plr-<learner>` (learner one of lasso, tree, forest, boosting, nnet) whose value is the partially linear model's estimate in dollars."
   ],
-  "budget": {"hardware": "laptop CPU", "wall_time_minutes": 60},
-  "scoring": "See answer.json. Agents must not read it."
+  "budget": {
+    "hardware": "laptop CPU",
+    "wall_time_minutes": 60
+  },
+  "scoring": "See answer.json. Agents must not read it.",
+  "report_claims": {
+    "pattern": "plr-<learner>",
+    "learners": [
+      "lasso",
+      "tree",
+      "forest",
+      "boosting",
+      "nnet"
+    ],
+    "units": "1991 US dollars"
+  }
 }
