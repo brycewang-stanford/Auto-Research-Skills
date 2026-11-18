@@ -1,0 +1,100 @@
+{
+  "id": "question-r1",
+  "target": "question",
+  "round": 1,
+  "created": "2026-11-18T16:39:02Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "log.jsonl",
+    "briefs/20261118T162833Z-scout.md",
+    "briefs/20261118T163808Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/ss-lalonde-observational/task.json",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/social-science.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md"
+  ],
+  "kill_argument": "The paper's only stated contribution is that the estimator is fixed 'before any outcome is examined' so that 'closeness to the experimental benchmark cannot have guided the choice' (plan.json contribution). The crew's own notes refute this before any data are downloaded: sources/notes.md tabulates, for this exact sample, the point estimate and standard error of regression, IPW, entropy balancing, AIPW-GRF, bias-corrected NN matching, PS stratification and DW matching, and states which lands closest to $1,794. The outcome has therefore already been examined, by proxy, through the literature. Worse, those tables let the crew read off H1 and H2 per estimator before choosing: regression ($1,066, SE 554), IPW ($1,237, SE 687) and DW stratification ($1,713, SE 1,115) give CIs that include zero (H1 fails), entropy balancing and AIPW-GRF give CIs that exclude zero, and every published CPS-1 estimate's CI covers $1,794 (H2 near-certain). A timestamped commitment made with that map in hand is not outcome-blind, and the hypotheses are not genuine tests. I tried to rescue it via the Scout's D1 disclosure, but plan.json still states the stronger claim; the cheap remedy is to narrow it.",
+  "verdict": "block",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "open",
+      "text": "The contribution claims that pre-commitment means 'closeness to the experimental benchmark cannot have guided the choice'. That is false as written: sources/notes.md (sections 2-3, D1, D7) gives per-estimator estimates, SEs and distance from $1,794 on LDW-CPS, and the crew has read it. Pre-commitment rules out within-study outcome search only, not selection informed by published results on the identical data. Because the paper concedes the estimate is not new, a false procedural claim leaves it with no valid contribution.",
+      "evidence": "plan.json contribution; sources/notes.md 'Novelty verdict', sec. 2 (Imbens and Xu tutorial Table B1 figures), D1",
+      "remedy": "Narrow the contribution to what the commitment can deliver (no within-study outcome search), state in the contribution that the literature's estimator-by-estimator results were known when the estimator was chosen, and require the design to justify the estimator by an external rule written down before this literature was read (e.g. adopt Imbens 2015's recipe verbatim, or a doubly robust default) together with the full published range, so readers can judge selection on prior results.",
+      "response": "PI: contribution narrowed to 'no outcome search within this study', with the literature knowledge disclosed; estimator fixed by an external rule (the ss-null-effect AIPW ATT estimator, unchanged).",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "H2 (CI contains the benchmark) is close to unfalsifiable and rewards imprecision: the less precise the estimator, the more likely H2 holds. With published CPS-1 SEs of 550-1,150 and estimates of $972-$1,774, every published CI covers $1,794. It also ignores the benchmark's own sampling error (SE 633; ~[$553, $3,035]). Failing to reject equality is not evidence of recovery.",
+      "evidence": "plan.json hypotheses[1]; sources/notes.md sec. 1 (dehejia1999 Table 3), sec. 2 (xu2024tutorial Table B1), D5",
+      "remedy": "Replace with a test that can fail at realistic precision: an equivalence test against a pre-stated margin, or a difference test using the combined SE of estimate and benchmark, with the margin and SE handling fixed now. Or demote H2 to a descriptive comparison and say so.",
+      "response": "PI: H2 demoted to a descriptive comparison with an approximate combined SE; never used to choose estimators.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "open",
+      "text": "H2 does not say which benchmark it means. The 'experimental benchmark reported in the literature' could be $1,794 (SE 633, conventional), $1,794.34 (SE 670.82, robust), $1,672 (covariate-adjusted), or $1,911 (Imbens-Xu trimmed sample). The question says 'effect on participants' without fixing the estimand as the ATT over all 185 DW-treated men, so a later overlap rule that drops treated units would quietly change which benchmark applies.",
+      "evidence": "plan.json question and hypotheses[1]; sources/notes.md sec. 1 dehejia1999, sec. 2 imbens2025 (trimmed benchmark $1,911), D2",
+      "remedy": "State in the question that the estimand is the ATT for all 185 DW-treated men in 1982 dollars, that overlap trimming may drop CPS controls only, and name the benchmark as $1,794 (SE 633, Dehejia and Wahba 1999 Table 3).",
+      "response": "PI: estimand = ATT for all 185 treated; trimming of controls only; benchmark named ($1,794, SE 633, DW 1999 Table 3).",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "open",
+      "text": "The contribution promises 'a placebo check that can fail', but no hypothesis states it. The literature predicts it will fail (RE75 placebo about -$1,100 to -$1,600, significant: imbens2015 Table 20, xu2024tutorial Table B2). Without a hypothesis and a stated consequence, H1 can be reported as 'the effect' while the identifying assumption is rejected, and the question's causal framing ('effect of the training program') claims more than selection on observables can support here.",
+      "evidence": "plan.json contribution vs hypotheses; sources/notes.md sec. 2 imbens2015 and imbens2025, D4",
+      "remedy": "Add H3: the pre-specified estimator applied to RE75 (not conditioning on RE75/u75) gives an estimate whose 95% CI includes zero. State in advance that if H3 fails, H1 is reported as a statistical (covariate-adjusted) contrast and not as a causal effect.",
+      "response": "PI: added H3 (RE75 placebo) with a rule fixed now: if it fails, H1 is reported as a statistical contrast.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "major",
+      "status": "open",
+      "text": "Nothing in the workspace enforces 'before any outcome is examined' within the study. PROTOCOL.md allows data-prep runs at any time, and the files contain RE78 (and RE75, the placebo outcome) in the same rows as the covariates. A data-prep run that prints summary statistics or builds the analysis file can expose outcome moments before the design gate, and the contribution depends entirely on this not happening.",
+      "evidence": "plan.json contribution; crew/PROTOCOL.md 'Runs' (data-prep allowed any time); task.json data.files; data/manifest.json (empty)",
+      "remedy": "Before the design gate, require that data-prep code drops RE78 (and treats RE75 as a covariate only, never summarised against treatment) or writes it to a separate file not read until the design gate, and that the design-gate record cites the hash of the committed design text. Record this rule in plan.json design.",
+      "response": "PI: design_constraints: RE78 set aside before any data-prep run, joined back only by the first analysis run.",
+      "ruling": ""
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The novelty claim ('no prior example' of a pre-committed recovery exercise) rests on two web queries. The within-study-comparison literature that most directly addresses it (Cook, Shadish and Wong 2008) was named but not read.",
+      "evidence": "sources/notes.md 'Search log' and 'Unverified or not used'",
+      "remedy": "Read at least Cook, Shadish and Wong (2008) and search within-study-comparison work for prospective or blinded designs; or weaken the claim to 'we found no example in the searches listed'.",
+      "response": "PI: sent to the Scout (further search or weaker claim). Scout: read Cook-Shadish-Wong 2008 (criterion 4 = blinded analysts) plus 2 more WSC searches; found pre-specified/preregistered WSCs elsewhere (weidmann2021, keller2024), so notes.md now says pre-commitment is an existing WSC standard and novelty is only 'no NSW-CPS example in the searches listed'.",
+      "ruling": ""
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "Verification dates are later than the work itself: every sources.json entry has verified_on 2026-11-19 and notes.md says it was compiled on 2026-11-19, but log.jsonl records the Scout finishing at 2026-11-18T16:37:34Z and the system clock reads 2026-11-18. For a paper whose contribution is a timestamped record, provenance dates have to be correct.",
+      "evidence": "sources/sources.json verified_on (all entries); sources/notes.md line 3 and 'Search log' heading; log.jsonl scout entry",
+      "remedy": "Correct the dates to the actual verification date (UTC), or explain the clock difference.",
+      "response": "PI: sent to the Scout (dates to UTC). Scout: all verified_on, access notes and notes.md dates changed to 2026-11-18 (UTC), matching log.jsonl.",
+      "ruling": ""
+    }
+  ]
+}

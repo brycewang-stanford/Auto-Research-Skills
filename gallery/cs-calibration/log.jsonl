@@ -1,2 +1,6 @@
 {"time": "2026-11-18T16:28:22Z", "role": "pi", "action": "init", "detail": "track=cs"}
 {"time": "2026-11-18T16:28:34Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261118T162833Z"}
+{"time": "2026-11-18T16:39:34Z", "role": "scout", "action": "sources-verified", "detail": "23 sources verified (15 full text, 6 abstract, 2 DOI-only); refs.bib + sources/sources.json; 26 citation claims"}
+{"time": "2026-11-18T16:39:35Z", "role": "scout", "action": "novelty-verdict", "detail": "q-novelty done: largely answered; contribution is a seed-resolved replication (closest: Niculescu-Mizil & Caruana 2005; Fonseca & Lopes 2017; CalArena 2026; Manokhin & Gronhaug 2026). H2 contested for RF and modern GBDT. Design implications D1-D9 in sources/notes.md"}
+{"time": "2026-11-18T16:40:05Z", "role": "pi", "action": "plan-revised", "detail": "hypotheses split after Scout (H1 replication; H2a RF contested; H2b GBDT open). plan.json sha256=0522f3e3bebc0165126c38a85c1610d0a61c8ed95ec146f76729a000127369f3"}
+{"time": "2026-11-18T16:40:06Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r1 20261118T164005Z"}

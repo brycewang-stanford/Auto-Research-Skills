@@ -1,2 +1,7 @@
 {"time": "2026-11-18T16:28:22Z", "role": "pi", "action": "init", "detail": "track=social-science"}
 {"time": "2026-11-18T16:28:33Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261118T162833Z"}
+{"time": "2026-11-18T16:39:39Z", "role": "scout", "action": "sources-verified", "detail": "q-novelty done: 9 bib entries with records (6 full text/abstract read, 3 metadata-only); 14 citation claims; verdict: already answered as a finding, procedural value only"}
+{"time": "2026-11-18T16:39:48Z", "role": "scout", "action": "log-correction", "detail": "Correction to previous entry: of 9 bib entries, 7 have content read (6 fetched-fulltext, 1 fetched-abstract) and 2 are doi-resolved metadata only (neumark2000comment, card2000reply)"}
+{"time": "2026-11-18T16:40:37Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261118T164037Z"}
+{"time": "2026-11-18T16:42:59Z", "role": "pi", "action": "plan-revised", "detail": "question revised after question-r1 (block). plan.json sha256=06255be2701312c24d538b7cb7dece19007c3f4df9b25cce668bc205c61f1f69"}
+{"time": "2026-11-18T16:43:00Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r2 20261118T164300Z"}

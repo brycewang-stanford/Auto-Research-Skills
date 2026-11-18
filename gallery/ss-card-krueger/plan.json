@@ -1,10 +1,10 @@
 {
-  "question": "Does a replication from the public data reproduce Card and Krueger's (1994) difference-in-differences estimate of the change in full-time-equivalent employment per store in New Jersey relative to eastern Pennsylvania, and does the estimate survive a robustness check fixed in advance from the later literature?",
+  "question": "Does a replication from the authors' public data reproduce the published difference-in-differences estimates of Card and Krueger (1994), including their standard errors and the regression sample, and how much of the headline estimate remains when extreme store-level employment changes are winsorized, a check with no published result that we found?",
   "hypotheses": [
-    "H1: The replicated headline difference-in-differences estimate matches the published estimate to the precision the published table reports.",
-    "H2: The pre-specified robustness check yields an estimate of the same sign as the headline estimate."
+    "H1 (replication; tolerances fixed now): (a) Table 3, row 3, column (iii): the change in mean FTE employment, NJ minus PA, is within 0.05 of 2.76 and its standard error within 0.05 of 1.36; (b) Table 3, row 4 (balanced sample): within 0.05 of 2.75, SE within 0.05 of 1.34; (c) Table 4, column (i): the regression sample has 357 stores and the New Jersey coefficient is within 0.05 of 2.33 with SE within 0.05 of 1.19. Each part is reported as reproduced or not; the 0.05 tolerance allows for rounding and for differences between data releases (the public files accompany Myth and Measurement, chapter 2, and may not be identical to the AER files).",
+    "H2 (robustness check with no published result found): after winsorizing store-level changes in FTE employment at the 5th and 95th percentiles of the pooled distribution, the NJ-minus-PA difference keeps the same sign and at least half the magnitude of the replicated headline estimate. This is judged on the point estimate, not on significance: with one treated and one control state, conventional inference is unreliable (Conley and Taber 2011)."
   ],
-  "contribution": "An independent, fully logged replication of a canonical difference-in-differences estimate from the authors' public data, with one robustness check chosen before any estimate is computed.",
+  "contribution": "An independent, fully logged replication of a canonical difference-in-differences estimate from the authors' public data that also targets the published standard errors and the 357-store regression sample, which an earlier informal replication did not reproduce; plus one robustness check chosen without a published result to aim at. The crew had read the published results of other robustness checks; what the process rules out is specification search within this study.",
   "design": {
     "summary": "",
     "method": "",
@@ -17,7 +17,7 @@
       "id": "q-novelty",
       "title": "The published estimates and definitions; later critiques and robustness checks (e.g. Neumark-Wascher payroll data, Card-Krueger 2000 reply)",
       "owner": "scout",
-      "status": "todo"
+      "status": "done"
     }
   ],
   "gates": {

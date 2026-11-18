@@ -1,1 +1,71 @@
-{}
+{
+  "card1994minimum": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://davidcard.berkeley.edu/papers/njmin-aer.pdf",
+    "note": "Author-hosted scan of the published AER article (26 pp., pp. 772-793). Text via pdftotext; Tables 3, 4 and 5 read from page images (PDF pp. 9 and 12 = journal pp. 780 and 783) because the table cells are missing from the text layer. Metadata (AER 84(4), 772-793, Sept 1994) confirmed on IDEAS/RePEc (ideas.repec.org/a/aea/aecrev/v84y1994i4p772-93.html), which lists no DOI; JSTOR SICI link given there."
+  },
+  "card1993nber": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w4509",
+    "url": "https://www.nber.org/system/files/working_papers/w4509/w4509.pdf",
+    "note": "NBER WP 4509, October 1993; metadata from Crossref. Working-paper version; its Table 3 reports the same DiD (2.76; balanced 2.75). Use the AER version for published numbers."
+  },
+  "neumark1995payroll": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w5224",
+    "url": "https://www.nber.org/system/files/working_papers/w5224/w5224.pdf",
+    "note": "NBER WP 5224, August 1995; metadata from Crossref and nber.org/papers/w5224. Scanned PDF; text layer is garbled, so pages were OCR'd with tesseract. Abstract and Sections I-III (pp. 1-6) read; numbers quoted in notes.md come from the abstract and pp. 1-3."
+  },
+  "neumark2000comment": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "doi-resolved",
+    "doi": "10.1257/aer.90.5.1362",
+    "url": "https://www.aeaweb.org/articles?id=10.1257/aer.90.5.1362",
+    "note": "Metadata only (Crossref + AEA article page + IDEAS). No abstract on AEA or IDEAS; full text paywalled (AEA PDF returned an HTML login page). Do not attribute findings or numbers to this entry; use neumark1995payroll for content."
+  },
+  "card1998reanalysis": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w6386",
+    "url": "https://davidcard.berkeley.edu/papers/reanal-ff-nj.pdf",
+    "note": "NBER WP 6386, January 1998 (same file as nber.org w6386.pdf, identical byte size). Scanned PDF, OCR'd with tesseract; abstract, introduction and Section I.A read. nber.org/papers/w6386 states the published version is the AER 2000 Reply (card2000reply). Card's website lists this PDF under the AER 2000 citation."
+  },
+  "card2000reply": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "doi-resolved",
+    "doi": "10.1257/aer.90.5.1397",
+    "url": "https://www.aeaweb.org/articles?id=10.1257/aer.90.5.1397",
+    "note": "Metadata only (Crossref + AEA article page + IDEAS). Journal full text paywalled; AEA PDF request failed. Content claims go through card1998reanalysis, the working-paper version NBER links to this article."
+  },
+  "conley2011inference": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1162/rest_a_00049",
+    "url": "https://www.nber.org/papers/t0312",
+    "note": "Journal metadata from Crossref (REStat 93(1):113-125, Feb 2011). Abstract read from the NBER Technical Working Paper 312 page (2005); journal page (direct.mit.edu) returned 403. Full text not read."
+  },
+  "card_njmin_readme": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://davidcard.berkeley.edu/readme/njmin-readme.txt",
+    "note": "Plain-text readme linked from davidcard.berkeley.edu/data_sets.html next to njmin.zip. Lists the five files in the archive. The data archive itself was not downloaded (Scout instructions)."
+  },
+  "mamula2021replicating": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://aaronmams.github.io/Card-Krueger-Replication",
+    "note": "Blog post dated 6/17/2021, read via WebFetch. An informal replication from the public njmin.zip data; evidence of prior replication, not a peer-reviewed source."
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "id": "question-r1",
+  "target": "question",
+  "round": 1,
+  "created": "2026-11-18T16:42:47Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "log.jsonl",
+    "briefs/20261118T164005Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/cs-calibration/task.json",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/cs.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "https://arxiv.org/pdf/1710.08901 (fonseca2017 full text, Sec. 2-4)",
+    "https://arxiv.org/abs/2601.19944 and https://arxiv.org/html/2601.19944 (manokhin2026, first 100k chars)"
+  ],
+  "kill_argument": "The plan's only claimed novelty is a 'clean test' of H2a/H2b, and as written that test cannot fail for the reason that matters. Both hypotheses are stated in an undefined 'calibration error'. Its default reading, binned ECE, is known to favour binning-type calibrators such as isotonic regression and to ignore refinement loss (berta2026 Sec. 5; kumar2019). So 'isotonic fitted on held-out data reduces calibration error' is close to true by construction once the calibration split is large enough. The prior work the plan calls contested (Bostrom 2008, CalArena, Manokhin & Gronhaug) disagrees about proper scores (Brier, log-loss), not about ECE. The hypotheses therefore test a different quantity from the dispute they claim to settle. They test it on three-or-so datasets that are not yet chosen and whose calibration-split size largely decides the isotonic result, while the benchmarks they would 'settle' cover 30 and 104 datasets. H2b's 'open' label ignores Fonseca & Lopes (2017), who already fitted isotonic regression on a held-out split for gradient boosting. What I attacked that held: the question is answerable within a laptop-CPU hour, and the replication framing of H1 is honest.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "H1, H2a and H2b are stated in an undefined 'calibration error'. If the design adopts binned ECE (the task's own example), H2a/H2b are close to true by construction: isotonic regression is a step-function calibrator fitted to remove calibration error on held-out data, and binned ECE is documented to favour binning-type calibrators and ignore refinement loss (berta2026 Sec. 5, recorded as claim c-ece-favours-binning; kumar2019, claim c-ece-continuous). The evidence the plan calls 'contested' (bostrom2008: Brier; berta2026: Brier; manokhin2026: log-loss) concerns proper scores, so an ECE result would not speak to that contest. The Scout's own D1 makes this point, but plan.json was not changed to reflect it.",
+      "evidence": "plan.json hypotheses[0..2] ('higher calibration error', 'reduces the calibration error'); sources/notes.md D1; claims.jsonl c-ece-favours-binning, c-calarena-tabrepo, c-bostrom-rf",
+      "response": "",
+      "ruling": "",
+      "remedy": "Restate H2a/H2b as the change in a named proper score (Brier and/or log-loss) of the recalibrated versus the uncalibrated model, with ECE secondary. Restate H1 with a named calibration measure, since Brier and log-loss also reward discrimination. The exact estimator can be fixed at the design gate, but the hypothesis must name the quantity."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "'On most datasets' is not a falsifiable criterion as written. The number of datasets is not fixed (the task says 'at least three'), so 'most' could mean 2 of 3 or 3 of 5 depending on how many are added later. There is also no rule for when one model is 'higher', or when isotonic 'reduces', given seed noise, although the task requires that differences inside the noise be reported as no difference. That leaves room to add datasets or loosen the rule after seeing results.",
+      "evidence": "plan.json hypotheses[0..2] ('on most datasets'); crew/bench/seeds/cs-calibration/task.json requirements[0], [3]",
+      "response": "",
+      "ruling": "",
+      "remedy": "State in the hypotheses, or fix at the design gate before any run, the dataset count and a per-dataset decision rule. For example: a paired difference across the >=5 shared seeds counts as an effect only if its mean exceeds 2 SE, or all seeds agree in sign; anything else counts as 'no difference'. H holds if this happens on k of K named datasets."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "open",
+      "text": "The outcome of H2a/H2b depends on which datasets are chosen and how large their calibration splits are, and the question constrains neither. NM&C 2005 (Sec. 5, Fig. 7; claim c-nm-isotonic-data) show that Platt beats isotonic below about 200-1000 calibration cases for every learner. scikit-learn's bundled binary dataset (load_breast_cancer, 569 rows) gives roughly 100-200 calibration cases, where isotonic loses for sample-size reasons. Meanwhile 'available through scikit-learn's loaders' includes fetch_openml, which is a very large pool. So small datasets push the result one way, and free choice among OpenML datasets gives room to pick datasets after seeing outcomes.",
+      "evidence": "plan.json question and hypotheses (no dataset or size constraint); data/manifest.json (empty); sources/notes.md D3",
+      "response": "",
+      "ruling": "",
+      "remedy": "Before any pilot, name the datasets and pin them by loader and version (OpenML ID and version for fetch_openml). Set a minimum calibration-split size (e.g. >=1000), or declare calibration-split size an explicit moderator and report it per dataset. Do not choose datasets by looking at model outputs."
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "open",
+      "text": "H2b's label 'open for modern log-loss gradient boosting' and the contribution's 'open in the work we found' are overstated. fonseca2017 Sec. 2.2.3 uses a Friedman (2001) gradient boosting classifier: regression trees fit on the negative gradient of the loss. It calibrates that classifier with isotonic regression on a held-out 20% split, and Sec. 3 reports that isotonic 'helps the gradient boosting classifier' (Brier). I checked this against the arXiv PDF. manokhin2026 includes HGB and GBC and says per-architecture results are in its Appendix A and archive, which the Scout did not check (sources.json note covers Sec. 1-3, 5.2 only). The large benchmarks are pooled in their main text, but per-model evidence exists or may exist.",
+      "evidence": "plan.json hypotheses[2], contribution; sources/notes.md Sec. 1 ('give no clean, seed-resolved answer for HGB alone'); fonseca2017 Sec. 2.2.3 and Sec. 3; manokhin2026 Sec. 1 pointer to Appendix A/archive",
+      "response": "",
+      "ruling": "",
+      "remedy": "Cheapest fix: relabel H2b as an extension of Fonseca & Lopes (2017) to an i.i.d. split with seed uncertainty, not as an open question, and drop 'open'. Alternatively, check manokhin2026 Appendix A for per-model HGB/GBC results and cite them."
+    },
+    {
+      "id": "F5",
+      "severity": "major",
+      "status": "open",
+      "text": "The contribution promises 'a clean test of whether isotonic recalibration helps random forests (contested)'. A study of three or so datasets cannot test that general question, because the contest exists across benchmarks of 34 (bostrom2008), 30 (manokhin2026) and 104 (berta2026) datasets. At most it can say what happens on the named datasets under one fixed protocol. The scope words in the contribution promise more than the design can deliver.",
+      "evidence": "plan.json contribution; crew/tracks/cs.md 'State scope exactly. Three small datasets support a claim about those datasets.'",
+      "response": "",
+      "ruling": "",
+      "remedy": "Narrow the contribution to 'seed-resolved, per-model evidence on K named datasets with the base model held fixed', and present it as a data point on the contested question, not a test that settles it."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The task asks about calibration 'out of the box', but plan.json rewords this to 'without recalibration' and never says whether that means library defaults at a pinned version or tuned models. This matters for the contested evidence: CalArena tunes on validation ROC-AUC and Manokhin uses defaults, and tuning (RF leaf size, LR regularisation C and feature scaling) changes calibration (sources/notes.md D7). H1 in particular depends on whether LR is well specified and suitably regularised.",
+      "evidence": "plan.json question; task.json question ('out of the box'); sources/notes.md D7",
+      "response": "",
+      "ruling": "",
+      "remedy": "State in the question that the models use scikit-learn defaults at the pinned version, with any departures listed (e.g. LR with standardisation and max_iter), or else name the tuning protocol and its validation split."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "The question asks how much Platt scaling changes calibration error and log-loss, but no hypothesis or expected direction covers Platt. scikit-learn's default sigmoid calibrator also applies Platt to decision_function for LR and HGB but to predict_proba for RF (sources/notes.md D5; kull2017). Unless this is fixed, any cross-model Platt comparison mixes up the model with the input scale.",
+      "evidence": "plan.json question vs hypotheses; sources/notes.md D5",
+      "response": "",
+      "ruling": "",
+      "remedy": "Either mark the Platt results as descriptive (no hypothesis) or add one. At the design gate, use one input scale for all models (e.g. the logit of the clipped probability)."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "open",
+      "text": "The notes describe H1 as replicating a 'known result' and summarise fonseca2017 as uncalibrated RF/GBC 'do not perform much better' than LR. But fonseca2017 Sec. 3 states that 'on most datasets, the Random Forest and Gradient Boosting actually outperforms the Logistic Regression on Brier Scores' before recalibration. The closest-design prior study therefore points against H1 if H1 is scored by a proper score, which again shows H1 needs a named measure (see F1). The summary quotes the Discussion and leaves out the contrary Results sentence.",
+      "evidence": "sources/notes.md Sec. 3 fonseca2017 bullet; fonseca2017 Sec. 3 (arXiv PDF)",
+      "response": "",
+      "ruling": "",
+      "remedy": "Add the Sec. 3 result to the notes, and state that H1 concerns calibration (reliability), not overall Brier."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "open",
+      "text": "The dates in the provenance records are inconsistent. sources.json gives verified_on 2026-11-19 for every entry, and refs.bib says sklearn_calibration_docs was 'Accessed 2026-11-19'. But log.jsonl records the verification at 2026-11-18T16:39:34Z, and UTC at the time of this review is 2026-11-18. The dates look like local time and the log is in UTC.",
+      "evidence": "sources/sources.json verified_on (all entries); refs.bib sklearn_calibration_docs note; log.jsonl line 3",
+      "response": "",
+      "ruling": "",
+      "remedy": "Use one convention (UTC) in sources.json and refs.bib, or state the time zone."
+    }
+  ]
+}

@@ -1,10 +1,11 @@
 {
-  "question": "Using the NSW treated men in the Dehejia-Wahba subsample and the CPS-1 non-experimental comparison group, what is the effect of the training program on participants' 1978 earnings when estimated under selection on observables with an estimator fixed before any outcome is examined, and how does it compare with the experimental benchmark?",
+  "question": "For the 185 NSW-treated men in the Dehejia-Wahba subsample, what is the average effect of the training program on 1978 earnings (ATT, 1982 dollars) estimated against the CPS-1 non-experimental comparison group under selection on observables, using an estimator fixed by a rule from outside this literature, and how does it compare with the experimental benchmark of $1,794 (SE 633; Dehejia and Wahba 1999, Table 3)?",
   "hypotheses": [
-    "H1: The pre-specified observational estimate of the effect on participants' 1978 earnings is positive, with a 95% confidence interval that excludes zero.",
-    "H2: The 95% confidence interval of the pre-specified observational estimate contains the experimental benchmark reported in the literature."
+    "H1: The pre-specified ATT on 1978 earnings is positive, with a 95% confidence interval that excludes zero. If H3 fails, H1's result is reported as a statistical contrast between groups, not as a causal effect.",
+    "H2 (descriptive, not a test): the difference between the pre-specified estimate and the benchmark, with an approximate combined standard error that ignores the shared treated units (so it overstates the uncertainty), is reported; closeness to the benchmark is never used to choose or rank estimators.",
+    "H3 (placebo that can fail): the same estimator applied to 1975 earnings as the outcome, without conditioning on 1975 earnings or 1975 unemployment, gives a 95% confidence interval that includes zero. The literature predicts this fails (Imbens and Xu 2025)."
   ],
-  "contribution": "A benchmark-recovery exercise in which the observational estimator, covariates and overlap rule are fixed before any outcome is examined, so closeness to the experimental benchmark cannot have guided the choice.",
+  "contribution": "A pre-committed replication of a well-studied benchmark-recovery exercise. The crew had read the published estimates on this sample, including which estimators land near the benchmark, so the commitment is not blind to the literature: what it rules out is outcome search within this study. To limit the influence of the literature, the primary estimator is fixed by a rule from outside it: the cross-fitted AIPW ATT estimator already pre-specified for the crew's ss-null-effect seed, applied unchanged apart from the covariate set. The estimate itself is not new, and the paper says so.",
   "design": {
     "summary": "",
     "method": "",
@@ -17,7 +18,7 @@
       "id": "q-novelty",
       "title": "Literature on recovering the NSW benchmark from observational comparison groups; the benchmark itself and its source",
       "owner": "scout",
-      "status": "todo"
+      "status": "done"
     }
   ],
   "gates": {
@@ -33,5 +34,11 @@
     "submission": {
       "status": "pending"
     }
-  }
+  },
+  "design_constraints": [
+    "Estimand: the ATT for all 185 DW-treated men. Any overlap trimming removes comparison (CPS) units only, never treated units.",
+    "Primary estimator: the cross-fitted AIPW ATT estimator of gallery/ss-null-effect (its plan.json design.method), applied unchanged apart from the covariate set; any unavoidable adaptation is listed as a deviation.",
+    "RE78 is set aside before any data-prep run: data-prep writes a working file without RE78, and RE78 is joined back only by the first analysis run after the design gate.",
+    "Benchmark: $1,794 (SE 633), Dehejia and Wahba (1999), Table 3, row NSW, column (1)."
+  ]
 }

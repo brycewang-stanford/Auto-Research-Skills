@@ -1,2 +1,9 @@
 {"time": "2026-11-18T16:28:21Z", "role": "pi", "action": "init", "detail": "track=social-science"}
 {"time": "2026-11-18T16:28:33Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261118T162833Z"}
+{"time": "2026-11-18T16:37:34Z", "role": "scout", "action": "sources-verified", "detail": "q-novelty: 14 sources verified (refs.bib + sources.json), 18 citation claims, notes.md with novelty verdict: partly answered; contribution is procedural (pre-committed estimator). Closest prior: Imbens & Xu 2025 JEP; Imbens 2015 JHR."}
+{"time": "2026-11-18T16:38:08Z", "role": "pi", "action": "plan-revised", "detail": "contribution reframed after Scout. plan.json sha256=ada352603f199632c1af8c507f3718baf4d38911dc24f71e2a3481eb050370ef"}
+{"time": "2026-11-18T16:38:08Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r1 20261118T163808Z"}
+{"time": "2026-11-18T16:40:31Z", "role": "pi", "action": "plan-revised", "detail": "question revised after question-r1 (block). plan.json sha256=f041a732feb59ddf6e155d7b2f394f72e0cd4282431ca9648f12889ff0609cdf"}
+{"time": "2026-11-18T16:40:37Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261118T164037Z"}
+{"time": "2026-11-18T16:42:48Z", "role": "scout", "action": "review-response", "detail": "question-r1 F6: read cook2008, added weidmann2021 + keller2024, weakened novelty claim to NSW-CPS-only within listed searches; F7: dates corrected to 2026-11-18 UTC. 17 verified sources, 20 citation claims."}
+{"time": "2026-11-18T16:43:07Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r2 20261118T164307Z"}

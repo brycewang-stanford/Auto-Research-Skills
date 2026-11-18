@@ -1,0 +1,82 @@
+{
+  "id": "question-r1",
+  "target": "question",
+  "round": 1,
+  "created": "2026-11-18T16:41:40Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "log.jsonl",
+    ".gitignore",
+    "briefs/20261118T162833Z-scout.md",
+    "briefs/20261118T164037Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/ss-card-krueger/task.json",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/social-science.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "https://davidcard.berkeley.edu/readme/njmin-readme.txt (fetched; HTTP HEAD on data_sets/njmin.zip returned 200, application/zip, 23017 bytes; archive not downloaded)"
+  ],
+  "kill_argument": "Both hypotheses have known answers before any code is written, so the question tests nothing. H2 asks only whether a robustness check 'from the later literature' keeps the sign of a 2.76 estimate that sits two standard errors above zero. sources/notes.md already lists the published result of every candidate the crew could pick on public data: the Neumark-Wascher sample rule gives 2.78 (NW 1995 p. 3), the within-NJ comparison 3.36, and every Table 5 variant lies between 2.20 and 2.58. All positive. The contribution's one claimed novelty, a check 'chosen before any estimate is computed' (plan.json), is therefore hollow: the estimates were computed and published decades ago and are in the crew's own notes. H1 is no better: an informal replication from the same file already reproduces the Table 3 means and a DiD of 2.75, and the parts that remain open (the published standard errors and the 357-store sample) are absent from every hypothesis. I checked whether the replication is at least feasible: the readme and njmin.zip are live (HTTP 200), so feasibility is not the problem. The problem is that the question is framed to pass. The cheap fix is to narrow the contribution and rewrite H1 and H2 so each one can fail.",
+  "verdict": "block",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "open",
+      "text": "H2 is true by construction, and the contribution's pre-specification claim is false as written. H2 tests only the sign. Every robustness check the Scout lists as runnable on the public data already has a published, positive result on these data: (a) NW sample rule 2.78; (c) within-NJ $4.25 vs >=$5.00 3.36 (1.48), balanced 3.36 (1.30); (d) Table 5 variants 2.20-2.58. Choosing among them 'before any estimate is computed' protects against nothing, because the crew has already read their estimates. Only candidate (b), trimming or median regression of dFTE, has no published result recorded in notes.md, and its sign is not in doubt either given t = 2.03.",
+      "evidence": "plan.json hypotheses[1] and contribution ('one robustness check chosen before any estimate is computed'); sources/notes.md sec. 7 item 6 (a)-(d), sec. 1 Table 5, sec. 2 'Their CK baseline'",
+      "remedy": "Narrow the contribution so that pre-specification means only that the crew does not search specifications within this study, and say plainly that the published results of the candidate checks were known when the check was chosen. Rewrite H2 with a criterion that can fail and is not already published: for example, that the estimate under the chosen check stays inside the published 95% interval for 2.76 (about 0.09 to 5.43), or keeps at least half its magnitude, preferably for a check with no published result on these data, such as (b). Alternatively, drop H2 and present the check as descriptive.",
+      "response": "PI: contribution narrowed to no specification search within this study, with the known published checks disclosed; H2 now a winsorization check with no published result found, judged on keeping half the magnitude.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "H1 covers only the point estimate. The seed requires result claims for the standard error (did-fte-se) and for the balanced-sample estimate (did-fte-balanced), and the novelty verdict says the only parts not already reproduced are the published SEs and the 357-store Table 4 sample. Mamula (2021) already reproduces the means exactly and a DiD of 2.75 from njmin.zip. As written, the question restates a replication that already exists and leaves out the part where it could add something.",
+      "evidence": "plan.json hypotheses[0]; task.json requirements[1]; sources/notes.md sec. 5 (Mamula: DiD 2.75, SE 1.59 vs 1.36) and sec. 6 items 1-3; claims.jsonl c-prior-replication",
+      "remedy": "Extend H1, or add H1b, so that it covers the SE (1.36) and the balanced-sample DiD (2.75, SE 1.34). Optionally add the Table 4 col (i) N = 357 and 2.33 (1.19) as a stated secondary target. State the SE construction in the question, or defer it explicitly to the design.",
+      "response": "PI: H1 now covers the SEs, the balanced sample and the 357-store regression sample.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "open",
+      "text": "H1's success criterion and target are both underspecified. 'Matches to the precision the published table reports' means agreement to two decimals. The Scout's own arithmetic shows that rounded entries give 2.75 against the published 2.76, and the prior microdata replication also gets 2.75. So H1 will either fail on a 0.01 difference or be rescued by a tolerance chosen after the result is seen. The question also says 'headline difference-in-differences estimate' without naming a table cell, while the paper reports several DiD-type figures: 2.76 (row 3), 2.75 (row 4), 2.51 (row 5), 2.33 and 2.30 (Table 4). Each also has its own SE. That leaves room to declare a match against whichever is nearest.",
+      "evidence": "plan.json question and hypotheses[0]; sources/notes.md sec. 1 '[Scout arithmetic] From the rounded entries, 0.59-(-2.16) = 2.75'; sec. 5 Mamula DiD 2.75",
+      "remedy": "Name the target in the question as Table 3, row 3, column (iii), 2.76 (SE 1.36). Fix a numeric tolerance now, for example |difference| <= 0.01 for the point estimate and the SE. Also state now that a gap of 0.01 or less, with the group means matching, counts as a rounding match, and that any larger gap is reported as a discrepancy and explained.",
+      "response": "PI: H1 names Table 3 row 3 col (iii), row 4, and Table 4 col (i), each with a 0.05 tolerance fixed now.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "The data's provenance is not tied to the AER article. The archive's readme (fetched) says the files pertain to 'the surveys used in Card and Krueger's book Myth and Measurement, chapter 2', not to the 1994 AER paper. If the book used a revised file, H1 could fail because of the data vintage, not because of the replication. The question presents 'the public data' as the AER data.",
+      "evidence": "plan.json question; claims.jsonl c-data-files; njmin-readme.txt lines 1-3",
+      "remedy": "Say in the question or the design that the public file is the book's release, and make data vintage an explicit possible explanation for any gap. The bundled SAS tabulation program and the codebook are the place to check this, and doing so is allowed before the design gate as a data-prep step.",
+      "response": "PI: the possible data-release difference (Myth and Measurement files) is stated in H1.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "'Survive a robustness check' has no inferential meaning that this design can deliver. Treatment varies at the state level, with one treated state and one control state. The track rule to cluster at the level of treatment cannot be met with two clusters, and Conley-Taber (claims.jsonl c-ct-inference) warns that conventional inference misleads here. If H2 is rewritten around significance (see F1), it will rest on cross-store sampling SEs that ignore state-level shocks.",
+      "evidence": "plan.json question ('survive'); crew/tracks/social-science.md 'Cluster standard errors at the level treatment varies'; sources/notes.md sec. 4 and sec. 7 item 7",
+      "remedy": "Keep any rewritten H2 off significance thresholds, or state in the question that 'survives' refers to the point estimate or to sampling-only uncertainty. Record the clustering rule as a declared deviation at the design stage.",
+      "response": "PI: H2 judged on the point estimate, not significance; the clustering rule will be recorded as a deviation at design.",
+      "ruling": ""
+    }
+  ]
+}

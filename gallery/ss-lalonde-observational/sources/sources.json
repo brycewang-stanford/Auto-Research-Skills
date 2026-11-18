@@ -1,1 +1,135 @@
-{}
+{
+  "lalonde1986": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://gwern.net/doc/economics/1986-lalonde.pdf",
+    "note": "Full text: scan of the published AER article (pp. 604-620) hosted by a third party (gwern.net), text extracted with pdftotext. Metadata (vol 76, no 4, pp 604-620, Sept 1986) from IDEAS/RePEc https://ideas.repec.org/a/aea/aecrev/v76y1986i4p604-20.html. No DOI (JSTOR stable 1806062). Table 5 read: experimental male impact $886 (SE 476), 1982 dollars; CPS-SSA definition in footnote, p. 611-612."
+  },
+  "dehejia1999": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1080/01621459.1999.10473858",
+    "url": "https://www.nber.org/system/files/working_papers/w6586/w6586.pdf",
+    "note": "Full text read is the NBER Working Paper 6586 version (PDF dated June 1998), not the JASA typeset article (tandfonline returned 403). Journal metadata from Crossref. Numbers cited (Tables 1-3) are from the working paper; the benchmark $1,794 is corroborated by smith2005 (Table 1), imbens2025 and dehejia2002."
+  },
+  "dehejia2002": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1162/003465302317331982",
+    "url": "https://www.nber.org/system/files/working_papers/w6829/w6829.pdf",
+    "note": "Full text read is NBER Working Paper 6829 (PDF dated Dec 1998). Journal metadata from Crossref and IDEAS (https://ideas.repec.org/a/tpr/restat/v84y2002i1p151-161.html, abstract read). Table 2 numbers are from the working paper and may differ from the published REStat tables."
+  },
+  "dehejiadata": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://users.nber.org/~rdehejia/data/.nswdata2.html",
+    "note": "Data documentation page fetched 2026-11-18 (and directory index https://users.nber.org/~rdehejia/data/). States file names, N (nswre74_treated 185, nswre74_control 260, cps_controls 15,992), column order, and that LaLonde gave permission to publish; no explicit licence. Data files themselves were not downloaded by the Scout."
+  },
+  "smith2005": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1016/j.jeconom.2004.04.011",
+    "url": "https://people.stat.ucla.edu/handcock/216/examples/lalonde/SmithTodd.pdf",
+    "note": "Full text: 'Article in press' PDF of the J. Econometrics article (pages 305-353 headers), pdftotext. Metadata from Crossref. Tables 1 and 5 read."
+  },
+  "dehejia2005": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1016/j.jeconom.2004.04.012",
+    "url": "https://users.nber.org/~rdehejia/papers/practical_pscore.pdf",
+    "note": "Full text: 'Article in press' PDF on the author's site; abstract and introduction read. Metadata from Crossref and IDEAS."
+  },
+  "imbens2015": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3368/jhr.50.2.373",
+    "url": "https://www.nber.org/system/files/working_papers/w19959/w19959.pdf",
+    "note": "Full text read is NBER Working Paper 19959 (March 2014), prepared for JHR. Journal metadata from Crossref. Section 4 (three-stage strategy) and Section 6.3, Tables 20-22 (non-experimental Lalonde data, thousands of dollars) read."
+  },
+  "imbens2025": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1257/jep.20251440",
+    "url": "https://arxiv.org/abs/2406.00827",
+    "note": "Full text: arXiv:2406.00827v3 (27 May 2025), 'Journal of Economic Perspective, Forthcoming' version, pdftotext. Published metadata from Crossref (JEP 39(4):173-201) and the AEA article page https://www.aeaweb.org/articles?id=10.1257/jep.20251440 (abstract read; the AEA page lists pages 173-202, Crossref 173-201). Earlier circulated title: 'LaLonde (1986) after Nearly Four Decades: Lessons Learned' (SSRN 10.2139/ssrn.4849285)."
+  },
+  "xu2024tutorial": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://yiqingxu.org/tutorials/lalonde/02-LDW.html",
+    "note": "Replication tutorial page for imbens2025, fetched 2026-11-18. Tables B1 and B2 (LDW-CPS1 ATT and placebo estimates with robust SEs) read from the page. Numbers are the tutorial's; they need not equal the figure in the published JEP article."
+  },
+  "advani2019": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1002/jae.2724",
+    "url": "https://arxiv.org/abs/1809.09527",
+    "note": "Full text: arXiv:1809.09527v2 (17 Apr 2019). Published metadata from Crossref. Summary and Section 4 (NSW-CPS application) read."
+  },
+  "athey2024": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1016/j.jeconom.2020.09.013",
+    "url": "https://arxiv.org/abs/1909.02210",
+    "note": "Full text: arXiv:1909.02210v3 (July 2020). Published metadata (J. Econometrics 240(2), article 105076, March 2024) from Crossref. Abstract and Section 3 (LDW data) read."
+  },
+  "abadie2011": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1198/jbes.2009.07333",
+    "url": "https://ideas.repec.org/a/taf/jnlbes/v29y2011i1p1-11.html",
+    "note": "Metadata from Crossref; abstract from IDEAS/RePEc (mentions application to the NSW data of LaLonde 1986 and an NSW-based simulation). Full text not read."
+  },
+  "crump2009": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1093/biomet/asn055",
+    "url": "https://www.nber.org/system/files/working_papers/t0330/t0330.pdf",
+    "note": "Abstract read from NBER Technical Working Paper 330 (2006), circulated as 'Moving the Goalposts: Addressing Limited Overlap in the Estimation of Average Treatment Effects by Changing the Estimand'. Published Biometrika metadata from Crossref; published article not read. The [0.1, 0.9] rule is stated in the WP abstract and attributed to Crump et al. (2009) in imbens2025."
+  },
+  "rubin2008": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1214/08-AOAS187",
+    "url": "https://arxiv.org/abs/0811.1640",
+    "note": "Full text: arXiv:0811.1640v1, which carries the AoAS 2(3):808-840 header and DOI. Abstract and Section 1-2 read."
+  },
+  "cook2008": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1002/pam.20375",
+    "url": "https://statmodeling.stat.columbia.edu/wp-content/uploads/2010/10/shadish2.pdf",
+    "note": "Full text: copy of the published JPAM article (27 pp., page headers 724-750) hosted on the Columbia statmodeling blog, pdftotext. Metadata from Crossref. Read: abstract, 'Enumerating the Criteria' (criterion 4: analysts blind to each other's results, p. 728), discussion of Aiken et al. (1998) and Shadish, Clark and Steiner (in press) (pp. 739-740)."
+  },
+  "weidmann2021": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1002/pam.22236",
+    "url": "https://arxiv.org/abs/1910.07091",
+    "note": "Full text: arXiv:1910.07091 preprint, titled 'Lurking inferential monsters? Quantifying bias in non-experimental evaluations of school programs'. Published metadata (JPAM 40(3):964-986; Crossref issued 2020-07-13 online) and the published title from Crossref. Read: abstract and introduction (matching method 'specified before we began generating results', p. 4)."
+  },
+  "keller2024": {
+    "verified_on": "2026-11-18",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.31219/osf.io/2gur9",
+    "url": "https://econpapers.repec.org/RePEc:osf:osfxxx:2gur9",
+    "note": "Abstract from the EconPapers record of the OSF preprint (dated 2024-09-10): the eligibility criteria, recruitment, allocation and analysis plan were preregistered on OSF. Full text not read; no results reported in the abstract."
+  }
+}
