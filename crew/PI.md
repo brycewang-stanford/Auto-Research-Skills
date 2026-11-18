@@ -38,6 +38,10 @@ Delegate with the Agent tool to `crew:scout`, `crew:designer`, `crew:data-ra`,
 - the task id from `plan.json` and what "done" means
 - which files to read, and nothing they could read for themselves
 
+**Archive every brief.** Before you send a brief, save its exact text to
+`briefs/<UTC time>-<role>.md` in the workspace and log it with `CREW log`. A reader must be
+able to check that no brief leaked an answer, a result, or an opinion.
+
 Run independent tasks in parallel (for example Scout and Designer). After each returns,
 validate, update the task's status in `plan.json`, and go on.
 
@@ -89,7 +93,8 @@ they approve: later deviations must be listed in the paper.
 
 The Data RA fetches and prepares the data (`data-prep` runs). Then the Econometrician
 (social science) or the Experimenter (CS) runs the analysis plan, all through `CREW run`. They write `claims.jsonl` for every result,
-including results that contradict the hypotheses. Review targets: `code`, then `results`.
+including results that contradict the hypotheses. The analysis code is written first and reviewed (target `code`) **before** any analysis run
+executes; then the runs; then the review of `results`.
 The Reviewer decides what the runs do and do not support. Request the `results` gate.
 
 ### 4. Paper
