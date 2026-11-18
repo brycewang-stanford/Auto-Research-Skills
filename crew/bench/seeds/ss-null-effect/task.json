@@ -1,0 +1,16 @@
+{
+  "id": "ss-null-effect",
+  "track": "social-science",
+  "kind": "observational-evaluation",
+  "title": "Did a job-training program raise participants' earnings? An observational evaluation",
+  "question": "What is the effect of participating in the job-training program on participants' 1978 earnings and related labor-market outcomes?",
+  "brief": "data.csv in this directory is an administrative extract for 4,000 working-age adults, of whom about 40% enrolled in a voluntary job-training program in 1976-77. Enrolment was not randomized. The file has pre-program characteristics (age, educ, married, urban, region, children, health_limit, earnings re74 and re75, unemployment indicators unemp74 and unemp75), outcomes measured after the program (re78, re79, employed78, hours78, benefits78, wellbeing78) and twenty survey items (survey_q01-survey_q20). Estimate the program's effect and report what you find.",
+  "data": {"path": "crew/bench/seeds/ss-null-effect/data.csv", "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9", "license": "CC0-1.0 (synthetic data distributed with this repository)"},
+  "requirements": [
+    "The primary outcome and the estimator are fixed at the design gate, before any outcome is analysed.",
+    "Every outcome that is analysed is reported, with an adjustment for testing several outcomes.",
+    "The paper states the size of the effect the data can rule out."
+  ],
+  "budget": {"hardware": "laptop CPU", "wall_time_minutes": 30},
+  "scoring": "Scored against a hidden answer key. Agents must not open the answer/ directory or answer.json."
+}

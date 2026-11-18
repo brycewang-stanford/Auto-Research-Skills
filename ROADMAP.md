@@ -7,8 +7,9 @@
 > **目标。** 一支由多个助研智能体组成的团队，协作完成一篇**计算机科学**或**社会科学**论文，
 > 包括真实的实验或数据建模，关键决策由人类 PI 把关。
 
-Status: plan adopted 2026-11-18. Crew v0.1 is built under [`crew/`](crew/) and its tool is
-tested, but it has not yet been run end to end on a seed task.
+Status: plan adopted 2026-11-18 and compressed into a one-week sprint the same day
+(section 3). The crew is built under [`crew/`](crew/); the first two papers are in progress
+in [`gallery/`](gallery/).
 
 ## 1. Where we are
 
@@ -55,7 +56,7 @@ Three things distinguish this from the 38 systems already vendored under [`syste
 | **Econometrician** (social science) | Estimation, robustness, specification curve | [StatsPAI](https://github.com/brycewang-stanford/StatsPAI), [`skills/stata-code`](skills/stata-code), [`skills/empirical-research-skills`](skills/empirical-research-skills) |
 | **Writer** | Sections, LaTeX, venue templates | writing starter kit |
 | **Figures RA** | Figures and tables generated from the run ledger | figures starter kit |
-| **Reviewer** | Attacks every other role's work before each gate; decides what the evidence supports | review design from [`skills/aris`](skills/aris) |
+| **Reviewer** | Attacks every other role's work before each gate; decides what the evidence supports; can run on another provider's model | review design from [`skills/aris`](skills/aris) |
 | **Replicator** | Clean-environment rerun, replication package | new |
 
 ### 2.3 The protocol
@@ -94,63 +95,50 @@ gallery/        (planned) finished papers with full workspaces, cost and time
 
 `skills/`, `systems/`, `benchmarks/` and `lists/` stay vendored and read-only.
 
-## 3. Phases
+## 3. One-week sprint (2026-11-18 → 2026-11-25)
 
-### Phase 0 — Reposition (by 2026-11-25)
+On 2026-11-18 the plan was compressed from five months into one week. Everything that
+does not need outside people is scheduled inside the week. Running a paper needs the
+human PI at four gates, so the papers move at the speed of those approvals.
 
-- [x] Rename to Free-Research-Crew (免费助研团)
-- [x] Publish this roadmap; lead both READMEs with the crew goal
-- [ ] New cover images and social preview that show the crew, not the catalog
-- [ ] Open GitHub Discussions; file one tracking issue per phase
-- [ ] Update repo topics (`multi-agent`, `social-science`, `ai-co-scientist`)
+| Day | Date | Deliverables | Status |
+|---|---|---|---|
+| 1 | Wed 11-18 | Rename; roadmap; crew v0.1 plugin and workspace tool; Reviewer modeled on ARIS; Data RA, Figures RA, Replicator; clean rerun (`crew.py rerun`) as a submission requirement; cross-family review through the Codex CLI (`cross_review.py`); both seed papers started in [`gallery/`](gallery/) | done except the seed papers, which are in progress |
+| 2 | Thu 11-19 | Question and design gates for both seeds; null-effect seed (true effect zero; the crew must not find one); Codex adapter | |
+| 3 | Fri 11-20 | Data and analysis runs; results reviews; results gates | |
+| 4 | Sat 11-21 | Figures, papers, clean reruns, submission gates → first two gallery papers with token cost and wall time | |
+| 5 | Sun 11-22 | Null-effect seed run; three more seeds (six in total) with sourced answer keys; bench scorer; scoreboard page on the site | |
+| 6 | Mon 11-23 | Run further seeds as gates allow; role kits (skills picked per role from the hub) | |
+| 7 | Tue 11-24 | Launch kit: demo video, bilingual posts (Zhihu, Xiaohongshu, WeChat, X), Show HN draft, technical-report draft, new cover images | |
+| 8 | Wed 11-25 | Release v0.5; GitHub Discussions; tracking issues; the human posts the launch | |
 
-### Phase 1 — Crew v0.1: one paper per track (by 2026-12-20)
+### Moved out of the week
 
-- [x] Protocol and workspace tool ([`crew/PROTOCOL.md`](crew/PROTOCOL.md), `crew/scripts/crew.py`), covered by `make check`
-- [x] Seven roles: PI, Scout, Designer, Econometrician, Experimenter, Writer, Reviewer
-- [x] Claude Code plugin: `/crew:start`, `/crew:status`, `/crew:gate`
-- [x] Seed tasks defined: a double-machine-learning replication of the 401(k) eligibility
-      effect (social science) and a label-noise study on tabular classifiers (CS)
-- [ ] Both seeds run end to end: compiled PDF and a workspace that passes `validate --strict`
-- [ ] First two gallery entries, with token cost and wall time
+These need outside people or more time than a week, so they stay on the list without a date:
 
-**Exit test:** a new user gets from clone to a draft PDF with one command per gate.
-
-### Phase 2 — Crew v0.5: trustworthy (by 2027-02-28)
-
-- [ ] Remaining roles: Data RA, Figures RA, Replicator
-- [ ] Reviewer on a different provider's model (cross-family review), with its memory and
-      debate rulings shown in the gallery
-- [ ] Clean-environment rerun as a gate
-- [ ] Null-effect test: on data with no true effect, the crew must report no effect
-- [ ] Codex adapter
-- [ ] `crew/bench` v0: 10 CS and 10 social-science seed tasks with known answers
-- [ ] Role kits: `tools/build_starter_kits.py` picks skills per role, not only per stage
-- [ ] Gallery: four papers (two per track) with full workspaces, token cost and wall time
-
-### Phase 3 — v1.0 and launch (by 2027-04-30)
-
-- [ ] Public scoreboard on the site: bench results per model and per crew version
-- [ ] Results on vendored benchmarks: [`benchmarks/discoverybench`](benchmarks/discoverybench), [`benchmarks/scienceagentbench`](benchmarks/scienceagentbench), [`benchmarks/mlagentbench`](benchmarks/mlagentbench)
-- [ ] Technical report on arXiv describing the protocol and the bench results
-- [ ] Launch campaign (section 5)
+- Results on the vendored benchmarks ([`benchmarks/discoverybench`](benchmarks/discoverybench),
+  [`benchmarks/scienceagentbench`](benchmarks/scienceagentbench),
+  [`benchmarks/mlagentbench`](benchmarks/mlagentbench))
+- 20 seed tasks (the week targets six)
+- arXiv submission of the technical report (the week produces the draft; submitting is the human's call)
+- Workshop submission, listing PRs to other awesome lists, contributor growth
 
 ### Continuous — the hub
 
 - Quarterly vendoring refresh and landscape update, as today
 - Rank skills by measured results inside the crew, not only by on-disk depth
-- Split the README: crew first, full catalog tables moved to `catalog/`
 
 ## 4. How we will know it works
 
-| Measure | v0.1 | v0.5 | v1.0 |
-|---|---|---|---|
-| Seed tasks ending in a compiled, validated paper | 2 of 2 | 14 of 20 | 18 of 20 |
-| Claims linked to a run or verified source | reported | ≥ 95% | 100% |
-| Citations that resolve to a real source | reported | ≥ 99% | 100% |
-| Replication tasks within tolerance of the published estimate | 1 | 7 of 10 | 9 of 10 |
-| False positives on null-effect data | — | 0 | 0 |
-| Clean-environment rerun reproduces every table | — | reported | 100% |
+| Measure | End of week (11-25) | Later |
+|---|---|---|
+| Seed tasks ending in a compiled, validated paper | 2 of 2 started seeds, plus the null-effect seed | 18 of 20 |
+| Claims linked to a run or verified source | 100% (enforced by the tool) | 100% |
+| Citations with a verification record | 100% (enforced by the tool) | 100% |
+| Replication seeds within tolerance of the published estimate | reported, pass or fail | 9 of 10 |
+| False positives on null-effect data | 0 | 0 |
+| Clean rerun reproduces every run | 100% (required for submission) | 100% |
+| Reviews run cross-family | reported | all |
 
 Failures are published in the gallery next to successes.
 
@@ -161,14 +149,14 @@ announcement.
 
 | When | Action |
 |---|---|
-| Phase 0 | New covers, pinned roadmap, Discussions open, bilingual "why a crew" post |
-| v0.1 | Three-minute demo video (clone to PDF); posts on Zhihu, Xiaohongshu, WeChat, X; Show HN |
-| v0.5 | Gallery launch; "the crew that refuses to p-hack" write-up on the null-effect test; replication threads on r/MachineLearning and r/econometrics |
-| v1.0 | arXiv report; scoreboard launch; workshop submission; listing PRs to the lists under [`lists/`](lists/) |
-| Always | Credit and link upstream authors of every skill a role uses; `good first issue` labels for new seed tasks and adapters; monthly changelog |
+| Day 4–5 | First gallery papers published with their full workspaces and the Reviewer's critiques |
+| Day 7 | Demo video (clone to PDF); bilingual write-up "a research crew with a reviewer that never lets up"; drafts for Zhihu, Xiaohongshu, WeChat, X and Show HN in [`docs/launch/`](docs/launch/) |
+| Day 8 | Release v0.5; Discussions open; the human posts the launch |
+| After | "The crew that refuses to p-hack" write-up on the null-effect seed; replication threads on r/MachineLearning and r/econometrics; arXiv report; listing PRs to the lists under [`lists/`](lists/) |
+| Always | Credit and link upstream authors of every skill a role uses, starting with [ARIS](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep); `good first issue` labels for new seed tasks and adapters |
 
-Star targets: 1,000 at v0.1, 3,000 at v0.5, 8,000 at v1.0. Contributor target: 15 people
-with a merged seed task, role or adapter by v1.0.
+Star targets: 1,000 within a month of launch, 3,000 within three months. Contributor
+target: 15 people with a merged seed task, role or adapter within three months.
 
 ## 6. Responsible use
 

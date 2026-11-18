@@ -30,6 +30,7 @@ work good.
   claims.jsonl           every claim in the paper, linked to a run or a source
   paper/                 main.tex, numbers.tex (generated), ai-use.tex, figures
   reviews/<id>/          review.json and the Reviewer's memory
+  replication.json       result of the last clean rerun (written by the tool)
   log.jsonl              who did what, when
 ```
 
@@ -44,7 +45,7 @@ they never approve them.
 | `question` | Question and hypotheses; a review of `question` | Literature and design work |
 | `design` | Design summary, method, analysis plan; a review of `design` | **Analysis runs.** The tool refuses them before this gate |
 | `results` | Result claims backed by runs; a review of `results` | Writing the paper |
-| `submission` | Compiled `paper/main.pdf`, `paper/ai-use.tex`; a review of `paper` | Release to the gallery |
+| `submission` | Compiled `paper/main.pdf`, `paper/ai-use.tex`; a review of `paper`; a passing `replication.json` newer than every run | Release to the gallery |
 
 A gate cannot be approved while the Reviewer's latest review of that stage has an open
 **critical** finding. The human may overrule a finding with
@@ -107,6 +108,14 @@ exit code, and the hash of every code, input and output file. `kind` is `data-pr
 (allowed any time) or `analysis` (allowed only after the design gate). If a code file
 changes after the run, validation fails until the run is repeated.
 
+### Clean rerun
+
+`crew.py rerun <ws>` copies the workspace to a temporary directory, deletes every output
+the runs recorded, re-executes each run in the order it was first run, and compares each
+run's metrics with the ledger (relative tolerance `1e-6` by default). It writes
+`replication.json`. The Replicator runs it from an environment built only from
+`code/requirements.txt`.
+
 ### `claims.jsonl`
 
 One JSON object per line. Two kinds:
@@ -146,7 +155,8 @@ The Reviewer writes `reviews/<id>/review.json`:
 - `severity` is `critical`, `major` or `minor`; `status` is `open`, `resolved`,
   `conceded` or `withdrawn`.
 - `independence` is `cross-family` when the Reviewer runs on a model from a different
-  provider than the authoring agents, otherwise `fresh-context`.
+  provider than the authoring agents (`scripts/cross_review.py` does this through the
+  Codex CLI), otherwise `fresh-context`.
 - Rounds for a target are numbered from 1 with no gaps, and stop at 4. After round 4 the
   open findings go to the human.
 
@@ -159,6 +169,8 @@ python3 crew.py validate <ws> [--strict]
 python3 crew.py gate <ws> <gate> request|approve|reject [--by "<human>"] [--note "…"]
 python3 crew.py run <ws> --id … --role … --kind … [--code …] [--input …] [--metrics …] -- <command>
 python3 crew.py numbers <ws>
+python3 crew.py rerun <ws> [--rtol 1e-6] [--reuse-data]
+python3 cross_review.py <ws> <target> <round> [--model …]   # Reviewer on another provider's model
 ```
 
 `--strict` also fails when data, code or output files recorded in the ledger are absent,

@@ -29,8 +29,9 @@ Run `CREW status <ws>` whenever you resume, and `CREW validate <ws>` after every
 
 ## Delegating
 
-Delegate with the Agent tool to `crew:scout`, `crew:designer`, `crew:econometrician`,
-`crew:experimenter`, `crew:writer` and `crew:reviewer`. Each brief states:
+Delegate with the Agent tool to `crew:scout`, `crew:designer`, `crew:data-ra`,
+`crew:econometrician`, `crew:experimenter`, `crew:figures-ra`, `crew:writer`,
+`crew:replicator` and `crew:reviewer`. Each brief states:
 
 - the absolute workspace path, the plugin root (for `PROTOCOL.md` and `tracks/`), and the
   absolute path of `crew.py`
@@ -41,6 +42,17 @@ Run independent tasks in parallel (for example Scout and Designer). After each r
 validate, update the task's status in `plan.json`, and go on.
 
 ## Briefing the Reviewer
+
+**Prefer a reviewer from another model family.** If the `codex` CLI is installed and the
+human has agreed to send the workspace to OpenAI, run each review as
+
+```bash
+python3 <plugin root>/scripts/cross_review.py <ws> <target> <round>
+```
+
+which runs the Reviewer's instructions on an OpenAI model and records
+`independence: cross-family`. Otherwise delegate to `crew:reviewer`, which records
+`fresh-context`. Tell the human which one is in use when you present a gate.
 
 The Reviewer's value is that it sees the work, not your account of it. Its brief contains
 only: the workspace path, the target (`question`, `literature`, `design`, `code`,
@@ -75,15 +87,17 @@ they approve: later deviations must be listed in the paper.
 
 ### 3. Results
 
-Data preparation, then analysis, by the Econometrician (social science) or the
-Experimenter (CS), all through `CREW run`. They write `claims.jsonl` for every result,
+The Data RA fetches and prepares the data (`data-prep` runs). Then the Econometrician
+(social science) or the Experimenter (CS) runs the analysis plan, all through `CREW run`. They write `claims.jsonl` for every result,
 including results that contradict the hypotheses. Review targets: `code`, then `results`.
 The Reviewer decides what the runs do and do not support. Request the `results` gate.
 
 ### 4. Paper
 
-The Writer drafts `paper/main.tex` from `plan.json`, `claims.jsonl` and `refs.bib`, runs
-`CREW numbers`, and compiles the PDF. Write `paper/ai-use.tex`: which roles did what,
+The Figures RA builds every figure and table by script from the runs. The Writer drafts
+`paper/main.tex` from `plan.json`, `claims.jsonl` and `refs.bib`, runs `CREW numbers`,
+and compiles the PDF. The Replicator then rebuilds the environment and runs
+`CREW rerun`; the submission gate needs a passing `replication.json` newer than every run. Write `paper/ai-use.tex`: which roles did what,
 which models, and any findings the human accepted over the Reviewer's objection.
 Review target: `paper`. Run `CREW validate <ws> --strict`. Request the `submission` gate.
 

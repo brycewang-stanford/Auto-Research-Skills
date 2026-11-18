@@ -18,8 +18,10 @@ import json
 import math
 import platform
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -597,7 +599,37 @@ def validate(ws: Path, strict: bool = False) -> tuple[list[str], list[str]]:
             errors.append("paper/main.pdf: submission gate approved but the paper is not compiled")
         if not (ws / "paper" / "ai-use.tex").exists():
             errors.append("paper/ai-use.tex: submission gate approved without an AI-use statement")
+        errors.extend(check_replication(ws, runs, required=True))
+    elif (ws / "replication.json").exists():
+        warnings.extend(check_replication(ws, runs, required=False))
     return errors, warnings
+
+
+def check_replication(ws: Path, runs: dict[str, dict], required: bool) -> list[str]:
+    """Problems with replication.json: missing, failed, or older than the run ledger."""
+    path = ws / "replication.json"
+    if not path.exists():
+        return ["replication.json: missing; the Replicator must run `crew.py rerun` before submission"] if required else []
+    try:
+        report = read_json(path)
+    except json.JSONDecodeError as exc:
+        return [f"replication.json: not valid JSON ({exc.msg})"]
+    if not isinstance(report, dict):
+        return ["replication.json: expected an object"]
+    problems = []
+    if report.get("passed") is not True:
+        problems.append("replication.json: the clean rerun did not reproduce every run")
+    created = parse_time(report.get("created"))
+    latest = max((parse_time(r.get("finished")) for r in runs.values() if parse_time(r.get("finished"))), default=None)
+    if created is None:
+        problems.append("replication.json: created is not a valid time")
+    elif latest is not None and created < latest:
+        problems.append("replication.json: older than the latest run; rerun `crew.py rerun`")
+    covered = {item.get("run") for item in report.get("runs") or [] if isinstance(item, dict)}
+    missing = sorted(set(runs) - covered)
+    if missing:
+        problems.append(f"replication.json: run(s) {', '.join(missing)} were not rerun")
+    return problems
 
 
 # ---------------------------------------------------------------- commands
@@ -778,11 +810,93 @@ def cmd_run(args: argparse.Namespace) -> int:
         "inputs": inputs,
         "outputs": outputs,
         "metrics": metrics,
+        "metrics_file": args.metrics or None,
         "env": {"python": platform.python_version(), "platform": platform.platform()},
     })
     append_log(ws, args.role, "run", f"{args.id} exit={completed.returncode}")
     print(f"Run {args.id}: exit code {completed.returncode}, {len(metrics)} metric(s) recorded")
     return 0 if completed.returncode == 0 else 1
+
+
+def same_value(old: object, new: object, rtol: float, atol: float) -> bool:
+    numeric = (int, float)
+    if isinstance(old, numeric) and isinstance(new, numeric) and not isinstance(old, bool) and not isinstance(new, bool):
+        return math.isclose(old, new, rel_tol=rtol, abs_tol=atol)
+    return old == new
+
+
+def cmd_rerun(args: argparse.Namespace) -> int:
+    """Re-execute every run in a fresh copy of the workspace and compare metrics."""
+    ws = require_workspace(args.workspace).resolve()
+    runs, errors = read_runs(ws)
+    if errors:
+        for message in errors:
+            print(f"ERROR: {message}", file=sys.stderr)
+        return 1
+    if not runs:
+        print("ERROR: there are no runs to reproduce", file=sys.stderr)
+        return 1
+    ordered = sorted(runs.values(), key=lambda r: (str(r.get("started")), str(r.get("id"))))
+    keep_data = set()
+    if args.reuse_data:
+        manifest = ws / "data" / "manifest.json"
+        if manifest.exists():
+            keep_data = {d.get("path") for d in read_json(manifest).get("datasets", []) if isinstance(d, dict)}
+    results, passed = [], True
+    with tempfile.TemporaryDirectory(prefix="crew-rerun-") as tmp:
+        copy = Path(tmp) / "ws"
+        shutil.copytree(ws, copy, symlinks=True, ignore=shutil.ignore_patterns("runs", "replication.json"))
+        # remove everything the runs produced, so each run must recreate it
+        for run in ordered:
+            for item in run.get("outputs") or []:
+                path = item.get("path") if isinstance(item, dict) else None
+                if path and path not in keep_data:
+                    target = inside(copy, path)
+                    if target is not None and target.is_file():
+                        target.unlink()
+        for run in ordered:
+            entry = {"run": run.get("id")}
+            metrics_path = run.get("metrics_file")
+            completed = subprocess.run(
+                run.get("command") or ["false"], cwd=copy, check=False,
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+            )
+            entry["exit_code"] = completed.returncode
+            if completed.returncode != 0:
+                entry["status"] = "failed"
+                entry["output_tail"] = completed.stdout[-2000:]
+            elif not run.get("metrics"):
+                entry["status"] = "ran"  # nothing to compare (for example a data-prep run)
+            elif not metrics_path:
+                entry["status"] = "no-metrics-file"
+            else:
+                target = inside(copy, metrics_path)
+                new = read_json(target) if target is not None and target.is_file() else None
+                if not isinstance(new, dict):
+                    entry["status"] = "no-metrics-file"
+                else:
+                    diffs = {
+                        key: [old, new.get(key)] for key, old in run["metrics"].items()
+                        if not same_value(old, new.get(key), args.rtol, args.atol)
+                    }
+                    entry["status"] = "mismatch" if diffs else "match"
+                    if diffs:
+                        entry["diffs"] = diffs
+            if entry["status"] not in ("match", "ran"):
+                passed = False
+            results.append(entry)
+            print(f"  {entry['run']:<24} {entry['status']}")
+    report = {
+        "created": now(), "passed": passed, "rtol": args.rtol, "atol": args.atol,
+        "reuse_data": bool(args.reuse_data),
+        "env": {"python": platform.python_version(), "platform": platform.platform()},
+        "runs": results,
+    }
+    write_json(ws / "replication.json", report)
+    append_log(ws, "replicator", "rerun", f"passed={passed}")
+    print(f"Rerun {'PASSED' if passed else 'FAILED'}: {sum(r['status'] in ('match', 'ran') for r in results)}"
+          f"/{len(results)} run(s) reproduced; report in replication.json")
+    return 0 if passed else 1
 
 
 def cmd_numbers(args: argparse.Namespace) -> int:
@@ -841,6 +955,14 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--metrics", help="JSON file of metrics the command writes")
     p.add_argument("--replace", action="store_true", help="overwrite an existing run with this id")
     p.set_defaults(func=cmd_run, command=[])
+
+    p = sub.add_parser("rerun", help="re-execute every run in a fresh copy and compare metrics")
+    p.add_argument("workspace")
+    p.add_argument("--rtol", type=float, default=1e-6, help="relative tolerance for numeric metrics")
+    p.add_argument("--atol", type=float, default=1e-9, help="absolute tolerance for numeric metrics")
+    p.add_argument("--reuse-data", action="store_true",
+                   help="keep files listed in data/manifest.json instead of re-downloading them")
+    p.set_defaults(func=cmd_rerun)
 
     p = sub.add_parser("numbers", help="render paper/numbers.tex from claims.jsonl")
     p.add_argument("workspace")

@@ -5,14 +5,16 @@ Seed tasks that a crew must be able to finish, each with a way to score the resu
 | Seed | Track | Kind | Scored by |
 |---|---|---|---|
 | [`ss-dml-401k`](seeds/ss-dml-401k/task.json) | Social science | Replication of a published estimate | Distance from the published estimate, plus protocol checks |
+| [`ss-null-effect`](seeds/ss-null-effect/task.json) | Social science | Observational evaluation where the true effect is zero | The crew must not find an effect; hidden answer key |
 | [`cs-label-noise`](seeds/cs-label-noise/task.json) | CS | Small empirical ML study | Protocol checks and a clean rerun |
 
 Run one with `/crew:start <seed id>`.
 
 ## Rules
 
-- A seed is a `task.json` the crew reads, and for replications an `answer.json` it must
-  not read. The answer key cites where each number was read.
+- A seed is a `task.json` the crew reads, and where there is a right answer an
+  `answer.json` (and sometimes an `answer/` directory) it must not read. A replication's
+  answer key cites where each number was read.
 - Every seed must run on a laptop CPU in under an hour.
 - A run counts only if the workspace passes `crew.py validate --strict` and a human
   approved all four gates.

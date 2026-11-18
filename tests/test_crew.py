@@ -218,6 +218,34 @@ class CrewWorkspaceTest(unittest.TestCase):
             handle.write("# changed\n")
         self.assertTrue(any("changed since the run" in e for e in self.errors()))
 
+    def test_rerun_reproduces_deterministic_runs(self) -> None:
+        self.to_design()
+        self.run_main()
+        code, out = call("rerun", str(self.ws))
+        self.assertEqual(code, 0, out)
+        report = json.loads((self.ws / "replication.json").read_text())
+        self.assertTrue(report["passed"])
+        self.assertEqual(report["runs"][0]["status"], "match")
+
+    def test_rerun_catches_irreproducible_runs(self) -> None:
+        self.to_design()
+        script = self.ws / "code" / "noisy.py"
+        script.write_text("import json, random\njson.dump({'acc': random.random()}, open('metrics.json', 'w'))\n")
+        call("run", str(self.ws), "--id", "noisy", "--role", "experimenter", "--kind", "analysis",
+             "--code", "code/noisy.py", "--metrics", "metrics.json", "--", sys.executable, "code/noisy.py")
+        code, _ = call("rerun", str(self.ws))
+        self.assertEqual(code, 1)
+        report = json.loads((self.ws / "replication.json").read_text())
+        self.assertEqual(report["runs"][0]["status"], "mismatch")
+
+    def test_rerun_must_be_newer_than_the_runs(self) -> None:
+        self.to_design()
+        self.run_main()
+        call("rerun", str(self.ws))
+        edit_json(self.ws / "replication.json", lambda r: r.update(created="2000-01-01T00:00:00Z"))
+        problems = crew.check_replication(self.ws, crew.read_runs(self.ws)[0], required=True)
+        self.assertTrue(any("older than the latest run" in p for p in problems))
+
     def test_citations_need_verified_sources(self) -> None:
         (self.ws / "refs.bib").write_text("@article{known2020,\n  title={A},\n}\n")
         self.assertTrue(any("no verification record" in e for e in self.errors()))
@@ -258,6 +286,10 @@ class CrewWorkspaceTest(unittest.TestCase):
         self.assertIn("main.pdf", out)
         (self.ws / "paper" / "main.pdf").write_bytes(b"%PDF-1.4\n")
         (self.ws / "paper" / "ai-use.tex").write_text("AI-use statement.\n")
+        code, out = self.approve("submission")
+        self.assertEqual(code, 1)
+        self.assertIn("replication.json: missing", out)
+        self.assertEqual(call("rerun", str(self.ws))[0], 0)
         self.assertEqual(self.approve("submission")[0], 0)
         self.assertEqual(self.errors(strict=True), [])
         code, out = call("status", str(self.ws))

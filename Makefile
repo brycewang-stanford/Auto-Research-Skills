@@ -82,7 +82,7 @@ health-report:
 	$(PYTHON) scripts/check-submodule-health.py
 
 py-compile:
-	$(PYTHON) -m py_compile scripts/check-repo.py tools/build_catalog.py tools/build_index.py tools/build_safety_report.py tools/build_quality_report.py tools/check_frontmatter.py tools/build_maturity_report.py tools/build_starter_kits.py tools/check_docs.py tools/check_site.py scripts/scan-skill-safety.py scripts/update-stars.py scripts/check-submodule-health.py scripts/discover-skills.py crew/scripts/crew.py
+	$(PYTHON) -m py_compile scripts/check-repo.py tools/build_catalog.py tools/build_index.py tools/build_safety_report.py tools/build_quality_report.py tools/check_frontmatter.py tools/build_maturity_report.py tools/build_starter_kits.py tools/check_docs.py tools/check_site.py scripts/scan-skill-safety.py scripts/update-stars.py scripts/check-submodule-health.py scripts/discover-skills.py crew/scripts/crew.py crew/scripts/cross_review.py crew/adapters/codex/install.py
 
 shell-check:
 	@for file in setup.sh scripts/count-skills.sh; do \
