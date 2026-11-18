@@ -247,3 +247,31 @@ Next time (paper):
 - The sensitivity ordering criterion, the IPW clipping and the psi_bar ~4% narrowing must be disclosed.
 - The PI's retroactive F4 ruling (design) must be in ai-use.tex.
 - Literature spot-checks are still pending: card2018, lalonde1986 ($886, SE 476), crump2009 ([0.1, 0.9]).
+
+## paper-r1 (2026-11-18T15:10Z), verdict: revise
+Checked and held: every macro in main.tex and its tables against numbers.tex and claims; sampled table literals
+(trim SE 171, p_TOST .004, linear p .497, OLS SE 157, diff74 SE 209) against the runs; H1/H1b/H2 decisions; the
+disagreement rule (IPW -191 inside [-358, 338]); the sensitivity verdicts and the t_0/t_E arithmetic (338.4, 181.5); the
+mandated earnings75 sentence in the abstract, intro, results, conclusion and Table 3; diff74 in the main text with both
+readings; benefits78 never called an effect; the additive approximation in bold; figures exist and match the captions.
+The design hash without tasks/gates is 146cb81e... at gate commit 274c4d6, at HEAD and in the working copy. validate and
+--strict are OK. Citations spot-checked via sources/notes.md: card2018, anderson2008 (the abstract does say report
+adjusted and unadjusted p, so no finding), abadie2020 and burlig2018 hold. lalonde $886 is no longer used.
+Findings: F1 major (seed authorship: the key-holding PI drafted the question, hypotheses and margin, revised the margin from $1,000,
+issued the rulings and wrote the briefs; the paper says only that 'agents' never saw the key); F2 major (outcome-blindness
+overstated: 'before any outcome was read' and 'without reading any value' are false for range-counts and missing-counts; Burlig's
+condition is not met; 'pre-registered'); F3 minor ('Deviations: None' while (ii) and (iii) are deviations); F4 minor (no literature
+review was held; margin revision; the PI's unverifiable claim about the F4 timing; the log entry deleted; code-r1 record still open);
+F5 minor ('every number is a macro' is false for table literals); F6 minor (imbens2003 model and hirano2003 'Hajek' attributions go
+beyond the abstracts); F7 minor (intro 'design informative' needs a qualifier); F8 minor (the plan's precision proxy is not reported).
+Suspicions:
+- The fix for F1/F2 may come as softer wording that still implies blindness ('sealed', 'never examined'). Check the exact
+  sentences in the abstract, l.87-95, l.157-158, the Table 1 caption and ai-use.
+- When the Replicator writes replication.json, ai-use's 'pending' sentence must be updated. Any metric mismatch must
+  reach the paper, not only REPLICATION.md.
+- If the precision proxy is added (F8), it must come from data/derived/margin_metrics.json or timing-synthetic and not be
+  recomputed after the fact.
+Next time (paper-r2):
+- Recheck F1-F8 against main.tex, ai-use.tex and the recompiled main.pdf (pdftotext). Run validate --strict.
+- Confirm no number changed: numbers.tex diff and the run ledger untouched.
+- If a literature review round is added, still spot-check imbens2003 and hirano2003 in full text.
