@@ -1,0 +1,78 @@
+{
+  "id": "prepare-sipp",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/prepare_sipp.py"
+  ],
+  "started": "2026-11-18T12:28:23Z",
+  "finished": "2026-11-18T12:28:23Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/prepare_sipp.py",
+      "sha256": "3701200663f05ef8bc310fa50f1dd40109a737eb7b1f7681832908306944ccdc"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/sipp1991.dta",
+      "sha256": "1123d5f0abf6adae1d8e200f756d2a22b0ce0ce30cb228e69342a0098e57b4b2"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/derived/sipp1991.csv",
+      "sha256": "4c73b63b77217460e25c2847ebcdb9a2a3273630758c6172879e62dddb8f4916"
+    },
+    {
+      "path": "data/derived/sipp1991_summary.json",
+      "sha256": "6a6bffe576e7fb5631484e0d62cee18b779ebe302c5de99f9d53ba75bc12a548"
+    },
+    {
+      "path": "data/prepare_metrics.json",
+      "sha256": "2fbdabfd86cfeb277bf37624fafb41ca2b33c393339d7fe7c5a8c8a87c5f7271"
+    }
+  ],
+  "metrics": {
+    "rows_raw": 9915,
+    "columns_raw": 14,
+    "rows_expected": 9915,
+    "rows_match_expected": true,
+    "required_vars_missing": 0,
+    "raw_columns_not_kept": "nifa,tw,p401",
+    "missing_net_tfa": 0,
+    "missing_e401": 0,
+    "missing_age": 0,
+    "missing_inc": 0,
+    "missing_educ": 0,
+    "missing_fsize": 0,
+    "missing_marr": 0,
+    "missing_twoearn": 0,
+    "missing_db": 0,
+    "missing_pira": 0,
+    "missing_hown": 0,
+    "rows_any_missing": 0,
+    "nonbinary_e401": 0,
+    "nonbinary_marr": 0,
+    "nonbinary_twoearn": 0,
+    "nonbinary_db": 0,
+    "nonbinary_pira": 0,
+    "nonbinary_hown": 0,
+    "count_e401_eq_1": 3682,
+    "count_net_tfa_negative": 2902,
+    "count_net_tfa_zero": 783,
+    "count_inc_nonpositive": 5,
+    "count_inc_10k_200k": 9275,
+    "count_age_25_64": 9915,
+    "rows_dropped": 0,
+    "rows_kept": 9915
+  },
+  "metrics_file": "data/prepare_metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

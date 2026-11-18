@@ -7,11 +7,329 @@
   ],
   "contribution": "An independent re-implementation and logged cell-by-cell check of a canonical double machine learning application, with a tolerance derived from the published split-to-split variation, so that the published estimates are either reproduced to within the stated per-cell tolerance by code the authors did not write, or the cells that are not reproduced are identified. The study does not attempt to separate software from tuning differences; Ensemble and Best columns are not replicated.",
   "design": {
-    "summary": "",
-    "method": "",
-    "data": "",
-    "analysis_plan": [],
-    "threats": []
+    "summary": "We re-estimate the 10 partially linear (PLR) cells of Chernozhukov et al. (2018), Table 2, Panel B (5 learners x 2- and 5-fold cross-fitting) on the same 9,915-household 1991 SIPP file with a crew-written DML2 partialling-out estimator and scikit-learn learners whose configurations are copied from the authors' public code and fixed here, aggregating S = 100 (lasso, tree, nnet), 40 (forest) or 30 (boosting) random splits by the median and the eq. 3.14 SE. Each cell is compared with the published number using a per-cell split-noise tolerance (2.81 combined Monte Carlo SEs, $209-$438 for the eight testable cells, 80%-power detectable shift $272-$569); both lasso cells are 'not testable at this resolution' and enter only H1 and H3. Claim values come only from the five main runs; a lasso penalty-constant sensitivity run, a no-controls data check and split-spread, SE and nuisance-fit diagnostics are reported but never change a tolerance or a claim.",
+    "estimand": "theta_0 in Y = theta_0 * D + g_0(X) + zeta, E[zeta | D, X] = 0, with D = m_0(X) + V, E[V | X] = 0: the PLR coefficient on 401(k) eligibility, in 1991 US dollars. Under heterogeneous effects it is a Var(D|X)-weighted average of conditional effects, not the ATE.",
+    "identifying_assumption": "Conditional on the nine covariates, 401(k) eligibility is as good as randomly assigned (conditional exogeneity, the Poterba-Venti-Wise argument the paper adopts), and the effect of D enters additively. This study reproduces the published estimate; it does not test the assumption. The only data evidence planned against it is the overlap diagnostic (out-of-fold m_hat(X) near 0 or 1), which is descriptive.",
+    "method": "Estimator: DML2 with the Robinson partialling-out score (the authors' code: lm(ry ~ rz - 1) on residuals pooled over folds; DoubleML score='partialling out'). For split s and fold count K, the n = 9,915 rows are randomly partitioned into K folds of equal size (+-1); for each fold k, l(X) = E[Y|X] and m(X) = E[D|X] are fitted on the other K-1 folds and predicted on fold k. With U_i = Y_i - l_hat(X_i) and V_i = D_i - m_hat(X_i) pooled over all n rows: theta_s = sum(V_i U_i) / sum(V_i^2); sigma_s^2 = sum(V_i^2 (U_i - theta_s V_i)^2) / (sum(V_i^2))^2 (HC0, = sandwich::vcovHC(type='HC') in the authors' code). No intercept, no trimming, no clipping of m_hat. Aggregation over the S splits of one learner and one K (Definition 3.3): point estimate theta_med = median_s theta_s; bracketed SE = median_s sigma_s; adjusted SE (eq. 3.14) = sqrt(median_s(sigma_s^2 + (theta_s - theta_med)^2)); the median of an even number of values is the mean of the middle two (numpy.median = R colQuantiles(probs = 0.5)). Splits: partition (s, K) is drawn with numpy.random.default_rng(SeedSequence([1211, K, s])) as a random permutation cut into K consecutive blocks; s = 1..100. Every learner uses the same partition for the same (s, K) (as in the authors' code, where all methods share one cvgroup per call); forest uses s = 1..40 and boosting s = 1..30 of the same sequence; K = 2 and K = 5 partitions are independent (the authors ran nfold = 2 and nfold = 5 separately). Every learner fit is seeded with SeedSequence([1211, K, s, fold, learner index (lasso 1, tree 2, forest 3, boosting 4, nnet 5), nuisance (0 = Y, 1 = D)]); no seed is ever chosen by looking at a result. Learners (scikit-learn 1.9.1; configurations copied from the authors' 401K.R, ML_Functions.R and Moment_Functions.R, read 2026-11-18; see design.learners for the exact objects): lasso = crew port of hdm::rlasso (Y) and hdm::rlassologit (D) on the 275-column 401K.R dictionary; tree = rpart-style CART pruned by 10-fold CV; forest = 1000-tree random forest; boosting = gradient boosting with 1000 trees, shrinkage 0.01, 2 splits per tree, subsample 0.5, number of trees chosen by 5-fold CV; nnet = one hidden layer of 8 logistic units, weight decay 0.01, on min-max scaled data. Hypothesis tests (all fixed now, see design.tolerance_table and design.decision_rules): H1 uses theta_med +- 1.96 x adjusted SE; H2 uses |theta_rep - theta_pub| <= tolerance on the testable cells; H3 compares point estimates. Compute: every run parallelizes its S x (2x2 + 2x5) = 14S nuisance fits over all 8 cores with joblib.Parallel(n_jobs=-1) (process backend), each estimator single-threaded (n_jobs=1); results do not depend on the schedule because every fit has its own seed.",
+    "learners": {
+      "lasso": {
+        "dictionary": "401K.R xl: (poly(age,6,raw=TRUE) + poly(inc,8,raw=TRUE) + poly(educ,4,raw=TRUE) + poly(fsize,2,raw=TRUE) + marr + twoearn + db + pira + hown)^2 = 25 main-effect columns + 250 products of columns from different terms (no squares of a term with itself beyond the polynomial powers) = 275 columns, raw powers as in the code. Built from the covariates only. p = 275 in the penalty formula even if some columns are constant or duplicated in a training fold; constant columns are dropped before fitting.",
+        "Y_learner": "hdm::rlasso(post = FALSE, intercept = TRUE, heteroskedastic, X-independent penalty), re-implemented: center X and Y on the training fold; gamma = 0.1/log(n); lambda0 = 2 c sqrt(n) qnorm(1 - gamma/(2p)) with c = 0.5 (see deviation note); starting residuals = OLS residuals of Y on the 5 columns most correlated with Y (hdm init_values); loadings psi_j = sqrt(mean(x_ij^2 e_i^2)); then up to 15 times: solve min sum(y - Xb)^2 + lambda0 sum(psi_j |b_j|) with sklearn.linear_model.Lasso(alpha = lambda0/(2n), fit_intercept = False, tol = 1e-6, max_iter = 100000) on columns x_j/psi_j (coefficients divided back by psi_j); e = lasso residuals (post = FALSE); update psi_j; stop when |sd(e) - previous sd| < 1e-5. Columns are first divided by their training-fold SD, which leaves the solution unchanged (the loadings absorb the scale) and avoids overflow-scale arithmetic with inc^8 terms. Prediction = mean(Y) + (X - mean(X)) b.",
+        "D_learner": "hdm::rlassologit(post = FALSE, intercept = TRUE, c = 1.1): glmnet binomial at lambda = lambda0/(2n), lambda0 = (c/2) sqrt(n) qnorm(1 - gamma/(2p)), standardize = TRUE, no loading iteration. Re-implemented as sklearn.linear_model.LogisticRegression(l1_ratio = 1.0, C = 2/lambda0, solver = 'liblinear', intercept_scaling = 100, tol = 1e-6, max_iter = 1000) on columns standardized by training-fold mean and population SD; prediction = predicted probability.",
+        "penalty_constant_note": "401K.R passes c = 1.1, but for post = FALSE hdm 0.1.0 and 0.2.0 (on CRAN from 2016-02 until 2018-01, while the 2017 run and very likely the 2018 run were made) overwrite it with c = 0.5 through the condition is.na(match('penalty', names(as.list(match.call)))), which is always TRUE (source read from github.com/cran/hdm tags), and hdm 0.3.2 does the same through its all.equal(penalty, default) rule: running the authors' call in the installed hdm 0.3.2 on random numbers returned lambda0 implying c = 0.5 for rlasso and c = 1.1 for rlassologit. Only hdm 0.2.3 (2018-01 to 2019-01) honors c = 1.1. Primary: c = 0.5 for Y, 1.1 for D. Sensitivity run sens-lasso-c11 uses c = 1.1 for Y; it is never a claim value.",
+        "deviation_from_authors": "Same dictionary and penalty rule as hdm, but the optimization is solved by scikit-learn coordinate descent to tol 1e-6 on standardized columns instead of hdm's LassoShooting.fit (maxIter 1000, absolute optTol 1e-5 on raw-scale coefficients, started from init_values), and the logistic lasso by liblinear (intercept penalized 100 times more weakly than a slope rather than not at all) instead of glmnet. The hdm version the authors ran is unknown, so the effective c for Y (0.5 or 1.1) is an assumption. The port is checked against hdm 0.3.2 on synthetic data before any analysis run (check-lasso-port)."
+      },
+      "tree": {
+        "spec": "Authors: rpart(formula, data) with defaults (method chosen automatically: 'anova' for both Y and the numeric 0/1 D, because ML_Functions.R tree() never passes its method argument; cp = 0.01, minsplit = 20, minbucket = 7, maxdepth = 30, xval = 10), pruned at the cptable CP with minimum xerror (no 1-SE rule). Crew: sklearn.tree.DecisionTreeRegressor(criterion = 'squared_error', min_samples_split = 20, min_samples_leaf = 7, max_depth = 30, random_state = seed) for Y and for D. Candidate subtrees = the cost-complexity pruning path of the fully grown tree with alpha/Var_pop(y) >= 0.01 (rpart cp = sklearn ccp_alpha / root impurity), plus cp = 0.01 itself. Each candidate i is scored by 10-fold CV (KFold(10, shuffle = True, random_state = seed)) at the geometric mean of its cp and the next larger cp (1.0 for the root), as rpart does; the first minimum of the summed squared CV error is chosen and the final tree is fitted with ccp_alpha = that geometric mean x Var_pop(y_train).",
+        "deviation_from_authors": "Pruning sequence from sklearn's cost-complexity path of a full tree rather than rpart's cp-limited growth; different CV fold assignment; split tie-breaking; rpart competitor and surrogate splits are irrelevant (no missing values)."
+      },
+      "forest": {
+        "spec": "Authors: randomForest(ntree = 1000, replace = TRUE, default mtry = floor(9/3) = 3), nodesize 5 for Y and 1 for D, both as regression forests (RF() is called with reg = TRUE for D). Crew: sklearn.ensemble.RandomForestRegressor(n_estimators = 1000, max_features = 3, bootstrap = True, min_samples_leaf = 1, min_samples_split = 6 for Y and 2 for D, criterion = 'squared_error', n_jobs = 1, random_state = seed). randomForest makes a node terminal when it holds <= nodesize rows, so min_samples_split = nodesize + 1.",
+        "deviation_from_authors": "Different random-number streams and bootstrap draws; sklearn's split search and tie handling; S = 40 splits instead of 100 (budget)."
+      },
+      "boosting": {
+        "spec": "Authors: gbm(n.trees = 1000, shrinkage = 0.01, interaction.depth = 2, bag.fraction = 0.5, train.fraction = 1, n.minobsinnode = 10 (default), cv.folds = 5), distribution 'gaussian' for Y and 'adaboost' for D, prediction at gbm.perf(method = 'cv'), D on the response scale 1/(1 + exp(-2f)). Crew: Y: sklearn.ensemble.GradientBoostingRegressor(loss = 'squared_error', n_estimators = 1000, learning_rate = 0.01, subsample = 0.5, max_leaf_nodes = 3, max_depth = None, min_samples_leaf = 10, random_state = seed); D: GradientBoostingClassifier(loss = 'exponential', same settings), predict_proba = expit(2f). Tuning rule (on nuisance prediction loss only): 5-fold CV (KFold(5, shuffle = True, random_state = seed)) on the training folds; each CV model's staged predictions give the held-out loss for 1..1000 trees (squared error for Y, exponential loss exp(-(2d - 1) f) for D), summed over the 5 folds; best = argmin; the model refitted on all training folds with 1000 trees predicts with its first 'best' trees (staged prediction). gbm interaction.depth = 2 means two splits, i.e. three leaves, grown best-first, which is max_leaf_nodes = 3.",
+        "deviation_from_authors": "sklearn's friedman_mse split criterion and its leaf-value update for exponential loss versus gbm's; CV fold assignment; S = 30 splits instead of 100 (budget). The CV for the number of trees is kept, at the cost of 6 fits per nuisance fit, because it is the authors' tuning rule."
+      },
+      "nnet": {
+        "spec": "Authors: nnetF(): every numeric column of the training fold, including Y and D, min-max scaled with the training fold's min and max (test fold scaled with the same values); nnet(size = 8, decay = 0.01, maxit = 1000, MaxNWts = 10000, linout = FALSE) for both Y and D, predictions mapped back by x (max - min) + min. Crew: same scaling; sklearn.neural_network.MLPRegressor(hidden_layer_sizes = (8,), activation = 'logistic', solver = 'lbfgs', alpha = 0.01, max_iter = 1000, tol = 1e-8, random_state = seed) for Y and for D. alpha = 0.01 reproduces nnet's objective SSE + decay x sum(w^2), because sklearn minimizes (SSE + alpha x sum(W^2)) / (2n). The number of L-BFGS iterations of every fit is recorded.",
+        "deviation_from_authors": "Identity output unit instead of nnet's logistic output (linout = FALSE); biases not decayed; Glorot initialization instead of U(-0.7, 0.7); L-BFGS-B stops on an absolute loss change of about 2.2e-9, so Y fits stop after about 90 iterations on synthetic data (timing-synthetic: restarting from the fitted weights adds almost nothing), while nnet runs to reltol 1e-8 or 1000 iterations; one random start in both."
+      }
+    },
+    "splits": {
+      "lasso": 100,
+      "tree": 100,
+      "nnet": 100,
+      "forest": 40,
+      "boosting": 30,
+      "rule": "Fixed from synthetic timing only (run timing-synthetic: the nine real covariates, a synthetic outcome and treatment from arbitrary formulas, never net_tfa or e401, no eligibility coefficient). S is not changed after any analysis run starts. If the budget is exceeded, the overrun is reported; no run is cut short or re-run with fewer splits.",
+      "timing_estimate": "Serial seconds per split (2-fold + 5-fold, Y and D, synthetic outcome, 4,957/7,932 training rows; runs/timing-synthetic/timing.json): lasso 7.4, tree 7.9, nnet 4.0, forest 47.5, boosting 127.7 (6 fits per nuisance fit because of the 5-fold CV for the number of trees). Planned serial work: lasso 100 x 7.4 = 743 s, tree 793 s, nnet 395 s, forest 40 x 47.5 = 1,899 s, boosting 30 x 127.7 = 3,831 s, sens-lasso-c11 743 s, check-noctrl and verdict about 5 s: about 8,400 s. Measured speed-up of joblib n_jobs = -1 on this 8-core Apple M3 (4 performance + 4 efficiency cores), three measurements: 3.3 to 4.1. Estimated wall time 34-43 minutes (boosting 16-19, forest 8-10, the rest 11-14), a 1.4x margin under 60 minutes for slower real-data fits. S = 50/40 for forest/boosting would need about 51 minutes at the slowest measured speed-up and was rejected."
+    },
+    "tolerance_table": [
+      {
+        "claim_id": "plr-lasso-2fold",
+        "learner": "lasso",
+        "folds": 2,
+        "published": 7717,
+        "published_se_median": 1346,
+        "published_se_adjusted": 1749,
+        "mad": 1117,
+        "sd_split": 1656,
+        "S_published": 100,
+        "S_replication": 100,
+        "se_pub": 207.5,
+        "se_rep": 207.5,
+        "tolerance": 825,
+        "mds80": 1072,
+        "half_published_se_median": 673,
+        "testable": false,
+        "accept_interval": [
+          6892,
+          8542
+        ]
+      },
+      {
+        "claim_id": "plr-tree-2fold",
+        "learner": "tree",
+        "folds": 2,
+        "published": 8709,
+        "published_se_median": 1363,
+        "published_se_adjusted": 1427,
+        "mad": 423,
+        "sd_split": 626,
+        "S_published": 100,
+        "S_replication": 100,
+        "se_pub": 78.5,
+        "se_rep": 78.5,
+        "tolerance": 312,
+        "mds80": 405,
+        "half_published_se_median": 682,
+        "testable": true,
+        "accept_interval": [
+          8397,
+          9021
+        ]
+      },
+      {
+        "claim_id": "plr-forest-2fold",
+        "learner": "forest",
+        "folds": 2,
+        "published": 9116,
+        "published_se_median": 1302,
+        "published_se_adjusted": 1377,
+        "mad": 448,
+        "sd_split": 665,
+        "S_published": 100,
+        "S_replication": 40,
+        "se_pub": 83.3,
+        "se_rep": 131.7,
+        "tolerance": 438,
+        "mds80": 569,
+        "half_published_se_median": 651,
+        "testable": true,
+        "accept_interval": [
+          8678,
+          9554
+        ]
+      },
+      {
+        "claim_id": "plr-boosting-2fold",
+        "learner": "boosting",
+        "folds": 2,
+        "published": 8759,
+        "published_se_median": 1339,
+        "published_se_adjusted": 1382,
+        "mad": 342,
+        "sd_split": 507,
+        "S_published": 100,
+        "S_replication": 30,
+        "se_pub": 63.6,
+        "se_rep": 116.0,
+        "tolerance": 372,
+        "mds80": 483,
+        "half_published_se_median": 670,
+        "testable": true,
+        "accept_interval": [
+          8387,
+          9131
+        ]
+      },
+      {
+        "claim_id": "plr-nnet-2fold",
+        "learner": "nnet",
+        "folds": 2,
+        "published": 8950,
+        "published_se_median": 1335,
+        "published_se_adjusted": 1408,
+        "mad": 447,
+        "sd_split": 663,
+        "S_published": 100,
+        "S_replication": 100,
+        "se_pub": 83.1,
+        "se_rep": 83.1,
+        "tolerance": 330,
+        "mds80": 429,
+        "half_published_se_median": 668,
+        "testable": true,
+        "accept_interval": [
+          8620,
+          9280
+        ]
+      },
+      {
+        "claim_id": "plr-lasso-5fold",
+        "learner": "lasso",
+        "folds": 5,
+        "published": 8187,
+        "published_se_median": 1298,
+        "published_se_adjusted": 1558,
+        "mad": 862,
+        "sd_split": 1278,
+        "S_published": 100,
+        "S_replication": 100,
+        "se_pub": 160.1,
+        "se_rep": 160.1,
+        "tolerance": 636,
+        "mds80": 827,
+        "half_published_se_median": 649,
+        "testable": false,
+        "accept_interval": [
+          7551,
+          8823
+        ]
+      },
+      {
+        "claim_id": "plr-tree-5fold",
+        "learner": "tree",
+        "folds": 5,
+        "published": 8871,
+        "published_se_median": 1358,
+        "published_se_adjusted": 1418,
+        "mad": 408,
+        "sd_split": 605,
+        "S_published": 100,
+        "S_replication": 100,
+        "se_pub": 75.8,
+        "se_rep": 75.8,
+        "tolerance": 301,
+        "mds80": 392,
+        "half_published_se_median": 679,
+        "testable": true,
+        "accept_interval": [
+          8570,
+          9172
+        ]
+      },
+      {
+        "claim_id": "plr-forest-5fold",
+        "learner": "forest",
+        "folds": 5,
+        "published": 9247,
+        "published_se_median": 1295,
+        "published_se_adjusted": 1328,
+        "mad": 294,
+        "sd_split": 436,
+        "S_published": 100,
+        "S_replication": 40,
+        "se_pub": 54.7,
+        "se_rep": 86.4,
+        "tolerance": 287,
+        "mds80": 373,
+        "half_published_se_median": 648,
+        "testable": true,
+        "accept_interval": [
+          8960,
+          9534
+        ]
+      },
+      {
+        "claim_id": "plr-boosting-5fold",
+        "learner": "boosting",
+        "folds": 5,
+        "published": 9110,
+        "published_se_median": 1314,
+        "published_se_adjusted": 1328,
+        "mad": 192,
+        "sd_split": 285,
+        "S_published": 100,
+        "S_replication": 30,
+        "se_pub": 35.7,
+        "se_rep": 65.2,
+        "tolerance": 209,
+        "mds80": 272,
+        "half_published_se_median": 657,
+        "testable": true,
+        "accept_interval": [
+          8901,
+          9319
+        ]
+      },
+      {
+        "claim_id": "plr-nnet-5fold",
+        "learner": "nnet",
+        "folds": 5,
+        "published": 9038,
+        "published_se_median": 1322,
+        "published_se_adjusted": 1355,
+        "mad": 297,
+        "sd_split": 441,
+        "S_published": 100,
+        "S_replication": 100,
+        "se_pub": 55.2,
+        "se_rep": 55.2,
+        "tolerance": 219,
+        "mds80": 285,
+        "half_published_se_median": 661,
+        "testable": true,
+        "accept_interval": [
+          8819,
+          9257
+        ]
+      }
+    ],
+    "decision_rules": {
+      "H1": "Fails if any of the 10 replicated cells has theta_med <= 0 or theta_med - 1.96 x adjusted SE (eq. 3.14) <= 0.",
+      "H2": "Per testable cell: pass if |theta_rep - theta_pub| <= tolerance in design.tolerance_table (2.81 x sqrt(se_rep^2 + se_pub^2), se = 1.2533 x 1.4826 x sqrt(adj^2 - med^2) / sqrt(S), published S = 100, replication S as in design.splits). H2 holds if all 8 testable cells pass. Lasso K = 2 (80%-power detectable shift $1,072 > $673 = half its bracketed SE) and lasso K = 5 ($827 > $649) are 'not testable at this resolution' and count toward H2 neither way; their differences are still reported. With 8 testable cells, a faithful re-implementation fails H2 with probability at most about 4% (Bonferroni, 8 x 0.5%), under the normal and constant-variance approximation, which makes the tolerances conservative. A pass means 'no shift larger than the cell's 80%-power detectable shift was detected', never 'identical'. Every cell's difference is also reported in units of the published bracketed (median) SE.",
+      "H3": "Fails if, at K = 2 or at K = 5, the replicated lasso theta_med is >= the replicated theta_med of any of tree, forest, boosting, nnet (point estimates, main runs only). Probability of failing from split noise alone under an exact replication of the published values (cells independent normal around the published values with se_rep from design.tolerance_table, 4 million draws): about 7e-5; the smallest margin is tree at K = 5 ($684, z = 3.9). Shared splits correlate the cells positively, which lowers it further. sens-lasso-c11 is evaluated against H3 too, but only descriptively.",
+      "claims": "Exactly one claim per cell, id plr-<learner>-<k>fold (learner in lasso, tree, forest, boosting, nnet; k in 2, 5), value = metric theta_k<k> of run main-<learner>, in 1991 US dollars. Claim values come only from these five runs with the configurations fixed here (design_constraints[0]); a run labelled exploratory never supplies a claim value."
+    },
+    "data": "Source: data/raw/sipp1991.dta from github.com/VC2015/DMLonGitHub (the authors' replication file; sha256 1123d5f0...b4b2 in data/manifest.json), prepared by the Data RA into data/derived/sipp1991.csv (run prepare-sipp). Unit: household (9,915 rows, 1991 SIPP extract). Sample: all 9,915 rows, no restriction (the authors' code does not subset; data/CODEBOOK.md notes that the file is Abadie's extract before his $10,000-$200,000 income restriction, and that restriction is not applied). Y = net_tfa (net total financial assets, US dollars). D = e401 (0/1 eligibility). X = age, inc, educ, fsize, marr, twoearn, db, pira, hown, raw as stored, for tree, forest, boosting and nnet; the 275-column 401K.R dictionary for lasso. No missing values are imputed; if a variable has missing values the run stops and the PI is told. The covariates were read for the synthetic timing study; the Designer has not looked at Y or D values.",
+    "analysis_plan": [
+      "0. check-lasso-port (data-prep, synthetic only, before any analysis run): code/check_lasso_port.py with code/check_lasso_port.R compares the crew rlasso (c = 0.5 and 1.1) and rlassologit ports with hdm 0.3.2 on 3 synthetic outcome/treatment draws built from the real covariates (as in code/timing_synthetic.py) at training sizes 4,957 and 7,932. Pass: held-out predictions correlate >= 0.999 with hdm's and their RMS difference is <= 1% of the SD of hdm's predictions. Purpose: show the lasso is the authors' lasso, not a lookalike. A failure caused by a bug in the port is fixed here (synthetic data only, logged in runs/NOTES.md); a failure traced to hdm's own solver stopping early is recorded as a lasso deviation, with its size.",
+      "1. check-noctrl (analysis): OLS of net_tfa on e401 with an intercept, no controls, HC0 and classical SEs, N. Purpose: confirm the data and outcome are the paper's: the paper's text reports $19,559 (SE 1,413). A point estimate more than $1 (rounding) away, or N != 9,915, stops the crew until the PI decides; the SE is compared descriptively (its type is not stated).",
+      "2. main-lasso (analysis, S = 100, K = 2 and 5): claims plr-lasso-2fold, plr-lasso-5fold. Purpose: H1, H3 (anchor of the ordering); H2 not testable.",
+      "3. main-tree (S = 100): claims plr-tree-2fold, plr-tree-5fold; H1, H2, H3.",
+      "4. main-nnet (S = 100): claims plr-nnet-2fold, plr-nnet-5fold; H1, H2, H3.",
+      "5. main-forest (S = 40): claims plr-forest-2fold, plr-forest-5fold; H1, H2, H3.",
+      "6. main-boosting (S = 30): claims plr-boosting-2fold, plr-boosting-5fold; H1, H2, H3.",
+      "Each main run is `crew.py run --kind analysis` of code/dml_plr.py --learner <name> --splits <S>, input data/derived/sipp1991.csv, and writes a flat metrics file with, for k in 2 and 5: theta_k<k>, se_med_k<k>, se_adj_k<k>, n_splits, n_obs, published_k<k>, diff_k<k>, diff_in_pub_se_k<k> (diff / published bracketed SE), tolerance_k<k>, mds80_k<k>, testable_k<k>, within_tol_k<k>, split_mad_k<k> and split_sd_obs_k<k> (= 1.4826 x MAD of the theta_s), implied_mad_obs_k<k> (= sqrt(se_adj^2 - se_med^2) of the replication), theta_min_k<k>, theta_max_k<k>, rmse_l_k<k> and rmse_m_k<k> (median over splits of out-of-fold RMSE of l_hat and m_hat), m_out_01_k<k> (median share of out-of-fold m_hat outside [0.01, 0.99]), and for nnet nnet_iter_med_y/d. Per-split theta_s and sigma_s go to runs/main-<learner>/splits.csv and wall time to runs/main-<learner>/timing.json, both declared as --output and not as metrics (crew.py rerun compares every metric at rtol 1e-6, and wall time never reproduces).",
+      "7. sens-lasso-c11 (analysis, S = 100): main-lasso with c = 1.1 for the Y lasso, everything else identical. Purpose: how much the lasso cells and the H3 ordering depend on which hdm version the authors ran. Reported next to the main lasso cells; never a claim value for plr-lasso-<k>fold and never a reason to change the primary lasso.",
+      "8. verdict (analysis): code/verdict.py reads runs/*/metrics.json of runs 1-7 (as --input) and evaluates H1, H2 (per cell and overall, testable cells only), H3 (main runs; and descriptively with sens-lasso-c11), the side-by-side published vs replicated table (estimate, bracketed SE, adjusted SE), and the diagnostics below. Tolerances, S and testability are constants copied from plan.json and asserted equal to it.",
+      "9. Diagnostics reported in the paper, never used to change a tolerance, S or a claim: (a) observed split spread 1.4826 x MAD(theta_s) and the replication's own sqrt(adj^2 - med^2) versus the published implied values; (b) replicated bracketed and adjusted SEs versus the published ones (descriptive, all 20, as promised in response to question-review F3); (c) out-of-fold RMSE of l_hat and m_hat by learner and K; (d) overlap: share of m_hat outside [0.01, 0.99]; (e) nnet L-BFGS iteration counts; (f) wall time per run against the timing estimate. Figure (figures-ra): per learner and K, the distribution of theta_s with the published median and the H2 acceptance interval."
+    ],
+    "candidate_deviations": {
+      "all": [
+        "Python/scikit-learn instead of R; different random partitions and seeds (the authors' set.seed(1211) stream cannot be reproduced in numpy).",
+        "Fewer splits for forest (40) and boosting (30); already priced into the tolerance.",
+        "The authors' package versions (hdm, rpart, randomForest, gbm, nnet) are unknown; the published numbers themselves moved by up to $154 between the 2017 and 2018 runs."
+      ],
+      "lasso": [
+        "Penalty constant for the Y lasso: c = 0.5 assumed (hdm 0.1/0.2.0/0.3.x behaviour); c = 1.1 if the authors ran hdm 0.2.3 (sens-lasso-c11 shows the size).",
+        "Optimizer: exact coordinate-descent solution versus hdm LassoShooting stopped at maxIter 1000 / optTol 1e-5 on raw-scale columns with powers up to inc^8.",
+        "Logistic lasso: liblinear with a weakly penalized intercept versus glmnet.",
+        "Dictionary built from raw powers in float64; collinear or constant columns in a fold."
+      ],
+      "tree": [
+        "sklearn cost-complexity path versus rpart's cp-limited growth and cptable.",
+        "Cross-validation fold assignment for the pruning choice; split tie-breaking."
+      ],
+      "forest": [
+        "Random-number streams and bootstrap draws; split-search details of randomForest versus sklearn; nodesize mapped to min_samples_split = nodesize + 1."
+      ],
+      "boosting": [
+        "Split criterion (friedman_mse) and leaf values for the exponential loss differ from gbm.",
+        "Selected number of trees: CV folds and the noise in the CV curve differ.",
+        "gbm adaboost response 1/(1+exp(-2f)) assumed equal to sklearn's exponential-loss predict_proba."
+      ],
+      "nnet": [
+        "Identity output unit (sklearn) versus logistic output (nnet linout = FALSE).",
+        "Optimizer stopping: L-BFGS-B stops after about 90 iterations for Y versus nnet's BFGS to reltol 1e-8 or 1000 iterations; local optimum from one random start; initialization.",
+        "Biases not decayed in sklearn."
+      ]
+    },
+    "threats": [
+      "Low power: tolerances are $209-$438 and 80%-power detectable shifts $272-$569 on the eight testable cells, so implementations that differ by a few hundred dollars can pass. Addressed by reporting the tolerance and the detectable shift next to every cell (verdict) and wording a pass as 'no shift larger than X detected'.",
+      "The two lasso cells, the most implementation-sensitive, are not testable at any affordable S (lasso K = 5 would need S of about 430). Addressed only partly: check-lasso-port shows the port equals hdm on synthetic data, sens-lasso-c11 shows the dependence on the penalty constant, and H3 still tests the lasso's position.",
+      "Unknown hdm version (effective c = 0.5 or 1.1) can move the lasso cells and possibly H3. Addressed by sens-lasso-c11, fixed now as a sensitivity, not as an alternative claim.",
+      "The data file may differ from the one the authors used. Addressed by check-noctrl against the published no-controls estimate, before the main runs.",
+      "The MAD-to-SD factor 1.4826 assumes normal split noise and constant within-split variance; if either fails the true factor is between 1 and 1.4826, so the tolerances are too wide, not too narrow. Addressed by the split-spread diagnostic (9a), which is reported but never changes a tolerance.",
+      "Software and learner differences cannot be told apart from tuning differences with one re-implementation (question-review F4, conceded). Addressed by the per-learner candidate deviation list; any explanation of a failed cell is labelled a conjecture.",
+      "Forking paths after a failed cell (re-tuning until it passes). Addressed by design_constraints: claim values only from the five main runs; follow-ups are exploratory.",
+      "Identification: the PLR coefficient is causal only under conditional exogeneity of eligibility, which this study does not test, and it is not the ATE. Addressed in the paper's wording; overlap diagnostic 9d is descriptive.",
+      "Budget: if real-data fits are much slower than synthetic ones the 60-minute budget can be exceeded. S is not reduced after the runs start; the overrun is reported (diagnostic 9f).",
+      "Clean-rerun drift: nnet and lasso use BLAS-dependent floating point, so a rerun on another machine may differ beyond rtol 1e-6. Addressed by seeding every fit and by the Replicator rerunning first on this machine; any cross-machine difference is reported, not hidden.",
+      "Standard errors are HC0 at the household level, as published; eligibility varies by employer but the file has no employer identifier, so clustering is impossible. Reported as a limitation; it does not affect point estimates or H2."
+    ]
   },
   "tasks": [
     {
@@ -19,6 +337,126 @@
       "title": "Find the published estimates, specification and data source; novelty/replication-status check",
       "owner": "scout",
       "status": "done"
+    },
+    {
+      "id": "dr-fetch",
+      "title": "Fetch sipp1991.dta, record it in the manifest, prepare data/derived/sipp1991.csv and the codebook (runs fetch-sipp, prepare-sipp)",
+      "owner": "data-ra",
+      "status": "done"
+    },
+    {
+      "id": "d-timing",
+      "title": "Time every learner on the real covariates with a synthetic outcome and treatment (run timing-synthetic) to fix S",
+      "owner": "designer",
+      "status": "done"
+    },
+    {
+      "id": "d-design",
+      "title": "Write plan.json design: estimator, learners, S, tolerance table, decision rules, analysis plan, threats",
+      "owner": "designer",
+      "status": "done"
+    },
+    {
+      "id": "rv-design",
+      "title": "Review the design (reviews/design-r1)",
+      "owner": "reviewer",
+      "status": "todo"
+    },
+    {
+      "id": "e-port-check",
+      "title": "Analysis plan 0: check-lasso-port, crew rlasso/rlassologit versus hdm 0.3.2 on synthetic data (data-prep run)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-code",
+      "title": "Write code/dml_plr.py (DML2 PLR, eq. 3.14 aggregation, the five fixed learners, joblib n_jobs=-1) and code/verdict.py",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "rv-code",
+      "title": "Review code/dml_plr.py and code/verdict.py against plan.json design before any analysis run (reviews/code-r1)",
+      "owner": "reviewer",
+      "status": "todo"
+    },
+    {
+      "id": "r-noctrl",
+      "title": "Analysis plan 1: run check-noctrl (no-controls OLS versus the published $19,559)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "r-main-lasso",
+      "title": "Analysis plan 2: run main-lasso (S = 100, K = 2 and 5)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "r-main-tree",
+      "title": "Analysis plan 3: run main-tree (S = 100, K = 2 and 5)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "r-main-nnet",
+      "title": "Analysis plan 4: run main-nnet (S = 100, K = 2 and 5)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "r-main-forest",
+      "title": "Analysis plan 5: run main-forest (S = 40, K = 2 and 5)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "r-main-boosting",
+      "title": "Analysis plan 6: run main-boosting (S = 30, K = 2 and 5)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "r-sens-c11",
+      "title": "Analysis plan 7: run sens-lasso-c11 (Y-lasso penalty constant 1.1, S = 100)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "r-verdict",
+      "title": "Analysis plan 8-9: run verdict (H1-H3, side-by-side table, diagnostics)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-claims",
+      "title": "Write the 10 plr-<learner>-<k>fold claims and the verdict/diagnostic claims with macros; runs/NOTES.md with every deviation",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "f-splits",
+      "title": "Figure: per learner and K, distribution of theta_s with the published median and the H2 acceptance interval",
+      "owner": "figures-ra",
+      "status": "todo"
+    },
+    {
+      "id": "rv-results",
+      "title": "Review the results (reviews/results-r1)",
+      "owner": "reviewer",
+      "status": "todo"
+    },
+    {
+      "id": "w-paper",
+      "title": "Write the paper from claims and macros only, including every deviation and the not-testable cells",
+      "owner": "writer",
+      "status": "todo"
+    },
+    {
+      "id": "rep-rerun",
+      "title": "Clean rerun from code/requirements.txt (crew.py rerun) and replication.json",
+      "owner": "replicator",
+      "status": "todo"
     }
   ],
   "gates": {

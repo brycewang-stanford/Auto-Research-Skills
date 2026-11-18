@@ -1,0 +1,36 @@
+{
+  "id": "timing-synthetic",
+  "role": "designer",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/timing_synthetic.py"
+  ],
+  "started": "2026-11-18T12:46:36Z",
+  "finished": "2026-11-18T12:48:08Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/timing_synthetic.py",
+      "sha256": "3df872f8e9530b2d945f4291883c799ba8aab4ccae4451e91123487b4bf80b48"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/sipp1991.csv",
+      "sha256": "4c73b63b77217460e25c2847ebcdb9a2a3273630758c6172879e62dddb8f4916"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/timing-synthetic/timing.json",
+      "sha256": "e58b5ee93813bba934b20c0eee1e665c56e50cb1df7e4fd9faf08ec153de324d"
+    }
+  ],
+  "metrics": {},
+  "metrics_file": null,
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

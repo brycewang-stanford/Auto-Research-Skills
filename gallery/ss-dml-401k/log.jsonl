@@ -6,3 +6,16 @@
 {"time": "2026-11-18T12:14:26Z", "role": "pi", "action": "plan-revised", "detail": "After question-r4 (pass, final round): 80%-power shift, not-testable rule tied to half the published SE, no re-tuning rule. Not re-reviewed. plan.json sha256=2606fb0cdcc48f5be3e0a0267b11601adcbc2983323a0c5560c924621d15b279"}
 {"time": "2026-11-18T12:14:26Z", "role": "pi", "action": "gate-request", "detail": "question"}
 {"time": "2026-11-18T12:24:10Z", "role": "pi", "action": "gate-approve", "detail": "question Bryce Wang"}
+{"time": "2026-11-18T12:26:43Z", "role": "data-ra", "action": "run", "detail": "fetch-sipp exit=0"}
+{"time": "2026-11-18T12:28:11Z", "role": "data-ra", "action": "run", "detail": "prepare-sipp exit=0"}
+{"time": "2026-11-18T12:28:23Z", "role": "data-ra", "action": "run", "detail": "prepare-sipp exit=0"}
+{"time": "2026-11-18T12:29:43Z", "role": "data-ra", "action": "data-fetched", "detail": "sipp1991.dta 260726 bytes, sha256 1123d5f0...b4b2, GitHub size and git blob sha1 matched (run fetch-sipp)"}
+{"time": "2026-11-18T12:29:43Z", "role": "data-ra", "action": "data-prepared", "detail": "data/derived/sipp1991.csv 9915x11, 0 missing, 0 dropped; 9275 rows in Abadie income band reproduce Abadie Table I (run prepare-sipp)"}
+{"time": "2026-11-18T12:29:43Z", "role": "data-ra", "action": "codebook-written", "detail": "data/manifest.json (2 datasets) and data/CODEBOOK.md; no explicit data license stated by source"}
+{"time": "2026-11-18T12:33:21Z", "role": "designer", "action": "run", "detail": "timing-synthetic exit=1"}
+{"time": "2026-11-18T12:36:46Z", "role": "designer", "action": "run", "detail": "timing-synthetic exit=0"}
+{"time": "2026-11-18T12:39:10Z", "role": "designer", "action": "run", "detail": "timing-synthetic exit=0"}
+{"time": "2026-11-18T12:42:38Z", "role": "designer", "action": "run", "detail": "timing-synthetic exit=0"}
+{"time": "2026-11-18T12:46:21Z", "role": "designer", "action": "design-written", "detail": "plan.json design + 21 tasks. S: lasso/tree/nnet 100, forest 40, boosting 30 (timing-synthetic: 9 real covariates, synthetic Y/D; est. 35-43 min wall at n_jobs=-1). 8 testable cells, tol $209-438, MDS80 $272-569; lasso K=2/5 not testable. Lasso Y c=0.5 (effective in hdm 0.1/0.2.0/0.3.2; verified by running hdm 0.3.2 on random numbers), c=1.1 as sens run. Read authors' 401K.R/ML_Functions.R/Moment_Functions.R and hdm sources. No net_tfa/e401 values read; no eligibility coefficient computed."}
+{"time": "2026-11-18T12:48:08Z", "role": "designer", "action": "run", "detail": "timing-synthetic exit=0"}
+{"time": "2026-11-18T12:48:29Z", "role": "designer", "action": "design-revised", "detail": "timing-synthetic re-run with timings as an --output (timing.json), not metrics, so crew.py rerun cannot fail on wall-clock noise; design timing text updated to that run: about 8,400 serial s, 34-43 min wall at measured speed-up 3.3-4.1; main-run wall time also moved out of metrics."}

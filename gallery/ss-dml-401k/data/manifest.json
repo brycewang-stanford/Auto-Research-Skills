@@ -1,3 +1,29 @@
 {
-  "datasets": []
+  "datasets": [
+    {
+      "id": "sipp1991",
+      "origin": "https://github.com/VC2015/DMLonGitHub/raw/master/sipp1991.dta",
+      "license": "No data license is stated. The hosting repository (VC2015/DMLonGitHub, replication files of Chernozhukov et al. 2018) carries LICENSE.Rmd, an MIT-style permission notice 'Copyright 2017 Victor Chernozhukov, Denis Chetverikov, Mert Demirer, Esther Duflo, Whitney Newey, James Robins' that grants use, copying, modification and redistribution of 'this software and associated documentation files'; GitHub classifies it as 'Other' (NOASSERTION). It does not name the data file. The file is an extract of the public-use 1991 SIPP (U.S. Census Bureau), prepared for Poterba, Venti and Wise per Abadie (2003). Used here for non-commercial research replication, as the authors' replication files intend.",
+      "path": "data/raw/sipp1991.dta",
+      "sha256": "1123d5f0abf6adae1d8e200f756d2a22b0ce0ce30cb228e69342a0098e57b4b2",
+      "retrieved_on": "2026-11-18",
+      "size_bytes": 260726,
+      "git_blob_sha1": "735c4ba26cffbc3e6a7b9ca51874c599efc9f27c",
+      "source_commit": "a8ef8ef6e48d7d7056669e08f0b812bdb6528106 (initial commit, 2017-06-01; the file's only commit)",
+      "integrity_check": "No SHA-256 is published. code/fetch_sipp.py checks the size and git blob SHA-1 that the GitHub contents API publishes; both matched.",
+      "fetched_by": "code/fetch_sipp.py (run fetch-sipp)",
+      "rows": 9915,
+      "columns": 14
+    },
+    {
+      "id": "sipp1991-derived",
+      "origin": "Derived from dataset sipp1991 by code/prepare_sipp.py (run prepare-sipp): the 11 study variables, all 9,915 rows, no restriction.",
+      "license": "Same terms as sipp1991 (derived subset of columns).",
+      "path": "data/derived/sipp1991.csv",
+      "sha256": "4c73b63b77217460e25c2847ebcdb9a2a3273630758c6172879e62dddb8f4916",
+      "retrieved_on": "2026-11-18",
+      "rows": 9915,
+      "columns": 11
+    }
+  ]
 }

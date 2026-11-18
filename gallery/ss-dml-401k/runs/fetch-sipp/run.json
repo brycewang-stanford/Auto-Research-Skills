@@ -1,0 +1,42 @@
+{
+  "id": "fetch-sipp",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/fetch_sipp.py"
+  ],
+  "started": "2026-11-18T12:26:42Z",
+  "finished": "2026-11-18T12:26:43Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fetch_sipp.py",
+      "sha256": "e626fe87aa3775a550ea949823e9e19c652dbce223c95522ad56c580d9f767c1"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "data/raw/sipp1991.dta",
+      "sha256": "1123d5f0abf6adae1d8e200f756d2a22b0ce0ce30cb228e69342a0098e57b4b2"
+    },
+    {
+      "path": "data/fetch_metrics.json",
+      "sha256": "e1e60f0d71b75c7fdc3839e6b028cb6cebdfda9c39b0332dbac3649649258d53"
+    }
+  ],
+  "metrics": {
+    "size_bytes": 260726,
+    "sha256": "1123d5f0abf6adae1d8e200f756d2a22b0ce0ce30cb228e69342a0098e57b4b2",
+    "git_blob_sha1": "735c4ba26cffbc3e6a7b9ca51874c599efc9f27c",
+    "git_blob_sha1_matches_github": true,
+    "size_matches_github": true
+  },
+  "metrics_file": "data/fetch_metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}
