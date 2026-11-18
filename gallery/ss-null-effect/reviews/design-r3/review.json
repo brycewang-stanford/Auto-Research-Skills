@@ -1,0 +1,107 @@
+{
+  "id": "design-r3",
+  "target": "design",
+  "round": 3,
+  "created": "2026-11-18T12:53:23Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r2/review.json",
+    "plan.json",
+    "log.jsonl",
+    "code/range_counts.py",
+    "runs/range-counts/run.json",
+    "runs/range-counts/stdout.log",
+    "runs/range-counts/stderr.log",
+    "data/derived/range_counts.json",
+    "data/CODEBOOK.md",
+    "runs/diag-overlap/run.json",
+    "runs/fetch-data/run.json",
+    "runs/margin/run.json",
+    "runs/missing-counts/run.json",
+    "runs/prepare-covariates/run.json",
+    "runs/timing-synthetic/run.json",
+    "../../crew/bench/seeds/ss-null-effect/task.json",
+    "../../crew/agents/reviewer.md",
+    "../../crew/PROTOCOL.md"
+  ],
+  "kill_argument": "The design is now closed, but what it can conclude is mostly decided before the outcome is read. Identification rests on unconfoundedness given 1974-75 earnings, and the documented pre-enrolment dip makes that implausible. Enrolees fell from 6,713 to 4,835 while non-enrolees rose from 8,885 to 9,645, and the 1976 shock is unobserved. The design admits it has no informative falsification test. Its only probe, a parametric Imbens bound transferred additively to AIPW, is always read against earnings75, the most imbalanced covariate, which will very likely exceed M = 483. The precision proxy (90% half-width about 416 against M = 483) means H1b passes only if |ATT| < about 67 or the covariates explain much of re78. A hostile referee will say the paper can only report an interval that is 'not robust to selection as strong as 1975's'. That is a limitation to state, not a design defect. What I attacked and found sound: the validity rule was fixed before range-counts ran (12:51:05Z, then 12:52:14Z); range_counts.py writes counts only; no run is analysis-kind; plan.json sha fa4433e0 equals the last log entry and git HEAD; and validate passes.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "resolved",
+      "text": "The re75 placebo is pre-registered with the wrong reading and no consequence. plan.json design.method.identifying_assumption lists 'a nonzero placebo ATT on re75 when conditioning on 1974 earnings' as evidence against the identifying assumption, and analysis_plan placebo-re75 says 'A 95% CI that excludes 0 counts against the identifying assumption.' But the primary assumption conditions on re75; the placebo asks whether treat is unconfounded for re75 given re74 only, i.e. whether there is selection on the 1975 shock. The workspace already shows there is: data/CODEBOOK.md and data/derived/prep_metrics.json give enrolees 6,713 -> 4,835 and non-enrolees 8,885 -> 9,645 (re75 std diff -0.89 vs re74 -0.38; unemp75 0.71 vs unemp74 0.18). Imbens (2004, sec. 5.1, as quoted in sources/notes.md) relies on stationarity, which the dip breaks. So a rejection is expected whether or not unconfoundedness given X holds, and the plan does not say what a rejection does to H1/H1b or to the abstract (the disagreement rule in threats excludes it). Locking this at the gate leaves the interpretation to be chosen after re78 is seen. Note: the placebo reads only covariates, so its sign and rough size are knowable now; I did not run it.",
+      "evidence": "plan.json design.method.identifying_assumption; design.analysis_plan[placebo-re75]; design.threats[1] ('Addressed by placebo-re75 and rob-diff'); data/CODEBOOK.md lines 71-73; data/derived/prep_metrics.json re74/re75 means. Resolved by rewriting before the gate: either drop the placebo, or relabel it as a descriptive measure of selection on the 1975 shock that is not a test of the identifying assumption, state in identifying_assumption that the design has no informative falsification test given both lags, and fix in advance what the paper says when its CI excludes 0. Cheaper than a new test: narrow the claim.",
+      "response": "Designer: placebo relabelled select-re75, a descriptive measure of selection on the 1975 shock with fixed wording; identifying_assumption now states the design has no informative falsification test, and no rule for H1, H1b, H2 or the abstract depends on it.",
+      "ruling": "Fixed in plan.json: analysis_plan[select-re75] is labelled descriptive with fixed wording; method.identifying_assumption and threats[2] state there is no informative falsification test; threats[12] excludes select-re75 from the disagreement rule; no rule for H1, H1b, H2 or the abstract depends on it."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "rob-diff takes the dip year as its base. The conditional-DiD ATT on re78 - re75 given X- assumes conditional parallel trends from 1975 to 1978, but enrolees' 1975 earnings are transitorily depressed (CODEBOOK: -28% from 1974 while controls rose 8%), so mean reversion mechanically inflates re78 - re75 for enrolees and biases this estimate upward. It is listed as addressing 'time-invariant unobserved differences' and the Ashenfelter dip (threats[1]), which it cannot do with a dip-year base. Excluding it from the disagreement rule does not prevent it from being reported as reassurance or as a contrary signal.",
+      "evidence": "plan.json design.analysis_plan[rob-diff]; design.threats[1]; data/CODEBOOK.md lines 71-73. Resolve by pre-specifying a pre-dip base (re78 - re74 conditioning on time-invariant covariates only), or by stating now that rob-diff is expected to be biased upward under the documented dip and removing it from the list of defences against the dip.",
+      "response": "Designer: replaced by rob-diff74 (re78 - re74 given time-invariant covariates only), because 1975 is the dip year; its expected bias (upward if 1974 was already dipped, downward if the gap is permanent) is stated, and it is no longer listed as a defence of the primary and never triggers the disagreement rule.",
+      "ruling": "Fixed: analysis_plan[rob-diff74] uses re78 - re74 with time-invariant covariates only, names its estimand, states that the sign of its bias is unknown in advance, and is excluded from the disagreement rule (threats[12]); threats[2] no longer calls it a defence of the primary."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The unobserved 1976 shock is not named, and the only remaining defence, sens-imbens, has no fixed reading. Enrolment was in 1976-77 (task.json brief), so selection on 1976 earnings, unobserved and where a dip is typically deepest, is the most specific threat to unconfoundedness; plan.json threats[0] lists only 'motivation, survey items, local labour markets'. sens-imbens is underspecified: (i) the 'implied partial R^2 of U' in the logit treatment equation has no stated formula (Imbens 2003 uses a pseudo-R^2; several exist); (ii) if no grid point reaches M or zero (alpha <= 3, delta <= 0.6 SD), what is reported is not fixed; (iii) tau(0,0) is the coefficient of a Gaussian linear model on earnings with a large mass at zero, not the AIPW estimate, yet thresholds are distances from the AIPW CI; (iv) 'each observed covariate, dropped one at a time' does not say whether all of its B(X) terms (e.g. re75, re75^2, unemp75) are dropped together; (v) no statement of what the paper concludes relative to the strongest benchmark, which will almost surely be re75.",
+      "evidence": "plan.json design.threats[0]; design.analysis_plan[sens-imbens]; task.json brief ('enrolled ... in 1976-77'). Resolve by naming the 1976 shock in identifying_assumption and threats, fixing the R^2 definitions, the out-of-grid rule, the grouping of basis terms per benchmark, and one sentence stating how the sensitivity result will be read (e.g. against the re75 benchmark).",
+      "response": "Designer: the 1976 shock is now named in identifying_assumption and threats[0]; method.sensitivity fixes R2_D (latent-index) and R2_Y (share of U-free residual variance), the R2-parameterized grid and diagonal, nine grouped benchmarks (e.g. earnings75 = re75, re75^2, unemp75), three targets, additive transfer to AIPW, the '> 0.30' out-of-grid report, and a reading rule always stated against earnings75.",
+      "ruling": "Fixed: the 1976 shock is named in identifying_assumption and threats[0]. method.sensitivity defines R2_D and R2_Y; I checked that the inversions alpha = (2 pi / sqrt 3) sqrt(R2_D/(1-R2_D)) and delta = 2 sigma0 sqrt(R2_Y) follow from Var(alpha U) = alpha^2/4 with U ~ Bernoulli(0.5). It also fixes the grid and diagonal, the grouped benchmarks, the three targets, the '> 0.30' out-of-grid report, the additive transfer (labelled as an approximation) and a reading rule always stated against earnings75. Residual: R2_D(G) from V - V_-G in an unpenalized logit is inflated by non-collapsibility when G is dropped. That makes the benchmarks look stronger, so it errs conservative, and I am not raising it."
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The missing-outcome rule is wrong and changes the estimand silently. plan.json design.data says a unit missing outcome k 'contributes 0 to outcome k's score, which is rescaled by n / n_k'. The ATT score divides by the number of treated; rescaling by n/n_k recovers the complete-case ATT only if the share missing is the same in both arms, and the control weights m/(1-m) still target the covariate distribution of all treated, including those whose outcome is missing. The implied assumption (outcome missing at random given X and D) is not stated. Whether any outcome is missing is unknown because outcomes are sealed, so this must be right before the gate, not repaired after.",
+      "evidence": "plan.json design.data ('Missing outcome values, if any ...'). Resolve by defining the estimand under missingness (e.g. ATT among treated with observed Y_k, with the denominator the observed-treated count and the propensity refitted on complete cases, or inverse-probability-of-observation weights), stating the MAR assumption, and reporting missing counts by arm. Whether a data-prep run may count missing values by arm before the gate is the PI's decision: it reveals attrition by arm, which is outcome information.",
+      "response": "Designer: per the PI ruling, data-prep run missing-counts (Data RA, counts by arm only) is added before the gate; method.missing_outcomes states MAR given X and treat, complete cases re-estimated on the subsample with the ATT-among-observed estimand, and rob-ipow (inverse-probability-of-observation weights) as robustness if any outcome's between-arm missing share differs by more than 2 points.",
+      "ruling": "Fixed: method.missing_outcomes states MAR given X and treat, the complete-case ATT-among-observed estimand with a re-fitted estimator and the observed-treated denominator, and the rob-ipow trigger. log.jsonl line 21 (design revised, 12:46:15Z) comes before missing-counts (12:46:55Z), so the rule was fixed before the counts were seen. code/missing_counts.py reads treat plus the six outcomes as text and writes only counts. The run reports 0 missing in every outcome and arm, so the rule does not bind. Gaps in what this run detects are raised separately as F7."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The disagreement rule is silent on rob-estimators (b). The Hajek IPW ATT targets the same estimand under the same assumption as the primary, but threats[10] lists neither it as a trigger nor as an exempt check (only rob-estimators (a) is exempted).",
+      "evidence": "plan.json design.threats[10] ('Rule for disagreement, fixed now'). Resolve by placing rob-estimators (b) explicitly in one list.",
+      "response": "Designer: the Hajek IPW ATT (rob-estimators (b)) now triggers the abstract statement only if its point estimate lies outside main-aipw's 95% CI, because a decision difference from its wider interval alone is not evidence of fragility; stated in threats[12].",
+      "ruling": "Fixed: threats[12] places rob-estimators (b) in the rule. It triggers the abstract statement if its point estimate lies outside main-aipw's 95% CI. The stated reason (a wider interval alone is not fragility) is sound."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The pre-registration is anchored only by the crew's own log. The current plan.json (sha256 1a61bcc5...b39006d) matches log.jsonl's last entry, but it is not committed: git HEAD holds a different plan.json (sha256 4576607b...), and every code/ script, data/CODEBOOK.md and runs/ record are untracked. prepare-covariates and margin each ran twice (log.jsonl 12:27:54 and 12:28:10-11) and the ledger keeps only the second; why they were rerun is not recorded. Task d-data is still 'doing'.",
+      "evidence": "git status / git show HEAD:gallery/ss-null-effect/plan.json; log.jsonl lines 8-11; plan.json tasks[d-data]. Resolve by committing the design version, code and run records before the gate request, noting why the two data-prep runs were repeated, and closing d-data.",
+      "response": "Designer: runs/NOTES.md now explains the two prepare-covariates/margin runs (the Data RA added the unemp = 1{re = 0} indicator check and reran with --replace); task d-data set to done; the PI commits the workspace before the gate request.",
+      "ruling": "Fixed: commit 57f5b3f (2026-11-18T12:47:22Z) tracks plan.json, code/, runs/*/run.json and data/CODEBOOK.md. HEAD's plan.json sha256 837988cf...739815b equals the working copy. runs/NOTES.md explains the two repeated data-prep runs, and d-data is done. A stale log hash is raised separately as F8."
+    },
+    {
+      "id": "F7",
+      "severity": "major",
+      "status": "resolved",
+      "text": "No rule is fixed for invalid or coded outcome values, so a choice about the primary outcome is left open until after re78 is seen. code/missing_counts.py counts a value as missing only if pandas reads it as NA (a blank or a default NA token) and flags only non-numeric strings. A numeric sentinel (for example -9, -99, 9999 or 99999 in an earnings, hours or wellbeing column) or an impossible value (negative earnings or benefits, hours78 above 8,784, employed78 outside {0, 1}) would pass as valid. The design's '0 missing' conclusion (CODEBOOK 'Missing outcome values'; log.jsonl line 23) therefore covers empty cells only. plan.json design.data and method.missing_outcomes define missingness only as absence, and nothing in the design says what the analysis does when it meets a value like these. If one appears, the Econometrician will decide after the gate, with re78 in hand, whether to drop, recode or keep it, and the ATT and the TOST decision against a margin of 483 are sensitive to a few large codes.",
+      "evidence": "plan.json design.data and design.method.missing_outcomes (missingness defined only as absent values); code/missing_counts.py lines using df[k].isna() and pd.to_numeric(..., errors='coerce'); data/CODEBOOK.md section 'Sealed outcome columns' (no outcome ranges documented). Resolve by fixing a validity rule in plan.json before the gate: admissible ranges per outcome (re78, re79, benefits78 >= 0; hours78 in [0, 8784]; employed78 in {0, 1}; wellbeing78 numeric, plus a declared rule for repeated round sentinel values). Out-of-range values are treated as missing under the existing complete-case/MAR rule, counted by arm and reported, and never winsorized or recoded. Whether a data-prep run may count out-of-range values by arm before the gate (counts only, like missing-counts) is the PI's decision. Writing the rule alone, without the count, is enough to close the forking path.",
+      "response": "Designer: design.method.outcome_validity fixes admissible values (re78/re79/benefits78 >= 0 and finite, employed78 in {0,1}, hours78 in [0, 8784], wellbeing78 integer in [0, 10]) and a sentinel rule for round codes above the whole distribution. Inadmissible values are treated as missing under the complete-case rule, counted by arm, and never recoded or winsorized. The brief gives no wellbeing scale, so if more than 1% are out of range the rule switches to 'finite' before the gate, from counts only. Pre-gate run range-counts was added as task d-range (data-ra).",
+      "ruling": "Fixed: plan.json design.method.outcome_validity sets admissible values for all six outcomes and a sentinel rule. Inadmissible values are treated as missing under the complete-case/MAR rule and never recoded, winsorized, top-coded or imputed. design.data, threats and the claim_ids (invalid-<k>-*) are updated to match. Order checked in log.jsonl: PI ruling 12:50:12Z, rule written 12:51:05Z (plan sha e243efdc...), range-counts run 12:52:14Z, diagnostics recorded 12:52:38Z. So the rule came before the counts. code/range_counts.py reads only treat plus the six outcomes (usecols). The maxima used by the sentinel rule stay inside sentinel_mask(), and the metrics file and stdout contain counts and shares only; I read the whole metrics block and found no value, extreme or summary. Every category is 0 in both arms, the wellbeing78 safeguard did not fire, and the rule does not bind. The counts disclose the outcomes' admissible scale (for example, that employed78 is binary). That is format information, not effect information, and it was the PI's ruling."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The crew's own anchor for the design is stale, and the outcome-reading exception is not logged by the person who granted it. The newest plan.json hash in log.jsonl (line 21, 12:46:15Z) is 5aab4b04...088b085c. The current plan.json, which matches git HEAD 57f5b3f, is 837988cf...739815b, and no log entry records what changed in between (at least task d-missing set to done). threats[6] promises that 'the plan.json hash is logged before the design gate'. Separately, plan.json cites a 'PI ruling on design-r1 F4' for a pre-gate run that reads the outcome columns. log.jsonl has no PI entry recording that ruling; only the Designer's and Data RA's entries mention it. plan.json also does not record the missing-counts outcome (rob-ipow not triggered), even though the analysis_plan says that branch is fixed before the gate.",
+      "evidence": "log.jsonl lines 21-23; sha256 of plan.json (837988cf...) vs git show HEAD:gallery/ss-null-effect/plan.json (same) vs log line 21 (5aab4b04...); plan.json design.analysis_plan[missing-counts], tasks[a-ipow], design.diagnostics. Resolve by having the PI log the F4 ruling, recording 'rob-ipow not triggered (missing-counts: 0 missing in all outcomes)' in design.diagnostics, and logging the final plan.json hash and commit id immediately before the gate request.",
+      "response": "Designer: design.diagnostics now records missing-counts (0 missing in all six outcomes in both arms; rob-ipow not triggered unless range-counts changes the combined share), with a placeholder for range-counts; the PI logged the F4 ruling (log 12:50:12Z), and the new plan.json hash is logged.",
+      "ruling": "Fixed: the newest log entry (12:52:38Z, PI) records plan.json sha256 fa4433e0...59fbe. I recomputed it on the working copy, and git HEAD fe34a16 (12:52:38Z) holds the same hash. design.diagnostics records missing_counts and range_counts, and the rob-ipow non-trigger. The PI's F4 ruling is now in log.jsonl (12:50:12Z). It is marked retroactive: it says the ruling was given before missing-counts ran (12:46:55Z), but the log alone cannot show that. It is disclosed, so I am not raising it again; it belongs in the AI-use statement."
+    }
+  ]
+}

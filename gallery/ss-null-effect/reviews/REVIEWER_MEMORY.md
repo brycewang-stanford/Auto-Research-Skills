@@ -168,3 +168,27 @@ Next time (design-r3, or results):
   design.claim_ids is present.
 - Literature review still pending: spot-check card2018, lalonde1986 ($886, SE 476),
   crump2009 ([0.1, 0.9]).
+
+## design-r3 (2026-11-18T12:53Z), verdict: pass
+F7 and F8 are resolved, and no finding is open (F1-F8 all resolved). Order verified: F7 ruling
+12:50:12Z, outcome_validity written 12:51:05Z, range-counts run 12:52:14Z, diagnostics
+12:52:38Z, commit fe34a16 at 12:52:38Z. plan.json sha fa4433e0... equals the last log entry
+and HEAD. range_counts.py writes counts only, and all are 0. Every run is data-prep. No outcome
+value is exposed beyond the scale/format. The PI's F4 ruling is logged retroactively. It is
+disclosed and must appear in the AI-use statement.
+
+Strongest remaining objection (for results/paper): there is no informative falsification
+test; the dip and the unobserved 1976 shock remain; the earnings75 benchmark will likely make
+the conclusion "not robust"; H1b is likely untestable (proxy half-width about 416 vs M = 483).
+
+Next time (results):
+- main-aipw's data input is the raw extract read with usecols; it must use exactly B(X), the
+  folds and the seeds in plan.json; M is read from margin_metrics.json and never re-anchored.
+- No winsorizing or recoding of re78; invalid-<k> echoes equal 0.
+- The disagreement rule (threats[12]) is applied mechanically, including the IPW
+  point-outside-CI test; the sensitivity reading rule is followed verbatim, with earnings75 always
+  stated; select-re75 is never cited as support.
+- Every id in design.claim_ids is present, including primary-effect/ci-low/ci-high.
+- Every analysed outcome is reported with Romano-Wolf; no survey item is read.
+- Literature review still pending: spot-check card2018, lalonde1986 ($886, SE 476),
+  crump2009 ([0.1, 0.9]).
