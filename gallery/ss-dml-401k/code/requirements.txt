@@ -23,3 +23,5 @@ threadpoolctl==3.8.0
 typing-extensions==4.16.0
 tzdata==2026.6
 wrapt==2.5.2
+# R side of check-learner-ports (not pip-installable; install from CRAN):
+# R 4.5.2, hdm 0.3.2, rpart 4.1.24, randomForest 4.7.1.2, gbm 2.3.1, nnet 7.3.20, glmnet 4.1.10
