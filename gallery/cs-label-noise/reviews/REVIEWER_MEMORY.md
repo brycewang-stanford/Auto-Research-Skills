@@ -243,3 +243,23 @@ Next round / paper stage:
   every other metric is unchanged.
 - Credit-g r > 1 (below the majority floor): descriptive only, never in the H1 count.
 - Figures (f-figures) and the replicator rerun are not done yet; check them at the paper stage.
+
+## results-r2 (2026-11-18): verdict pass. No critical or major open. F1 conceded (wording narrowed); F2-F5 resolved.
+
+What changed: only runs/NOTES.md, code/make_claims.py (claim text only), claims.jsonl text, plan.json task statuses and log.jsonl. runs/,
+results/ and the analysis code are unchanged since results-r1. Claims diff against 1b474dd: 1,210 claims keep the same value, macro, format
+and support; 317 changed only in text; 1 is new (c-abl-count). I recounted c-abl-count from the metrics: 21 tests, 1 attributed, and it is the
+only interval that excludes 0. The NOTES r values for A2 adult are ledger metrics. validate OK. I reran no analysis.
+
+Note: make_claims.py hardcodes the interpretive text for A2 adult Delta (direction, 'close to 0'). If any rerun changed the values, that text would
+go stale. The replicator rerun at rtol 1e-6 should catch any change.
+
+Paper-stage checklist:
+- H1 overall 'inconclusive' (1 supported, 2 inconclusive); never 'no detectable difference' for the overall verdict, and never 'GBDT degrades more'
+  in general. Covtype support is per-dataset only, on 5k subsamples. The title and abstract must not promise more.
+- Per-dataset inconclusive outcomes use 'no detectable difference (inconclusive)'. S and the half-width go next to every D.
+- A2 adult: 'cannot be assigned to model selection'; cite c-abl-count next to it; no n_iter numbers (not in the ledger).
+- A1 compares different candidate streams; mention it if A1 is discussed.
+- breast_cancer bootstrap [0.173, 0.390] is never cited as support; credit-g r > 1 is descriptive only.
+- f-figures and r-rerun are still todo; replication.json must be newer than every run; figures must come from run outputs.
+- Every number in the paper is a macro from numbers.tex.

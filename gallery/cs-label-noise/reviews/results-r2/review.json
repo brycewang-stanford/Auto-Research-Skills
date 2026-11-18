@@ -1,0 +1,72 @@
+{
+ "id": "results-r2",
+ "target": "results",
+ "round": 2,
+ "created": "2026-11-18T13:52:32Z",
+ "reviewer": {
+  "model": "claude-opus-5-5",
+  "independence": "fresh-context"
+ },
+ "files_read": [
+  "reviews/REVIEWER_MEMORY.md",
+  "reviews/results-r1/review.json",
+  "claims.jsonl",
+  "runs/NOTES.md",
+  "plan.json",
+  "log.jsonl",
+  "code/make_claims.py",
+  "runs/h-tests/run.json",
+  "runs/abl-noes/run.json",
+  "runs/abl-cleanval/run.json",
+  "runs/abl-budget/run.json"
+ ],
+ "kill_argument": "The study answers its own question with 'inconclusive' on both hypotheses. It has one positive per-dataset result: H1 on covtype, D = 0.073 [0.022, 0.124], from 10 stratified 5,000-row subsamples of a 581k-row dataset, judged on a plain t(9) interval, with 7 of 10 seeds positive. That is a narrow base for any statement about GBDT against RF. A Writer who leads with covtype, or who quotes breast_cancer's descriptive bootstrap [0.173, 0.390], would turn an inconclusive study into a positive one. The one mechanism result (A2 on adult) is 1 of 21 tests, about the chance rate, and cannot separate selection from early stopping. What I tried this round: I diffed claims.jsonl against 1b474dd. 1,210 claims keep identical value, macro, format and support, 317 changed only in text, and one claim is new (c-abl-count). I recounted the 21 ablation tests from the run metrics. I checked every number cited in the new NOTES text against the ledger. I confirmed that runs/, results/ and the analysis code are unchanged since the results-r1 state. crew.py validate is OK. All of it held. This is a reporting risk for the paper stage, not a defect in the results.",
+ "verdict": "pass",
+ "findings": [
+  {
+   "id": "F1",
+   "severity": "major",
+   "status": "conceded",
+   "text": "The A2 'attributed' result on adult is labelled as noisy model selection, but for GBDT the cells show that the effect comes from the early-stopping monitor. experiment.py line 206 uses y_sel for both selection and fit(X_val=..., y_val=y_sel), so the cleanval GBDT candidates are different fits. On adult at rho=0.4 the selected GBDT's median n_iter is 64 under main and 268 under cleanval. Its clean-validation accuracy is 0.7948 under main and 0.7855 under cleanval, lower although selection maximized clean-validation accuracy. That is only possible if the candidate models changed. Its clean-test accuracy falls from 0.786 to 0.772. Decomposition of D_abl - D_main = +0.369: r_GBDT rises 0.726 -> 0.877 (+0.151, from the longer clean-loss early stopping), and r_RF falls 0.614 -> 0.396 (+0.218; the RF fits are identical, so this part is a true selection effect). The NOTES sentence 'on adult, noisy model selection shrinks GBDT's excess loss relative to RF; it does not create it' therefore misattributes a large share. The claim c-a2-Ad-delta-status says only 'attributed', with no direction and no mechanism. The cleanval GBDT n_iter, which is the evidence for this, is not a ledger metric.",
+   "evidence": "runs/NOTES.md 'Ablations' A2 bullet; claims.jsonl c-a2-Ad-delta-status; results/cells_cleanval.csv vs results/cells_noisy.csv (adult, gbdt, rho 0.4: n_iter, val_acc_clean, test_acc); code/experiment.py line 206/217; code/analyze.py run_ablation('cleanval') records no n_iter",
+   "response": "Experimenter (PI ruling: wording only): NOTES and all A2 claim texts now say A2 changes both selection and GBDT early-stopping labels, so the adult Delta cannot be assigned to model selection; direction stated (H1 gap larger under clean-label selection+stopping; r_RF 0.614->0.396, r_GBDT 0.726->0.877 from ledger).",
+   "ruling": "The author narrowed the claim instead of rerunning. claims.jsonl c-a2-Ad-delta-status and runs/NOTES.md now say that A2 changes both the selection labels and GBDT's early-stopping labels, that the adult effect cannot be assigned to model selection, and give the direction (Delta < 0, D larger under clean labels). Every A2 claim's text carries the 'does not separate' qualifier. The r values cited in NOTES (adult.gbdt.cleanval.r 0.877, adult.rf.cleanval.r 0.396; h-tests adult.gbdt.r 0.726, adult.rf.r 0.614) are ledger metrics, and I checked them. n_iter is explicitly not claimed. The paper must keep this wording and must not attribute the adult effect to model selection."
+  },
+  {
+   "id": "F2",
+   "severity": "minor",
+   "status": "resolved",
+   "text": "The single attributed ablation must be read against the number of ablation tests and its margin. On informative datasets there are 21 Delta tests: A1 3, A2 9, A3 9. Exactly one excludes zero, which is about what chance gives at 95% (expected about 1.05). Its upper bound is -0.030 against a half-width of 0.340. It sits on adult, where design.method says the uncorrected interval is 'slightly narrow' because of about 6% training-row overlap between seeds; an 18% rise in the variance factor (c from 0.100 to 0.118) would put zero inside it. The rule was applied as pre-registered and no correction for multiplicity was planned, so this is a reporting issue, not a rule violation.",
+   "evidence": "runs/abl-cleanval/run.json metrics adult.A2.Delta.{value,lo,hi,half}; runs/abl-noes and runs/abl-budget Delta.status metrics; plan.json design.method STATISTICS (adult overlap sentence)",
+   "response": "Experimenter: added claim c-abl-count (1 of 21 ablation Delta tests on informative datasets excludes 0, about chance at 95%) and NOTES now reports the -0.030 upper bound on adult's slightly narrow uncorrected interval; no correction was planned, none applied.",
+   "ruling": "The new claim c-abl-count matches the ledger. I recounted it from the run metrics: 21 non-excluded Delta tests (A1 3, A2 9, A3 9), 20 not attributed, 1 attributed. It is also the only interval that excludes 0, so 'excludes 0' and 'attributed' coincide. Its support lists exactly the 21 status metrics. NOTES gives the -0.030 upper bound and the slightly-narrow caveat. Calling the chance expectation 'about one' is approximate, because the tests are correlated and the |Delta| >= 0.05 rule also applies, but 'about' covers that."
+  },
+  {
+   "id": "F3",
+   "severity": "minor",
+   "status": "resolved",
+   "text": "runs/NOTES.md says of A3: 'The largest is covtype Delta = +0.032 [-0.018, +0.083].' That is false. On breast_cancer, Delta1 = +0.067 and Delta2 = +0.048 are larger. The interval closest to excluding 0 is covtype Delta2 = +0.017 [-0.005, +0.040]. None is attributed, so the outcome is unaffected.",
+   "evidence": "runs/NOTES.md 'Ablations' A3 bullet; runs/abl-budget/run.json metrics breast_cancer.A3.Delta1.value, breast_cancer.A3.Delta2.value, covtype.A3.Delta2.{lo,hi}",
+   "response": "Experimenter: NOTES A3 bullet corrected (largest point estimates breast_cancer Delta1 +0.067, Delta2 +0.048; closest to excluding 0 covtype Delta2 +0.017 [-0.005, +0.040]).",
+   "ruling": "The NOTES A3 bullet now names breast_cancer Delta1 +0.067 and Delta2 +0.048 as the largest point estimates, and covtype Delta2 +0.017 [-0.005, +0.040] as the closest to excluding 0. Both match abl-budget metrics."
+  },
+  {
+   "id": "F4",
+   "severity": "minor",
+   "status": "resolved",
+   "text": "NOTES 'Surprises' item 2 is titled 'Results against H2'. It calls breast_cancer's D2 = +0.230 [-0.189, 0.648] 'the opposite of H2'. This conflicts with disclosures[4]: a difference whose interval includes 0 is never reported as a difference. The outcome-word claims (c-h1-*-out, c-h2-*-out) also use the bare 'inconclusive', while design.method requires the reporting words 'no detectable difference (inconclusive)'.",
+   "evidence": "runs/NOTES.md 'Surprises' item 2; plan.json disclosures[4] and design.method 'Reporting words'; claims.jsonl c-h1-Bc-out, c-h2-Bc-out, c-h1-Ad-out, c-h2-Ad-out, c-h2-Ct-out",
+   "response": "Experimenter: NOTES item 2 reworded as a point estimate whose interval includes 0 (no detectable difference), and outcome claims' text now reads 'no detectable difference (inconclusive)'; values unchanged.",
+   "ruling": "NOTES item 2 is retitled and now reads as a point estimate whose interval includes 0. Per-dataset outcome claims (c-h1-*-out, c-h2-*-out) say 'no detectable difference (inconclusive)'. The overall verdict claims (c-h1-verdict, c-h2-verdict) keep the bare 'inconclusive'. That is correct: H1 overall is a mixed count (covtype supported), so writing 'no detectable difference' there would misstate it. NOTES says this explicitly."
+  },
+  {
+   "id": "F5",
+   "severity": "minor",
+   "status": "resolved",
+   "text": "The plan.json task board is stale. rv-design, g-design, e-code, rv-code, e-main-rho0, e-exclusion, e-main-noisy, e-tests, e-describe, e-abl-noes, e-abl-cleanval and e-abl-budget are all still 'todo', but log.jsonl records each as done ('runs-complete' at 13:44:55Z).",
+   "evidence": "plan.json tasks[]; log.jsonl entries 2026-11-18T13:23:37Z to 13:44:55Z; crew.py status output",
+   "response": "Experimenter: left to the PI, who is updating plan.json task statuses.",
+   "ruling": "plan.json tasks through e-abl-budget are now done; f-figures and r-rerun are todo. log.jsonl 13:50:18Z records the PI's change, and the diff 1b474dd..HEAD of plan.json touches only status fields."
+  }
+ ]
+}
