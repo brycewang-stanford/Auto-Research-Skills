@@ -57,6 +57,13 @@ def check_answer(ws: Path, key: dict) -> dict:
             return {"status": "fail", "details": {"reason": f"claims {low_id}/{high_id} missing"}}
         low, high = values[low_id], values[high_id]
         return {"status": "pass" if low <= 0 <= high else "fail", "details": {"interval": [low, high]}}
+    if "interval_contains" in rule:
+        low_id, high_id, target = rule["interval_contains"]
+        if low_id not in values or high_id not in values:
+            return {"status": "fail", "details": {"reason": f"claims {low_id}/{high_id} missing"}}
+        low, high = values[low_id], values[high_id]
+        return {"status": "pass" if low <= target <= high else "fail",
+                "details": {"interval": [low, high], "target": target}}
     return {"status": "unknown-rule"}
 
 

@@ -7,6 +7,9 @@ Seed tasks that a crew must be able to finish, each with a way to score the resu
 | [`ss-dml-401k`](seeds/ss-dml-401k/task.json) | Social science | Replication of a published estimate | Distance from the published estimate, plus protocol checks |
 | [`ss-null-effect`](seeds/ss-null-effect/task.json) | Social science | Observational evaluation where the true effect is zero | The crew must not find an effect; hidden answer key |
 | [`cs-label-noise`](seeds/cs-label-noise/task.json) | CS | Small empirical ML study | Protocol checks and a clean rerun |
+| [`cs-calibration`](seeds/cs-calibration/task.json) | CS | Small empirical ML study (probability calibration) | Protocol checks and a clean rerun |
+| [`ss-lalonde-observational`](seeds/ss-lalonde-observational/task.json) | Social science | Recover an experimental benchmark from observational data | The 95% interval must contain the experimental benchmark; hidden answer key |
+| [`ss-card-krueger`](seeds/ss-card-krueger/task.json) | Social science | Replication of a published difference-in-differences estimate | Distance from the published estimate; hidden answer key |
 
 Run one with `/crew:start <seed id>`.
 

@@ -1,0 +1,16 @@
+{
+  "id": "ss-card-krueger",
+  "track": "social-science",
+  "kind": "replication",
+  "title": "Did New Jersey's 1992 minimum-wage increase reduce fast-food employment? A replication of Card and Krueger (1994)",
+  "question": "Does a replication of Card and Krueger (1994, American Economic Review) from their public data reproduce the difference-in-differences estimate of the change in full-time-equivalent employment per store in New Jersey relative to eastern Pennsylvania?",
+  "brief": "Replicate the headline difference-in-differences estimate in Card and Krueger (1994), 'Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania', using the public data at https://davidcard.berkeley.edu/data_sets/njmin.zip (410 stores). Follow the paper's definition of full-time-equivalent employment and its sample rules, reproduce the published comparison, then pre-specify and report at least one robustness check from the later literature.",
+  "data": {"source": "https://davidcard.berkeley.edu/data_sets/njmin.zip", "license": "Distributed publicly by the author for research use; no explicit licence stated"},
+  "requirements": [
+    "Full-time-equivalent employment is defined as in the paper.",
+    "Record the replicated headline estimate as a result claim with id `did-fte` and its standard error as `did-fte-se`, and the balanced-sample estimate as `did-fte-balanced`.",
+    "The paper reports the published and replicated estimates side by side, with any difference explained."
+  ],
+  "budget": {"hardware": "laptop CPU", "wall_time_minutes": 15},
+  "scoring": "See answer.json. Agents must not read it."
+}

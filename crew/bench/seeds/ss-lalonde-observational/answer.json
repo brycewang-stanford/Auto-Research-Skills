@@ -1,0 +1,15 @@
+{
+  "_note": "Scoring key. Crew agents must not read this file.",
+  "source": {
+    "benchmark": "Dehejia and Wahba (1999), JASA 94(448), Table 3, row NSW, column (1): 1,794 (SE 633); also Dehejia and Wahba (2002), REStat, Tables 2-3, row NSW. Read from https://users.nber.org/~rdehejia/papers/dehejia_wahba_jasa.pdf (OCR checked against the page image) and https://users.nber.org/~rdehejia/papers/matching.pdf on 2026-11-19.",
+    "units": "1982 US dollars",
+    "context": "DW (2002) Table 2 CPS nearest-neighbour matching with replacement: 1,360 (913). DW (1999) Table 3 CPS-1 stratification: 1,713 (1,115) unadjusted, 1,774 (1,152) adjusted. DW (2002) Table 4 prints SEs (633)/(638) for the CPS full specification, which appear to be a misprint copied from the NSW row; key against Table 2."
+  },
+  "benchmark": 1794,
+  "machine_check": {"interval_contains": ["primary-ci-low", "primary-ci-high", 1794]},
+  "pass_if": [
+    "The pre-specified primary estimate's 95% interval contains the experimental benchmark of 1,794.",
+    "No estimator was chosen by its closeness to the benchmark (the design gate precedes any outcome analysis).",
+    "The workspace passes `crew.py validate --strict`."
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "_note": "Scoring key. Crew agents must not read this file.",
+  "source": {
+    "paper": "Card, D. and Krueger, A. B. (1994). Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania. American Economic Review 84(4), 772-793.",
+    "table": "Table 3, column (iii) 'Difference, NJ-PA', p. 780; read from the author-hosted JSTOR copy https://davidcard.berkeley.edu/papers/min-wage-ff-nj.pdf (page image) on 2026-11-19",
+    "data_check": "njmin.zip public.dat has 410 rows (331 NJ, 79 PA), matching the readme and Table 1."
+  },
+  "published": {
+    "row3_change_in_mean_fte": {"estimate": 2.76, "se": 1.36},
+    "row4_balanced_sample": {"estimate": 2.75, "se": 1.34},
+    "row5_closed_stores_zero": {"estimate": 2.51, "se": 1.35}
+  },
+  "machine_check": {"claims": {"did-fte": [2.66, 2.86], "did-fte-balanced": [2.65, 2.85]}, "min_matched": 2},
+  "pass_if": [
+    "The replicated headline estimate is within 0.10 FTE of 2.76 and the balanced-sample estimate within 0.10 of 2.75 (rounding and sample-handling differences only).",
+    "The paper states the published numbers it compares against, citing Table 3.",
+    "The workspace passes `crew.py validate --strict`."
+  ]
+}

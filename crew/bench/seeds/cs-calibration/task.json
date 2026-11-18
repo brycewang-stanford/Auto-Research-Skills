@@ -1,0 +1,17 @@
+{
+  "id": "cs-calibration",
+  "track": "cs",
+  "kind": "empirical-study",
+  "title": "Are the predicted probabilities of common tabular classifiers calibrated, and does post-hoc recalibration help?",
+  "question": "On standard tabular binary classification datasets, how well calibrated are the predicted probabilities of logistic regression, random forests and gradient-boosted trees out of the box, and how much do Platt scaling and isotonic regression, fitted on held-out data, change calibration error and log-loss?",
+  "brief": "Run a small, careful empirical study of probability calibration. Use binary classification datasets available through scikit-learn's loaders, pinned by version. Measure calibration with a pre-specified metric (for example expected calibration error with a fixed binning scheme, plus log-loss and Brier score), with uncertainty across at least five seeds. Fit recalibration only on data held out from both training and testing. Say what you found at the size you found it.",
+  "requirements": [
+    "At least three datasets, three methods, two recalibration methods plus 'none', and five seeds.",
+    "The calibration metric and its binning are fixed at the design gate.",
+    "Recalibration is fitted on a held-out split that is used neither for training nor for testing.",
+    "Results report mean and spread across seeds; differences inside the noise are reported as no difference.",
+    "The whole study runs on a laptop CPU in under an hour."
+  ],
+  "budget": {"hardware": "laptop CPU", "wall_time_minutes": 60},
+  "scoring": "No numeric answer key. Scored on protocol compliance: `crew.py validate --strict` passes, every requirement above is met, and a clean rerun reproduces every reported number."
+}

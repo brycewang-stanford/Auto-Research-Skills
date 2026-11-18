@@ -351,10 +351,17 @@ class BenchScoreTest(unittest.TestCase):
         self.claims({"lo": 20.0, "hi": 400.0})
         self.assertEqual(score.check_answer(self.ws, key)["status"], "fail")
 
+    def test_interval_must_contain_benchmark(self) -> None:
+        key = {"machine_check": {"interval_contains": ["lo", "hi", 1794]}}
+        self.claims({"lo": 300.0, "hi": 2500.0})
+        self.assertEqual(score.check_answer(self.ws, key)["status"], "pass")
+        self.claims({"lo": -900.0, "hi": 1200.0})
+        self.assertEqual(score.check_answer(self.ws, key)["status"], "fail")
+
     def test_every_answer_key_has_a_machine_check_or_none(self) -> None:
         for key_path in (ROOT / "crew" / "bench" / "seeds").glob("*/answer.json"):
             rule = json.loads(key_path.read_text()).get("machine_check", {})
-            self.assertTrue(set(rule) <= {"claims", "min_matched", "interval_contains_zero"}, key_path)
+            self.assertTrue(set(rule) <= {"claims", "min_matched", "interval_contains_zero", "interval_contains"}, key_path)
 
 
 class PluginFilesTest(unittest.TestCase):

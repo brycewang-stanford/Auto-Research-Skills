@@ -1,0 +1,17 @@
+{
+  "id": "ss-lalonde-observational",
+  "track": "social-science",
+  "kind": "benchmark-recovery",
+  "title": "Can observational estimators recover an experimental job-training effect? The NSW and the CPS comparison group",
+  "question": "Using the National Supported Work (NSW) treated men in the Dehejia-Wahba subsample and the CPS-1 non-experimental comparison group, what is the effect of the training program on 1978 earnings for participants, estimated under selection on observables?",
+  "brief": "Use the public files distributed by Rajeev Dehejia (https://users.nber.org/~rdehejia/data/): the NSW treated men in the Dehejia-Wahba (RE74) subsample (nswre74_treated.txt, 185 men) and the CPS-1 comparison group (cps_controls.txt, 15,992 men). Do not use the experimental control group (nswre74_control.txt or nsw_dw.dta's controls) for estimation. Pre-specify one primary estimator and its covariates at the design gate, check overlap, and report the estimate with its uncertainty. Report how it compares with the experimental benchmark only after the results gate.",
+  "data": {"source": "https://users.nber.org/~rdehejia/data/", "files": ["nswre74_treated.txt", "cps_controls.txt"], "license": "Distributed publicly by the author for research use; no explicit licence stated"},
+  "requirements": [
+    "The experimental control group is not used for estimation.",
+    "The primary estimator, covariates and overlap rule are fixed at the design gate.",
+    "Record the primary estimate as result claims with ids `primary-effect`, `primary-ci-low` and `primary-ci-high` (95% confidence interval, 1982 dollars).",
+    "The paper reports the comparison with the experimental benchmark and does not choose among estimators by closeness to it."
+  ],
+  "budget": {"hardware": "laptop CPU", "wall_time_minutes": 30},
+  "scoring": "See answer.json. Agents must not read it."
+}
