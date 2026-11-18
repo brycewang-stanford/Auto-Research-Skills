@@ -98,3 +98,31 @@ Check at design:
 - nnet scaling; probability outputs for binary D; whether splits are shared across
   learners within a split index.
 - H3 is stated as a comparison of point estimates, with its expected failure rate (F15).
+
+## question-r4 (2026-11-18, last round): pass, 0 critical / 0 major / 3 minor open
+
+Status: F13 conceded (claim narrowed, not powered up). F14 and F15 resolved. F11 stays
+open as a design item. New: F16 and F17 (minor). Open findings go to the human.
+
+Suspicions:
+- The power problem from F13 has not gone away. At the planned S (lasso and tree at 100,
+  forest and boosting at about 10), every cell's tolerance is below $1,000, so the NT rule
+  excludes nothing. Expect the headline "all testable cells reproduced". The 80%-power
+  minimum detectable shift is 1.30 times the tolerance: forest K=2 $1,008 at S = 10,
+  lasso K=2 $1,071 at S = 100.
+- F17: after a cell fails, the crew may re-tune the learner until it passes. The claim value
+  must come from the configuration fixed at the design gate.
+- crew.json title still says "raise" (paper stage).
+
+Verified myself: notes.md section 5 table against Panel B, to within $2 of rounding; the
+off-protocol pass/fail entries; H3 false-fail rate below 1% with lasso at S = 100 (smallest
+margin is nnet K=5, about 3.6 SE). Arithmetic on the published table only; no data, no models.
+
+Check at design:
+- S for every learner, the tolerance table with MDS80 next to it, and a timing estimate
+  (F11, F16). Was the NT threshold or the word "resolution" changed?
+- A rule that claim values come from the design-gate configuration only, plus a deviation
+  list per learner (F17).
+- How the lasso approximates rlasso c = 1.1 (the 401K.R dictionary has about 275 columns),
+  the HC SE, the partialling-out score, eq. 3.14 aggregation, nnet scaling, probability
+  outputs for binary D, and whether splits are shared across learners and across K.

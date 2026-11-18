@@ -1,2 +1,3 @@
 {"time": "2026-11-18T11:45:47Z", "role": "pi", "action": "init", "detail": "track=cs"}
 {"time": "2026-11-18T12:10:56Z", "role": "pi", "action": "plan-revised", "detail": "Question/hypotheses revised after question-r4 (final round): seed-mean ratio, bootstrap intervals, 5-point exclusion. Not re-reviewed. plan.json sha256=149f39aa28b0ae366c646238f4eb25b4d7ef8d89b02dd1e1e09bc7193db67d1e"}
+{"time": "2026-11-18T12:14:26Z", "role": "pi", "action": "gate-request", "detail": "question"}

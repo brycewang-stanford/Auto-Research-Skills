@@ -2,3 +2,4 @@
 {"time": "2026-11-18T12:06:21Z", "role": "pi", "action": "log-repair", "detail": "Removed a hand-written scout entry stamped 2026-11-18T20:10:00Z (in the future; Reviewer finding F8). The Scout finished q-novelty before the question-r1 review (12:04Z); exact time unknown."}
 {"time": "2026-11-18T12:09:00Z", "role": "pi", "action": "plan-revised", "detail": "Question revised after question-r1 and question-r2 (closed outcome set, covariates, ATT, equivalence margin = 10% of participants' mean re75). plan.json sha256=1ccb35da856fecb45a30b2a1030708df62325b6e80fe70e52906aa50a0f4e9a2"}
 {"time": "2026-11-18T12:11:06Z", "role": "pi", "action": "plan-revised", "detail": "H1b wording after question-r3 (pass): margin basis, precision proxy, fallback reporting, units. plan.json sha256=2bf2435c72c58b131f8eaeafa9c797e0fa366cbb5d0b2db292446dfd4258cbf1"}
+{"time": "2026-11-18T12:14:26Z", "role": "pi", "action": "gate-request", "detail": "question"}

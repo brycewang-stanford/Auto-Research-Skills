@@ -3,3 +3,5 @@
 {"time": "2026-11-18T12:02:36Z", "role": "scout", "action": "respond question-r1 F8/F9", "detail": "read F9 sources (+6 verified); notes.md sections 4, 4a, 5 updated to current plan.json"}
 {"time": "2026-11-18T12:10:04Z", "role": "pi", "action": "plan-revised", "detail": "Hypotheses revised after question-r3 (per-learner splits, stated resolution, H3 point estimates). plan.json sha256=eefee244f97816ea3a658254a7d33629b49dfe622553d0f284716534c00bd924"}
 {"time": "2026-11-18T12:10:58Z", "role": "scout", "action": "notes-updated", "detail": "F14: notes.md section 5 tolerance table and prior-work statements recomputed with the current H2 formula"}
+{"time": "2026-11-18T12:14:26Z", "role": "pi", "action": "plan-revised", "detail": "After question-r4 (pass, final round): 80%-power shift, not-testable rule tied to half the published SE, no re-tuning rule. Not re-reviewed. plan.json sha256=2606fb0cdcc48f5be3e0a0267b11601adcbc2983323a0c5560c924621d15b279"}
+{"time": "2026-11-18T12:14:26Z", "role": "pi", "action": "gate-request", "detail": "question"}

@@ -22,7 +22,9 @@
   ],
   "gates": {
     "question": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-18T12:14:26Z",
+      "summary": "Question ready after Reviewer rounds; see reviews/question-r*."
     },
     "design": {
       "status": "pending"
