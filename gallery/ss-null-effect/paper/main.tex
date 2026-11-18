@@ -37,14 +37,15 @@ job-training program on 1978 earnings, in a synthetic extract of $\PrimaryN$ adu
 whom $\PrimaryNTreated$ enrolled. The data are synthetic, and no claim is made about any
 real program. The estimand, the eleven conditioning covariates, the closed list of outcomes,
 their multiple-testing corrections and an equivalence margin $M$ (10\% of enrolees' mean
-1975 earnings, $M = \EquivMargin$ nominal dollars) were all fixed before any outcome was
-read. The cross-fitted doubly robust (AIPW) estimate of the ATT is $\PrimaryEffect$ dollars,
+1975 earnings, $M = \EquivMargin$ nominal dollars) were all fixed before any analysis used an
+outcome value; before that, two counts-only runs read the outcome columns to count missing
+and out-of-range entries. The cross-fitted doubly robust (AIPW) estimate of the ATT is $\PrimaryEffect$ dollars,
 with 95\% confidence interval \ci{\PrimaryCILow}{\PrimaryCIHigh}, or $\PrimaryRelEffect$\%
 of enrolees' estimated counterfactual mean. A zero ATT is not rejected ($p = \PrimaryP$).
 Under unconfoundedness given the eleven covariates, the 90\% interval
 \ci{\PrimaryCINinetyLow}{\PrimaryCINinetyHigh} lies inside $\pm M$ (equivalence test
 $p = \PrimaryTOSTP$). This conclusion is not robust to unobserved selection as strong as
-the observed selection on 1975 earnings: in the pre-specified \citet{imbens2003}
+the observed selection on 1975 earnings: in the pre-specified
 sensitivity analysis, a confounder that strong would move the estimate by up to
 $\SensBenchEarnSeventyFiveBias$ dollars, so the result could be produced by unobserved
 selection of that strength, and an unobserved 1976 earnings shock is plausibly at least
@@ -83,16 +84,21 @@ earnings (\var{re78}), identified by unconfoundedness given eleven pre-program c
 including earnings and zero-earnings indicators for 1974 and 1975. We estimate it by
 cross-fitted augmented inverse-probability weighting \citep{robins1994,bang2005,chernozhukov2018dml}.
 
-Two features make the design informative about a small effect rather than merely
-non-significant. First, everything that could be chosen after seeing the outcomes was fixed
-before any outcome was read: the estimand, the conditioning set, the learners, folds and
+Under the identifying assumption, two features make the design informative about a small
+effect rather than merely non-significant. First, everything that could be chosen after
+seeing the outcomes was fixed before any analysis used an outcome value: the estimand, the conditioning set, the learners, folds and
 seeds, a closed list of six outcomes with a familywise correction for the five secondary
 ones, eight robustness specifications, a fully specified sensitivity analysis with a fixed
 reading rule, and a rule for when a robustness check overturns the headline. Pre-analysis
 plans of this kind reduce data mining when all pre-specified results are reported
-\citep{casey2012,olken2015}, and they can be credible for observational data when they are
-fixed before the researcher can access the data \citep{burlig2018}; covariates and treatment
-were seen before the plan was fixed, outcomes were not. Second, following
+\citep{casey2012,olken2015}. \citet{burlig2018} names three observational settings in which
+such plans are credible, and in all three the plan is registered before the researcher can
+access the data. This study does not meet that condition. The plan was committed to the
+crew's own git repository, not to a registry; the full outcome file was in the workspace
+from data preparation onward; and before the design gate two runs read the outcome columns
+to count missing and out-of-range entries by arm. That no outcome value was analysed before
+the plan was fixed is attested only by the crew's own code, log and git history
+(Section~\ref{sec:deviations}). Second, following
 \citet{abadie2020}, who argues that a failure to reject a point null can be highly
 informative and should be reported visibly, the plan fixed a smallest effect of interest,
 $M = \EquivMargin$ dollars, equal to 10\% of enrolees' mean 1975 earnings, and tests
@@ -101,7 +107,7 @@ equivalence against it.
 The answer comes in three parts. The ATT estimate is $\PrimaryEffect$ dollars, with 95\%
 confidence interval \ci{\PrimaryCILow}{\PrimaryCIHigh}; a zero ATT is not rejected. Under
 unconfoundedness given the eleven covariates, the 90\% interval lies inside $\pm M$, so the
-equivalence hypothesis is supported, and no robustness check covered by the pre-registered
+equivalence hypothesis is supported, and no robustness check covered by the pre-specified
 disagreement rule overturns either decision. But the assumption is exposed to exactly the failure that
 made earlier non-experimental training evaluations unreliable. Enrolees' earnings dip
 sharply in 1975 while non-enrolees' rise, enrolment happened in 1976--77, and 1976 earnings
@@ -153,17 +159,19 @@ items whose timing relative to the program is undocumented. They could be pre-pr
 confounders or post-program outcomes, so they are used neither as covariates nor as
 outcomes, and no analysis script reads them.
 
-Admissible ranges for every outcome and a rule for sentinel codes were fixed before any
-outcome value was examined. Two pre-gate runs counted, by arm and without reading any
-value, the missing and inadmissible entries (Table~\ref{tab:missing}). There are none in any
-outcome in either arm. Every outcome is therefore analysed on the full sample,
+Before the design gate, two counts-only runs read the outcome columns. The first counted
+missing entries by arm. After it had run, the plan fixed admissible ranges for every outcome
+and a rule for sentinel codes, and the second run counted, by arm, the entries that violate
+them. Neither run reported any value or summary of an outcome (Table~\ref{tab:missing}).
+There are no missing or inadmissible entries in any outcome in either arm. Every outcome is therefore analysed on the full sample,
 and the inverse-probability-of-observation check planned for differential missingness was
 not triggered.
 
 \begin{table}[tbp]
 \centering
-\caption{Missing and inadmissible outcome values by arm, counted before the design gate
-without reading any outcome value. Inadmissible values are those outside the admissible
+\caption{Missing and inadmissible outcome values by arm, counted before the design gate by
+two runs that read the outcome columns but reported no value or summary of any outcome. The
+admissible-range rule was written after the missing-value count had read the columns. Inadmissible values are those outside the admissible
 ranges or matching the sentinel rule fixed in the plan; they would have been treated as
 missing. Enrolees $n = \PrimaryNTreated$, non-enrolees $n = \PrimaryNControl$.}
 \label{tab:missing}
@@ -193,11 +201,27 @@ central fact about the data. It is the pattern documented in the NSW literature,
 what makes the identifying assumption below demanding.
 
 \paragraph{Equivalence margin.} The margin $M$ was computed at data preparation from the
-treatment indicator and \var{re75} only, logged before the design gate and never changed:
+treatment indicator and \var{re75} only, logged before the design gate and before any outcome
+column was read, and not changed afterwards:
 $M = 0.10 \times \overline{\var{re75}}_{\text{enrolees}} = \EquivMargin$ dollars. The
 10\% is the crew's own choice of a smallest effect of interest, not a convention from the
-literature. Because enrolees' 1975 earnings are depressed by the dip, $M$ is smaller than a
-margin anchored on 1974 earnings would be.
+literature. The margin was revised once, at the question stage and before any data were
+fetched: the first draft fixed it at \$1,000, and the PI replaced that with the 10\% rule
+after the Reviewer found that the \$1,000 figure leaned on an NSW benchmark that does not
+apply to this extract and was in units nobody had checked. Because enrolees' 1975 earnings
+are depressed by the dip, $M$ is smaller than a margin anchored on 1974 earnings would be.
+
+\paragraph{Power of the equivalence test, recorded in advance.} Before the design gate the
+plan recorded two outcome-blind proxies for the precision the primary estimate might have.
+The standard error a difference in means would have if the outcome had \var{re75}'s variance
+in each arm is 173 dollars (data-prep run \texttt{margin}), so $M$ is 2.8 such standard
+errors. The primary estimator's standard error for a synthetic noise outcome with
+\var{re75}'s control-group variance, which includes the cost of ATT weighting but no gain from
+covariate adjustment, is 253 dollars (data-prep run \texttt{timing-synthetic}). At that
+precision the 90\% half-width would be about 416 dollars against $M = \EquivMargin$, so H1b
+could pass only if $|\theta|$ were below about 67 dollars, unless the covariates explained a
+good share of \var{re78}'s variance. The realized standard error is $\PrimarySE$, so the
+passing of H1b depended on the covariates explaining much of that variance.
 
 \begin{table}[tbp]
 \centering
@@ -315,7 +339,7 @@ Specifications that change the assumption or the estimand (the single-lag covari
 conditional difference-in-differences, OLS) and the descriptive \texttt{select-re75} are
 reported but cannot trigger the rule.
 
-\subsection{Overlap, checked before any outcome was read}
+\subsection{Overlap, checked on treatment and covariates only}
 
 Balance and overlap were checked on treatment and covariates alone, with the propensity fits
 of the primary estimator, and three rules were fixed in advance: every ATT-weighted
@@ -474,8 +498,11 @@ region, children and the health indicator, gives $\CovsetAEffect$
 estimates on the NSW data are sensitive to the variables included \citep{smith2005,dehejia2005}.
 Parametric nuisances (logit propensity and OLS outcome model) give $\LearnerLinearEffect$
 \ci{\LearnerLinearCILow}{\LearnerLinearCIHigh}, and random forests give $\LearnerRFEffect$
-\ci{\LearnerRFCILow}{\LearnerRFCIHigh}. The normalized (Hajek) IPW estimator
-\citep{hirano2003} gives $\IPWEffect$ \ci{\IPWCILow}{\IPWCIHigh}. Every one of these reaches
+\ci{\LearnerRFCILow}{\LearnerRFCIHigh}. The normalized (Hajek) IPW estimator, with a
+parametric L2-logit propensity, gives $\IPWEffect$ \ci{\IPWCILow}{\IPWCIHigh}. (Weighting
+by a \emph{nonparametrically} estimated propensity score is efficient \citep{hirano2003}; we
+verified that source from its abstract only, and its result does not apply directly to this
+parametric version.) Every one of these reaches
 the same H1 decision as the primary (zero not rejected) and the same H1b decision (90\%
 interval inside $\pm M$), and the Hajek IPW point estimate lies inside the primary 95\%
 interval. The disagreement rule is therefore not triggered by any check. The parametric and
@@ -498,7 +525,7 @@ $\DiffSeventyFourEffect$ dollars, with 95\% interval
 interval \ci{\DiffSeventyFourCINinetyLow}{\DiffSeventyFourCINinetyHigh} lies below $-M$, so it
 fails the equivalence criterion. The plan chose 1974 as the base year because 1975 is the dip
 year, and a 1975 base would bias the estimate upward through mean reversion. It also fixed,
-before any outcome was read, two readings of this estimate whose implications run in
+before any analysis used an outcome value, two readings of this estimate whose implications run in
 opposite directions. If enrolees' 1974 earnings were already transitorily depressed, the
 estimate is biased upward, and the true effect is lower still. If enrolees' lower earnings
 reflect a permanently lower growth path, the estimate is biased downward, toward the negative
@@ -516,7 +543,7 @@ Each row is one specification, in the order of the analysis plan. The dot is the
 estimate, the thick bar the 90\% confidence interval (the interval of the equivalence test)
 and the thin bar the 95\% interval. The OLS row has no thick bar, because no 90\% interval
 was logged for OLS. The dashed lines and gray band mark $\pm M$, $M = \EquivMargin$ dollars,
-fixed before any outcome was read; the solid gray line marks zero. Filled dots are ATTs on
+fixed before any outcome column was read; the solid gray line marks zero. Filled dots are ATTs on
 1978 earnings in the full sample of $\PrimaryN$. Open dots are different estimands: the
 trimmed-overlap ATT over the $\TrimN$ people with $\bar m \in [0.1, 0.9]$, and the
 conditional difference-in-differences ATT on re78 $-$ re74 under conditional parallel trends
@@ -534,8 +561,11 @@ ATT and is not plotted (Table~\ref{tab:main}, panel B).}
 \section{Sensitivity to unobserved confounding}
 \label{sec:sensitivity}
 
-\paragraph{Model.} Following \citet{imbens2003}, who studies how sensitive program-evaluation
-estimates are to departures from unconfoundedness, we posit a binary confounder
+\paragraph{Model.} \citet{imbens2003} studies how sensitive program-evaluation estimates are
+to departures from unconfoundedness. We verified that source from its opening text only,
+which states this aim, so we cite it for the aim and not for the details below. The model
+is the one specified in the plan, which calls it the Imbens model; we use that name without
+claiming that it matches Imbens's specification in every detail. It posits a binary confounder
 $U \sim \text{Bernoulli}(0.5)$, independent of $X$, with
 \[
 \operatorname{logit} P(D = 1 \mid X, U) = \gamma' B(X) + \alpha U, \qquad
@@ -558,7 +588,7 @@ shift that would end equivalence. For each, $R^2_*$ is the smallest common value
 $R^2_D = R^2_Y$ at which $|$bias$|$ reaches the target for either sign of $\delta$. To make
 these strengths interpretable, each of nine groups of observed covariates is dropped from
 $B(X)$ in turn, and the confounder is placed at the $(R^2_D, R^2_Y)$ that the group's
-omission implies. The pre-registered reading rule calls the conclusion for a target robust
+omission implies. The pre-specified reading rule calls the conclusion for a target robust
 to a confounder as strong as a group if $|$bias$|$ at that group's point is below the target
 for both signs, and it requires the paper always to state the verdict for the 1975-earnings
 group, because an unobserved 1976 shock is plausibly at least as strongly related to
@@ -588,14 +618,15 @@ between the Imbens model's $U$-free estimate and the AIPW estimate, so it lies w
 approximation error of the additive transfer; the rule's verdict stands as written. The
 earnings75 verdicts, by contrast, hold by wide margins. Second, the plan did not fix how
 groups are ranked when naming the strongest robust and weakest non-robust groups. The code,
-written before any outcome was read, ranks them by the larger $|$bias$|$ of the two signs at
+written before any analysis run read an outcome value, ranks them by the larger $|$bias$|$ of the two signs at
 each group's benchmark point. Under that ranking age is the strongest group to which the
 equivalence conclusion is robust; ranking by $R^2_D$ would name schooling instead, and the
 two are nearly tied in $|$bias$|$. We therefore list every group.
 
 \begin{table}[tbp]
 \centering
-\caption{\citet{imbens2003} sensitivity analysis for the primary estimate. Panel A lists the
+\caption{Sensitivity analysis for the primary estimate (the binary-confounder model of
+Section~\ref{sec:sensitivity}). Panel A lists the
 three planned targets and the diagonal breakdown point $R^2_*$, the smallest
 $R^2_D = R^2_Y$ at which $|$bias$|$ reaches the target for either sign, interpolated
 linearly between diagonal points. Panel B lists the nine benchmark covariate groups. For each
@@ -617,8 +648,8 @@ the plan; age and educ nearly tie in $|$bias$|$. $n = \PrimaryN$.}
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_sensitivity.pdf}
-\caption{Sensitivity of the primary estimate to an unobserved binary confounder $U$
-\citep{imbens2003}. The horizontal axis is $R^2_D$, the share of the residual latent
+\caption{Sensitivity of the primary estimate to an unobserved binary confounder $U$ (the
+model of Section~\ref{sec:sensitivity}). The horizontal axis is $R^2_D$, the share of the residual latent
 variance of enrolment explained by $U$; the vertical axis is $R^2_Y$, the share of the
 residual variance of re78 explained by $U$. Shading and contour lines show the larger
 $|$bias$|$ of the two signs of $U$'s outcome effect, from the EM fits on the planned grid
@@ -677,48 +708,72 @@ evidence about any real program, and no policy claim follows from them.
 \section{Deviations from the approved design and disclosures}
 \label{sec:deviations}
 
-\paragraph{Deviations.} None. Every planned analysis run was executed once, in the planned
-order, after the design gate, and none was repeated or replaced. The
-inverse-probability-of-observation check was not run because its trigger, fixed and
-evaluated before the design gate, did not fire (there are no missing or inadmissible outcome
-values). The design part of the plan was unchanged from the gate to the results; only task
-statuses were updated.
-
-\paragraph{Implementation choices the plan left open.} These were fixed in code before any
-outcome was read and are reported so that the reader can weigh them.
-(i)~The relative-effect interval, the Romano--Wolf $p$-values and the max-$t$ intervals use
-the influence function averaged over repetitions, as the plan specifies, which omits the
-between-repetition variance in the standard errors; they are slightly narrower
-(anti-conservative) than the standard-error convention would give, and no decision depends
-on it.
-(ii)~The Hajek IPW propensity was clipped to $[0.01, 0.99]$, which the plan specified only
-for the primary estimator; no unit was clipped in the full-sample fit, and clipping in the
+\paragraph{Deviations.} Two, neither of which changes any reported number or decision.
+(a)~The Hajek IPW propensity was clipped to $[0.01, 0.99]$; the plan specifies clipping only
+for the primary estimator. No unit was clipped in the full-sample fit; clipping in the
 bootstrap draws was not counted.
-(iii)~The plan's rule that H1b also requires the trimmed-overlap interval inside $\pm M$ if
-overlap rule O1 or O2 failed was not coded. It was dormant, because both rules passed, and
-the trimmed 90\% interval \ci{\TrimCINinetyLow}{\TrimCINinetyHigh} lies inside $\pm M$ in
-any case.
-(iv)~The ranking used to name the strongest robust and weakest non-robust benchmark groups
-in the sensitivity analysis was chosen in code (Section~\ref{sec:sensitivity}).
+(b)~The plan's rule that H1b also requires the trimmed-overlap 90\% interval inside $\pm M$
+if overlap rule O1 or O2 fails was not coded. It was dormant, because both rules passed in
+the primary run, and the trimmed 90\% interval \ci{\TrimCINinetyLow}{\TrimCINinetyHigh} lies
+inside $\pm M$ in any case.
+Otherwise every planned analysis run was executed once, in the planned order, after the
+design gate, and none was repeated or replaced. The inverse-probability-of-observation check
+was not run because its trigger, fixed and evaluated before the design gate, did not fire.
+The design part of the plan was unchanged from the gate to the results; only task statuses
+were updated.
+
+\paragraph{Implementation choices and caveats.} (i)~The relative-effect interval, the
+Romano--Wolf $p$-values and the max-$t$ intervals use the influence function averaged over
+repetitions, as the plan specifies. This omits the between-repetition variance included in
+the standard errors, so they are slightly narrower (anti-conservative) than the
+standard-error convention would give; no decision depends on it.
+(ii)~The plan did not fix how benchmark groups are ranked when naming the strongest robust
+and weakest non-robust group in the sensitivity analysis; the ranking was chosen in code
+before any analysis run read an outcome value (Section~\ref{sec:sensitivity}).
 
 \paragraph{Process disclosures.}
 \begin{itemize}
+\item \textbf{The PI held the answer key and set the frame of the study.} The synthetic
+dataset's generator and its hidden answer key were written by the same Claude Code session
+that acted as PI for this study, so the PI knew the true effect. That session also drafted
+the research question and hypotheses, replaced the \$1,000 margin with the 10\%-of-\var{re75}
+rule at the Reviewer's suggestion, wrote the pre-gate diagnostics into the plan, issued the
+pre-gate rulings that let two runs read the outcome columns, and wrote every brief to the
+other agents. The briefs were not archived when they were sent. A reconstruction written by
+the PI after the fact (\texttt{briefs/RECONSTRUCTION.md}) says that no brief passed on the
+true effect, the generator's structure or the key, and that the PI suggested the admissible
+outcome ranges to the Designer; it cannot be verified. The agents that designed and ran the
+analysis and wrote this paper did not open the answer key, but that the key did not reach
+them through the briefs rests on the PI's word.
+\item \textbf{Outcome-blindness rests on the crew's own records.} The full outcome file was
+in the workspace from data preparation onward. Two counts-only runs read the outcome columns
+before the design gate, and the admissible-range rule was written after the first of them
+had run. That no outcome value was analysed before the gate is attested by the code (whose
+scripts read the outcome columns only in those two runs and in the analysis runs, apart from
+the byte-for-byte copy and hash of the extract), by the run ledger,
+by the log and by git history, all kept by the crew itself.
+\item \textbf{A PI ruling was logged retroactively.} The PI allowed the missing-value count
+in response to a design-review finding (design round 1, finding F4). According to the PI, the
+ruling was given in its instructions to the Designer before that count ran; the only record
+is the PI's own log entry, written after the count at the Reviewer's request and marked as
+retroactive. The ruling for the range count was logged before that count ran.
 \item \textbf{The code was reviewed after the runs.} The plan predates the crew's rule that
-analysis code is reviewed before any analysis run. The Reviewer's code review was therefore
-post hoc: it took place after every analysis run had finished. It passed, with four minor
-findings, which correspond to items (i)--(iv) above; the Reviewer re-implemented the primary
+analysis code is reviewed before any analysis run, so the Reviewer's code review took place
+after every analysis run had finished. It passed with four minor findings, which correspond to
+deviations (a) and (b) and items (i) and (ii) above. The Reviewer re-implemented the primary
 estimator independently and reproduced it, and found that every analysis script was last
-modified after the design gate and before the first analysis run.
-\item \textbf{A PI ruling was logged retroactively.} Before the design gate, two data-prep
-runs touched outcome columns to count, by arm, missing values and values outside the
-pre-fixed admissible ranges; they recorded counts only, never values or summaries. The PI
-allowed the missing-value count in response to a design-review finding (design round 1,
-finding F4). The ruling was given in the PI's instructions to the Designer before that count
-ran, but it was written to the project log only afterwards, at the Reviewer's request, and is
-marked there as retroactive. The ruling for the range count was logged before that count ran.
-\item \textbf{Seed authorship.} The synthetic dataset's generator and its hidden answer key
-were written by the same Claude Code session that acted as PI for this study. The agents that
-designed and ran the analysis, and wrote this paper, never saw the answer key.
+modified after the design gate and before the first analysis run. The findings were answered
+in the files and judged answered in the second results review, but their status in the
+code-review record is still open, and no second code round was held.
+\item \textbf{No literature review round was held.} The crew's playbook calls for one before
+the design gate. The bibliography was compiled and checked against the sources by the Scout
+alone; the Reviewer spot-checked some entries only during the paper review.
+\item \textbf{The PI deleted a log entry.} The Scout's hand-written entry recording the end of
+the novelty check carried a timestamp in the future. At the Reviewer's request (question
+round 1, finding F8) the PI removed it from the append-only log and logged the removal; the
+time at which the Scout finished that task is therefore unknown.
+\item \textbf{The equivalence margin was revised once}, at the question stage and before any
+data were fetched (Section~\ref{sec:data}).
 \item \textbf{Repeated data-prep runs.} Two outcome-blind data-preparation runs (covariate
 preparation and the margin) were each run twice before the design gate, after a consistency
 check on the unemployment indicators was added; the ledger keeps the second run of each.
@@ -730,7 +785,7 @@ In this synthetic extract, the pre-specified cross-fitted AIPW estimate of the e
 enrolment on enrolees' 1978 earnings is $\PrimaryEffect$ dollars, with 95\% interval
 \ci{\PrimaryCILow}{\PrimaryCIHigh}. A zero ATT is not rejected. Under unconfoundedness
 given the eleven covariates, the effect is smaller in magnitude than the pre-set margin of
-$\EquivMargin$ dollars, and no check covered by the pre-registered disagreement rule
+$\EquivMargin$ dollars, and no check covered by the pre-specified disagreement rule
 overturns this. That conclusion is
 not robust to an unobserved confounder as strong as the 1975-earnings covariates, which would
 move the estimate by up to $\SensBenchEarnSeventyFiveBias$ dollars: the result could be

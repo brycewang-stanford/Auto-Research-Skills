@@ -13,32 +13,48 @@ for the paper's content.
         session. The review records name the model as \texttt{claude-opus-5-5}. The
         Replicator role, which reruns every run from a clean environment, had not run when
         this draft was written.
+  \item \textbf{The PI session held the answer key.} The same session that acted as PI
+        wrote the synthetic dataset's generator and its hidden answer key, so it knew the
+        true effect. It also drafted the research question and hypotheses, replaced the
+        \$1,000 equivalence margin with 10\% of enrolees' mean 1975 earnings at the
+        Reviewer's suggestion, wrote the pre-gate diagnostics into the plan, issued the
+        pre-gate rulings that let two runs read the outcome columns, and wrote every brief
+        to the other agents. The briefs were not archived when they were sent;
+        \texttt{briefs/RECONSTRUCTION.md} is the PI's after-the-fact reconstruction and
+        cannot be verified. The agents that analysed the data and wrote the paper did not
+        open the answer key; that the key did not reach them through the briefs rests on
+        the PI's word.
   \item \textbf{Review.} The Reviewer agent ran 3 rounds on the research question, 3 on the
-        design, 1 on the code and 2 on the results; the paper review comes before the
-        submission gate. Its independence level was \emph{fresh-context}: a new context in
-        every round, with the same model family as the other roles. The human author chose
-        this over a cross-family reviewer. The code review took place after the analysis
-        runs, because the study's plan predates the crew's rule that code is reviewed before
-        any analysis run (see Section~\ref{sec:deviations}); it passed with four minor
-        findings, all answered in the files and in this paper. The final question round and
-        the final results round each passed with two minor findings still open; the human
-        approved those gates, and the open findings were then addressed (by the design, and
-        by the figures and the approximation wording, respectively).
+        design, 1 on the code, 2 on the results and 1 so far on the paper. No literature
+        review round was held, although the crew's playbook calls for one before the design
+        gate. Its independence level was \emph{fresh-context}: a new context in every
+        round, with the same model family as the other roles. The human author chose this
+        over a cross-family reviewer. The code review took place after the analysis runs,
+        because the study's plan predates the crew's rule that code is reviewed before any
+        analysis run (see Section~\ref{sec:deviations}); it passed with four minor findings.
+        These were answered in the files and judged answered in the second results round,
+        but they are still marked open in the code-review record. The final question round
+        and the final results round each passed with two minor findings still open; the
+        human approved those gates, and the open findings were then addressed (by the
+        design, and by the figures and the approximation wording, respectively).
   \item \textbf{Findings accepted over the Reviewer's objection.} None.
   \item \textbf{Retroactive ruling.} The PI's ruling on design-review finding F4, which
-        allowed a pre-gate run to count missing outcome values by arm, was given before
-        that run but logged only afterwards, and is marked as retroactive in the log
-        (Section~\ref{sec:deviations}).
-  \item \textbf{Seed authorship.} The synthetic dataset's generator and its hidden answer
-        key were written by the same Claude Code session that acted as PI. The agents that
-        analysed the data and wrote the paper never saw the answer key.
-  \item \textbf{Evidence.} Every reported number is a macro generated from the metrics of
-        a logged run, and none was typed by hand. Every citation was checked against its
-        source: 9 from the full text and 14 from the abstract only. Where only the abstract
-        could be read, the paper says no more than the abstract does. The clean rerun of
-        every run from a fresh environment is pending: no replication record exists yet.
-        The full workspace is public at
+        allowed a pre-gate run to count missing outcome values by arm, was logged only
+        after that run, at the Reviewer's request, and is marked as retroactive. That it was
+        given before the run rests on the PI's word (Section~\ref{sec:deviations}).
+  \item \textbf{Log repair.} The PI removed a hand-written Scout entry with a future
+        timestamp from the append-only log, at the Reviewer's request, and logged the
+        removal.
+  \item \textbf{Evidence.} Every number in the text is a macro generated from the metrics
+        of a logged run. Every table cell is either such a macro or written by a logged
+        table script from run metrics; no number was typed by hand, apart from design facts
+        fixed in the plan. Every citation was checked against its source by the Scout: 9
+        from the full text and 14 from the abstract or opening text only. Where only the
+        abstract or opening text could be read (as for \citet{imbens2003} and
+        \citet{hirano2003}), the paper cites the source for no more than that text says.
+        The clean rerun of every run from a fresh environment is pending: no replication
+        record exists yet. The full workspace is public at
         \url{https://github.com/brycewang-stanford/Free-Research-Crew/tree/main/gallery/ss-null-effect}.
-        It contains the plan, the run ledger, the code, the data manifest, every review and
-        this paper's sources.
+        It contains the plan, the run ledger, the code, the data manifest, every review,
+        the PI's reconstruction of its briefs and this paper's sources.
 \end{itemize}
