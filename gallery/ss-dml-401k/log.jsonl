@@ -38,3 +38,4 @@
 {"time": "2026-11-18T14:34:13Z", "role": "pi", "action": "gate-request", "detail": "design"}
 {"time": "2026-11-18T14:38:24Z", "role": "pi", "action": "gate-approve", "detail": "design Bryce Wang"}
 {"time": "2026-11-18T14:38:52Z", "role": "econometrician", "action": "run", "detail": "check-noctrl exit=0"}
+{"time": "2026-11-18T16:09:08Z", "role": "pi", "action": "brief-archived", "detail": "econometrician brief 20261118T160907Z"}

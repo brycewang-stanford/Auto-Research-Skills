@@ -12,3 +12,6 @@ catalog/discovery-candidates.json
 # Social-media poster drafts (txt + png), kept local only.
 academic-research-ai.txt
 academic-research-ai.png
+
+# Replicators park a workspace .venv here during a clean rerun
+gallery/.*-venv-orig/
