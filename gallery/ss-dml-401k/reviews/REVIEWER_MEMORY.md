@@ -64,3 +64,37 @@ Check next round / at design:
 - Same splits across learners within a split index? This affects the cross-cell
   correlation that F10's joint rule assumes.
 - crew.json title still says "raise". Check the paper title and abstract at the paper stage.
+
+## question-r3 (2026-11-18): revise, 0 critical / 1 major / 3 minor open
+
+Status: F10, F12 and F8 are resolved. F11 stays open (minor, carried to the design
+review). New: F13 (major), F14 and F15 (minor).
+
+Suspicions:
+- F13: the F10 fix (which I proposed) made every tolerance 2.08 times wider. At budget S
+  the tolerances are $330-1,930, so H2 is close to a guaranteed pass. Watch for "all 10
+  cells reproduced" in the results or the paper without the tolerance and the minimum
+  detectable shift next to each cell. The floor at crew S = infinity is lasso 583/450 and
+  flexible learners 100-234, because the published median's own Monte Carlo error sets
+  it.
+- 1.4826 is the upper bound. If sigma_s varies across splits, the right factor is
+  between 1 and 1.4826, so H2 is conservative. Do not let the authors use their own run's
+  observed SD to *change* the tolerance after results are in. Using it only as a
+  descriptive diagnostic is fine.
+- Watch for a per-learner S being chosen after any pilot. It must be in plan.json before
+  any analysis run.
+- notes.md section 5 is stale again (no 1.4826, z = 2). It has been stale twice now, so
+  check it every round.
+
+Arithmetic I ran (published table only; no data, no models): tolerances at S = 10, 20, 50,
+100 and infinity; detection probability against a $300 shift; H3 failure rate under a
+faithful replication (0.215 at S = 10, 0.072 at S = 20; independent-cell simulation).
+
+Check at design:
+- S per learner, the tolerance table and timing (F11, F13). Is there a "not testable at
+  this resolution" threshold, fixed in advance?
+- The lasso dictionary is the 401K.R formula. How is rlasso c = 1.1 approximated in
+  sklearn? The SE type is HC; the score is partialling out; aggregation follows eq. 3.14.
+- nnet scaling; probability outputs for binary D; whether splits are shared across
+  learners within a split index.
+- H3 is stated as a comparison of point estimates, with its expected failure rate (F15).

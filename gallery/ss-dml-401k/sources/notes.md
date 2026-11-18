@@ -248,32 +248,81 @@ and hypotheses.
     2018, its PLR median estimates differ by $5-33 at 5 folds and by up to $154 at 2 folds.
   - Ahrens et al. (2024, ddml): same data and model, but not the published protocol.
 - **Implications for the current hypotheses:**
-  - **H2** now uses a per-cell split-noise tolerance (`plan.json` hypotheses[1]). Each
-    cell's split-to-split SD is sd_split = sqrt(SE_adj^2 − SE_med^2) from the published
-    Panel B. The SE of a median over S splits is 1.2533·sd_split/sqrt(S). The tolerance
-    is 2·sqrt(se_rep^2 + se_pub^2), with S = 100 on the published side. The published
-    values imply the numbers below. The last two columns are illustrative only: they
-    assume the crew's split SD equals the published one. The real tolerance uses the
-    crew's S as fixed at the design gate.
+  - **H2** (re-done 2026-11-18 for review question-r3, F14). This follows `plan.json`
+    hypotheses[1], which is authoritative; this section only illustrates it.
+    - MAD = sqrt(SE_adj^2 − SE_med^2) from the published Panel B (parenthesized and
+      bracketed rows).
+    - sd_split = 1.4826·MAD.
+    - SE of a median over S splits = 1.2533·sd_split/sqrt(S).
+    - Tolerance = **2.81**·sqrt(se_rep^2 + se_pub^2), with S = 100 on the published side.
+    - A tolerance above **$1,000** means "not testable at this resolution" (NT).
+    - The replication's S is fixed per learner at the design gate; the plan puts lasso
+      and tree at 100.
 
-    | Learner | K | Published | [med SE] | (adj SE) | sd_split | se_pub (S=100) | tol if S=10 | tol if S=20 |
-    |---|---|---|---|---|---|---|---|---|
-    | lasso | 2 | 7717 | 1346 | 1749 | 1117 | 140.0 | 928 | 686 |
-    | tree | 2 | 8709 | 1363 | 1427 | 423 | 53.0 | 351 | 259 |
-    | forest | 2 | 9116 | 1302 | 1377 | 448 | 56.2 | 373 | 275 |
-    | boosting | 2 | 8759 | 1339 | 1382 | 342 | 42.9 | 284 | 210 |
-    | nnet | 2 | 8950 | 1335 | 1408 | 447 | 56.1 | 372 | 275 |
-    | lasso | 5 | 8187 | 1298 | 1558 | 862 | 108.0 | 716 | 529 |
-    | tree | 5 | 8871 | 1358 | 1418 | 408 | 51.1 | 339 | 251 |
-    | forest | 5 | 9247 | 1295 | 1328 | 294 | 36.9 | 245 | 181 |
-    | boosting | 5 | 9110 | 1314 | 1328 | 192 | 24.1 | 160 | 118 |
-    | nnet | 5 | 9038 | 1322 | 1355 | 297 | 37.3 | 247 | 182 |
+    The table shows the replication side at S = 10, 20 and 100.
 
-    These tolerances are much tighter than the old one-SE band. For comparison, the
-    authors' 2017-vs-2018 gaps are $5-33 at 5 folds and up to $154 at 2 folds (Neural Net
-    2-fold: 154, still inside its tolerance even at S = 100, where it would be 159). Prior
-    non-protocol estimates would *not* all pass at 5 folds. For example, DoubleML Python
-    3-fold RF 8,910 is $337 below the 5-fold forest cell, which is outside 181-245.
+    | Learner | K | Published | [med SE] | (adj SE) | MAD | sd_split | se_pub (S=100) | tol S=10 | tol S=20 | tol S=100 |
+    |---|---|---|---|---|---|---|---|---|---|---|
+    | lasso | 2 | 7717 | 1346 | 1749 | 1117 | 1656 | 207.5 | 1934 (NT) | 1428 (NT) | 825 |
+    | tree | 2 | 8709 | 1363 | 1427 | 423 | 626 | 78.5 | 732 | 540 | 312 |
+    | forest | 2 | 9116 | 1302 | 1377 | 448 | 665 | 83.3 | 776 | 573 | 331 |
+    | boosting | 2 | 8759 | 1339 | 1382 | 342 | 507 | 63.6 | 592 | 437 | 253 |
+    | nnet | 2 | 8950 | 1335 | 1408 | 447 | 663 | 83.1 | 775 | 572 | 330 |
+    | lasso | 5 | 8187 | 1298 | 1558 | 862 | 1278 | 160.1 | 1492 (NT) | 1102 (NT) | 636 |
+    | tree | 5 | 8871 | 1358 | 1418 | 408 | 605 | 75.8 | 707 | 522 | 301 |
+    | forest | 5 | 9247 | 1295 | 1328 | 294 | 436 | 54.7 | 509 | 376 | 217 |
+    | boosting | 5 | 9110 | 1314 | 1328 | 192 | 285 | 35.7 | 333 | 246 | 142 |
+    | nnet | 5 | 9038 | 1322 | 1355 | 297 | 441 | 55.2 | 515 | 380 | 219 |
+
+    **2017 vs 2018 runs by the authors** (both use S = 100, so the S = 100 column
+    applies). Every gap is well inside its tolerance:
+
+    | Cell | Gap | Tolerance |
+    |---|---|---|
+    | lasso, K=2 | −10 | 825 |
+    | tree, K=2 | +61 | 312 |
+    | forest, K=2 | +88 | 331 |
+    | boosting, K=2 | −13 | 253 |
+    | nnet, K=2 | +154 | 330 |
+    | lasso, K=5 | +15 | 636 |
+    | tree, K=5 | +23 | 301 |
+    | forest, K=5 | +5 | 217 |
+    | boosting, K=5 | −21 | 142 |
+    | nnet, K=5 | +27 | 219 |
+
+    The nnet 2-fold gap of 154 is less than half its corrected tolerance of 330. This
+    replaces the earlier, wrong figure of 159.
+
+    **Prior off-protocol estimates against the 5-fold cells.** These are illustrative
+    only. Those runs used 3 or 4 folds, a single split or an unstated number, and their
+    own dictionaries, so they are not real H2 tests.
+
+    | Estimate | Cell | Difference | S = 10 | S = 20 | S = 100 |
+    |---|---|---|---|---|---|
+    | DoubleML Python RF | forest | −337 | pass | pass | fail |
+    | Long Story Short RF | forest | −245 | pass | pass | fail |
+    | ddml rforest/rforest | forest | +281 | pass | pass | fail |
+    | DoubleML R ranger | forest | −120 | pass | pass | pass |
+    | Mendez RF | forest | −412 | pass | fail | fail |
+    | DoubleML Python tree | tree | −611 | pass | fail | fail |
+    | DoubleML R rpart | tree | −661 | pass | fail | fail |
+    | Mendez tree | tree | −1,048 | fail | fail | fail |
+    | Mendez XGB | boosting | −218 | pass | pass | fail |
+    | DoubleML R xgboost | boosting | −410 | fail | fail | fail |
+    | DoubleML Python XGB | boosting | −773 | fail | fail | fail |
+    | DoubleML Python lasso (flexible) | lasso | +788 | NT | NT | fail |
+    | DoubleML R lasso (flexible) | lasso | +1,393 | NT | NT | fail |
+    | Mendez lasso | lasso | +1,184 | NT | NT | fail |
+    | DoubleML lasso (basic), both | lasso | −2,465 / −2,054 | NT | NT | fail |
+
+    So at the S the budget allows for forest and boosting (about 10-20), most
+    off-protocol forest estimates **would pass**, including DoubleML Python 3-fold RF at
+    −337, inside 376-509. The earlier statement that they "would not all pass" was
+    wrong. Most boosting and some tree estimates would still fail. At 2 folds the forest
+    and tree estimates pass more often, because the bands there are wider (forest
+    573-776, tree 540-732 at S = 20/10). H2 can tell such implementations apart from the
+    published cells mainly where S is near 100: lasso, tree and possibly nnet under the
+    plan.
   - **H3** now requires, at each fold count, lasso < each of the four flexible learners.
     It holds in the published table at both K: 2-fold 7717 < 8709, 8759, 8950, 9116;
     5-fold 8187 < 8871, 9038, 9110, 9247.

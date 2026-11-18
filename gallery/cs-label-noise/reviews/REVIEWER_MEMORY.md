@@ -77,3 +77,26 @@ Suspicions for the design stage:
 - covtype: class 4 is about 0.5% of rows, so the stratified 5,000-row sample gives about 24 rows of it. Check that
   the stratified split does not fail and that the flips handle K=7.
 - If F11 stays open past round 4, flag the credit-g floor to the human explicitly.
+
+## question-r4 (2026-11-18, LAST round): verdict revise. No critical; F16 major and F17 minor open. F11, F14, F15 resolved.
+
+What changed: the primary measure is now the share of headroom lost, r = (acc0 - acc0.4)/(acc0 - m), per method and seed. A dataset
+is excluded if mean headroom < 1 point. The threshold is 0.05 on the r scale. The accuracy guard is removed, and 'no meaningful
+difference' is added. log.jsonl still holds only init; runs/, code/ and paper/ are empty; data/manifest.json is still empty. I ran nothing.
+
+Open for the human after round 4:
+- F16 (major): per-seed ratio. On credit-g the headroom is about 5 points and the per-seed SE about 3.1 points, so P(some
+  method-seed has headroom < 1 point) is about 0.87 (my arithmetic, assumed acc 0.75). There is no rule for near-zero or negative
+  denominators, and m is undefined. Remedy: ratio of seed means plus a paired bootstrap, or a stricter exclusion rule
+  (>= 5 points and every seed positive; exclude the dataset, never the seed).
+- F17 (minor): the question says 'lose more accuracy' (absolute) while the hypotheses use relative. The 'denominator fixed before
+  results' wording is inaccurate.
+
+Design stage checklist (carry over):
+- Whichever F16 handling is chosen, verify that the analysis code implements exactly that, with no seed-level filtering added later.
+- manifest: OpenML data_id/version/sha256 for credit-g, adult and covtype before any run.
+- Within a seed, the split and test set must be shared across rates and methods. Are the flip sets nested across rates?
+- HGB: early_stopping set explicitly; which validation set (the noisy 20% or an internal validation_fraction); does it count toward the budget?
+- RF grid over min_samples_leaf/max_features; LR C grid reaching strong regularization; tuned C reported per rate.
+- covtype class 4 (~24 rows in a 5k sample): does the stratified split work, and do flips work with K=7?
+- Compute timing only on synthetic data, logged.

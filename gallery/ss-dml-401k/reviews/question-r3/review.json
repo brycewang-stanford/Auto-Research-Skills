@@ -1,0 +1,177 @@
+{
+  "id": "question-r3",
+  "target": "question",
+  "round": 3,
+  "created": "2026-11-18T12:08:49Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r2/review.json",
+    "plan.json",
+    "crew.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "log.jsonl",
+    ".gitignore"
+  ],
+  "kill_argument": "The size problem is fixed, and that fix exposed H2's lack of power. Once the split SD is scaled by 1.4826 and the band set at 2.81 (Bonferroni over 10 cells), the per-cell tolerances at the S the 60-minute budget allows are $330-1,930 at S = 10 and $250-1,430 at S = 20. That is as wide as or wider than the $650 band rejected in round 1 for having no power. Against a $300 implementation shift, nine of the ten cells detect it with probability 1-12% at S = 10. Every off-protocol re-analysis in the notes would 'reproduce' the cells it maps to: DoubleML 3-fold forest (-$337), DoubleML tree (-$611), Long Story Short (-$245). Even with infinite crew compute, the published median's own Monte Carlo error keeps the lasso tolerance at or above $450-583. So H2 will almost surely pass, and a pass says little. What I attacked that held: H2's size is now about 5% familywise; the contribution is narrowed to 'within the stated per-cell tolerance'; and the estimand and SE row are named. The cheaper remedy is to pre-state per-cell resolution and per-learner S, not to run new work.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F13",
+      "severity": "major",
+      "status": "open",
+      "text": "With F10's correction in place, H2's tolerances at any S that fits the budget are as wide as the $650 band that F1 rejected for having no power, or wider. So a 'pass' is the expected outcome even for implementations known to differ from the published protocol. Arithmetic from the published Panel B and the plan's formula: at S = 10 the tolerances are lasso 1,934 / 1,492 (K = 2 / 5), tree 732 / 707, forest 776 / 509, boosting 592 / 333 and nnet 775 / 515. At S = 20 they are lasso 1,428 / 1,102 and the flexible learners 246-573. Take a true implementation shift of $300, the size of the DoubleML 3-fold random-forest gap of -$337. At S = 10 the probability that a cell detects it is 1-12% for nine of the ten cells, and 39% for boosting at K = 5. Every non-protocol re-analysis in notes.md would pass the cells it maps to at S = 10: DoubleML forest -337 and tree -611 against the 5-fold cells, and Long Story Short -245. There is also a floor that no amount of crew compute removes. The published median carries its own Monte Carlo error, so even as the crew's S goes to infinity the lasso tolerance stays at 583 / 450 and the flexible-learner tolerances at 100-234. Last, 1.4826 is the upper end of the plausible factor. If per-split variances differ across splits, median{sigma_s^2 + d_s^2} - median{sigma_s^2} moves from MAD^2 toward SD^2, and the right multiplier falls toward 1, so the tolerances above are, if anything, too wide. The plan does not state the constant-variance and normality approximation it relies on. I proposed this correction in round 2. The size fix is right; this finding is about what it costs in power.",
+      "evidence": "plan.json hypotheses[1] (sd_split = 1.4826*MAD, 1.2533/sqrt(S), 2.81, S = 100 on the published side; S not fixed). sources/notes.md section 1 (Panel B SE rows) and sections 2 and 5 (DoubleML forest 8,910, tree 8,260; Long Story Short 9,002). Seed task.json budget (laptop CPU, 60 min). Round-1 timing (boosting about 5.6 min per split with CV). Reviewer arithmetic on the published table only (no data, no models): tolerance = 2.81*1.2533*1.4826*sqrt(adj^2-med^2)*sqrt(1/S + 1/100); per-cell detection probability against a $300 shift.",
+      "remedy": "Cheapest remedy: narrow the claim and fix the rule now. (1) Let S differ by learner and say so. Tree, lasso and possibly nnet are cheap enough for S = 100, which brings their tolerances close to the floor. Spend the reduced S only on forest and boosting. (2) Add to plan.json a pre-stated resolution: report each cell's tolerance and its minimum detectable shift (e.g. at 80% power) next to the result. Before any analysis run, declare any cell whose tolerance exceeds a fixed threshold (e.g. half the published bracketed SE) 'not testable at this resolution'. Such a cell is reported descriptively and is not counted as 'reproduced'. (3) State the normal, constant-variance approximation behind 1.4826, and say that it makes H2 conservative. On the crew's own run, report as a descriptive diagnostic the observed split SD against 1.4826 x the eq. 3.14 MAD. The tolerance must not be changed after results are in.",
+      "response": "PI: per-learner split counts (100 for lasso, tree, and nnet if affordable); each cell's tolerance in dollars stated at design before analysis; cells above $1,000 labelled 'not testable at this resolution' and excluded from H2's verdict; normality assumption stated; observed spread diagnostic only.",
+      "ruling": ""
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "open",
+      "text": "S is still not fixed, and both the power and the feasibility of H2 depend on it. At S = 10 the plan's own lasso tolerances (928 at K=2, 716 at K=5) are already wider than the $650 band that F1 rejected as too loose; with the F10 correction they are about 1,377 and 1,062. On feasibility: if boosting copies the authors' 5-fold CV for the number of trees (gbm cv.folds = 5, i.e. 6 fits per nuisance fit), one split needs about 14 x 6 x 4 s, or about 5.6 minutes. That puts boosting alone at about an hour for S = 10, the whole 60-minute budget.",
+      "evidence": "plan.json (no S anywhere; design fields empty). sources/notes.md section 1 (authors' gbm tuning: 1000 trees, 5-fold CV) and section 5 table (tolerance at S = 10 and 20). Round-1 reviewer timing: GBM with 1000 trees takes 4.2 s per fit at n = 7,932. Seed task.json budget: laptop CPU, 60 min.",
+      "remedy": "At the design gate, state S, the resulting per-cell tolerance table, and a timing estimate. If boosting tuning has to change (e.g. HistGradientBoosting with early stopping instead of CV over the number of trees), declare it as a deviation before any analysis run. If lasso's tolerance at the chosen S is too wide to be informative, say so instead of presenting the lasso cells as a test.",
+      "response": "PI: carried to the design stage; the Designer fixes S per learner with a timing estimate.",
+      "ruling": "The rebuttal is right on timing: S is a design choice. But S is still not fixed, so this stays open and carries to the design review. Its stakes have grown. After F10, the S = 10 tolerances are 2.08 times the notes.md values (lasso 1,934/1,492; boosting 592/333 at K = 2/5). See F13. The design must state S (or S per learner), the tolerance table that follows, and a timing estimate. Any change to boosting tuning must be declared as a deviation before any analysis run."
+    },
+    {
+      "id": "F14",
+      "severity": "minor",
+      "status": "open",
+      "text": "notes.md section 5 contradicts the current H2 again. It still gives sd_split = sqrt(SE_adj^2 - SE_med^2) without the 1.4826 factor, uses '2·sqrt(se_rep^2 + se_pub^2)' instead of 2.81, and tabulates tolerances (e.g. lasso 928 / 716 and boosting 160 at S = 10) that are about 2.08 times too small. Two conclusions drawn from the stale numbers are now wrong. First, 'Prior non-protocol estimates would not all pass at 5 folds': DoubleML forest at -337 is outside the stale 181-245 band but inside the corrected 376-509 band at S = 20 / 10. Second, the 2017-vs-2018 nnet K = 2 gap of 154 is 'still inside its tolerance even at S = 100, where it would be 159': the corrected tolerance at S = 100 is 330. A Designer or Writer reading notes.md gets the wrong tolerance and the wrong claim about prior work.",
+      "evidence": "sources/notes.md section 5, H2 bullet and its table; plan.json hypotheses[1].",
+      "remedy": "The Scout recomputes the section 5 table with the plan.json formula, or deletes it and points to plan.json, and removes or corrects the two sentences quoted.",
+      "response": "PI: sent to the Scout to update sources/notes.md section 5. Scout: notes.md section 5 table recomputed with the plan.json formula (1.4826 factor, 2.81, NT above $1,000; replication S = 10/20/100, published S = 100); corrected the prior-work statement (most off-protocol forest estimates pass at S = 10-20; DoubleML RF −337 is inside 376-509) and the nnet 2-fold gap (154 vs a corrected tolerance of 330).",
+      "ruling": ""
+    },
+    {
+      "id": "F15",
+      "severity": "minor",
+      "status": "open",
+      "text": "H3 does not say whether it compares point estimates or allows for noise, and at small S a faithful replication often fails it. The published lasso-minus-learner gaps are 684-1,060 at K = 5 and 992-1,399 at K = 2. But the replicated lasso median has a Monte Carlo SE of about 506 / 656 (K = 5 / 2) at S = 10 under the plan's own formula. Treating the replicated cells as independent normals centered on the published values, H3 fails about 21% of the time at S = 10 and about 7% at S = 20. Within-split correlation across learners would lower this somewhat. A failed H3 at the S the budget allows would not show a lasso implementation difference.",
+      "evidence": "plan.json hypotheses[2]; Panel B in sources/notes.md section 1. Reviewer simulation on the published table only (200,000 draws, independent cells): P(H3 fails) = 0.215 at S = 10 and 0.072 at S = 20.",
+      "remedy": "State that H3 compares point estimates and give its expected failure rate under a faithful replication at the chosen S. Or run lasso at S = 100 (cheap; see F13), which brings that rate close to zero.",
+      "response": "PI: H3 compares point estimates; lasso at 100 splits; the design states H3's false-fail probability under an exact replication.",
+      "ruling": ""
+    },
+    {
+      "id": "F10",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H2 now leans the other way: a faithful reimplementation is more likely to fail it than to pass it. There are two separate problems. (1) The conjunction. H2 requires all 10 cells to fall within 2 combined SEs. Even if each tolerance were exactly right, a procedure that differs from the published one only in its random splits passes all 10 with probability about 0.954^10 = 0.63 if the cells were independent. Correlation across learners raises this somewhat, but it stays well below 0.95. (2) The scale. Eq. 3.14 adds the median of the squared split deviations, so sqrt(SE_adj^2 - SE_med^2) estimates the median absolute deviation, not the SD. Under normality, and if per-split variances are roughly constant, MAD = 0.6745 SD. The SD is therefore understated by a factor of 1.4826, and the '2 SE' band is really about 1.35 SE. Per-cell coverage is then about 0.82, and all 10 cells pass with probability about 0.14. The one empirical check available does not show this. The 2017-vs-2018 gaps give z-scores whose squares sum to 6.5 on 10 cells under the plan's formula, with a maximum of 1.94 for nnet at K=2. But those two runs probably share the authors' seed and code, so they are not an independent draw of split noise and cannot validate the calibration in either direction.",
+      "evidence": "plan.json hypotheses[1] (sd_split definition, 1.2533 factor, '2 * sqrt(...)', 'every one of the 10'). sources/notes.md section 1 (eq. 3.14 as median{sigma_s^2 + (theta_s - theta_median)^2}) and section 5 table. Reviewer arithmetic on the published Panel B only: 1/qnorm(0.75) = 1.4826; P(|Z| < 1.349) = 0.823; 0.823^10 = 0.142; 0.9545^10 = 0.628; Bonferroni z for 10 cells at a two-sided 5% family level = 2.81. Corrected tolerances at S = 10 would be lasso 1,377/1,062 and boosting 422/237 (K = 2/5); at S = 20, lasso 1,017/784 and boosting 311/175.",
+      "remedy": "Fix the rule before the design gate. Either (a) scale sd_split by 1.4826 (stating the normal, constant-variance approximation) and set the joint rule so that a faithful replication passes with about 95% probability, e.g. z = 2.81 per cell (Bonferroni over 10). Or (b) keep per-cell 2-SE bands, drop the 'every one of the 10' rule, and pre-state that about 0.5 of the 10 cells are expected outside under the null. Then test the count, e.g. reject if 3 or more cells fall outside. Either fix is one line in plan.json and needs no new analysis.",
+      "response": "PI: adopted the Reviewer's remedy: sd_split = 1.4826 * MAD from eq. 3.14, and a Bonferroni critical value of 2.81 per cell (5% familywise over 10 cells).",
+      "ruling": "plan.json hypotheses[1] now sets sd_split = 1.4826 * MAD and uses the Bonferroni critical value 2.81 for 10 cells. The size problem is fixed. The fix widens every tolerance by a factor of about 2.08 (1.4826 x 2.81/2), which creates the power problem filed as F13."
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The contribution says 'a match means the result does not depend on the authors' code'. H2 is a non-rejection test. Falling inside a tolerance of $160 to $930 (or more, after F10) shows that the published cell is reproduced to within that tolerance. It does not show that the code makes no difference.",
+      "evidence": "plan.json contribution, second clause.",
+      "remedy": "Reword to 'a match means the published cell is reproduced, without the authors' code, to within the stated per-cell tolerance', and report each tolerance next to its cell.",
+      "response": "PI: contribution reworded to 'reproduced to within the stated per-cell tolerance', or the non-reproduced cells identified.",
+      "ruling": "plan.json contribution now says the cells are 'reproduced to within the stated per-cell tolerance', or the cells that are not reproduced are identified."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Three loose terms. (a) 'Independent open-source software' is undefined: DoubleML is co-authored by Chernozhukov, and hdm is the authors' own package. (b) 'Half of the published standard error (about $650)' does not say which SE row: half the median SE is $648-682 and half the adjusted SE is $664-714. (c) notes.md section 5 still describes H2's tolerance as 'one published SE (about $1,300)', which no longer matches plan.json.",
+      "evidence": "plan.json question, hypotheses[1]; sources/notes.md section 5 last bullet.",
+      "remedy": "Define 'independent' (e.g. 'not the authors' R code') and name the SE row. Have the Scout update the stale sentence in notes.md.",
+      "response": "PI: 'independent' now means implemented by the crew with scikit-learn learners, not the authors' code (and not DoubleML); the tolerance no longer uses a published SE row; the Scout is correcting its notes. Scout: notes.md §5 no longer uses the one-SE band; it states the per-cell split-noise tolerance from plan.json H2 with implied values per cell, H3 as lasso < each learner per K, H1 as a sanity check, and the seed's plr-<learner>-<k>fold claims. | PI (round 2): the per-SE difference is in units of the bracketed (median) published standard error.",
+      "ruling": "(a) and (c) were fixed in round 2. (b) is now fixed: H2 says each difference is reported 'in units of the published bracketed (median) standard error'. notes.md section 5 has gone stale again for a different reason; that is filed as F14."
+    },
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H2's tolerance (half the published SE, about $650) is calibrated to sampling error, not to what a same-data replication can vary. The published table implies a split-to-split spread of about $190-450 for the flexible learners, so the median over 100 splits has a Monte Carlo error of about $25-55 per cell. The authors' 2017 and 2018 runs differ by at most $33 (5-fold) and $154 (2-fold). Non-protocol reanalyses (DoubleML 3-fold RF -$337, tree -$611; Long Story Short RF -$245) already fall inside $650. H2 therefore has almost no power to detect a wrong implementation. 'Within $650' is not evidence of reproduction.",
+      "evidence": "plan.json hypotheses[1] (H2); sources/notes.md section 1 Table 2 Panel B and section 2 (AER P&P, DoubleML docs, chernozhukov2026lss). Reviewer check: Table 2 re-read from arXiv:1608.00060v7 p.42; DoubleML pension page re-fetched 2026-11-18.",
+      "remedy": "Set a per-cell tolerance from the published table: e.g. 2-3 times the implied Monte Carlo error of the median (sqrt(adjSE^2 - medSE^2)*1.25/sqrt(S)), or the 2017-vs-2018 gap. Keep the half-SE band only as a secondary statement that 'substantive conclusions agree'.",
+      "response": "PI: H2 tolerance is now per cell, derived from the split-to-split SD backed out of the published bracketed and parenthesized SE rows, and the number of splits on each side.",
+      "ruling": "plan.json hypotheses[1] replaces the $650 band with a per-cell tolerance built from the published split-to-split variation and the number of splits on each side. This is the remedy asked for. Its calibration has a new problem, filed as F10."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "conceded",
+      "text": "As written, the question cannot be answered within the seed budget (laptop CPU, 60 minutes). The published procedure is 100 splits x (2+5 folds) x 2 nuisance functions x 7 columns, and Ensemble and Best refit every learner. I timed scikit-learn on synthetic data of the study's size (n=7,932 training rows, 9 covariates, 8 cores). One 1,000-tree forest takes 3.5 s for the regression and 0.9 s for the classifier, so the Forest column alone is about 28 s per split, or about 45 min for S=100. One gradient-boosting fit (1,000 trees, depth 2, subsample 0.5) takes 4.2 s before any CV tuning, so Boosting alone is about 100 min. The plan neither states S nor admits it must deviate from S=100.",
+      "evidence": "plan.json question ('median over repeated sample splits', 'cell-by-cell replication of Table 2, Panel B'); seed task.json budget; reviewer timing script in scratchpad (RF reg 3.47 s, RF clf 0.92 s, GBM 4.17 s).",
+      "remedy": "Narrow the question before the design gate: fix S (e.g. 10-20) and drop or defer Ensemble and Best. State the resulting Monte Carlo error and report it as a deviation from the published protocol. If S < 100, F1's tolerance must use that S.",
+      "response": "PI: the number of splits is reduced and fixed in the design to fit the budget; Ensemble and Best are dropped; both are stated in the contribution and will be listed as deviations.",
+      "ruling": "Ensemble and Best are dropped (plan.json contribution) and the reduced S is promised as a disclosed deviation. S is still not in plan.json, but H2 is defined for any S, so the question stays answerable. Fixing S, and checking that it fits the budget, moves to the design gate (F11)."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The question promises a cell-by-cell replication of Table 2, Panel B, but the main hypothesis covers only 8 of 14 point estimates and none of the 28 SE cells. Lasso, Ensemble and Best are excluded from H2. Lasso is the cell most sensitive to implementation: it needs the dictionary from the code, and hdm::rlasso has no exact Python equivalent. It is also the noisiest cell, with an implied split spread of about $860-1,120 against about $300-450 for the others. Leaving it out of the match test, and testing it only by rank (H3), removes the cell most likely to fail. The seed also requires one plr-<learner> value per learner, but the plan does not say whether that value is the 2-fold or the 5-fold estimate. That leaves room to report whichever is closer.",
+      "evidence": "plan.json question vs hypotheses[1]; sources/notes.md 'Details the paper text does NOT state' (lasso dictionary, rlasso c=1.1); seed task.json requirements[4].",
+      "remedy": "Either include Lasso (and the SEs) in H2 with its own noise-based tolerance, or narrow the question to 'flexible-learner point estimates' and say so. Pre-commit now that plr-<learner> reports the 5-fold estimate (the headline row).",
+      "response": "PI: all 10 cells (5 learners incl. lasso x 2 fold counts) are in H2; claim ids become plr-<learner>-<k>fold; replicated SEs are reported and compared descriptively.",
+      "ruling": "plan.json H2 now covers all 10 cells, lasso included, and notes.md section 5 maps claims to plr-<learner>-<k>fold. The question is now limited to the coefficient, so SEs no longer have to be matched. The 'SEs reported descriptively' promise in the response is not in plan.json; it is not required, since the question no longer promises SEs."
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "conceded",
+      "text": "The contribution claims the study will separate 'differences due to software and learner tuning from sampling variation across splits'. No hypothesis or planned comparison can do this. With one reimplementation, software and tuning differences cannot be told apart. That requires a reference arm that runs the authors' public 401K.R and Moment_Functions.R on the same sipp1991.dta, so that implementation differences are measured against the authors' own code and not against a printed number.",
+      "evidence": "plan.json contribution; sources/notes.md section 1 (DMLonGitHub code is public, set.seed(1211)).",
+      "remedy": "Cheapest: drop the decomposition from the contribution. Otherwise, add an R reference arm (authors' code, fixed seed, reduced S) and a hypothesis comparing the two implementations cell by cell.",
+      "response": "PI: claim to separate software from tuning dropped from the contribution.",
+      "ruling": "plan.json contribution now says the study does not try to separate software from tuning differences."
+    },
+    {
+      "id": "F5",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The estimand drifts between documents. The seed asks for 'the average effect' and crew.json asks 'Does 401(k) eligibility raise net financial assets?'. The PLR coefficient is a variance-weighted average of heterogeneous effects, not the ATE. The same published table shows the gap: the IRM ATE is 7,170-8,105 at 5 folds, against PLR 8,187-9,247, a difference of about $1,000-1,400. The PLR coefficient is causal only under conditional exogeneity of eligibility, and the notes record that the cited support for it (Poterba et al.) uses other SIPP waves. If the paper calls the replicated PLR coefficient 'the average effect', it will overclaim.",
+      "evidence": "crew.json title; seed task.json question; plan.json hypotheses[0] ('effect of eligibility'); sources/notes.md section 1 (Panel A values) and section 3 item 1.",
+      "remedy": "Narrow the wording: call the target 'the PLR coefficient on eligibility (Table 2, Panel B)' and treat its causal reading as inherited from the original paper, not tested here. No new analysis needed.",
+      "response": "PI: estimand narrowed to the PLR coefficient on eligibility throughout the question.",
+      "ruling": "plan.json question now names the PLR coefficient on eligibility, Table 2 Panel B. crew.json title (from the seed) still asks whether eligibility 'raises' assets. I will check the paper title and abstract wording at the paper stage."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H1 is already answered and is near-certain: every prior estimate has t of about 6-7, and the Scout says 'H1 is effectively already answered'. As a hypothesis it carries no information.",
+      "evidence": "plan.json hypotheses[0]; sources/notes.md section 5.",
+      "remedy": "Relabel it as a sanity check, not a hypothesis.",
+      "response": "PI: H1 relabelled as a sanity check.",
+      "ruling": "plan.json hypotheses[0] is labelled 'sanity check, already established in the literature'."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H3 depends on implementation choices that are not yet fixed. On the same data, the DoubleML lasso estimate moves from 5,722 to 8,975 depending on the dictionary. Without a pre-committed dictionary and penalty rule, H3 can be made to pass or fail. 'Smaller than the estimates from flexible learners' also does not say whether it must hold against all four learners or against their average.",
+      "evidence": "plan.json hypotheses[2]; sources/notes.md section 2 (DoubleML lasso basic vs flexible).",
+      "remedy": "At the design gate, fix the dictionary (the 401K.R formula) and the penalty (rlasso-equivalent, c=1.1, heteroskedastic), and state that H3 requires lasso < each of the four learners, for each K.",
+      "response": "PI: H3 now requires lasso < each flexible learner at the same fold count; the lasso specification is fixed at the design gate.",
+      "ruling": "plan.json hypotheses[2] requires lasso < each of the four learners at each K. The lasso dictionary and penalty must be fixed at the design gate; this is a design-stage check."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The novelty claim that no cell-by-cell replication of Table 2 Panel B exists rests partly on sources that were found but not read: the carlos-mendez DoubleML lab, the Erasmus thesis, Belloni et al. (2017) and Wüthrich & Zhu. The DoubleML R 401(k) vignette was not checked either.",
+      "evidence": "sources/notes.md section 4.",
+      "remedy": "Read those items, or weaken the claim to 'none of the sources we read'.",
+      "response": "Scout: read all named items plus the DoubleML R vignette and two Ahrens et al. preprints (notes.md §4a); none replicates Table 2 Panel B cell by cell, so the claim stands but is now worded as 'none of the sources we found and read', with GitHub code not systematically searched.",
+      "ruling": "notes.md section 4a records the items as read. The novelty claim (claims.jsonl c-no-cellwise, notes.md section 5) is narrowed to 'the sources we found and read', and the note says GitHub code was not searched."
+    }
+  ]
+}

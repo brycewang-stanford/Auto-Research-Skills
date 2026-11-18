@@ -1,0 +1,131 @@
+{
+  "id": "question-r2",
+  "target": "question",
+  "round": 2,
+  "created": "2026-11-18T12:08:26Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r1/review.json",
+    "crew.json",
+    "plan.json",
+    "log.jsonl",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    ".gitignore",
+    "../../crew/bench/seeds/ss-null-effect/task.json",
+    "../../crew/agents/reviewer.md",
+    "../../crew/PROTOCOL.md",
+    "../../crew/tracks/social-science.md",
+    "../../crew/scripts/crew.py"
+  ],
+  "kill_argument": "The question is now well formed except at the one point where it makes a substantive claim. It asks whether the ATT is 'smaller in magnitude than $1,000'. That margin is in units nobody has checked (re78's unit and price year are unknown, and the data manifest is empty). It is justified by an NSW benchmark that the crew's own Scout notes say is not a benchmark for this extract, and it is in 1982 dollars. And nothing gets from $1,794 to $1,000. A referee will say the margin is arbitrary. Depending on re78's scale, H1b is either nearly certain to pass or impossible to pass, so 'the effect is smaller than $1,000' tells the reader about the margin, not the program. What held: I checked whether the outcome set is closed (it is, with wellbeing78 in a corrected family and the survey items excluded), whether the conditioning set and estimand are named (they are), the denominator, the treatment wording, and the log fix. I found no code/, runs/ or data in the workspace, so I saw no sign that outcomes were opened. The fix for F9 needs no outcome data: anchor the margin to pre-program earnings.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The set of outcomes is not closed. The task brief lists six post-program outcomes (re78, re79, employed78, hours78, benefits78, wellbeing78) and twenty survey items. plan.json assigns re78 to H1 and four outcomes to H2. It says nothing about wellbeing78 or survey_q01-q20: they are neither excluded nor placed in a family with a stated correction. The task requires that 'every outcome that is analysed is reported, with an adjustment for testing several outcomes', and as written the plan leaves room to analyse these later outside any family. sources/notes.md section 6 proposes a third family, but plan.json does not adopt it. To resolve: before the design gate, plan.json lists every outcome that will ever be analysed. wellbeing78 and the survey items either go into a declared family with a named correction (or a pre-specified summary index), or are stated as never analysed as outcomes.",
+      "evidence": "plan.json question and hypotheses (H1, H2); task.json brief and requirements[1]; sources/notes.md section 6",
+      "response": "PI: outcome set closed in plan.json 'outcomes': primary re78; secondary family of five incl. wellbeing78 with Romano-Wolf and max-t intervals; survey items not analysed.",
+      "ruling": "plan.json 'outcomes' now closes the set: re78 primary; re79, employed78, hours78, benefits78 and wellbeing78 in one secondary family with Romano-Wolf p-values and max-t intervals; survey_q01-q20 declared never analysed as outcomes, with the reason. Every outcome in the task brief has a declared role."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The identifying assumption in the question refers to 'the observed pre-program characteristics' without listing them, and the brief does not say when survey_q01-q20 were measured. If the items are pre-program (for example motivation), leaving them out of the conditioning set breaks the assumption the question relies on. If they are post-program, conditioning on them is a bad control. So the estimand the question promises depends on a choice the question does not make. To resolve: the question names the conditioning set (age, educ, married, urban, region, children, health_limit, re74, re75, unemp74, unemp75) and states how the survey items are treated. One option is to exclude them, give 'timing unknown' as the reason and disclose it as a limitation; the other is to get their measurement timing from the task owner. Neither step needs outcome values.",
+      "evidence": "plan.json question ('under the assumption that participation depends only on the observed pre-program characteristics'); task.json brief (survey items listed separately, timing unstated); sources/notes.md section 9 item 2",
+      "response": "PI: eleven covariates named in the question and plan.json 'covariates'; survey items excluded as covariates because their timing is undocumented, disclosed as a limitation.",
+      "ruling": "The question and plan.json 'covariates' name the eleven pre-program covariates. The survey items are excluded as covariates because their timing is undocumented, and this is to be disclosed as a limitation. The residual risk (if they are pre-program motivation measures, unconfoundedness fails) is now a stated limitation, not an open choice; the design review should check that a sensitivity analysis for unobserved confounding is fixed."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H1 is two-sided and has no smallest effect of interest or equivalence margin. A non-rejection therefore cannot falsify 'participation changed earnings', and the plan does not say what interval width would count as an informative null. The notes (section 8, citing Abadie 2020) recommend setting such a margin, but plan.json does not adopt one. Without a pre-set margin, the 'rule out' statement will be interpreted after the outcomes are seen. Cheapest remedy: narrow H1 so the paper reports only the CI bounds and never claims 'no effect'. Alternatively, fix a smallest effect of interest in re78's dollar units, with its justification, before outcomes are opened, and pre-specify an equivalence test.",
+      "evidence": "plan.json hypotheses[0]; sources/notes.md section 8",
+      "response": "PI: equivalence margin of $1,000 fixed now (H1b, TOST via 90% CI), with its basis; the paper may not claim 'no effect' from a non-rejection.",
+      "ruling": "H1 now forbids a 'no effect' claim from a non-rejection, and H1b fixes a +/-$1,000 equivalence margin with TOST via the 90% CI. What was asked for is done. The basis and units of the margin are a separate problem, raised as F9."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H1 says 'the primary estimand ... [is] fixed at the design gate', but its own text already names the average effect on the treated, and the track playbook says to choose the estimand before the estimator. Leaving the choice open invites switching between ATT, ATE and a trimmed-overlap estimand after diagnostics. To resolve: state the ATT on re78 as the primary estimand now. If trimming is used, name the trimmed estimand as a separate, secondary one.",
+      "evidence": "plan.json hypotheses[0]; crew/tracks/social-science.md 'Design rules' bullet 1",
+      "response": "PI: ATT stated in the question; any trimmed estimand will be secondary and named at design.",
+      "ruling": "The question states the ATT; any trimmed estimand is to be secondary and named at design."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The treatment is not named. The brief says that about 40% 'enrolled' and gives no name for the treatment column. The question asks about the effect of 'participating'. If the indicator records enrolment, the estimand is the effect of enrolling, which includes people who did not complete the program, and the question's wording overstates it. To resolve: name the treatment column and its definition (enrolment or completion), and word the question to match. Reading only the header row of data.csv would be outcome-blind, but it still means opening the sealed file, so the PI should decide whether to allow it.",
+      "evidence": "plan.json question; task.json brief",
+      "response": "PI: the question refers to 'the enrolment indicator in the file'; the Data RA confirms its name from the header at data-prep, outcome-blind.",
+      "ruling": "The question now refers to 'enrolling' and 'the enrolment indicator in the file', so the wording matches what the brief says the data record. Column name to be confirmed outcome-blind from the header at data-prep."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H1 reports the effect 'as a share of the non-participant mean'. For an ATT under selection, the raw non-participant mean is not participants' counterfactual mean, and with voluntary enrolment the two can differ a lot, so the percentage would mix two populations. The plan should fix the denominator in advance, either the estimated E[Y(0)|D=1] or the raw control mean, and name which one it is. To resolve: name the denominator in H1.",
+      "evidence": "plan.json hypotheses[0]",
+      "response": "PI: denominator is participants' estimated counterfactual mean (plan.json outcomes.relative_effect_denominator).",
+      "ruling": "plan.json outcomes.relative_effect_denominator fixes the denominator as participants' estimated counterfactual mean (mean re78 of participants minus the ATT). Because the denominator is itself estimated, the design must say how the percentage's interval is computed (delta method or bootstrap); noted for the design review."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The question asks what effects 'can be ruled out' for each secondary outcome, but H2 is a single joint test ('at least one of ...') with familywise-error-adjusted p-values. Adjusted p-values do not give ranges that can be ruled out for each outcome. Answering that part of the question needs simultaneous (familywise-error-adjusted) confidence intervals, and the plan does not commit to them. To resolve: H2, or the question, commits to simultaneous confidence intervals for the secondary family (for example Romano-Wolf or bootstrap max-t), or the second clause of the question is narrowed to a joint test.",
+      "evidence": "plan.json question (second clause) vs hypotheses[1]",
+      "response": "PI: secondary outcomes get simultaneous max-t intervals, so each can be read for what it rules out.",
+      "ruling": "H2 now commits to simultaneous max-t 95% intervals alongside Romano-Wolf p-values, and the question no longer asks a per-outcome 'ruled out' question for the secondary family. A remaining inconsistency between the two procedures is raised as F10."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The second entry in log.jsonl, the Scout's 'q-novelty done', is stamped 2026-11-18T20:10:00Z. That is about eight hours after the time of this review (12:04Z the same day), so the timestamp was typed by hand rather than recorded. That undermines the log as a record of when outcome-blind work happened, which is the basis of the pre-specification claim. To resolve: the PI or Scout corrects the entry or explains it. Future log entries should be written by the tool, not by hand.",
+      "evidence": "log.jsonl line 2",
+      "response": "PI: the hand-written entry was removed and the removal logged through the tool; crew.py now has a `log` command and rejects future timestamps, and every role is told to use it.",
+      "ruling": "log.jsonl line 2 records removal of the future-stamped entry through the tool. crew.py validate (scripts/crew.py, log check around line 600) now rejects any log time more than five minutes in the future. Side effect: the log no longer records when the Scout finished q-novelty; that gap and the unlogged plan revision are raised as F11."
+    },
+    {
+      "id": "F9",
+      "severity": "major",
+      "status": "open",
+      "text": "The question now ends 'is that effect smaller in magnitude than $1,000?', so the equivalence margin carries the study's only substantive claim, but its scale and basis are not established. (a) The margin is in 'dollars', but no file has established what unit re78 is in or which price year: task.json says only 'earnings', and data/manifest.json is empty. If re78 is in nominal 1978 dollars, thousands, or a synthetic scale, $1,000 could be a trivially wide margin or one that cannot be met. Because the margin was fixed without knowing the outcome's scale, whether H1b is informative is left to chance. (b) The justification uses the Dehejia-Wahba $1,794 (1982 dollars) as 'the experimental benchmark for a comparable program', but sources/notes.md section 1 says explicitly that the NSW estimates 'are therefore not a benchmark ... for this extract' and that 'the dollar year must be stated'. (c) Even taken at face value, nothing gets from $1,794 to $1,000. No rule (a fraction of the benchmark, a share of baseline earnings, a cost-benefit threshold) is given, so the number reads as chosen rather than derived. To resolve without opening any outcome: restate the margin relative to an outcome-blind anchor, for example a fixed percentage of participants' mean re75, with the dollar value computed from covariates at data-prep and logged before the design gate. Alternatively, keep $1,000 but (i) have the Data RA confirm from the covariates' scale (re74/re75), outcome-blind, that earnings are in dollars and in which year, (ii) state the derivation, and (iii) drop the claim that the NSW figure is a comparable benchmark.",
+      "evidence": "plan.json question (last clause) and hypotheses[1] (H1b); sources/notes.md section 1 'What must be said plainly', item 2; task.json brief; data/manifest.json (no datasets)",
+      "response": "PI: margin redefined as 10% of participants' mean re75, computed outcome-blind at data prep and logged before the design gate; no external benchmark claimed.",
+      "ruling": ""
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "open",
+      "text": "H2 pairs Romano-Wolf stepdown adjusted p-values with single-step max-t simultaneous intervals. The stepdown procedure rejects more, so a secondary outcome can have an adjusted p below 0.05 while its simultaneous 95% interval still covers zero. H2 does not say which of the two decides whether a secondary effect is reported as detected. That leaves a small post hoc choice. To resolve: state the decision rule in H2. For example, detection claims come only from Romano-Wolf p-values and the max-t intervals are labelled conservative ranges; or use single-step max-t for both.",
+      "evidence": "plan.json hypotheses[2] (H2)",
+      "response": "PI: Romano-Wolf adjusted p < 0.05 decides 'detected'; max-t intervals are descriptive.",
+      "ruling": ""
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "open",
+      "text": "The pre-specification claim depends on the timeline. H1b says the margin is 'fixed now, before any outcome is examined', and the contribution says everything was fixed 'while every outcome is still unexamined'. But log.jsonl has no entry for the PI's revision of plan.json after question-r1 (file modified about 12:06:38Z), which added H1b, the covariates and the outcome families. After the F8 repair, the Scout's completion of q-novelty is not recorded either. The workspace directory is not yet tracked in git, so nothing else timestamps the plan. To resolve: log the plan revision with crew.py log (role pi, listing what changed). Before the design gate, record a hash of plan.json in the log (or commit it), so that a later reader can check that the margin and families came before any analysis run.",
+      "evidence": "log.jsonl (two entries: init, log-repair); plan.json hypotheses[1] ('fixed now') and contribution; repository status (gallery/ss-null-effect untracked)",
+      "response": "PI: revisions logged with crew.py log including the plan.json SHA-256; the workspace is also committed to git (commit e8e27e2 and later).",
+      "ruling": ""
+    }
+  ]
+}

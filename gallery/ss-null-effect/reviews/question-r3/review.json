@@ -1,0 +1,148 @@
+{
+  "id": "question-r3",
+  "target": "question",
+  "round": 3,
+  "created": "2026-11-18T12:10:20Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r2/review.json",
+    "crew.json",
+    "plan.json",
+    "log.jsonl",
+    "claims.jsonl",
+    "sources/notes.md",
+    "data/manifest.json",
+    "code/",
+    "runs/",
+    "paper/",
+    "../../crew/bench/seeds/ss-null-effect/task.json",
+    "../../crew/agents/reviewer.md",
+    "../../crew/PROTOCOL.md",
+    "../../crew/tracks/social-science.md"
+  ],
+  "kill_argument": "The question is now pre-specified, so the strongest attack is on its one substantive claim, the equivalence test. H1b asks whether the ATT lies within 10% of participants' mean 1975 earnings and calls 10% 'conventional', but cites nothing. Participants' 1975 earnings are taken from the year just before enrolment, when trainees' earnings typically dip. So M may be small, and nobody has checked whether a 1,600-treated sample can produce a 90% interval narrow enough to pass. If it cannot, H1b is a test that fails by construction, and the plan does not say what will be reported then. A referee will call the equivalence claim decorative. What held: I checked the closed outcome set, the eleven named covariates, ATT, the denominator, and the Romano-Wolf decision rule. The margin is now anchored to a pre-program variable only. I recomputed plan.json's SHA-256 and it matches the logged hash. code/, runs/ and paper/ are empty and data/manifest.json lists no datasets, so nothing shows that any outcome was opened. These problems are minor and can be fixed outcome-blind.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The set of outcomes is not closed. The task brief lists six post-program outcomes (re78, re79, employed78, hours78, benefits78, wellbeing78) and twenty survey items. plan.json assigns re78 to H1 and four outcomes to H2. It says nothing about wellbeing78 or survey_q01-q20: they are neither excluded nor placed in a family with a stated correction. The task requires that 'every outcome that is analysed is reported, with an adjustment for testing several outcomes', and as written the plan leaves room to analyse these later outside any family. sources/notes.md section 6 proposes a third family, but plan.json does not adopt it. To resolve: before the design gate, plan.json lists every outcome that will ever be analysed. wellbeing78 and the survey items either go into a declared family with a named correction (or a pre-specified summary index), or are stated as never analysed as outcomes.",
+      "evidence": "plan.json question and hypotheses (H1, H2); task.json brief and requirements[1]; sources/notes.md section 6",
+      "response": "PI: outcome set closed in plan.json 'outcomes': primary re78; secondary family of five incl. wellbeing78 with Romano-Wolf and max-t intervals; survey items not analysed.",
+      "ruling": "plan.json 'outcomes' now closes the set: re78 primary; re79, employed78, hours78, benefits78 and wellbeing78 in one secondary family with Romano-Wolf p-values and max-t intervals; survey_q01-q20 declared never analysed as outcomes, with the reason. Every outcome in the task brief has a declared role."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The identifying assumption in the question refers to 'the observed pre-program characteristics' without listing them, and the brief does not say when survey_q01-q20 were measured. If the items are pre-program (for example motivation), leaving them out of the conditioning set breaks the assumption the question relies on. If they are post-program, conditioning on them is a bad control. So the estimand the question promises depends on a choice the question does not make. To resolve: the question names the conditioning set (age, educ, married, urban, region, children, health_limit, re74, re75, unemp74, unemp75) and states how the survey items are treated. One option is to exclude them, give 'timing unknown' as the reason and disclose it as a limitation; the other is to get their measurement timing from the task owner. Neither step needs outcome values.",
+      "evidence": "plan.json question ('under the assumption that participation depends only on the observed pre-program characteristics'); task.json brief (survey items listed separately, timing unstated); sources/notes.md section 9 item 2",
+      "response": "PI: eleven covariates named in the question and plan.json 'covariates'; survey items excluded as covariates because their timing is undocumented, disclosed as a limitation.",
+      "ruling": "The question and plan.json 'covariates' name the eleven pre-program covariates. The survey items are excluded as covariates because their timing is undocumented, and this is to be disclosed as a limitation. The residual risk (if they are pre-program motivation measures, unconfoundedness fails) is now a stated limitation, not an open choice; the design review should check that a sensitivity analysis for unobserved confounding is fixed."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H1 is two-sided and has no smallest effect of interest or equivalence margin. A non-rejection therefore cannot falsify 'participation changed earnings', and the plan does not say what interval width would count as an informative null. The notes (section 8, citing Abadie 2020) recommend setting such a margin, but plan.json does not adopt one. Without a pre-set margin, the 'rule out' statement will be interpreted after the outcomes are seen. Cheapest remedy: narrow H1 so the paper reports only the CI bounds and never claims 'no effect'. Alternatively, fix a smallest effect of interest in re78's dollar units, with its justification, before outcomes are opened, and pre-specify an equivalence test.",
+      "evidence": "plan.json hypotheses[0]; sources/notes.md section 8",
+      "response": "PI: equivalence margin of $1,000 fixed now (H1b, TOST via 90% CI), with its basis; the paper may not claim 'no effect' from a non-rejection.",
+      "ruling": "H1 now forbids a 'no effect' claim from a non-rejection, and H1b fixes a +/-$1,000 equivalence margin with TOST via the 90% CI. What was asked for is done. The basis and units of the margin are a separate problem, raised as F9."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H1 says 'the primary estimand ... [is] fixed at the design gate', but its own text already names the average effect on the treated, and the track playbook says to choose the estimand before the estimator. Leaving the choice open invites switching between ATT, ATE and a trimmed-overlap estimand after diagnostics. To resolve: state the ATT on re78 as the primary estimand now. If trimming is used, name the trimmed estimand as a separate, secondary one.",
+      "evidence": "plan.json hypotheses[0]; crew/tracks/social-science.md 'Design rules' bullet 1",
+      "response": "PI: ATT stated in the question; any trimmed estimand will be secondary and named at design.",
+      "ruling": "The question states the ATT; any trimmed estimand is to be secondary and named at design."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The treatment is not named. The brief says that about 40% 'enrolled' and gives no name for the treatment column. The question asks about the effect of 'participating'. If the indicator records enrolment, the estimand is the effect of enrolling, which includes people who did not complete the program, and the question's wording overstates it. To resolve: name the treatment column and its definition (enrolment or completion), and word the question to match. Reading only the header row of data.csv would be outcome-blind, but it still means opening the sealed file, so the PI should decide whether to allow it.",
+      "evidence": "plan.json question; task.json brief",
+      "response": "PI: the question refers to 'the enrolment indicator in the file'; the Data RA confirms its name from the header at data-prep, outcome-blind.",
+      "ruling": "The question now refers to 'enrolling' and 'the enrolment indicator in the file', so the wording matches what the brief says the data record. Column name to be confirmed outcome-blind from the header at data-prep."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H1 reports the effect 'as a share of the non-participant mean'. For an ATT under selection, the raw non-participant mean is not participants' counterfactual mean, and with voluntary enrolment the two can differ a lot, so the percentage would mix two populations. The plan should fix the denominator in advance, either the estimated E[Y(0)|D=1] or the raw control mean, and name which one it is. To resolve: name the denominator in H1.",
+      "evidence": "plan.json hypotheses[0]",
+      "response": "PI: denominator is participants' estimated counterfactual mean (plan.json outcomes.relative_effect_denominator).",
+      "ruling": "plan.json outcomes.relative_effect_denominator fixes the denominator as participants' estimated counterfactual mean (mean re78 of participants minus the ATT). Because the denominator is itself estimated, the design must say how the percentage's interval is computed (delta method or bootstrap); noted for the design review."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The question asks what effects 'can be ruled out' for each secondary outcome, but H2 is a single joint test ('at least one of ...') with familywise-error-adjusted p-values. Adjusted p-values do not give ranges that can be ruled out for each outcome. Answering that part of the question needs simultaneous (familywise-error-adjusted) confidence intervals, and the plan does not commit to them. To resolve: H2, or the question, commits to simultaneous confidence intervals for the secondary family (for example Romano-Wolf or bootstrap max-t), or the second clause of the question is narrowed to a joint test.",
+      "evidence": "plan.json question (second clause) vs hypotheses[1]",
+      "response": "PI: secondary outcomes get simultaneous max-t intervals, so each can be read for what it rules out.",
+      "ruling": "H2 now commits to simultaneous max-t 95% intervals alongside Romano-Wolf p-values, and the question no longer asks a per-outcome 'ruled out' question for the secondary family. A remaining inconsistency between the two procedures is raised as F10."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The second entry in log.jsonl, the Scout's 'q-novelty done', is stamped 2026-11-18T20:10:00Z. That is about eight hours after the time of this review (12:04Z the same day), so the timestamp was typed by hand rather than recorded. That undermines the log as a record of when outcome-blind work happened, which is the basis of the pre-specification claim. To resolve: the PI or Scout corrects the entry or explains it. Future log entries should be written by the tool, not by hand.",
+      "evidence": "log.jsonl line 2",
+      "response": "PI: the hand-written entry was removed and the removal logged through the tool; crew.py now has a `log` command and rejects future timestamps, and every role is told to use it.",
+      "ruling": "log.jsonl line 2 records removal of the future-stamped entry through the tool. crew.py validate (scripts/crew.py, log check around line 600) now rejects any log time more than five minutes in the future. Side effect: the log no longer records when the Scout finished q-novelty; that gap and the unlogged plan revision are raised as F11."
+    },
+    {
+      "id": "F9",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The question now ends 'is that effect smaller in magnitude than $1,000?', so the equivalence margin carries the study's only substantive claim, but its scale and basis are not established. (a) The margin is in 'dollars', but no file has established what unit re78 is in or which price year: task.json says only 'earnings', and data/manifest.json is empty. If re78 is in nominal 1978 dollars, thousands, or a synthetic scale, $1,000 could be a trivially wide margin or one that cannot be met. Because the margin was fixed without knowing the outcome's scale, whether H1b is informative is left to chance. (b) The justification uses the Dehejia-Wahba $1,794 (1982 dollars) as 'the experimental benchmark for a comparable program', but sources/notes.md section 1 says explicitly that the NSW estimates 'are therefore not a benchmark ... for this extract' and that 'the dollar year must be stated'. (c) Even taken at face value, nothing gets from $1,794 to $1,000. No rule (a fraction of the benchmark, a share of baseline earnings, a cost-benefit threshold) is given, so the number reads as chosen rather than derived. To resolve without opening any outcome: restate the margin relative to an outcome-blind anchor, for example a fixed percentage of participants' mean re75, with the dollar value computed from covariates at data-prep and logged before the design gate. Alternatively, keep $1,000 but (i) have the Data RA confirm from the covariates' scale (re74/re75), outcome-blind, that earnings are in dollars and in which year, (ii) state the derivation, and (iii) drop the claim that the NSW figure is a comparable benchmark.",
+      "evidence": "plan.json question (last clause) and hypotheses[1] (H1b); sources/notes.md section 1 'What must be said plainly', item 2; task.json brief; data/manifest.json (no datasets)",
+      "response": "PI: margin redefined as 10% of participants' mean re75, computed outcome-blind at data prep and logged before the design gate; no external benchmark claimed.",
+      "ruling": "plan.json question and hypotheses[1] now define M = 0.10 x participants' mean re75, a pre-program variable, to be computed and logged at data-prep before the design gate; the NSW benchmark is dropped and no external benchmark is claimed. This removes the unit problem (M is in re78's earnings units by construction) and the underived number. Remaining issues with the anchor are raised separately as F12."
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H2 pairs Romano-Wolf stepdown adjusted p-values with single-step max-t simultaneous intervals. The stepdown procedure rejects more, so a secondary outcome can have an adjusted p below 0.05 while its simultaneous 95% interval still covers zero. H2 does not say which of the two decides whether a secondary effect is reported as detected. That leaves a small post hoc choice. To resolve: state the decision rule in H2. For example, detection claims come only from Romano-Wolf p-values and the max-t intervals are labelled conservative ranges; or use single-step max-t for both.",
+      "evidence": "plan.json hypotheses[2] (H2)",
+      "response": "PI: Romano-Wolf adjusted p < 0.05 decides 'detected'; max-t intervals are descriptive.",
+      "ruling": "plan.json hypotheses[2] now states that only a Romano-Wolf adjusted p < 0.05 counts as 'detected' and that max-t intervals are descriptive."
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The pre-specification claim depends on the timeline. H1b says the margin is 'fixed now, before any outcome is examined', and the contribution says everything was fixed 'while every outcome is still unexamined'. But log.jsonl has no entry for the PI's revision of plan.json after question-r1 (file modified about 12:06:38Z), which added H1b, the covariates and the outcome families. After the F8 repair, the Scout's completion of q-novelty is not recorded either. The workspace directory is not yet tracked in git, so nothing else timestamps the plan. To resolve: log the plan revision with crew.py log (role pi, listing what changed). Before the design gate, record a hash of plan.json in the log (or commit it), so that a later reader can check that the margin and families came before any analysis run.",
+      "evidence": "log.jsonl (two entries: init, log-repair); plan.json hypotheses[1] ('fixed now') and contribution; repository status (gallery/ss-null-effect untracked)",
+      "response": "PI: revisions logged with crew.py log including the plan.json SHA-256; the workspace is also committed to git (commit e8e27e2 and later).",
+      "ruling": "log.jsonl line 3 (12:09:00Z, role pi, plan-revised) lists what changed and records plan.json sha256=1ccb35da...0f4e9a2; I recomputed the hash of the current plan.json and it matches. Caveat on the response: commit e8e27e2 holds the earlier version of plan.json (the $1,000 margin, sha256 9960b098...); the current revision is not yet committed. The logged hash is the remedy that was asked for, so this is resolved, but the revision must be committed before the design gate for the hash to have an external anchor."
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "open",
+      "text": "The equivalence margin is now outcome-blind, but two things about it are not settled. (a) H1b calls 10% of pre-program earnings 'a conventional smallest effect of policy interest for training programs'. No source in sources/sources.json or claims.jsonl supports 'conventional', and the Scout notes give none; as written it is an unsupported claim that will reach the paper. (b) The anchor is participants' 1975 earnings, the year just before enrolment. In training-program data participants' earnings typically dip just before entry, so this mean may be low and M small. Whether H1b can be supported at all then depends on the attainable precision, which nobody has checked. Nothing in the plan says what the paper will report if the 90% CI is wider than 2M, and that leaves room to reinterpret or re-anchor the margin after the outcome is seen. A minor related point: re75 and re78 may be in different price years, and the plan does not say. To resolve without touching outcomes: (i) delete 'conventional' or cite a source that says it; (ii) at the data-prep run that computes M, also record an outcome-blind precision proxy (for example the expected ATT standard error using re75's variance in place of re78's), so that before the gate the plan states whether H1b is realistically testable; and (iii) pre-state that if TOST fails, the paper reports the smallest symmetric margin the 90% CI excludes (which the task requires anyway) and does not change M. No change to M itself is needed.",
+      "evidence": "plan.json hypotheses[1] (H1b, sentence beginning '10% of pre-program earnings is chosen as a conventional ...'); sources/notes.md section 1 and the section citing Abadie (2020) (no source for a 10% convention); task.json requirements[2]",
+      "response": "PI: 'conventional' removed (the margin is the crew's own choice); outcome-blind precision proxy recorded at data prep; fallback reporting stated in advance; price year stated as undocumented nominal units.",
+      "ruling": ""
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "open",
+      "text": "Feasibility against the stated budget. task.json allows a laptop CPU and 30 minutes of wall time. H2 asks for Romano-Wolf stepdown p-values and max-t simultaneous intervals over five outcomes. Both need a bootstrap of the joint distribution of the five t-statistics. If the design pairs this with a cross-fitted ML estimator (DML or AIPW with learners, which the Scout notes list) and a nonparametric bootstrap that re-fits the nuisance models on every draw, the analysis will not finish within the budget. The likely response would then be to cut bootstrap draws or swap estimators after the fact. The question stage does not have to fix this, but the design must. To resolve at design: fix the bootstrap type (for example a multiplier or score bootstrap on the estimated influence functions, with nuisances fitted once), the number of draws and the seed, and confirm the runtime on covariates only.",
+      "evidence": "plan.json hypotheses[2] (H2); task.json budget (laptop CPU, 30 minutes); plan.json design (empty)",
+      "response": "PI: design-stage item; the Designer fixes the bootstrap type (multiplier/score bootstrap, nuisance fitted once), draws, seed and a covariates-only runtime check.",
+      "ruling": ""
+    }
+  ]
+}
