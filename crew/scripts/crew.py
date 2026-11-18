@@ -648,6 +648,15 @@ def check_replication(ws: Path, runs: dict[str, dict], required: bool) -> list[s
     missing = sorted(set(runs) - covered)
     if missing:
         problems.append(f"replication.json: run(s) {', '.join(missing)} were not rerun")
+    for item in report.get("runs") or []:
+        if not isinstance(item, dict) or item.get("run") not in runs:
+            continue
+        recorded = item.get("record_sha256")
+        current = sha256(ws / "runs" / str(item["run"]) / "run.json")
+        if not recorded:
+            problems.append(f"replication.json: run {item['run']} has no record fingerprint; rerun `crew.py rerun`")
+        elif recorded != current:
+            problems.append(f"replication.json: run {item['run']} was replaced after the rerun; rerun `crew.py rerun`")
     return problems
 
 
@@ -874,7 +883,8 @@ def cmd_rerun(args: argparse.Namespace) -> int:
                     if target is not None and target.is_file():
                         target.unlink()
         for run in ordered:
-            entry = {"run": run.get("id")}
+            entry = {"run": run.get("id"),
+                     "record_sha256": sha256(ws / "runs" / str(run.get("id")) / "run.json")}
             metrics_path = run.get("metrics_file")
             completed = subprocess.run(
                 run.get("command") or ["false"], cwd=copy, check=False,

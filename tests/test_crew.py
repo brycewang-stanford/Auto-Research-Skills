@@ -253,6 +253,18 @@ class CrewWorkspaceTest(unittest.TestCase):
             handle.write(json.dumps({"time": "2999-01-01T00:00:00Z", "role": "scout", "action": "x"}) + "\n")
         self.assertTrue(any("in the future" in e for e in self.errors()))
 
+    def test_rerun_goes_stale_when_a_run_is_replaced(self) -> None:
+        self.to_design()
+        self.run_main()
+        call("rerun", str(self.ws))
+        self.assertEqual(crew.check_replication(self.ws, crew.read_runs(self.ws)[0], required=True), [])
+        record = self.ws / "runs" / "main" / "run.json"
+        data = json.loads(record.read_text())
+        data["finished"] = "2000-01-01T00:00:00Z"  # replaced, but with an older finish time
+        record.write_text(json.dumps(data))
+        problems = crew.check_replication(self.ws, crew.read_runs(self.ws)[0], required=True)
+        self.assertTrue(any("replaced after the rerun" in p for p in problems))
+
     def test_citations_need_verified_sources(self) -> None:
         (self.ws / "refs.bib").write_text("@article{known2020,\n  title={A},\n}\n")
         self.assertTrue(any("no verification record" in e for e in self.errors()))
