@@ -1,0 +1,7 @@
+{
+  "protocol": "0.1",
+  "track": "cs",
+  "title": "Are the predicted probabilities of common tabular classifiers calibrated, and does post-hoc recalibration help?",
+  "created": "2026-11-18T16:28:22Z",
+  "seed": "cs-calibration"
+}

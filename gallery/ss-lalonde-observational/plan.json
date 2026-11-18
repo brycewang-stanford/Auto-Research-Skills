@@ -1,0 +1,37 @@
+{
+  "question": "Using the NSW treated men in the Dehejia-Wahba subsample and the CPS-1 non-experimental comparison group, what is the effect of the training program on participants' 1978 earnings when estimated under selection on observables with an estimator fixed before any outcome is examined, and how does it compare with the experimental benchmark?",
+  "hypotheses": [
+    "H1: The pre-specified observational estimate of the effect on participants' 1978 earnings is positive, with a 95% confidence interval that excludes zero.",
+    "H2: The 95% confidence interval of the pre-specified observational estimate contains the experimental benchmark reported in the literature."
+  ],
+  "contribution": "A benchmark-recovery exercise in which the observational estimator, covariates and overlap rule are fixed before any outcome is examined, so closeness to the experimental benchmark cannot have guided the choice.",
+  "design": {
+    "summary": "",
+    "method": "",
+    "data": "",
+    "analysis_plan": [],
+    "threats": []
+  },
+  "tasks": [
+    {
+      "id": "q-novelty",
+      "title": "Literature on recovering the NSW benchmark from observational comparison groups; the benchmark itself and its source",
+      "owner": "scout",
+      "status": "todo"
+    }
+  ],
+  "gates": {
+    "question": {
+      "status": "pending"
+    },
+    "design": {
+      "status": "pending"
+    },
+    "results": {
+      "status": "pending"
+    },
+    "submission": {
+      "status": "pending"
+    }
+  }
+}

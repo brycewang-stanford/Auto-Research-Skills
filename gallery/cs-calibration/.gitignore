@@ -1,0 +1,4 @@
+data/raw/
+data/derived/
+.venv
+__pycache__/

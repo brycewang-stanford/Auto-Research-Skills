@@ -1,0 +1,37 @@
+{
+  "question": "On standard tabular binary classification datasets, how well calibrated are the predicted probabilities of logistic regression, random forests and gradient-boosted trees without recalibration, and how much do Platt scaling and isotonic regression fitted on held-out data change calibration error and log-loss?",
+  "hypotheses": [
+    "H1: Without recalibration, random forests have higher calibration error than logistic regression on most datasets.",
+    "H2: Isotonic regression fitted on held-out data reduces the calibration error of random forests and gradient-boosted trees on most datasets."
+  ],
+  "contribution": "A small, controlled and fully reproducible measurement of out-of-the-box calibration and of post-hoc recalibration for three widely used tabular classifiers, with uncertainty across seeds.",
+  "design": {
+    "summary": "",
+    "method": "",
+    "data": "",
+    "analysis_plan": [],
+    "threats": []
+  },
+  "tasks": [
+    {
+      "id": "q-novelty",
+      "title": "Prior work on calibration of tabular classifiers and post-hoc recalibration (Platt; Zadrozny-Elkan; Niculescu-Mizil-Caruana; calibration metrics)",
+      "owner": "scout",
+      "status": "todo"
+    }
+  ],
+  "gates": {
+    "question": {
+      "status": "pending"
+    },
+    "design": {
+      "status": "pending"
+    },
+    "results": {
+      "status": "pending"
+    },
+    "submission": {
+      "status": "pending"
+    }
+  }
+}

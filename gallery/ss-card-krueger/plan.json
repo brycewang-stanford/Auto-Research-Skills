@@ -1,0 +1,37 @@
+{
+  "question": "Does a replication from the public data reproduce Card and Krueger's (1994) difference-in-differences estimate of the change in full-time-equivalent employment per store in New Jersey relative to eastern Pennsylvania, and does the estimate survive a robustness check fixed in advance from the later literature?",
+  "hypotheses": [
+    "H1: The replicated headline difference-in-differences estimate matches the published estimate to the precision the published table reports.",
+    "H2: The pre-specified robustness check yields an estimate of the same sign as the headline estimate."
+  ],
+  "contribution": "An independent, fully logged replication of a canonical difference-in-differences estimate from the authors' public data, with one robustness check chosen before any estimate is computed.",
+  "design": {
+    "summary": "",
+    "method": "",
+    "data": "",
+    "analysis_plan": [],
+    "threats": []
+  },
+  "tasks": [
+    {
+      "id": "q-novelty",
+      "title": "The published estimates and definitions; later critiques and robustness checks (e.g. Neumark-Wascher payroll data, Card-Krueger 2000 reply)",
+      "owner": "scout",
+      "status": "todo"
+    }
+  ],
+  "gates": {
+    "question": {
+      "status": "pending"
+    },
+    "design": {
+      "status": "pending"
+    },
+    "results": {
+      "status": "pending"
+    },
+    "submission": {
+      "status": "pending"
+    }
+  }
+}
