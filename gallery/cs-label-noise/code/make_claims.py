@@ -10,6 +10,7 @@ rho Zero/One/Two/Three/Four.
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 
 DS = {"breast_cancer": "Bc", "credit-g": "Cg", "adult": "Ad", "covtype": "Ct"}
@@ -29,10 +30,20 @@ def metrics(run: str) -> dict:
     return metrics_cache[run]
 
 
+def honest_format(value: float, fmt: str) -> str:
+    """Widen a fixed-point format so a nonzero value never prints as 0 or -0 (two significant digits)."""
+    if fmt.startswith(".") and fmt.endswith("f") and isinstance(value, float) and value != 0:
+        if float(format(value, fmt)) == 0:
+            decimals = -math.floor(math.log10(abs(value))) + 1
+            return f".{decimals}f"
+    return fmt
+
+
 def num(cid: str, run: str, metric: str, text: str, macro: str, fmt: str) -> None:
     value = metrics(run)[metric]
     if value is None:          # non-finite in the run (e.g. bootstrap with zero headroom): no number to claim
         return
+    fmt = honest_format(value, fmt)
     claims.append({"id": cid, "kind": "result", "text": text, "support": [{"run": run, "metric": metric}],
                    "value": value, "macro": macro, "format": fmt})
 

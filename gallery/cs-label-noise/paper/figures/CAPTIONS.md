@@ -45,7 +45,7 @@ line below it is the 95% seed-bootstrap percentile interval (10,000 resamples). 
 descriptive only and never decides an outcome. On breast_cancer it is narrower than the
 decision interval because it has no Nadeau-Bengio correction. The gray band marks
 |difference| < 0.05, the smallest meaningful difference. The marker gives the per-dataset
-outcome under the pre-registered rule: filled for supported, open for no detectable
+outcome under the pre-specified rule: filled for supported, open for no detectable
 difference (inconclusive), and a cross for excluded. Under H2 the outcome is joint over D1
 and D2, so both panels carry the same marker. credit-g was excluded at rho = 0 and is
 drawn in its own row on its own x-scale, because its intervals are several times wider.
@@ -61,7 +61,7 @@ dataset, with the dataset's 95% paired t(9) decision interval over the same 10 s
 (Nadeau-Bengio corrected on breast_cancer and credit-g). A1 removes GBDT early stopping
 and tests only the H1 contrast. A2 uses clean validation labels at rho = 0.4. A3 takes the
 best of the first 10 of the same 20 candidates. The gray band marks |Delta| < 0.05. The
-marker gives the pre-registered status: filled means attributed (the interval excludes 0
+marker gives the pre-specified status: filled means attributed (the interval excludes 0
 and |Delta| >= 0.05), open means not attributed, and a cross means excluded. One of the 21
 tests on informative datasets is attributed: A2, H1 contrast, on adult. About one such
 interval is expected by chance at 95% across 21 tests, and no multiplicity correction was
@@ -93,7 +93,7 @@ gives the point estimate, the 95% decision interval (paired t(9) over 10 seeds;
 Nadeau-Bengio corrected on the datasets marked with a dagger), S, the half-width, and the
 difference in absolute accuracy drops between rho = 0 and 0.4. Supporting a hypothesis
 needs the interval to exclude 0 in the predicted direction, |difference| >= 0.05 in r, and
-a drop difference of at least 0.01. The outcome rows use the pre-registered reporting
+a drop difference of at least 0.01. The outcome rows use the pre-specified reporting
 words. Under H2 the outcome is joint over D1 and D2. credit-g was excluded at rho = 0, and
 its rows are reported but not counted. The last rows give each hypothesis's overall verdict
 under the count rule (support on at least max(2, ceil(0.75 n)) of the n informative
@@ -146,9 +146,7 @@ exclusion flag).
 - Never cite the breast_cancer seed-bootstrap interval in `fig_contrasts` as support.
   It is descriptive (see the caption).
 - A2 on adult: say "cannot be assigned to model selection" and cite `c-abl-count` next to it.
-- The macro `\ATwoDeltaTwoCt` renders as `-0.000` (the value is a tiny negative). If the
-  sign looks odd in `tab_ablations`, ask the Experimenter to change that claim's format.
-  Do not edit the table by hand.
+- "Pre-specified" means fixed in the plan approved at the design gate.
 - `tab-h1h2`, `tab-exclusion`, `tab-ablations` and `tab-accuracy` declare `claims.jsonl`
   as an input. Any later edit to `claims.jsonl` (even to text) makes `crew.py validate`
   ask for these four runs to be repeated with `--replace`.

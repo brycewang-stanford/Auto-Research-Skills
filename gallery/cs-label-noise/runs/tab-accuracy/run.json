@@ -10,8 +10,8 @@
     "--metrics",
     "runs/tab-accuracy/metrics.json"
   ],
-  "started": "2026-11-18T14:37:42Z",
-  "finished": "2026-11-18T14:37:42Z",
+  "started": "2026-11-18T15:02:35Z",
+  "finished": "2026-11-18T15:02:35Z",
   "exit_code": 0,
   "code": [
     {
@@ -20,7 +20,7 @@
     },
     {
       "path": "code/figlib.py",
-      "sha256": "c9955fd7cdc554ca69f63ec0cc5ed0bedd7c1c61145c45ea9892287481526d6e"
+      "sha256": "28cbd4e63d77f0b4c18177c37be4c5f74ea45713087025b062ea3878c61043e2"
     },
     {
       "path": "code/tab_accuracy.py",
@@ -38,7 +38,7 @@
     },
     {
       "path": "claims.jsonl",
-      "sha256": "c45fdf5487fbc7dbee40e0c8d9483fd22865d8d2535d6e1c99108e729566ee0b"
+      "sha256": "94cd19ad11085b18690ce7225289fd735266ac2a7f8764bac654f7c5677864e3"
     }
   ],
   "outputs": [

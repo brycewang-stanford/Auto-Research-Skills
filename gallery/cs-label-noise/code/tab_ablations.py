@@ -49,7 +49,7 @@ for i, d in enumerate(DATASETS):
         body.append(" & ".join(cells) + r" \\")
 body.append(r"\midrule")
 body.append(r"\multicolumn{8}{@{}l}{$^{a}$\,attributed: the interval excludes 0 and $|\Delta| \geq 0.05$"
-            r" (pre-registered rule). $^{x}$\,excluded at $\rho = 0$ (uninformative); not tested.} \\")
+            r" (pre-specified rule). $^{x}$\,excluded at $\rho = 0$ (uninformative); not tested.} \\")
 body.append(r"\multicolumn{8}{@{}l}{--\,: A1 (no early stopping) was planned for the H1 contrast only.} \\")
 body += [r"\bottomrule", r"\end{tabular}"]
 write_tex(args.out, "code/tab_ablations.py", body)

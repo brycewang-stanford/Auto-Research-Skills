@@ -116,8 +116,8 @@ class Macros:
                     claim = c
                     break
         if claim is not None:
-            if format(value, claim.get("format") or fmt) != format(value, fmt):
-                raise AssertionError(f"claim {claim['id']} format {claim.get('format')} differs from {fmt}")
+            # The macro prints the claim's own format (which may carry more digits than
+            # `fmt`, e.g. for a value near 0); its value equals the metric, checked above.
             self.used += 1
             body = "\\" + claim["macro"]
         else:

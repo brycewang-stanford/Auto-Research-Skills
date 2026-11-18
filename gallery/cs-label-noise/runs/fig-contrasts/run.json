@@ -10,8 +10,8 @@
     "--metrics",
     "runs/fig-contrasts/metrics.json"
   ],
-  "started": "2026-11-18T14:37:40Z",
-  "finished": "2026-11-18T14:37:41Z",
+  "started": "2026-11-18T15:02:26Z",
+  "finished": "2026-11-18T15:02:30Z",
   "exit_code": 0,
   "code": [
     {
@@ -20,7 +20,7 @@
     },
     {
       "path": "code/figlib.py",
-      "sha256": "c9955fd7cdc554ca69f63ec0cc5ed0bedd7c1c61145c45ea9892287481526d6e"
+      "sha256": "28cbd4e63d77f0b4c18177c37be4c5f74ea45713087025b062ea3878c61043e2"
     },
     {
       "path": "code/fig_contrasts.py",

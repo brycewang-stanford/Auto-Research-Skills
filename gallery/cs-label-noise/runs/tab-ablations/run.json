@@ -10,8 +10,8 @@
     "--metrics",
     "runs/tab-ablations/metrics.json"
   ],
-  "started": "2026-11-18T14:37:42Z",
-  "finished": "2026-11-18T14:37:42Z",
+  "started": "2026-11-18T15:02:34Z",
+  "finished": "2026-11-18T15:02:34Z",
   "exit_code": 0,
   "code": [
     {
@@ -20,11 +20,11 @@
     },
     {
       "path": "code/figlib.py",
-      "sha256": "c9955fd7cdc554ca69f63ec0cc5ed0bedd7c1c61145c45ea9892287481526d6e"
+      "sha256": "28cbd4e63d77f0b4c18177c37be4c5f74ea45713087025b062ea3878c61043e2"
     },
     {
       "path": "code/tab_ablations.py",
-      "sha256": "12b82948bc74ad7c508f84f84b67f618f788ffc15e83c2882343b290ed302c71"
+      "sha256": "127b34a369d662e647bb92f5fb9b92a8fed66dda37586066e3024b041a8d5593"
     }
   ],
   "inputs": [
@@ -42,13 +42,13 @@
     },
     {
       "path": "claims.jsonl",
-      "sha256": "c45fdf5487fbc7dbee40e0c8d9483fd22865d8d2535d6e1c99108e729566ee0b"
+      "sha256": "94cd19ad11085b18690ce7225289fd735266ac2a7f8764bac654f7c5677864e3"
     }
   ],
   "outputs": [
     {
       "path": "paper/tables/tab_ablations.tex",
-      "sha256": "ef58b22b38a5dd33e7d989fd2c031dbf25e73a817fc87cc6953816d94ae49929"
+      "sha256": "1b2ba6df0fe3133511ae00a8e02777cbd730eeb23f68acc26e2664776387e233"
     },
     {
       "path": "runs/tab-ablations/metrics.json",
