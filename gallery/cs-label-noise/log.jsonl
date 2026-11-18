@@ -63,3 +63,5 @@
 {"time": "2026-11-18T15:02:35Z", "role": "figures-ra", "action": "run", "detail": "tab-accuracy exit=0"}
 {"time": "2026-11-18T15:02:45Z", "role": "figures-ra", "action": "figures-rerun", "detail": "claims.jsonl changed (citations added, two formats fixed): reran tab-h1h2, tab-exclusion, tab-ablations, tab-accuracy and, after a figlib.py fix (macro may carry more digits than .3f), fig-accuracy, fig-contrasts, fig-ablations with --replace; ablation footnote now 'pre-specified'; all metrics and PDFs unchanged"}
 {"time": "2026-11-18T16:09:08Z", "role": "pi", "action": "brief-archived", "detail": "replicator brief 20261118T160907Z"}
+{"time": "2026-11-18T17:11:29Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
+{"time": "2026-11-18T17:12:20Z", "role": "replicator", "action": "replication-written", "detail": "rerun passed 20/20 at rtol 1e-6 in a fresh env from code/requirements.txt (61 min, fresh downloads, no --reuse-data); REPLICATION.md written; r-rerun done"}

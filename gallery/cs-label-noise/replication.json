@@ -1,0 +1,133 @@
+{
+  "created": "2026-11-18T17:11:29Z",
+  "passed": true,
+  "rtol": 1e-06,
+  "atol": 1e-09,
+  "reuse_data": false,
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "runs": [
+    {
+      "run": "timing-synthetic",
+      "record_sha256": "719e47e3dae1c2e66505c330802097eb6ef91be661d561215d5d0bb126e8cb2a",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fetch-data",
+      "record_sha256": "f5eada64fa840223737b8bf3fbcaca56ab9b7ad6230abb9e6b7fed0294ce4149",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "prepare-data",
+      "record_sha256": "05a07c3a8fe9f865c90cca6721827c206fbb20fb35bbe23230cb0606353739c1",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "timing-covtype-stress",
+      "record_sha256": "aae2940385885eae1493b17ce27db8cbcddc9f593e5ae8b8641104c23a3633d3",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "smoke",
+      "record_sha256": "adc0e76d93371200b16f46da78f3421556ff65523ca0ed5c8f677f51c71e197c",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "main-rho0",
+      "record_sha256": "ebf05414c72794f5f73b151ec4ea2a6446de8dcb917ac37a4248baea41bec9dd",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "exclusion-check",
+      "record_sha256": "1380ffac5ffab66bbe1bb628365945832b54157b7af4c0c5a3e317ac7c0d16cf",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "main-noisy",
+      "record_sha256": "3f13a31f86a8ffd796c19a774de5abf8f41ff4629af941d97fa683efacbd1c18",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "h-tests",
+      "record_sha256": "43d5ecc3e2277e45527e2978667c09c612f02fa1482aebbf16f88a6d66142b49",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "descriptives",
+      "record_sha256": "a411a11a1eb07f88f3137b609eb3722a01422a7adf5e8b5044c8a735b0e35a6b",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "abl-noes",
+      "record_sha256": "69ad25bdfd5ccd06c2a322e87083e52811303e2f5d80c0b77f30762e7fc4f209",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "abl-cleanval",
+      "record_sha256": "4214da01770ca8cab171f187412cb28e7b2178515ef853ff0a413e47d4b5443c",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "abl-budget",
+      "record_sha256": "d1b49e64a688b7d07d972ab9847176643f6e6e7f791c90fb3db96474320be9fb",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-accuracy",
+      "record_sha256": "6a4489770b973213ae929c5ea267453c3565cd3583e866b8500e4a1199d070dd",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-contrasts",
+      "record_sha256": "563c7c6d15164a737feba9ad11eed06ca65d24173e9a4a261fd739b30ecf436d",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-ablations",
+      "record_sha256": "39bd0065fc04c53d7b54ccc82097e72b9595642d7cb6b568f6948ead9d6a887e",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-h1h2",
+      "record_sha256": "75d97c3c3a9ff3ea9b4f9b3e93bac8361bb7a2b2e283397ae51e1b08a81129ac",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-ablations",
+      "record_sha256": "4b2536f94528262b965b8570184bd6687d9bbdef75761d9bb9994e3139d53c0c",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-exclusion",
+      "record_sha256": "c6dc09f90b6628db735bab385784714412dacbc05461bb07375dc1a935ef00f9",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-accuracy",
+      "record_sha256": "ea0e788cc33fded98818f4bb04d84b95bd3410ad8b15107410752ad5384d6468",
+      "exit_code": 0,
+      "status": "match"
+    }
+  ]
+}

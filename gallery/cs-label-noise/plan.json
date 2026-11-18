@@ -147,7 +147,7 @@
       "id": "r-rerun",
       "title": "Clean rerun from code/requirements.txt; all metrics reproduce at rtol 1e-6",
       "owner": "replicator",
-      "status": "todo"
+      "status": "done"
     }
   ],
   "gates": {
