@@ -1,0 +1,74 @@
+{
+  "id": "exclusion-check",
+  "role": "experimenter",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/exclusion.py",
+    "--metrics",
+    "runs/exclusion-check/metrics.json"
+  ],
+  "started": "2026-11-18T13:23:48Z",
+  "finished": "2026-11-18T13:23:48Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/common.py",
+      "sha256": "6f665b4b2ee4f961eed5d9671bc7e59201659aea95e50e09050153b2f3f1f40e"
+    },
+    {
+      "path": "code/exclusion.py",
+      "sha256": "1aa46518b7ee070290f488dd5cc33e26643de9223a015924ddda1ca8cddbb859"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "results/cells_rho0.csv",
+      "sha256": "bfc91b298658262248b31d76a7b293ad79ef6bc9d3c210c51450d3375861e0c3"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "results/exclusion.json",
+      "sha256": "3cd031b3642b6fb77bb3fc7ba01d884372fd8d2fb9733c139129c5a5066f973f"
+    },
+    {
+      "path": "runs/exclusion-check/metrics.json",
+      "sha256": "32b5849294f4cda8f9fb3446c6436e45b04b832db8057575063189b4cb167d60"
+    }
+  ],
+  "metrics": {
+    "adult.gbdt.headroom": 0.0913,
+    "adult.informative_h1": 1,
+    "adult.informative_h2": 1,
+    "adult.lr.headroom": 0.0819,
+    "adult.m_mean": 0.761,
+    "adult.rf.headroom": 0.0856,
+    "breast_cancer.gbdt.headroom": 0.3219298245614035,
+    "breast_cancer.informative_h1": 1,
+    "breast_cancer.informative_h2": 1,
+    "breast_cancer.lr.headroom": 0.3385964912280702,
+    "breast_cancer.m_mean": 0.631578947368421,
+    "breast_cancer.rf.headroom": 0.3192982456140351,
+    "covtype.gbdt.headroom": 0.2675,
+    "covtype.informative_h1": 1,
+    "covtype.informative_h2": 1,
+    "covtype.lr.headroom": 0.2274,
+    "covtype.m_mean": 0.488,
+    "covtype.rf.headroom": 0.2674,
+    "credit-g.gbdt.headroom": 0.035,
+    "credit-g.informative_h1": 0,
+    "credit-g.informative_h2": 0,
+    "credit-g.lr.headroom": 0.0505,
+    "credit-g.m_mean": 0.7,
+    "credit-g.rf.headroom": 0.0485,
+    "n_informative_h1": 3,
+    "n_informative_h2": 3,
+    "threshold": 0.05
+  },
+  "metrics_file": "runs/exclusion-check/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

@@ -16,3 +16,19 @@
 {"time": "2026-11-18T12:53:43Z", "role": "pi", "action": "plan-revised", "detail": "design-r3 minor findings (F10, F11) answered after the passing review. plan.json sha256=873b2c5487a2037d8c664a40a9e49587639183a19c28c7b93830e06c18d0a63c"}
 {"time": "2026-11-18T12:53:43Z", "role": "pi", "action": "gate-request", "detail": "design"}
 {"time": "2026-11-18T13:00:13Z", "role": "pi", "action": "gate-approve", "detail": "design Bryce Wang"}
+{"time": "2026-11-18T13:07:52Z", "role": "experimenter", "action": "run", "detail": "smoke exit=0"}
+{"time": "2026-11-18T13:08:38Z", "role": "experimenter", "action": "code-written", "detail": "code/common.py, experiment.py, exclusion.py, analyze.py per design.method; smoke data-prep run (seed 100, N=2, rho 0/0.4, all variants, no accuracies written) passed all assertions"}
+{"time": "2026-11-18T13:08:38Z", "role": "experimenter", "action": "code-review-needed", "detail": "analysis_plan[3]/rv-code: Reviewer target 'code' required before main-rho0; no analysis run started"}
+{"time": "2026-11-18T13:17:54Z", "role": "experimenter", "action": "run", "detail": "smoke exit=0"}
+{"time": "2026-11-18T13:18:10Z", "role": "experimenter", "action": "review-response", "detail": "code-r1 F1 (exact threshold comparisons) and F2 (--code common.py, results files as --input/--output, exclusion.json guard, NOTES wording) fixed before main-rho0; smoke rerun"}
+{"time": "2026-11-18T13:23:37Z", "role": "experimenter", "action": "run", "detail": "main-rho0 exit=0"}
+{"time": "2026-11-18T13:23:48Z", "role": "experimenter", "action": "contingency-check", "detail": "W0 = 306 s (main-rho0 started->finished); projected total 7 x W0 = 35.7 min <= 45 min, so no contingency: A1 and A2 both run"}
+{"time": "2026-11-18T13:23:48Z", "role": "experimenter", "action": "run", "detail": "exclusion-check exit=0"}
+{"time": "2026-11-18T13:35:35Z", "role": "experimenter", "action": "run", "detail": "main-noisy exit=0"}
+{"time": "2026-11-18T13:35:49Z", "role": "experimenter", "action": "run", "detail": "h-tests exit=0"}
+{"time": "2026-11-18T13:35:50Z", "role": "experimenter", "action": "run", "detail": "descriptives exit=0"}
+{"time": "2026-11-18T13:38:44Z", "role": "experimenter", "action": "run", "detail": "abl-noes exit=0"}
+{"time": "2026-11-18T13:43:35Z", "role": "experimenter", "action": "run", "detail": "abl-cleanval exit=0"}
+{"time": "2026-11-18T13:43:36Z", "role": "experimenter", "action": "run", "detail": "abl-budget exit=0"}
+{"time": "2026-11-18T13:44:55Z", "role": "experimenter", "action": "runs-complete", "detail": "main-rho0, exclusion-check, main-noisy, h-tests, descriptives, abl-noes, abl-cleanval, abl-budget all exit 0; 24.4 wall-min; no contingency (7xW0=35.7 min); H1 inconclusive (covtype supported; breast_cancer, adult inconclusive; credit-g excluded); H2 inconclusive (0/3)"}
+{"time": "2026-11-18T13:44:55Z", "role": "experimenter", "action": "claims-written", "detail": "1193 result claims from run metrics via code/make_claims.py; numbers.tex regenerated; runs/NOTES.md updated"}

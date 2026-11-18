@@ -183,3 +183,32 @@ Code stage checklist:
 - Prior checklist: noisy X_val in the HGB fit; flip asserts; SeedSequence([20261118,d,s]).spawn(5) order; candidate spawn(4) order
   lr/rf/gbdt/gbdt_noes; a single test prediction plus test_acc_half; preprocessing fit on training features only.
 - Whatever the ranking rule becomes (F11), check that analyze.py implements it as written.
+
+## code-r1 (2026-11-18): verdict pass. No critical or major open; F1 and F2 minor open.
+
+State at review: code/common.py, experiment.py, exclusion.py, analyze.py are new and untracked. The runs are fetch-data, prepare-data,
+two timing runs and smoke (data-prep, seed 100, N=2, all variants; it writes structure only plus GBDT n_iter). No analysis run and no
+results/ directory. validate OK.
+
+What I ran (no study seeds, no study results): sklearn 1.9.1 checks (LR l1_ratio=0.0 gives the same coefficients as the default L2, no warning;
+HGB.fit accepts X_val/y_val, and noisy y_val changes n_iter_); experiment.prepare/flip/run_cell on make_classification data with the name
+"adult" (prep deterministic across calls, val flips nested, scaler fitted on train only, cleanval GBDT stopped much later than main);
+exclusion.py and every analyze.py mode on synthetic cell tables in the scratchpad (D matched an independent recompute, half-width/S =
+1.491/1.489/0.715/0.715, delta-method SE within 1% of a jackknife except credit-g with a tiny h, outcomes and the overall count rule
+behaved as written). Float-boundary probe: F1.
+
+Checked and held: noisy y_val in the HGB fit and in selection (main); clean y_va only in cleanval and in diagnostics; one test predict
+plus the half-budget predict; ties go to the earlier candidate; cand.spawn(4) order lr/rf/gbdt/gbdt_noes; split second integer =
+generate_state(2)[1]; draw order perm_tr, shift_tr, perm_va, shift_va; the outcome order; H2 any/all logic; excluded overrides
+unstable; unstable counts in n; bootstrap BOOT_IDX from default_rng(20261119) shared and never deciding; A2 reuses main rho0 and hc_main;
+A1/A3 own-denominator checks; the ranking 'within noise' rule uses the t(9) interval with c.
+
+Results-stage checklist:
+- Ledger order: main-rho0 -> exclusion-check -> main-noisy -> h-tests; exclusion.json hash as output of exclusion-check equals input hash of
+  h-tests (F2). common.py is listed as --code on every run.
+- Was F1 fixed before main-rho0? If it was fixed after, it must be disclosed. Check whether any credit-g/adult headroom or ddrop sits on a cutoff.
+- W0 from runs/main-rho0/timing.json; any contingency (dropping A1/A2) logged before the ablations, and 7 x W0 arithmetic.
+- The h-tests metrics' {d}.H1.informative must equal exclusion-check's {d}.informative_h1.
+- A1 compares two different candidate streams (gbdt vs gbdt_noes), as designed. An 'attributed' A1 result mixes early stopping with
+  different random configurations; the paper should say so.
+- Claims: 'inconclusive' is never written 'no difference'; S and the half-width are next to every D.

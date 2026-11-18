@@ -1,0 +1,58 @@
+{
+ "id": "code-r1",
+ "target": "code",
+ "round": 1,
+ "created": "2026-11-18T13:16:00Z",
+ "reviewer": {
+  "model": "claude-opus-5-5",
+  "independence": "fresh-context"
+ },
+ "files_read": [
+  "../../crew/agents/reviewer.md",
+  "../../crew/PROTOCOL.md",
+  "../../crew/tracks/cs.md",
+  "../../crew/bench/seeds/cs-label-noise/task.json",
+  "../../crew/scripts/crew.py (run, validate and rerun sections)",
+  "reviews/REVIEWER_MEMORY.md",
+  "reviews/design-r3/review.json (format)",
+  "plan.json",
+  "log.jsonl (tail)",
+  "code/common.py",
+  "code/experiment.py",
+  "code/exclusion.py",
+  "code/analyze.py",
+  "code/requirements.txt",
+  "runs/NOTES.md",
+  "runs/smoke/run.json",
+  "runs/smoke/metrics.json",
+  "runs/smoke/cells_main.csv (head)",
+  "data/derived/schema.json",
+  "data/derived/adult.csv (head, grep for '?' and empty fields)",
+  "data/derived/credit-g.csv (head)",
+  "data/derived/covtype.csv (head)",
+  ".gitignore",
+  "runs/ (listing)"
+ ],
+ "kill_argument": "A hostile referee would go after the one decision the design makes irreversible before the noisy runs: exclusion. exclusion.py tests 'A(0) - m >= 0.05' on floating-point means. On credit-g every per-seed accuracy is a multiple of 1/200, so A(0) sits on a 0.0005 grid, and the earlier reviews put credit-g's headroom at about 5 points, right on the cutoff. On synthetic accuracy vectors (not study data) whose exact headroom is 0.0500, 14% compute below 0.05 and would be excluded. The pre-registered rule says they must be kept. The same thing happens with the 1-point drop rule (35% misread at exactly 0.0100 on credit-g). The chance of an exact tie is small (about 1%), but once exclusion-check has run the rule cannot be fixed without a disclosed deviation. Everything else held. I checked: which labels selection and early stopping see; leakage through preprocessing and test reuse; the flip arithmetic and nesting; the SeedSequence and candidate-stream order; equal fit budgets; the delta-method S (within 1% of a jackknife on synthetic tables); the per-dataset c and t(9); outcome order and count rules; the bootstrap, which never decides an outcome; and the ablation denominators.",
+ "verdict": "pass",
+ "findings": [
+  {
+   "id": "F1",
+   "severity": "minor",
+   "status": "open",
+   "text": "Decision thresholds are compared on raw floats, so a value exactly on a pre-registered cutoff can land on the wrong side. exclusion.py marks a dataset informative when A(0) - m >= 0.05. analyze.py applies the smallest meaningful difference on the absolute drops as ddrop >= 0.01 and ddrop <= -0.01. Accuracies come from integer counts (credit-g: k/200, so the seed means lie on a 0.0005 grid; adult and covtype: k/1000), and float sums of these values miss exact decimals. My check used synthetic count vectors, not study data. When the true headroom is exactly 0.0500 with m = 140/200, 2,786 of 20,000 vectors compute below 0.05. With m = 761/1000 it is 15,636 of 20,000. When the true drop difference is exactly 0.0100 on credit-g, 7,077 of 20,000 compute below 0.01. Exact ties are unlikely (credit-g's A(0) is near 0.75 by the design's own estimate, which gives about 1% overall). But the exclusion rule decides which datasets count for H1 and H2, and it cannot be corrected after exclusion-check runs without a disclosed deviation.",
+   "evidence": "code/exclusion.py lines 56-57 (heads[k] >= THRESHOLD); code/analyze.py lines 123, 125, 134, 136 (iv['ddrop'] >= SMD_DROP / <= -SMD_DROP) and 95 (lo >= H_FLOOR, continuous, low risk). Resolved before main-rho0 by comparing on rounded values (for example round(x, 9) >= threshold) or on exact integer counts or Fractions, recorded in runs/NOTES.md as an implementation detail. This changes no rule.",
+   "response": "Experimenter: seed means are now exact Fractions from test-set counts (common.exact_mean asserts k/n); exclusion (>=0.05), drop-difference (>=0.01) and |D|/|Delta| (>=0.05) thresholds are compared exactly in exclusion.py and analyze.py, no rule changed, recorded in runs/NOTES.md.",
+   "ruling": ""
+  },
+  {
+   "id": "F2",
+   "severity": "minor",
+   "status": "open",
+   "text": "The chain of custody for the exclusion decision and the cell tables depends on how the runs are invoked, and the analysis_plan commands do not say to hash them. analyze.py reads results/cells_rho0.csv, results/cells_noisy.csv and results/exclusion.json by fixed path. crew.py records a file's hash only if it is passed as --input, --output or --code. If exclusion.json is not an --output of exclusion-check and an --input of h-tests and the ablation runs, validate cannot show that the analysis read the exclusion file produced before main-noisy. All four scripts import code/common.py, which holds SIZES, NB_CORRECTED, the seeds and N. If common.py is not passed as --code, editing it after a run goes undetected. The smoke run did pass common.py. Nothing in experiment.py stops a noisy-rho run before results/exclusion.json exists. A smaller point: runs/NOTES.md says the smoke run writes no learning outcome, but runs/smoke/cells_main.csv records GBDT n_iter at rho 0 and 0.4 on the study datasets (seed 100, N=2). This is harmless, but the sentence is inaccurate.",
+   "evidence": "plan.json analysis_plan[4]-[11] (commands give no --input/--output); code/analyze.py lines 51-53, 72-73, 273, 276; code/exclusion.py line 31; ../../crew/scripts/crew.py run options (--code/--input/--output) and validate (hash check only for listed files); runs/smoke/run.json code list; runs/NOTES.md 'Runs' section 1. Resolved by invoking every analysis run with --code code/common.py, with the results/*.csv and results/exclusion.json files as --output of the run that writes them and as --input of every run that reads them. Optionally, experiment.py should refuse rho > 0 with variant main when results/exclusion.json is absent. Fix the NOTES sentence.",
+   "response": "Experimenter: every run passes code/common.py as --code, results/cells_*.csv and results/exclusion.json are --output of the writing run and --input of every reading run, experiment.py refuses noisy main cells without results/exclusion.json, and the runs/NOTES.md smoke sentence now says it records GBDT n_iter.",
+   "ruling": ""
+  }
+ ]
+}

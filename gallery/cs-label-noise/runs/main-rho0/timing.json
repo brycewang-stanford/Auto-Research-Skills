@@ -1,0 +1,1089 @@
+{
+ "note": "Machine-dependent; not ledger metrics.",
+ "n_jobs": 8,
+ "wall_seconds": 303.5038554999628,
+ "prepare_seconds": 5.716617957979906,
+ "cpu_fit_seconds": 2262.0175006206264,
+ "cells": [
+  {
+   "dataset": "adult",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 28.810779039922636,
+   "fit_seconds_max": 4.995580499991775
+  },
+  {
+   "dataset": "adult",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 46.51551487384131,
+   "fit_seconds_max": 5.2453112920047715
+  },
+  {
+   "dataset": "adult",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 40.04206354089547,
+   "fit_seconds_max": 5.914488875016104
+  },
+  {
+   "dataset": "adult",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 48.30557287303964,
+   "fit_seconds_max": 5.142548750038259
+  },
+  {
+   "dataset": "adult",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 31.46909512381535,
+   "fit_seconds_max": 4.070756374974735
+  },
+  {
+   "dataset": "adult",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 35.39013783202972,
+   "fit_seconds_max": 6.025645458023064
+  },
+  {
+   "dataset": "adult",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 39.84781737474259,
+   "fit_seconds_max": 5.0517637499724515
+  },
+  {
+   "dataset": "adult",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 40.46369458397385,
+   "fit_seconds_max": 4.3423454169533215
+  },
+  {
+   "dataset": "adult",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 27.37342820689082,
+   "fit_seconds_max": 3.4841725409496576
+  },
+  {
+   "dataset": "adult",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 27.87125112488866,
+   "fit_seconds_max": 4.708169709017966
+  },
+  {
+   "dataset": "adult",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 0.23399125086143613,
+   "fit_seconds_max": 0.041249874979257584
+  },
+  {
+   "dataset": "adult",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 0.28903516806894913,
+   "fit_seconds_max": 0.04412274999776855
+  },
+  {
+   "dataset": "adult",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 0.36199325002962723,
+   "fit_seconds_max": 0.06882837502053007
+  },
+  {
+   "dataset": "adult",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 0.33052762516308576,
+   "fit_seconds_max": 0.050382958026602864
+  },
+  {
+   "dataset": "adult",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 0.3621697108610533,
+   "fit_seconds_max": 0.0525157920201309
+  },
+  {
+   "dataset": "adult",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 0.5848740002838895,
+   "fit_seconds_max": 0.0684422500198707
+  },
+  {
+   "dataset": "adult",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 0.4267386248684488,
+   "fit_seconds_max": 0.0802316670306027
+  },
+  {
+   "dataset": "adult",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 0.34476042084861547,
+   "fit_seconds_max": 0.06176366697764024
+  },
+  {
+   "dataset": "adult",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 0.4228562507778406,
+   "fit_seconds_max": 0.06189870898379013
+  },
+  {
+   "dataset": "adult",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 0.32419078808743507,
+   "fit_seconds_max": 0.042638333048671484
+  },
+  {
+   "dataset": "adult",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 22.427753708150703,
+   "fit_seconds_max": 2.363102749979589
+  },
+  {
+   "dataset": "adult",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 22.89689183392329,
+   "fit_seconds_max": 2.413616916979663
+  },
+  {
+   "dataset": "adult",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 22.88353254389949,
+   "fit_seconds_max": 2.0508954169927165
+  },
+  {
+   "dataset": "adult",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 21.772708081116434,
+   "fit_seconds_max": 1.9195524160168134
+  },
+  {
+   "dataset": "adult",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 20.243591331876814,
+   "fit_seconds_max": 1.9577638750197366
+  },
+  {
+   "dataset": "adult",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 20.7459580010036,
+   "fit_seconds_max": 2.1510866250027902
+  },
+  {
+   "dataset": "adult",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 22.612899210944306,
+   "fit_seconds_max": 1.928273374971468
+  },
+  {
+   "dataset": "adult",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 24.9243741670507,
+   "fit_seconds_max": 2.3692277499940246
+  },
+  {
+   "dataset": "adult",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 23.76587616489269,
+   "fit_seconds_max": 2.0013800829765387
+  },
+  {
+   "dataset": "adult",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 15.961608625890221,
+   "fit_seconds_max": 1.5185736250132322
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 4.476217333925888,
+   "fit_seconds_max": 0.7548911250196397
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 3.742515746911522,
+   "fit_seconds_max": 0.4827411660226062
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 4.729330584988929,
+   "fit_seconds_max": 0.5880699999979697
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 5.244617832242511,
+   "fit_seconds_max": 0.6892050839960575
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 4.5496045829495415,
+   "fit_seconds_max": 0.9131814169813879
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 8.085247624025214,
+   "fit_seconds_max": 1.9385937500046566
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 2.8348047491163015,
+   "fit_seconds_max": 0.4778115410008468
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 3.0896057880599983,
+   "fit_seconds_max": 0.4136270000017248
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 2.583607916836627,
+   "fit_seconds_max": 0.25374995794845745
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 2.627113249152899,
+   "fit_seconds_max": 0.3723925419617444
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 0.0455779989133589,
+   "fit_seconds_max": 0.011397916008718312
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 0.04946141393156722,
+   "fit_seconds_max": 0.010986041044816375
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 0.04622433503391221,
+   "fit_seconds_max": 0.008591166988480836
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 0.05095412500668317,
+   "fit_seconds_max": 0.011375333007890731
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 0.049991081119515,
+   "fit_seconds_max": 0.012962250038981438
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 0.048243166878819466,
+   "fit_seconds_max": 0.0170620420249179
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 0.05948016687761992,
+   "fit_seconds_max": 0.011653417022898793
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 0.04016779002267867,
+   "fit_seconds_max": 0.01008508400991559
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 0.04531104298075661,
+   "fit_seconds_max": 0.01825899997493252
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 0.03954329015687108,
+   "fit_seconds_max": 0.005847290973179042
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 6.644964080944192,
+   "fit_seconds_max": 0.4184778750059195
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 5.867567665991373,
+   "fit_seconds_max": 0.48089504096424207
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 5.733707541076001,
+   "fit_seconds_max": 0.40440083300927654
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 6.200639040151145,
+   "fit_seconds_max": 0.49178670800756663
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 5.798826793034095,
+   "fit_seconds_max": 0.43594958301400766
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 5.785517457872629,
+   "fit_seconds_max": 0.3622567499987781
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 6.156929376011249,
+   "fit_seconds_max": 0.4354937080061063
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 4.434004084963817,
+   "fit_seconds_max": 0.28777749999426305
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 4.031646331073716,
+   "fit_seconds_max": 0.3378301659831777
+  },
+  {
+   "dataset": "breast_cancer",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 4.013262457156088,
+   "fit_seconds_max": 0.3644487499841489
+  },
+  {
+   "dataset": "covtype",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 107.74755337787792,
+   "fit_seconds_max": 14.911568499985151
+  },
+  {
+   "dataset": "covtype",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 115.38778133207234,
+   "fit_seconds_max": 18.371719332993962
+  },
+  {
+   "dataset": "covtype",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 142.06990591494832,
+   "fit_seconds_max": 20.225609250017442
+  },
+  {
+   "dataset": "covtype",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 76.1748715849244,
+   "fit_seconds_max": 11.564424000040162
+  },
+  {
+   "dataset": "covtype",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 118.70006991998525,
+   "fit_seconds_max": 13.88917149999179
+  },
+  {
+   "dataset": "covtype",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 79.304254833085,
+   "fit_seconds_max": 10.087388749991078
+  },
+  {
+   "dataset": "covtype",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 124.43509733490646,
+   "fit_seconds_max": 15.526018042000942
+  },
+  {
+   "dataset": "covtype",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 118.22621220891597,
+   "fit_seconds_max": 16.952701749978587
+  },
+  {
+   "dataset": "covtype",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 104.745988668059,
+   "fit_seconds_max": 14.887468666012865
+  },
+  {
+   "dataset": "covtype",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 103.50735637597973,
+   "fit_seconds_max": 19.046549708000384
+  },
+  {
+   "dataset": "covtype",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 1.7900002480018884,
+   "fit_seconds_max": 0.2327748339739628
+  },
+  {
+   "dataset": "covtype",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 1.2804678780958056,
+   "fit_seconds_max": 0.18556666700169444
+  },
+  {
+   "dataset": "covtype",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 2.5086402911692858,
+   "fit_seconds_max": 0.23619608394801617
+  },
+  {
+   "dataset": "covtype",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 3.037435543956235,
+   "fit_seconds_max": 0.30849445797502995
+  },
+  {
+   "dataset": "covtype",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 2.5472632900928147,
+   "fit_seconds_max": 0.3014469579793513
+  },
+  {
+   "dataset": "covtype",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 2.1276660839794204,
+   "fit_seconds_max": 0.20807400002377108
+  },
+  {
+   "dataset": "covtype",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 2.0218177079223096,
+   "fit_seconds_max": 0.22498495801119134
+  },
+  {
+   "dataset": "covtype",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 1.7072331270901486,
+   "fit_seconds_max": 0.24410812504356727
+  },
+  {
+   "dataset": "covtype",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 2.1531652089906856,
+   "fit_seconds_max": 0.2763417920214124
+  },
+  {
+   "dataset": "covtype",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 1.9462714131805114,
+   "fit_seconds_max": 0.24048729101195931
+  },
+  {
+   "dataset": "covtype",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 40.5220823349664,
+   "fit_seconds_max": 3.7110998749849387
+  },
+  {
+   "dataset": "covtype",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 41.00744233105797,
+   "fit_seconds_max": 3.595309249998536
+  },
+  {
+   "dataset": "covtype",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 32.37640549882781,
+   "fit_seconds_max": 2.941674957983196
+  },
+  {
+   "dataset": "covtype",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 39.89772462693509,
+   "fit_seconds_max": 4.03107775002718
+  },
+  {
+   "dataset": "covtype",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 29.959520208009053,
+   "fit_seconds_max": 4.385813125001732
+  },
+  {
+   "dataset": "covtype",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 28.849411791888997,
+   "fit_seconds_max": 3.800735042023007
+  },
+  {
+   "dataset": "covtype",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 40.13672645983752,
+   "fit_seconds_max": 3.568262582994066
+  },
+  {
+   "dataset": "covtype",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 30.538611372059677,
+   "fit_seconds_max": 3.107439459010493
+  },
+  {
+   "dataset": "covtype",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 35.17647087399382,
+   "fit_seconds_max": 4.1625240839784965
+  },
+  {
+   "dataset": "covtype",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 34.68610333290417,
+   "fit_seconds_max": 3.5024319579824805
+  },
+  {
+   "dataset": "credit-g",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 3.428080959187355,
+   "fit_seconds_max": 0.4180635420489125
+  },
+  {
+   "dataset": "credit-g",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 5.378784833941609,
+   "fit_seconds_max": 0.6115902090095915
+  },
+  {
+   "dataset": "credit-g",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 4.177133458957542,
+   "fit_seconds_max": 0.4811189589672722
+  },
+  {
+   "dataset": "credit-g",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 2.2575610440107994,
+   "fit_seconds_max": 0.24254670803202316
+  },
+  {
+   "dataset": "credit-g",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 5.025001040077768,
+   "fit_seconds_max": 0.7357887090183794
+  },
+  {
+   "dataset": "credit-g",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 5.577463500958402,
+   "fit_seconds_max": 0.6295791249722242
+  },
+  {
+   "dataset": "credit-g",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 4.874619417823851,
+   "fit_seconds_max": 0.7525962920044549
+  },
+  {
+   "dataset": "credit-g",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 3.9252359570818953,
+   "fit_seconds_max": 0.5655192080303095
+  },
+  {
+   "dataset": "credit-g",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 6.24199229106307,
+   "fit_seconds_max": 0.9994619169738144
+  },
+  {
+   "dataset": "credit-g",
+   "method": "gbdt",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 3.4931417910847813,
+   "fit_seconds_max": 0.37880058301379904
+  },
+  {
+   "dataset": "credit-g",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 0.08862262184266001,
+   "fit_seconds_max": 0.01601825002580881
+  },
+  {
+   "dataset": "credit-g",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 0.11303729220526293,
+   "fit_seconds_max": 0.02085575001547113
+  },
+  {
+   "dataset": "credit-g",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 0.09578516607871279,
+   "fit_seconds_max": 0.014956125000026077
+  },
+  {
+   "dataset": "credit-g",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 0.10421775106806308,
+   "fit_seconds_max": 0.0221440420136787
+  },
+  {
+   "dataset": "credit-g",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 0.08014004095457494,
+   "fit_seconds_max": 0.01959999999962747
+  },
+  {
+   "dataset": "credit-g",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 0.13118429185124114,
+   "fit_seconds_max": 0.023709375003818423
+  },
+  {
+   "dataset": "credit-g",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 0.11802020895993337,
+   "fit_seconds_max": 0.01905816700309515
+  },
+  {
+   "dataset": "credit-g",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 0.08138087711995468,
+   "fit_seconds_max": 0.015129084000363946
+  },
+  {
+   "dataset": "credit-g",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 0.15631337091326714,
+   "fit_seconds_max": 0.027682165964506567
+  },
+  {
+   "dataset": "credit-g",
+   "method": "lr",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 0.09478354401653633,
+   "fit_seconds_max": 0.01620608300436288
+  },
+  {
+   "dataset": "credit-g",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 0,
+   "fit_seconds_total": 6.091777124151122,
+   "fit_seconds_max": 0.42618866596603766
+  },
+  {
+   "dataset": "credit-g",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 1,
+   "fit_seconds_total": 6.610557835025247,
+   "fit_seconds_max": 0.5316455000429414
+  },
+  {
+   "dataset": "credit-g",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 2,
+   "fit_seconds_total": 5.9662788770510815,
+   "fit_seconds_max": 0.4117350419983268
+  },
+  {
+   "dataset": "credit-g",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 3,
+   "fit_seconds_total": 6.303726668993477,
+   "fit_seconds_max": 0.4440229579922743
+  },
+  {
+   "dataset": "credit-g",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 4,
+   "fit_seconds_total": 7.590928498946596,
+   "fit_seconds_max": 0.5654357079765759
+  },
+  {
+   "dataset": "credit-g",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 5,
+   "fit_seconds_total": 6.558604583027773,
+   "fit_seconds_max": 0.45900441700359806
+  },
+  {
+   "dataset": "credit-g",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 6,
+   "fit_seconds_total": 6.41683295898838,
+   "fit_seconds_max": 0.4231137919705361
+  },
+  {
+   "dataset": "credit-g",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 7,
+   "fit_seconds_total": 7.173908791795839,
+   "fit_seconds_max": 0.6407943749800324
+  },
+  {
+   "dataset": "credit-g",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 8,
+   "fit_seconds_total": 6.977758585824631,
+   "fit_seconds_max": 0.5219694999977946
+  },
+  {
+   "dataset": "credit-g",
+   "method": "rf",
+   "variant": "main",
+   "rho": 0.0,
+   "seed": 9,
+   "fit_seconds_total": 7.204706083866768,
+   "fit_seconds_max": 0.7522659579990432
+  }
+ ]
+}

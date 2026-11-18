@@ -1,0 +1,65 @@
+{
+ "A0": {
+  "adult": {
+   "gbdt": 0.8523,
+   "lr": 0.8429,
+   "rf": 0.8466
+  },
+  "breast_cancer": {
+   "gbdt": 0.9535087719298245,
+   "lr": 0.9701754385964912,
+   "rf": 0.9508771929824561
+  },
+  "covtype": {
+   "gbdt": 0.7555,
+   "lr": 0.7154,
+   "rf": 0.7554
+  },
+  "credit-g": {
+   "gbdt": 0.735,
+   "lr": 0.7505,
+   "rf": 0.7485
+  }
+ },
+ "headroom": {
+  "adult": {
+   "gbdt": 0.0913,
+   "lr": 0.0819,
+   "rf": 0.0856
+  },
+  "breast_cancer": {
+   "gbdt": 0.3219298245614035,
+   "lr": 0.3385964912280702,
+   "rf": 0.3192982456140351
+  },
+  "covtype": {
+   "gbdt": 0.2675,
+   "lr": 0.2274,
+   "rf": 0.2674
+  },
+  "credit-g": {
+   "gbdt": 0.035,
+   "lr": 0.0505,
+   "rf": 0.0485
+  }
+ },
+ "informative_h1": [
+  "breast_cancer",
+  "adult",
+  "covtype"
+ ],
+ "informative_h2": [
+  "breast_cancer",
+  "adult",
+  "covtype"
+ ],
+ "m": {
+  "adult": 0.761,
+  "breast_cancer": 0.631578947368421,
+  "covtype": 0.488,
+  "credit-g": 0.7
+ },
+ "rule": "uninformative if A(0) - m < 0.05 for a compared method",
+ "source": "results/cells_rho0.csv",
+ "threshold": 0.05
+}

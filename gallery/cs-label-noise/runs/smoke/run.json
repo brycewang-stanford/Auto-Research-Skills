@@ -1,0 +1,96 @@
+{
+  "id": "smoke",
+  "role": "experimenter",
+  "kind": "data-prep",
+  "command": [
+    "sh",
+    "-c",
+    ".venv/bin/python code/experiment.py --smoke --rhos 0 0.4 --variant main --out runs/smoke/cells_main.csv --metrics runs/smoke/metrics.json && .venv/bin/python code/experiment.py --smoke --rhos 0 0.4 --variant gbdt_noes --out runs/smoke/cells_noes.csv && .venv/bin/python code/experiment.py --smoke --rhos 0.4 --variant cleanval --out runs/smoke/cells_cleanval.csv"
+  ],
+  "started": "2026-11-18T13:17:05Z",
+  "finished": "2026-11-18T13:17:54Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/experiment.py",
+      "sha256": "0ceea856e112e6a84bd8360a6c18ac77554c782c2b177088e676225b0e1696cf"
+    },
+    {
+      "path": "code/common.py",
+      "sha256": "6f665b4b2ee4f961eed5d9671bc7e59201659aea95e50e09050153b2f3f1f40e"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/schema.json",
+      "sha256": "de4b0403b3165df522a519d2ba056aad4469a5262b6bdef58f0700e4e3956191"
+    },
+    {
+      "path": "data/derived/breast_cancer.csv",
+      "sha256": "75a1d74a59df9cb0a78ecc0a36085bf8a85239557f178d3b8d758e88b26416e1"
+    },
+    {
+      "path": "data/derived/credit-g.csv",
+      "sha256": "d8bbc0b04fc9666ba137eed597e3fea84130071ff95c5f1b8037ea58553041f1"
+    },
+    {
+      "path": "data/derived/adult.csv",
+      "sha256": "740de363e8d615339f3d39374a61e92b406af52efd01791f5557129e640beea8"
+    },
+    {
+      "path": "data/derived/covtype.csv",
+      "sha256": "b6f5bda82ff015edbd2658c16ff4ae4e73bc7766cd95b456eb5b821f0c416c93"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/smoke/cells_main.csv",
+      "sha256": "c97157ff77ff5c50f7c4334b384612c6d74010e740db5f50754fe1f3fd74295c"
+    },
+    {
+      "path": "runs/smoke/cells_noes.csv",
+      "sha256": "9cc90f6f968e50a8a0370cbaa28ecc56c255ec61695589f2762363552d8e33a6"
+    },
+    {
+      "path": "runs/smoke/cells_cleanval.csv",
+      "sha256": "3ecdcaaa49b48ca5c9bce0b622fe0c1336846044a4fcd8fc289ebc24a43202f6"
+    },
+    {
+      "path": "runs/smoke/metrics.json",
+      "sha256": "27e9c691403c81687d09d292c4986bcea55c5dace244457ff6c732627b944365"
+    }
+  ],
+  "metrics": {
+    "adult.K": 2,
+    "adult.n_features": 103,
+    "adult.n_test": 1000,
+    "adult.n_train": 3000,
+    "adult.n_val": 1000,
+    "breast_cancer.K": 2,
+    "breast_cancer.n_features": 30,
+    "breast_cancer.n_test": 114,
+    "breast_cancer.n_train": 341,
+    "breast_cancer.n_val": 114,
+    "covtype.K": 7,
+    "covtype.n_features": 54,
+    "covtype.n_test": 1000,
+    "covtype.n_train": 3000,
+    "covtype.n_val": 1000,
+    "credit-g.K": 2,
+    "credit-g.n_features": 61,
+    "credit-g.n_test": 200,
+    "credit-g.n_train": 600,
+    "credit-g.n_val": 200,
+    "n_candidates": 2,
+    "n_cells": 24,
+    "n_convergence_warnings": 0,
+    "n_fits": 48,
+    "n_flip_count_failures": 0,
+    "n_seeds": 1
+  },
+  "metrics_file": "runs/smoke/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}
