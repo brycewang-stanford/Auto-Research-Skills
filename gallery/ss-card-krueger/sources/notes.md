@@ -220,8 +220,12 @@ evidence.
   - **Balanced sample (fn 8):** in his words, "the balanced sample in CK includes 309
     observations on fast-food restaurants in New Jersey and 75 in Pennsylvania", 384 in
     total. This is his count, not a number printed in CK.
-  - **Replication:** the DiD on this sample is **2.72**, against CK's 2.75 in Table 3 row 4
-    (p. 10).
+  - **DiD of 2.72 (p. 10, Fig. 3):** this is the DiD line in Figure 3. Footnote 15 says the
+    figure uses **301 NJ + 75 PA = 376 stores**, which is the changes-in-changes support
+    sample with 8 NJ stores dropped. It is **not** the 384-store balanced sample. Ropponen
+    says only that 2.72 "corresponds to" CK's 2.75 (Table 3 row 4). The paper prints no DiD
+    for the 384-store sample, so 2.72 is not a replication of 2.75 and cannot be used as a
+    check on that sample.
   - **Changes-in-changes (Athey-Imbens 2006):** the average effect is **0.90** (bootstrap SE
     0.44) on 301 NJ + 75 PA stores. **Eight NJ stores are dropped** because their wave-1 FTE
     lies outside the support of PA wave-1 FTE (fn 15-16). This is a support restriction
@@ -305,13 +309,15 @@ robustness part is partly answered.**
 
 - **H1 (replication):** the published targets are in CK Tables 3-4. Three informal or
   working-paper replications from the public data come close on the point estimate:
-  Mamula 2.75 and Ropponen 2.72 on the balanced sample. Morshed is far off at 3.36. **None
-  of the four reproduces the published standard errors or N = 357.** H1's added value is
+  Mamula 2.75. Ropponen's 2.72 does not count, because it is on a 376-store CIC support
+  sample (8 NJ stores dropped) that he says only "corresponds to" CK's 2.75. Morshed is far
+  off at 3.36. **None of the four reproduces the published standard errors or N = 357.** H1's added value is
   doing that, or explaining why it cannot be done.
 - **H2 (winsorization):** I found no published winsorized or trimmed estimate on these data.
   But the distributional question has been asked. Ropponen (2010; JAE 2011) uses
-  changes-in-changes and reports a smaller average effect (0.90, or 1.58 with controls,
-  against DiD 2.72) and a sign change with store size. Ropponen (2014) reports that the
+  changes-in-changes and reports a smaller average effect (0.90 against a DiD of 2.72, both on the same 376-store
+  support sample; 1.58 with controls, sample not restated in fn 17) and a sign change with
+  store size. Ropponen (2014) reports that the
   average effect is "fairly robust" under semiparametric DiD. **The paper must cite these
   and present H2 as a complement to them, not as the first distributional check.**
 - The substantive dispute (NW payroll vs CK BLS ES-202) used non-public data and is outside
@@ -331,8 +337,9 @@ still there. I have not edited `plan.json`, which is not my file.
    of stores with non-missing FTE. Mamula's counts (PA 77/77, NJ 321/319) are a secondary,
    unverified reference.
 2. **H1(b), Table 3 row 4 (balanced):** 2.75 (1.34), PA -2.28 (1.25), NJ 0.47 (0.48).
-   Ropponen (2010, fn 8) counts the CK balanced sample as 309 NJ + 75 PA = 384. That is a
-   secondary source, not a CK number, but the replicated count can be checked against it.
+   Ropponen (2010, fn 8) states the CK balanced sample count as 309 NJ + 75 PA = 384. That
+   is a secondary source, not a CK number, and Ropponen reports no DiD on those 384 stores
+   (his 2.72 uses 376). So it gives a store count only, not an estimate to check against.
 3. **H1(c), Table 4 col (i):** N = 357, NJ coefficient 2.33 (1.19). Log the store count after
    each filter. Mamula's 2.28 sits exactly 0.05 away, so the |difference| <= 0.05 rule
    matters.
@@ -360,7 +367,8 @@ still there. I have not edited `plan.json`, which is not my file.
        winsorization;
      - (ii) NW's rule (drop closed stores, add chain and ownership controls), published
        2.78 (NW 1995 p. 3).
-7. **Discussion:** set H2 beside Ropponen's CIC averages (0.90 and 1.58, against DiD 2.72)
+7. **Discussion:** set H2 beside Ropponen's CIC averages (0.90 against DiD 2.72, both on his 376-store
+   support sample; 1.58 with controls)
    and his store-size pattern. Set it beside Ropponen (2014) "fairly robust" as well. The CIC
    estimator could be offered as an optional, labelled extension. It is not pre-specified and
    must not be added after results are seen.

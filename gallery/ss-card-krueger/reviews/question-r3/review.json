@@ -124,7 +124,7 @@
       "text": "H2 calls itself 'an implementation of Neumark and Wascher's (1995) measurement-error critique'. But the Scout's own reading of NW 1995 (notes.md sec. 5, 'Does any of these report a winsorization...', and sec. 7 item 6; claim c-nw-notoutliers) is that NW state on p. 9 that 'the greater variability in CK's data is not driven by one or two outliers'. NW's critique is that measurement error is diffuse, with a 3x SD ratio across the whole distribution. A 5/95 winsorization tests only the tails. If H2 passes, the label invites the paper to say the estimate 'survives NW's measurement-error critique', a reading NW's own text rules out. notes.md sec. 7 item 6 already says the paper should state this limit, but plan.json does not.",
       "evidence": "plan.json hypotheses[1] ('an implementation of Neumark and Wascher's (1995) measurement-error critique'); sources/notes.md sec. 5 (NW p. 9 quote) and sec. 7 item 6; claims.jsonl c-nw-notoutliers",
       "remedy": "Reword H2's label to 'a tail-only check motivated by Neumark and Wascher's (1995) documentation of extreme survey changes (-41.5, +34 FTE). NW state the excess variability is not outlier-driven, so a pass does not answer their broader measurement-error critique.' A one-line edit; no change to the test.",
-      "response": "",
+      "response": "PI: H2 relabelled a tail-only check motivated by NW's extreme changes; a pass does not answer their broader critique.",
       "ruling": ""
     },
     {
@@ -134,7 +134,7 @@
       "text": "The question asks 'how much of the headline estimate remains' after winsorization. 'Headline' is the Table 3 row 3 estimate (2.76; c-pub-did). But H2, correctly after F6, compares against the unwinsorized balanced-sample estimate (row 4, 2.75). The two numbers are close, so the gap is wording, not substance. Still, the question and the hypothesis name different comparators, and a writer following the question could set the winsorized number against row 3.",
       "evidence": "plan.json question ('how much of the headline estimate remains') vs hypotheses[1] ('the unwinsorized difference on the same sample')",
       "remedy": "Change 'the headline estimate' in the question to 'the balanced-sample estimate'.",
-      "response": "",
+      "response": "PI: question now says 'balanced-sample estimate'.",
       "ruling": ""
     },
     {
@@ -144,7 +144,7 @@
       "text": "The source does not clearly support the sample attributed to Ropponen's DiD of 2.72. Claim c-ropponen-cic says the CIC 0.90 is set 'against a difference-in-differences of 2.72 on the same balanced sample'. notes.md sec. 5 says 'the DiD on this sample [the 384-store balanced sample] is 2.72', and sec. 6 counts Ropponen as reproducing 2.72 'on the balanced sample'. In the paper (MPRA 25181, p. 10), 2.72 is the DiD line in Figure 3. Footnote 15 says that figure uses 301 NJ + 75 PA stores, the CIC support sample with 8 NJ stores dropped. Ropponen only says 2.72 'corresponds to' CK's 2.75. So 2.72 may be on 376 stores, not 384. That matters, because sec. 7 item 2 offers Ropponen's 384 count as a cross-check for H1(b), and sec. 6 lists him as a near-replication of the balanced estimate.",
       "evidence": "claims.jsonl c-ropponen-cic; sources/notes.md sec. 5 Ropponen bullet 'Replication', sec. 6 H1 bullet; Ropponen 2010 p. 10 and fn 15 (fetched by the Reviewer)",
       "remedy": "Scout: reword to 'a DiD of 2.72, which he says corresponds to CK's 2.75; the figure reporting it uses 301 NJ and 75 PA stores'. Do not call it a replication on the 384-store sample unless the text says so.",
-      "response": "",
+      "response": "PI: sent to the Scout (claim c-ropponen-cic and notes reworded to 376 stores, no longer a check on the 384-store sample). Scout: confirmed against MPRA 25181 p. 10 and fn 15; c-ropponen-cic and notes sections 5-7 now put 2.72 on the 376-store CIC support sample ('corresponds to' CK's 2.75), and no longer count it as a replication or as a check on the 384-store balanced sample (fn 8 is kept as a store count only).",
       "ruling": ""
     }
   ]

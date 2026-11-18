@@ -10,3 +10,7 @@
 {"time": "2026-11-18T16:50:29Z", "role": "scout", "action": "sources-verified", "detail": "question-r2 F7: added ropponen2010cic (fulltext), ropponen2011reconciling, ropponen2014note (abstract), morshed2025replication (fulltext); search terms logged; no winsorization/trimming found in readable sources; notes aligned to revised hypotheses; 13 bib entries, 19 citation claims"}
 {"time": "2026-11-18T16:50:48Z", "role": "pi", "action": "plan-revised", "detail": "question qualifier corrected per Scout F7. plan.json sha256=4024ebf5463c7dcc8ce685af68a2df87cb01bddbf2e9563c8e1ed9539e13aaa9"}
 {"time": "2026-11-18T16:50:48Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r3 20261118T165048Z"}
+{"time": "2026-11-18T16:53:22Z", "role": "pi", "action": "plan-revised", "detail": "F10/F11 after question-r3 (pass). plan.json sha256=4a193782a14978d2c05916e0d2226b1d4d45f89daa71458acbca467305a89684"}
+{"time": "2026-11-18T16:53:22Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261118T165322Z"}
+{"time": "2026-11-18T16:53:46Z", "role": "scout", "action": "claims-revised", "detail": "question-r3 F12: c-ropponen-cic and notes secs 5-7 reworded; Ropponen 2.72 is on 376-store CIC support sample, not the 384 balanced sample"}
+{"time": "2026-11-18T16:54:00Z", "role": "pi", "action": "gate-request", "detail": "question"}

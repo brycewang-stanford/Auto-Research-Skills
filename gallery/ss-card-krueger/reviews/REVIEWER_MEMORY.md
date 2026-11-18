@@ -48,3 +48,27 @@ Next round / design, check:
   about distribution and store size? Does the H2 qualifier disclose it?
 - Design: SE construction fixed; clustering deviation recorded; FTE and closure rule checked against
   the SAS program; the pilot stays data-prep only; the percentile computation order is fixed.
+
+## Round question-r3 (2026-11-18): verdict pass
+
+Ruled: F6-F9 resolved (H2 sample/closures/pool/comparator fixed; Ropponen 2010/2011/2014 and
+Morshed 2025 recorded, search logged, qualifier narrowed; NW sample rule added as secondary;
+within-state targets added, tolerance inclusive). Spot-checked Ropponen 2010 full text: 309+75,
+0.90 (0.44), 8 NJ dropped for support, 1.58 with controls all confirmed. New, all minor and open:
+- F10: H2 labelled "an implementation of NW 1995's critique", but NW p. 9 say the variability is
+  not outlier-driven; 5/95 winsorization tests tails only. Watch for "survives NW" in the paper.
+- F11: question says "headline estimate"; H2 comparator is the balanced row 4.
+- F12: Ropponen's 2.72 is attributed to the 384-store balanced sample; fn 15 puts the figure that
+  carries it on 301+75 = 376 stores. Do not let it serve as a 384-sample replication check.
+
+At design, check:
+- SE construction fixed, and the robust store-level regression SE reported beside the
+  independent-states combination of paired SEs (the crew knows which one matches 1.36).
+- Percentile interpolation rule for H2 fixed; capped-store counts per state and tail reported;
+  wave-1 FTE of capped stores reported (Ropponen comparison).
+- Clustering / Conley-Taber limitation recorded as a deviation in design.threats.
+- FTE formula and closure coding checked against the codebook and SAS program; the 357 filter
+  steps logged; the pilot tabulation stays data-prep only.
+- NW secondary: "drop closed stores" means permanent closures (temporary are already missing);
+  chain + ownership controls specified exactly.
+- Whether F10-F12 were fixed or carried forward.
