@@ -1,0 +1,58 @@
+{
+  "id": "code-r2",
+  "target": "code",
+  "round": 2,
+  "created": "2026-11-18T14:33:17Z",
+  "reviewer": {"model": "claude-opus-5-5", "independence": "fresh-context"},
+  "files_read": [
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/code-r1/review.json",
+    "plan.json",
+    "code/dml_plr.py",
+    "code/verdict.py",
+    "code/check_learner_ports.py",
+    "code/check_learner_ports.R",
+    "code/requirements.txt",
+    "runs/NOTES.md",
+    "runs/check-learner-ports/run.json",
+    "runs/check-learner-ports/metrics.json",
+    "log.jsonl",
+    ".gitignore",
+    "data/derived/sipp1991.csv"
+  ],
+  "kill_argument": "The code now implements what the design says. The strongest case left against it is that the forest port carries a measured -$216 deviation, and the code turns that into a built-in excuse. A forest cell that fails on the low side and lies within one tolerance of -$216 is labelled 'consistent with the measured port deviation'. That shift was measured on a synthetic outcome at the 2-fold training size only, yet it is applied to both forest cells. This is a design choice the PI has already ruled on, and the code applies it exactly as fixed. It is not a code defect. Here is what I attacked and what held. (1) The zero-threshold port: I took the raw coefficient as coef/sd and checked it against hdm, which centers x without scaling it. I then ran the authors' rlassoF path in hdm 0.3.2 against rlasso_fit_predict on four new synthetic units. Their outcomes had about 1.6 times net_tfa's SD and a long right tail (skew up to 2.9), at both the 2-fold and 5-fold training sizes. Theta differed by $0.18-0.66 and the Y predictions correlated at 0.9999999983 or higher. So the port survives the scale and the K = 5 gaps that the synthetic check left open. (2) verdict.py ran on fabricated metrics and gave every reading branch correctly. (3) The amendment and re-run come before any analysis run, and validate passes.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The Y-lasso port omitted hdm LassoShooting.fit's zeroThreshold = 1e-6 on unscaled coefficients (code-r1).",
+      "evidence": "code/dml_plr.py rlasso_fit_predict lines 135-139 (coef[np.abs(coef / sd_keep) < ZERO_THRESHOLD] = 0 after every solve, before e and psi; the final prediction uses the thresholded coef); plan.json design.learners.lasso.Y_learner (amended, PI ruling remedy (a)); runs/check-learner-ports/run.json started 13:49:54Z, after the dml_plr.py edit, with the dml_plr.py hash current (crew.py validate OK); metrics shift_lasso +0.045, max_abs_port_lasso 0.358, cor_l_min_lasso 0.99999997, pass_lasso true; the first run is kept in runs/NOTES.md and in git b57c415.",
+      "response": "Econometrician: remedy (a) implemented per the amended design.learners.lasso.Y_learner (|coef/sd| < 1e-6 -> 0 after every solve); check-learner-ports re-run with --replace: lasso now passes (shift +$0.04, SE $0.06, max $0.36, cor_l_min 0.99999997).",
+      "ruling": "Fixed in the files. The conversion to the raw scale is right: hdm centers x but does not scale it, the port's coef applies to x/sd, so b_raw = coef/sd. I checked this independently beyond the logged check (unlogged, scratchpad, synthetic only). I used four units on the real covariates with a synthetic D and a synthetic Y. Y was 4.5 times the check's structural part plus income-scaled lognormal noise: SD $99k-106k, maximum up to $2.85M, skew 0.9-2.9. Two units used the 2-fold training size and two the 5-fold size. The authors' rlassoF calls in hdm 0.3.2 against rlasso_fit_predict(c = 0.5) and rlassologit_fit_predict(c = 1.1) gave theta differences of +0.18, +0.66, -0.48 and +0.39 dollars, Y-prediction RMS $0.3-5.5 and correlation >= 0.9999999983. The scale concern (design-r2 F9) and the unchecked K = 5 size therefore do not reopen anything for the lasso.",
+      "remedy": ""
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "runs/NOTES.md attributed the lasso deviation to LassoShooting early stopping (code-r1).",
+      "evidence": "runs/NOTES.md 'Measured deviations in the first run', item 1: 'Corrected explanation (code-r1 F1/F2)' and 'Retracted' bullets; plan.json design.candidate_deviations.lasso item 3.",
+      "response": "Econometrician: runs/NOTES.md now attributes the first run's -$87 to the omitted zero threshold (citing this review's unlogged diagnostic), retracts the early-stopping conjecture, and labels my KKT check as unlogged.",
+      "ruling": "Fixed. The mechanism is now the identified one, the conjecture is retracted, and the unlogged checks are labelled. I re-checked the NOTES arithmetic: 13x = 217.9/16.4; 49% and 75% of $438 and $287; 11% and 14% of $825 and $636; the run durations 990 s and 725 s match the timestamps.",
+      "remedy": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "No analysis run exported the port-check deviations, so they could not back claims or macros (code-r1).",
+      "evidence": "code/verdict.py lines 60-86 (loads runs/check-learner-ports/metrics.json; writes port_shift/port_shift_se/port_rms/port_rms_seed/port_pass per learner and lasso_c_eff_y/d); runs/NOTES.md verdict command includes --input runs/check-learner-ports/metrics.json; plan.json analysis_plan[8].",
+      "response": "Econometrician: verdict.py now takes runs/check-learner-ports/metrics.json as --input and copies port_shift/port_shift_se/port_rms/port_rms_seed/port_pass per learner plus lasso_c_eff_y/d into its metrics; the verdict command in runs/NOTES.md includes the input.",
+      "ruling": "Fixed. I ran verdict.py in a scratchpad copy on fabricated main/sens/noctrl metrics and a synthetic net_tfa/e401 file. It took the real check-learner-ports metrics and covered these cases: a lasso K = 2 cell at -900 (fail, 'not explained'); a lasso K = 5 cell at +100 (NT-inside); a forest K = 2 cell at +500 (fail, 'not explained', opposite sign); a forest K = 5 cell at -400 (fail, 'consistent': same sign, |diff - shift| = 184 <= 287). The h2_n_* counts were correct and the port metrics were copied. The reading code uses the run's shift (lasso +0.045), not the table's rounded 0.0. The two disagree only for a positive lasso diff in (825, 825.045], which is negligible, and an assert ties them to within 0.051.",
+      "remedy": ""
+    }
+  ],
+  "notes": "What I ran (reviewer, unlogged, scratchpad only; synthetic outcomes and treatments only; no eligibility coefficient and no e401-net_tfa relationship computed or seen): (1) crew.py validate and status on the workspace. (2) Four synthetic units, built from the nine real covariates with my own heavy-tailed Y and the check's D formula, two at K = 2 and two at K = 5. On them I ran the authors' rlassoF Y and logit calls through code/authors/ML_Functions.R in hdm 0.3.2 and the Python ports from code/dml_plr.py, and compared out-of-fold predictions and DML2 theta (results in F1 ruling). (3) verdict.py on fabricated metrics in a scratchpad copy, with data/derived/sipp1991.csv replaced by random net_tfa/e401 values (results in F3 ruling). The real sipp1991.csv was read for the nine covariates only. Strongest remaining objection (design, not code; PI ruled on design-r2 F7(a)): the forest D port is known to be off by -$216 on synthetic data. The cause is unidentified (design-r2 F8). It is applied to K = 5 without being checked there. The 'consistent with the measured port deviation' reading lets a low-side forest failure be explained by a synthetic-scale number."
+}

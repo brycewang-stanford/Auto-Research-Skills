@@ -1,0 +1,64 @@
+{
+  "id": "tab-accuracy",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/tab_accuracy.py",
+    "--out",
+    "paper/tables/tab_accuracy.tex",
+    "--metrics",
+    "runs/tab-accuracy/metrics.json"
+  ],
+  "started": "2026-11-18T14:37:42Z",
+  "finished": "2026-11-18T14:37:42Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/common.py",
+      "sha256": "6f665b4b2ee4f961eed5d9671bc7e59201659aea95e50e09050153b2f3f1f40e"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "c9955fd7cdc554ca69f63ec0cc5ed0bedd7c1c61145c45ea9892287481526d6e"
+    },
+    {
+      "path": "code/tab_accuracy.py",
+      "sha256": "5ba6ca49e2c7947a353e8204f3df19db3cea515c43226623da9129b9bc8218db"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/descriptives/metrics.json",
+      "sha256": "b0a91bd7b28685c7e80bc59e4ed34952eb9e1ab461f11e0b43edcdc8160efb5c"
+    },
+    {
+      "path": "runs/exclusion-check/metrics.json",
+      "sha256": "32b5849294f4cda8f9fb3446c6436e45b04b832db8057575063189b4cb167d60"
+    },
+    {
+      "path": "claims.jsonl",
+      "sha256": "c45fdf5487fbc7dbee40e0c8d9483fd22865d8d2535d6e1c99108e729566ee0b"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_accuracy.tex",
+      "sha256": "834da601ea1b4a9a0acdbb0c242246bd021f5d00613a299c0ecf0f3de61168c4"
+    },
+    {
+      "path": "runs/tab-accuracy/metrics.json",
+      "sha256": "cde15537ab1e5bcbc65bd8298a2d240a8c263240296f34c2cfaeca5b2601262a"
+    }
+  ],
+  "metrics": {
+    "n_direct_cells": 0,
+    "n_macro_cells": 124,
+    "n_rows": 12
+  },
+  "metrics_file": "runs/tab-accuracy/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

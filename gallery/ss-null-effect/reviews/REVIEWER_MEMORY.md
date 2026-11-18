@@ -226,3 +226,24 @@ Next time (results-r2 or paper):
 - Check that primary-h1b-decision is reworded; that a claim with the mandated earnings75 sentence and the earnings74 non-robustness for t_E exists; that diff74 decision claims exist; and that the NOTES diff74 sentence is fixed.
 - Check that the sec-*-ci claims are dropped or relabelled; that the F4 caveat is stated; and that the figures exist.
 - Literature review still pending: spot-check card2018, lalonde1986 ($886, SE 476), crump2009 ([0.1, 0.9]).
+
+## results-r2 (2026-11-18T14:33Z), verdict: pass
+Results-r1: F1-F4 resolved. F5 stays open (minor): the SD-unit max-t claims were added, but f-figures is still todo and
+no figures exist. New F6 (minor): no claim or note states the plan-required 'approximation' for the additive bias
+transfer. The earnings74 equivalence verdict holds by $22 (203.8 vs 181.5), inside the tau00-vs-AIPW gap of 117.
+Code-r1: all four minor findings answered in the files. F1: sens-reading-* lists every group and states the
+criterion and the age/educ near-tie. F2: the psi_bar caveat is in the rel-ci claims and NOTES. F3: the IPW clipping is
+disclosed in NOTES item 5. F4: primary-h1b-decision cites rule_O1/O2_pass. All four are effectively resolved; I wrote
+no code-r2 record.
+Checked: commit 77a6b9c changed only claims, log, numbers.tex, NOTES and reviews (no code, run or metric changed); the
+decision claim texts match their booleans; validate --strict is OK.
+Next time (paper):
+- Every statement of H1b, the abstract included, must carry the sens-mandated-sentence content, through macros
+  (\SensBenchEarnSeventyFiveBias and similar), not typed numbers.
+- The DiD -1,087 must appear in the main text with both readings, not in an appendix.
+- benefits78 must never be called an effect.
+- The additive approximation must be stated (F6).
+- The figures must exist (F5).
+- The sensitivity ordering criterion, the IPW clipping and the psi_bar ~4% narrowing must be disclosed.
+- The PI's retroactive F4 ruling (design) must be in ai-use.tex.
+- Literature spot-checks are still pending: card2018, lalonde1986 ($886, SE 476), crump2009 ([0.1, 0.9]).

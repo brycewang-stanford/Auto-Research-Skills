@@ -1,0 +1,70 @@
+{
+  "id": "tab-ablations",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/tab_ablations.py",
+    "--out",
+    "paper/tables/tab_ablations.tex",
+    "--metrics",
+    "runs/tab-ablations/metrics.json"
+  ],
+  "started": "2026-11-18T14:37:42Z",
+  "finished": "2026-11-18T14:37:42Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/common.py",
+      "sha256": "6f665b4b2ee4f961eed5d9671bc7e59201659aea95e50e09050153b2f3f1f40e"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "c9955fd7cdc554ca69f63ec0cc5ed0bedd7c1c61145c45ea9892287481526d6e"
+    },
+    {
+      "path": "code/tab_ablations.py",
+      "sha256": "12b82948bc74ad7c508f84f84b67f618f788ffc15e83c2882343b290ed302c71"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/abl-noes/metrics.json",
+      "sha256": "40d871dc95335caca9f1495c89b15241a6b80788da7652900261af611f6f87fd"
+    },
+    {
+      "path": "runs/abl-cleanval/metrics.json",
+      "sha256": "4058042c877577989c2922837e2cca17be0d4af3748a0aeadf694825fa1fef82"
+    },
+    {
+      "path": "runs/abl-budget/metrics.json",
+      "sha256": "bf0acda10320e9e9218f5ca2e2601c164e5f6796de13d06f7b30b5c899d3de6a"
+    },
+    {
+      "path": "claims.jsonl",
+      "sha256": "c45fdf5487fbc7dbee40e0c8d9483fd22865d8d2535d6e1c99108e729566ee0b"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_ablations.tex",
+      "sha256": "ef58b22b38a5dd33e7d989fd2c031dbf25e73a817fc87cc6953816d94ae49929"
+    },
+    {
+      "path": "runs/tab-ablations/metrics.json",
+      "sha256": "2ccb5dfec8307db22616eab31ae11aa28fa9ca734d27186e578dd6f42ef2b050"
+    }
+  ],
+  "metrics": {
+    "n_attributed": 1,
+    "n_direct_cells": 0,
+    "n_excluded": 7,
+    "n_macro_cells": 84,
+    "n_not_attributed": 20
+  },
+  "metrics_file": "runs/tab-ablations/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

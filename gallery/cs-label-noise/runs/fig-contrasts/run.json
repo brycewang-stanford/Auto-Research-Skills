@@ -1,0 +1,57 @@
+{
+  "id": "fig-contrasts",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/fig_contrasts.py",
+    "--out",
+    "paper/figures/fig_contrasts.pdf",
+    "--metrics",
+    "runs/fig-contrasts/metrics.json"
+  ],
+  "started": "2026-11-18T14:37:40Z",
+  "finished": "2026-11-18T14:37:41Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/common.py",
+      "sha256": "6f665b4b2ee4f961eed5d9671bc7e59201659aea95e50e09050153b2f3f1f40e"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "c9955fd7cdc554ca69f63ec0cc5ed0bedd7c1c61145c45ea9892287481526d6e"
+    },
+    {
+      "path": "code/fig_contrasts.py",
+      "sha256": "3dc6826e437737f50ecf4e75fe5a6163752191a24d64dd8da2354d0976d46b68"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/h-tests/metrics.json",
+      "sha256": "5b52dec10d7f0e2051787a3bd7c919a03569dce8ada2e0fde5154c494ce6cad3"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_contrasts.pdf",
+      "sha256": "bac55beff5c28a7e629b10fd5dec5cea2e50ec2bb2bbf7cebc108f0636338c9e"
+    },
+    {
+      "path": "runs/fig-contrasts/metrics.json",
+      "sha256": "cef78b02355c55a2073a1bb1171c7d6312e03bdddc039788738c49e99a20208f"
+    }
+  ],
+  "metrics": {
+    "checksum_plotted": -6.203360624835984,
+    "n_datasets": 4,
+    "n_informative_rows": 3,
+    "n_intervals": 24
+  },
+  "metrics_file": "runs/fig-contrasts/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

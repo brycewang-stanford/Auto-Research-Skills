@@ -1,0 +1,70 @@
+{
+  "id": "tab-h1h2",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/tab_h1h2.py",
+    "--out-main",
+    "paper/tables/tab_h1h2.tex",
+    "--out-parts",
+    "paper/tables/tab_parts.tex",
+    "--metrics",
+    "runs/tab-h1h2/metrics.json"
+  ],
+  "started": "2026-11-18T14:37:41Z",
+  "finished": "2026-11-18T14:37:41Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/common.py",
+      "sha256": "6f665b4b2ee4f961eed5d9671bc7e59201659aea95e50e09050153b2f3f1f40e"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "c9955fd7cdc554ca69f63ec0cc5ed0bedd7c1c61145c45ea9892287481526d6e"
+    },
+    {
+      "path": "code/tab_h1h2.py",
+      "sha256": "77f5126490516e0d9916bb66df20fd7a6dcc7c31ded1c81b63046e1db41fa411"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/h-tests/metrics.json",
+      "sha256": "5b52dec10d7f0e2051787a3bd7c919a03569dce8ada2e0fde5154c494ce6cad3"
+    },
+    {
+      "path": "runs/descriptives/metrics.json",
+      "sha256": "b0a91bd7b28685c7e80bc59e4ed34952eb9e1ab461f11e0b43edcdc8160efb5c"
+    },
+    {
+      "path": "claims.jsonl",
+      "sha256": "c45fdf5487fbc7dbee40e0c8d9483fd22865d8d2535d6e1c99108e729566ee0b"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_h1h2.tex",
+      "sha256": "d427a9e52761c372390f79a55c332e35eefa61367d120a8f5deeb25ec5aa5dbe"
+    },
+    {
+      "path": "paper/tables/tab_parts.tex",
+      "sha256": "9af38126839aa520d627352faf15bc0cb2f6ec96ccf168b441face1accb5bc5a"
+    },
+    {
+      "path": "runs/tab-h1h2/metrics.json",
+      "sha256": "f4124d862111eec6dfe3383a6a2dc9d1c31907c71310678c41d696c529832b49"
+    }
+  ],
+  "metrics": {
+    "n_contrast_rows": 12,
+    "n_direct_cells": 0,
+    "n_macro_cells": 160
+  },
+  "metrics_file": "runs/tab-h1h2/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

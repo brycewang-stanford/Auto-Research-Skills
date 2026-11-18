@@ -239,3 +239,51 @@ Check next round:
 - F3: verdict --input includes runs/check-learner-ports/metrics.json.
 - Forest: still unexplained (design-r2 F8 suspicion: sklearn keeps searching beyond
   max_features). The code matches the design, so this is not a code finding.
+
+## design-r3 (2026-11-18): pass, 0 critical / 0 major / 2 minor open
+
+Status: F7-F11 are resolved. F7: the per-cell p_outside values and the combined 33% are in
+plan.json; I recomputed them (forest K=5 0.243, K=2 0.077, combined 0.331). New: F12 (plan
+says hdm 0.1.0 behaves like c = 0.5, but sources/hdm_penalty.md shows 0.1.0 is about
+c = 0.62) and F13 (no fixed reading of a failed lasso cell against sens-lasso-c11). Both minor.
+
+Verified: the re-run of check-learner-ports. Lasso shift +0.04, max 0.36, cor_l 0.99999997.
+The other four learners are identical to the first run, which is kept in git b57c415. The
+rlasso_fit_predict threshold (coef/sd_keep after division by psi) matches
+design.learners.lasso. No analysis run exists (only data-prep runs). crew.py validate is OK.
+The re-run's Python phase took 110 s, which is inside the timing model's range, so the
+254 s of the first run was a load outlier.
+
+Suspicions (results stage):
+- Forest K=5 is the likely H2 failure (p about 0.24). Check that the reading is applied exactly
+  (same sign, |diff - shift| <= tol), and that 'consistent with the port deviation' is not
+  stretched into 'reproduced'.
+- Lasso: any failure reads 'not explained'. Watch for sens-lasso-c11 being used as an excuse
+  ('the authors used c = 1.1') against the timeline in sources/hdm_penalty.md section 5 (F13).
+- Check that every pass is worded 'no shift above MDS80 detected', with the tolerance shown
+  next to each cell.
+- K=5 ports were never checked. The paper must carry that caveat on every K=5 reading.
+- crew.json title still says "raise" (paper stage).
+- The code reviewer (code-r2) owns the rulings on code-r1 F1-F3. Do not double-count them.
+
+## code-r2 (2026-11-18): pass, 0 critical / 0 major / 0 minor open
+
+Status: F1 (zero threshold), F2 (NOTES mechanism) and F3 (verdict exports port metrics) are resolved.
+No new findings. The amendment and the re-run of check-learner-ports (13:49:54Z) come before any
+analysis run. validate is OK.
+
+Verified myself (unlogged, scratchpad, synthetic Y/D only):
+- The lasso port against the authors' rlassoF in hdm 0.3.2 on 4 heavy-tailed units (Y SD ~$100k,
+  skew up to 2.9; 2 units at K = 2, 2 at K = 5): theta differs by $0.2-0.7. So the scale concern
+  (design-r2 F9) and the unchecked K = 5 size are closed for the lasso.
+- verdict.py on fabricated metrics: every reading branch is correct.
+
+Suspicions:
+- Forest: -$216 on the D side, cause unidentified (F8). Expect a low-side forest K=5 failure read
+  as 'consistent with the measured port deviation'. At results, check that the paper adds the
+  synthetic-scale and K = 2-only caveat next to it.
+- The lasso reading uses the run's shift +0.045, not the table's 0.0. The difference is immaterial.
+
+Check at results:
+- S unchanged and the overrun disclosed. Claim values come from main-* only. Port metrics are
+  cited through verdict macros, not typed.

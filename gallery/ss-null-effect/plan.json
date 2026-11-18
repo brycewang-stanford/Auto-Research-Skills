@@ -220,7 +220,12 @@
       "note": "Approved in chat on 2026-11-18 after reading the Reviewer's verdict, kill argument and disclosures. The analysis plan is now fixed."
     },
     "results": {
-      "status": "pending"
+      "status": "approved",
+      "requested_on": "2026-11-18T14:34:13Z",
+      "summary": "Results passed review in round 2; code reviewed post hoc (pass); minor F6 wording being applied.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-18T14:38:24Z",
+      "note": "Approved in chat on 2026-11-18 after reading the results, the conditional equivalence caveat and the DiD readings."
     },
     "submission": {
       "status": "pending"

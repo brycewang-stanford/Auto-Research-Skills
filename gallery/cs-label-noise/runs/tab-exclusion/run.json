@@ -1,0 +1,69 @@
+{
+  "id": "tab-exclusion",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/tab_exclusion.py",
+    "--out",
+    "paper/tables/tab_exclusion.tex",
+    "--metrics",
+    "runs/tab-exclusion/metrics.json"
+  ],
+  "started": "2026-11-18T14:37:41Z",
+  "finished": "2026-11-18T14:37:41Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/common.py",
+      "sha256": "6f665b4b2ee4f961eed5d9671bc7e59201659aea95e50e09050153b2f3f1f40e"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "c9955fd7cdc554ca69f63ec0cc5ed0bedd7c1c61145c45ea9892287481526d6e"
+    },
+    {
+      "path": "code/tab_exclusion.py",
+      "sha256": "9115abdd1f524652a1a27a0117e2a40ca206eec4bbbe347bb53cb12458f983a1"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/exclusion-check/metrics.json",
+      "sha256": "32b5849294f4cda8f9fb3446c6436e45b04b832db8057575063189b4cb167d60"
+    },
+    {
+      "path": "runs/main-rho0/metrics.json",
+      "sha256": "672b20c0aad8b533850952fadf9b0f0647067e562fad0e20d352472fbef2ddd6"
+    },
+    {
+      "path": "runs/descriptives/metrics.json",
+      "sha256": "b0a91bd7b28685c7e80bc59e4ed34952eb9e1ab461f11e0b43edcdc8160efb5c"
+    },
+    {
+      "path": "claims.jsonl",
+      "sha256": "c45fdf5487fbc7dbee40e0c8d9483fd22865d8d2535d6e1c99108e729566ee0b"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_exclusion.tex",
+      "sha256": "3ff4079271ff1366a4da26f06d0587e1eb52b41a6ff9c0c28322a862e7eec838"
+    },
+    {
+      "path": "runs/tab-exclusion/metrics.json",
+      "sha256": "37317035a2076347fa1efb65f3ce3fdb5941d5b1d0cb5f429af6c97daa57c89c"
+    }
+  ],
+  "metrics": {
+    "n_direct_cells": 0,
+    "n_headroom_below_threshold": 2,
+    "n_macro_cells": 30,
+    "n_rows": 4
+  },
+  "metrics_file": "runs/tab-exclusion/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

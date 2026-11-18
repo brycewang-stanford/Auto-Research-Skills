@@ -1,0 +1,69 @@
+{
+  "id": "fig-ablations",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/fig_ablations.py",
+    "--out",
+    "paper/figures/fig_ablations.pdf",
+    "--metrics",
+    "runs/fig-ablations/metrics.json"
+  ],
+  "started": "2026-11-18T14:37:41Z",
+  "finished": "2026-11-18T14:37:41Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/common.py",
+      "sha256": "6f665b4b2ee4f961eed5d9671bc7e59201659aea95e50e09050153b2f3f1f40e"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "c9955fd7cdc554ca69f63ec0cc5ed0bedd7c1c61145c45ea9892287481526d6e"
+    },
+    {
+      "path": "code/fig_ablations.py",
+      "sha256": "3d00cd3362c27ad8d51602f4301ba7430495623976a244d8be49c21ac3754436"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/abl-noes/metrics.json",
+      "sha256": "40d871dc95335caca9f1495c89b15241a6b80788da7652900261af611f6f87fd"
+    },
+    {
+      "path": "runs/abl-cleanval/metrics.json",
+      "sha256": "4058042c877577989c2922837e2cca17be0d4af3748a0aeadf694825fa1fef82"
+    },
+    {
+      "path": "runs/abl-budget/metrics.json",
+      "sha256": "bf0acda10320e9e9218f5ca2e2601c164e5f6796de13d06f7b30b5c899d3de6a"
+    },
+    {
+      "path": "runs/h-tests/metrics.json",
+      "sha256": "5b52dec10d7f0e2051787a3bd7c919a03569dce8ada2e0fde5154c494ce6cad3"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_ablations.pdf",
+      "sha256": "ad566af92e35ce127dced59be753f61bd54caf3a62520e56449f18984db9566d"
+    },
+    {
+      "path": "runs/fig-ablations/metrics.json",
+      "sha256": "b024422118343bc8291f7a49fcb1ed845609827827c1d32d18097b878535b6d4"
+    }
+  ],
+  "metrics": {
+    "checksum_plotted": -5.019053752468181,
+    "n_attributed": 1,
+    "n_informative_tests": 21,
+    "n_intervals": 28
+  },
+  "metrics_file": "runs/fig-ablations/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

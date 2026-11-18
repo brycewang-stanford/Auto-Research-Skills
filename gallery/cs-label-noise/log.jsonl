@@ -36,3 +36,11 @@
 {"time": "2026-11-18T13:51:18Z", "role": "experimenter", "action": "review-response", "detail": "results-r1 F1-F4 wording fixes (A2 confound and direction, 1-of-21 count claim c-abl-count, A3 sentence, breast_cancer D2 wording, 'no detectable difference (inconclusive)' in outcome claims); no analysis rerun; numbers.tex regenerated"}
 {"time": "2026-11-18T13:53:13Z", "role": "pi", "action": "gate-request", "detail": "results"}
 {"time": "2026-11-18T14:28:55Z", "role": "pi", "action": "gate-approve", "detail": "results Bryce Wang"}
+{"time": "2026-11-18T14:37:39Z", "role": "figures-ra", "action": "start", "detail": "f-figures: scripts code/figlib.py, fig_accuracy.py, fig_contrasts.py, fig_ablations.py, tab_h1h2.py, tab_exclusion.py, tab_ablations.py, tab_accuracy.py written; running through crew.py run --kind analysis"}
+{"time": "2026-11-18T14:37:40Z", "role": "figures-ra", "action": "run", "detail": "fig-accuracy exit=0"}
+{"time": "2026-11-18T14:37:41Z", "role": "figures-ra", "action": "run", "detail": "fig-contrasts exit=0"}
+{"time": "2026-11-18T14:37:41Z", "role": "figures-ra", "action": "run", "detail": "fig-ablations exit=0"}
+{"time": "2026-11-18T14:37:41Z", "role": "figures-ra", "action": "run", "detail": "tab-h1h2 exit=0"}
+{"time": "2026-11-18T14:37:41Z", "role": "figures-ra", "action": "run", "detail": "tab-exclusion exit=0"}
+{"time": "2026-11-18T14:37:42Z", "role": "figures-ra", "action": "run", "detail": "tab-ablations exit=0"}
+{"time": "2026-11-18T14:37:42Z", "role": "figures-ra", "action": "run", "detail": "tab-accuracy exit=0"}
