@@ -1,0 +1,190 @@
+{
+  "id": "question-r4",
+  "target": "question",
+  "round": 4,
+  "created": "2026-11-18T16:49:22Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "plan.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "log.jsonl",
+    "briefs/20261118T164845Z-reviewer.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r3/review.json",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/ss-lalonde-observational/task.json",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/social-science.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md"
+  ],
+  "kill_argument": "This study cannot tell a reader anything the crew's own notes do not already predict. The adopted AIPW estimator has a close published analogue on this sample ($1,571, SE 704, Imbens-Xu tutorial Table B1) whose interval excludes zero, so H1 is expected to hold. Every published RE75 placebo on this sample rejects (about -$1,100 to -$1,600), so H3 is expected to fail, and under the plan's own rule the headline becomes a statistical contrast, not an effect. H2 is descriptive. The expected paper is a positive contrast near published values, a failed placebo, and a benchmark comparison Imbens and Xu (2025) already made with ten estimators. The only new element is procedural, and pre-commitment is an existing within-study-comparison standard (cook2008, weidmann2021). But plan.json now discloses all of this, so whether it is worth doing is the human's call, not a defect in the question. What held: the timing claim (ss-null-effect gate 13:00Z, workspace 16:28Z); both attributions; the estimand on all 185 treated; RE78 and placebo-set diagnostics fenced off; no data, code or runs yet; plan.json hash matches the last log entry.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "resolved",
+      "text": "The contribution claimed that pre-commitment means 'closeness to the experimental benchmark cannot have guided the choice', which the crew's own notes on published per-estimator results contradict.",
+      "evidence": "plan.json contribution (round 1 text); sources/notes.md sec. 2-3, D1",
+      "remedy": "Narrow the contribution, disclose the literature knowledge, and fix the estimator by an external rule.",
+      "response": "PI: contribution narrowed to 'no outcome search within this study', with the literature knowledge disclosed; estimator fixed by an external rule (the ss-null-effect AIPW ATT estimator, unchanged).",
+      "ruling": "Resolved. plan.json contribution now states that the crew had read the published estimates, including which estimators land near the benchmark, and that the commitment rules out only outcome search within this study. The new description of the 'external rule' raises its own problems, which are new findings F8 and F9."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "conceded",
+      "text": "H2 (CI contains the benchmark) was close to unfalsifiable, rewarded imprecision, and ignored the benchmark's sampling error.",
+      "evidence": "plan.json hypotheses[1]",
+      "remedy": "Equivalence or difference test, or demote to descriptive.",
+      "response": "PI: H2 demoted to a descriptive comparison with an approximate combined SE; never used to choose estimators.",
+      "ruling": "Conceded. H2 is now labelled 'descriptive, not a test' and says closeness is never used to choose or rank estimators. The statement that ignoring the shared treated units overstates the uncertainty is correct: the treated mean enters both estimates with the same sign, so their covariance is positive. A covariance-corrected SE needs only the treated-file variance of RE78 over 185, which can be added at the design stage if wanted. This is not required."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Neither the benchmark nor the estimand was fixed, so trimming treated units could silently change which benchmark applies.",
+      "evidence": "plan.json question, hypotheses[1]",
+      "remedy": "Fix the ATT on all 185 treated men, trim controls only, and name the benchmark.",
+      "response": "PI: estimand = ATT for all 185 treated; trimming of controls only; benchmark named ($1,794, SE 633, DW 1999 Table 3).",
+      "ruling": "Resolved. plan.json question and design_constraints[0] and [3] do this. See F9 for the interaction with the inherited propensity clipping."
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The placebo check the contribution promised had no hypothesis and no stated consequence.",
+      "evidence": "plan.json hypotheses",
+      "remedy": "Add H3 (RE75 placebo without conditioning on RE75/u75), with a rule for what follows if it fails.",
+      "response": "PI: added H3 (RE75 placebo) with a rule fixed now: if it fails, H1 is reported as a statistical contrast.",
+      "ruling": "Resolved as asked. What a pass of H3 would license is a separate problem, raised as new finding F10."
+    },
+    {
+      "id": "F5",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Nothing enforced that outcome data stay unexamined before the design gate.",
+      "evidence": "plan.json design_constraints[2]",
+      "remedy": "Data-prep drops RE78, which is joined back only after the design gate.",
+      "response": "PI: design_constraints: RE78 set aside before any data-prep run, joined back only by the first analysis run.",
+      "ruling": "Resolved for RE78. The part of the remedy covering RE75 as the placebo outcome was not taken up. It is carried as new minor finding F11. log.jsonl records the plan.json sha256 at each revision, which serves the hash-of-commitment purpose."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The novelty claim rested on two queries, and Cook, Shadish and Wong (2008) had not been read.",
+      "evidence": "sources/notes.md Search log",
+      "remedy": "Read cook2008 and search further, or weaken the claim.",
+      "response": "PI: sent to the Scout (further search or weaker claim). Scout: read Cook-Shadish-Wong 2008 (criterion 4 = blinded analysts) plus 2 more WSC searches; found pre-specified/preregistered WSCs elsewhere (weidmann2021, keller2024), so notes.md now says pre-commitment is an existing WSC standard and novelty is only 'no NSW-CPS example in the searches listed'.",
+      "ruling": "Resolved. notes.md sec. 5 and the novelty verdict now say pre-commitment is an existing WSC standard. plan.json no longer claims there is no prior example."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "verified_on dates were later than the work.",
+      "evidence": "sources/sources.json",
+      "remedy": "Correct the dates to UTC.",
+      "response": "PI: sent to the Scout (dates to UTC). Scout: all verified_on, access notes and notes.md dates changed to 2026-11-18 (UTC), matching log.jsonl.",
+      "ruling": "Resolved. All entries now read 2026-11-18, which matches log.jsonl and the UTC clock (date -u: 2026-11-18). The earlier 2026-11-19 was the local (UTC+8) date."
+    },
+    {
+      "id": "F8",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The plan says the primary estimator is fixed 'by a rule from outside this literature' (plan.json question and contribution). That is false. The rule is the ss-null-effect design, and gallery/ss-null-effect/refs.bib cites lalonde1986, dehejia1999, dehejia2002, smith2005 and dehejia2005. Its sources/notes.md (lines 52, 93, 114) discusses the $886 and $1,794 benchmarks and the DW CPS matching estimates. What protects the choice is real but different: the rule was fixed for a different, synthetic dataset and design-gated at 2026-11-18T13:00:13Z (ss-null-effect log.jsonl), before this workspace was created at 16:28:21Z. Separately, among the external rules round 1 offered (Imbens 2015's recipe, or a doubly robust default), the crew picked one with a published analogue on this exact sample: AIPW-GRF, $1,571 (SE 704) in xu2024tutorial Table B1 (notes.md sec. 2). That analogue's interval excludes zero, so it already predicts that H1 holds. The disclosure does not say this.",
+      "evidence": "plan.json question ('fixed by a rule from outside this literature') and contribution; gallery/ss-null-effect/refs.bib; gallery/ss-null-effect/sources/notes.md lines 52, 93, 114; gallery/ss-null-effect/log.jsonl gate-approve design 13:00:13Z; crew.json created 16:28:21Z; sources/notes.md sec. 2 (AIPW-GRF 1,571.17 (703.86))",
+      "remedy": "Reword the question and contribution to the claim the files support: 'an estimator fixed and design-gated for a different dataset (ss-null-effect, 2026-11-18T13:00Z) before this study began'. Drop 'from outside this literature'. Add to the disclosure that the published analogue of the chosen estimator on LDW-CPS (AIPW-GRF, $1,571, SE 704; Imbens and Xu) was known when the rule was adopted.",
+      "response": "PI: 'from outside this literature' removed; claim restated as fixed and design-gated for a different dataset first; the known AIPW-GRF estimate ($1,571, SE 704) and its implication for H1 disclosed.",
+      "ruling": "Resolved. plan.json question now reads 'an estimator fixed and design-gated for a different dataset before this study began'; 'from outside this literature' is gone. The contribution states the ss-null-effect gate time (13:00Z) and this workspace's creation (16:28Z), both confirmed in the two log.jsonl files, says the earlier choice was informed by the same literature, and discloses the known AIPW-GRF estimate and that it suggests H1 holds. ss-null-effect log.jsonl line 42 records the design hash unchanged after its gate. The attribution of that estimate is a separate minor point (F14)."
+    },
+    {
+      "id": "F9",
+      "severity": "major",
+      "status": "resolved",
+      "text": "'Applied unchanged apart from the covariate set' (plan.json contribution; design_constraints[1]) cannot hold in this sample, and every forced change reopens a choice made with the literature in view. The ss-null-effect estimator clips propensities to [0.01, 0.99] as a 'numerical safeguard, not a sample restriction'. That was sound with 1,621 of 4,000 units treated. Here 185 of 16,177 are treated (1.1%), and the CPS-1 means in notes.md sec. 1 (married 0.71 vs 0.19, RE74 $14,016 vs $2,096) put most CPS scores far below 0.01. DW discard 12,611 of the 15,992 for falling below the treated minimum alone. The floor will therefore bind for most controls and give each a weight of about 0.0101 instead of about 0. That is a substantive reweighting rule, not a safeguard. In ss-null-effect, trimming also appears only as a robustness check, while design_constraints[0] here permits control-only trimming, presumably in the primary. Covariate bases (B(X) and T(X) list urban, region, children and health_limit, which do not exist here, and lack black, hisp and nodegree) also have to be rebuilt, not just swapped.",
+      "evidence": "plan.json contribution and design_constraints[0]-[1]; gallery/ss-null-effect/plan.json design.method.propensity_clipping and covariate_bases; sources/notes.md sec. 1 (dehejia1999 CPS-1 means; 12,611 discarded)",
+      "remedy": "Cheapest: drop 'unchanged' from the contribution and question, and at the design stage list every adaptation (clipping or trimming rule, covariate bases, whether control trimming enters the primary) as a deviation decided before data are loaded, each with a reason that does not refer to published LDW-CPS estimates. Report the number of clipped or trimmed controls as an outcome-free diagnostic.",
+      "response": "PI: 'unchanged' dropped; every adaptation (basis, clipping, trimming) to be listed at design as a deviation with reasons not citing published estimates; clipped/trimmed counts reported.",
+      "ruling": "Resolved. 'unchanged' is gone from question and contribution. design_constraints[1] now requires every adaptation (covariate basis, propensity clipping at 1.1% treated, control-only trimming) to be listed at the design gate as a deviation decided before data are loaded, with a reason that does not cite published estimates on this sample, and the clipped or trimmed count to be reported. Whether the design meets this is a design-stage check."
+    },
+    {
+      "id": "F10",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H3 has the same structure F2 faulted in the old H2: it 'passes' when the placebo CI includes zero, so imprecision makes a pass more likely. By the H1 rule, a pass licenses reporting H1 as a causal effect. The crew's own adopted design also states that this kind of placebo is not an informative test when there is a pre-program dip: 'a placebo on re75 given re74 measures selection on the 1975 shock, which the dip makes nonzero whether or not the assumption holds' (ss-null-effect design.method.identifying_assumption). The NSW treated show such a dip (RE74 $2,096 to RE75 $1,532; notes.md sec. 1). So a failure of H3 does not show that unconfoundedness for RE78 fails, and a pass does not show that it holds. The plan treats H3 as a gate on the causal reading in both directions. I proposed H3 in round 1, so this is partly a correction of my own remedy.",
+      "evidence": "plan.json hypotheses[0] (conditional on H3) and hypotheses[2]; gallery/ss-null-effect/plan.json design.method.identifying_assumption; sources/notes.md sec. 1 (DW Table 1 means)",
+      "remedy": "Keep H3, but (a) state that a pass only means this falsification check did not reject, never that unconfoundedness holds, so H1 is described as causal only under the stated assumption either way; (b) count a pass as informative only if the placebo CI half-width is below a margin fixed now (e.g. the half-width of the H1 CI), and otherwise report H3 as inconclusive; (c) state in the paper how the pre-program dip limits what the placebo can show, consistent with ss-null-effect.",
+      "response": "PI: H3 passes only if the CI includes zero and its half-width is <= $900 (fixed now); wider is 'inconclusive'; a pass is worded 'did not reject'; the Ashenfelter dip is discussed.",
+      "ruling": "Resolved as asked: hypotheses[2] adds a precision condition fixed now (half-width <= $900), an 'inconclusive' outcome, 'did not reject' wording, and a discussion of the Ashenfelter dip. Two weaknesses remain in the rule as written; they are new findings F12 and F13, the second of which corrects the structure of my own round-2 remedy (b)."
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "RE75 is both a primary covariate and the H3 placebo outcome. design_constraints[2] protects RE78 only. Outcome-free diagnostics run before the design gate, such as balance of RE75 under weights from a propensity model that excludes RE75/u75 (the placebo's nuisance model), would amount to an IPW version of the H3 estimate before the placebo specification is fixed.",
+      "evidence": "plan.json design_constraints[2]; hypotheses[2]",
+      "remedy": "Add a constraint: before the design gate, no diagnostic is computed under the placebo's conditioning set (covariates without RE75/u75). Unadjusted RE75 balance under the primary model is fine.",
+      "response": "PI: design_constraints: no diagnostic under the placebo's conditioning set before the gate.",
+      "ruling": "Resolved. design_constraints[4] bars any diagnostic under the placebo's conditioning set before the design gate and limits RE75 to covariate use until then."
+    },
+    {
+      "id": "F12",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H3 is presented as an open test ('placebo that can fail'), but the crew's own files predict that it fails, and that prediction is not disclosed in plan.json. sources/notes.md sec. 2 and D4 report that every nonexperimental estimate of the RE75 placebo on LDW-CPS is negative and significant (about -$1,097 to -$1,579 in xu2024tutorial Table B2; -1.22 (0.25) and -1.24 (0.30) thousand in imbens2015 Table 20), and D4 says outright 'The literature predicts it will fail'. claims.jsonl already holds c-imbens-xu-placebo to the same effect. Under the plan's own rule (hypotheses[0] and [2]), an H3 failure means H1 is reported only as a statistical contrast. So the plan's expected headline is a contrast, not 'the average effect of the training program' that the question asks for, and this is known now. It is the same disclosure gap as F8 (the AIPW-GRF analogue predicting H1), on the other hypothesis. A reader of the contribution, which claims protection only against within-study search, would take H3 as an open check. Also, hypotheses[2] says the dip 'can make this placebo uninformative', yet a failure still downgrades H1. That is conservative and acceptable, but combined with the prediction it means the downgrade is decided in advance.",
+      "evidence": "plan.json hypotheses[0], hypotheses[2] and contribution; sources/notes.md sec. 2 (Imbens and Xu placebo, Table B2), sec. 2 (imbens2015 Table 20) and D4; claims.jsonl c-imbens-xu-placebo",
+      "remedy": "Cheapest: add one sentence to the contribution that published RE75 placebos on this sample reject for every nonexperimental estimator (imbens2015; xu2024tutorial), so H3 is expected to fail and H1 is expected to be reported as a statistical contrast; and make the question's causal wording conditional on that (e.g. 'the ATT ... under selection on observables, and whether a pre-specified placebo supports reading it causally').",
+      "response": "PI: contribution and H3 now say the crew expects H3 to fail and H1 to be reported as a contrast; the question's causal wording is conditional on the placebo.",
+      "ruling": "Resolved. plan.json contribution now ends: 'The crew also expects the placebo check (H3) to fail, as it does for every non-experimental estimator in the literature, so it expects to report H1 as a statistical contrast rather than an effect.' hypotheses[2] repeats the expectation with its source. The question's causal wording is now conditional ('ATT contrast ... interpreted as an effect only if a pre-specified placebo check does not reject'). The attribution to Imbens and Xu (2025) is supported: sources/notes.md line 26 summarises the article itself as finding that the 1975-earnings placebos reject, and imbens2025 was read in full (arXiv v3). The question's wording 'does not reject' is looser than the H3 rule; that is new minor finding F15."
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The H3 pass rule (95% CI includes zero AND half-width <= $900) bounds the width of the interval, not the size of the placebo effect. A CI that includes zero with half-width <= 900 can reach to about +/-$1,800, the size of the benchmark itself: a placebo estimate of -$850 with SE 450 gives [-1,732, 32] and 'passes'. So a pass is compatible with a pre-program bias as large as the effect being estimated. This follows the structure I proposed in round 2 (F10 remedy b), so it corrects my own remedy. Separately, hypotheses[0] and [2] say what happens to H1 if H3 fails, but not if H3 is 'inconclusive'.",
+      "evidence": "plan.json hypotheses[2] (pass condition; 'inconclusive'); hypotheses[0]",
+      "remedy": "Make a pass an equivalence result: H3 passes only if the whole 95% CI lies within [-$900, $900]; a CI that includes zero but extends beyond the margin is 'inconclusive'; a CI excluding zero is a failure. State that an inconclusive H3 leads to the same reporting of H1 as a failure (statistical contrast), or state the alternative now.",
+      "response": "PI: H3 passes only if the whole 95% CI lies within [-$900, +$900]; fails if it excludes zero; otherwise inconclusive; H1 is a contrast if H3 fails or is inconclusive.",
+      "ruling": "Resolved. hypotheses[2] now passes H3 only if the whole 95% CI lies within [-$900, +$900], fails it if the CI excludes zero, calls everything else 'inconclusive', and hypotheses[0] and [2] both say H1 is a statistical contrast if H3 fails or is inconclusive. The two conditions as written can both hold at once; that is new minor finding F16."
+    },
+    {
+      "id": "F14",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "plan.json contribution attributes 'AIPW with generalized random forests, $1,571, SE 704' to 'Imbens and Xu 2025'. Per sources/notes.md sec. 2 the figure 1,571.17 (703.86) comes from the replication tutorial's Table B1 (robust SEs), and sources/sources.json xu2024tutorial notes that the tutorial's numbers 'need not equal the figure in the published JEP article'. When this sentence becomes a citation claim, it would be attributed to a source that was not checked for that number.",
+      "evidence": "plan.json contribution; sources/notes.md sec. 2 (Tutorial Table B1); sources/sources.json xu2024tutorial note",
+      "remedy": "Attribute the figure to xu2024tutorial (Table B1), or verify it in the JEP article before citing imbens2025 for it.",
+      "response": "PI: the $1,571 figure is credited to the replication tutorial's Table B1 with the caveat.",
+      "ruling": "Resolved. plan.json contribution now credits the $1,571 (SE 704) figure to 'the Imbens-Xu replication tutorial's Table B1, whose numbers may differ from the published article', matching sources/notes.md sec. 2 and the xu2024tutorial note in sources/sources.json."
+    },
+    {
+      "id": "F15",
+      "severity": "minor",
+      "status": "open",
+      "text": "The question and the H3 rule disagree on what licenses a causal reading. plan.json question says the contrast is 'interpreted as an effect only if a pre-specified placebo check does not reject'. A placebo CI that includes zero but extends beyond [-$900, +$900] 'does not reject', yet hypotheses[0] and [2] classify it as 'inconclusive' and report H1 only as a contrast. The question also contains 'under selection on observables' twice, and the sentence no longer parses cleanly. A reader of the question alone would take a non-rejecting but wide placebo as licensing 'effect'.",
+      "evidence": "plan.json question ('interpreted as an effect only if a pre-specified placebo check does not reject'; 'under selection on observables' repeated); hypotheses[0], hypotheses[2]",
+      "remedy": "Replace 'does not reject' in the question with 'passes (as defined in H3)' or 'passes its pre-specified equivalence margin', and delete the duplicated 'under selection on observables'. Wording only.",
+      "response": "PI (after the final round, not re-reviewed): question now says 'passes (as defined in H3)'; duplicate phrase removed.",
+      "ruling": ""
+    },
+    {
+      "id": "F16",
+      "severity": "minor",
+      "status": "open",
+      "text": "The H3 classification is not exhaustive and exclusive. 'Passes only if the whole 95% CI lies within [-$900, +$900]' and 'fails if the interval excludes zero' both hold for an interval such as [-$700, -$150]: a precisely estimated placebo bias that is statistically nonzero but inside the margin. The plan does not say which wins, so after the placebo is estimated the crew could choose the label, and with it whether H1 is called an effect. Given the literature's placebo values (about -$1,100 to -$1,600 with SEs of $250-$300) this case is unlikely, but the rule should be fixed before the data are seen, not after.",
+      "evidence": "plan.json hypotheses[2] (pass and fail conditions); sources/notes.md sec. 2 (Table B2; imbens2015 Table 20 SEs 0.25-0.30 thousand)",
+      "remedy": "Add one clause now, e.g. 'a CI that excludes zero is a failure even if it lies within the margin' (the conservative reading), or state the opposite (an equivalence pass takes precedence). Either is fine if fixed before the design gate.",
+      "response": "PI (after the final round, not re-reviewed): 'fails if the CI excludes zero' takes precedence; otherwise pass only within +/-$900, else inconclusive.",
+      "ruling": ""
+    }
+  ]
+}

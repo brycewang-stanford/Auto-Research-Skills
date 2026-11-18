@@ -7,3 +7,9 @@
 {"time": "2026-11-18T16:40:37Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261118T164037Z"}
 {"time": "2026-11-18T16:42:48Z", "role": "scout", "action": "review-response", "detail": "question-r1 F6: read cook2008, added weidmann2021 + keller2024, weakened novelty claim to NSW-CPS-only within listed searches; F7: dates corrected to 2026-11-18 UTC. 17 verified sources, 20 citation claims."}
 {"time": "2026-11-18T16:43:07Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r2 20261118T164307Z"}
+{"time": "2026-11-18T16:46:33Z", "role": "pi", "action": "plan-revised", "detail": "question revised after question-r2. plan.json sha256=95e783fbeff9a7c1f5c84b1922dd6b197e4971a829d227e110f588a292c2683b"}
+{"time": "2026-11-18T16:46:33Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r3 20261118T164633Z"}
+{"time": "2026-11-18T16:48:45Z", "role": "pi", "action": "plan-revised", "detail": "question revised after question-r3. plan.json sha256=dc99c1cb99ac71d68effe1772879582f16773c74ed3162c325ff5c1bd06be8f0"}
+{"time": "2026-11-18T16:48:45Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r4 20261118T164845Z"}
+{"time": "2026-11-18T16:50:17Z", "role": "pi", "action": "plan-revised", "detail": "F15/F16 wording after question-r4 (pass). plan.json sha256=0fc569b26dc4e7a159e9d5e50713ba7a17d8779def0d94a7316d31bcb4ca7e39"}
+{"time": "2026-11-18T16:50:17Z", "role": "pi", "action": "gate-request", "detail": "question"}

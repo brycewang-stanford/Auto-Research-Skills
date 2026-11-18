@@ -1,11 +1,11 @@
 {
-  "question": "For the 185 NSW-treated men in the Dehejia-Wahba subsample, what is the average effect of the training program on 1978 earnings (ATT, 1982 dollars) estimated against the CPS-1 non-experimental comparison group under selection on observables, using an estimator fixed by a rule from outside this literature, and how does it compare with the experimental benchmark of $1,794 (SE 633; Dehejia and Wahba 1999, Table 3)?",
+  "question": "For the 185 NSW-treated men in the Dehejia-Wahba subsample, what is the average difference in 1978 earnings (ATT contrast, 1982 dollars) attributable to the training program under selection on observables, interpreted as an effect only if the pre-specified placebo check passes (as defined in H3), estimated against the CPS-1 non-experimental comparison group, using an estimator fixed and design-gated for a different dataset before this study began, and how does it compare with the experimental benchmark of $1,794 (SE 633; Dehejia and Wahba 1999, Table 3)?",
   "hypotheses": [
     "H1: The pre-specified ATT on 1978 earnings is positive, with a 95% confidence interval that excludes zero. If H3 fails, H1's result is reported as a statistical contrast between groups, not as a causal effect.",
     "H2 (descriptive, not a test): the difference between the pre-specified estimate and the benchmark, with an approximate combined standard error that ignores the shared treated units (so it overstates the uncertainty), is reported; closeness to the benchmark is never used to choose or rank estimators.",
-    "H3 (placebo that can fail): the same estimator applied to 1975 earnings as the outcome, without conditioning on 1975 earnings or 1975 unemployment, gives a 95% confidence interval that includes zero. The literature predicts this fails (Imbens and Xu 2025)."
+    "H3 (placebo that can fail): the same estimator applied to 1975 earnings as the outcome, without conditioning on 1975 earnings or 1975 unemployment, fails if its 95% confidence interval excludes zero (this rule takes precedence); otherwise it passes only if the whole interval lies within [-$900, +$900] (half the experimental benchmark; fixed now), and is 'inconclusive' if it does not. A pass is worded only as 'did not reject', never as evidence that the identifying assumption holds; the treated men's pre-program earnings dip can make this placebo uninformative, and the paper discusses it. If H3 fails or is inconclusive, H1 is reported as a statistical contrast between groups, not as a causal effect. The crew expects H3 to fail: the literature reports that this placebo rejects for every non-experimental estimator on this sample (Imbens and Xu 2025)."
   ],
-  "contribution": "A pre-committed replication of a well-studied benchmark-recovery exercise. The crew had read the published estimates on this sample, including which estimators land near the benchmark, so the commitment is not blind to the literature: what it rules out is outcome search within this study. To limit the influence of the literature, the primary estimator is fixed by a rule from outside it: the cross-fitted AIPW ATT estimator already pre-specified for the crew's ss-null-effect seed, applied unchanged apart from the covariate set. The estimate itself is not new, and the paper says so.",
+  "contribution": "A pre-committed replication of a well-studied benchmark-recovery exercise. The crew had read the published estimates on this sample, including which estimators land near the benchmark, so the commitment is not blind to the literature: what it rules out is outcome search within this study. The primary estimator is the cross-fitted AIPW ATT estimator fixed and design-gated for the crew's synthetic ss-null-effect seed (gate at 2026-11-18T13:00Z) before this workspace existed (16:28Z). That earlier choice was itself informed by the same literature, and a published estimate from a closely related estimator on this sample was known (AIPW with generalized random forests, $1,571, SE 704, in the Imbens-Xu replication tutorial's Table B1, whose numbers may differ from the published article), whose interval already suggests H1 holds. The estimate itself is not new, and the paper says so. The crew also expects the placebo check (H3) to fail, as it does for every non-experimental estimator in the literature, so it expects to report H1 as a statistical contrast rather than an effect.",
   "design": {
     "summary": "",
     "method": "",
@@ -23,7 +23,9 @@
   ],
   "gates": {
     "question": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-18T16:50:17Z",
+      "summary": "Question passed review in round 4; two minor wording findings answered afterwards."
     },
     "design": {
       "status": "pending"
@@ -37,8 +39,9 @@
   },
   "design_constraints": [
     "Estimand: the ATT for all 185 DW-treated men. Any overlap trimming removes comparison (CPS) units only, never treated units.",
-    "Primary estimator: the cross-fitted AIPW ATT estimator of gallery/ss-null-effect (its plan.json design.method), applied unchanged apart from the covariate set; any unavoidable adaptation is listed as a deviation.",
+    "Primary estimator: the cross-fitted AIPW ATT estimator of gallery/ss-null-effect (its plan.json design.method), with every necessary adaptation (covariate basis, propensity clipping when 1.1% of units are treated, any control-only trimming) listed at the design gate as a deviation decided before the data are loaded, each with a reason that does not cite published estimates on this sample; the number of clipped or trimmed controls is reported.",
     "RE78 is set aside before any data-prep run: data-prep writes a working file without RE78, and RE78 is joined back only by the first analysis run after the design gate.",
-    "Benchmark: $1,794 (SE 633), Dehejia and Wahba (1999), Table 3, row NSW, column (1)."
+    "Benchmark: $1,794 (SE 633), Dehejia and Wahba (1999), Table 3, row NSW, column (1).",
+    "No diagnostic is computed under the placebo's conditioning set (the covariates without RE75 and u75) before the design gate; RE75 is used before the gate only as a covariate."
   ]
 }
