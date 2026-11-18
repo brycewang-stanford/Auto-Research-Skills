@@ -37,3 +37,4 @@
 {"time": "2026-11-18T14:32:20Z", "role": "designer", "action": "design-revised", "detail": "design-r3 F12-F13 wording: c=0.5 reproduces hdm 0.2.0/0.3.1/0.3.2, 0.1.0 ~c=0.62, 0.2.3 c=1.1, bracketed by primary+sens-lasso-c11; 'unverified' dropped; decision_rules.sens_lasso_c11 added (descriptive only, c=1.1 attribution a conjecture citing sources/hdm_penalty.md s5). plan.json sha256 d16f2f1fea79044cce1fca203b38b249fe20e238587cfff2092c7b301655aae2"}
 {"time": "2026-11-18T14:34:13Z", "role": "pi", "action": "gate-request", "detail": "design"}
 {"time": "2026-11-18T14:38:24Z", "role": "pi", "action": "gate-approve", "detail": "design Bryce Wang"}
+{"time": "2026-11-18T14:38:52Z", "role": "econometrician", "action": "run", "detail": "check-noctrl exit=0"}

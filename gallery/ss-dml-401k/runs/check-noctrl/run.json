@@ -1,0 +1,52 @@
+{
+  "id": "check-noctrl",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/check_noctrl.py"
+  ],
+  "started": "2026-11-18T14:38:52Z",
+  "finished": "2026-11-18T14:38:52Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/check_noctrl.py",
+      "sha256": "f386e9548e441ebb601718b6f13b0761a3e145e622dd6489359c011f73523941"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/sipp1991.csv",
+      "sha256": "4c73b63b77217460e25c2847ebcdb9a2a3273630758c6172879e62dddb8f4916"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/check-noctrl/metrics.json",
+      "sha256": "397b79f9dc3f32a6457e91587980f7446be1a14b98c925415444599aa637bc77"
+    }
+  ],
+  "metrics": {
+    "full_coef": 19559.344749778065,
+    "full_se_hc0": 1412.7783113404676,
+    "full_se_classical": 1305.703903019093,
+    "full_n": 9915,
+    "band_coef": 18858.320354934698,
+    "band_se_hc0": 1439.4976015665184,
+    "band_se_classical": 1346.2750006937215,
+    "band_n": 9275,
+    "published": 19559,
+    "published_se": 1413,
+    "full_diff": 0.3447497780653066,
+    "full_n_ok": true,
+    "full_coef_ok": true,
+    "data_discrepancy": false,
+    "band_diff": -700.6796450653019
+  },
+  "metrics_file": "runs/check-noctrl/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

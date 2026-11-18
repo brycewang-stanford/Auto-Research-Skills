@@ -1,0 +1,17 @@
+{
+  "full_coef": 19559.344749778065,
+  "full_se_hc0": 1412.7783113404676,
+  "full_se_classical": 1305.703903019093,
+  "full_n": 9915,
+  "band_coef": 18858.320354934698,
+  "band_se_hc0": 1439.4976015665184,
+  "band_se_classical": 1346.2750006937215,
+  "band_n": 9275,
+  "published": 19559,
+  "published_se": 1413,
+  "full_diff": 0.3447497780653066,
+  "full_n_ok": true,
+  "full_coef_ok": true,
+  "data_discrepancy": false,
+  "band_diff": -700.6796450653019
+}
