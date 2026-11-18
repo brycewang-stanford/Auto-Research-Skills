@@ -1,0 +1,84 @@
+{
+  "id": "code-r1",
+  "target": "code",
+  "round": 1,
+  "created": "2026-11-18T13:59:27Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "../../crew/agents/reviewer.md",
+    "../../crew/PROTOCOL.md",
+    "plan.json",
+    "log.jsonl",
+    "runs/NOTES.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r3/review.json",
+    "code/aipw_lib.py",
+    "code/diag_overlap.py",
+    "code/main_aipw.py",
+    "code/secondary_family.py",
+    "code/select_re75.py",
+    "code/rob_trim.py",
+    "code/rob_covsets.py",
+    "code/rob_diff74.py",
+    "code/rob_learners.py",
+    "code/rob_estimators.py",
+    "code/sens_imbens.py",
+    "code/prepare_covariates.py",
+    "code/margin.py",
+    "code/requirements.txt",
+    "runs/main-aipw/metrics.json",
+    "runs/secondary-family/metrics.json",
+    "runs/sens-imbens/metrics.json",
+    "runs/rob-estimators/metrics.json",
+    "runs/rob-learners/metrics.json",
+    "runs/rob-learners/run.json",
+    "runs/rob-trim/metrics.json",
+    "runs/rob-covsets/metrics.json",
+    "runs/rob-diff74/metrics.json",
+    "runs/select-re75/metrics.json",
+    "runs/*/run.json (id, kind, started, exit_code, command)"
+  ],
+  "kill_argument": "The code does what plan.json says; the weak point is the sensitivity analysis, whose reading the paper will lean on. sens_imbens.py computes bias inside a linear-Gaussian model whose U-free coefficient is the OLS -126.5. It then adds that bias to an AIPW estimate of -9.8, and the two differ by more than half of t_E = 181. The plan approved this transfer, but the result is still an approximation. The code also decides which benchmark group the paper names as 'strongest robust' and 'weakest non-robust'. It ranks groups by |bias| at the benchmark point, a criterion plan.json never fixed. For the equivalence target that ranking picks age (|bias| 128.3) over educ (126.1), two groups the plan does not order. What I attacked and found sound: (1) An independent re-implementation of the primary estimator reproduces theta_rep0 = -43.5256 and theta_rep4 = -56.4149, with SEs, to every printed digit. (2) The EM tau agrees with direct maximisation of the observed-data likelihood within $0.6 at earn75 and at diagonal points 0.05 and 0.30, both signs. (3) The random-forest AIPW is a genuine random forest. My own version gives -12.5 (SE 177.7) against the recorded -10.0, the gap explained by region column order. Its per-repetition estimates differ from the gradient-boosting ones, so the near-equality with -9.8 is coincidence. (4) Every analysis script has a modification time of 13:03-13:06Z, after the 13:00 gate and before main-aipw ran at 13:12Z. (5) Nuisances are out-of-fold, g0 is fitted on training-fold controls only, and the scaler sits inside the pipeline. Outcomes are read with usecols, and no survey item is read. (6) The Romano-Wolf stepdown, the max-t interval, the TOST and the aggregation rule match the plan, and validate passes.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "minor",
+      "status": "open",
+      "text": "In sens_imbens.py, the reading rule's 'strongest benchmark group to which the conclusion is robust' and 'weakest to which it is not' rank groups by max |bias| at each group's benchmark point. plan.json design.method.sensitivity does not fix the ordering, and the choice was made in code, outcome-blind (file mtime 13:06Z, before main-aipw at 13:12Z). For target equiv it names age (|bias| 128.29; R2_D 0.010, R2_Y 0.025) over educ (126.13; R2_D 0.024, R2_Y 0.010), a near-tie that ranking by R2_D would reverse. The margin and zero targets are unaffected: earn74 is robust and earn75 is not under either ordering.",
+      "evidence": "code/sens_imbens.py main(), lines computing strongest_robust_/weakest_nonrobust_; runs/sens-imbens/metrics.json bench_age_*, bench_educ_*, strongest_robust_equiv. Resolve by stating the ordering criterion in the paper next to the sensitivity sentence (runs/NOTES.md item 6 already records it), or by naming all robust groups for the equivalence target instead of one.",
+      "response": "Econometrician: the ranking criterion (larger |bias| of the two signs at the benchmark point) is stated in NOTES and in each sens-reading-* claim, which now lists every robust and non-robust group with its |bias| and notes the age/educ near-tie under R2_D ranking.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "open",
+      "text": "The relative-effect CI in main_aipw.py uses psi_bar, the influence function averaged over repetitions, whose SE is 170.7. It does not use the mean-aggregated variance behind the primary SE (177.6), so rel_ci_low/high are about 4% narrower than the primary inference convention would give. This follows plan.json cross_fitting literally ('the influence function used for ... the delta method is psi_bar'), so it is not a deviation, but the paper presents the two intervals side by side under different conventions.",
+      "evidence": "code/main_aipw.py relative-effect block (psi_r uses res['psi_bar']); runs/main-aipw/metrics.json se = 177.646 vs se_psi_bar = 170.744. Resolve with a footnote stating the convention, or by scaling se_r by se / se_psi_bar as a reported variant. No decision depends on it.",
+      "response": "Econometrician: the psi_bar convention and the resulting ~4% narrower relative-effect CI are stated in NOTES item 1 and in the primary-rel-ci-* claim texts; no variant run added.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "rob_estimators.py (b) clips the Hajek IPW propensity to [0.01, 0.99]. The plan's rob-estimators (b) specifies no clipping; clipping is specified only for the primary AIPW. No unit is clipped (ipw_n_clipped = 0, and per runs/NOTES.md item 5 none in the bootstrap either), so the estimate is unchanged, but the paper should carry this as an implementation choice, not as part of the approved design.",
+      "evidence": "code/rob_estimators.py hajek(): m = np.clip(m_raw, *L.CLIP); runs/rob-estimators/metrics.json ipw_n_clipped = 0. Resolve by disclosure; no rerun needed.",
+      "response": "Econometrician: NOTES item 5 now records the Hajek IPW clipping to [0.01, 0.99] as an implementation choice outside the plan (0 units clipped in the full-sample fit; bootstrap draws not counted).",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "main_aipw.py does not implement the conditional branch of h1b_test ('If overlap rule O1 or O2 fails, H1b is supported only if the trimmed-overlap 90% CI is also inside (-M, M)'). h1b_supported is computed unconditionally. The branch is dormant here because rule_O1_pass and rule_O2_pass are both true in the same run, and rob-trim's 90% CI [-245.7, 317.1] lies inside the margin anyway, so the decision is unaffected. The H1b claim should cite rule_O1_pass/rule_O2_pass so the reader can see the branch did not apply.",
+      "evidence": "code/main_aipw.py (no use of rule_O1_pass/rule_O2_pass in the H1b decision); runs/main-aipw/metrics.json rule_O1_pass = true, rule_O2_pass = true, share_treated_above_09 = 0, share_clipped_units = 0; runs/rob-trim/metrics.json ci90_inside_margin = true. Resolve by citing these metrics with the H1b claim.",
+      "response": "Econometrician: primary-h1b-decision now cites main-aipw rule_O1_pass and rule_O2_pass in its support and says the trimmed-overlap branch of the H1b rule did not apply; NOTES records that the branch is not coded and was dormant.",
+      "ruling": ""
+    }
+  ]
+}

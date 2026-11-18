@@ -65,35 +65,54 @@ repeated or replaced.
 
 - **H1** (zero ATT on re78): not rejected; the 95% CI includes 0. Per the plan this is not
   reported as "no effect".
-- **H1b** (|ATT| < M = 483.47): supported, p_TOST = 0.0038; the 90% CI lies inside (-M, M).
-  O1 and O2 passed (0 treated above 0.9; 0 clipped units, recomputed in main-aipw), so the
-  trimmed interval is not needed for the H1b rule; it is also inside (-M, M).
+- **H1b** (|ATT| < M = 483.47): supported under unconfoundedness given the eleven covariates,
+  p_TOST = 0.0038; the 90% CI lies inside (-M, M). O1 and O2 passed in main-aipw itself
+  (metrics rule_O1_pass, rule_O2_pass: 0 treated above 0.9, 0 clipped units), so the plan's
+  trimmed-overlap branch of the H1b rule did not apply (main_aipw.py computes H1b without that
+  branch; it was dormant); the trimmed 90% CI [-245.7, 317.1] is inside (-M, M) anyway.
+  H1b must always be stated together with the sensitivity sentence below (claim
+  sens-mandated-sentence): it is not robust to a confounder as strong as earnings75, nor, for
+  the equivalence target, as strong as earnings74.
 - **H2**: no secondary outcome is detected. benefits78 has an unadjusted p of 0.044 (ATT 86.9,
   max-t interval [-19.8, 193.5]) but Romano-Wolf p = 0.166, so by the plan it is not
   detected and must not be described as an effect. hours78: unadjusted p 0.067, RW 0.204.
 - **Disagreement rule**: no check triggers it. rob-trim, rob-covsets (a), rob-learners (a)
   and (b) reach the same H1 and H1b decisions as main-aipw; the Hajek IPW point estimate
   (-191.1) is inside main-aipw's 95% CI. rob-covsets (b), rob-diff74, rob-estimators (a) and
-  select-re75 are reported but never trigger (rob-diff74 rejects zero and fails H1b; it is an
-  estimate under conditional parallel trends 1974-78, not a defence or refutation of the primary).
+  select-re75 are reported but never trigger. rob-diff74 rejects zero and fails H1b (90% CI
+  [-1,429.8, -743.3], entirely below -M; claims diff74-h1-decision, diff74-h1b-decision); it is
+  an estimate under conditional parallel trends 1974-78, not a defence of the primary.
 - **Sensitivity reading rule** (sens-imbens): for every target the conclusion is **not robust**
   to an unobserved confounder as strong as earnings75 (|bias| 1,716 > M, > t_0, > t_E), so the
   paper must say the result could be produced by unobserved selection of that strength.
-  Targets M and zero: robust to 8 of 9 groups; strongest group robust to: earnings74 (|bias| 204);
-  weakest not robust to: earnings75. Equivalence target (t_E = 181.5): robust to 7 of 9; strongest
-  robust: age (|bias| 128); weakest not robust: earnings74 (|bias| 204), then earnings75.
+  Groups are ranked by the larger |bias| of the two signs at each group's benchmark point
+  (implementation choice 6). Targets M and zero: robust to 8 of 9 groups (all except
+  earnings75); strongest group robust to: earnings74 (|bias| 204); weakest not robust to:
+  earnings75. Equivalence target (t_E = 181.5): robust to 7 of 9 (age 128.3, educ 126.1,
+  married 6.1, health_limit 5.8, urban 4.6, children 0.8, region 0.0); strongest robust: age;
+  weakest not robust: earnings74 (|bias| 204), then earnings75. age and educ are nearly tied;
+  ranking by R2_D instead would name educ (R2_D 0.024 vs 0.010), so the paper should list the
+  robust groups or state the criterion.
   tau(0, 0) = -126.5 equals the rob-estimators (a) OLS coefficient (difference 1.3e-6).
   All 169 EM fits converged (at most 9 iterations).
 
 ### Implementation choices the plan left open (fixed in code before any analysis run)
 
-1. Relative-effect delta method uses psi_bar (mean over repetitions) for psi_theta, so its SE
-   has no between-split variance term (the ATT SE does).
+1. Relative-effect delta method uses psi_bar (mean over repetitions) for psi_theta, as
+   design.method.cross_fitting specifies, so its SE has no between-split variance term (the
+   ATT SE does). For re78 the SE of psi_bar is 170.7 against the primary SE 177.6, so the
+   relative-effect CI [-4.3%, 4.1%] is about 4% narrower than the dollar CI divided by the
+   counterfactual mean ([-4.5%, 4.3%]); it is slightly anti-conservative, not conservative.
 2. Multiplier bootstrap: xi drawn as a 10,000 x 4,000 standard-normal matrix in row blocks of
    1,000 from default_rng(20261119); max-t c is the numpy (linear) 95% quantile; Romano-Wolf
-   p made monotone by a running maximum. The bootstrap t* SDs fall short of 1 by up to 4.2%
-   because SE_k (mean aggregation) exceeds the SD of psi_bar_k; the plan anticipated this
-   (threats: "the max-t intervals use the aggregated SE").
+   p made monotone by a running maximum. The bootstrap uses psi_bar_k (as the plan
+   specifies) but the t-statistics are scaled by the mean-aggregated SE_k, which exceeds the
+   SE of psi_bar_k, so the t* SDs fall short of 1 by up to 4.2%. The Romano-Wolf p-values and
+   max-t intervals are therefore in effect computed at the psi_bar scale and are slightly
+   anti-conservative (about 4% narrower) relative to the primary SE convention. (Earlier
+   wording here said the plan anticipated this; the plan's threat text implies conservatism,
+   and the effect runs the other way.) No detection decision depends on it: the smallest
+   Romano-Wolf p is 0.166.
 3. rob-trim recomputes the primary propensity fits; m_bar matches runs/diag-overlap/propensity.csv
    to 5e-11. Units with m_bar exactly 0.1 or 0.9 would be kept (none sit on a bound).
 4. rob-learners: OLS outcome model standardized within fold (no effect on predictions); random
@@ -101,13 +120,17 @@ repeated or replaced.
    [0.01, 0.99] like the primary (0 clipped).
 5. rob-estimators (b): propensity fitted in-sample on all units with B(X) standardized, C =
    0.0464 picked by LogisticRegressionCV (inner-CV seed 20261118); m clipped to [0.01, 0.99]
-   as in the primary (0 clipped); 95% CI = estimate +/- 1.96 bootstrap SE; the percentile
+   (an implementation choice: the plan specifies clipping only for the primary AIPW, not for
+   the Hajek IPW). No unit is clipped in the full-sample fit (ipw_n_clipped = 0); clipping in
+   the 999 bootstrap draws was not counted; 95% CI = estimate +/- 1.96 bootstrap SE; the percentile
    interval [-536.1, 118.9] is recorded for information.
 6. sens-imbens: Z = [1, B(X) standardized]; EM starts from the U-free fits with intercepts
    shifted by -alpha/2 and -delta/2; convergence on the full observed-data log-likelihood;
    sigma0^2 = RSS/n; V uses ddof = 1; the diagonal for R2* interpolation starts at (0, 0);
-   benchmark groups are ranked by the larger |bias| of the two signs for the "strongest robust"
-   and "weakest non-robust" names.
+   benchmark groups are ranked by the larger |bias| of the two signs at the group's benchmark
+   point for the "strongest robust" and "weakest non-robust" names (the plan does not fix the
+   ordering; the choice was in code before main-aipw ran). The claims sens-reading-* list every
+   robust and non-robust group with its |bias|.
 7. Echoed counts: main-aipw and secondary-family copy missing and inadmissible counts from
    data/derived/missing_counts.json and range_counts.json and also recompute the validity rule
    on the data (0 rows dropped in every outcome).
@@ -117,10 +140,12 @@ repeated or replaced.
 - The two parametric checks (linear AIPW -115.7, OLS -126.5) and Hajek IPW (-191.1) sit below
   the flexible AIPW (-9.8 and RF -10.0); all are inside the primary 95% CI and none changes a
   decision.
-- rob-diff74 is strongly negative: enrolees' 1974-78 earnings growth is about 1,087 below that
-  of comparable non-enrolees. Under the plan this is a different assumption and does not
-  trigger anything; it is consistent with enrolees being on a lower growth path, which would
-  bias the DiD downward (plan.json analysis_plan, rob-diff74).
+- rob-diff74 is strongly negative: -1,086.5 [-1,495.5, -677.5]. The plan fixed two readings in
+  advance: its bias is upward if enrolees' 1974 earnings were already transitorily depressed,
+  and downward if their lower earnings reflect a permanently lower growth path; its sign is
+  therefore not known, and nothing in the runs discriminates between the two. It is reported
+  as an estimate under a different assumption, not as a defence of the primary, and it does
+  not trigger the disagreement rule (plan.json analysis_plan, rob-diff74).
 - Wall time: the machine was shared with another session's 8-process job, so
   secondary-family took about 30 minutes instead of about 2. No metric depends on timing.
 
@@ -130,3 +155,15 @@ None. rob-ipow was not run because its pre-gate trigger did not fire, as the pla
 Only `tasks[].status` in plan.json was changed (a-main ... a-claims set to done); the hash of
 plan.json without `tasks` and `gates` is unchanged
 (146cb81e36128153f6ac1f88e081c6c430010282d2c202d99caa75fccee0b38e before and after).
+
+## Response to results-r1 and code-r1 (no new runs)
+
+- Claims: primary-h1b-decision reworded ('under unconfoundedness given the eleven covariates')
+  and now also cites main-aipw rule_O1_pass and rule_O2_pass; new claims sens-mandated-sentence
+  (backed by sens-imbens robust_*_earn75, robust_equiv_earn74, bench_earn75/earn74_abs_bias,
+  target_equiv), diff74-h1-decision, diff74-h1b-decision, sec-wellbeing78-maxt-low-sd and
+  -high-sd; the ten unplanned unadjusted secondary intervals (sec-<k>-ci-low/high) dropped;
+  sens-reading-* state the ranking criterion and list all groups; primary-rel-ci-* and
+  sec-maxt-crit carry the psi_bar caveat. No run, script or metric changed.
+- Figures (propensity histogram, forest plot with M, sensitivity contour) remain with the
+  Figures RA (task f-figures); runs/sens-imbens/metrics.json holds the full grid for the contour.
