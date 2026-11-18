@@ -131,6 +131,13 @@ repeated or replaced.
    point for the "strongest robust" and "weakest non-robust" names (the plan does not fix the
    ordering; the choice was in code before main-aipw ran). The claims sens-reading-* list every
    robust and non-robust group with its |bias|.
+   The bias is computed within the Imbens linear-outcome, logit-treatment model and added to
+   the AIPW estimate as an approximation, as the plan states (code/sens_imbens.py docstring).
+   That model's U-free estimate is tau(0, 0) = -126.5 against the AIPW -9.8, a gap of 117. The
+   earnings75 verdicts hold by wide margins (|bias| 1,716 against targets of at most 483). The
+   earnings74 verdict for the equivalence target (|bias| 203.8 against t_E = 181.5) holds by only
+   22, which is smaller than the gap between the two models, so it lies within the approximation
+   error; the reading rule's verdict (not robust) stands as written.
 7. Echoed counts: main-aipw and secondary-family copy missing and inadmissible counts from
    data/derived/missing_counts.json and range_counts.json and also recompute the validity rule
    on the data (0 rows dropped in every outcome).

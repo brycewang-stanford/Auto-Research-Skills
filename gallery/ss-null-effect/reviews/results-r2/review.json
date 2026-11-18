@@ -1,0 +1,91 @@
+{
+  "id": "results-r2",
+  "target": "results",
+  "round": 2,
+  "created": "2026-11-18T14:32:59Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "../../crew/agents/reviewer.md",
+    "../../crew/PROTOCOL.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/results-r1/review.json",
+    "reviews/code-r1/review.json",
+    "plan.json (design.method.sensitivity, design.claim_ids, design.threats)",
+    "claims.jsonl",
+    "runs/NOTES.md",
+    "log.jsonl (tail)",
+    "paper/numbers.tex",
+    "runs/main-aipw/metrics.json",
+    "runs/rob-diff74/metrics.json",
+    "runs/sens-imbens/metrics.json",
+    "runs/rob-trim/metrics.json",
+    "runs/rob-covsets/metrics.json",
+    "runs/rob-learners/metrics.json",
+    "runs/rob-estimators/metrics.json",
+    "runs/secondary-family/metrics.json",
+    "code/sens_imbens.py (grep: approximation)",
+    "git: show --stat 77a6b9c; diff --stat c3627b5..HEAD (only claims, log, numbers.tex, NOTES, reviews changed; no code, run or metric)",
+    "crew.py validate and validate --strict; crew.py status"
+  ],
+  "kill_argument": "The headline is still an equivalence result that depends on one untestable assumption, and the crew's own evidence leans against it. Unconfoundedness given the 1974-75 earnings history must hold through an unobserved 1976 dip. In the pre-registered sensitivity analysis, a confounder as strong as earnings75 moves the estimate by $1,716, 3.6 times the margin. The only alternative identification, conditional DiD from 1974, puts its whole 90% CI below -M at -$1,087. The two assumptions give answers $1,077 apart, and nothing in the data chooses between them. 'The effect is smaller than $483' is therefore a conditional statement, not a finding about the programme. The claims now say exactly that: H1b is scoped to unconfoundedness, and it is bound to the mandated earnings75 and earnings74 sentence. The DiD decisions are claimed with both pre-fixed bias readings. So the objection now belongs to the paper's framing, not to the claims. What I attacked and found sound: every decision claim's wording against its boolean metrics; the absence of the dropped secondary CIs from claims and macros; no code, run or metric changed since the analysis commit; and validate --strict passes.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H1b is reported as supported without the scope that the plan's own reading rule attaches to it. claims.jsonl primary-h1b-decision says only 'H1b (|ATT| < M) is supported at 5% by TOST'. The sensitivity reading is NOT robust to earnings75 for all three targets (|bias| 1,716 vs M 483, t_0 338, t_E 181). The equivalence target is also not robust to earnings74 (|bias| 204 > t_E 181.5; sens-reading-equiv). plan.json design.method.sensitivity requires that 'the paper says the result could be produced by unobserved selection of that strength'. No result claim carries that sentence or ties it to the H1b claim, so a writer can state 'the effect is smaller than M' from primary-h1b-decision alone. That is permitted by the H1b rule but contradicted in force by the sensitivity rule. rob-diff74, which rejects zero and fails H1b (90% CI [-1,430, -743], entirely below -M), adds weight; it does not trigger the disagreement rule, as the plan says.",
+      "evidence": "claims.jsonl lines primary-h1b-decision, sens-reading-margin/zero/equiv; runs/sens-imbens/metrics.json robust_*_earn75 = false, robust_equiv_earn74 = false; runs/rob-diff74/metrics.json h1_reject = true, h1b_supported = false; plan.json design.method.sensitivity (reading rule), design.threats[0]. Resolve by narrowing, not new runs: (i) reword primary-h1b-decision to 'under unconfoundedness given X'; (ii) add a claim that carries the mandated sentence verbatim for earnings75, and the fact that the equivalence conclusion is not robust to a confounder as strong as earnings74; (iii) add claims stating rob-diff74's H1/H1b decisions (reject zero; fails H1b) next to its numbers. Every place the paper states H1b, the abstract included, must carry (ii).",
+      "response": "Econometrician: primary-h1b-decision now reads 'under unconfoundedness given the eleven covariates' and points to the new claim sens-mandated-sentence (the plan's earnings75 sentence verbatim, plus earnings74 for equivalence; backed by sens-imbens metrics); diff74-h1-decision and diff74-h1b-decision added; NOTES says H1b must always carry it. No new runs.",
+      "ruling": "Fixed in the files. primary-h1b-decision is scoped 'under unconfoundedness given the eleven covariates' (conditioning set re-counted: 7 fixed characteristics + re74, re75, unemp74, unemp75) and points to sens-mandated-sentence. That claim carries the plan's earnings75 sentence ('the result could be produced by unobserved selection of that strength') and the earnings74 non-robustness of equivalence; its booleans match runs/sens-imbens/metrics.json (robust_*_earn75 = false, robust_equiv_earn74 = false). diff74-h1-decision and diff74-h1b-decision exist and match runs/rob-diff74/metrics.json (h1_reject = true, h1b_supported = false, ci90_inside_margin = false; ci90_high -743 < -M). Whether the paper honours 'wherever H1b is stated' is for the paper review."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "runs/NOTES.md explains away rob-diff74 with one of the two readings the plan fixed in advance, the one that favours the primary. plan.json analysis_plan[rob-diff74] says its bias is 'upward if enrolees' 1974 earnings were already transitorily depressed; downward if ... a permanently lower growth path. Its sign is therefore not known in advance; it is reported ... not as a defence of the primary'. NOTES 'Surprises and notes' says the -1,087 'is consistent with enrolees being on a lower growth path, which would bias the DiD downward'. That is the defence-of-the-primary reading, and the upward-bias branch (under which the effect would be even more negative) is not mentioned. Nothing in the runs discriminates between the branches. The Writer works from NOTES, so this post-hoc story is likely to reach the paper.",
+      "evidence": "runs/NOTES.md 'Surprises and notes' bullet 2 and 'Disagreement rule' bullet; plan.json design.analysis_plan[rob-diff74]. Resolve by replacing the sentence with both pre-stated readings and the plan's statement that the sign is unknown, or by deleting the interpretation. No new run is needed.",
+      "response": "Econometrician: NOTES now gives the plan's two pre-fixed readings of rob-diff74 (upward if 1974 already dipped, downward if a permanently lower growth path), says its sign is unknown and nothing discriminates, and calls it not a defence of the primary; the one-sided reading is removed.",
+      "ruling": "Fixed. runs/NOTES.md 'Surprises and notes' now gives both pre-fixed readings, says the sign is unknown and that nothing discriminates, and drops the one-sided growth-path story. The same wording is in claim diff74-h1-decision."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Unplanned uncorrected intervals are claimed for the secondary family. plan.json design.claim_ids.secondary lists effect, se, p, p-rw, maxt-low and maxt-high, and secondary_family says the max-t intervals are the intervals reported. claims.jsonl adds sec-<k>-ci-low/high (unadjusted 95% CIs) for all five outcomes. For benefits78 that interval is [2.5, 171.3]: it excludes zero, while the Romano-Wolf p is 0.166 and the max-t interval is [-19.8, 193.5]. Macros \\SecBenefitsCILow/High make the forbidden reading ('benefits rose by $87, 95% CI 3 to 171') one keystroke away. The claim text does label it 'unadjusted', and the plan does allow uncorrected p-values next to adjusted ones, so this is minor.",
+      "evidence": "claims.jsonl sec-*-ci-low, sec-*-ci-high (10 claims); runs/secondary-family/metrics.json benefits78_ci_low = 2.517, benefits78_p_rw = 0.1655, benefits78_h1_reject = true; plan.json design.claim_ids.secondary, design.against_each_hypothesis.H2. Resolve by dropping these 10 claims, or by adding 'uncorrected; not a detection (Romano-Wolf p = ...)' to each text.",
+      "response": "Econometrician: the ten unplanned sec-<k>-ci-low/high claims (and their macros) are dropped; only planned secondary claims remain (effect, se, unadjusted p, Romano-Wolf p, max-t bounds).",
+      "ruling": "Fixed. No sec-*-ci-low/high claim remains in claims.jsonl, and no Sec*CI macro remains in paper/numbers.tex. The remaining secondary claims are the planned set; sec-benefits78-p-rw says 'not detected'."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Inference built on psi_bar drops the between-split variance that the headline SE includes, and NOTES describes the direction wrongly. (a) The relative-effect CI [-4.34%, 4.09%] (half-width 4.21%) is narrower than the dollar CI divided by the counterfactual mean ([-4.51%, 4.26%], half-width 4.39%). (b) In the multiplier bootstrap the t* SDs fall up to 4.2% short of 1. Because t_obs and t* are both divided by SE_k, the Romano-Wolf p-values and max-t widths are in effect computed on the psi_bar scale (se_psi_bar 170.7 vs SE 177.6 for re78). That makes them slightly anti-conservative relative to the aggregated SE. NOTES item 2 says 'the plan anticipated this'. The plan's threat says the aggregated SE 'is at least the SE of the averaged influence function', which suggests conservatism, but the effect runs the other way. This is plan-compliant (cross_fitting names psi_bar for the bootstrap and delta method), and no decision changes: the smallest RW p is 0.166.",
+      "evidence": "runs/main-aipw/metrics.json rel_ci_low_pct, rel_ci_high_pct, se, se_psi_bar, cf_mean; runs/secondary-family/metrics.json bootstrap_sd_check_max_rel_dev = 0.0416; code/main_aipw.py psi_r; code/secondary_family.py tstar; runs/NOTES.md implementation choice 2; plan.json design.threats ('Bootstrap validity'). Resolve by stating in NOTES and later the paper that these intervals and p-values omit the between-split term and are about 4% narrower, and by correcting the 'anticipated' sentence.",
+      "response": "Econometrician: NOTES items 1-2 and the claims primary-rel-ci-* and sec-maxt-crit now state that the psi_bar-based relative CI, Romano-Wolf p-values and max-t intervals omit the between-split term and are about 4% narrower (slightly anti-conservative); the wrong 'anticipated' sentence is corrected.",
+      "ruling": "Fixed. NOTES items 1-2 and the claims primary-rel-ci-low/high and sec-maxt-crit state that the psi_bar-based intervals omit the between-split term and are about 4% narrower (anti-conservative). The wrong 'anticipated' sentence is corrected."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "Planned reporting is incomplete. plan.json task f-figures is 'todo': the propensity histogram, the forest plot with M marked and the sensitivity contour are not produced. The contour is the planned reader-facing form of sens-imbens. The plan also says wellbeing78 is reported 'in control-SD units'. The max-t interval in SD units is computed (wellbeing78_maxt_low_sd/high_sd) but not claimed; only the point estimate in SD units is.",
+      "evidence": "plan.json tasks[f-figures], design.analysis_plan (last item), design.method.secondary_family (units); runs/secondary-family/metrics.json wellbeing78_maxt_*_sd; claims.jsonl (no sec-wellbeing78-maxt-*-sd). Resolve by producing the three figures from the existing runs and adding the two SD-unit claims.",
+      "response": "Econometrician: added sec-wellbeing78-maxt-low-sd/-high-sd from existing metrics; the three figures are the Figures RA's task f-figures (the sens-imbens grid for the contour is in its metrics).",
+      "ruling": "Partly fixed. sec-wellbeing78-maxt-low-sd/-high-sd now exist and match metrics (-0.065, 0.137). The three planned figures still do not exist: plan.json task f-figures is 'todo', and there are no figure files. The response only reassigns them to the Figures RA. This stays open as minor. It does not block the results gate, but the figures must exist before the paper review."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The sensitivity bias is applied additively to the AIPW estimate, and no claim or note says this is an approximation. plan.json design.method.sensitivity says the bias is 'computed within this parametric model and applied additively to the AIPW estimate as an approximation (stated as such)'. code/sens_imbens.py says so in its docstring. But sens-mandated-sentence says only 'which would move the estimate by up to 1,716 dollars', and neither the sens-reading-* claims nor runs/NOTES.md item 6 call the transfer approximate. This matters for one verdict. The U-free parametric estimate is tau00 = -126.5, against the AIPW -9.8 (gap 117). The earnings74 non-robustness of H1b exceeds t_E by only $22 (|bias| 203.8 vs 181.5). That verdict is therefore well inside the approximation error. The earnings75 verdicts (1,716 vs at most 483) are not.",
+      "evidence": "claims.jsonl sens-mandated-sentence, sens-reading-equiv, sens-tau00; runs/sens-imbens/metrics.json tau00 = -126.509, bench_earn74_abs_bias = 203.83, target_equiv = 181.47; runs/main-aipw/metrics.json effect = -9.79; plan.json design.method.sensitivity ('as an approximation (stated as such)'); code/sens_imbens.py docstring line 19. Resolve by narrowing, not a run: add to sens-mandated-sentence (and NOTES item 6) that the bias is computed in the Imbens linear-logit model, whose U-free estimate is -126.5, and is added to the AIPW estimate as an approximation. Also say that the earnings74 verdict for equivalence holds by a $22 margin, which is smaller than the gap between the two models' estimates. The rule's verdict stands as written.",
+      "response": "Econometrician: sens-mandated-sentence (text and support) and NOTES item 6 now say the bias is computed in the Imbens linear-logit model (U-free estimate -126.5 vs AIPW -9.8, gap 117) and added to AIPW as an approximation, and that the earnings74 equivalence verdict (203.8 vs 181.5, margin 22) lies within that approximation error while the rule's verdict stands; earnings75 verdicts hold by wide margins.",
+      "ruling": ""
+    }
+  ]
+}
