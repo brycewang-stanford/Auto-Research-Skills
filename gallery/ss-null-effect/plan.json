@@ -23,9 +23,12 @@
   ],
   "gates": {
     "question": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-18T12:14:26Z",
-      "summary": "Question ready after Reviewer rounds; see reviews/question-r*."
+      "summary": "Question ready after Reviewer rounds; see reviews/question-r*.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-18T12:24:10Z",
+      "note": "Approved in chat on 2026-11-18 after reading the Reviewer's verdict, kill argument and open findings. Reviews for later stages stay on Claude (fresh-context), by the human's choice."
     },
     "design": {
       "status": "pending"
