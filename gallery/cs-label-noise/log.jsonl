@@ -44,3 +44,4 @@
 {"time": "2026-11-18T14:37:41Z", "role": "figures-ra", "action": "run", "detail": "tab-exclusion exit=0"}
 {"time": "2026-11-18T14:37:42Z", "role": "figures-ra", "action": "run", "detail": "tab-ablations exit=0"}
 {"time": "2026-11-18T14:37:42Z", "role": "figures-ra", "action": "run", "detail": "tab-accuracy exit=0"}
+{"time": "2026-11-18T14:38:42Z", "role": "figures-ra", "action": "figures-done", "detail": "f-figures: 3 figures (fig_accuracy, fig_contrasts, fig_ablations) and 5 table fragments (tab_exclusion, tab_h1h2, tab_parts, tab_ablations, tab_accuracy) from runs fig-accuracy, fig-contrasts, fig-ablations, tab-h1h2, tab-exclusion, tab-ablations, tab-accuracy; 413 table cells as claim macros, 0 typed; captions in paper/figures/CAPTIONS.md; validate OK"}
