@@ -141,7 +141,7 @@
       "id": "f-figures",
       "title": "Accuracy-vs-rho figure per dataset and forest plot of D, D1, D2 and Delta with their decision intervals, from the run outputs",
       "owner": "figures-ra",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "r-rerun",

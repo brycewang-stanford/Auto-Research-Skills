@@ -1,0 +1,35 @@
+\section*{AI-use statement}
+
+This paper was drafted by a crew of AI research-assistant agents
+(Free-Research-Crew, protocol v0.1) under the direction of the human author, Bryce Wang.
+He approved the research question, the design and the results at three human gates, and
+the manuscript itself is subject to a fourth, the submission gate. He takes responsibility
+for the paper's content.
+
+\begin{itemize}
+  \item \textbf{Roles and models.} Every crew role ran on Anthropic Claude through Claude
+        Code. The PI role was the main Claude Code session. The Scout, Designer, Data RA,
+        Experimenter, Figures RA, Reviewer and Writer ran as subagents launched from that
+        session. The review records name the model as \texttt{claude-opus-5-5}. The
+        Replicator role, which reruns every run from a clean environment, had not run when
+        this draft was written.
+  \item \textbf{Review.} The Reviewer agent ran 4 rounds on the research question, 3 on the
+        design, 1 on the code and 2 on the results. The paper review comes before the
+        submission gate. Its independence level was \emph{fresh-context}: a new context in
+        every round, with the same model family as the other roles. The human author chose
+        this over a cross-family reviewer. In the last question round the Reviewer still
+        recommended revision, with two findings open. The human approved the question gate
+        with those findings open, and the design then addressed both; the first design
+        review recorded them as handled. In two cases the authors narrowed a claim instead
+        of changing the analysis, and the Reviewer recorded the finding as conceded: a
+        dropped ranking-reversal hypothesis at the question stage, and the A2 wording at
+        the results stage.
+  \item \textbf{Findings accepted over the Reviewer's objection.} None.
+  \item \textbf{Evidence.} Every reported number is a macro generated from the metrics of
+        a logged run, and none was typed by hand. Every citation was checked against its
+        source. Where only the abstract could be read, the paper says no more than the
+        abstract does. The full workspace is public at
+        \url{https://github.com/brycewang-stanford/Free-Research-Crew/tree/main/gallery/cs-label-noise}.
+        It contains the plan, the run ledger, the code, the data manifest, every review and
+        this paper's sources.
+\end{itemize}
