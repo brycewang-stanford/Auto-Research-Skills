@@ -1,0 +1,37 @@
+{
+  "covariate_source": "data/derived/covariates.csv",
+  "n": 4000,
+  "n_treated": 1621,
+  "outcomes": "synthetic Gaussian noise (seed 20261217), independent of treat and X",
+  "cpu_note": "wall-clock seconds on the machine that ran this script",
+  "block_seconds": {
+    "A_propensity_crossfit": 1.54,
+    "A_minus_propensity_crossfit": 1.99,
+    "G_outcome_crossfit": 27.62,
+    "family_5_outcome_crossfits": 120.01,
+    "multiplier_bootstrap_rw": 0.23,
+    "rf_learners_crossfit": 15.87,
+    "linear_outcome_crossfit": 0.03,
+    "ipw_bootstrap_999": 2.73,
+    "imbens_grid_49_projected": 0.56
+  },
+  "projected_run_seconds": {
+    "diag-overlap": 4.5,
+    "main-aipw": 32.2,
+    "secondary-family": 124.8,
+    "placebo-re75": 32.6,
+    "rob-trim": 33.7,
+    "rob-covsets": 61.3,
+    "rob-learners": 20.4,
+    "rob-diff": 32.6,
+    "rob-estimators": 5.8,
+    "sens-imbens": 3.8
+  },
+  "projected_total_minutes": 5.86,
+  "budget_minutes": 30,
+  "within_budget": true,
+  "weighted_precision_proxy_se": 253.21,
+  "weighted_precision_proxy_note": "SE of the primary estimator for a noise outcome with re75's control variance; compare with M",
+  "synthetic_family_maxt_crit": 2.497,
+  "script_seconds": 170.1
+}

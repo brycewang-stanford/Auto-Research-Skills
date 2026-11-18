@@ -1,0 +1,10 @@
+{
+  "n_obs": 4000,
+  "n_folds": 5,
+  "n_repetitions": 5,
+  "n_multiplier_draws": 10000,
+  "n_ipw_bootstrap": 999,
+  "sens_grid_points": 49,
+  "seed": 20261118,
+  "budget_minutes": 30
+}

@@ -1,0 +1,86 @@
+{
+  "id": "missing-counts",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/missing_counts.py"
+  ],
+  "started": "2026-11-18T12:46:55Z",
+  "finished": "2026-11-18T12:46:55Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/missing_counts.py",
+      "sha256": "ae9b186f1d8c6f3caf87fd0752f2e1785a67500a194a290848c559a3807ec24b"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/null_extract.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/derived/missing_counts.json",
+      "sha256": "99e4219de01ffdda4a574c177d214e2c893b5172de2368db9277aa25475e78ba"
+    }
+  ],
+  "metrics": {
+    "rows": 4000,
+    "n_treated": 1621,
+    "n_control": 2379,
+    "trigger_threshold": 0.02,
+    "missing_re78_treated": 0,
+    "missing_re78_control": 0,
+    "missing_re78_share_treated": 0.0,
+    "missing_re78_share_control": 0.0,
+    "missing_re78_share_diff": 0.0,
+    "nonnumeric_re78": 0,
+    "ipow_trigger_re78": false,
+    "missing_re79_treated": 0,
+    "missing_re79_control": 0,
+    "missing_re79_share_treated": 0.0,
+    "missing_re79_share_control": 0.0,
+    "missing_re79_share_diff": 0.0,
+    "nonnumeric_re79": 0,
+    "ipow_trigger_re79": false,
+    "missing_employed78_treated": 0,
+    "missing_employed78_control": 0,
+    "missing_employed78_share_treated": 0.0,
+    "missing_employed78_share_control": 0.0,
+    "missing_employed78_share_diff": 0.0,
+    "nonnumeric_employed78": 0,
+    "ipow_trigger_employed78": false,
+    "missing_hours78_treated": 0,
+    "missing_hours78_control": 0,
+    "missing_hours78_share_treated": 0.0,
+    "missing_hours78_share_control": 0.0,
+    "missing_hours78_share_diff": 0.0,
+    "nonnumeric_hours78": 0,
+    "ipow_trigger_hours78": false,
+    "missing_benefits78_treated": 0,
+    "missing_benefits78_control": 0,
+    "missing_benefits78_share_treated": 0.0,
+    "missing_benefits78_share_control": 0.0,
+    "missing_benefits78_share_diff": 0.0,
+    "nonnumeric_benefits78": 0,
+    "ipow_trigger_benefits78": false,
+    "missing_wellbeing78_treated": 0,
+    "missing_wellbeing78_control": 0,
+    "missing_wellbeing78_share_treated": 0.0,
+    "missing_wellbeing78_share_control": 0.0,
+    "missing_wellbeing78_share_diff": 0.0,
+    "nonnumeric_wellbeing78": 0,
+    "ipow_trigger_wellbeing78": false,
+    "ipow_triggered_outcomes": "",
+    "ipow_any_trigger": false
+  },
+  "metrics_file": "data/derived/missing_counts.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

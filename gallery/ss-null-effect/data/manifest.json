@@ -1,3 +1,13 @@
 {
-  "datasets": []
+  "datasets": [
+    {
+      "id": "null_extract",
+      "origin": "crew/bench/seeds/ss-null-effect/data.csv in this repository (https://github.com/brycewang-stanford/Free-Research-Crew); copied by code/fetch_data.py (run fetch-data)",
+      "license": "CC0-1.0 (synthetic data distributed with this repository), per crew/bench/seeds/ss-null-effect/task.json",
+      "path": "data/raw/null_extract.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9",
+      "retrieved_on": "2026-11-18",
+      "notes": "SHA-256 matches task.json data.sha256. 483,855 bytes; 4,000 rows; 39 columns. Outcome and survey columns are sealed until the design gate; the derived file data/derived/covariates.csv holds only id, treat and the eleven covariates."
+    }
+  ]
 }

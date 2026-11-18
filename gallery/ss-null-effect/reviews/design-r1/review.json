@@ -1,0 +1,102 @@
+{
+  "id": "design-r1",
+  "target": "design",
+  "round": 1,
+  "created": "2026-11-18T12:41:50Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "reviews/REVIEWER_MEMORY.md",
+    "crew.json",
+    "plan.json",
+    "log.jsonl",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "data/CODEBOOK.md",
+    "data/derived/prep_metrics.json",
+    "data/derived/margin_metrics.json",
+    "code/diag_overlap.py",
+    "code/fetch_data.py",
+    "code/margin.py",
+    "code/prepare_covariates.py",
+    "code/timing_synthetic.py",
+    "code/requirements.txt",
+    "runs/NOTES.md",
+    "runs/diag-overlap/run.json",
+    "runs/diag-overlap/metrics.json",
+    "runs/diag-overlap/stderr.log",
+    "runs/fetch-data/run.json",
+    "runs/margin/run.json",
+    "runs/prepare-covariates/run.json",
+    "runs/timing-synthetic/run.json",
+    "runs/timing-synthetic/timing.json",
+    "runs/timing-synthetic/stderr.log",
+    "../../crew/bench/seeds/ss-null-effect/task.json",
+    "../../crew/agents/reviewer.md",
+    "../../crew/PROTOCOL.md",
+    "../../crew/tracks/social-science.md"
+  ],
+  "kill_argument": "The crew's own codebook documents an Ashenfelter dip: enrolees' mean earnings fall from 6,713 (1974) to 4,835 (1975), 40% earned nothing in 1975, while non-enrolees' rise to 9,645. Enrolment was in 1976-77, so the year where the dip should be deepest is unobserved. Unconfoundedness therefore needs two lags to absorb selection on transitory earnings shocks, the classic failure of non-experimental training evaluations. The design's defences against exactly this threat do not work as written. The re75 placebo is pre-registered as evidence against the assumption, yet selection on the 1975 shock, already visible in covariate means, makes a nonzero placebo expected even if the assumption holds, and no consequence of a rejection is fixed. The conditional DiD uses the dip year as its base, so mean reversion biases it upward. The sensitivity analysis has no fixed reading. After the gate the crew would interpret a predictable placebo 'failure' with re78 in hand: the forking path the gate exists to close. What held: estimand, estimator, seeds, folds, outcome family, multiplicity correction, M and overlap rules are fixed outcome-blind, and no run or script reads an outcome (checked usecols and run inputs).",
+  "verdict": "block",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "open",
+      "text": "The re75 placebo is pre-registered with the wrong reading and no consequence. plan.json design.method.identifying_assumption lists 'a nonzero placebo ATT on re75 when conditioning on 1974 earnings' as evidence against the identifying assumption, and analysis_plan placebo-re75 says 'A 95% CI that excludes 0 counts against the identifying assumption.' But the primary assumption conditions on re75; the placebo asks whether treat is unconfounded for re75 given re74 only, i.e. whether there is selection on the 1975 shock. The workspace already shows there is: data/CODEBOOK.md and data/derived/prep_metrics.json give enrolees 6,713 -> 4,835 and non-enrolees 8,885 -> 9,645 (re75 std diff -0.89 vs re74 -0.38; unemp75 0.71 vs unemp74 0.18). Imbens (2004, sec. 5.1, as quoted in sources/notes.md) relies on stationarity, which the dip breaks. So a rejection is expected whether or not unconfoundedness given X holds, and the plan does not say what a rejection does to H1/H1b or to the abstract (the disagreement rule in threats excludes it). Locking this at the gate leaves the interpretation to be chosen after re78 is seen. Note: the placebo reads only covariates, so its sign and rough size are knowable now; I did not run it.",
+      "evidence": "plan.json design.method.identifying_assumption; design.analysis_plan[placebo-re75]; design.threats[1] ('Addressed by placebo-re75 and rob-diff'); data/CODEBOOK.md lines 71-73; data/derived/prep_metrics.json re74/re75 means. Resolved by rewriting before the gate: either drop the placebo, or relabel it as a descriptive measure of selection on the 1975 shock that is not a test of the identifying assumption, state in identifying_assumption that the design has no informative falsification test given both lags, and fix in advance what the paper says when its CI excludes 0. Cheaper than a new test: narrow the claim.",
+      "response": "Designer: placebo relabelled select-re75, a descriptive measure of selection on the 1975 shock with fixed wording; identifying_assumption now states the design has no informative falsification test, and no rule for H1, H1b, H2 or the abstract depends on it.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "rob-diff takes the dip year as its base. The conditional-DiD ATT on re78 - re75 given X- assumes conditional parallel trends from 1975 to 1978, but enrolees' 1975 earnings are transitorily depressed (CODEBOOK: -28% from 1974 while controls rose 8%), so mean reversion mechanically inflates re78 - re75 for enrolees and biases this estimate upward. It is listed as addressing 'time-invariant unobserved differences' and the Ashenfelter dip (threats[1]), which it cannot do with a dip-year base. Excluding it from the disagreement rule does not prevent it from being reported as reassurance or as a contrary signal.",
+      "evidence": "plan.json design.analysis_plan[rob-diff]; design.threats[1]; data/CODEBOOK.md lines 71-73. Resolve by pre-specifying a pre-dip base (re78 - re74 conditioning on time-invariant covariates only), or by stating now that rob-diff is expected to be biased upward under the documented dip and removing it from the list of defences against the dip.",
+      "response": "Designer: replaced by rob-diff74 (re78 - re74 given time-invariant covariates only), because 1975 is the dip year; its expected bias (upward if 1974 was already dipped, downward if the gap is permanent) is stated, and it is no longer listed as a defence of the primary and never triggers the disagreement rule.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "open",
+      "text": "The unobserved 1976 shock is not named, and the only remaining defence, sens-imbens, has no fixed reading. Enrolment was in 1976-77 (task.json brief), so selection on 1976 earnings, unobserved and where a dip is typically deepest, is the most specific threat to unconfoundedness; plan.json threats[0] lists only 'motivation, survey items, local labour markets'. sens-imbens is underspecified: (i) the 'implied partial R^2 of U' in the logit treatment equation has no stated formula (Imbens 2003 uses a pseudo-R^2; several exist); (ii) if no grid point reaches M or zero (alpha <= 3, delta <= 0.6 SD), what is reported is not fixed; (iii) tau(0,0) is the coefficient of a Gaussian linear model on earnings with a large mass at zero, not the AIPW estimate, yet thresholds are distances from the AIPW CI; (iv) 'each observed covariate, dropped one at a time' does not say whether all of its B(X) terms (e.g. re75, re75^2, unemp75) are dropped together; (v) no statement of what the paper concludes relative to the strongest benchmark, which will almost surely be re75.",
+      "evidence": "plan.json design.threats[0]; design.analysis_plan[sens-imbens]; task.json brief ('enrolled ... in 1976-77'). Resolve by naming the 1976 shock in identifying_assumption and threats, fixing the R^2 definitions, the out-of-grid rule, the grouping of basis terms per benchmark, and one sentence stating how the sensitivity result will be read (e.g. against the re75 benchmark).",
+      "response": "Designer: the 1976 shock is now named in identifying_assumption and threats[0]; method.sensitivity fixes R2_D (latent-index) and R2_Y (share of U-free residual variance), the R2-parameterized grid and diagonal, nine grouped benchmarks (e.g. earnings75 = re75, re75^2, unemp75), three targets, additive transfer to AIPW, the '> 0.30' out-of-grid report, and a reading rule always stated against earnings75.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "open",
+      "text": "The missing-outcome rule is wrong and changes the estimand silently. plan.json design.data says a unit missing outcome k 'contributes 0 to outcome k's score, which is rescaled by n / n_k'. The ATT score divides by the number of treated; rescaling by n/n_k recovers the complete-case ATT only if the share missing is the same in both arms, and the control weights m/(1-m) still target the covariate distribution of all treated, including those whose outcome is missing. The implied assumption (outcome missing at random given X and D) is not stated. Whether any outcome is missing is unknown because outcomes are sealed, so this must be right before the gate, not repaired after.",
+      "evidence": "plan.json design.data ('Missing outcome values, if any ...'). Resolve by defining the estimand under missingness (e.g. ATT among treated with observed Y_k, with the denominator the observed-treated count and the propensity refitted on complete cases, or inverse-probability-of-observation weights), stating the MAR assumption, and reporting missing counts by arm. Whether a data-prep run may count missing values by arm before the gate is the PI's decision: it reveals attrition by arm, which is outcome information.",
+      "response": "Designer: per the PI ruling, data-prep run missing-counts (Data RA, counts by arm only) is added before the gate; method.missing_outcomes states MAR given X and treat, complete cases re-estimated on the subsample with the ATT-among-observed estimand, and rob-ipow (inverse-probability-of-observation weights) as robustness if any outcome's between-arm missing share differs by more than 2 points.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "The disagreement rule is silent on rob-estimators (b). The Hajek IPW ATT targets the same estimand under the same assumption as the primary, but threats[10] lists neither it as a trigger nor as an exempt check (only rob-estimators (a) is exempted).",
+      "evidence": "plan.json design.threats[10] ('Rule for disagreement, fixed now'). Resolve by placing rob-estimators (b) explicitly in one list.",
+      "response": "Designer: the Hajek IPW ATT (rob-estimators (b)) now triggers the abstract statement only if its point estimate lies outside main-aipw's 95% CI, because a decision difference from its wider interval alone is not evidence of fragility; stated in threats[12].",
+      "ruling": ""
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The pre-registration is anchored only by the crew's own log. The current plan.json (sha256 1a61bcc5...b39006d) matches log.jsonl's last entry, but it is not committed: git HEAD holds a different plan.json (sha256 4576607b...), and every code/ script, data/CODEBOOK.md and runs/ record are untracked. prepare-covariates and margin each ran twice (log.jsonl 12:27:54 and 12:28:10-11) and the ledger keeps only the second; why they were rerun is not recorded. Task d-data is still 'doing'.",
+      "evidence": "git status / git show HEAD:gallery/ss-null-effect/plan.json; log.jsonl lines 8-11; plan.json tasks[d-data]. Resolve by committing the design version, code and run records before the gate request, noting why the two data-prep runs were repeated, and closing d-data.",
+      "response": "Designer: runs/NOTES.md now explains the two prepare-covariates/margin runs (the Data RA added the unemp = 1{re = 0} indicator check and reran with --replace); task d-data set to done; the PI commits the workspace before the gate request.",
+      "ruling": ""
+    }
+  ]
+}

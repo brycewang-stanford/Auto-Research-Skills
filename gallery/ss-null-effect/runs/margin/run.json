@@ -1,0 +1,48 @@
+{
+  "id": "margin",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/margin.py"
+  ],
+  "started": "2026-11-18T12:28:10Z",
+  "finished": "2026-11-18T12:28:11Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/margin.py",
+      "sha256": "9dcbb95bbcf3dd4322e4cde6eefe70fa0844eee8cd8253a67a57f06ef4f003f9"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/covariates.csv",
+      "sha256": "4118e9643e7bc4481e1bc05b7ca3cd79b6f1466aa1abcb67d682eedbe6843459"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/derived/margin_metrics.json",
+      "sha256": "d707c404679f6e5c9c0850277680de454ef6a4f13a93a12c27f3543fcc2ee89e"
+    }
+  ],
+  "metrics": {
+    "margin_share": 0.1,
+    "re75_mean_treated": 4834.7001912399755,
+    "margin_M": 483.4700191239976,
+    "n_treated": 1621,
+    "n_control": 2379,
+    "re75_var_treated": 26766811.53219459,
+    "re75_var_control": 31577579.939497516,
+    "precision_proxy_se": 172.5862047392983,
+    "m_over_proxy": 2.8013248211484094,
+    "tost_halfwidth_proxy_90": 283.87904482722416
+  },
+  "metrics_file": "data/derived/margin_metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

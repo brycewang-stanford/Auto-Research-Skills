@@ -1,0 +1,40 @@
+{
+  "id": "fetch-data",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/fetch_data.py"
+  ],
+  "started": "2026-11-18T12:27:53Z",
+  "finished": "2026-11-18T12:27:53Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fetch_data.py",
+      "sha256": "82f2485b0fb6e6ceb4e100dd5778c8d6eb40cf94fa0eef69bb5229080765eea1"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "data/raw/null_extract.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    },
+    {
+      "path": "data/fetch_metrics.json",
+      "sha256": "677f5d944e03f782f0ce8462bc2b2a8bc26f5d76c9679139ca1faa8b776521df"
+    }
+  ],
+  "metrics": {
+    "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9",
+    "sha256_matches_task_json": true,
+    "size_bytes": 483855
+  },
+  "metrics_file": "data/fetch_metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

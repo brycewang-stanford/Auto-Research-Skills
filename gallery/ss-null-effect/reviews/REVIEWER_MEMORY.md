@@ -94,3 +94,43 @@ Next time (design review):
   sensitivity fixed; re78 - re75 only as declared robustness; the interval for the
   relative effect.
 - Literature review: still spot-check card2018, lalonde1986 ($886, SE 476) and crump2009.
+
+## design-r1 (2026-11-18T12:41Z), verdict: block
+Checked and held: no script or run reads an outcome (prepare_covariates usecols; every
+run input is covariates.csv or the raw file read by usecols); margin.py uses treat and
+re75 only, M = 483.47; plan.json sha 1a61bcc5... matches the last log entry;
+diag-overlap is covariates-only, B1/O1/O2 pass, B+ not fired; the RW/max-t seed
+20261119, B = 10,000, 5x5 cross-fit and seeds are fixed; the relative-effect CI is
+delta-method; trimming is a named secondary estimand; the re75 placebo conditions on re74.
+The previous worry about the placebo running as data-prep did not happen.
+
+Findings: F1 critical (re75 placebo is read as evidence against the assumption, but the
+documented 1975 dip makes rejection expected; no consequence rule), F2 major (rob-diff
+uses the dip year as base: mean-reversion bias), F3 major (1976 shock unnamed;
+sens-imbens R^2 definition, out-of-grid rule, benchmark grouping and reading not fixed),
+F4 major (missing-outcome n/n_k rescaling wrong unless missingness equal by arm; MAR not
+stated), F5 minor (IPW absent from disagreement rule), F6 minor (design not committed;
+two data-prep runs repeated without a note; d-data still doing).
+
+Suspicions:
+- Seed is built around the dip: treated 6,713 -> 4,835, controls 8,885 -> 9,645. A naive
+  difference will look negative, a re75-based DiD positive. Watch for whichever
+  robustness check "agrees" with a preferred story being promoted after the gate.
+- If the crew now runs the placebo as data-prep to "see" it before rewriting F1, that
+  is a pre-gate result shaping the design. It reads only covariates, so it is allowed in
+  principle, but it must be logged and the reading fixed in plan.json in the same step.
+- If they switch rob-diff to re78 - re74, check it conditions only on time-invariant
+  covariates and is still excluded from or included in the disagreement rule explicitly.
+- M is small partly because of the dip (7.2% of enrolees' 1974 mean); question-r3 F12
+  accepted that. Watch for M being re-anchored to re74 now that the dip is documented.
+
+Next time (design-r2):
+- F1: identifying_assumption and placebo text; consequence of a rejection fixed.
+- F2: base year of rob-diff or its relabelling; threats[1] corrected.
+- F3: 1976 shock named; R^2 formulas, grid-censoring rule, benchmark grouping, reading.
+- F4: missing-outcome estimand, denominator, MAR assumption; whether a missing-count
+  run was done before the gate and by whom (PI decision).
+- F5, F6: IPW in the rule; commit hash of plan.json in git equal to the logged hash.
+- Recompute plan.json sha256 and compare with the newest log entry.
+- Literature review still pending: spot-check card2018, lalonde1986 ($886, SE 476),
+  crump2009 ([0.1, 0.9]).

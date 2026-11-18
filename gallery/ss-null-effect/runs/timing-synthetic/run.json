@@ -1,0 +1,50 @@
+{
+  "id": "timing-synthetic",
+  "role": "designer",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/timing_synthetic.py"
+  ],
+  "started": "2026-11-18T12:33:07Z",
+  "finished": "2026-11-18T12:36:05Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/timing_synthetic.py",
+      "sha256": "105b04d4c14d2dc34976f4fe2d06ac810fcf90dc11e0772f55d94939bd234e67"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/covariates.csv",
+      "sha256": "4118e9643e7bc4481e1bc05b7ca3cd79b6f1466aa1abcb67d682eedbe6843459"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/timing-synthetic/timing.json",
+      "sha256": "55e29a11dd846e095861da7bd8cbdc762246ffe33174abaa91355643b22da325"
+    },
+    {
+      "path": "runs/timing-synthetic/metrics.json",
+      "sha256": "f79d7ecef7c87eb19c0d27014237328a6f385136892cb08b5dec64076f443e7d"
+    }
+  ],
+  "metrics": {
+    "n_obs": 4000,
+    "n_folds": 5,
+    "n_repetitions": 5,
+    "n_multiplier_draws": 10000,
+    "n_ipw_bootstrap": 999,
+    "sens_grid_points": 49,
+    "seed": 20261118,
+    "budget_minutes": 30
+  },
+  "metrics_file": "runs/timing-synthetic/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}
