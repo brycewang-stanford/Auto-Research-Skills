@@ -1,0 +1,82 @@
+{
+  "id": "rob-diff74",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/rob_diff74.py"
+  ],
+  "started": "2026-11-18T13:45:24Z",
+  "finished": "2026-11-18T13:45:40Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/rob_diff74.py",
+      "sha256": "032d9d85c1df26ead6f2a41d0c5e87af8f17e85e1ab35b2bcccce40650d346d3"
+    },
+    {
+      "path": "code/aipw_lib.py",
+      "sha256": "86435b8fa6a6911db6c8bcf8126014c318a36a0a640a794971cff5f6efb4b541"
+    },
+    {
+      "path": "code/diag_overlap.py",
+      "sha256": "235d2ecb3b09a7a0c4f8b10b13b0b5f3863af7cdd702e3935ddf3b60fd61acf5"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/covariates.csv",
+      "sha256": "4118e9643e7bc4481e1bc05b7ca3cd79b6f1466aa1abcb67d682eedbe6843459"
+    },
+    {
+      "path": "data/raw/null_extract.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    },
+    {
+      "path": "data/derived/margin_metrics.json",
+      "sha256": "d707c404679f6e5c9c0850277680de454ef6a4f13a93a12c27f3543fcc2ee89e"
+    },
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "a4368374e12d833fffe0356b649e7e71436e5b64040462ddc7c707fef182080e"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/rob-diff74/metrics.json",
+      "sha256": "3c70cf24c0f49c0ce4cef01dd05c2a51524927fb4df825836b7e26384faca1db"
+    }
+  ],
+  "metrics": {
+    "estimand": "ATT on re78 - re74 under conditional parallel trends 1974-1978",
+    "conditioning_set": "age,educ,married,urban,region,children,health_limit",
+    "basis_n_terms": 11,
+    "tree_n_columns": 10,
+    "margin_M": 483.4700191239976,
+    "seed_base": 20261118,
+    "effect": -1086.514609873011,
+    "se": 208.67565028142332,
+    "ci_low": -1495.5113688750764,
+    "ci_high": -677.5178508709457,
+    "ci90_low": -1429.755510094867,
+    "ci90_high": -743.2737096511551,
+    "p": 1.922131025257431e-07,
+    "n": 4000,
+    "n_treated": 1621,
+    "n_clipped_units": 0,
+    "h1_reject": true,
+    "p_tost": 0.9980729674070429,
+    "h1b_supported": false,
+    "ci90_inside_margin": false,
+    "min_margin": 1429.755510094867,
+    "h1_differs_from_main": true,
+    "h1b_differs_from_main": true,
+    "effect_outside_main_ci95": true
+  },
+  "metrics_file": "runs/rob-diff74/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

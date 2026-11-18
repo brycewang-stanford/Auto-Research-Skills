@@ -1,0 +1,66 @@
+{
+  "id": "select-re75",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/select_re75.py"
+  ],
+  "started": "2026-11-18T13:43:41Z",
+  "finished": "2026-11-18T13:44:27Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/select_re75.py",
+      "sha256": "e48271515d18dddc86fa57115d8d22d32d153e6abea933c0d322df13ed96cf0b"
+    },
+    {
+      "path": "code/aipw_lib.py",
+      "sha256": "86435b8fa6a6911db6c8bcf8126014c318a36a0a640a794971cff5f6efb4b541"
+    },
+    {
+      "path": "code/diag_overlap.py",
+      "sha256": "235d2ecb3b09a7a0c4f8b10b13b0b5f3863af7cdd702e3935ddf3b60fd61acf5"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/covariates.csv",
+      "sha256": "4118e9643e7bc4481e1bc05b7ca3cd79b6f1466aa1abcb67d682eedbe6843459"
+    },
+    {
+      "path": "data/derived/margin_metrics.json",
+      "sha256": "d707c404679f6e5c9c0850277680de454ef6a4f13a93a12c27f3543fcc2ee89e"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/select-re75/metrics.json",
+      "sha256": "a3ea166ae1b58d76997ba74ca15b303bafd343548ce9a4aaffc93bbf8c05a8a8"
+    }
+  ],
+  "metrics": {
+    "outcome": "re75 (pre-program; descriptive)",
+    "conditioning_set": "age,educ,married,urban,region,children,health_limit,re74,unemp74",
+    "basis_n_terms": 14,
+    "tree_n_columns": 12,
+    "margin_M": 483.4700191239976,
+    "seed_base": 20261118,
+    "effect": -3540.937287681266,
+    "se": 171.7842654346984,
+    "ci_low": -3877.6282610439434,
+    "ci_high": -3204.2463143185882,
+    "n": 4000,
+    "n_treated": 1621,
+    "n_clipped_units": 0,
+    "effect_over_M": -7.324005931323544,
+    "effect_abs": 3540.937287681266,
+    "direction": "lower"
+  },
+  "metrics_file": "runs/select-re75/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

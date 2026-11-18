@@ -29,3 +29,14 @@
 {"time": "2026-11-18T12:52:38Z", "role": "pi", "action": "diagnostics-recorded", "detail": "range-counts result recorded in design.diagnostics. plan.json sha256=fa4433e025f8403a8dcda204e4b4e8270dbdc3f568c98ed4d7b8e0b29ea59fbe"}
 {"time": "2026-11-18T12:54:06Z", "role": "pi", "action": "gate-request", "detail": "design"}
 {"time": "2026-11-18T13:00:13Z", "role": "pi", "action": "gate-approve", "detail": "design Bryce Wang"}
+{"time": "2026-11-18T13:13:08Z", "role": "econometrician", "action": "run", "detail": "main-aipw exit=0"}
+{"time": "2026-11-18T13:43:41Z", "role": "econometrician", "action": "run", "detail": "secondary-family exit=0"}
+{"time": "2026-11-18T13:44:27Z", "role": "econometrician", "action": "run", "detail": "select-re75 exit=0"}
+{"time": "2026-11-18T13:44:42Z", "role": "econometrician", "action": "run", "detail": "rob-trim exit=0"}
+{"time": "2026-11-18T13:45:08Z", "role": "econometrician", "action": "run", "detail": "rob-covsets exit=0"}
+{"time": "2026-11-18T13:45:24Z", "role": "econometrician", "action": "run", "detail": "rob-learners exit=0"}
+{"time": "2026-11-18T13:45:40Z", "role": "econometrician", "action": "run", "detail": "rob-diff74 exit=0"}
+{"time": "2026-11-18T13:45:44Z", "role": "econometrician", "action": "run", "detail": "rob-estimators exit=0"}
+{"time": "2026-11-18T13:45:46Z", "role": "econometrician", "action": "run", "detail": "sens-imbens exit=0"}
+{"time": "2026-11-18T13:47:27Z", "role": "econometrician", "action": "analysis-complete", "detail": "Ran main-aipw, secondary-family, select-re75, rob-trim, rob-covsets, rob-learners, rob-diff74, rob-estimators, sens-imbens in planned order (rob-ipow not triggered). Primary ATT -9.8, 95% CI [-358.0, 338.4]; H1 not rejected; H1b supported (90% CI [-302.0, 282.4] inside +/-483.47, p_TOST 0.0038). H2: 0 of 5 detected (min RW p 0.166, benefits78). Disagreement rule: no trigger. Sensitivity: not robust to a confounder as strong as earnings75 for any target. No deviations."}
+{"time": "2026-11-18T13:47:27Z", "role": "econometrician", "action": "claims-written", "detail": "187 result claims in claims.jsonl (values copied from run metrics, macros, formats); paper/numbers.tex regenerated; runs/NOTES.md updated. plan.json: only task statuses changed (a-main..a-claims done); design hash without tasks/gates unchanged 146cb81e...0b38e; plan.json sha256 d2931e76...efdaf2"}

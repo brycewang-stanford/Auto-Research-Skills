@@ -1,0 +1,88 @@
+{
+  "id": "rob-trim",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/rob_trim.py"
+  ],
+  "started": "2026-11-18T13:44:27Z",
+  "finished": "2026-11-18T13:44:42Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/rob_trim.py",
+      "sha256": "f96588ad6691913c7047b0f969c2a7046f09a89718c95f30e678966886a7b0ec"
+    },
+    {
+      "path": "code/aipw_lib.py",
+      "sha256": "86435b8fa6a6911db6c8bcf8126014c318a36a0a640a794971cff5f6efb4b541"
+    },
+    {
+      "path": "code/diag_overlap.py",
+      "sha256": "235d2ecb3b09a7a0c4f8b10b13b0b5f3863af7cdd702e3935ddf3b60fd61acf5"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/covariates.csv",
+      "sha256": "4118e9643e7bc4481e1bc05b7ca3cd79b6f1466aa1abcb67d682eedbe6843459"
+    },
+    {
+      "path": "data/raw/null_extract.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    },
+    {
+      "path": "data/derived/margin_metrics.json",
+      "sha256": "d707c404679f6e5c9c0850277680de454ef6a4f13a93a12c27f3543fcc2ee89e"
+    },
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "a4368374e12d833fffe0356b649e7e71436e5b64040462ddc7c707fef182080e"
+    },
+    {
+      "path": "runs/diag-overlap/propensity.csv",
+      "sha256": "80638c66d99d4dd3c3d2920823cbd566e5657b775409d4981be5436e9ae32274"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/rob-trim/metrics.json",
+      "sha256": "dc557b772e3a44cab17c6cc39a1a698beaec4778a311c5b06e943baaff652773"
+    }
+  ],
+  "metrics": {
+    "estimand": "ATT among units with m_bar in [0.1, 0.9]",
+    "margin_M": 483.4700191239976,
+    "max_abs_diff_mbar_vs_diag_overlap": 4.9966697446279795e-11,
+    "n_dropped": 133,
+    "n_dropped_treated": 10,
+    "n_dropped_control": 123,
+    "effect": 35.6988836565041,
+    "se": 171.08521389342636,
+    "ci_low": -299.6219738619432,
+    "ci_high": 371.01974117495143,
+    "ci90_low": -245.7112509338666,
+    "ci90_high": 317.1090182468748,
+    "p": 0.8347125595916502,
+    "n": 3867,
+    "n_treated": 1611,
+    "n_clipped_units": 0,
+    "h1_reject": false,
+    "p_tost": 0.004432194200048967,
+    "h1b_supported": true,
+    "ci90_inside_margin": true,
+    "min_margin": 317.1090182468748,
+    "n_control": 2256,
+    "h1_differs_from_main": false,
+    "h1b_differs_from_main": false,
+    "effect_outside_main_ci95": false,
+    "triggers_abstract_statement": false
+  },
+  "metrics_file": "runs/rob-trim/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

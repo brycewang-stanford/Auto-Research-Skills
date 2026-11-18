@@ -133,67 +133,67 @@
       "id": "a-main",
       "title": "Run main-aipw: primary ATT on re78, H1 and H1b",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-family",
       "title": "Run secondary-family: five outcomes, Romano-Wolf and max-t (B = 10,000)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-select",
       "title": "Run select-re75: descriptive measure of selection on the 1975 shock (not a test)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-trim",
       "title": "Run rob-trim: trimmed-overlap ATT on [0.1, 0.9]",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-covsets",
       "title": "Run rob-covsets: covariate sets (a) and (b)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-learners",
       "title": "Run rob-learners: parametric and random-forest nuisances",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-diff",
       "title": "Run rob-diff74: conditional-DiD ATT on re78 - re74, time-invariant covariates",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-estimators",
       "title": "Run rob-estimators: OLS (HC2) and Hajek IPW (bootstrap 999)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-ipow",
       "title": "Run rob-ipow only if missing-counts plus range-counts show a combined between-arm gap > 2 points for any outcome (missing-counts alone: not triggered)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-sens",
       "title": "Run sens-imbens exactly as method.sensitivity (R2 grid, diagonal, nine group benchmarks, reading rule)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-claims",
       "title": "Write result claims with the ids in design.claim_ids, including primary-effect, primary-ci-low, primary-ci-high",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "f-figures",

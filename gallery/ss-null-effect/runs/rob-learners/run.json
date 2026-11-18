@@ -1,0 +1,99 @@
+{
+  "id": "rob-learners",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/rob_learners.py"
+  ],
+  "started": "2026-11-18T13:45:08Z",
+  "finished": "2026-11-18T13:45:24Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/rob_learners.py",
+      "sha256": "9183c75f847ce56299616e2ca3426e43ffff9a69c4d6d38b22c8a7354296ba48"
+    },
+    {
+      "path": "code/aipw_lib.py",
+      "sha256": "86435b8fa6a6911db6c8bcf8126014c318a36a0a640a794971cff5f6efb4b541"
+    },
+    {
+      "path": "code/diag_overlap.py",
+      "sha256": "235d2ecb3b09a7a0c4f8b10b13b0b5f3863af7cdd702e3935ddf3b60fd61acf5"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/covariates.csv",
+      "sha256": "4118e9643e7bc4481e1bc05b7ca3cd79b6f1466aa1abcb67d682eedbe6843459"
+    },
+    {
+      "path": "data/raw/null_extract.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    },
+    {
+      "path": "data/derived/margin_metrics.json",
+      "sha256": "d707c404679f6e5c9c0850277680de454ef6a4f13a93a12c27f3543fcc2ee89e"
+    },
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "a4368374e12d833fffe0356b649e7e71436e5b64040462ddc7c707fef182080e"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/rob-learners/metrics.json",
+      "sha256": "e1dec84a9e3f4b4441ef3adbccec28fee0087e4ba0cd3fb89e4fb9cf6c488f44"
+    }
+  ],
+  "metrics": {
+    "margin_M": 483.4700191239976,
+    "seed_base": 20261118,
+    "linear_effect": -115.69151708238239,
+    "linear_se": 170.35240446392007,
+    "linear_ci_low": -449.57609451146607,
+    "linear_ci_high": 218.19306034670126,
+    "linear_ci90_low": -395.89628742476543,
+    "linear_ci90_high": 164.51325326000062,
+    "linear_p": 0.4970551658191257,
+    "linear_n": 4000,
+    "linear_n_treated": 1621,
+    "linear_n_clipped_units": 0,
+    "linear_h1_reject": false,
+    "linear_p_tost": 0.015427893415306187,
+    "linear_h1b_supported": true,
+    "linear_ci90_inside_margin": true,
+    "linear_min_margin": 395.89628742476543,
+    "linear_h1_differs_from_main": false,
+    "linear_h1b_differs_from_main": false,
+    "linear_effect_outside_main_ci95": false,
+    "rf_effect": -10.006344405782134,
+    "rf_se": 177.59709756617426,
+    "rf_ci_low": -358.0902593943298,
+    "rf_ci_high": 338.0775705827655,
+    "rf_ci90_low": -302.1275744735583,
+    "rf_ci90_high": 282.114885661994,
+    "rf_p": 0.9550686039258596,
+    "rf_n": 4000,
+    "rf_n_treated": 1621,
+    "rf_n_clipped_units": 0,
+    "rf_h1_reject": false,
+    "rf_p_tost": 0.003838639562266942,
+    "rf_h1b_supported": true,
+    "rf_ci90_inside_margin": true,
+    "rf_min_margin": 302.1275744735583,
+    "rf_h1_differs_from_main": false,
+    "rf_h1b_differs_from_main": false,
+    "rf_effect_outside_main_ci95": false,
+    "rf_n_clipped_unit_reps": 0,
+    "linear_triggers_abstract_statement": false,
+    "rf_triggers_abstract_statement": false
+  },
+  "metrics_file": "runs/rob-learners/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

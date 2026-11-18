@@ -1,0 +1,123 @@
+{
+  "id": "main-aipw",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/main_aipw.py"
+  ],
+  "started": "2026-11-18T13:12:00Z",
+  "finished": "2026-11-18T13:13:08Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/main_aipw.py",
+      "sha256": "230b7b087b7d30a2ca2935a3aa8c1c2432d966dfefc74c9bcb1c805c03f47bf4"
+    },
+    {
+      "path": "code/aipw_lib.py",
+      "sha256": "86435b8fa6a6911db6c8bcf8126014c318a36a0a640a794971cff5f6efb4b541"
+    },
+    {
+      "path": "code/diag_overlap.py",
+      "sha256": "235d2ecb3b09a7a0c4f8b10b13b0b5f3863af7cdd702e3935ddf3b60fd61acf5"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/covariates.csv",
+      "sha256": "4118e9643e7bc4481e1bc05b7ca3cd79b6f1466aa1abcb67d682eedbe6843459"
+    },
+    {
+      "path": "data/raw/null_extract.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    },
+    {
+      "path": "data/derived/margin_metrics.json",
+      "sha256": "d707c404679f6e5c9c0850277680de454ef6a4f13a93a12c27f3543fcc2ee89e"
+    },
+    {
+      "path": "data/derived/missing_counts.json",
+      "sha256": "99e4219de01ffdda4a574c177d214e2c893b5172de2368db9277aa25475e78ba"
+    },
+    {
+      "path": "data/derived/range_counts.json",
+      "sha256": "16c7bd9bdfcaeee39fce5e7620f5f7e889f8c5c2651e3258918ca5ce3caa1337"
+    },
+    {
+      "path": "runs/diag-overlap/propensity.csv",
+      "sha256": "80638c66d99d4dd3c3d2920823cbd566e5657b775409d4981be5436e9ae32274"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "a4368374e12d833fffe0356b649e7e71436e5b64040462ddc7c707fef182080e"
+    }
+  ],
+  "metrics": {
+    "outcome": "re78",
+    "estimand": "ATT, full sample (complete cases)",
+    "margin_M": 483.4700191239976,
+    "seed_base": 20261118,
+    "n_folds": 5,
+    "n_repetitions": 5,
+    "effect": -9.794332967200592,
+    "se": 177.64631085342845,
+    "ci_low": -357.9747042263273,
+    "ci_high": 338.38603829192607,
+    "ci90_low": -301.996511689011,
+    "ci90_high": 282.4078457546098,
+    "p": 0.9560317932666932,
+    "n": 4000,
+    "n_treated": 1621,
+    "n_clipped_units": 0,
+    "h1_reject": false,
+    "p_tost": 0.0038334486380448363,
+    "h1b_supported": true,
+    "ci90_inside_margin": true,
+    "min_margin": 301.996511689011,
+    "n_control": 2379,
+    "n_dropped_treated": 0,
+    "n_dropped_control": 0,
+    "effect_over_M": -0.020258408132415338,
+    "theta_rep0": -43.52557838910196,
+    "se_rep0": 173.63827702225916,
+    "theta_rep1": 49.74947881113363,
+    "se_rep1": 172.84394716902452,
+    "theta_rep2": 17.57018716873264,
+    "se_rep2": 171.39089901417935,
+    "theta_rep3": -16.350847847716533,
+    "se_rep3": 174.84042101406473,
+    "theta_rep4": -56.41490457905074,
+    "se_rep4": 173.70440238463453,
+    "se_psi_bar": 170.74369037852802,
+    "treated_mean": 7929.930980876004,
+    "cf_mean": 7939.725313843204,
+    "rel_effect": -0.0012335858710532228,
+    "rel_se": 0.02148868903332747,
+    "rel_ci_low": -0.0433506424513559,
+    "rel_ci_high": 0.04088347070924945,
+    "rel_effect_pct": -0.12335858710532227,
+    "rel_ci_low_pct": -4.33506424513559,
+    "rel_ci_high_pct": 4.088347070924945,
+    "control_mean_raw": 11392.762614543926,
+    "share_all_outside_01_09": 0.03325,
+    "n_all_outside_01_09": 133,
+    "share_treated_above_09": 0.0,
+    "share_clipped_units": 0.0,
+    "rule_O1_pass": true,
+    "rule_O2_pass": true,
+    "max_abs_diff_mbar_vs_diag_overlap": 4.9966697446279795e-11,
+    "missing_re78_treated": 0,
+    "missing_re78_control": 0,
+    "invalid_re78_treated": 0,
+    "invalid_re78_control": 0
+  },
+  "metrics_file": "runs/main-aipw/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}
