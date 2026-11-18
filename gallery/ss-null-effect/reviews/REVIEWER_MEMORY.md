@@ -134,3 +134,37 @@ Next time (design-r2):
 - Recompute plan.json sha256 and compare with the newest log entry.
 - Literature review still pending: spot-check card2018, lalonde1986 ($886, SE 476),
   crump2009 ([0.1, 0.9]).
+
+## design-r2 (2026-11-18T12:49Z), verdict: revise
+F1-F6 all resolved. I checked them against plan.json, not against the authors' responses.
+Timeline verified: the design was revised at 12:46:15Z (log line 21), missing-counts ran at
+12:46:55Z, and commit 57f5b3f was made at 12:47:22Z. HEAD plan.json sha 837988cf... equals
+the working copy. missing-counts: 0 missing anywhere, so rob-ipow does not fire.
+New: F7 (major) has no validity rule for sentinel or impossible outcome values.
+missing_counts.py sees only NA and non-numeric strings. F8 (minor) covers three things:
+the log's last plan hash (5aab4b04) is stale relative to plan.json (837988cf), the PI ruling
+on F4 is not logged by the PI, and "rob-ipow not triggered" is not recorded in
+design.diagnostics.
+Formulas checked and correct: the ATT score and IF, TOST p, the delta-method psi_r, and
+the R2 -> alpha/delta inversions. R2_D(G) via V - V_-G is inflated by logit
+non-collapsibility. It errs conservative, so I did not raise it.
+
+Suspicions:
+- If F7 is "fixed" by a data-prep run that inspects outcome ranges or prints min/max, that
+  reveals outcome values before the gate. It may only count out-of-range entries by arm
+  against ranges written in plan.json first, and the log must show the rule before the run.
+- After the gate, watch for winsorizing or recoding of re78 that is not in the plan.
+- The headline is near-foreordained: H1b is likely to fail (proxy |ATT| < ~67) and the
+  conclusion is likely not robust to earnings75. Watch for M being re-anchored, or for the
+  earnings75 sentence being softened in the paper.
+- select-re75 will be negative. Watch that it never gets cited as support.
+
+Next time (design-r3, or results):
+- F7: the ranges in plan.json; any count run's code and the log order.
+- F8: the PI's log entry, the diagnostics note, and the final hash logged equal to the
+  committed plan.json.
+- Results: the disagreement rule is applied mechanically, including the IPW point-outside-CI
+  test; the sensitivity reading rule is followed verbatim; every claim id in
+  design.claim_ids is present.
+- Literature review still pending: spot-check card2018, lalonde1986 ($886, SE 476),
+  crump2009 ([0.1, 0.9]).

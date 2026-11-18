@@ -104,3 +104,14 @@ Missingness only, read as text; no outcome value was summarized. For each of re7
 employed78, hours78, benefits78 and wellbeing78: 0 of 1,621 treated and 0 of 2,379
 controls are missing (share difference 0), and 0 non-missing entries are non-numeric.
 The rob-ipow trigger (|difference| > 0.02) does not fire for any outcome.
+
+## Inadmissible outcome values (run `range-counts`, `data/derived/range_counts.json`)
+
+Counts only, under the admissible ranges and sentinel rule of plan.json
+`design.method.outcome_validity`; no value or extreme of any outcome is written. For each
+of the six outcomes, in both arms (1,621 treated, 2,379 controls): 0 non-finite, 0 below
+range, 0 above range, 0 non-integer (employed78, wellbeing78), 0 sentinel-excluded;
+every between-arm share difference is 0. The wellbeing78 scale safeguard (> 1%
+inadmissible in either arm under integer [0, 10]) does not fire, so the integer [0, 10]
+rule stands. Combined with `missing-counts` (0 missing), the complete-case rule drops no
+row and the rob-ipow trigger fires for no outcome.
