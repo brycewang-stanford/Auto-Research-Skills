@@ -643,7 +643,7 @@
   "disclosures": [
     "2026-11-18: During the round-1 review of the question, the Reviewer timed a single random-forest and boosting fit to check feasibility. No estimate of the eligibility coefficient was computed.",
     "2026-11-18: After the question gate, H2's 'not testable' rule was made one-sided at the Reviewer's request (design-r1 F1): a not-testable cell outside its tolerance now fails H2. This makes H2 stricter; the human sees it at the design gate.",
-    "2026-11-18: After the question gate, the sentence in H2 stating its false-failure rate was amended at the PI's request (design-r2 F7) to give the rate under the deviations measured by the pre-gate port check (about 33%, up to 46% if the lasso shift scales with net_tfa), and a reading rule for failed cells was added. The human sees this at the design gate."
+    "2026-11-18: After the question gate, the sentence in H2 stating its false-failure rate was amended at the PI's request (design-r2 F7) to give the rate under the deviations measured by the pre-gate port check (about 33% after the lasso port was corrected with hdm's zero threshold; the forest deviation remains), and a reading rule for failed cells was added. The human sees this at the design gate."
   ],
   "design_constraints": [
     "Every plr-<learner>-<k>fold claim value comes only from the learner configuration fixed at the design gate. If a cell fails H2, the learner is not re-tuned to make it pass; any later run is labelled exploratory and never becomes a claim value.",

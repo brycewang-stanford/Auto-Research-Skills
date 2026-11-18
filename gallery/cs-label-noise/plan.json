@@ -168,9 +168,12 @@
       "note": "Approved in chat on 2026-11-18 after reading the Reviewer's verdict, kill argument and disclosures. The analysis plan is now fixed."
     },
     "results": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-18T13:53:13Z",
-      "summary": "Results passed review in round 2 with no open findings."
+      "summary": "Results passed review in round 2 with no open findings.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-18T14:28:55Z",
+      "note": "Approved in chat on 2026-11-18 after reading the results, the Reviewer's verdict and its warning about the headline."
     },
     "submission": {
       "status": "pending"
