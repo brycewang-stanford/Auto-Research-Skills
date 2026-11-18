@@ -1,0 +1,166 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,booktabs,enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage[round]{natbib}
+
+\title{Free-Research-Crew: Research-Assistant Agents\\That Cannot Grade Their Own Work}
+\author{Bryce Wang\\ \small DRAFT --- results sections are filled in as the gallery papers finish}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We describe Free-Research-Crew, an open set of research-assistant (RA) agents that take a
+research question to a compiled paper in computer science or empirical social science,
+including the experiments or data analysis behind it. The agents run inside existing
+coding-agent command-line tools (Claude Code, Codex) and hand work to each other only
+through files in a shared workspace. A small, dependency-free tool enforces the
+workspace protocol: analysis cannot run before a human approves the study design, every
+number in the paper is generated from a logged run whose code has not changed since,
+every reference carries a record of how it was checked against its source, and
+submission requires a clean re-execution that reproduces every metric. One agent, the
+Reviewer, does nothing but attack the others' work; it reads the files rather than the
+authors' account of them, can run on a different provider's model, and blocks each of
+four human-approved gates while it has an open critical finding. We release the crew,
+the protocol and a bench of seed tasks with hidden answer keys, including a dataset on
+which the true effect is exactly zero. \textbf{[Results: to be completed.]}
+\end{abstract}
+
+\section{Introduction}
+
+Agents that write research papers end to end now exist in many forms
+(Section~\ref{sec:related}). Their outputs are hard to trust for a simple reason: the
+same system that produces a result also decides that the result is good. It chooses
+the specification after seeing the data, types the numbers into the paper, recalls the
+references, and grades its own draft. Each of these steps is a place where an error or
+a convenient choice can enter without anyone noticing.
+
+Free-Research-Crew is built around separating those judgments. We distinguish three:
+\begin{enumerate}[nosep]
+  \item \emph{what happened} (did the run finish; does the number in the paper equal the
+        logged metric) --- decided by a deterministic tool;
+  \item \emph{whether it is good} (does the design identify the effect; does the evidence
+        support the claim) --- decided by a Reviewer agent that did not do the work;
+  \item \emph{whether to go on} --- decided by a human at four gates.
+\end{enumerate}
+The design borrows directly from ARIS \citep{aris}, whose central rule is that a loop
+may drive itself toward a goal but may not acquit itself.
+
+Our contributions are: (i) a file-based protocol for multi-agent research with
+mechanically enforced provenance (Section~\ref{sec:protocol}); (ii) a crew of nine roles
+covering two tracks, empirical machine learning and empirical social science, with an
+adversarial Reviewer (Section~\ref{sec:crew}); (iii) a bench of seed tasks with hidden
+answer keys, including a replication of a published double machine learning estimate
+and a null-effect dataset (Section~\ref{sec:bench}); and (iv) a gallery of complete
+workspaces, failures included (Section~\ref{sec:results}).
+
+\section{Protocol}\label{sec:protocol}
+
+A crew workspace is a directory of plain files: the plan (question, hypotheses, design,
+task board, gates), the bibliography with a verification record per entry, a data
+manifest with hashes, the run ledger, a list of claims, the paper, and the reviews.
+Agents never pass results to each other in conversation.
+
+\paragraph{Gates.} Four gates --- question, design, results, submission --- are passed in
+order, each approved by a named human. Approving a gate re-validates the whole
+workspace; an approval that would leave it invalid is rolled back.
+
+\paragraph{Pre-specification.} The tool refuses to execute an \emph{analysis} run until
+the design gate is approved. Data preparation runs are allowed earlier. This makes the
+analysis plan binding in the way a pre-analysis plan is meant to be.
+
+\paragraph{The run ledger.} Every run is executed by the tool, which records the
+command, timestamps, exit code, the SHA-256 of every code, input and output file, and
+the metrics the command writes. If a code file changes after its run, the workspace
+fails validation until the run is repeated.
+
+\paragraph{Claims and numbers.} Every result the paper states is a claim linked to a
+successful analysis run and a named metric; its value must equal that metric. Claims
+with a macro name are rendered into a generated \LaTeX{} file, and the writer agent
+cites \verb|\AteMain| rather than typing a number. Citation claims must point to a
+bibliography entry with a verification record (how it was checked, by whom, when).
+
+\paragraph{Clean rerun.} Before submission the workspace is copied, every recorded
+output is deleted, every run is re-executed in order, and each metric is compared with
+the ledger. Submission requires a passing report newer than every run.
+
+\section{The crew}\label{sec:crew}
+
+The PI agent runs in the main session, plans, delegates and brings decisions to the
+human. Eight further roles run as sub-agents: Scout (literature and source
+verification), Designer (fixes the design before outcomes are seen), Data RA
+(acquisition and provenance), Econometrician or Experimenter (the analysis, by track),
+Figures RA, Writer, Replicator, and Reviewer. Each role has a written contract: what it
+reads, what it may write, when it is done, and what it never does.
+
+\paragraph{The Reviewer.} Following ARIS, the Reviewer (i) is briefed only with the
+workspace path, the stage and the round --- never a summary or the authors' opinion;
+(ii) opens every review with a single \emph{kill argument}, the strongest case for
+rejection in under 200 words; (iii) lists findings tied to a file and a place, with a
+severity; (iv) keeps its own memory across rounds and rules on the authors' rebuttals;
+and (v) stops after four rounds, leaving open findings to the human. A gate cannot be
+approved while the latest review of its stage has an open critical finding, unless the
+human overrules it on the record, which is disclosed in the paper. The Reviewer can run
+on a different provider's model than the authors (cross-family review).
+
+\section{Bench}\label{sec:bench}
+
+Each seed task is a question, a brief, requirements and a compute budget (a laptop CPU
+and under an hour). Where there is a right answer, a hidden key states it and a scorer
+checks it mechanically. The initial seeds are:
+\begin{itemize}[nosep]
+  \item \textbf{ss-dml-401k}: replicate the partially linear double machine learning
+        estimates of the effect of 401(k) eligibility on net financial assets
+        \citep{chernozhukov2018}, scored against the published table;
+  \item \textbf{ss-null-effect}: evaluate a voluntary job-training program from
+        synthetic administrative data in which the program has no effect, selection
+        is on observables, and many outcomes and survey items invite specification
+        search; the crew passes only if it does not find an effect;
+  \item \textbf{cs-label-noise}: a controlled study of how symmetric training-label
+        noise affects gradient boosting, random forests and logistic regression.
+\end{itemize}
+
+\section{Results}\label{sec:results}
+
+\textbf{[To be completed from \texttt{gallery/scoreboard.json}: per-seed protocol
+status, answer-key outcome, number of review rounds and findings by severity, findings
+the human overruled, clean-rerun outcome, token cost and wall time.]}
+
+\paragraph{What the Reviewer caught before any data were analysed.} In the first round
+on the label-noise seed, the Reviewer found that the main hypothesis averaged accuracy
+losses over datasets that had not been named and whose number of classes made a given
+noise rate mean different things; the hypothesis was rewritten to be decided per
+dataset with an explicit rule. On the 401(k) seed, it found that the proposed
+replication tolerance was sized to sampling error rather than to the split-to-split
+variation that a re-run on the same data can produce, which made the test nearly
+powerless; the tolerance was rederived from the published table.
+
+\paragraph{A protocol breach.} In the same first round, the Reviewer ran a small pilot
+of the three classifiers on three toy datasets to support its argument, before the
+design gate. The pilot informed the revised question. We disclosed it in the plan,
+excluded those datasets from the study, and added an explicit rule to the Reviewer's
+contract. The tool cannot prevent an agent from running code outside the ledger; this is
+the protocol's main remaining gap.
+
+\section{Related work}\label{sec:related}
+
+\textbf{[To be completed: end-to-end AI-scientist systems (AI Scientist v1--v3, Agent
+Laboratory, AI-Researcher), deep-research agents, skill libraries, evaluation benchmarks
+(MLAgentBench, ScienceAgentBench, DiscoveryBench), and pre-registration and
+specification-search literature in economics. The repository's
+\texttt{docs/systems-matrix-2026.md} is the starting inventory.]}
+
+\section{Limitations}
+
+Human approval of gates is a rule the agents follow, not a technical lock. The tool
+checks that numbers trace to runs, not that a source says what a claim attributes to it;
+that is the Reviewer's job, and a reviewer can be wrong. Same-family review shares the
+authors' blind spots. Seeds are small by design. The gallery papers are demonstrations
+and are not submitted to venues.
+
+\bibliographystyle{plainnat}
+\bibliography{report}
+\end{document}

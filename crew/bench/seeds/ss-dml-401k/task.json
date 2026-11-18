@@ -10,7 +10,7 @@
     "The data file is fetched from a public source and recorded in the manifest with its hash.",
     "Estimates use cross-fitting and are repeated over several sample splits.",
     "The paper reports the published and replicated estimates side by side.",
-    "For each nuisance learner used, record a result claim with id `plr-<learner>` (learner one of lasso, tree, forest, boosting, nnet) whose value is the partially linear model's estimate in dollars."
+    "For each nuisance learner and fold count, record a result claim with id `plr-<learner>-<k>fold` (learner one of lasso, tree, forest, boosting, nnet; k 2 or 5) whose value is the partially linear model's coefficient on eligibility in dollars."
   ],
   "budget": {
     "hardware": "laptop CPU",
@@ -18,13 +18,17 @@
   },
   "scoring": "See answer.json. Agents must not read it.",
   "report_claims": {
-    "pattern": "plr-<learner>",
+    "pattern": "plr-<learner>-<k>fold",
     "learners": [
       "lasso",
       "tree",
       "forest",
       "boosting",
       "nnet"
+    ],
+    "folds": [
+      2,
+      5
     ],
     "units": "1991 US dollars"
   }

@@ -37,19 +37,19 @@
   ],
   "machine_check": {
     "claims": {
-      "plr-tree": [
+      "plr-tree-5fold": [
         7400,
         10600
       ],
-      "plr-forest": [
+      "plr-forest-5fold": [
         7400,
         10600
       ],
-      "plr-boosting": [
+      "plr-boosting-5fold": [
         7400,
         10600
       ],
-      "plr-nnet": [
+      "plr-nnet-5fold": [
         7400,
         10600
       ]
