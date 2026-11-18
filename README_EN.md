@@ -27,6 +27,18 @@
 
 ---
 
+## 🧭 Where this is going: the research crew
+
+**Goal:** a crew of research-assistant (RA) agents that work together to produce a complete **computer-science** or **social-science** paper — including the real experiments or data modeling behind it — with a human PI approving the key decisions.
+
+- **One crew, two tracks** — PI, Scout, Designer, Data RA, Experimenter / Econometrician, Writer, Figures RA, Referee and Replicator serve both CS and social-science papers.
+- **No new runtime** — roles and skills run inside the Claude Code / Codex you already have.
+- **Integrity first** — every number traces to a logged run and every citation is verified.
+
+Today this repo is the skill hub (everything below); the crew layer is under construction. The full plan, phases and metrics are in [**ROADMAP.md**](ROADMAP.md).
+
+---
+
 ### Featured Skills
 
 > **[Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills)** &nbsp;·&nbsp; ~52.7k stars &nbsp;·&nbsp; 🧩 bundled
