@@ -8,3 +8,7 @@
 {"time": "2026-11-18T16:43:41Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261118T164340Z"}
 {"time": "2026-11-18T16:52:40Z", "role": "scout", "action": "review-response", "detail": "question-r1 F4 (Manokhin Appendix A + archive per-model results), F8 (Fonseca Sec. 3 Brier result), F9 (UTC dates); notes.md hypothesis verdicts aligned to revised plan.json (H1, H2a, H2b, Platt descriptive); 29 citation claims"}
 {"time": "2026-11-18T16:52:58Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r2 20261118T165258Z"}
+{"time": "2026-11-18T16:56:20Z", "role": "pi", "action": "plan-revised", "detail": "question revised after question-r2. plan.json sha256=e7c5f6414810c73ea165bfe9eb8fb3a81a83e4392f2b0bdbbcf6ef253eb2b57e"}
+{"time": "2026-11-18T16:56:20Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r3 20261118T165620Z"}
+{"time": "2026-11-18T16:59:42Z", "role": "pi", "action": "plan-revised", "detail": "minor F15-F18 after question-r3 (pass). plan.json sha256=92061f08cb74170d04fdf24b3adc49edb40fa62d08f9474e1383f1646c8d721a"}
+{"time": "2026-11-18T16:59:42Z", "role": "pi", "action": "gate-request", "detail": "question"}

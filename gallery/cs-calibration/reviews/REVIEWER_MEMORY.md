@@ -36,3 +36,94 @@ Check next time (question-r2 / design-r1):
 
 Things I ran: none on study data. Fetched fonseca2017 PDF (arXiv) and the
 manokhin2026 abs/html pages to check the novelty claims.
+
+## question-r2 (2026-11-18 UTC), verdict: revise (0 critical, 3 major, 3 minor open)
+
+Status of r1 findings: F1, F2, F3, F4, F5, F7, F8 and F9 are resolved. F6 stays open
+(minor): "library defaults" leaves preprocessing unstated, meaning categorical encoding
+and LR scaling/max_iter. plan.json was actually edited this time, not only the notes.
+
+New:
+- F10 (major): H2a/H2b have two co-primary metrics (log-loss and Brier) and no rule for
+  combining them. In the Manokhin archive the two diverge for HGB and RF. The
+  contribution's "proper scores primary" also contradicts H1, whose primary is ECE.
+- F11 (major): the decision-rule categories overlap ("holds" and "no difference"), the
+  "reference value" is undefined, and +/-1% of ECE is unreachably small. "Inconclusive"
+  needs to be mapped to the task's "no difference".
+- F12 (major): a naive paired t(9) over resplits of one pool is anti-conservative
+  (Nadeau-Bengio). The cheapest fix is to scope verdicts to the sample. Also ask whether
+  the 20k subsample is fixed or redrawn per seed.
+- F13 (minor): the cap does not guarantee calibration n >= 1000; phoneme is about 5.4k
+  rows. HGB early_stopping='auto' is on above 10k training rows, so it is on for 3
+  datasets and off for phoneme.
+- F14 (minor): the clipping eps decides H2a log-loss; equal-mass bin edges fall on ties
+  for RF probabilities (multiples of 0.01).
+
+Suspicions carried forward:
+- When the metrics split (F10), watch which one ends up in the abstract.
+- Nadeau and Bengio (2003) is cited from memory in F12 and is not in refs.bib. If the
+  crew adopts the correction, the Scout must verify it.
+- I did not re-read the Manokhin Appendix A figure values the Scout reported (RF
+  67.69->59.19, HGB 38.76->57.37, GBC 30.38->62.85). Spot-check them at the literature
+  review.
+
+Check next time (question-r3 / design-r1):
+- Does each hypothesis have exactly one confirmatory metric?
+- Is the precedence in the decision rule stated, with an absolute ECE margin?
+- Is the interval scoped to the sample, or corrected?
+- Design: split fractions and calibration n per dataset; HGB early_stopping set
+  explicitly; encoder and scaler fit on train only; clipping eps and clip counts;
+  equal-mass tie handling; FrozenEstimator or manual calibration (no ensemble=True); the
+  same base model across none/Platt/isotonic; AUC control; 60-minute budget.
+- runs/ must still be empty before the design gate.
+
+Things I ran: nothing on study data. I ran only crew.py status and validate, and read
+workspace files.
+
+## question-r3 (2026-11-18 UTC), verdict: pass (0 critical, 0 major, 7 minor open)
+
+Status: F10, F11 and F12 are resolved. F12 is resolved by scoping the verdicts to the
+sample. Conditional on the pool, the seeds are i.i.d. draws of the procedure, so a plain
+paired t is valid for that target. F6, F13 and F14 stay open (minor) and are deferred to
+design through plan.json design_stage_items. plan.json sha256 e7c5f641... matches log
+line "question revised after question-r2". runs/ is empty.
+
+New (all minor):
+- F15: the difference is defined as T minus the comparator's seed mean, which is
+  unpaired, yet the rule says "paired t(9)". It must be d_s = T_s - R_s on the same seed.
+- F16: Nadeau-Bengio is used on phoneme only and plain variance on the other three,
+  on a false "fresh subsample" premise. The pools are 48,842, 45,211, 45,312 and 5,404
+  rows (OpenML qualities API), so 20k draws overlap by about 44%. This mixes inferential
+  targets across the k-of-4 count. Nadeau-Bengio is not in refs.bib or sources.json.
+- F17: the overall rule has no "no difference" outcome, so 4/4 equivalence reads as
+  "inconclusive". This is likely for H2b.
+- F18: electricity (151) is a time series and random splits leak temporally. It needs
+  disclosure in design.threats and the limitations.
+
+Suspicions carried forward:
+- Watch whether F15, F16 and F17 are fixed in plan.json before the design gate, and not
+  after results. A switch from Nadeau-Bengio to plain variance, or back, after runs
+  would be a search over the decision rule.
+- I did not check the ECE estimator bias. With 15 equal-mass bins and about 1,600 test
+  rows on phoneme (about 100 per bin), binned ECE has a positive bias of roughly
+  0.02-0.03 for a perfectly calibrated model. That is larger than the 0.005 margin. It
+  mostly cancels in an RF-minus-LR difference, but not if RF's ties concentrate the bins.
+  Raise this at design if the estimator is not debiased or the test n per bin is small.
+- Manokhin Appendix A figure values are still unchecked; check them at the literature
+  review.
+
+Check next time (design-r1):
+- Split fractions and calibration n per dataset (phoneme needs a calibration fraction
+  of at least about 19%). State whether the subsample is redrawn per seed.
+- One variance rule for all four datasets, matching the stated scope. If Nadeau-Bengio
+  is kept, it must be verified in refs.bib.
+- Paired d_s definition; an overall "no difference" category.
+- Encoder, scaler and LR max_iter fitted on train only (F6). HGB early_stopping set
+  explicitly (F13). ECE tie handling and log-loss eps with clip counts (F14).
+- FrozenEstimator or manual calibrators (no ensemble=True); the same base model across
+  none/Platt/isotonic; Platt on the logit of the clipped probability; an AUC control;
+  the 60-minute budget; electricity listed in threats (F18).
+- runs/ must still be empty before the design gate.
+
+Things I ran: nothing on study data. I ran crew.py validate and status, and queried the
+OpenML qualities API for row counts (metadata only).

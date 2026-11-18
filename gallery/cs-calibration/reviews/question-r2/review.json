@@ -1,0 +1,172 @@
+{
+  "id": "question-r2",
+  "target": "question",
+  "round": 2,
+  "created": "2026-11-18T16:54:54Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r1/review.json",
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "log.jsonl",
+    "briefs/20261118T165258Z-reviewer.md",
+    "briefs/20261118T164340Z-scout.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/cs.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/cs-calibration/task.json"
+  ],
+  "kill_argument": "Round 1's problems are fixed: each hypothesis names a metric, the datasets are pinned by OpenML ID, scope is honest, and runs/ is empty, so there was no pilot. What remains broken is the rule that turns ten seeds into a verdict. First, H2a and H2b have two co-primary metrics, each with its own verdict, and nothing says how they combine. The crew's own archive summary shows log-loss and Brier diverging for exactly these models (isotonic lowers HGB log-loss on 4 of 30 datasets but Brier on 14 of 30), so the verdict could be chosen after results. Second, the categories overlap: a tight interval on the predicted side that also lies inside +/-1% is both 'holds' and 'no difference'. The 'reference value' is undefined, and for ECE +/-1% is unreachably small. Third, a naive paired t over ten resplits of one 20,000-row pool ignores overlap between training and test sets across seeds. The Nadeau-Bengio correction roughly doubles the SE at these ratios, so 'holds' could be declared beyond what the data support. Attacked and held: H2 is no longer true by construction; datasets were chosen before any run; the laptop budget is plausible.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H1, H2a and H2b are stated in an undefined 'calibration error'. If the design adopts binned ECE (the task's own example), H2a/H2b are close to true by construction: isotonic regression is a step-function calibrator fitted to remove calibration error on held-out data, and binned ECE is documented to favour binning-type calibrators and ignore refinement loss (berta2026 Sec. 5, recorded as claim c-ece-favours-binning; kumar2019, claim c-ece-continuous). The evidence the plan calls 'contested' (bostrom2008: Brier; berta2026: Brier; manokhin2026: log-loss) concerns proper scores, so an ECE result would not speak to that contest. The Scout's own D1 makes this point, but plan.json was not changed to reflect it.",
+      "evidence": "plan.json hypotheses[0..2] ('higher calibration error', 'reduces the calibration error'); sources/notes.md D1; claims.jsonl c-ece-favours-binning, c-calarena-tabrepo, c-bostrom-rf",
+      "response": "PI: H2a/H2b use log-loss (Brier co-primary), ECE secondary; H1 names ECE with 15 equal-mass bins on P(y=1).",
+      "ruling": "plan.json now names the quantity for each hypothesis: H1 uses ECE with 15 equal-mass bins on P(y=1); H2a/H2b use log-loss, with Brier as co-primary and ECE secondary. So H2 is no longer true by construction. The co-primary wording raises a new problem, raised as F10.",
+      "remedy": "Restate H2a/H2b as the change in a named proper score (Brier and/or log-loss) of the recalibrated versus the uncalibrated model, with ECE secondary. Restate H1 with a named calibration measure, since Brier and log-loss also reward discrimination. The exact estimator can be fixed at the design gate, but the hypothesis must name the quantity."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "'On most datasets' is not a falsifiable criterion as written. The number of datasets is not fixed (the task says 'at least three'), so 'most' could mean 2 of 3 or 3 of 5 depending on how many are added later. There is also no rule for when one model is 'higher', or when isotonic 'reduces', given seed noise, although the task requires that differences inside the noise be reported as no difference. That leaves room to add datasets or loosen the rule after seeing results.",
+      "evidence": "plan.json hypotheses[0..2] ('on most datasets'); crew/bench/seeds/cs-calibration/task.json requirements[0], [3]",
+      "response": "PI: four named datasets and a per-dataset decision rule on paired seed differences with 'no difference' inside +/-1%; holds on k of 4.",
+      "ruling": "The dataset count (4), the seeds (10), a per-dataset rule and a k-of-4 overall rule are now fixed in the hypotheses. Defects in the rule itself are raised as new findings F11 and F12.",
+      "remedy": "State in the hypotheses, or fix at the design gate before any run, the dataset count and a per-dataset decision rule. For example: a paired difference across the >=5 shared seeds counts as an effect only if its mean exceeds 2 SE, or all seeds agree in sign; anything else counts as 'no difference'. H holds if this happens on k of K named datasets."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The outcome of H2a/H2b depends on which datasets are chosen and how large their calibration splits are, and the question constrains neither. NM&C 2005 (Sec. 5, Fig. 7; claim c-nm-isotonic-data) show that Platt beats isotonic below about 200-1000 calibration cases for every learner. scikit-learn's bundled binary dataset (load_breast_cancer, 569 rows) gives roughly 100-200 calibration cases, where isotonic loses for sample-size reasons. Meanwhile 'available through scikit-learn's loaders' includes fetch_openml, which is a very large pool. So small datasets push the result one way, and free choice among OpenML datasets gives room to pick datasets after seeing outcomes.",
+      "evidence": "plan.json question and hypotheses (no dataset or size constraint); data/manifest.json (empty); sources/notes.md D3",
+      "response": "PI: datasets named now (adult v2, bank-marketing, electricity, phoneme; IDs to be pinned with versions and hashes at data prep); each capped at 20,000 rows so every calibration split has >=1,000 cases; breast_cancer dropped.",
+      "ruling": "Four datasets are named with OpenML data_ids (1590, 1461, 151, 1489), a minimum calibration n of 1,000 is stated, and load_breast_cancer is dropped. runs/ is empty, so the choice predates any model output. Hashes are due at data prep. How the cap relates to the minimum is raised as F13.",
+      "remedy": "Before any pilot, name the datasets and pin them by loader and version (OpenML ID and version for fetch_openml). Set a minimum calibration-split size (e.g. >=1000), or declare calibration-split size an explicit moderator and report it per dataset. Do not choose datasets by looking at model outputs."
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H2b's label 'open for modern log-loss gradient boosting' and the contribution's 'open in the work we found' are overstated. fonseca2017 Sec. 2.2.3 uses a Friedman (2001) gradient boosting classifier: regression trees fit on the negative gradient of the loss. It calibrates that classifier with isotonic regression on a held-out 20% split, and Sec. 3 reports that isotonic 'helps the gradient boosting classifier' (Brier). I checked this against the arXiv PDF. manokhin2026 includes HGB and GBC and says per-architecture results are in its Appendix A and archive, which the Scout did not check (sources.json note covers Sec. 1-3, 5.2 only). The large benchmarks are pooled in their main text, but per-model evidence exists or may exist.",
+      "evidence": "plan.json hypotheses[2], contribution; sources/notes.md Sec. 1 ('give no clean, seed-resolved answer for HGB alone'); fonseca2017 Sec. 2.2.3 and Sec. 3; manokhin2026 Sec. 1 pointer to Appendix A/archive",
+      "response": "PI: H2b relabelled as an extension of Fonseca and Lopes (2017); the Scout is asked to check Manokhin and Gronhaug Appendix A. | Scout: checked Appendix A (p. 61, log-loss rank: rf 67.69 -> rf.isotonic 59.19; hgb 38.76 -> 57.37; gbc 30.38 -> 62.85) and the archive results.txt (isotonic lowers fold-mean log-loss on 18/30 datasets for RF, 4/30 for HGB, 1/30 for GBC; confounded by an 80% training set); recorded in sources/notes.md Sec. 1 and Sec. 3, claims c-manokhin-appendix and c-manokhin-archive.",
+      "ruling": "H2b is relabelled as an extension of Fonseca and Lopes (2017), 'open' is gone, and the Scout recorded the Manokhin and Gronhaug Appendix A ranks and per-dataset archive counts (notes Sec. 1 and 3; claims c-manokhin-appendix, c-manokhin-archive). I did not re-read the Appendix A figure values; to be checked at the literature review.",
+      "remedy": "Cheapest fix: relabel H2b as an extension of Fonseca & Lopes (2017) to an i.i.d. split with seed uncertainty, not as an open question, and drop 'open'. Alternatively, check manokhin2026 Appendix A for per-model HGB/GBC results and cite them."
+    },
+    {
+      "id": "F5",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The contribution promises 'a clean test of whether isotonic recalibration helps random forests (contested)'. A study of three or so datasets cannot test that general question, because the contest exists across benchmarks of 34 (bostrom2008), 30 (manokhin2026) and 104 (berta2026) datasets. At most it can say what happens on the named datasets under one fixed protocol. The scope words in the contribution promise more than the design can deliver.",
+      "evidence": "plan.json contribution; crew/tracks/cs.md 'State scope exactly. Three small datasets support a claim about those datasets.'",
+      "response": "PI: contribution narrowed to per-model evidence on four named datasets; says it does not settle the larger-benchmark disagreement.",
+      "ruling": "The contribution is narrowed to per-model evidence on four named datasets and says it does not settle the larger-benchmark disagreement.",
+      "remedy": "Narrow the contribution to 'seed-resolved, per-model evidence on K named datasets with the base model held fixed', and present it as a data point on the contested question, not a test that settles it."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The task asks about calibration 'out of the box', but plan.json rewords this to 'without recalibration' and never says whether that means library defaults at a pinned version or tuned models. This matters for the contested evidence: CalArena tunes on validation ROC-AUC and Manokhin uses defaults, and tuning (RF leaf size, LR regularisation C and feature scaling) changes calibration (sources/notes.md D7). H1 in particular depends on whether LR is well specified and suitably regularised.",
+      "evidence": "plan.json question; task.json question ('out of the box'); sources/notes.md D7",
+      "response": "PI: listed in plan.json design_stage_items for the design gate.",
+      "ruling": "Partly addressed. 'Library defaults at scikit-learn 1.9.1, no tuning' settles tuning but not preprocessing. adult and bank-marketing have categorical features, so LR and RF need an encoder that is not a library default, and LR on unscaled features with default max_iter may not converge. H1 depends on this: in the Manokhin archive, where LR has unscaled features and default C, uncalibrated RF has higher ece_freq than LR on only 12 of 30 datasets (notes Sec. 3). This can be fixed at the design gate, but it must be fixed there before any run.",
+      "remedy": "State in the question that the models use scikit-learn defaults at the pinned version, with any departures listed (e.g. LR with standardisation and max_iter), or else name the tuning protocol and its validation split."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The question asks how much Platt scaling changes calibration error and log-loss, but no hypothesis or expected direction covers Platt. scikit-learn's default sigmoid calibrator also applies Platt to decision_function for LR and HGB but to predict_proba for RF (sources/notes.md D5; kull2017). Unless this is fixed, any cross-model Platt comparison mixes up the model with the input scale.",
+      "evidence": "plan.json question vs hypotheses; sources/notes.md D5",
+      "response": "PI: Platt applied to the logit of the predicted probability for all models; reported descriptively, not tested.",
+      "ruling": "Platt is applied to the logit of the predicted probability for every model and is marked descriptive (plan.json hypotheses[3]).",
+      "remedy": "Either mark the Platt results as descriptive (no hypothesis) or add one. At the design gate, use one input scale for all models (e.g. the logit of the clipped probability)."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The notes describe H1 as replicating a 'known result' and summarise fonseca2017 as uncalibrated RF/GBC 'do not perform much better' than LR. But fonseca2017 Sec. 3 states that 'on most datasets, the Random Forest and Gradient Boosting actually outperforms the Logistic Regression on Brier Scores' before recalibration. The closest-design prior study therefore points against H1 if H1 is scored by a proper score, which again shows H1 needs a named measure (see F1). The summary quotes the Discussion and leaves out the contrary Results sentence.",
+      "evidence": "sources/notes.md Sec. 3 fonseca2017 bullet; fonseca2017 Sec. 3 (arXiv PDF)",
+      "response": "PI: the Fonseca and Lopes Brier result is noted in H1; the Scout will add it to notes. | Scout: added the Fonseca and Lopes Sec. 3 Results sentence (uncalibrated RF and GBC beat LR on Brier on most datasets) to sources/notes.md Sec. 1 (H1) and Sec. 3, plus claim c-fonseca-uncal-brier.",
+      "ruling": "sources/notes.md Sec. 1 (H1) and the fonseca2017 entry in Sec. 3 now quote the Sec. 3 Results sentence. Claim c-fonseca-uncal-brier was added.",
+      "remedy": "Add the Sec. 3 result to the notes, and state that H1 concerns calibration (reliability), not overall Brier."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The dates in the provenance records are inconsistent. sources.json gives verified_on 2026-11-19 for every entry, and refs.bib says sklearn_calibration_docs was 'Accessed 2026-11-19'. But log.jsonl records the verification at 2026-11-18T16:39:34Z, and UTC at the time of this review is 2026-11-18. The dates look like local time and the log is in UTC.",
+      "evidence": "sources/sources.json verified_on (all entries); refs.bib sklearn_calibration_docs note; log.jsonl line 3",
+      "response": "PI: sent to the Scout (UTC dates). | Scout: all verified_on dates in sources.json, the refs.bib access note and notes.md now use UTC (2026-11-18).",
+      "ruling": "All 23 verified_on dates in sources.json are 2026-11-18, refs.bib reads 'Accessed 2026-11-18 (UTC)', and notes.md states it uses UTC.",
+      "remedy": "Use one convention (UTC) in sources.json and refs.bib, or state the time zone."
+    },
+    {
+      "id": "F10",
+      "severity": "major",
+      "status": "open",
+      "text": "H2a and H2b each have two co-primary metrics, log-loss and 'Brier as co-primary, reported with the same rule'. Each metric gets its own per-dataset and overall verdict, but nothing says how the two combine into one verdict for the hypothesis. The crew's own evidence shows they are likely to disagree for exactly these models. In the Manokhin archive summary (sources/notes.md Sec. 3), isotonic lowers HGB log-loss on 4 of 30 datasets but Brier on 14 of 30, and lowers RF log-loss on 18 of 30 but Brier on 13 of 30. If they split, the authors can pick the verdict after seeing results. Separately, the contribution says 'proper scores as the primary metrics', but H1's primary metric is ECE.",
+      "evidence": "plan.json hypotheses[1], hypotheses[2] ('Brier as co-primary'), contribution; sources/notes.md Sec. 3 Manokhin archive table",
+      "remedy": "Name one confirmatory metric per hypothesis and label the other secondary. Brier avoids the clipping sensitivity in F14. Alternatively, state in advance that 'supported' requires both metrics to hold and what is reported when they split. Make the contribution's 'primary metrics' wording match H1.",
+      "response": "PI: one confirmatory metric per hypothesis (ECE for H1; Brier for H2a/H2b); log-loss descriptive; contribution corrected.",
+      "ruling": ""
+    },
+    {
+      "id": "F11",
+      "severity": "major",
+      "status": "open",
+      "text": "The per-dataset decision rule has categories that overlap, and one of its terms is undefined. (a) An interval that lies entirely on the predicted side and also inside +/-1% of the reference value is both 'holds' and 'no difference', and no precedence is given. With 10 seeds and tight paired intervals, this will happen for small effects. (b) The 'reference value' is never defined: LR's ECE for H1? The uncalibrated model's score for H2? Mean over seeds? (c) For H1 the metric is ECE, which is typically about 0.01-0.05, so +/-1% is about +/-0.0001-0.0005. That is below plausible seed noise, so 'no difference' is effectively unreachable and every non-significant result becomes 'inconclusive'. The task requires that 'differences inside the noise are reported as no difference', and the plan never says that 'inconclusive' will be reported that way.",
+      "evidence": "plan.json hypotheses[0..2] ('no difference' if it lies inside +/-1% of the reference value; otherwise 'inconclusive'); task.json requirements[3]",
+      "remedy": "State the precedence (for example, test equivalence first, then holds/contradicted). Define the reference value (the seed mean of the comparator: LR for H1, 'none' for H2). Give ECE an absolute margin. State that 'inconclusive' and 'no difference' are both reported in the paper as no detectable difference.",
+      "response": "PI: precedence stated; reference value defined; absolute margins (Brier 0.001, ECE 0.005); 'inconclusive' reported as 'no detectable difference'.",
+      "ruling": ""
+    },
+    {
+      "id": "F12",
+      "severity": "major",
+      "status": "open",
+      "text": "The 95% paired t(9) interval over 10 seeds treats the seeds as independent replications. But every seed redraws train/calibration/test from the same pool of at most 20,000 rows, so training and test sets overlap across seeds. The naive variance therefore understates the uncertainty about the method difference on the underlying data distribution (Nadeau and Bengio 2003, 'Inference for the Generalization Error', Machine Learning 52:239-281; Bouckaert and Frank 2004). With a test/train ratio around 1/3 and J = 10, the corrected resampled t inflates the variance by about (1/10 + 1/3)/(1/10) = 4.3, so the SE roughly doubles. Under the naive rule, 'holds' can be declared for effects that, under the correction, are inconclusive. The plan also does not say whether the 20,000-row stratified sample is drawn once or redrawn per seed, and that changes what the interval covers.",
+      "evidence": "plan.json hypotheses[0..2] ('the 95% paired t(9) interval over seeds'); plan.json question ('capped at a stratified sample of at most 20,000 rows')",
+      "remedy": "Cheapest: state that the interval covers only split and model randomness within a fixed sample, and scope every verdict to 'on this sample of dataset X'. Otherwise, use the Nadeau-Bengio corrected resampled t, which the Scout would need to verify and add to refs.bib. Either way, say whether the capped sample is fixed or redrawn per seed.",
+      "response": "PI: Nadeau-Bengio correction where seeds reuse the same rows, plain where fresh subsamples are drawn; verdicts scoped to these samples; exact rule at design.",
+      "ruling": ""
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "open",
+      "text": "The question says each dataset is capped at 20,000 rows 'so that every calibration split has at least 1,000 cases'. A cap cannot guarantee a minimum; the split fraction does. The binding dataset is phoneme (OpenML 1489, about 5,400 rows), which reaches 1,000 calibration cases only if the calibration fraction is at least about 19%. The cap also creates a model difference across datasets. In scikit-learn, HistGradientBoostingClassifier's default early_stopping='auto' turns on only when the training sample exceeds 10,000. With a 20,000-row cap and a 60% training split, HGB therefore holds out an internal validation set and stops early on adult, bank-marketing and electricity, but not on phoneme. So 'the same library-default HGB' is not the same procedure on every dataset.",
+      "evidence": "plan.json question (cap rationale); plan.json hypotheses[2] (HistGradientBoostingClassifier, defaults)",
+      "remedy": "At the design gate, fix the split fractions, report the calibration n for each dataset, and set early_stopping explicitly or report per dataset whether it was on.",
+      "response": "PI: calibration-split fraction guarantees >=1,000 cases; HGB early-stopping threshold listed for design.",
+      "ruling": ""
+    },
+    {
+      "id": "F14",
+      "severity": "minor",
+      "status": "open",
+      "text": "The log-loss result in H2a can turn on estimator details not yet fixed. Isotonic regression outputs exactly 0 or 1, and so does uncalibrated RF when all trees agree. The clipping epsilon therefore sets both sides of the H2a comparison. The Scout's archive example shows the size of this: on bank-marketing, RF log-loss falls from 0.4612 to 0.3205 with isotonic, and part of the 0.4612 comes from unclipped 0/1 outputs (notes D2, Sec. 3). For H1, RF probabilities from 100 trees take only multiples of 0.01, so equal-mass bin edges will fall on ties, and how ties are split changes the ECE.",
+      "evidence": "plan.json hypotheses[0], [1]; sources/notes.md D2 and Sec. 3 (Manokhin archive, bank-marketing)",
+      "remedy": "Before any run, at the design gate: fix the log-loss clipping epsilon and report the clip counts; fix how ties are handled at equal-mass bin edges. Alternatively, resolve F10 by making Brier the confirmatory metric for H2.",
+      "response": "PI: clipping epsilon, clip counts and ECE tie handling listed for design.",
+      "ruling": ""
+    }
+  ]
+}
