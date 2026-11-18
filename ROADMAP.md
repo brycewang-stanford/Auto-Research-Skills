@@ -104,8 +104,8 @@ human PI at four gates, so the papers move at the speed of those approvals.
 | Day | Date | Deliverables | Status |
 |---|---|---|---|
 | 1 | Wed 11-18 | Rename; roadmap; crew v0.1 plugin and workspace tool; Reviewer modeled on ARIS; Data RA, Figures RA, Replicator; clean rerun (`crew.py rerun`) as a submission requirement; cross-family review through the Codex CLI (`cross_review.py`); both seed papers started in [`gallery/`](gallery/) | done except the seed papers, which are in progress |
-| 2 | Thu 11-19 | Question and design gates for both seeds; null-effect seed (true effect zero; the crew must not find one); Codex adapter | |
-| 3 | Fri 11-20 | Data and analysis runs; results reviews; results gates | |
+| 2 | Thu 11-19 | Question and design gates for both seeds; null-effect seed (true effect zero; the crew must not find one); Codex adapter | done early (11-18): all three question gates and all three design gates approved; null-effect seed and Codex adapter built |
+| 3 | Fri 11-20 | Data and analysis runs; results reviews; results gates | in progress (11-18): two of three results gates approved; 401(k) main estimates running |
 | 4 | Sat 11-21 | Figures, papers, clean reruns, submission gates → first two gallery papers with token cost and wall time | |
 | 5 | Sun 11-22 | Null-effect seed run; three more seeds (six in total) with sourced answer keys; bench scorer; scoreboard page on the site | |
 | 6 | Mon 11-23 | Run further seeds as gates allow; role kits (skills picked per role from the hub) | |
