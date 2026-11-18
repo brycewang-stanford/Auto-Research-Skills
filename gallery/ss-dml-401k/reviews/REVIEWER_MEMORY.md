@@ -126,3 +126,43 @@ Check at design:
 - How the lasso approximates rlasso c = 1.1 (the 401K.R dictionary has about 275 columns),
   the HC SE, the partialling-out score, eq. 3.14 aggregation, nnet scaling, probability
   outputs for binary D, and whether splits are shared across learners and across K.
+
+## design-r1 (2026-11-18): revise, 0 critical / 2 major / 4 minor open
+
+Question-stage carry-overs: F11 (S not fixed) is resolved. S is lasso/tree/nnet 100, forest 40 and
+boosting 30, fixed from timing-synthetic (synthetic Y/D only). F17 is resolved by design_constraints.
+F16: NT is now re-tied to MDS80 > half the bracketed SE, which makes both lasso cells NT at any S.
+That is principled, but it applies in both directions. Filed as D-F1.
+
+Findings: F1 (major): NT discards rejections. F2 (major): no port check for tree, forest, boosting
+or nnet against R, which is installed. F3: the c = 0.5 check is unrecorded, and check-lasso-port
+must use the authors' exact rlassoF call path. F4: the check-noctrl fork has no switching rule.
+F5: no reading rule for a failure driven by higher split noise. F6: no baseline effect size.
+
+Verified myself against the authors' code (fetched 401K.R, ML_Functions.R and Moment_Functions.R):
+- DML2 pools ry/rz over folds, then lm(ry ~ rz - 1) with vcovHC 'HC' (HC0).
+- trim is passed but unused for plinear. All 9,915 rows are used. cvgroup is shared across methods
+  within a call.
+- Forest: D uses clas_nodesize 1 with reg = TRUE (a regression forest); Y uses nodesize 5.
+- Tree: rpart method is never passed (D is anova); prune at the which.min xerror CP.
+- gbm: adaboost for D, predicted with type = "response"; n.cv = 5.
+- nnet: linout = FALSE for both nuisances.
+- RLasso: penalty list has c = 1.1 and no gamma; post = FALSE.
+Recomputed every tolerance_table row exactly. H3 false-fail union bound is 6.6e-5.
+Ran no model and did not open the study data.
+
+Suspicions:
+- After the design gate, check that the remaining port check(s) run before any analysis run. Check
+  that a failed port is recorded as a deviation and not "fixed" after main runs.
+- nnet: the iteration counts (nnet_iter_med_y/d) should appear. Y stops around 88 iterations, while
+  the D fits hit max_iter 1000 every time.
+- Budget: the 34-43 min estimate excludes the R port checks and BLAS oversubscription under
+  n_jobs = -1. Watch for a silent cut in S.
+- crew.json title still says "raise" (paper stage).
+
+Check next round:
+- F1: is NT made one-sided in hypotheses[1] and decision_rules.H2?
+- F2: is check-learner-ports added, with thresholds and an R-versus-R yardstick?
+- F3-F6: wording or plan changes.
+- Code stage: dml_plr.py should match design.method. Check the SeedSequence-to-int conversion, the
+  LogisticRegression l1_ratio/liblinear call, and that numpy.median is used on splits.

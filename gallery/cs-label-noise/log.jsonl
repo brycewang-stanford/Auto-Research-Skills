@@ -15,3 +15,4 @@
 {"time": "2026-11-18T12:52:40Z", "role": "scout", "action": "sources-verified", "detail": "added nadeau2003 (fetched-abstract; full text blocked, 1/J+n2/n1 factor unverified), claim c-nadeau, response to design-r2 F10"}
 {"time": "2026-11-18T12:53:43Z", "role": "pi", "action": "plan-revised", "detail": "design-r3 minor findings (F10, F11) answered after the passing review. plan.json sha256=873b2c5487a2037d8c664a40a9e49587639183a19c28c7b93830e06c18d0a63c"}
 {"time": "2026-11-18T12:53:43Z", "role": "pi", "action": "gate-request", "detail": "design"}
+{"time": "2026-11-18T13:00:13Z", "role": "pi", "action": "gate-approve", "detail": "design Bryce Wang"}

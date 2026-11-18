@@ -1,0 +1,103 @@
+{
+  "id": "design-r1",
+  "target": "design",
+  "round": 1,
+  "created": "2026-11-18T12:56:31Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "data/CODEBOOK.md",
+    "data/prepare_metrics.json",
+    "data/fetch_metrics.json",
+    ".gitignore",
+    "code/requirements.txt",
+    "code/fetch_sipp.py",
+    "code/prepare_sipp.py",
+    "code/timing_synthetic.py",
+    "runs/timing-synthetic/run.json",
+    "runs/timing-synthetic/timing.json",
+    "runs/timing-synthetic/stdout.log",
+    "runs/timing-synthetic/stderr.log",
+    "runs/prepare-sipp/run.json",
+    "log.jsonl",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r4/review.json",
+    "crew/tracks/social-science.md (playbook)",
+    "crew/bench/seeds/ss-dml-401k/task.json (seed; answer.json not opened)",
+    "github.com/VC2015/DMLonGitHub 401K.R, ML_Functions.R, Moment_Functions.R (fetched read-only to verify design.learners and method)"
+  ],
+  "kill_argument": "H2 is the study's verdict, and as designed it cannot record the failure most likely to occur. The two lasso cells are the most exposed to implementation: scikit-learn has no rlasso, the effective penalty constant depends on an unknown hdm version, and every off-protocol lasso estimate in sources/notes.md misses its published cell by $788-2,465. The 'not testable' rule removes both lasso cells from H2 'either way'. Low power is a reason not to read a pass as a reproduction. It is no reason to discard a rejection from a test whose size the 10-cell Bonferroni value already controls. So H2 can 'hold' while the lasso misses by $1,500. The eight cells that remain belong to the four learners whose ports are never compared with rpart, randomForest, gbm or nnet, although all four packages are installed on this machine. The nnet port alone carries four listed deviations. A failure there can only be explained by conjecture. What held: the estimator, HC0 SE, shared folds, nodesizes, tree method and boosting loss match the authors' Moment_Functions.R and ML_Functions.R. The tolerance table and H3's false-fail rate (6.6e-5) recompute exactly. S was fixed from synthetic timing only.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "The 'not testable' (NT) rule discards rejections as well as passes. hypotheses[1] and design.decision_rules.H2 say an NT cell 'does not count toward H2 either way', and design.tolerance_table marks both lasso cells testable = false. NT is justified by power (the 80%-power detectable shift is $1,072 / $827, more than half the bracketed SE). Power limits what a pass means. It does not weaken a rejection: the per-cell critical value 2.81 is the Bonferroni value for all 10 cells, so counting a lasso rejection keeps the familywise size at or below 5%. As written, a lasso cell $1,500 off still leaves 'H2 holds'. That is the cell most likely to move: no rlasso in scikit-learn, an assumed penalty constant, and off-protocol lasso estimates $788-2,465 from the published cells (sources/notes.md section 5). H3 catches only an upward lasso shift large enough to cross a flexible learner.",
+      "evidence": "plan.json hypotheses[1]; plan.json design.decision_rules.H2; design.tolerance_table rows plr-lasso-2fold and plr-lasso-5fold (testable: false); sources/notes.md section 5, off-protocol lasso rows",
+      "response": "",
+      "ruling": "",
+      "remedy": "Cheaper than any new run: make NT one-sided before any analysis run. An NT cell inside its tolerance is reported as 'not testable at this resolution'. An NT cell outside its tolerance is a detected discrepancy and makes H2 fail. Keep 2.81 for all 10 cells and state the familywise size (at most 5%)."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "Only the lasso port is checked against the authors' software (analysis_plan[0], purpose 'show the lasso is the authors' lasso, not a lookalike'). The four learners that make up all eight testable cells are never compared with rpart, randomForest, gbm or nnet. Yet design.learners lists known deviations for each. nnet: identity instead of logistic output, unpenalized biases, Glorot instead of U(-0.7, 0.7) initialization, and L-BFGS-B stopping after about 88 iterations for Y on an absolute 2.2e-9 loss change against nnet's reltol 1e-8 / maxit 1000. On [0,1]-scaled net_tfa the loss is far below 1, so that is a relative tolerance two to three orders of magnitude looser (runs/timing-synthetic/timing.json: iters_mean_nnet_y 87.8, and restarts add nothing). Tree: a sklearn pruning path and different CV folds. Boosting: friedman_mse and sklearn's exponential-loss leaf values. Any of these can plausibly move a cell by more than its $209-438 tolerance. Under design_constraints[1] a failed cell can then only be 'explained' by a conjecture from the list, and the seed asks the crew to explain differences. The cost of measuring this is low: rpart 4.1.24, randomForest 4.7.1.2, gbm 2.3.1 and nnet 7.3.20 are installed here (I checked package versions only and ran no model).",
+      "evidence": "plan.json design.analysis_plan[0]; design.learners.{tree,forest,boosting,nnet}.deviation_from_authors; design_constraints[1]; runs/timing-synthetic/timing.json",
+      "response": "",
+      "ruling": "",
+      "remedy": "Extend step 0 into a data-prep run, check-learner-ports, on the same synthetic Y/D draws built from the real covariates (never net_tfa or e401). For each learner and nuisance, compare held-out predictions from the crew port with those of the R function called exactly as ML_Functions.R calls it. Use the R-versus-R spread across two seeds as the yardstick for the stochastic learners. Optionally also compare theta on a synthetic outcome with a known coefficient. Fix pass thresholds now. Record a failure as a measured deviation, with its size, before any analysis run. Do not re-tune afterwards."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "The primary Y-lasso penalty constant (c = 0.5) rests on a check with no record in the workspace. log.jsonl (designer design-written) says 'verified by running hdm 0.3.2 on random numbers', but there is no script, run or output. The reading of the CRAN hdm tags is not in sources/. The authors' RLasso argument list (401K.R) also has no gamma, and rlassoF predicts on lm(...)$x, which includes the intercept column. The planned check-lasso-port does not say it reproduces that call path.",
+      "evidence": "plan.json design.learners.lasso.penalty_constant_note and analysis_plan[0]; log.jsonl 2026-11-18T12:46:21Z; authors' 401K.R (RLasso list) and ML_Functions.R rlassoF",
+      "response": "",
+      "ruling": "",
+      "remedy": "In check-lasso-port, call hdm through the formula interface with the authors' exact argument list (penalty list with c = 1.1 and no gamma, intercept = TRUE, post = FALSE), predict as rlassoF does, and record which crew c (0.5 or 1.1) matches. That turns the c = 0.5 assumption into a logged result."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "check-noctrl leaves an open fork. If the full-sample no-controls estimate misses $19,559, the crew 'stops until the PI decides', with no rule set in advance. data/CODEBOOK.md has already found the obvious alternative: the 9,275-row Abadie income band, which the authors' code says it follows. Choosing the sample after seeing the raw eligibility gap is the fork the track rules forbid.",
+      "evidence": "plan.json design.analysis_plan[1]; data/CODEBOOK.md 'Discrepancies' item 1",
+      "response": "",
+      "ruling": "",
+      "remedy": "State now which alternative samples are admissible (for example only the 9,275-row band) and the rule for switching. Any switch is a disclosed deviation, and both samples' main runs are then reported."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "se_rep assumes the crew's split-to-split SD equals the published one. hypotheses[1] then reads a cell outside its tolerance as 'evidence that software, tuning or learner differences, not split randomness, move the estimate'. A port that is noisier across splits fails more often than 0.5% per cell even when its centre matches, for example nnet with one random start and early stopping. Such a failure is a variance difference, not a location shift. The design has no pre-set wording for this case. Diagnostic 9a is reported, but nothing links it to how a failure is read.",
+      "evidence": "plan.json hypotheses[1] (last sentences); design.analysis_plan[9](a); design.threats[4]",
+      "response": "",
+      "ruling": "",
+      "remedy": "Keep the published-noise tolerance as the only test. Next to each failed cell, pre-specify a descriptive tolerance recomputed with the crew's observed 1.4826 x MAD. If the failure disappears under it, word the result as 'outside tolerance, consistent with higher split noise in the replication'."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The track's design rules ask for effect sizes against a meaningful baseline. The design reports dollars and units of the published SE only. No baseline is planned, such as mean net_tfa of ineligible households or the SD of net_tfa.",
+      "evidence": "crew/tracks/social-science.md 'Design rules'; plan.json design.analysis_plan[8]-[9]",
+      "response": "",
+      "ruling": "",
+      "remedy": "Add one pre-specified baseline quantity to the verdict run; it is descriptive and changes no test."
+    }
+  ],
+  "notes": "Run by the Reviewer, recorded here: (1) arithmetic on the published Panel B only (tolerance table, MDS80, NT flags, H3 false-fail union bound 6.6e-5); (2) Rscript listing installed package versions (hdm 0.3.2, rpart 4.1.24, randomForest 4.7.1.2, gbm 2.3.1, nnet 7.3.20, glmnet 4.1.10, sandwich 3.1.1). No model was fitted, the study data were not opened, and no relationship between e401 and net_tfa was computed."
+}

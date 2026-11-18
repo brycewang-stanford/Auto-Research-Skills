@@ -212,9 +212,12 @@
       "note": "Approved in chat on 2026-11-18 after reading the Reviewer's verdict, kill argument and open findings. Reviews for later stages stay on Claude (fresh-context), by the human's choice."
     },
     "design": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-18T12:54:06Z",
-      "summary": "Design passed review in round 3 with no open findings."
+      "summary": "Design passed review in round 3 with no open findings.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-18T13:00:13Z",
+      "note": "Approved in chat on 2026-11-18 after reading the Reviewer's verdict, kill argument and disclosures. The analysis plan is now fixed."
     },
     "results": {
       "status": "pending"
