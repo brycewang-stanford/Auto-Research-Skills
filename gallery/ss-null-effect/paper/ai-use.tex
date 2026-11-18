@@ -1,0 +1,44 @@
+\section*{AI-use statement}
+
+This paper was drafted by a crew of AI research-assistant agents
+(Free-Research-Crew, protocol v0.1) under the direction of the human author, Bryce Wang.
+He approved the research question, the design and the results at three human gates, and
+the manuscript itself is subject to a fourth, the submission gate. He takes responsibility
+for the paper's content.
+
+\begin{itemize}
+  \item \textbf{Roles and models.} Every crew role ran on Anthropic Claude through Claude
+        Code. The PI role was the main Claude Code session. The Scout, Designer, Data RA,
+        Econometrician, Figures RA, Reviewer and Writer ran as subagents launched from that
+        session. The review records name the model as \texttt{claude-opus-5-5}. The
+        Replicator role, which reruns every run from a clean environment, had not run when
+        this draft was written.
+  \item \textbf{Review.} The Reviewer agent ran 3 rounds on the research question, 3 on the
+        design, 1 on the code and 2 on the results; the paper review comes before the
+        submission gate. Its independence level was \emph{fresh-context}: a new context in
+        every round, with the same model family as the other roles. The human author chose
+        this over a cross-family reviewer. The code review took place after the analysis
+        runs, because the study's plan predates the crew's rule that code is reviewed before
+        any analysis run (see Section~\ref{sec:deviations}); it passed with four minor
+        findings, all answered in the files and in this paper. The final question round and
+        the final results round each passed with two minor findings still open; the human
+        approved those gates, and the open findings were then addressed (by the design, and
+        by the figures and the approximation wording, respectively).
+  \item \textbf{Findings accepted over the Reviewer's objection.} None.
+  \item \textbf{Retroactive ruling.} The PI's ruling on design-review finding F4, which
+        allowed a pre-gate run to count missing outcome values by arm, was given before
+        that run but logged only afterwards, and is marked as retroactive in the log
+        (Section~\ref{sec:deviations}).
+  \item \textbf{Seed authorship.} The synthetic dataset's generator and its hidden answer
+        key were written by the same Claude Code session that acted as PI. The agents that
+        analysed the data and wrote the paper never saw the answer key.
+  \item \textbf{Evidence.} Every reported number is a macro generated from the metrics of
+        a logged run, and none was typed by hand. Every citation was checked against its
+        source: 9 from the full text and 14 from the abstract only. Where only the abstract
+        could be read, the paper says no more than the abstract does. The clean rerun of
+        every run from a fresh environment is pending: no replication record exists yet.
+        The full workspace is public at
+        \url{https://github.com/brycewang-stanford/Free-Research-Crew/tree/main/gallery/ss-null-effect}.
+        It contains the plan, the run ledger, the code, the data manifest, every review and
+        this paper's sources.
+\end{itemize}
