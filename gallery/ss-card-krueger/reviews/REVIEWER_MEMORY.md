@@ -25,3 +25,26 @@ Next round, check:
   regression SE), the closure rule (perm. closed = 0, temp. closed = missing), the FTE formula
   checked against the codebook and the SAS program, and whether the pilot tabulation stayed
   data-prep only.
+
+## Round question-r2 (2026-11-18): verdict revise
+
+Ruled: F1-F5 resolved (contribution narrowed, H1 targets and 0.05 tolerance fixed, vintage stated,
+H2 judged on the point estimate). New findings, all open:
+- F6 (major): H2's sample, closure handling and comparator are unfixed. Six permanent closures (5 NJ)
+  have change = -FTE1. A pooled 5th-percentile cap lifts the NJ mean. Comparator should be the
+  unwinsorized estimate on the same sample (row 4), not row 3.
+- F7 (major): missed Ropponen 2010 (MPRA 25181, CIC on CK data: effect only for small stores) and
+  Ropponen 2011 JAE 26(6):1051-1057; also Morshed 2025 OSF preprint. The "no published result found"
+  claim has no logged search.
+- F8 (minor): winsorization is not a check "from the later literature" (seed brief) unless it is
+  framed as NW 1995's measurement-error critique.
+- F9 (minor): H1(a)/(b) targets lie within tolerance of each other; add the within-state change
+  targets (row 3 NJ 0.59 vs row 4 NJ 0.47); make the tolerance inclusive; the SE construction is
+  still unstated.
+
+Next round / design, check:
+- plan.json H2: sample = row 4 balanced? closures in the pool? comparator = same-sample estimate?
+- Are Ropponen entries in sources.json with fetched content, and does notes.md say what they found
+  about distribution and store size? Does the H2 qualifier disclose it?
+- Design: SE construction fixed; clustering deviation recorded; FTE and closure rule checked against
+  the SAS program; the pilot stays data-prep only; the percentile computation order is fixed.

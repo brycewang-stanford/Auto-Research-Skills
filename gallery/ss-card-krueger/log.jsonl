@@ -5,3 +5,8 @@
 {"time": "2026-11-18T16:40:37Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261118T164037Z"}
 {"time": "2026-11-18T16:42:59Z", "role": "pi", "action": "plan-revised", "detail": "question revised after question-r1 (block). plan.json sha256=06255be2701312c24d538b7cb7dece19007c3f4df9b25cce668bc205c61f1f69"}
 {"time": "2026-11-18T16:43:00Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r2 20261118T164300Z"}
+{"time": "2026-11-18T16:46:11Z", "role": "pi", "action": "plan-revised", "detail": "question revised after question-r2. plan.json sha256=6977803d1e3bd66fbbbdd4d1cab7eee6749beb15b00b9223f83576d69e157189"}
+{"time": "2026-11-18T16:46:11Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261118T164611Z"}
+{"time": "2026-11-18T16:50:29Z", "role": "scout", "action": "sources-verified", "detail": "question-r2 F7: added ropponen2010cic (fulltext), ropponen2011reconciling, ropponen2014note (abstract), morshed2025replication (fulltext); search terms logged; no winsorization/trimming found in readable sources; notes aligned to revised hypotheses; 13 bib entries, 19 citation claims"}
+{"time": "2026-11-18T16:50:48Z", "role": "pi", "action": "plan-revised", "detail": "question qualifier corrected per Scout F7. plan.json sha256=4024ebf5463c7dcc8ce685af68a2df87cb01bddbf2e9563c8e1ed9539e13aaa9"}
+{"time": "2026-11-18T16:50:48Z", "role": "pi", "action": "brief-archived", "detail": "reviewer question-r3 20261118T165048Z"}

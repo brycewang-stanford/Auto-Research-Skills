@@ -20,7 +20,7 @@
     "method": "fetched-fulltext",
     "doi": "10.3386/w5224",
     "url": "https://www.nber.org/system/files/working_papers/w5224/w5224.pdf",
-    "note": "NBER WP 5224, August 1995; metadata from Crossref and nber.org/papers/w5224. Scanned PDF; text layer is garbled, so pages were OCR'd with tesseract. Abstract and Sections I-III (pp. 1-6) read; numbers quoted in notes.md come from the abstract and pp. 1-3."
+    "note": "NBER WP 5224, August 1995; metadata from Crossref and nber.org/papers/w5224. Scanned PDF; text layer is garbled, so all 38 pages were OCR'd with tesseract. Abstract and pp. 1-10 read; full text keyword-searched for trimming/outlier treatment. Numbers quoted in notes.md come from the abstract and pp. 1-3, 9."
   },
   "neumark2000comment": {
     "verified_on": "2026-11-19",
@@ -67,5 +67,36 @@
     "method": "fetched-fulltext",
     "url": "https://aaronmams.github.io/Card-Krueger-Replication",
     "note": "Blog post dated 6/17/2021, read via WebFetch. An informal replication from the public njmin.zip data; evidence of prior replication, not a peer-reviewed source."
+  },
+  "ropponen2010cic": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://mpra.ub.uni-muenchen.de/25181/1/MPRA_paper_25181.pdf",
+    "note": "MPRA 25181 (posted 13 Oct 2010) = HECER Discussion Paper 289 (April 2010). Full 18-page PDF read via pdftotext. Numbers in notes.md from pp. 4, 10-13 and footnotes 8, 16, 17."
+  },
+  "ropponen2011reconciling": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1002/jae.1258",
+    "url": "https://ideas.repec.org/a/wly/japmet/v26y2011i6p1051-1057.html",
+    "note": "Metadata from Crossref. Abstract from IDEAS (which says it is borrowed from another version, VATT WP 24). Full text not read: Wiley paywalled; the VATT WP PDF on doria.fi and the JAE data archive (journaldata.zbw.eu) returned 403 / bot checks."
+  },
+  "ropponen2014note": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1007/s00181-012-0663-4",
+    "url": "https://ideas.repec.org/a/spr/empeco/v46y2014i1p307-316.html",
+    "note": "Metadata from Crossref and IDEAS; abstract from IDEAS (article page and VATT WP 25 page). Full text not read (Springer redirect to login; doria.fi 403)."
+  },
+  "morshed2025replication": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.31219/osf.io/8ut4n_v1",
+    "url": "https://osf.io/download/683a7ad84b6303543dd6a30a/",
+    "note": "OSF preprint posted 2025-06-03 (metadata from Crossref and api.osf.io/v2/preprints/8ut4n_v1). Full 4-page PDF read via pdftotext. Not peer reviewed; tables are not in the text, only the narrative numbers."
   }
 }

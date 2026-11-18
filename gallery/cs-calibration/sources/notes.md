@@ -1,6 +1,8 @@
 # Scout notes: cs-calibration (task `q-novelty`)
 
-Scout, 2026-11-19. Bibliographic metadata comes from Crossref, OpenAlex, arXiv, PMLR,
+Scout, 2026-11-18. All dates in these notes are UTC, as in `log.jsonl`. Revised after
+review question-r1 (F4, F8, F9) and aligned with the revised `plan.json` (H1, H2a, H2b,
+descriptive Platt). Bibliographic metadata comes from Crossref, OpenAlex, arXiv, PMLR,
 NeurIPS, JMLR or ML Anthology pages fetched today, never from memory. `sources/sources.json`
 gives the `method` for each entry and says what was read. Every number quoted below comes
 from a fetched full text, and its location is given next to it. Where only the abstract
@@ -32,56 +34,97 @@ resolution only.**
   Both measure out-of-the-box calibration and Platt and isotonic calibration of these
   models with proper scoring rules, at far larger scale than this seed allows.
 
-**What is already known**
+**Prior evidence on each hypothesis in the revised `plan.json`**
 
-- **The direction of H1.** On 8 problems, NM&C (2005, Sec. 4) found LR well calibrated
-  out of the box. RF was "less clear cut": poorly or not well calibrated on 5 of 8
-  problems, with predictions pushed toward the middle and sigmoid-shaped reliability
-  plots. The scikit-learn user guide shows the same pattern [`sklearn_calibration_docs`,
-  §1.16.1]. H1 is therefore a replication of a known result, not a new hypothesis.
-  - Caveat: LR is well calibrated only when its model is roughly correct
+- **H1: uncalibrated RF has higher ECE than LR (15 equal-mass bins on P(y=1)).**
+  *Verdict: a replication of a known result, expected to hold on calibration error, with
+  a caveat.*
+  - On 8 problems, NM&C (2005, Sec. 4) found LR well calibrated out of the box. RF was
+    "less clear cut": poorly or not well calibrated on 5 of 8 problems, with
+    predictions pushed toward the middle and sigmoid-shaped reliability plots. The
+    scikit-learn user guide shows the same pattern [`sklearn_calibration_docs`,
+    §1.16.1].
+  - **Contrary evidence on a proper score (F8).** Fonseca & Lopes (2017, Sec. 3), test
+    set, before any recalibration: "on most datasets, the Random Forest and Gradient
+    Boosting actually outperforms the Logistic Regression on Brier Scores". Brier also
+    rewards discrimination, so this does not contradict H1 as stated (ECE). It does mean
+    that H1 is about reliability, not overall probabilistic accuracy. The paper must not
+    turn "RF has higher ECE" into "RF gives worse probabilities".
+  - **Ranking evidence on log-loss (Manokhin & Grønhaug, Appendix A).** With defaults,
+    uncalibrated RF has a better expected log-loss rank than uncalibrated LR: 67.69
+    against 75.84. This points the same way as Fonseca & Lopes on a proper score.
+    In their archive, uncalibrated RF has a higher `ece_freq` than LR on only 12 of 30
+    datasets. Their LR uses unscaled features and default C, so its fit may be poor; the
+    plan does not yet say whether LR features are standardised (see D9).
+  - **Caveat:** LR is well calibrated only when its model is roughly correct
     [`kull2017` §1; `sklearn_calibration_docs` §1.16.1, "well specified" and C "tuned
-    to be appropriate"]. On a dataset with strong nonlinearity, H1 can fail.
-- **H2 for exponential-loss boosting.** Platt and isotonic calibration strongly improve
-  AdaBoost-style boosted trees [`niculescumizil2005boosting` Table 2: mean cross-entropy
-  falls from 0.4836 to 0.3797 (Platt) and 0.3814 (isotonic)].
-- **Calibration-set size.** Isotonic regression needs a large calibration set: Platt
-  beats it below about 200–1000 cases [`niculescumizil2005` Sec. 5, Fig. 7].
+    to be appropriate"]. On a strongly nonlinear dataset, H1 can fail on ECE too.
+    `electricity` and `phoneme` are the candidates for this.
+- **H2a: isotonic on a held-out split reduces RF log-loss (Brier co-primary).**
+  *Verdict: contested; the evidence leans against it on log-loss.*
+  - *For:* NM&C (2005, Sec. 5) say post-calibration helps RF "once the calibration sets
+    are large enough"; the plan's ≥1,000-case calibration splits satisfy their Fig. 7
+    threshold. Fonseca & Lopes (2017, Sec. 3–4) find isotonic helps RF (Brier, credit
+    data, temporal split).
+  - *Against:*
+    - Boström (2008, Sec. 3): isotonic *slightly worsened* the Brier score of RF of
+      probability-estimation trees (34 UCI datasets).
+    - CalArena (2026, Sec. 6.1): no method consistently improves tuned TabRepo models,
+      and binning methods degrade them.
+    - Manokhin & Grønhaug (2026, Appendix A; details below): `rf.isotonic` improves on
+      `rf` in expected log-loss rank (59.19 against 67.69) but is clearly worse than
+      `rf.platt` (43.45), `rf.beta` (41.65) and `rf.venn_abers` (34.09).
+      - Per dataset (their archive): isotonic lowers RF fold-mean log-loss on 18 of 30
+        datasets (median −1.6%) and Brier on only 13 of 30. In both, the training set is
+        confounded.
+  - The log-loss outcome is likely to hinge on how isotonic's 0/1 outputs are clipped
+    (D2), so the clipping epsilon matters for H2a.
+- **H2b: isotonic reduces HistGradientBoosting log-loss (Brier co-primary).**
+  *Verdict: correctly labelled in the revised plan as an extension of Fonseca & Lopes
+  (2017); the closest per-model evidence points against it on log-loss.*
+  - *For:* Fonseca & Lopes (2017, Sec. 2.2.3 and Sec. 3) calibrate a Friedman
+    gradient-boosting classifier with isotonic regression on a held-out 20% split and
+    find it "helps the gradient boosting classifier" (Brier; credit data; one temporal
+    split). The 2005 AdaBoost results (`niculescumizil2005boosting` Table 2: mean
+    cross-entropy 0.4836 raw, 0.3814 isotonic) concern exponential-loss boosting and do
+    not transfer to log-loss gradient boosting.
+  - *Against:* in Manokhin & Grønhaug's Appendix A ranking, isotonic makes *both*
+    scikit-learn boosters worse on expected log-loss rank:
+    - `hgb` 38.76 → `hgb.isotonic` 57.37;
+    - `gbc` 30.38 → `gbc.isotonic` 62.85.
+    - Per dataset (their archive): HGB log-loss is lower with isotonic on 4 of 30
+      datasets (worse on all 5 folds on 13), Brier on 14 of 30.
 
-**What is genuinely contested, and where this seed can add a careful data point**
+    Their defaults are close to the plan's. `rf`, `gbc` and `hgb` use scikit-learn
+    defaults plus a seed. The calibration split is 20% of the training folds, so it
+    is ≥1,000 cases only on their larger datasets.
+- **Platt (descriptive, not tested).** Manokhin & Grønhaug apply Platt to the predicted
+  *probability*: their code fits a default `LogisticRegression` on `predict_proba`
+  outputs. That is the "Platt-probs" variant CalArena finds weak. The plan's choice of
+  logit input follows the stronger "Platt on logits" variant [`berta2026` §6.1].
 
-- **H2 for random forests.** The evidence points both ways:
-  - *Isotonic helps RF:* NM&C (2005, Sec. 5) say post-calibration helps RF "once the
-    calibration sets are large enough". Fonseca & Lopes (2017, Sec. 4) find isotonic
-    helps RF on credit data.
-  - *Isotonic does not help, or hurts:* Boström (2008, Sec. 3) finds isotonic regression
-    *slightly worsened* the Brier score of random forests of probability-estimation trees
-    on 34 UCI datasets (the averaging RF in scikit-learn is of this kind). CalArena (2026,
-    Sec. 6.1) finds no method consistently improves tuned TabRepo models, and binning
-    methods degrade them. Manokhin & Grønhaug (2026, Sec. 2) find isotonic slightly
-    *increases* log-loss in aggregate across models.
-- **H2 for modern gradient-boosted trees.** Gradient-boosted trees fitted to log-loss with
-  shrinkage (scikit-learn `HistGradientBoostingClassifier`) are not the
-  exponential-loss boosted trees of 2005. The 2005 "boosting needs calibration" result
-  does not carry over by default. The 2026 benchmarks report results pooled over models,
-  so they give no clean, seed-resolved answer for HGB alone.
+**Calibration-set size.** Isotonic regression needs a large calibration set: Platt beats
+it below about 200–1000 cases [`niculescumizil2005` Sec. 5, Fig. 7]. The revised plan's
+20,000-row cap with ≥1,000-case calibration splits addresses this (D3).
 
-**Recommended framing.** The `contribution` line in `plan.json` ("small, controlled and
-fully reproducible measurement … with uncertainty across seeds") is accurate. The paper
-should present itself as:
+**Recommended framing (matches the revised `contribution`).** The paper should present
+itself as:
 
-- a pre-registered, seed-resolved *replication* of NM&C (2005) and Fonseca & Lopes
-  (2017) on scikit-learn loader datasets, with current library defaults;
-- a clean per-model test of H2 for RF and HGB, which the literature leaves contested.
+- a pre-registered, seed-resolved *replication* of NM&C (2005) for H1;
+- an *extension* of Fonseca & Lopes (2017) for H2a and H2b: i.i.d. splits, seed
+  uncertainty, the base model held fixed, and log-loss as primary;
+- per-model evidence on four named datasets. It is a data point on the contested
+  question, not a test that settles it.
 
 It must not claim to discover that RF is under-confident or that recalibration helps.
-Both are long known. The paper should also say its scale (≥3 datasets) is far smaller
-than CalArena's 104 or TabArena's 30.
+Both are long known. Its scale (4 datasets) is far smaller than CalArena's 104 or
+TabArena's 30, and the paper must say so.
 
-Nothing found makes the question pointless. The large benchmarks pool over models,
-tune hyperparameters, and/or confound calibration with a smaller training set (see
-D4). None reports per-model, per-dataset differences with seed uncertainty and a fixed
-training set.
+Nothing found makes the question pointless. The large benchmarks either pool over models
+in their main text, tune hyperparameters, or confound calibration with a smaller
+training set (see D4). Manokhin & Grønhaug's Appendix A gives per-model ranks pooled over
+datasets and folds, with no seed uncertainty. None reports per-model, per-dataset
+differences with seed uncertainty and a fixed training set.
 
 ---
 
@@ -118,6 +161,9 @@ for the design author and the Reviewer.
   NM&C kept predictions away from 0 and 1 [`niculescumizil2005boosting` fn. 1]. CalArena
   prefers Brier for this reason [`berta2026` §5]. The clipping epsilon must be fixed at
   the design gate, and the paper must report how often clipping was applied.
+  The same applies to uncalibrated RF: `predict_proba` can be exactly 0 or 1 when all
+  trees agree. In the Manokhin & Grønhaug archive this inflates RF log-loss (see §3), so
+  the epsilon also drives the H2a log-loss comparison.
 - **D3. Calibration-set size decides the Platt-vs-isotonic result.**
   - Isotonic needs about ≥1000 calibration cases to match or beat Platt
     [`niculescumizil2005` Fig. 7; `sklearn_calibration_docs` §1.16.3.2]. Below about
@@ -254,12 +300,19 @@ for the design author and the Reviewer.
     chronological 60/20/20 train/calibration/test split; Brier score only; one split per
     dataset.
   - *Finds (Sec. 3–4):*
-    - Uncalibrated RF and GBC "do not perform much better" than LR and can be worse.
+    - Results (Sec. 3, test set, no recalibration, Brier normalised by LR's Brier per
+      dataset): "on most datasets, the Random Forest and Gradient Boosting actually
+      outperforms the Logistic Regression on Brier Scores" (added after review F8).
+    - The Discussion (Sec. 4) summarises this more cautiously: uncalibrated RF and GBC
+      "do not perform much better" than LR and "can actually yield considerably worse
+      performance". Both sentences are from the same paper. The Results sentence is the
+      direct measurement.
     - Sigmoid does almost nothing for LR, and harms RF and GBC in about 25% of cases.
     - Isotonic improves LR in over 75% of cases and helps RF and GBC.
     - RF "seems to require more calibration" than GBC.
-  - *For us:* the closest design match. It confirms H2's direction on credit data but
-    has no seed variation and a temporal split. A useful contrast for an i.i.d. design.
+  - *For us:* the closest design match. It supports H2a and H2b's direction on Brier for
+    credit data, but has no seed variation and uses a temporal split. On Brier it points
+    against an RF-worse-than-LR reading of H1, which is why H1 names ECE.
 - **Manokhin & Grønhaug (2026)** [`manokhin2026`, full text; arXiv preprint]
   - *Setup:* 21 classifiers, including LR, RF, GBC and HGB, with default settings and no
     hyperparameter optimisation (§5.3). 30 binary TabArena-v0.1 datasets, 1×5-fold
@@ -272,7 +325,66 @@ for the design author and the Reviewer.
     - Platt and isotonic "can systematically degrade proper scoring performance for
       strong modern tabular models".
     - Self-noted limitation: calibration is confounded with the smaller training set.
-  - *For us:* the strongest recent evidence that H2 may fail. D4 and D7.
+  - *Appendix A (p. 61; checked after review F4).* A single figure, "Expected performance
+    rank across folds and datasets", ranking 126 model × calibrator combinations by
+    log-loss; lower is better. Values read from the figure:
+
+    | Model | none | isotonic | Platt | beta | Venn-Abers |
+    |---|---|---|---|---|---|
+    | RF  | 67.69 | 59.19 | 43.45 | 41.65 | 34.09 |
+    | GBC | 30.38 | 62.85 | 45.57 | 29.42 | 32.05 |
+    | HGB | 38.76 | 57.37 | 42.88 | 22.71 | 25.10 |
+    | LR  | 75.84 | 91.0x (label cut off at the figure edge) | 74.94 | 69.01 | 69.11 |
+
+    So isotonic improves RF's rank but worsens both scikit-learn boosters' ranks, and on
+    these ranks Platt beats isotonic for all three tree models. These are ranks pooled
+    over 30 datasets × 5 folds, not effect sizes, and the appendix gives no per-dataset
+    breakdown.
+  - *Archive (per-dataset results; checked after review F4).*
+    - Source: `src/archive/archive.zip` in the same repository, a Git LFS object with
+      sha256 7d33f9cd…54bd, matching the LFS pointer. The merged `archive/results.txt`
+      holds 5 folds × 30 datasets per model × calibrator.
+    - My own summary of their raw numbers (scratchpad script, not a crew run): for each
+      dataset, I compared the mean over its 5 folds with calibration and without.
+      "All 5" counts datasets where every fold moved in the same direction.
+
+    | Model | Metric | Isotonic better on (of 30) | All 5 folds better | All 5 folds worse | Median relative change |
+    |---|---|---|---|---|---|
+    | RF  | log-loss | 18 | 9 | 5  | −1.6% |
+    | RF  | Brier    | 13 | 6 | 6  | +0.6% |
+    | HGB | log-loss | 4  | 0 | 13 | +7.3% |
+    | HGB | Brier    | 14 | 5 | 4  | +0.4% |
+    | GBC | log-loss | 1  | 1 | 17 | +11.9% |
+    | GBC | Brier    | 8  | 2 | 12 | +0.8% |
+
+    - Platt, for comparison: RF log-loss is better on 24 of 30 (median −7.4%); HGB
+      log-loss is better on 11 of 30 (median +1.0%).
+    - H1-relevant: uncalibrated RF has a higher `ece_freq` than uncalibrated LR on only
+      12 of 30 datasets, higher log-loss on 12 of 30, and higher Brier on 6 of 30.
+      Their LR is fitted on unscaled features with default C.
+    - Overlap with our datasets: only `bank-marketing` (TabArena's version, which may not
+      be OpenML 1461). Fold-mean log-loss there:
+      - RF 0.4612 → isotonic 0.3205, Platt 0.3179;
+      - HGB 0.3031 → isotonic 0.3111.
+    - The RF "none" log-loss is inflated: RF can output exactly 0 or 1, and their log-loss
+      uses scikit-learn's default handling. Clipping therefore matters for uncalibrated RF,
+      not only for isotonic. See D2.
+    - **Caveat:** every calibrated variant was trained on 80% of the training folds, while
+      "none" was trained on 100%. Their per-model differences therefore mix the
+      calibrator with a smaller training set (D4). For HGB and GBC, part of the
+      degradation may come from this.
+  - *Code (github.com/valeman/classifier_calibration, commit a52349f):*
+    - The calibration split is a stratified 20% of the training folds. The base model is
+      refit on the remaining 80% for calibrated variants only, which is the confound
+      they note.
+    - RF, GBC and HGB use scikit-learn defaults plus `random_state`. LR uses defaults on
+      unscaled features.
+    - Platt is a default `LogisticRegression` fitted on the positive-class probability
+      (not the logit).
+    - Isotonic is `IsotonicRegression(out_of_bounds="clip")`; log-loss is
+      `sklearn.metrics.log_loss` without extra clipping.
+  - *For us:* the strongest recent per-model evidence that H2a is weak and H2b may fail on
+    log-loss. D2, D4, D5 and D7.
 - **Berta, Holzmüller, Bach & Jordan (2026), CalArena** [`berta2026`, full text; arXiv v2]
   - *Setup:* TabRepo-binary covers 104 datasets and 832 experiments with LR, RF,
     ExtraTrees, XGBoost, LightGBM, CatBoost and two NNs, each tuned on validation

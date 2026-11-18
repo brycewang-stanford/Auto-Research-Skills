@@ -1,14 +1,14 @@
 {
   "platt1999": {
     "url": "https://home.cs.colorado.edu/~mozer/Teaching/syllabi/6622/papers/Platt1999.pdf",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "No DOI. Read the author's preprint dated 26 March 1999 (pages rendered as images because the PDF text layer is font-encoded). The preprint footnote names the book (Advances in Large Margin Classifiers, eds. Smola, Bartlett, Schoelkopf, Schuurmans, MIT Press, 'to appear'). Pages 61-74 come from the reference list of niculescumizil2005 (fetched), not from the book itself. Kull et al. (2017) cite the book as 2000; the publication year is therefore uncertain (1999 vs 2000). Sections 2.2 (sigmoid fit by maximum likelihood, eq. 11-12) and p. 5 (training-set outputs are biased; use a hold-out set or cross-validation)."
   },
   "zadrozny2001": {
     "url": "https://cseweb.ucsd.edu/~elkan/calibrated.pdf",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "No DOI. Venue, year and pages (609-616) from the ML Anthology page https://mlanthology.org/icml/2001/zadrozny2001icml-obtaining/. Full text read from the author-hosted PDF: binning for naive Bayes, m-estimation and curtailment for C4.5 trees, on the single KDD'98 dataset."
@@ -16,7 +16,7 @@
   "zadrozny2002": {
     "doi": "10.1145/775047.775151",
     "url": "https://doi.org/10.1145/775047.775151",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-abstract",
     "note": "Metadata from the Crossref record; abstract from OpenAlex. ACM page returned 403; no author-hosted full text found (cs.cornell.edu PDF is a course slide deck, not the paper). Isotonic-regression (PAV) calibration is attributed to this paper in the abstract ('a new method for obtaining calibrated two-class probability estimates that can be applied to any classifier that produces a ranking') and in niculescumizil2005 Sec. 2.2."
@@ -24,14 +24,14 @@
   "niculescumizil2005": {
     "doi": "10.1145/1102351.1102430",
     "url": "https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "Metadata from Crossref. Full text read from the authors' camera-ready PDF. Sec. 2 (independent calibration set), Table 2 (8 problems, 4000 train), Sec. 4 (qualitative: LR and bagged trees well calibrated; RF poorly calibrated on LETTER.P2 and not well calibrated on HS, COV_TYPE, MEDIS, LETTER.P1), Sec. 5 / Fig. 7 (Platt beats isotonic below about 200-1000 calibration cases; isotonic at least as good at >=1000), Sec. 6 / Fig. 8 (5 trials x 8 problems; 4k train, 1k calibration)."
   },
   "niculescumizil2005boosting": {
     "url": "https://arxiv.org/abs/1207.1403",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "No DOI. arXiv record states 'Appears in Proceedings of UAI 2005' and journal-ref UAI-P-2005-PG-413-420. Full text read from the arXiv PDF: Table 2 (cross-entropy of boosted stumps and boosted trees, raw vs Platt vs isotonic vs logistic correction vs log-loss boosting, 8 problems); footnote 1 (predictions kept away from exactly 0 or 1 to avoid infinite cross-entropy)."
@@ -39,7 +39,7 @@
   "caruana2006": {
     "doi": "10.1145/1143844.1143865",
     "url": "https://www.cs.cornell.edu/~caruana/ctp/ct.papers/caruana.icml06.pdf",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "Metadata from Crossref. Full text read from the author-hosted PDF: 10 learners, 11 binary problems, 5 trials of 4000 train / 1000 validation, the same 1000 cases used both to calibrate and to select parameters (Sec. 2-3); Table 2 and the results text on squared error and cross-entropy."
@@ -47,35 +47,35 @@
   "bostrom2008": {
     "doi": "10.1109/ICMLA.2008.107",
     "url": "https://people.dsv.su.se/~henke/papers/bostrom08b.pdf",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "Metadata (title, author, venue, pages 121-126) from OpenAlex for the DOI. Full text read from the author-hosted PDF: 34 UCI datasets, stratified 10-fold CV, out-of-bag examples as calibration sets, Brier score/AUC/accuracy; Sec. 3 results text and Table 1."
   },
   "fonseca2017": {
     "url": "https://arxiv.org/abs/1710.08901",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
-    "note": "arXiv preprint (no journal version found). Full text read from the arXiv PDF: Sec. 2.1 (18 consumer-credit datasets, chronological 60/20/20 train/calibration/test split, LR/RF/GBC x none/sigmoid/isotonic, Brier score only), Sec. 3 results text and Sec. 4 Discussion."
+    "note": "arXiv preprint (no journal version found). Full text read from the arXiv PDF: Sec. 2.1 (18 consumer-credit datasets, chronological 60/20/20 train/calibration/test split, LR/RF/GBC x none/sigmoid/isotonic, Brier score only), Sec. 3 results text and Sec. 4 Discussion. Sec. 3 Results sentence on uncalibrated Brier (RF and GBC beat LR on most datasets) added after review F8."
   },
   "manokhin2026": {
     "url": "https://arxiv.org/abs/2601.19944",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
-    "note": "arXiv preprint v1, 2026-01-19, 61 pages; not peer reviewed as far as the record shows. Full text read from the arXiv PDF: Sec. 1-3 (findings), Sec. 5.2 (21 classifiers incl. LR, RF, GBC, HGB; 30 binary TabArena-v0.1 datasets; 1x5-fold stratified CV with no repetitions; calibration set carved from the training folds; ECE with equal-mass monotonic-sweep bins), Sec. 2 text after Fig. 14-15 (aggregate relative changes in log-loss and Brier)."
+    "note": "arXiv preprint v1, 2026-01-19, 61 pages; not peer reviewed as far as the record shows. Full text read from the arXiv PDF: Sec. 1-3 (findings), Sec. 5.2 (21 classifiers incl. LR, RF, GBC, HGB; 30 binary TabArena-v0.1 datasets; 1x5-fold stratified CV with no repetitions; calibration set carved from the training folds; ECE with equal-mass monotonic-sweep bins), Sec. 2 text after Fig. 14-15 (aggregate relative changes in log-loss and Brier). Added 2026-11-18 after review F4: Appendix A (p. 61), a single figure of expected log-loss rank across folds and datasets for 126 model x calibrator combinations, read from the rendered page at 300 dpi. Code checked at github.com/valeman/classifier_calibration (commit a52349f): src/modules/core/architectures.py (20% stratified calibration split of training folds), wrap/learners.py (scikit-learn defaults + random_state), wrap/post_processing.py (Platt = default LogisticRegression on probability; IsotonicRegression clip). Archive: src/archive/archive.zip (Git LFS, sha256 7d33f9cd1ef5f90f082c9123fccc810beb4eb21ca4aee6ec6e4fcf98059b54bd, 150,314,254 bytes) downloaded to the Scout scratchpad; archive/results.txt (5 folds x 30 datasets per model x calibrator) summarised per dataset by a scratchpad script. Not study data, not committed."
   },
   "berta2026": {
     "url": "https://arxiv.org/abs/2605.30188",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "arXiv preprint v2 (2026); arXiv comment says accepted at NeurIPS 2026 Evaluations & Datasets track, not checked against the proceedings. Full text read from the arXiv PDF: Sec. 3 (TabRepo-binary: LR, RF, ExtraTrees, XGBoost, LightGBM, CatBoost + 2 NNs, 104 binary datasets, 832 experiments, tuned on validation ROC-AUC), Sec. 5 (Post-Hoc Improvement in Brier score as main metric; binned ECE favours binning-based calibrators), Sec. 6.1 (binary results)."
   },
   "guo2017": {
     "url": "https://proceedings.mlr.press/v70/guo17a.html",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "No DOI. Metadata (authors, pages 1321-1330, PMLR 70) from the PMLR page. Full text read from arXiv:1706.04599v2: Sec. 2 (ECE definition with M equally spaced bins, citing Naeini et al. 2015; top-label confidence)."
@@ -83,35 +83,35 @@
   "naeini2015": {
     "doi": "10.1609/aaai.v29i1.9602",
     "url": "https://doi.org/10.1609/aaai.v29i1.9602",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-abstract",
     "note": "Metadata (incl. pages 2901-2907) and abstract from OpenAlex/Crossref. Full text not read. The attribution of the ECE acronym to this paper is from guo2017 Sec. 2 and roelofs2022 footnote 1 (both read in full)."
   },
   "kumar2019": {
     "url": "https://papers.nips.cc/paper/2019/hash/f8c0c968632845cd133308b1a494967f-Abstract.html",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "No DOI. Metadata from the NeurIPS proceedings page. Full text read from arXiv:1909.10155v2: abstract and Sec. 1 (scaling methods are less calibrated than reported; binned estimates cannot measure the calibration error of continuous outputs; plug-in estimator vs debiased estimator)."
   },
   "nixon2019": {
     "url": "https://arxiv.org/abs/1904.01685",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "Cited as the arXiv v2 (7 Aug 2020) that was read; author list (7 authors) from the arXiv record. The CVPR 2019 Workshops version (pp. 38-41, CVF open access) lists 5 authors (no Nguyen, no Liu); the Writer should cite the arXiv version. Abstract and Sec. 1 read."
   },
   "roelofs2022": {
     "url": "https://proceedings.mlr.press/v151/roelofs22a.html",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "No DOI. Metadata (pages 4036-4054, PMLR 151) from the PMLR page. Full text read from arXiv:2012.08668v3: abstract (equal-mass bins have lower bias than equal-width; debiased estimator and ECE_sweep recommended) and Sec. 1."
   },
   "kull2017": {
     "url": "https://proceedings.mlr.press/v54/kull17a.html",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "No DOI. Metadata (pages 623-631, PMLR 54) from the PMLR page. Full text read from the PMLR PDF: abstract and Sec. 1 (logistic calibration assumes normally distributed per-class scores; logistic family on scores does not contain the identity, so it can uncalibrate a calibrated classifier; isotonic prone to overfitting on smaller datasets)."
@@ -119,7 +119,7 @@
   "brier1950": {
     "doi": "10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2",
     "url": "https://doi.org/10.1175/1520-0493(1950)078<0001:VOFEIT>2.0.CO;2",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "doi-resolved",
     "note": "Metadata from the Crossref record for the DOI. Full text not read (AMS PDF link returned an HTML page). Cite only as the origin of the Brier score."
@@ -127,7 +127,7 @@
   "degroot1983": {
     "doi": "10.2307/2987588",
     "url": "https://doi.org/10.2307/2987588",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "doi-resolved",
     "note": "Metadata from Crossref and OpenAlex (OpenAlex gives pages 12-22; Crossref gives first page 12). Full text not read. Cite only as a standard reference for reliability diagrams/calibration of forecasters, as niculescumizil2005 does."
@@ -135,7 +135,7 @@
   "gneiting2007": {
     "doi": "10.1198/016214506000001437",
     "url": "https://doi.org/10.1198/016214506000001437",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-abstract",
     "note": "Metadata from Crossref; abstract from OpenAlex. Full text not read."
@@ -143,7 +143,7 @@
   "dimitriadis2021": {
     "doi": "10.1073/pnas.2016191118",
     "url": "https://doi.org/10.1073/pnas.2016191118",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-abstract",
     "note": "Metadata and abstract from Crossref/OpenAlex. Full text not read. Article number e2016191118 follows the PNAS DOI suffix convention; Crossref gives no page."
@@ -151,23 +151,23 @@
   "silvafilho2023": {
     "doi": "10.1007/s10994-023-06336-7",
     "url": "https://doi.org/10.1007/s10994-023-06336-7",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-abstract",
     "note": "Metadata and abstract from Crossref/OpenAlex. Full text (open access) not read; cite only as a general survey."
   },
   "pedregosa2011": {
     "url": "https://jmlr.org/papers/v12/pedregosa11a.html",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-abstract",
     "note": "No DOI. Metadata (16 authors, vol. 12, no. 85, pp. 2825-2830) and abstract from the JMLR page. Software citation for scikit-learn."
   },
   "sklearn_calibration_docs": {
     "url": "https://scikit-learn.org/stable/modules/calibration.html",
-    "verified_on": "2026-11-19",
+    "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
-    "note": "User guide page fetched 2026-11-19; page title says scikit-learn 1.9.1. 'stable' moves with releases, so the Writer should cite the docs for the version pinned in code/requirements.txt. Read Sec. 1.16 intro, 1.16.1 (LR vs RF vs GaussianNB curves), 1.16.2-1.16.3 (independent calibration data, CalibratedClassifierCV ensemble=True/False, FrozenEstimator, sigmoid and isotonic, ~1000-sample guidance, isotonic ties change AUC)."
+    "note": "User guide page fetched 2026-11-18 (UTC); page title says scikit-learn 1.9.1. 'stable' moves with releases, so the Writer should cite the docs for the version pinned in code/requirements.txt. Read Sec. 1.16 intro, 1.16.1 (LR vs RF vs GaussianNB curves), 1.16.2-1.16.3 (independent calibration data, CalibratedClassifierCV ensemble=True/False, FrozenEstimator, sigmoid and isotonic, ~1000-sample guidance, isotonic ties change AUC)."
   }
 }

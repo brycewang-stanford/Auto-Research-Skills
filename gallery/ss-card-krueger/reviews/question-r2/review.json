@@ -1,0 +1,124 @@
+{
+  "id": "question-r2",
+  "target": "question",
+  "round": 2,
+  "created": "2026-11-18T16:44:43Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r1/review.json",
+    "plan.json",
+    "crew.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "log.jsonl",
+    "briefs/20261118T164300Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/ss-card-krueger/task.json",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/social-science.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "web search 2026-11-18: Card Krueger 1994 outliers winsorized/trimmed/median regression replication",
+    "https://ideas.repec.org/p/pra/mprapa/25181.html (Ropponen 2010, MPRA 25181, abstract; lists Ropponen 2011, J. Applied Econometrics 26(6): 1051-1057 as related item, not fetched)",
+    "https://econpapers.repec.org/RePEc:osf:osfxxx:8ut4n_v1 (Morshed 2025, OSF preprint, abstract)"
+  ],
+  "kill_argument": "H2 still lets the crew choose, after seeing the data, which side of its threshold it lands on. Winsorizing 'store-level changes' only defines a sample of stores observed in both waves, but its comparator (Table 3 row 3, 2.76) is not a store-level estimate. Under CK's closure rule, the six permanently closed stores (5 NJ, 1 PA) enter with a change of minus their whole wave-1 workforce. These are among the most negative changes in the data, so a pooled 5th-percentile cap mechanically lifts the NJ mean. Whether closures are winsorized, and which unwinsorized estimate is the comparator, is not fixed. These choices alone can move the result across the half-magnitude line. The qualifier 'no published result that we found' rests on an unlogged search. One quick search found an omitted reanalysis of this distributional question on the same public data: Ropponen (2010; JAE 2011), using changes-in-changes, finds the effect holds only for small restaurants. I attacked H1 again and it held: the targets are named, the tolerances are fixed and N = 357 is exact. Feasibility was confirmed in round 1. Fix H2's sample and comparator, and the novelty record.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "resolved",
+      "text": "H2 was true by construction (a sign test with known positive published answers), and the contribution's pre-specification claim was hollow.",
+      "evidence": "plan.json hypotheses[1] and contribution",
+      "remedy": "Narrow the contribution; rewrite H2 with a criterion that can fail and has no published answer.",
+      "response": "PI: contribution narrowed to no specification search within this study, with the known published checks disclosed; H2 now a winsorization check with no published result found, judged on keeping half the magnitude.",
+      "ruling": "Resolved in the files. The contribution now says the crew had read the published results of other checks and claims only the absence of within-study search. H2's half-magnitude criterion (about 1.38) can fail: PA's change SD (10.8) exceeds NJ's (8.4, NW 1995 p. 3), so capping tails can shrink the PA decline. Sample and comparator problems in the new H2 are raised separately as F6, and the novelty qualifier as F7."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H1 covered only the point estimate, not the SE, the balanced sample or the 357-store sample.",
+      "evidence": "plan.json hypotheses[0]",
+      "remedy": "Extend H1 to the SEs, the balanced-sample DiD and Table 4 col (i).",
+      "response": "PI: H1 now covers the SEs, the balanced sample and the 357-store regression sample.",
+      "ruling": "Resolved: H1 (a)-(c) cover 2.76 (1.36), 2.75 (1.34) and 357 stores with 2.33 (1.19). The SE construction is still not stated; round 1 allowed deferring it to design, and it is carried as part of F9."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H1's target cell and tolerance were undefined, inviting a post-hoc tolerance or the nearest published cell.",
+      "evidence": "plan.json question and hypotheses[0]",
+      "remedy": "Name the cell and fix a numeric tolerance now.",
+      "response": "PI: H1 names Table 3 row 3 col (iii), row 4, and Table 4 col (i), each with a 0.05 tolerance fixed now.",
+      "ruling": "Resolved. 0.05 is looser than the 0.01 I suggested, but it is fixed before any estimate and is small relative to the SEs (about 4 percent of 1.36). One remaining discrimination problem is raised as F9."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Data provenance (Myth and Measurement release vs AER files) was not stated.",
+      "evidence": "plan.json hypotheses[0]",
+      "remedy": "State the possible vintage difference.",
+      "response": "PI: the possible data-release difference (Myth and Measurement files) is stated in H1.",
+      "ruling": "Resolved: H1 now names the release and the possible difference."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "'Survive a robustness check' had no valid inferential meaning with one treated and one control state.",
+      "evidence": "plan.json question and hypotheses[1]",
+      "remedy": "Judge H2 on the point estimate; record the clustering deviation at design.",
+      "response": "PI: H2 judged on the point estimate, not significance; the clustering rule will be recorded as a deviation at design.",
+      "ruling": "Resolved for the question stage: H2 is judged on the point estimate and cites Conley-Taber. The clustering deviation must still appear in the design's threats or deviations; I will check that at design."
+    },
+    {
+      "id": "F6",
+      "severity": "major",
+      "status": "open",
+      "text": "H2's sample and comparator are not fixed, and the open choices can mechanically decide the outcome. (i) A 'store-level change in FTE' exists only for stores observed in both waves. The 'replicated headline estimate' H2 compares against is H1(a), Table 3 row 3, a difference of wave means over all available stores, not a mean of store-level changes. The winsorization effect would then be confounded with a change of sample. (ii) Under CK's closure rule, the six permanently closed stores (5 NJ, 1 PA) have change = minus their wave-1 FTE. These are among the most negative changes in the data, so a pooled 5th-percentile cap raises the NJ mean and pushes H2 toward passing. Whether they are in the winsorized pool is unstated. (iii) Whether the four temporarily closed stores are dropped (row 4) or set to 0 (row 5) is unstated. (iv) Whether the percentiles are computed before or after these exclusions is unstated.",
+      "evidence": "plan.json hypotheses[1] ('store-level changes', 'pooled distribution', 'the replicated headline estimate'); sources/notes.md sec. 1 Table 3 notes (closures) and rows 3-5; sec. 7 item 2",
+      "remedy": "Fix in plan.json now: the sample is the H1(b) balanced sample (Table 3 row 4: permanent closures = 0, temporary closures missing). Percentiles come from the pooled store-level changes of that sample, closures included. The comparator for 'half the magnitude' is the unwinsorized estimate on that same sample, i.e. replicated row 4, not row 3. Pre-declare as a secondary, reported-not-judged, the same check with the six permanent closures excluded from the winsorization. Each of these is a one-line edit.",
+      "response": "PI: H2 fixed on the balanced sample with closures as zero, pooled percentiles incl. closures, compared with the unwinsorized estimate on the same sample; secondary excluding closures reported, not judged.",
+      "ruling": ""
+    },
+    {
+      "id": "F7",
+      "severity": "major",
+      "status": "open",
+      "text": "Obvious prior work is missing, and H2's novelty qualifier rests on a search that is not recorded. The question says winsorization is 'a check with no published result that we found'. But q-novelty was completed before H2 was chosen, and log.jsonl has no search for trimmed, winsorized or distributional reanalyses. Such a search finds Ropponen, 'Minimum Wages and Employment: Replication of Card and Krueger (1994) Using the CIC Estimator' (MPRA Paper 25181, 2010; abstract read), and its journal descendant, Ropponen (2011), 'Reconciling the evidence of Card and Krueger (1994) and Neumark and Wascher (2000)', J. Applied Econometrics 26(6): 1051-1057 (listed on IDEAS, not fetched). The 2010 paper uses the original CK data and Athey-Imbens changes-in-changes, a distribution-level reanalysis. Its abstract concludes that the result 'remains valid only for small fast-food restaurants'. This is a later-literature check on the public data, on the same distributional question H2 asks, and its published result may indicate what winsorization will show. Neither paper is in refs.bib or sources.json. Morshed (2025, OSF preprint 10.31219/osf.io/8ut4n_v1) is another public-data replication not recorded; whether it reproduces the SEs or N = 357 is unchecked, and that bears on the contribution's claim.",
+      "evidence": "plan.json question ('a check with no published result that we found') and contribution; log.jsonl (no search after 16:39:39Z); sources/notes.md sec. 5-6; refs.bib",
+      "remedy": "Scout: fetch and verify Ropponen 2011 (JAE) and Ropponen 2010, record them in refs.bib and sources.json, and note in notes.md what they report about the distribution of changes and store size. Skim Morshed 2025 for SEs and N. Log the search terms used for the H2 novelty claim. Then either keep H2 and reword the qualifier to 'no published winsorized estimate; Ropponen (2011) reports a changes-in-changes reanalysis that ...', disclosing what the crew knew, or adopt CIC as the later-literature check. Narrowing the qualifier is the cheaper fix.",
+      "response": "PI: sent to the Scout to verify Ropponen 2010/2011 and Morshed 2025 and log the search; H2's 'no published result' qualifier removed. Scout: verified and recorded Ropponen 2010 (full text; CIC 0.90 vs DiD 2.72, positive for small and negative for large stores), Ropponen 2011 JAE and 2014 Emp. Econ. (abstracts only; full texts blocked), and Morshed 2025 (full text; does not reproduce 2.76/1.36 or N = 357, reports 3.36); none of the readable sources winsorizes or trims, and NW 1995 p. 9 says the variability is 'not driven by one or two outliers'; search terms logged in sources/notes.md section 5; note that plan.json question still contains 'no published result that we found'.",
+      "ruling": ""
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "open",
+      "text": "The seed brief asks for a robustness check 'from the later literature'. H2's winsorization is a crew-built check that no cited work performed. The plan itself calls it a check with no published result, so it sits in tension with the brief. It is defensible only as an operationalization of NW (1995)'s measurement-error critique (SD of changes about three times the payroll data's; extremes of -41.5 and +34 FTE), and plan.json does not say so.",
+      "evidence": "task.json brief ('pre-specify and report at least one robustness check from the later literature'); plan.json hypotheses[1]; sources/notes.md sec. 2 Finding 1, sec. 7 item 6",
+      "remedy": "State in H2 that the check operationalizes NW 1995's measurement-error critique, citing neumark1995payroll. Alternatively, also pre-specify the NW sample rule (notes sec. 7 item 6(a); published 2.78) as a second check, reported descriptively and disclosed as having a known published answer.",
+      "response": "PI: H2 framed as implementing Neumark and Wascher's critique; their sample rule added as a secondary, reported check.",
+      "ruling": ""
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "open",
+      "text": "H1(a) and H1(b) cannot tell apart the sample rules they are meant to test. Their targets lie within the tolerance of each other: 2.76 vs 2.75, and SE 1.36 vs 1.34. So a single computation on either sample 'reproduces' both, and a wrong sample rule passes. The within-state changes do discriminate, but they are not targeted: NJ 0.59 (0.54) in row 3 vs 0.47 (0.48) in row 4. Two smaller points. 'Within 0.05' is not stated as inclusive, and Mamula's Table 4 estimate of 2.28 sits exactly 0.05 from 2.33. The SE construction is not yet stated (paired within-state SEs combined as independent vs a robust store-level regression), and the crew already knows which one reproduces 1.36.",
+      "evidence": "plan.json hypotheses[0] (a)-(b); sources/notes.md sec. 1 Table 3 rows 3-4 and the SE arithmetic; sec. 5 Mamula (2.28 vs 2.33); sec. 7 item 4",
+      "remedy": "Add to H1(a)-(b) the within-state change targets: PA -2.16 (1.25), NJ 0.59 (0.54) for row 3, and PA -2.28 (1.25), NJ 0.47 (0.48) for row 4, under the same tolerance. Add store counts per state and wave where the paper reports them. Write the tolerance as |difference| <= 0.05. Fix the SE construction at the design gate, and report the alternative too.",
+      "response": "PI: within-state targets added; tolerance written as |difference| <= 0.05; SE computation fixed at design.",
+      "ruling": ""
+    }
+  ]
+}

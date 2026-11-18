@@ -180,7 +180,7 @@ SEs are cross-store sampling SEs, which ignore state-level shocks. The paper sho
 this in its limitations and should not present the t-statistic of 2.03 as design-based
 evidence.
 
-## 5. Prior replications from the public data
+## 5. Prior replications and reanalyses from the public data
 
 - **Data documentation `[card_njmin_readme]`:** `njmin.zip` holds `public.dat` (410 obs), a
   `codebook`, a SAS program "to read the data and create some of the key tabulations", and
@@ -198,75 +198,177 @@ evidence.
   - Table 4 was not reproduced exactly. N was 351 or 370 against the published 357, and the
     NJ dummy was 2.28 or 2.16 against 2.33. The author could not reconstruct the "available
     employment and starting wage" sample and did not use the SAS file.
-- A web search (2026-11-19) turned up several more informal replications (blog posts, course
-  pages, RPubs). They report the same 2.75 vs 2.76. I did not verify them and do not cite
-  them.
+- **Morshed (2025) `[morshed2025replication]`, OSF preprint, 4 pp., full text read; not peer
+  reviewed:**
+  - The data file is "Card-Krueger-1994-data.dta", described as 410 stores. The preprint does
+    not say where the file came from.
+  - **It does not reproduce the published numbers**, and it does not note or explain the
+    gaps. The reported DiD is 3.36 (SE "approximately 1.68") against 2.76 (1.36). The
+    balanced-sample DiD is 3.44 against 2.75. Setting temporarily closed stores to zero gives
+    3.28 against 2.51. The Table 4 NJ dummy is "approximately 2.94" against 2.33.
+  - Its wave-1 FTE means are 7.72 (NJ) and 10.21 (PA), against 20.44 and 23.33 in CK
+    Table 2/3. This points to a different employment measure or a different data file.
+  - It reports **no N for Table 4**, so it says nothing about the 357-store sample.
+  - It does no winsorization or trimming. Its extension is the within-NJ wage-group split:
+    low-minus-high 1.90 against CK's 3.36.
+  - **Bearing on the contribution:** it does not weaken the claim that no public replication
+    reproduces the published SEs or N = 357. It is one more replication that misses them.
+- **Ropponen (2010) `[ropponen2010cic]`, MPRA 25181 / HECER DP 289, full text read:**
+  - **Data:** "the original Card and Krueger (1994) data", obtained from the Princeton IRS and
+    MIT/Angrist (MHE) websites (fn 6). He keeps stores with complete employment data, as CK
+    do. FTE = managers + full-time + 0.5 part-time (p. 4).
+  - **Balanced sample (fn 8):** in his words, "the balanced sample in CK includes 309
+    observations on fast-food restaurants in New Jersey and 75 in Pennsylvania", 384 in
+    total. This is his count, not a number printed in CK.
+  - **Replication:** the DiD on this sample is **2.72**, against CK's 2.75 in Table 3 row 4
+    (p. 10).
+  - **Changes-in-changes (Athey-Imbens 2006):** the average effect is **0.90** (bootstrap SE
+    0.44) on 301 NJ + 75 PA stores. **Eight NJ stores are dropped** because their wave-1 FTE
+    lies outside the support of PA wave-1 FTE (fn 15-16). This is a support restriction
+    required by the estimator, not an outlier trim. With chain, ownership and location
+    controls the effect is 1.58 (SE 0.44) (fn 17).
+  - **Distribution and store size:** store-level effects are plotted against wave-1 FTE. A
+    lowess curve of conditional average effects crosses zero at FTE 11.5 and 24 (Fig. 3; no
+    controls). With controls it turns from positive to negative at FTE 20.8 (Fig. 4). The
+    conclusion (p. 13) is that effects are "positive for small and negative for big fast-food
+    restaurants", so the CK result is "overturned for big fast-food restaurants". He offers a
+    demand-side explanation based on store location.
+- **Ropponen (2011, JAE 26(6): 1051-1057) `[ropponen2011reconciling]`, abstract only:**
+  - The abstract (on IDEAS, borrowed from VATT WP 24) says the paper uses the original CK
+    **and** NW (2000) datasets with the CIC estimator.
+  - It says the CK result "remains valid only for small fast-food restaurants" in both
+    datasets, and that this reconciles the two studies.
+  - I could not read the full text: Wiley is paywalled, and doria.fi and the ZBW JAE data
+    archive returned 403 or bot checks. So I cannot say whether it trims or winsorizes, or
+    what its sample sizes are.
+- **Ropponen (2014, Empirical Economics 46(1): 307-316) `[ropponen2014note]`, abstract only:**
+  - Uses Abadie's (2005) semiparametric DiD on "the original datasets" of CK and NW.
+  - Concludes that "the original findings on the overall employment effect of a minimum wage
+    are fairly robust". NW's results are slightly diluted once covariate distributions are
+    balanced.
+  - The abstract does not mention trimming, winsorizing or outliers. I did not read the full
+    text.
+- Other informal replications (blog posts, course pages, RPubs) were seen in search results.
+  They report the same 2.75 vs 2.76. I did not verify them and do not cite them.
 
-## 6. Novelty verdict
+### Does any of these report a winsorization or trimming check?
 
-**Already answered, as a finding. The value of this project is procedural.** The published
-estimate (2.76, SE 1.36) and its balanced-sample twin (2.75, SE 1.34) are in CK Table 3.
-Informal replications from the same public file already reproduce the means and a DiD of
-2.75. The substantive dispute, NW's payroll data against CK's BLS reply, was carried out
-with data that are not public.
+**None that I could read.**
+- CK 1994 Table 5 has no trimming or winsorizing rows. Its sample exclusions are by location,
+  call-backs and closure status.
+- NW 1995 documents the extreme changes (-41.5, +34 FTE) and the 3x SD ratio. I searched
+  the full 38-page OCR text for trim, outlier, winsor, median, extreme and drop. It does not
+  trim or winsorize CK's data. Its only exclusion is dropping closed restaurants. It also
+  states (p. 9) that **"The greater variability in CK's data is not driven by one or two
+  outliers."** In the combined sample, the SD of the change is 9.6 in CK's data against 3.2
+  in the payroll data, and the 90-10 range is 21.0 against 7.9.
+- Ropponen 2010 drops 8 NJ stores for CIC support. That is a support restriction, not a
+  winsorization of changes, and he reports no winsorized DiD.
+- Morshed 2025 and Mamula 2021 do neither.
+- **Not checkable:** the full texts of Ropponen 2011 and 2014, NW 2000 and CK 2000. All are
+  paywalled or blocked, and their abstracts say nothing on the point.
 
-The question is still worth doing for this crew, because it is not pointless in three
-respects:
+The defensible wording is: "we found no published winsorized or trimmed estimate on these
+data; we could not read the full texts of [list]; Ropponen (2010, 2011) reports a
+changes-in-changes reanalysis in which the effect is positive for small stores and negative
+for large ones".
 
-1. No verified replication fully reproduces the published **standard errors** or the
-   **357-store regression sample**. A logged replication that does, or that explains why it
-   cannot, adds something.
-2. The contribution as written is "an independent, fully logged replication with a
-   pre-specified robustness check". That is a claim about process, and the existing work
-   does not cover it.
-3. The paper must not claim to settle the minimum-wage employment effect. It can only claim
-   to reproduce one published estimate from one survey.
+**What this implies for H2:** Ropponen's result makes the H2 outcome partly predictable. If
+large stores carry negative effects and the extreme negative changes sit in large stores,
+then capping the tails could move the NJ-PA difference either way. The paper should report
+H2 next to Ropponen's CIC result, and should not present winsorization as untouched ground.
 
-## 7. Design implications for the Econometrician and PI
+### Search log (prior robustness checks and distributional reanalyses)
 
-1. **Headline estimand (`did-fte`):** Table 3, row 3, col (iii), **2.76 (SE 1.36)**. This is
-   the difference in the change in mean FTE per store, NJ minus PA, over all stores with
-   available employment data. Permanently closed stores get wave-2 FTE = 0. The four
-   temporarily closed stores get wave-2 FTE = missing.
-2. **Balanced estimate (`did-fte-balanced`):** Table 3, row 4, col (iii), **2.75 (SE 1.34)**,
-   over stores with employment data in both waves. Row 5 (2.51, SE 1.35) is the variant that
-   sets temporarily closed stores to 0. Pre-specify which closure rule is used, and report the
-   other.
-3. **FTE:** full-time (including managers and assistant managers) + 0.5 x part-time. Check
-   the variable names and the coding of closure status in `codebook` and the bundled SAS
-   program. Use the SAS program as the authority on sample rules.
-4. **Standard errors:** to match the published SEs, compute each state's change SE from the
-   paired store-level data, then combine the two states as independent:
-   sqrt(SE_PA^2+SE_NJ^2). The usual alternative is a store-level regression of ΔFTE on NJ
-   with heteroskedasticity-robust SEs. That gives a slightly different SE, and the paper
-   should say which one it uses.
-5. **Regression cross-check:** Table 4 col (i), NJ dummy **2.33 (1.19)** on **357** stores
-   with employment and starting-wage data in both waves. Col (ii) adds chain and ownership
-   dummies: 2.30 (1.20). The sample is a known stumbling block (Mamula got 351 or 370), so
-   log the sample count at every filter.
-6. **Candidate pre-specified robustness checks from the later literature** (fix one before
-   any estimate is computed):
-   - (a) **NW sample rule:** drop permanently closed stores and add chain and ownership
-     controls. NW (1995, p. 3) report 2.78 for this on CK's data. This is the most direct
-     "later-literature" check that can be run on public data.
-   - (b) **NW's measurement-error concern:** the extreme employment changes (-41.5, +34 FTE)
-     motivate a check that trims or winsorizes the top and bottom 1% of ΔFTE, or that uses a
-     median regression. The NW payroll data themselves are not public.
-   - (c) **Control group that does not depend on Pennsylvania:** compare NJ stores at $4.25
-     with NJ stores at >= $5.00, i.e. Table 3 col (vii): 3.36 (1.48), balanced 3.36 (1.30).
-     This speaks to the reply's point that the disputes centre on the PA sample.
-   - (d) **CK's own Table 5 variants** (0.4/0.6 part-time weights, excluding managers,
-     excluding the NJ shore). These are the authors' checks, not later literature.
+The searches behind the novelty claim, with exact terms:
 
-   The Scout's ranking for H2 is (a), then (b), then (c). This is a recommendation; the
-   choice belongs to the design stage.
-7. **Inference caveat:** there is one treated state and one control state (Conley-Taber).
-   Report the conventional SEs to compare with the paper, and state in the limitations that
-   they do not account for state-level shocks.
-8. **Data limits:** there is no store identifier, and no wave-1 interview date (NW 1995 fn 6).
-   CK Table 5 row 7 uses wave-2 interview week, which may or may not be in the public file;
-   check the codebook. None of the payroll-data results (NW, BLS ES-202) can be replicated
-   from public data.
+| Date | Tool | Exact query | What it found that was used |
+|---|---|---|---|
+| 2026-11-19 | WebSearch | `Neumark Wascher 2000 "Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania: Comment" pdf` | NW 1995 WP 5224; NW 2000 metadata |
+| 2026-11-19 | WebSearch | `replication Card Krueger 1994 New Jersey minimum wage public data difference-in-differences reproduce 2.76 FTE` | Mamula 2021 and other informal replications |
+| 2026-11-19 | Crossref API | `query.bibliographic=Minimum Wages and Employment Case Study Fast-Food Industry New Jersey Pennsylvania` | CK 1993 WP, NW 2000, CK 2000, CK 1998 WP |
+| 2026-11-19 | Crossref API | `Ropponen Reconciling the evidence of Card and Krueger Neumark Wascher`; `Ropponen A note on the robustness of Card and Krueger (1994) and Neumark and Wascher (2000) Empirical Economics` | Ropponen 2011 (JAE) and 2014 (Emp. Econ.) DOIs |
+| 2026-11-19 | WebSearch | `Ropponen "Reconciling the evidence of Card and Krueger (1994) and Neumark and Wascher (2000)" pdf VATT` | VATT WP 24 (blocked), JAE data archive (blocked) |
+| 2026-11-19 | WebSearch | `Card Krueger 1994 New Jersey fast food winsorized OR trimmed OR outliers employment change reanalysis` | Nothing on winsorizing or trimming; CK 1998 and NW 1995 only |
+| 2026-11-19 | WebSearch | `Card Krueger 1994 quantile difference-in-differences OR "changes-in-changes" OR "median regression" fast-food employment distribution` | Nothing beyond course pages and informal replications |
+| 2026-11-19 | WebSearch | `"Card and Krueger" minimum wage New Jersey robustness "measurement error" survey data outliers trimmed estimates Neumark Wascher comment` | Ropponen 2014 (Abadie semiparametric DiD); nothing on trimming |
+| 2026-11-19 | Direct fetch | ideas.repec.org pages for MPRA 25181, JAE 26(6), VATT WP 24/25, Emp. Econ. 46(1); api.osf.io/v2/preprints/8ut4n_v1 | Ropponen 2010 PDF, Morshed 2025 PDF, abstracts |
+
+The Reviewer's question-r2 search found Ropponen 2010 and Morshed 2025 before I did. My
+first-round searches (rows 1-3) did not target distributional or trimmed reanalyses. That
+gap is what F7 identified.
+
+## 6. Novelty verdict (updated 2026-11-19 after question-r2 F7)
+
+**The replication part is already answered as a finding, and its value is procedural. The
+robustness part is partly answered.**
+
+- **H1 (replication):** the published targets are in CK Tables 3-4. Three informal or
+  working-paper replications from the public data come close on the point estimate:
+  Mamula 2.75 and Ropponen 2.72 on the balanced sample. Morshed is far off at 3.36. **None
+  of the four reproduces the published standard errors or N = 357.** H1's added value is
+  doing that, or explaining why it cannot be done.
+- **H2 (winsorization):** I found no published winsorized or trimmed estimate on these data.
+  But the distributional question has been asked. Ropponen (2010; JAE 2011) uses
+  changes-in-changes and reports a smaller average effect (0.90, or 1.58 with controls,
+  against DiD 2.72) and a sign change with store size. Ropponen (2014) reports that the
+  average effect is "fairly robust" under semiparametric DiD. **The paper must cite these
+  and present H2 as a complement to them, not as the first distributional check.**
+- The substantive dispute (NW payroll vs CK BLS ES-202) used non-public data and is outside
+  the scope of this replication.
+- The paper must not claim to settle the minimum-wage employment effect.
+
+**Note for the PI:** `plan.json` `question` still ends with "a check with no published
+result that we found". The F7 response says this qualifier was removed, but the wording is
+still there. I have not edited `plan.json`, which is not my file.
+
+## 7. Design implications, aligned with the revised hypotheses (plan.json, question-r2)
+
+1. **H1(a), Table 3 row 3:** 2.76 (1.36), with PA -2.16 (1.25) and NJ 0.59 (0.54). All
+   stores with available employment data are used. Permanently closed stores get wave-2
+   FTE = 0, and the four temporarily closed stores are missing. Wave-1 interviews: 331 NJ,
+   79 PA. Wave-2 interviews: 321 NJ, 78 PA (CK Table 1). The CK text gives no per-wave counts
+   of stores with non-missing FTE. Mamula's counts (PA 77/77, NJ 321/319) are a secondary,
+   unverified reference.
+2. **H1(b), Table 3 row 4 (balanced):** 2.75 (1.34), PA -2.28 (1.25), NJ 0.47 (0.48).
+   Ropponen (2010, fn 8) counts the CK balanced sample as 309 NJ + 75 PA = 384. That is a
+   secondary source, not a CK number, but the replicated count can be checked against it.
+3. **H1(c), Table 4 col (i):** N = 357, NJ coefficient 2.33 (1.19). Log the store count after
+   each filter. Mamula's 2.28 sits exactly 0.05 away, so the |difference| <= 0.05 rule
+   matters.
+4. **FTE:** full-time (including managers and assistant managers) + 0.5 x part-time. Check
+   the variable names and closure coding against `codebook` and the bundled SAS program.
+5. **SEs (fixed at design):** the published column-(iii) SEs match sqrt(SE_PA^2+SE_NJ^2),
+   with paired within-state change SEs (my arithmetic, §1). The alternative is a store-level
+   regression with robust SEs. Report both.
+6. **H2 (winsorization, an implementation of NW 1995's measurement-error critique):**
+   - Sample: the H1(b) balanced sample, closures = 0.
+   - Cap ΔFTE at the 5th and 95th percentiles of the pooled distribution, closures included.
+   - Comparator: the unwinsorized estimate on the same sample.
+   - Facts the design should record before running:
+     - NW's extremes (-41.5, +34 FTE) and the per-state SDs of ΔFTE (NJ 8.4, PA 10.8; NW
+       1995 p. 3, closed stores excluded).
+     - PA has only about 75 balanced stores, so a pooled 5% tail in PA holds very few
+       stores. Report how many stores are capped in each state and each tail.
+     - Ropponen's finding that effects are negative for large stores. Report the wave-1 FTE
+       of the capped stores, so readers can compare with Ropponen's Figs. 3-4.
+   - NW (1995, p. 9) say the excess variability is "not driven by one or two outliers".
+     So by NW's own account, measurement error is spread across the distribution. A 5/95
+     winsorization tests only the tail part of that critique, and the paper should say so.
+   - Secondaries (reported, not judged):
+     - (i) the same check with the six permanently closed stores excluded from
+       winsorization;
+     - (ii) NW's rule (drop closed stores, add chain and ownership controls), published
+       2.78 (NW 1995 p. 3).
+7. **Discussion:** set H2 beside Ropponen's CIC averages (0.90 and 1.58, against DiD 2.72)
+   and his store-size pattern. Set it beside Ropponen (2014) "fairly robust" as well. The CIC
+   estimator could be offered as an optional, labelled extension. It is not pre-specified and
+   must not be added after results are seen.
+8. **Inference:** one treated and one control state (Conley-Taber). Report the conventional
+   SEs only for comparison with the paper, and record the clustering limitation as a
+   deviation at design.
+9. **Data limits:** there is no store identifier and no wave-1 interview date (NW 1995 fn 6).
+   Neither payroll data set (NW, BLS ES-202) is public.
 
 ## Unverified (not cited)
 
@@ -280,3 +382,9 @@ respects:
 - Other informal replications (anthonypuggs Substack and GitHub, RPubs, course pages) were
   seen in search results only. I read the Substack post's text via WebFetch, but its tables
   are images, so it is not recorded.
+- **Ropponen (2011, JAE) and Ropponen (2014, Emp. Econ.):** full texts not read. Wiley and
+  Springer are paywalled, and the VATT working papers on doria.fi and the ZBW JAE data
+  archive returned 403 or bot checks. They are recorded as `fetched-abstract`. Nothing is
+  claimed about their samples or about whether they trim.
+- **Neumark and Wascher 1995:** the full OCR text (38 pp.) was keyword-searched for
+  trimming. It was read closely only for pp. 1-10.
