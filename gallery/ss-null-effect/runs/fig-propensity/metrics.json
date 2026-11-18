@@ -1,0 +1,9 @@
+{
+  "bin_width": 0.05,
+  "max_bin_count": 298,
+  "n_bins": 20,
+  "n_control_below_01": 122,
+  "n_control_plotted": 2379,
+  "n_treated_above_09": 0,
+  "n_treated_plotted": 1621
+}

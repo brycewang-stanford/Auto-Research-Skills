@@ -1,0 +1,57 @@
+{
+  "id": "fig-sensitivity",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/fig_sensitivity.py",
+    "--out",
+    "paper/figures/fig_sensitivity.pdf",
+    "--metrics",
+    "runs/fig-sensitivity/metrics.json"
+  ],
+  "started": "2026-11-18T14:50:54Z",
+  "finished": "2026-11-18T14:50:57Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_sensitivity.py",
+      "sha256": "b31b1774c5c395fdbd69f2033627fcc36dcbbe5b4c0559c07546c729ffbe9e8c"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "b3afc7d62a5cef5a5a4b11eac52fd7a30874c1cd64f251da7cd2ee3d05171d0d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/sens-imbens/metrics.json",
+      "sha256": "1b21f8e7d482c5c899677ce0ff25283f8dd876bc83875a4a42548b87bffb6a4f"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_sensitivity.pdf",
+      "sha256": "818221ad1a215bce365b38b59f71fd5b18a59141d288b7b8860a029c90e9f70d"
+    },
+    {
+      "path": "runs/fig-sensitivity/metrics.json",
+      "sha256": "e623d65038453d36437cf008c77398349e9f52edd8818380bc5879ad3440db3b"
+    }
+  ],
+  "metrics": {
+    "checksum_plotted": 39974.13789136159,
+    "max_abs_bias_grid": 2439.406377800819,
+    "n_benchmarks_plotted": 9,
+    "n_grid_points": 64,
+    "target_equiv": 181.47350743498657,
+    "target_margin": 483.4700191239976,
+    "target_zero": 338.38603829192607
+  },
+  "metrics_file": "runs/fig-sensitivity/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

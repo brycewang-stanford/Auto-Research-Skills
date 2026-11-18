@@ -1,0 +1,61 @@
+{
+  "id": "tab-sensitivity",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/tab_sensitivity.py",
+    "--out",
+    "paper/tables/tab_sensitivity.tex",
+    "--metrics",
+    "runs/tab-sensitivity/metrics.json"
+  ],
+  "started": "2026-11-18T14:50:58Z",
+  "finished": "2026-11-18T14:50:58Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_sensitivity.py",
+      "sha256": "92d17b2b7fa0a571ac72a415f7fd14a7ace2999bdae83d2b8091a8562156fd7a"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "b3afc7d62a5cef5a5a4b11eac52fd7a30874c1cd64f251da7cd2ee3d05171d0d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/sens-imbens/metrics.json",
+      "sha256": "1b21f8e7d482c5c899677ce0ff25283f8dd876bc83875a4a42548b87bffb6a4f"
+    },
+    {
+      "path": "claims.jsonl",
+      "sha256": "04ea9368e79664ef29dcaa5713e3615af3276f951b044bc8dd86af57a884406a"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_sensitivity.tex",
+      "sha256": "f1a2cb08c5aa4a48ecc1129bd016e0381956251c0b52396ade8b5d6d87e3ae85"
+    },
+    {
+      "path": "runs/tab-sensitivity/metrics.json",
+      "sha256": "4bb37ddfe958ec9fcf880e3a3ffee93aaa926687416340d10f8f77748bf20fd5"
+    }
+  ],
+  "metrics": {
+    "n_direct_cells": 0,
+    "n_groups": 9,
+    "n_macro_cells": 36,
+    "n_robust_equiv": 7,
+    "n_robust_margin": 8,
+    "n_robust_zero": 8,
+    "n_targets": 3
+  },
+  "metrics_file": "runs/tab-sensitivity/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

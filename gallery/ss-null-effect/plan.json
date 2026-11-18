@@ -199,7 +199,7 @@
       "id": "f-figures",
       "title": "Propensity histogram, forest plot with M marked, sensitivity contour",
       "owner": "figures-ra",
-      "status": "todo"
+      "status": "done"
     }
   ],
   "gates": {

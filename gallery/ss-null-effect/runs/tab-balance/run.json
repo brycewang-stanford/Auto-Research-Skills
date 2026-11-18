@@ -1,0 +1,63 @@
+{
+  "id": "tab-balance",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/tab_balance.py",
+    "--out",
+    "paper/tables/tab_balance.tex",
+    "--metrics",
+    "runs/tab-balance/metrics.json"
+  ],
+  "started": "2026-11-18T14:50:57Z",
+  "finished": "2026-11-18T14:50:57Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_balance.py",
+      "sha256": "6ab414923f7f879c119ef42ede13e1838b4cb0deed27ba35f808caab038bdc1d"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "b3afc7d62a5cef5a5a4b11eac52fd7a30874c1cd64f251da7cd2ee3d05171d0d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/prep_metrics.json",
+      "sha256": "1800dff7c0561a57c181c1683dd36c6aef43828ed56d0d9b08eda1171d84fb5f"
+    },
+    {
+      "path": "runs/diag-overlap/metrics.json",
+      "sha256": "ed5d51aca7a12c31ff0b136bbd64b8c099eb35356944bf2a9edfb072a782e82a"
+    },
+    {
+      "path": "claims.jsonl",
+      "sha256": "04ea9368e79664ef29dcaa5713e3615af3276f951b044bc8dd86af57a884406a"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_balance.tex",
+      "sha256": "239f3e9530c1097b79e5c03a87f53e57d4fd8c07eea1cf791dfee72e3b42da93"
+    },
+    {
+      "path": "runs/tab-balance/metrics.json",
+      "sha256": "7008181975a31ca084b7884b199dd4a860ff17e6f3852a6512a5bbb05a03c4db"
+    }
+  ],
+  "metrics": {
+    "max_abs_smd_weighted": 0.03725876205665908,
+    "n_covariate_rows": 18,
+    "n_direct_cells": 41,
+    "n_macro_cells": 4,
+    "n_overlap_rows": 9
+  },
+  "metrics_file": "runs/tab-balance/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

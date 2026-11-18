@@ -1,0 +1,137 @@
+"""Shared helpers for the figure and table scripts (code/fig_*.py, code/tab_*.py).
+
+Rules (crew/agents/figures-ra.md): every number comes from a logged run's output file,
+declared with --input; a table cell the paper quotes is written as the claim's macro
+(paper/numbers.tex), and the script asserts that the macro's claim holds the same value
+as the metric it shows. Nothing here computes a new result.
+"""
+from __future__ import annotations
+
+import json
+import math
+from pathlib import Path
+
+# One palette for every figure (Okabe-Ito, separable under colour-vision deficiency).
+# Every encoding that matters also has a grayscale cue (position, marker fill, line style).
+INK = "#222222"
+MUTED = "#8a8a8a"
+LIGHT = "#d9d9d9"
+BLUE = "#0072B2"
+VERMILLION = "#D55E00"
+GREEN = "#009E73"
+ORANGE = "#E69F00"
+
+
+def load_json(path: str) -> dict:
+    return json.loads(Path(path).read_text(encoding="utf-8"))
+
+
+def load_metrics(run_id: str) -> dict:
+    """Metrics file a logged run wrote (runs/<id>/metrics.json)."""
+    return load_json(f"runs/{run_id}/metrics.json")
+
+
+def write_metrics(path: str, metrics: dict) -> None:
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    Path(path).write_text(json.dumps(metrics, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def mpl_setup():
+    import matplotlib
+    matplotlib.use("pdf")
+    import matplotlib.pyplot as plt
+    plt.rcParams.update({
+        "font.family": "STIXGeneral",
+        "mathtext.fontset": "stix",
+        "font.size": 8,
+        "axes.titlesize": 8.5,
+        "axes.labelsize": 8,
+        "xtick.labelsize": 7.5,
+        "ytick.labelsize": 7.5,
+        "legend.fontsize": 7.5,
+        "axes.linewidth": 0.6,
+        "axes.edgecolor": INK,
+        "axes.labelcolor": INK,
+        "text.color": INK,
+        "xtick.color": INK,
+        "ytick.color": INK,
+        "xtick.major.width": 0.6,
+        "ytick.major.width": 0.6,
+        "axes.spines.top": False,
+        "axes.spines.right": False,
+        "pdf.fonttype": 42,
+        "svg.hashsalt": "ss-null-effect",
+    })
+    return plt
+
+
+def save_pdf(fig, path: str) -> None:
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    # No creation date, so the same inputs give the same bytes.
+    fig.savefig(path, format="pdf", bbox_inches="tight", pad_inches=0.02,
+                metadata={"CreationDate": None, "ModDate": None})
+
+
+def money(x: float) -> str:
+    """Dollar figure for figure labels, rounded as the claims' ',.0f' macros are; true minus."""
+    s = format(x, ",.0f")
+    if s in ("-0",):
+        s = "0"
+    return s.replace("-", "−")
+
+
+def finite(*xs: float) -> bool:
+    return all(isinstance(x, (int, float)) and math.isfinite(x) for x in xs)
+
+
+class Macros:
+    """Look up the claim macro for a (run, metric) pair and check it against the value."""
+
+    def __init__(self, claims_path: str = "claims.jsonl"):
+        self.by_metric: dict[tuple[str, str], dict] = {}
+        for line in Path(claims_path).read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            c = json.loads(line)
+            if c.get("kind") != "result" or not c.get("macro") or "value" not in c:
+                continue
+            first = c["support"][0]
+            self.by_metric.setdefault((first.get("run"), first.get("metric")), c)
+        self.used = 0
+        self.direct = 0
+
+    def cell(self, run: str, metric: str, value, fmt: str, math_mode: bool = True,
+             alt: tuple = ()) -> str:
+        """LaTeX for one number: the claim's macro if one exists, else the formatted metric.
+
+        A claim on (run, metric) must hold exactly `value` and use the format `fmt`, or this
+        fails. `alt` lists further (run, metric) pairs that report the same quantity; a claim
+        on one of them is used only if its value equals `value` exactly.
+        """
+        claim = self.by_metric.get((run, metric))
+        if claim is not None and claim["value"] != value:
+            raise AssertionError(f"claim {claim['id']} value {claim['value']!r} != {run}:{metric} {value!r}")
+        if claim is None:
+            for key in alt:
+                c = self.by_metric.get(tuple(key))
+                if c is not None and c["value"] == value:
+                    claim = c
+                    break
+        if claim is not None:
+            if (claim.get("format") or fmt) != fmt:
+                raise AssertionError(f"claim {claim['id']} format {claim.get('format')!r} differs from {fmt!r}")
+            self.used += 1
+            body = "\\" + claim["macro"]
+        else:
+            self.direct += 1
+            body = format(value, fmt)
+        return f"${body}$" if math_mode else body
+
+
+def write_tex(path: str, source: str, body: list[str]) -> None:
+    """Write a LaTeX fragment (a tabular only; the Writer adds the float and caption)."""
+    head = [f"% Generated by {source} from logged runs. Do not edit by hand; rerun the script.",
+            "% Needs \\usepackage{booktabs,icomma} and \\input{numbers.tex} for the macros",
+            "% (icomma keeps the thousands comma in math mode, e.g. $1,716$, without a space)."]
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    Path(path).write_text("\n".join(head + body) + "\n", encoding="utf-8")

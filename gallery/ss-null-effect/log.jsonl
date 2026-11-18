@@ -44,3 +44,11 @@
 {"time": "2026-11-18T14:34:10Z", "role": "econometrician", "action": "review-response", "detail": "results-r2 F6: sens-mandated-sentence and NOTES item 6 state the additive Imbens-to-AIPW bias transfer is an approximation (tau00 -126.5 vs AIPW -9.8) and that the earnings74 equivalence verdict (203.8 vs 181.5) lies within that error; verdict unchanged. Text only; no runs."}
 {"time": "2026-11-18T14:34:13Z", "role": "pi", "action": "gate-request", "detail": "results"}
 {"time": "2026-11-18T14:38:24Z", "role": "pi", "action": "gate-approve", "detail": "results Bryce Wang"}
+{"time": "2026-11-18T14:50:53Z", "role": "figures-ra", "action": "run", "detail": "fig-propensity exit=0"}
+{"time": "2026-11-18T14:50:54Z", "role": "figures-ra", "action": "run", "detail": "fig-forest exit=0"}
+{"time": "2026-11-18T14:50:57Z", "role": "figures-ra", "action": "run", "detail": "fig-sensitivity exit=0"}
+{"time": "2026-11-18T14:50:57Z", "role": "figures-ra", "action": "run", "detail": "tab-balance exit=0"}
+{"time": "2026-11-18T14:50:57Z", "role": "figures-ra", "action": "run", "detail": "tab-main exit=0"}
+{"time": "2026-11-18T14:50:57Z", "role": "figures-ra", "action": "run", "detail": "tab-secondary exit=0"}
+{"time": "2026-11-18T14:50:58Z", "role": "figures-ra", "action": "run", "detail": "tab-sensitivity exit=0"}
+{"time": "2026-11-18T14:52:20Z", "role": "figures-ra", "action": "figures-built", "detail": "3 figures (fig_propensity, fig_forest, fig_sensitivity) and 4 tables (tab_balance, tab_main, tab_secondary, tab_sensitivity) from runs fig-propensity, fig-forest, fig-sensitivity, tab-balance, tab-main, tab-secondary, tab-sensitivity; macros in table cells with claims; captions in paper/figures/CAPTIONS.md; f-figures done (plan.json tasks only)"}

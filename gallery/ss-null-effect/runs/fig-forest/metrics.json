@@ -1,0 +1,9 @@
+{
+  "checksum_plotted": -5024.285703954889,
+  "margin_M": 483.4700191239976,
+  "n_rows": 9,
+  "n_rows_with_90ci": 8,
+  "rows": "main-aipw:main,rob-trim:main,rob-covsets:covset_a_,rob-covsets:covset_b_,rob-learners:linear_,rob-learners:rf_,rob-estimators:ols_,rob-estimators:ipw_,rob-diff74:main",
+  "xlim_high": 602.208902403942,
+  "xlim_low": -1614.250252155021
+}

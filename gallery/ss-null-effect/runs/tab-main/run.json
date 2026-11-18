@@ -1,0 +1,83 @@
+{
+  "id": "tab-main",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/tab_main.py",
+    "--out",
+    "paper/tables/tab_main.tex",
+    "--metrics",
+    "runs/tab-main/metrics.json"
+  ],
+  "started": "2026-11-18T14:50:57Z",
+  "finished": "2026-11-18T14:50:57Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_main.py",
+      "sha256": "da7837059aa45069d9f915b68122281e6024821fec54cd8a81f05bf383f2b6ce"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "b3afc7d62a5cef5a5a4b11eac52fd7a30874c1cd64f251da7cd2ee3d05171d0d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "a4368374e12d833fffe0356b649e7e71436e5b64040462ddc7c707fef182080e"
+    },
+    {
+      "path": "runs/rob-trim/metrics.json",
+      "sha256": "dc557b772e3a44cab17c6cc39a1a698beaec4778a311c5b06e943baaff652773"
+    },
+    {
+      "path": "runs/rob-covsets/metrics.json",
+      "sha256": "ffc3072b6ca03ac434eaa274ede8ff4db7e00ca7651c713bc2fa95ab7515997a"
+    },
+    {
+      "path": "runs/rob-learners/metrics.json",
+      "sha256": "e1dec84a9e3f4b4441ef3adbccec28fee0087e4ba0cd3fb89e4fb9cf6c488f44"
+    },
+    {
+      "path": "runs/rob-estimators/metrics.json",
+      "sha256": "af68853c860c12b511c6656e6d6c1b078bfa5194b72151c7c9a21d08a52e5709"
+    },
+    {
+      "path": "runs/rob-diff74/metrics.json",
+      "sha256": "3c70cf24c0f49c0ce4cef01dd05c2a51524927fb4df825836b7e26384faca1db"
+    },
+    {
+      "path": "runs/select-re75/metrics.json",
+      "sha256": "a3ea166ae1b58d76997ba74ca15b303bafd343548ce9a4aaffc93bbf8c05a8a8"
+    },
+    {
+      "path": "claims.jsonl",
+      "sha256": "04ea9368e79664ef29dcaa5713e3615af3276f951b044bc8dd86af57a884406a"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_main.tex",
+      "sha256": "b5441d9e03b02ae047d0bc1f7354835ec6f3f25e1728bd3350e910aab48aff5c"
+    },
+    {
+      "path": "runs/tab-main/metrics.json",
+      "sha256": "f83f39cdf41d64a5026f4cfe522f36e977f4020454c7eb838a327f490f09fbf0"
+    }
+  ],
+  "metrics": {
+    "margin_M": 483.4700191239976,
+    "n_direct_cells": 23,
+    "n_macro_cells": 59,
+    "n_rows_panel_a": 9,
+    "n_rows_panel_b": 1
+  },
+  "metrics_file": "runs/tab-main/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

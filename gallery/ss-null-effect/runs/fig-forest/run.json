@@ -1,0 +1,77 @@
+{
+  "id": "fig-forest",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/fig_forest.py",
+    "--out",
+    "paper/figures/fig_forest.pdf",
+    "--metrics",
+    "runs/fig-forest/metrics.json"
+  ],
+  "started": "2026-11-18T14:50:53Z",
+  "finished": "2026-11-18T14:50:54Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_forest.py",
+      "sha256": "defdb64d8a0c6e5bcf965bc2c2f66da6f5695cb5ffa697fc2d668165088549ed"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "b3afc7d62a5cef5a5a4b11eac52fd7a30874c1cd64f251da7cd2ee3d05171d0d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "a4368374e12d833fffe0356b649e7e71436e5b64040462ddc7c707fef182080e"
+    },
+    {
+      "path": "runs/rob-trim/metrics.json",
+      "sha256": "dc557b772e3a44cab17c6cc39a1a698beaec4778a311c5b06e943baaff652773"
+    },
+    {
+      "path": "runs/rob-covsets/metrics.json",
+      "sha256": "ffc3072b6ca03ac434eaa274ede8ff4db7e00ca7651c713bc2fa95ab7515997a"
+    },
+    {
+      "path": "runs/rob-learners/metrics.json",
+      "sha256": "e1dec84a9e3f4b4441ef3adbccec28fee0087e4ba0cd3fb89e4fb9cf6c488f44"
+    },
+    {
+      "path": "runs/rob-estimators/metrics.json",
+      "sha256": "af68853c860c12b511c6656e6d6c1b078bfa5194b72151c7c9a21d08a52e5709"
+    },
+    {
+      "path": "runs/rob-diff74/metrics.json",
+      "sha256": "3c70cf24c0f49c0ce4cef01dd05c2a51524927fb4df825836b7e26384faca1db"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_forest.pdf",
+      "sha256": "e9d2b411c1e7855c933d9d384bf429d961b4f269fce5c104bc13fd46c5aa265b"
+    },
+    {
+      "path": "runs/fig-forest/metrics.json",
+      "sha256": "1cf24214ae437291331506b6453418aa056815d71b6922fcc4558d0ca37c9fd5"
+    }
+  ],
+  "metrics": {
+    "checksum_plotted": -5024.285703954889,
+    "margin_M": 483.4700191239976,
+    "n_rows": 9,
+    "n_rows_with_90ci": 8,
+    "rows": "main-aipw:main,rob-trim:main,rob-covsets:covset_a_,rob-covsets:covset_b_,rob-learners:linear_,rob-learners:rf_,rob-estimators:ols_,rob-estimators:ipw_,rob-diff74:main",
+    "xlim_high": 602.208902403942,
+    "xlim_low": -1614.250252155021
+  },
+  "metrics_file": "runs/fig-forest/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

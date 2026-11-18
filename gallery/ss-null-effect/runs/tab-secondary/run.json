@@ -1,0 +1,58 @@
+{
+  "id": "tab-secondary",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/tab_secondary.py",
+    "--out",
+    "paper/tables/tab_secondary.tex",
+    "--metrics",
+    "runs/tab-secondary/metrics.json"
+  ],
+  "started": "2026-11-18T14:50:57Z",
+  "finished": "2026-11-18T14:50:57Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_secondary.py",
+      "sha256": "c85e52f13bd614d62043478a85f7c4742091ecb122819010530f0267afb6af58"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "b3afc7d62a5cef5a5a4b11eac52fd7a30874c1cd64f251da7cd2ee3d05171d0d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/secondary-family/metrics.json",
+      "sha256": "ffb88fbe6d259c2751afc12b3eee9913b4092bdbe0949a4c87f430baa1275def"
+    },
+    {
+      "path": "claims.jsonl",
+      "sha256": "04ea9368e79664ef29dcaa5713e3615af3276f951b044bc8dd86af57a884406a"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_secondary.tex",
+      "sha256": "6c7b4d11056303aa6bede4a974bc006d724f3de8b0dc9f6d2a93fc23f2e5837e"
+    },
+    {
+      "path": "runs/tab-secondary/metrics.json",
+      "sha256": "bde3560e9f889f9fa09b821f7127f93463c68ad1825c9a68e600a1caad11476b"
+    }
+  ],
+  "metrics": {
+    "n_detected": 0,
+    "n_direct_cells": 1,
+    "n_macro_cells": 35,
+    "n_outcomes": 5
+  },
+  "metrics_file": "runs/tab-secondary/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

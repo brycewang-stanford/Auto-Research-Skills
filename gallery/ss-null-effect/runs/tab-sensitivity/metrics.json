@@ -1,0 +1,9 @@
+{
+  "n_direct_cells": 0,
+  "n_groups": 9,
+  "n_macro_cells": 36,
+  "n_robust_equiv": 7,
+  "n_robust_margin": 8,
+  "n_robust_zero": 8,
+  "n_targets": 3
+}

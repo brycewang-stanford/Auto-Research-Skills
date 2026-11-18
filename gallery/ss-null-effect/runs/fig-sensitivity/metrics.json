@@ -1,0 +1,9 @@
+{
+  "checksum_plotted": 39974.13789136159,
+  "max_abs_bias_grid": 2439.406377800819,
+  "n_benchmarks_plotted": 9,
+  "n_grid_points": 64,
+  "target_equiv": 181.47350743498657,
+  "target_margin": 483.4700191239976,
+  "target_zero": 338.38603829192607
+}
