@@ -1,0 +1,17 @@
+{
+  "id": "cs-label-noise",
+  "track": "cs",
+  "kind": "empirical-study",
+  "title": "How much does training-label noise hurt common tabular classifiers?",
+  "question": "As a growing fraction of training labels is flipped at random, how does test accuracy degrade for logistic regression, random forests and gradient-boosted trees, and does the ranking of the three change?",
+  "brief": "Run a small, careful empirical study on classification datasets that ship with scikit-learn. Inject symmetric label noise into the training labels only, at several rates from 0 to 40 percent, and measure accuracy on clean test labels. Use the same splits and the same tuning budget for every method, and at least five seeds. Say what you found at the size you found it.",
+  "requirements": [
+    "At least three datasets, three methods, five noise rates and five seeds.",
+    "Noise is injected into training labels only; test labels stay clean.",
+    "Hyperparameters are tuned on validation data with the same budget per method.",
+    "Results report mean and standard deviation across seeds; differences inside the noise are reported as no difference.",
+    "The whole study runs on a laptop CPU in under an hour."
+  ],
+  "budget": {"hardware": "laptop CPU", "wall_time_minutes": 60},
+  "scoring": "No numeric answer key. Scored on protocol compliance: `crew.py validate --strict` passes, every requirement above is met, and a clean rerun reproduces every reported number."
+}

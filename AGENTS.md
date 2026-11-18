@@ -13,6 +13,13 @@ observable, and easy to merge.
   work. Treat `skills/`, `systems/`, `benchmarks/`, and `lists/` as vendored
   submodules unless the task is explicitly to update a submodule pointer.
 
+## The crew
+
+- `crew/` is source, not vendored: a Claude Code plugin (roles, skills, the `crew.py`
+  workspace tool, seed tasks). Its contract is [`crew/PROTOCOL.md`](crew/PROTOCOL.md);
+  change the tool, the protocol document and `tests/test_crew.py` together.
+- Validate plugin changes with `claude plugin validate ./crew` and `claude plugin validate .`.
+
 ## Generated files
 
 - `catalog/skills.json`, `catalog/skills.csv`, `catalog/CATALOG.md`, and

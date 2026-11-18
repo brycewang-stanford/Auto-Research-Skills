@@ -1,0 +1,19 @@
+{
+  "_note": "Scoring key. Crew agents must not read this file.",
+  "source": {
+    "paper": "Chernozhukov, Chetverikov, Demirer, Duflo, Hansen, Newey, Robins (2018). Double/debiased machine learning for treatment and structural parameters. The Econometrics Journal 21(1), C1-C68.",
+    "doi": "10.1111/ectj.12097",
+    "table": "Table 2, Panel B (Partially Linear Regression Model), read from the text of arXiv:1608.00060v7 on 2026-11-18",
+    "units": "1991 US dollars"
+  },
+  "published": {
+    "plr_2fold": {"lasso": 7717, "reg_tree": 8709, "forest": 9116, "boosting": 8759, "neural_net": 8950, "ensemble": 9010, "best": 9125},
+    "plr_5fold": {"lasso": 8187, "reg_tree": 8871, "forest": 9247, "boosting": 9110, "neural_net": 9038, "ensemble": 9166, "best": 9215},
+    "se_range": [1294, 1749]
+  },
+  "pass_if": [
+    "Each replicated PLR estimate that uses a flexible learner (tree, forest, boosting, neural net) lies in [7400, 10600], i.e. within about one published standard error of the published range 8709-9247.",
+    "The paper states the published estimate it compares against, and that number appears in Table 2, Panel B.",
+    "The workspace passes `crew.py validate --strict`."
+  ]
+}

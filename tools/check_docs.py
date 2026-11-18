@@ -16,8 +16,10 @@ DEFAULT_ROOTS = (
     "CURATION.md",
     "README.md",
     "README_EN.md",
+    "ROADMAP.md",
     "STARS.md",
     "catalog",
+    "crew",
     "docs",
     "site/README.md",
 )

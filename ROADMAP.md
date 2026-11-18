@@ -7,7 +7,8 @@
 > **目标。** 一支由多个助研智能体组成的团队，协作完成一篇**计算机科学**或**社会科学**论文，
 > 包括真实的实验或数据建模，关键决策由人类 PI 把关。
 
-Status: plan adopted 2026-11-18. Nothing under `crew/` exists yet; Phase 1 builds it.
+Status: plan adopted 2026-11-18. Crew v0.1 is built under [`crew/`](crew/) and its tool is
+tested, but it has not yet been run end to end on a seed task.
 
 ## 1. Where we are
 
@@ -54,34 +55,41 @@ Three things distinguish this from the 38 systems already vendored under [`syste
 | **Econometrician** (social science) | Estimation, robustness, specification curve | [StatsPAI](https://github.com/brycewang-stanford/StatsPAI), [`skills/stata-code`](skills/stata-code), [`skills/empirical-research-skills`](skills/empirical-research-skills) |
 | **Writer** | Sections, LaTeX, venue templates | writing starter kit |
 | **Figures RA** | Figures and tables generated from the run ledger | figures starter kit |
-| **Referee** | Simulated peer review, claim-to-evidence audit, citation check | review and integrity starter kits |
+| **Reviewer** | Attacks every other role's work before each gate; decides what the evidence supports | review design from [`skills/aris`](skills/aris) |
 | **Replicator** | Clean-environment rerun, replication package | new |
 
 ### 2.3 The protocol
 
 Agents hand off through files in a project workspace, not through chat history:
 
-- `plan.yaml` — question, design, task board, gate status
+- `plan.json` — question, design, task board, gate status
 - `refs.bib` + `sources/` — only citations the Scout has verified
 - `data/manifest.json` — every dataset with origin, hash and license
 - `runs/` — one record per experiment or regression: code version, inputs, outputs
 - `claims.jsonl` — every claim in the paper linked to the run or source that supports it
 - `paper/` — LaTeX source, figures, tables
-- `reviews/` — referee reports and responses
+- `reviews/` — the Reviewer's verdicts, findings and rulings on rebuttals
 
 Four **human gates** stop the crew until the PI approves: research question, design
 (before any outcome data is touched), results, and submission.
 
-### 2.4 Planned layout
+Three kinds of judgment are kept apart. The tool checks *what happened* (the run finished,
+the number matches). The Reviewer, never the role that did the work, judges *whether it is
+good*, reading the files and not the author's summary. The human decides *whether to go
+on*. A gate cannot be approved while the Reviewer has an open critical finding, unless the
+human overrules it on the record. Full specification: [`crew/PROTOCOL.md`](crew/PROTOCOL.md).
+
+### 2.4 Layout
 
 ```text
-crew/
-  roles/        one file per role: responsibilities, inputs, outputs, skills
-  protocol/     schemas for the workspace files above
-  tracks/       cs/ and social-science/ playbooks
-  adapters/     claude-code/ (plugin), codex/
-  bench/        seed tasks and scoring scripts
-gallery/        finished papers with full workspaces, cost and time
+crew/           a Claude Code plugin
+  agents/       one file per role
+  skills/       /crew:start, /crew:status, /crew:gate
+  scripts/      crew.py, the workspace tool that enforces the protocol
+  tracks/       cs and social-science playbooks
+  templates/    LaTeX paper skeleton
+  bench/        seed tasks and answer keys
+gallery/        (planned) finished papers with full workspaces, cost and time
 ```
 
 `skills/`, `systems/`, `benchmarks/` and `lists/` stay vendored and read-only.
@@ -98,19 +106,22 @@ gallery/        finished papers with full workspaces, cost and time
 
 ### Phase 1 — Crew v0.1: one paper per track (by 2026-12-20)
 
-- [ ] Protocol schemas and a validator (`crew/protocol/`), covered by `make check`
-- [ ] Six roles: PI, Scout, Designer, Econometrician, Experimenter, Writer
-- [ ] Claude Code plugin: `/crew start`, `/crew status`, `/crew gate`
-- [ ] Social-science seed: replicate a published difference-in-differences result from public data
-- [ ] CS seed: a small empirical ML study that runs on a laptop CPU in under an hour
-- [ ] Both seeds end in a compiled PDF and a workspace that passes the validator
+- [x] Protocol and workspace tool ([`crew/PROTOCOL.md`](crew/PROTOCOL.md), `crew/scripts/crew.py`), covered by `make check`
+- [x] Seven roles: PI, Scout, Designer, Econometrician, Experimenter, Writer, Reviewer
+- [x] Claude Code plugin: `/crew:start`, `/crew:status`, `/crew:gate`
+- [x] Seed tasks defined: a double-machine-learning replication of the 401(k) eligibility
+      effect (social science) and a label-noise study on tabular classifiers (CS)
+- [ ] Both seeds run end to end: compiled PDF and a workspace that passes `validate --strict`
+- [ ] First two gallery entries, with token cost and wall time
 
 **Exit test:** a new user gets from clone to a draft PDF with one command per gate.
 
 ### Phase 2 — Crew v0.5: trustworthy (by 2027-02-28)
 
-- [ ] Remaining roles: Data RA, Figures RA, Referee, Replicator
-- [ ] Integrity gates: claim-to-evidence coverage, citation verification, clean rerun
+- [ ] Remaining roles: Data RA, Figures RA, Replicator
+- [ ] Reviewer on a different provider's model (cross-family review), with its memory and
+      debate rulings shown in the gallery
+- [ ] Clean-environment rerun as a gate
 - [ ] Null-effect test: on data with no true effect, the crew must report no effect
 - [ ] Codex adapter
 - [ ] `crew/bench` v0: 10 CS and 10 social-science seed tasks with known answers
@@ -173,9 +184,9 @@ with a merged seed task, role or adapter by v1.0.
 ## 7. Open decisions
 
 1. **First runtime:** Claude Code plugin first, Codex second (assumed above).
-2. **Seed papers:** which published result to replicate for the social-science seed, and
-   which small ML question for the CS seed.
+2. **Seed papers:** decided 2026-11-18 — both seeds use machine learning (see Phase 1).
 3. **Compute for the CS track:** laptop-only seeds (assumed), or a GPU budget for larger ones.
-4. **Venue submissions:** whether gallery papers are ever submitted, or stay as demonstrations.
+4. **Venue submissions:** decided 2026-11-18 — gallery papers stay as demonstrations and
+   are not submitted to venues.
 
 Comments welcome in issues or Discussions.

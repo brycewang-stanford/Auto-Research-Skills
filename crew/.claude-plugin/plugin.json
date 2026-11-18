@@ -1,0 +1,11 @@
+{
+  "name": "crew",
+  "displayName": "Free-Research-Crew",
+  "version": "0.1.0",
+  "description": "A crew of research-assistant agents that produces a computer-science or social-science paper, with real experiments or data modeling, through four human-approved gates.",
+  "author": { "name": "Bryce Wang", "url": "https://github.com/brycewang-stanford" },
+  "homepage": "https://github.com/brycewang-stanford/Free-Research-Crew",
+  "repository": "https://github.com/brycewang-stanford/Free-Research-Crew",
+  "license": "CC0-1.0",
+  "keywords": ["research", "multi-agent", "paper-writing", "social-science", "machine-learning"]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "free-research-crew",
+  "description": "Free-Research-Crew (免费助研团): research-assistant agents that co-write CS and social-science papers.",
+  "owner": { "name": "Bryce Wang", "url": "https://github.com/brycewang-stanford" },
+  "plugins": [
+    {
+      "name": "crew",
+      "source": "./crew",
+      "description": "A crew of research-assistant agents that produces a CS or social-science paper through four human-approved gates."
+    }
+  ]
+}

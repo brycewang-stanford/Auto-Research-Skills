@@ -35,7 +35,17 @@
 - **不需要新的运行环境** —— 角色和技能直接跑在你已有的 Claude Code / Codex 里。
 - **可信优先** —— 每个数字都能追溯到一次有记录的运行，每条引用都经过核验。
 
-本仓库目前是技能库（下方全部内容）；团队层正在建设中。完整计划、阶段与指标见 [**ROADMAP.md**](ROADMAP.md)。
+- **永不松口的审稿人** —— 有一个智能体只负责挑其他成员的毛病；只要它还有未解决的严重问题，任何关卡都不能通过。
+
+**团队 v0.1 已在 [`crew/`](crew/) 中**，以 Claude Code 插件形式提供（尚未在种子任务上完整跑通）：
+
+```bash
+claude plugin marketplace add brycewang-stanford/Free-Research-Crew
+claude plugin install crew@free-research-crew
+# 然后在 Claude Code 中：  /crew:start ss-dml-401k
+```
+
+本页其余部分是团队所依赖的技能库。完整计划、阶段与指标见 [**ROADMAP.md**](ROADMAP.md)。
 
 ---
 

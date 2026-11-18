@@ -31,11 +31,21 @@
 
 **Goal:** a crew of research-assistant (RA) agents that work together to produce a complete **computer-science** or **social-science** paper — including the real experiments or data modeling behind it — with a human PI approving the key decisions.
 
-- **One crew, two tracks** — PI, Scout, Designer, Data RA, Experimenter / Econometrician, Writer, Figures RA, Referee and Replicator serve both CS and social-science papers.
+- **One crew, two tracks** — PI, Scout, Designer, Data RA, Experimenter / Econometrician, Writer, Figures RA, Reviewer and Replicator serve both CS and social-science papers.
 - **No new runtime** — roles and skills run inside the Claude Code / Codex you already have.
 - **Integrity first** — every number traces to a logged run and every citation is verified.
 
-Today this repo is the skill hub (everything below); the crew layer is under construction. The full plan, phases and metrics are in [**ROADMAP.md**](ROADMAP.md).
+- **A Reviewer that never lets up** — one agent's only job is to attack the others' work; no gate passes while it has an open critical objection.
+
+**Crew v0.1 is in [`crew/`](crew/)** as a Claude Code plugin (not yet run end to end on its seed tasks):
+
+```bash
+claude plugin marketplace add brycewang-stanford/Free-Research-Crew
+claude plugin install crew@free-research-crew
+# then, in Claude Code:  /crew:start ss-dml-401k
+```
+
+The rest of this page is the skill hub the crew draws on. The full plan, phases and metrics are in [**ROADMAP.md**](ROADMAP.md).
 
 ---
 

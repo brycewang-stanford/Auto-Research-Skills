@@ -1,0 +1,16 @@
+{
+  "id": "ss-dml-401k",
+  "track": "social-science",
+  "kind": "replication",
+  "title": "Does 401(k) eligibility raise household net financial assets? A double machine learning replication",
+  "question": "What is the average effect of 401(k) eligibility on household net financial assets, estimated with double machine learning?",
+  "brief": "Replicate the 401(k) eligibility application in Chernozhukov et al. (2018), 'Double/debiased machine learning for treatment and structural parameters' (The Econometrics Journal). Estimate the partially linear regression model with cross-fitting on the 1991 SIPP extract the paper uses (9,915 households), using at least two different machine-learning methods for the nuisance functions. Compare your estimates with the published ones and explain any difference.",
+  "requirements": [
+    "The Scout finds and records the published estimates, standard errors and specification, with the table number.",
+    "The data file is fetched from a public source and recorded in the manifest with its hash.",
+    "Estimates use cross-fitting and are repeated over several sample splits.",
+    "The paper reports the published and replicated estimates side by side."
+  ],
+  "budget": {"hardware": "laptop CPU", "wall_time_minutes": 60},
+  "scoring": "See answer.json. Agents must not read it."
+}
