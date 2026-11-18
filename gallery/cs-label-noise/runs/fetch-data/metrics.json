@@ -1,0 +1,18 @@
+{
+  "breast_cancer.rows": 569,
+  "breast_cancer.n_numeric": 30,
+  "breast_cancer.n_categorical": 0,
+  "breast_cancer.sha256": "75a1d74a59df9cb0a78ecc0a36085bf8a85239557f178d3b8d758e88b26416e1",
+  "credit-g.rows": 1000,
+  "credit-g.n_numeric": 7,
+  "credit-g.n_categorical": 13,
+  "credit-g.sha256": "d8bbc0b04fc9666ba137eed597e3fea84130071ff95c5f1b8037ea58553041f1",
+  "adult.rows": 48842,
+  "adult.n_numeric": 6,
+  "adult.n_categorical": 8,
+  "adult.sha256": "740de363e8d615339f3d39374a61e92b406af52efd01791f5557129e640beea8",
+  "covtype.rows": 581012,
+  "covtype.n_numeric": 54,
+  "covtype.n_categorical": 0,
+  "covtype.sha256": "b6f5bda82ff015edbd2658c16ff4ae4e73bc7766cd95b456eb5b821f0c416c93"
+}

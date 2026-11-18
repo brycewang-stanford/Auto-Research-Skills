@@ -1,0 +1,203 @@
+{
+  "id": "prepare-data",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/prepare_data.py"
+  ],
+  "started": "2026-11-18T12:33:57Z",
+  "finished": "2026-11-18T12:34:01Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/prepare_data.py",
+      "sha256": "9a45beec40a4b38bd78b2e4352b6b84c240d3346e07bd38b282e6b73b4d42588"
+    },
+    {
+      "path": "code/requirements.txt",
+      "sha256": "3663becab20b6539303b006a4975ac0f7155c6f2d02a0c25d3e2699a381e8835"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/manifest.json",
+      "sha256": "d1ed22dd266beee01dea76f2ac4368de0ef6af45db59b40c56b9b6085a1c8996"
+    },
+    {
+      "path": "data/raw/breast_cancer.csv",
+      "sha256": "75a1d74a59df9cb0a78ecc0a36085bf8a85239557f178d3b8d758e88b26416e1"
+    },
+    {
+      "path": "data/raw/credit-g.csv",
+      "sha256": "d8bbc0b04fc9666ba137eed597e3fea84130071ff95c5f1b8037ea58553041f1"
+    },
+    {
+      "path": "data/raw/adult.csv",
+      "sha256": "740de363e8d615339f3d39374a61e92b406af52efd01791f5557129e640beea8"
+    },
+    {
+      "path": "data/raw/covtype.csv",
+      "sha256": "b6f5bda82ff015edbd2658c16ff4ae4e73bc7766cd95b456eb5b821f0c416c93"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/derived/breast_cancer.csv",
+      "sha256": "75a1d74a59df9cb0a78ecc0a36085bf8a85239557f178d3b8d758e88b26416e1"
+    },
+    {
+      "path": "data/derived/credit-g.csv",
+      "sha256": "d8bbc0b04fc9666ba137eed597e3fea84130071ff95c5f1b8037ea58553041f1"
+    },
+    {
+      "path": "data/derived/adult.csv",
+      "sha256": "740de363e8d615339f3d39374a61e92b406af52efd01791f5557129e640beea8"
+    },
+    {
+      "path": "data/derived/covtype.csv",
+      "sha256": "b6f5bda82ff015edbd2658c16ff4ae4e73bc7766cd95b456eb5b821f0c416c93"
+    },
+    {
+      "path": "data/derived/schema.json",
+      "sha256": "de4b0403b3165df522a519d2ba056aad4469a5262b6bdef58f0700e4e3956191"
+    },
+    {
+      "path": "runs/prepare-data/metrics.json",
+      "sha256": "8dde8c9edc6b4f357d9096491fcf9f9eeec64ccd403211ae023793c887af739d"
+    }
+  ],
+  "metrics": {
+    "breast_cancer.rows_raw": 569,
+    "breast_cancer.rows": 569,
+    "breast_cancer.rows_dropped": 0,
+    "breast_cancer.n_features": 30,
+    "breast_cancer.n_numeric": 30,
+    "breast_cancer.n_numeric_binary_0_1": 0,
+    "breast_cancer.n_categorical": 0,
+    "breast_cancer.n_classes": 2,
+    "breast_cancer.majority_class": "1",
+    "breast_cancer.majority_share": 0.6274165202108963,
+    "breast_cancer.minority_share": 0.37258347978910367,
+    "breast_cancer.missing_target": 0,
+    "breast_cancer.missing_cells": 0,
+    "breast_cancer.rows_with_missing": 0,
+    "breast_cancer.columns_with_missing": 0,
+    "breast_cancer.duplicate_rows": 0,
+    "breast_cancer.class_count.1": 357,
+    "breast_cancer.class_count.0": 212,
+    "breast_cancer.matches_source.rows": true,
+    "breast_cancer.matches_source.n_features": true,
+    "breast_cancer.matches_source.n_numeric": true,
+    "breast_cancer.matches_source.n_categorical": true,
+    "breast_cancer.matches_source.class_counts": true,
+    "breast_cancer.matches_source.missing_cells": true,
+    "credit-g.rows_raw": 1000,
+    "credit-g.rows": 1000,
+    "credit-g.rows_dropped": 0,
+    "credit-g.n_features": 20,
+    "credit-g.n_numeric": 7,
+    "credit-g.n_numeric_binary_0_1": 0,
+    "credit-g.n_categorical": 13,
+    "credit-g.n_classes": 2,
+    "credit-g.majority_class": "good",
+    "credit-g.majority_share": 0.7,
+    "credit-g.minority_share": 0.3,
+    "credit-g.missing_target": 0,
+    "credit-g.missing_cells": 0,
+    "credit-g.rows_with_missing": 0,
+    "credit-g.columns_with_missing": 0,
+    "credit-g.duplicate_rows": 0,
+    "credit-g.class_count.good": 700,
+    "credit-g.class_count.bad": 300,
+    "credit-g.levels.checking_status": 4,
+    "credit-g.levels.credit_history": 5,
+    "credit-g.levels.purpose": 10,
+    "credit-g.levels.savings_status": 5,
+    "credit-g.levels.employment": 5,
+    "credit-g.levels.personal_status": 4,
+    "credit-g.levels.other_parties": 3,
+    "credit-g.levels.property_magnitude": 4,
+    "credit-g.levels.other_payment_plans": 3,
+    "credit-g.levels.housing": 3,
+    "credit-g.levels.job": 4,
+    "credit-g.levels.own_telephone": 2,
+    "credit-g.levels.foreign_worker": 2,
+    "credit-g.matches_source.rows": true,
+    "credit-g.matches_source.n_features": true,
+    "credit-g.matches_source.n_numeric": true,
+    "credit-g.matches_source.n_categorical": true,
+    "credit-g.matches_source.class_counts": true,
+    "credit-g.matches_source.missing_cells": true,
+    "adult.rows_raw": 48842,
+    "adult.rows": 48842,
+    "adult.rows_dropped": 0,
+    "adult.n_features": 14,
+    "adult.n_numeric": 6,
+    "adult.n_numeric_binary_0_1": 0,
+    "adult.n_categorical": 8,
+    "adult.n_classes": 2,
+    "adult.majority_class": "<=50K",
+    "adult.majority_share": 0.7607182343065395,
+    "adult.minority_share": 0.23928176569346055,
+    "adult.missing_target": 0,
+    "adult.missing_cells": 6465,
+    "adult.rows_with_missing": 3620,
+    "adult.columns_with_missing": 3,
+    "adult.duplicate_rows": 52,
+    "adult.class_count.<=50K": 37155,
+    "adult.class_count.>50K": 11687,
+    "adult.missing.workclass": 2799,
+    "adult.missing.occupation": 2809,
+    "adult.missing.native-country": 857,
+    "adult.levels.workclass": 8,
+    "adult.levels.education": 16,
+    "adult.levels.marital-status": 7,
+    "adult.levels.occupation": 14,
+    "adult.levels.relationship": 6,
+    "adult.levels.race": 5,
+    "adult.levels.sex": 2,
+    "adult.levels.native-country": 41,
+    "adult.matches_source.rows": true,
+    "adult.matches_source.n_features": true,
+    "adult.matches_source.n_numeric": true,
+    "adult.matches_source.n_categorical": true,
+    "adult.matches_source.class_counts": true,
+    "adult.matches_source.missing_cells": true,
+    "adult.matches_source.rows_with_missing": true,
+    "covtype.rows_raw": 581012,
+    "covtype.rows": 581012,
+    "covtype.rows_dropped": 0,
+    "covtype.n_features": 54,
+    "covtype.n_numeric": 54,
+    "covtype.n_numeric_binary_0_1": 44,
+    "covtype.n_categorical": 0,
+    "covtype.n_classes": 7,
+    "covtype.majority_class": "2",
+    "covtype.majority_share": 0.48759922342395684,
+    "covtype.minority_share": 0.004727957426008413,
+    "covtype.missing_target": 0,
+    "covtype.missing_cells": 0,
+    "covtype.rows_with_missing": 0,
+    "covtype.columns_with_missing": 0,
+    "covtype.duplicate_rows": 0,
+    "covtype.class_count.2": 283301,
+    "covtype.class_count.1": 211840,
+    "covtype.class_count.3": 35754,
+    "covtype.class_count.7": 20510,
+    "covtype.class_count.6": 17367,
+    "covtype.class_count.5": 9493,
+    "covtype.class_count.4": 2747,
+    "covtype.matches_source.rows": true,
+    "covtype.matches_source.n_features": true,
+    "covtype.matches_source.n_numeric": true,
+    "covtype.matches_source.n_categorical": true,
+    "covtype.matches_source.class_counts": true,
+    "covtype.matches_source.missing_cells": true
+  },
+  "metrics_file": "runs/prepare-data/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

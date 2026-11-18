@@ -2,3 +2,10 @@
 {"time": "2026-11-18T12:10:56Z", "role": "pi", "action": "plan-revised", "detail": "Question/hypotheses revised after question-r4 (final round): seed-mean ratio, bootstrap intervals, 5-point exclusion. Not re-reviewed. plan.json sha256=149f39aa28b0ae366c646238f4eb25b4d7ef8d89b02dd1e1e09bc7193db67d1e"}
 {"time": "2026-11-18T12:14:26Z", "role": "pi", "action": "gate-request", "detail": "question"}
 {"time": "2026-11-18T12:24:10Z", "role": "pi", "action": "gate-approve", "detail": "question Bryce Wang"}
+{"time": "2026-11-18T12:31:02Z", "role": "designer", "action": "run", "detail": "timing-synthetic exit=0"}
+{"time": "2026-11-18T12:31:27Z", "role": "data-ra", "action": "run", "detail": "fetch-data exit=0"}
+{"time": "2026-11-18T12:33:24Z", "role": "data-ra", "action": "run", "detail": "fetch-data exit=0"}
+{"time": "2026-11-18T12:33:31Z", "role": "designer", "action": "design-written", "detail": "plan.json design + 18 tasks; N=20 random-search configs per method fixed from timing-synthetic (synthetic data only); estimate ~134 CPU-min / ~19-20 wall-min on 8 workers"}
+{"time": "2026-11-18T12:34:01Z", "role": "data-ra", "action": "run", "detail": "prepare-data exit=0"}
+{"time": "2026-11-18T12:36:31Z", "role": "data-ra", "action": "data-fetched", "detail": "fetch-data: breast_cancer (sklearn 1.9.1 bundled), credit-g (OpenML 31 v1), adult (OpenML 1590 v2), covtype (sklearn archive sha256 614360d0); manifest with sha256; fresh re-download byte-identical"}
+{"time": "2026-11-18T12:36:31Z", "role": "data-ra", "action": "data-prepared", "detail": "prepare-data: no rows dropped or capped; all row/feature/class/missing counts match source docs; adult has 52 duplicate rows vs 6 in adult.names; CODEBOOK written"}

@@ -6,11 +6,38 @@
   ],
   "contribution": "A controlled comparison that, in the work we found, has not been made: log-loss gradient boosting with early stopping, random forests and logistic regression, with an equal tuning budget, an exact symmetric flip rate, clean test labels, per-dataset results that report accuracy at every noise rate and the majority-class rate next to each drop, and seed-level uncertainty. Rankings at each noise rate are reported descriptively, not tested.",
   "design": {
-    "summary": "",
-    "method": "",
-    "data": "",
-    "analysis_plan": [],
-    "threats": []
+    "summary": "Within each of 10 seeds, each dataset (breast_cancer, credit-g, adult, covtype; stratified cap of 5,000 rows) is split 60/20/20, an exact nested fraction rho in {0, 0.1, 0.2, 0.3, 0.4} of training and validation labels is replaced by a uniformly chosen other class, and HistGradientBoosting (early stopping on the noisy validation split), RandomForest and L2 logistic regression are each tuned by random search over 20 configurations scored on noisy validation accuracy, then evaluated once on clean test labels. H1 and H2 are decided per dataset from the share of headroom above the majority rate lost between rho=0 and rho=0.4, computed from seed means, with 95% paired-bootstrap intervals (10,000 joint resamples of the 10 seeds) and the approved thresholds, after an exclusion check that reads only rho=0 accuracy and is run and logged before any noisy cell is trained. Three ablations test the explanation rather than the headline: GBDT without early stopping, all methods tuned on clean validation labels at rho=0.4, and a half budget of 10 configurations; the whole plan is estimated at about 20 minutes of wall time on 8 laptop cores.",
+    "method": "EXPERIMENTAL PROCEDURE (fixed before any run on study data; any departure is logged and disclosed).\n\n1. Seeds and random streams. Seeds s = 0..9. Datasets are indexed breast_cancer=0, credit_g=1, adult=2, covtype=3. For each (dataset d, seed s): ss = numpy.random.SeedSequence([20261118, d, s]); (sub, split, noise, cand, model) = ss.spawn(5), used in that order for the subsample, the split, the label flips, the random-search candidates and the models' random_state. Integers passed to scikit-learn are int(child.generate_state(1)[0]). The candidates stream is split by child.spawn(4) into one stream per method in the order lr, rf, gbdt, gbdt_noes. Within a (dataset, seed), the subsample, split, test set, preprocessing, candidate lists and model random_state are identical across all five rho, all methods and all ablations, so every comparison is paired by seed. This matches plan.json seed_definition (candidate draws count as the models' own randomness).\n\n2. Subsample and split. If n > 5,000: sklearn.model_selection.train_test_split(X, y, train_size=5000, stratify=y, random_state=sub). Then test = 20% (train_test_split(test_size=0.2, stratify=y, random_state=split)), and validation = 25% of the remainder (test_size=0.25, stratify, a second integer from the split stream). Sizes: breast_cancer 341/114/114, credit-g 600/200/200, adult and covtype 3000/1000/1000. Stratification uses the clean labels, before any flip. The code asserts that every class appears in every split (covtype class 4 has about 24 rows in a 5,000-row sample).\n\n3. Noise injection (train and validation only; test labels are never changed). With K classes and the noise stream, draw in this order: perm_tr = rng.permutation(n_train), shift_tr = rng.integers(1, K, size=n_train), perm_va = rng.permutation(n_val), shift_va = rng.integers(1, K, size=n_val). At rate rho, n_flip = floor(rho*n + 0.5) for each split separately, the flipped set is the first n_flip indices of perm, and each flipped label becomes (y + shift) mod K, which is uniform over the K-1 other classes. Flip sets are therefore nested across rho and an example keeps the same wrong class at every rate. The code asserts: exactly n_flip labels differ from the clean labels in each split, no flipped label equals its clean label, and the test labels equal the clean labels. n_flipped_train and n_flipped_val are recorded per cell.\n\n4. Preprocessing (identical for all three methods; one sklearn ColumnTransformer fitted on the training split's features only, then applied to validation and test). Numeric columns: SimpleImputer(strategy='median') then StandardScaler. Categorical columns (as typed in the Data RA's prepared table; credit-g and adult only): SimpleImputer(strategy='constant', fill_value='missing') then OneHotEncoder(handle_unknown='ignore', sparse_output=False). Preprocessing uses no labels, so it is the same at every rho. Scaling is a no-op for the trees; one-hot input means HGB gets categorical_features=None.\n\n5. Estimators (scikit-learn 1.9.1) and search spaces. Each method gets N = 20 random-search configurations per (dataset, seed), drawn once from that method's candidate stream and reused at every rho. loguniform(a,b) = 10**Uniform(log10 a, log10 b); logint(a,b) = round(loguniform(a,b)).\n - LR: LogisticRegression(l1_ratio=0.0 [L2], solver='lbfgs', max_iter=2000, tol=1e-4), multinomial for covtype. Space: C ~ loguniform(1e-4, 1e2), which reaches strong regularization (van Rooyen et al.). The 'penalty' argument is deprecated in 1.9 and is not passed.\n - RF: RandomForestClassifier(n_estimators=200 [fixed, not tuned], criterion='gini', bootstrap=True, max_depth=None, n_jobs=1, random_state=model). Space: max_features ~ Uniform(0.05, 0.7) (fraction of columns), min_samples_leaf ~ logint(1, 50), max_samples ~ Uniform(0.5, 1.0).\n - GBDT: HistGradientBoostingClassifier(loss='log_loss', max_iter=1000, early_stopping=True [set explicitly; 'auto' would be off at these sizes], scoring='loss', n_iter_no_change=20, tol=1e-7, max_bins=255, categorical_features=None, random_state=model), fitted with fit(X_tr, y_tr_noisy, X_val=X_va, y_val=y_va_noisy), so early stopping monitors log-loss on the same noisy 20% validation split used for selection and no internal validation_fraction is carved from the training data. Space: learning_rate ~ loguniform(0.01, 0.3), max_leaf_nodes ~ logint(4, 64), min_samples_leaf ~ logint(2, 100), l2_regularization ~ loguniform(1e-4, 10).\n - GBDT-noES (ablation A1 only): the GBDT space plus max_iter ~ logint(10, 500), with early_stopping=False and no X_val.\n\n6. Tuning and selection. Every candidate is fitted on the noisy training labels and scored by accuracy on the noisy validation labels; the highest score wins, ties going to the earlier candidate. The budget is equal in number of configurations, and therefore in number of fits: 20 per method per cell. GBDT early stopping happens inside each of its 20 fits and is part of the method, not extra configurations; ablations A1 and A3 test whether it or the budget size drives the result. There is no refit on train+validation: the selected model is the one already fitted on the training split. It predicts the clean test split once. For ablation A3 the code also records the test accuracy of the best of the first 10 candidates (a different configuration, also evaluated once). No other test predictions are made.\n\n7. Recorded per cell (dataset, method, variant, rho, seed): test_acc (clean labels; sklearn.metrics.accuracy_score), majority_rate m (share of the most frequent class in this seed's test split), test_acc_half (A3), val_acc_noisy and val_acc_clean of the selected model (clean validation labels are diagnostic only, never used for selection in the main runs), train_acc_noisy (fit to the noisy training labels), pred_majority_share (share of test predictions equal to the test majority class), the selected hyperparameters, GBDT n_iter_, n_train/n_val/n_test, K, n_flipped_train, n_flipped_val. Fit seconds are written to a separate timing file, not to the metrics, because they do not reproduce.\n\n8. Execution. joblib with 8 worker processes over cells; threadpoolctl limits each worker to one BLAS/OpenMP thread. Results do not depend on the number of workers because every cell draws all its randomness from its own SeedSequence.\n\nSTATISTICS (code/analyze.py; per dataset, never pooled).\n - A(rho) = mean over the 10 seeds of test_acc; m = mean over seeds of the test majority rate; SD with ddof=1.\n - r = (A(0) - A(0.4)) / (A(0) - m) from seed means; drop = A(0) - A(0.4).\n - H1: D = r_GBDT - r_RF. H2: D1 = r_LR - r_GBDT, D2 = r_LR - r_RF.\n - Bootstrap: one index matrix of shape (10,000, 10) drawn with numpy.random.default_rng(20261119).integers(0, 10, ...), shared by every dataset, method and hypothesis. Each row resamples seeds jointly for all methods, both noise rates and m; r and D are recomputed from the resampled means. 95% interval = numpy.percentile(D*, [2.5, 97.5]) (linear interpolation). Point estimates come from the full sample.\n - Unstable resamples: the code counts resamples in which any compared method's resampled headroom A*(0) - m* is below 0.01. They are kept, and the count is reported. If it exceeds 250 (2.5% of resamples), that comparison on that dataset is reported as 'inconclusive (unstable denominator)' whatever the interval says.\n - Smallest meaningful difference, read on point estimates: |D| >= 0.05 AND the difference in absolute drops (e.g. drop_GBDT - drop_RF) is at least 0.01 (1 accuracy point) in the same direction.\n - Per-dataset outcome, evaluated in this order: supported, contradicted, no meaningful difference (interval inside (-0.05, 0.05); for H2 both intervals), inconclusive. The definitions are those in plan.json hypotheses.\n - Overall per hypothesis, over its n informative datasets: supported if supported on >= max(2, ceil(0.75 n)) and contradicted on none; contradicted if contradicted on >= n/2 (n >= 1); otherwise inconclusive; 'not testable' if n = 0.\n - Exclusion (code/exclusion.py, run exclusion-check): reads only the rho=0 cell file. For H1 a dataset is uninformative if A(0) - m < 0.05 for GBDT or RF; for H2, if it is below 0.05 for any of the three. It writes results/exclusion.json, which code/analyze.py reads and never recomputes. The ablations use the same informative sets.\n - Rankings at each rho order the three methods by A(rho) and are descriptive only. Ties are not resolved by test; a ranking difference whose paired seed-difference SD exceeds the mean gap is labelled 'within noise'.",
+    "data": "Four datasets, each pinned by the Data RA in data/manifest.json (origin, OpenML data_id and version where applicable, license, sha256, retrieval date) before any analysis run; the design names the dataset, not the file, and no run may use an unpinned version.\n - breast_cancer: sklearn.datasets.load_breast_cancer (bundled with scikit-learn 1.9.1). 569 rows, 30 numeric features, 2 classes (63/37). No cap applies; split 341/114/114.\n - credit-g: fetch_openml (German credit; data_id and version pinned by the Data RA). 1,000 rows, 7 numeric + 13 categorical features (about 61 columns after one-hot), 2 classes (70/30). Split 600/200/200.\n - adult: fetch_openml (data_id and version pinned; OpenML has several 'adult' entries). About 48,842 rows, 6 numeric + 8 categorical features with missing values in workclass, occupation and native-country (about 108 columns after one-hot), 2 classes (about 76/24). Stratified 5,000-row sample per seed; split 3000/1000/1000. fnlwgt is kept as a feature, as the loader provides it; no row is dropped for missing values (they are imputed as a 'missing' category).\n - covtype: sklearn.datasets.fetch_covtype (pinned by hash). 581,012 rows, 54 features (10 numeric, 44 binary indicators kept as numeric), 7 classes (largest about 48.8%; class 4 about 0.5%). Stratified 5,000-row sample per seed; split 3000/1000/1000.\nUnit of observation: one row (one example). Target: the dataset's own label, encoded to integers 0..K-1 by the Data RA's prepare step. Features: all columns the loader provides except the target; no feature selection. The only sample restriction is the 5,000-row stratified cap. Label noise is synthetic and is added by the experiment code, never by the data-prep step. Unit of analysis for the hypotheses: the (dataset, method, rho, seed) cell, aggregated to seed means per dataset.",
+    "analysis_plan": [
+      "timing-synthetic (data-prep, designer; DONE 2026-11-18): code/timing_synthetic.py times the planned per-cell procedure on make_classification data with the four post-cap shapes (64 cells, 20 configurations, 8 workers). It reads no study data. Purpose: fix the tuning budget N before any study run. Result: about 134 CPU-minutes and 19 wall-minutes for the whole plan below at N=20, so N=20 is fixed.",
+      "data prep (data-prep, data-ra): fetch and pin the four datasets in data/manifest.json and write a prepared table per dataset (typed features, integer target). Purpose: fixed, versioned inputs. Must be finished before main-rho0.",
+      "code review (reviewer, target 'code'): check code/experiment.py, code/exclusion.py and code/analyze.py against design.method before any analysis run, in particular which labels selection and early stopping see, the flip assertions, the shared candidate lists and the bootstrap. Purpose: catch leakage and deviations before results exist.",
+      "main-rho0 (analysis, experimenter): code/experiment.py --rhos 0 --variant main: 4 datasets x 3 methods x 10 seeds = 120 cells, 20 configurations each. Output results/cells_rho0.csv; ledger metrics are A(0) mean and SD and m per (dataset, method). Purpose: clean-data baseline and the input to the exclusion check. Estimate: about 3 wall-minutes.",
+      "exclusion-check (analysis, experimenter): code/exclusion.py reads only results/cells_rho0.csv and writes results/exclusion.json (headroom A(0) - m per method and dataset; informative datasets for H1 and for H2). It must appear in the ledger before main-noisy starts. Purpose: decide exclusion from clean accuracy alone, as hypotheses H1/H2 require.",
+      "main-noisy (analysis, experimenter): code/experiment.py --rhos 0.1 0.2 0.3 0.4 --variant main: 480 cells. Output results/cells_noisy.csv; ledger metrics are A(rho) mean and SD per (dataset, method, rho). Purpose: the main experiment. Estimate: about 11 wall-minutes.",
+      "h-tests (analysis, experimenter): code/analyze.py --test main reads both cell files and results/exclusion.json and computes, per dataset, A(0), A(0.4), m, drop and r per method, D (H1), D1 and D2 (H2), the bootstrap intervals, the unstable-resample counts, the per-dataset outcomes and the overall verdicts with their denominators. Purpose: decide H1 and H2 with the pre-registered rules.",
+      "descriptives (analysis, experimenter): code/analyze.py --describe writes the accuracy table (mean and SD over 10 seeds) at every rho for every dataset and method, m, absolute drops, rankings at each rho with the 'within noise' label, the selected hyperparameters per rho (median and IQR of LR C, RF min_samples_leaf and max_features, GBDT learning_rate and n_iter_), noisy and clean validation accuracy of the selected models, train_acc_noisy, pred_majority_share, and checks that n_flipped equals floor(rho*n + 0.5) in every cell. Purpose: everything the hypotheses say must be reported next to each result, plus the tuned C at each rate (notes.md, design-stage note 4).",
+      "abl-noes (analysis, experimenter): A1. code/experiment.py --rhos 0 0.4 --variant gbdt_noes: GBDT without early stopping, max_iter in the search, same 20-configuration budget, 80 cells; then code/analyze.py --test noes recomputes H1's D with GBDT-noES in place of GBDT. Purpose: if H1's per-dataset outcome changes category without early stopping, the result is about early stopping on noisy labels and not about boosting as such (Eisenbuerger et al. found early stopping matters). Estimate: about 2.5 wall-minutes.",
+      "abl-cleanval (analysis, experimenter): A2. code/experiment.py --rhos 0.4 --variant cleanval: all three methods at rho=0.4 with noisy training labels but candidates scored, and GBDT early-stopped, on the CLEAN validation labels; the same candidate lists. 120 cells. rho=0 needs no rerun, because clean and noisy validation labels coincide there. code/analyze.py --test cleanval recomputes D, D1 and D2. Purpose: separate the learners' sensitivity to noisy training labels from the cost of selecting on noisy validation labels. If an H1 or H2 outcome holds only with noisy selection, the paper says the ordering comes from model selection. Estimate: about 3 wall-minutes.",
+      "abl-budget (analysis, experimenter): A3. code/analyze.py --test half reruns h-tests on test_acc_half (best of the first 10 of the same 20 candidates; recorded in the main runs; no new fits). Purpose: show whether the H1/H2 outcomes depend on the tuning budget, and in particular whether the 1-dimensional LR space gains more from 20 configurations than the 3- and 4-dimensional tree spaces.",
+      "figures (analysis, figures-ra): accuracy against rho per dataset (mean +/- SD over seeds, one line per method, a horizontal line at m) and a forest plot of D, D1 and D2 with bootstrap intervals for main and ablations, built only from the result files of the runs above.",
+      "rerun (replicator): crew.py rerun in an environment built only from code/requirements.txt; every metric must reproduce at rtol 1e-6. Fit times are kept out of the metrics, so they cannot break the comparison."
+    ],
+    "threats": [
+      "Unequal effective tuning: LR searches one dimension and the trees three or four, and GBDT early stopping on the noisy validation split adds a free choice of the number of iterations that RF and LR do not get. Equal configuration counts do not guarantee equal tuning quality. Addressed by A1 (GBDT without early stopping, max_iter searched within the same 20 configurations), A3 (half budget), and by reporting the selected hyperparameters at every rho.",
+      "The ordering may come from model selection on noisy validation labels rather than from the learners: a 40% noisy validation split of 200 rows is a weak selector. Addressed by A2 (selection and early stopping on clean validation labels at rho=0.4), and by reporting clean versus noisy validation accuracy of the selected models.",
+      "Ratio instability (question-review F16): r divides by the headroom A(0) - m, which is about 5 points on credit-g. Addressed by computing r from seed means (never per seed), by the 5-point exclusion read from rho=0 only and logged before any noisy cell is trained (exclusion-check precedes main-noisy in the ledger), by counting bootstrap resamples with headroom below 1 point (more than 250 makes the comparison inconclusive), and by reporting absolute drops next to r.",
+      "Small test sets: one test example is about 0.9 points on breast_cancer and 0.5 points on credit-g, so intervals will be wide and several comparisons may be inconclusive. That is reported as inconclusive, never as 'no difference', unless the whole interval lies inside (-0.05, 0.05). The seed definition redraws the split, so test-sampling variance is inside the interval.",
+      "Majority-class floor on credit-g (70%) and adult (about 76%): at rho=0.4 a degraded model drifts to predicting the majority class. r = 1 for any method at the floor, so both-at-floor gives D = 0; pred_majority_share is reported to show when a method has collapsed to the floor.",
+      "Leakage: preprocessing is fitted on training features only and uses no labels; test labels are never flipped and never used in selection; each selected configuration (and the half-budget selection for A3) touches the test set once. The code review checks this before any run.",
+      "Flip implementation errors (wrong count, a 'flip' to the same class, flipped test labels, K=7 handling on covtype): addressed by assertions in the code and by the n_flipped check in descriptives.",
+      "Rare covtype classes: class 4 has about 24 rows per 5,000-row sample, about 5 per test split; uniform flips push extra examples into rare classes. Stratified splits are asserted to contain every class. Accuracy is dominated by classes 1 and 2, and the paper says so.",
+      "Forking paths after results: every choice above is fixed at the design gate; the exclusion file is produced before noisy cells exist; the analysis reads exclusion.json and does not recompute it. Any deviation is recorded in plan.json disclosures and in the paper.",
+      "Compute overrun on real data, where trees may be deeper than on synthetic data: the estimate is about 20 wall-minutes against a 60-minute budget. N=20 is fixed. If the real study overruns, the overrun is reported as a deviation; the budget is not cut after outcomes exist.",
+      "Scope: four datasets, at most 3,000 training rows, scikit-learn 1.9.1 implementations, symmetric noise, accuracy. Claims are limited to these datasets, sizes and implementations, and say nothing about full-size covtype or adult, other GBDT libraries, or class-dependent noise.",
+      "Dataset version drift (several OpenML 'adult' entries): data_id, version and sha256 are pinned in data/manifest.json before any analysis run, and crew.py validate checks the hashes."
+    ]
   },
   "tasks": [
     {
@@ -18,6 +45,108 @@
       "title": "Prior work on label-noise robustness of tabular classifiers; novelty check",
       "owner": "scout",
       "status": "done"
+    },
+    {
+      "id": "d-timing",
+      "title": "Time the planned procedure on synthetic data of the study shapes; fix the tuning budget (run timing-synthetic)",
+      "owner": "designer",
+      "status": "done"
+    },
+    {
+      "id": "d-design",
+      "title": "Write plan.json design and tasks",
+      "owner": "designer",
+      "status": "done"
+    },
+    {
+      "id": "rv-design",
+      "title": "Review the design (target 'design') before the design gate",
+      "owner": "reviewer",
+      "status": "todo"
+    },
+    {
+      "id": "g-design",
+      "title": "Request the design gate after the design review",
+      "owner": "pi",
+      "status": "todo"
+    },
+    {
+      "id": "dt-pin",
+      "title": "Fetch and pin breast_cancer, credit-g, adult, covtype in data/manifest.json (data_id, version, sha256) and write prepared tables (typed features, integer target)",
+      "owner": "data-ra",
+      "status": "doing"
+    },
+    {
+      "id": "e-code",
+      "title": "Write code/experiment.py, code/exclusion.py and code/analyze.py exactly as in design.method",
+      "owner": "experimenter",
+      "status": "todo"
+    },
+    {
+      "id": "rv-code",
+      "title": "Review the experiment code against design.method before any analysis run (target 'code')",
+      "owner": "reviewer",
+      "status": "todo"
+    },
+    {
+      "id": "e-main-rho0",
+      "title": "Run main-rho0: 120 clean-label cells",
+      "owner": "experimenter",
+      "status": "todo"
+    },
+    {
+      "id": "e-exclusion",
+      "title": "Run exclusion-check on rho=0 cells only, before main-noisy",
+      "owner": "experimenter",
+      "status": "todo"
+    },
+    {
+      "id": "e-main-noisy",
+      "title": "Run main-noisy: 480 cells at rho 0.1-0.4",
+      "owner": "experimenter",
+      "status": "todo"
+    },
+    {
+      "id": "e-tests",
+      "title": "Run h-tests: r, D, bootstrap intervals and outcomes for H1 and H2",
+      "owner": "experimenter",
+      "status": "todo"
+    },
+    {
+      "id": "e-describe",
+      "title": "Run descriptives: accuracy at every rho, majority rates, drops, rankings, tuned hyperparameters, flip-count checks",
+      "owner": "experimenter",
+      "status": "todo"
+    },
+    {
+      "id": "e-abl-noes",
+      "title": "Run abl-noes (A1): GBDT without early stopping at rho 0 and 0.4; recompute H1",
+      "owner": "experimenter",
+      "status": "todo"
+    },
+    {
+      "id": "e-abl-cleanval",
+      "title": "Run abl-cleanval (A2): selection and early stopping on clean validation labels at rho 0.4; recompute H1 and H2",
+      "owner": "experimenter",
+      "status": "todo"
+    },
+    {
+      "id": "e-abl-budget",
+      "title": "Run abl-budget (A3): H1 and H2 from the best of the first 10 candidates",
+      "owner": "experimenter",
+      "status": "todo"
+    },
+    {
+      "id": "f-figures",
+      "title": "Accuracy-vs-rho figure per dataset and forest plot of D, D1, D2 from the run outputs",
+      "owner": "figures-ra",
+      "status": "todo"
+    },
+    {
+      "id": "r-rerun",
+      "title": "Clean rerun from code/requirements.txt; all metrics reproduce at rtol 1e-6",
+      "owner": "replicator",
+      "status": "todo"
     }
   ],
   "gates": {

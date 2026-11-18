@@ -1,0 +1,72 @@
+{
+  "id": "fetch-data",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/fetch_data.py"
+  ],
+  "started": "2026-11-18T12:31:56Z",
+  "finished": "2026-11-18T12:33:24Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fetch_data.py",
+      "sha256": "4bb4a7458e4863c2256021f57993127549a4ca308832a06a972e1557f178e158"
+    },
+    {
+      "path": "code/requirements.txt",
+      "sha256": "3663becab20b6539303b006a4975ac0f7155c6f2d02a0c25d3e2699a381e8835"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "data/raw/breast_cancer.csv",
+      "sha256": "75a1d74a59df9cb0a78ecc0a36085bf8a85239557f178d3b8d758e88b26416e1"
+    },
+    {
+      "path": "data/raw/credit-g.csv",
+      "sha256": "d8bbc0b04fc9666ba137eed597e3fea84130071ff95c5f1b8037ea58553041f1"
+    },
+    {
+      "path": "data/raw/adult.csv",
+      "sha256": "740de363e8d615339f3d39374a61e92b406af52efd01791f5557129e640beea8"
+    },
+    {
+      "path": "data/raw/covtype.csv",
+      "sha256": "b6f5bda82ff015edbd2658c16ff4ae4e73bc7766cd95b456eb5b821f0c416c93"
+    },
+    {
+      "path": "data/manifest.json",
+      "sha256": "d1ed22dd266beee01dea76f2ac4368de0ef6af45db59b40c56b9b6085a1c8996"
+    },
+    {
+      "path": "runs/fetch-data/metrics.json",
+      "sha256": "e7116649004c0e88e28ccef8956f4334c317724096c2652bf4dd2505cd2e7ad3"
+    }
+  ],
+  "metrics": {
+    "breast_cancer.rows": 569,
+    "breast_cancer.n_numeric": 30,
+    "breast_cancer.n_categorical": 0,
+    "breast_cancer.sha256": "75a1d74a59df9cb0a78ecc0a36085bf8a85239557f178d3b8d758e88b26416e1",
+    "credit-g.rows": 1000,
+    "credit-g.n_numeric": 7,
+    "credit-g.n_categorical": 13,
+    "credit-g.sha256": "d8bbc0b04fc9666ba137eed597e3fea84130071ff95c5f1b8037ea58553041f1",
+    "adult.rows": 48842,
+    "adult.n_numeric": 6,
+    "adult.n_categorical": 8,
+    "adult.sha256": "740de363e8d615339f3d39374a61e92b406af52efd01791f5557129e640beea8",
+    "covtype.rows": 581012,
+    "covtype.n_numeric": 54,
+    "covtype.n_categorical": 0,
+    "covtype.sha256": "b6f5bda82ff015edbd2658c16ff4ae4e73bc7766cd95b456eb5b821f0c416c93"
+  },
+  "metrics_file": "runs/fetch-data/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

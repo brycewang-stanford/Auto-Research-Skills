@@ -90,7 +90,9 @@ and so fails validation.
   "path": "data/raw/sipp1991.dta", "sha256": "…", "retrieved_on": "2026-11-18"}]}
 ```
 
-`data/raw/` is git-ignored. When the file is present its hash must match.
+`data/raw/` and `data/derived/` are git-ignored: data are fetched and rebuilt by the
+logged data-prep runs, never committed, so their licenses are respected. When a file is
+present its hash must match.
 
 ### Runs
 

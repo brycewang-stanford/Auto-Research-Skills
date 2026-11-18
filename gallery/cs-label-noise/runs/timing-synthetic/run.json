@@ -1,0 +1,40 @@
+{
+  "id": "timing-synthetic",
+  "role": "designer",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/timing_synthetic.py"
+  ],
+  "started": "2026-11-18T12:29:24Z",
+  "finished": "2026-11-18T12:31:02Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/timing_synthetic.py",
+      "sha256": "708c9768a071e57ba85c6d39a95086dbfbf19c6343e934614c8e02d8813fce43"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "runs/timing-synthetic/timing.json",
+      "sha256": "f8b8961363a5320d4b61fb0f13d64ff05c2fe8a8ea9d5f4bbf69986831494920"
+    },
+    {
+      "path": "runs/timing-synthetic/metrics.json",
+      "sha256": "1c7fb181058079fc2cc785629eeb8bfc56cd9180488e1ebacdeb7f7983175385"
+    }
+  ],
+  "metrics": {
+    "timed_cells": 64,
+    "timed_fits": 1280,
+    "timed_candidates_per_cell": 20,
+    "n_jobs": 8
+  },
+  "metrics_file": "runs/timing-synthetic/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "timed_cells": 64,
+  "timed_fits": 1280,
+  "timed_candidates_per_cell": 20,
+  "n_jobs": 8
+}
