@@ -1,0 +1,88 @@
+{
+  "id": "main-tree",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/dml_plr.py",
+    "--learner",
+    "tree",
+    "--splits",
+    "100"
+  ],
+  "started": "2026-11-18T17:01:47Z",
+  "finished": "2026-11-18T17:06:42Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/dml_plr.py",
+      "sha256": "65c48587a89c37efca296cd4b30d502ba23d047c77f22848989e89ee2a681484"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/sipp1991.csv",
+      "sha256": "4c73b63b77217460e25c2847ebcdb9a2a3273630758c6172879e62dddb8f4916"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/main-tree/splits.csv",
+      "sha256": "4c5cb5897257aa0f79377333bcae5b50d9c2e4c9cb44cd7987b32359291cc2ac"
+    },
+    {
+      "path": "runs/main-tree/timing.json",
+      "sha256": "650b7a4c4be517a686ad208e61731d908cc5dadf54b3d2f7855414367ec4bd41"
+    },
+    {
+      "path": "runs/main-tree/metrics.json",
+      "sha256": "23455a68f5e45012f8f6a44644914237d1fbd87aa934ce63058c37f90c638e1e"
+    }
+  ],
+  "metrics": {
+    "learner": "tree",
+    "n_splits": 100,
+    "n_obs": 9915,
+    "theta_k2": 8767.15171924268,
+    "se_med_k2": 1354.7864940475433,
+    "se_adj_k2": 1413.349690725331,
+    "published_k2": 8709,
+    "diff_k2": 58.151719242679974,
+    "diff_in_pub_se_k2": 0.042664504213264835,
+    "tolerance_k2": 312,
+    "mds80_k2": 405,
+    "testable_k2": true,
+    "within_tol_k2": true,
+    "split_mad_k2": 364.9007058213565,
+    "split_sd_obs_k2": 541.0017864507431,
+    "implied_mad_obs_k2": 402.62998375649386,
+    "theta_min_k2": 7394.942144982276,
+    "theta_max_k2": 10183.628295680224,
+    "rmse_l_k2": 57209.23924316712,
+    "rmse_m_k2": 0.4496669345466192,
+    "m_out_01_k2": 0.0,
+    "theta_k5": 8934.17488571313,
+    "se_med_k5": 1353.2073017316452,
+    "se_adj_k5": 1374.7659421755711,
+    "published_k5": 8871,
+    "diff_k5": 63.1748857131297,
+    "diff_in_pub_se_k5": 0.04652053439847548,
+    "tolerance_k5": 301,
+    "mds80_k5": 392,
+    "testable_k5": true,
+    "within_tol_k5": true,
+    "split_mad_k5": 238.94342166073056,
+    "split_sd_obs_k5": 354.2575169541991,
+    "implied_mad_obs_k5": 242.51060658463157,
+    "theta_min_k5": 8114.943089299815,
+    "theta_max_k5": 9906.107772498297,
+    "rmse_l_k5": 57183.150604946415,
+    "rmse_m_k5": 0.45014151965093696,
+    "m_out_01_k5": 0.0
+  },
+  "metrics_file": "runs/main-tree/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "id": "sens-lasso-c11",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/dml_plr.py",
+    "--learner",
+    "lasso",
+    "--splits",
+    "100",
+    "--lasso-c-y",
+    "1.1",
+    "--run-id",
+    "sens-lasso-c11"
+  ],
+  "started": "2026-11-18T17:30:45Z",
+  "finished": "2026-11-18T17:41:55Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/dml_plr.py",
+      "sha256": "65c48587a89c37efca296cd4b30d502ba23d047c77f22848989e89ee2a681484"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/sipp1991.csv",
+      "sha256": "4c73b63b77217460e25c2847ebcdb9a2a3273630758c6172879e62dddb8f4916"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/sens-lasso-c11/splits.csv",
+      "sha256": "e9c9a6c2909124da37ebeb2e65ff98d8a2933278b2b66a0f74f0694250c7e056"
+    },
+    {
+      "path": "runs/sens-lasso-c11/timing.json",
+      "sha256": "ec93e0772bf18fcf980d099a95410b81b8af465b20272a7fe246c8d7bc348827"
+    },
+    {
+      "path": "runs/sens-lasso-c11/metrics.json",
+      "sha256": "0169339b2b5c1b7ecf0b992dcbe241255f75f90a46ca7ed7239b4be4c48f1a8c"
+    }
+  ],
+  "metrics": {
+    "learner": "lasso",
+    "n_splits": 100,
+    "n_obs": 9915,
+    "lasso_c_y": 1.1,
+    "theta_k2": 7478.570103995921,
+    "se_med_k2": 1405.9113496315945,
+    "se_adj_k2": 1433.7591350531682,
+    "published_k2": 7717,
+    "diff_k2": -238.42989600407873,
+    "diff_in_pub_se_k2": -0.1771395958425548,
+    "tolerance_k2": 825,
+    "mds80_k2": 1072,
+    "testable_k2": false,
+    "within_tol_k2": true,
+    "split_mad_k2": 227.3388985579918,
+    "split_sd_obs_k2": 337.0526510020786,
+    "implied_mad_obs_k2": 281.20905804308194,
+    "theta_min_k2": 6595.307420688993,
+    "theta_max_k2": 8372.412601228483,
+    "rmse_l_k2": 57318.78327985777,
+    "rmse_m_k2": 0.44856489208244793,
+    "m_out_01_k2": 0.0,
+    "theta_k5": 7877.824958563177,
+    "se_med_k5": 1332.91219285032,
+    "se_adj_k5": 1341.8000728699976,
+    "published_k5": 8187,
+    "diff_k5": -309.17504143682345,
+    "diff_in_pub_se_k5": -0.2381934063457808,
+    "tolerance_k5": 636,
+    "mds80_k5": 827,
+    "testable_k5": false,
+    "within_tol_k5": true,
+    "split_mad_k5": 136.82914387062328,
+    "split_sd_obs_k5": 202.86288870258608,
+    "implied_mad_obs_k5": 154.18340281911716,
+    "theta_min_k5": 7329.149498004256,
+    "theta_max_k5": 8248.949613067422,
+    "rmse_l_k5": 56250.47589604603,
+    "rmse_m_k5": 0.4477241819178433,
+    "m_out_01_k5": 0.0
+  },
+  "metrics_file": "runs/sens-lasso-c11/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

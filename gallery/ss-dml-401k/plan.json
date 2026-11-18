@@ -547,55 +547,55 @@
       "id": "r-noctrl",
       "title": "Analysis plan 1: run check-noctrl (no-controls OLS versus the published $19,559)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "r-main-lasso",
       "title": "Analysis plan 2: run main-lasso (S = 100, K = 2 and 5)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "r-main-tree",
       "title": "Analysis plan 3: run main-tree (S = 100, K = 2 and 5)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "r-main-nnet",
       "title": "Analysis plan 4: run main-nnet (S = 100, K = 2 and 5)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "r-main-forest",
       "title": "Analysis plan 5: run main-forest (S = 40, K = 2 and 5)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "r-main-boosting",
       "title": "Analysis plan 6: run main-boosting (S = 30, K = 2 and 5)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "r-sens-c11",
       "title": "Analysis plan 7: run sens-lasso-c11 (Y-lasso penalty constant 1.1, S = 100)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "r-verdict",
       "title": "Analysis plan 8-9: run verdict (H1-H3, side-by-side table, diagnostics)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-claims",
       "title": "Write the 10 plr-<learner>-<k>fold claims and the verdict/diagnostic claims with macros; runs/NOTES.md with every deviation",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "f-splits",

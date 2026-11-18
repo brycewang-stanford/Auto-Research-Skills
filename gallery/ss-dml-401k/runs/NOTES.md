@@ -1,9 +1,10 @@
 # Run notes (Econometrician)
 
-What was run, in order, and what surprised me. The design gate is **not** approved. No analysis
-run has been executed. No eligibility coefficient and no relationship between `e401` and
-`net_tfa` has been computed. Every number below comes from synthetic outcomes and treatments
-built on the nine real covariates.
+What was run, in order, and what surprised me. The design gate was approved by Bryce Wang on
+2026-11-18 at 14:38 UTC. Everything up to the section "Main analysis runs: commands" was written
+before that gate. In that part no eligibility coefficient and no relationship between `e401` and
+`net_tfa` had been computed; every number there comes from synthetic outcomes and treatments built
+on the nine real covariates. The analysis runs and their results are in the sections after it.
 
 ## 2026-11-18: e-code (code written, not run on the study data)
 
@@ -173,7 +174,7 @@ I smoke-tested it on the synthetic metrics (**unlogged**, scratchpad).
 Note: the lasso's measured shift is +$0.04. A failed lasso cell will therefore in practice
 always read 'not explained by the measured deviation'.
 
-## Main analysis runs: commands (NOT executed; they run only after the design gate)
+## Main analysis runs: commands (written before the design gate; executed after it, see below)
 
 All are run from the repository with `WS=/Users/brycewang/Auto-Research-Skills/gallery/ss-dml-401k`
 and `CREW=/Users/brycewang/Auto-Research-Skills/crew/scripts/crew.py`, in this order:
@@ -190,3 +191,133 @@ python3 $CREW run $WS --id verdict --role econometrician --kind analysis --code 
 ```
 
 `dml_plr.py` refuses a `main-*` run whose S differs from design.splits.
+
+## 2026-11-18, after the design gate: analysis runs
+
+All analysis runs used the commands above verbatim, in the planned order. No script, learner,
+tuning value, S or tolerance was changed after the gate. Every run exited 0.
+
+### check-noctrl (14:38 UTC, previous Econometrician session)
+
+No-controls OLS on all 9,915 rows: **$19,559.34** (HC0 SE 1,412.8; classical 1,305.7) against
+the published $19,559 (SE 1,413). The difference is $0.34, inside the $1 rounding rule, and
+N = 9,915, so there is no data discrepancy. The HC0 SE matches the published 1,413. Descriptive
+only (design.sample_rule): on the 9,275-row Abadie band the coefficient is $18,858.
+
+### Session restart (no effect on any recorded run)
+
+The first attempt at main-lasso was interrupted by a session restart. It had written an
+incomplete `runs/main-lasso/` record, which was removed before this session was launched. Nothing
+from it was read, kept or reported. main-lasso was then run from scratch with the same command
+and the same seeds, so the restart changes no number. The PI archived the relaunch brief in
+`briefs/`.
+
+### Main runs, sens-lasso-c11 and verdict (16:10-17:42 UTC)
+
+I ran the seven commands back to back from a scratchpad shell script that stopped at the first
+non-zero exit; none occurred. Wall time comes from the run records and timing.json, which are
+`--output` files, never metrics:
+
+| Run | S | Started (UTC) | Wall (s) | Nuisance fits | Timing-model estimate |
+|---|---|---|---|---|---|
+| main-lasso | 100 | 16:10:03 | 3,101 | 1,400 | 743 s serial |
+| main-tree | 100 | 17:01:47 | 293 | 1,400 | 793 s serial |
+| main-nnet | 100 | 17:06:42 | 214 | 1,400 | 395 s serial |
+| main-forest | 40 | 17:10:18 | 421 | 560 | 1,899 s serial |
+| main-boosting | 30 | 17:17:21 | 802 | 420 | 3,831 s serial |
+| sens-lasso-c11 | 100 | 17:30:45 | 669 | 1,400 | 743 s serial |
+| verdict | - | 17:41:55 | 1 | - | 5 s |
+
+Total wall time was **92 minutes** (16:10:03-17:41:56). That is above the 60-minute budget. Under
+design.splits.rule the overrun is disclosed and was not traded for power. The machine was shared
+with other heavy jobs: the load average was 46-90 on 8 cores during main-lasso, and each loky
+worker got about a third of a core. That is why main-lasso took 52 minutes but sens-lasso-c11,
+with the same code under lighter load, took 11. This affects time only. Every fit is seeded, so
+the numbers do not depend on the load.
+
+**The ten cells** (1991 US dollars; tolerance and testability from design.tolerance_table):
+
+| Cell | Replicated | Published | Diff | Tolerance | Diff / pub. bracketed SE | Bracketed SE rep (pub) | Adjusted SE rep (pub) | H2 |
+|---|---|---|---|---|---|---|---|---|
+| lasso 2-fold | 7,701 | 7,717 | -16 | 825 | -0.01 | 1,345 (1,346) | 1,377 (1,749) | inside, not testable |
+| lasso 5-fold | 8,173 | 8,187 | -14 | 636 | -0.01 | 1,300 (1,298) | 1,309 (1,558) | inside, not testable |
+| tree 2-fold | 8,767 | 8,709 | +58 | 312 | +0.04 | 1,355 (1,363) | 1,413 (1,427) | pass |
+| tree 5-fold | 8,934 | 8,871 | +63 | 301 | +0.05 | 1,353 (1,358) | 1,375 (1,418) | pass |
+| forest 2-fold | 9,064 | 9,116 | -52 | 438 | -0.04 | 1,255 (1,302) | 1,319 (1,377) | pass |
+| forest 5-fold | 9,041 | 9,247 | -206 | 287 | -0.16 | 1,230 (1,295) | 1,259 (1,328) | pass |
+| boosting 2-fold | 8,830 | 8,759 | +71 | 372 | +0.05 | 1,336 (1,339) | 1,363 (1,382) | pass |
+| boosting 5-fold | 9,020 | 9,110 | -90 | 209 | -0.07 | 1,315 (1,314) | 1,325 (1,328) | pass |
+| nnet 2-fold | 9,107 | 8,950 | +157 | 330 | +0.12 | 1,387 (1,335) | 1,428 (1,408) | pass |
+| nnet 5-fold | 9,126 | 9,038 | +88 | 219 | +0.07 | 1,383 (1,322) | 1,408 (1,355) | pass |
+
+No cell is outside its tolerance, so no H2 failure reading applies (the `h2_reading_*` metrics are
+empty).
+
+- **H1 holds.** All ten estimates are positive. The lowest 95% lower bound, theta - 1.96 x
+  adjusted SE, is $5,002 (lasso, 2-fold).
+- **H2 holds.** 0 of 10 cells are outside their tolerance and 8 of 8 testable cells are inside.
+  The two lasso cells are inside but not testable at this resolution, so they are not counted as
+  passes. Under the design, "holds" means no shift larger than a cell's 80%-power detectable
+  shift was detected. It does not mean the estimates are identical.
+- **H3 holds.** The lasso is below every flexible learner at both fold counts. The smallest
+  margin is $1,066 at K = 2 (lasso vs tree) and $761 at K = 5 (lasso vs tree).
+- **Baseline.** Mean net_tfa is $10,788 for ineligible households and $30,347 for eligible
+  households. The SD of net_tfa is $63,523. The replicated cells are 71-85% of the ineligible
+  mean, or 0.12-0.14 SD.
+- **sens-lasso-c11 (descriptive only, decision_rules.sens_lasso_c11).** With c = 1.1 for the
+  Y lasso the estimates are $7,479 at 2-fold and $7,878 at 5-fold. That is $223 and $295 below
+  the primary c = 0.5 lasso, and $238 and $309 below the published cells. Both are still inside
+  the lasso tolerances, and the H3 ordering also holds with them (margins $1,289 and $1,056).
+  Under the primary specification no lasso cell fails, so no c = 1.1 attribution is needed.
+
+### What surprised me (diagnostics; none changes a tolerance, S, claim or verdict)
+
+1. **The lasso split spread is much smaller than the published one.** Our 1.4826 x MAD of the
+   per-split estimates is $354 at 2-fold and $190 at 5-fold. The published SEs imply $1,656 and
+   $1,278. So the replicated adjusted SEs (1,377; 1,309) are well below the published ones
+   (1,749; 1,558), while the bracketed SEs match to within $2. The other learners' spreads are
+   also smaller than the published ones, but only by a factor of 1.2-1.7 rather than 4.7-6.7.
+   This is consistent with the published lasso path being noisier across splits. That is a
+   conjecture; no run tests it. The tolerances use the published spread as fixed. The descriptive
+   tol_obs values are smaller than the tolerances for every cell (lasso 596 / 455), and every
+   cell is inside tol_obs too.
+2. **The 5-fold forest difference (-$206) is close to the forest port shift measured before the
+   gate** (-$216, synthetic data, 2-fold size). The cell is inside its $287 tolerance, so this is
+   only an observation. The 2-fold forest cell is -$52.
+3. **The D neural network still hits max_iter.** The median L-BFGS iterations are 1,000 for D and
+   62 for Y, as in the port check. The share of m_hat outside [0.01, 0.99] is 2.3% (2-fold) and
+   2.0% (5-fold) for nnet, 1.5-1.6% for forest, and 0 for lasso, tree and boosting.
+
+### Claims and macros
+
+`claims.jsonl` now has 312 result claims alongside the 18 citation claims. Values are copied from
+the run records by a scratchpad script, and `crew.py validate` checks each against its metric.
+They cover:
+
+- the ten `plr-<learner>-<k>fold` claims (value `theta_k<k>` of `main-<learner>`);
+- per cell: the bracketed and adjusted SEs, the 95% lower bound, the difference in dollars and
+  in published-SE units, the tolerance, the 80%-power detectable shift, the H2 verdict (text,
+  backed by the `h2_status`/`h2_inside` metrics), tol_obs, the baseline scalings and the
+  diagnostics;
+- the H1, H2 and H3 decisions, with the counts and margins;
+- the baseline;
+- check-noctrl;
+- the port deviations (copied from verdict);
+- the descriptive c = 1.1 sensitivity;
+- the nnet iteration counts.
+
+Pass/fail claims carry no `value`, because the tool accepts only numeric values; their text
+states the outcome. `paper/numbers.tex` was regenerated with 291 macros. The macro names are
+`<Quantity><Learner><Two|Five>`, for example `\ThetaForestFive`, `\TolNnetTwo` and
+`\SeAdjLassoFive`. Wall times are in this file only, never in a metric or a macro.
+
+### Deviations
+
+There are none in the analysis runs: every run used the planned command, S and specification.
+Disclosures:
+
+- total wall time was 92 minutes against the 60-minute budget (shared machine), disclosed under
+  design.splits.rule;
+- the session restart and the removed, incomplete main-lasso record (above);
+- the pre-gate measured port deviation of the forest (-$216, port check FAIL), which is
+  unchanged and already priced into H2.

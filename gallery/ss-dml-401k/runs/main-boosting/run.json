@@ -1,0 +1,88 @@
+{
+  "id": "main-boosting",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/dml_plr.py",
+    "--learner",
+    "boosting",
+    "--splits",
+    "30"
+  ],
+  "started": "2026-11-18T17:17:21Z",
+  "finished": "2026-11-18T17:30:44Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/dml_plr.py",
+      "sha256": "65c48587a89c37efca296cd4b30d502ba23d047c77f22848989e89ee2a681484"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/sipp1991.csv",
+      "sha256": "4c73b63b77217460e25c2847ebcdb9a2a3273630758c6172879e62dddb8f4916"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/main-boosting/splits.csv",
+      "sha256": "a107e2e47e83cba7250a80033a094efe36f0567aee31bbce8aea7e885a7aa93c"
+    },
+    {
+      "path": "runs/main-boosting/timing.json",
+      "sha256": "066b4b0c230ad234a055a46ea24ef5bc8dcdc62d5779ed63406414a063c66699"
+    },
+    {
+      "path": "runs/main-boosting/metrics.json",
+      "sha256": "c6d781e522e5afff8654f633f8e4b4f2e34fbfdbd6ed980bb0f2f461c1117de2"
+    }
+  ],
+  "metrics": {
+    "learner": "boosting",
+    "n_splits": 30,
+    "n_obs": 9915,
+    "theta_k2": 8830.122774610165,
+    "se_med_k2": 1335.8216352575296,
+    "se_adj_k2": 1363.0561365578828,
+    "published_k2": 8759,
+    "diff_k2": 71.12277461016492,
+    "diff_in_pub_se_k2": 0.05311633652738232,
+    "tolerance_k2": 372,
+    "mds80_k2": 483,
+    "testable_k2": true,
+    "within_tol_k2": true,
+    "split_mad_k2": 241.49207867541645,
+    "split_sd_obs_k2": 358.0361558441724,
+    "implied_mad_obs_k2": 271.11361121493235,
+    "theta_min_k2": 7908.8522250957085,
+    "theta_max_k2": 9521.845931217316,
+    "rmse_l_k2": 55111.666568660585,
+    "rmse_m_k2": 0.44346077224562847,
+    "m_out_01_k2": 0.0,
+    "theta_k5": 9020.17517883977,
+    "se_med_k5": 1315.4268147325279,
+    "se_adj_k5": 1325.014865209816,
+    "published_k5": 9110,
+    "diff_k5": -89.82482116022948,
+    "diff_in_pub_se_k5": -0.06835983345527358,
+    "tolerance_k5": 209,
+    "mds80_k5": 272,
+    "testable_k5": true,
+    "within_tol_k5": true,
+    "split_mad_k5": 129.05233362454783,
+    "split_sd_obs_k5": 191.3329898317546,
+    "implied_mad_obs_k5": 159.11218718131735,
+    "theta_min_k5": 8539.85298742301,
+    "theta_max_k5": 9405.619370168986,
+    "rmse_l_k5": 54289.435347603605,
+    "rmse_m_k5": 0.44301940531586237,
+    "m_out_01_k5": 0.0
+  },
+  "metrics_file": "runs/main-boosting/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

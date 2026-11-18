@@ -39,3 +39,12 @@
 {"time": "2026-11-18T14:38:24Z", "role": "pi", "action": "gate-approve", "detail": "design Bryce Wang"}
 {"time": "2026-11-18T14:38:52Z", "role": "econometrician", "action": "run", "detail": "check-noctrl exit=0"}
 {"time": "2026-11-18T16:09:08Z", "role": "pi", "action": "brief-archived", "detail": "econometrician brief 20261118T160907Z"}
+{"time": "2026-11-18T17:01:47Z", "role": "econometrician", "action": "run", "detail": "main-lasso exit=0"}
+{"time": "2026-11-18T17:06:42Z", "role": "econometrician", "action": "run", "detail": "main-tree exit=0"}
+{"time": "2026-11-18T17:10:18Z", "role": "econometrician", "action": "run", "detail": "main-nnet exit=0"}
+{"time": "2026-11-18T17:17:20Z", "role": "econometrician", "action": "run", "detail": "main-forest exit=0"}
+{"time": "2026-11-18T17:30:44Z", "role": "econometrician", "action": "run", "detail": "main-boosting exit=0"}
+{"time": "2026-11-18T17:41:55Z", "role": "econometrician", "action": "run", "detail": "sens-lasso-c11 exit=0"}
+{"time": "2026-11-18T17:41:56Z", "role": "econometrician", "action": "run", "detail": "verdict exit=0"}
+{"time": "2026-11-18T17:43:06Z", "role": "econometrician", "action": "runs-complete", "detail": "main-lasso, main-tree, main-nnet, main-forest, main-boosting, sens-lasso-c11, verdict run in planned order with the NOTES commands, all exit 0, no deviation; 16:10-17:42 UTC, 92 min wall (over the 60-min budget, shared machine; disclosed). H1 holds; H2 holds (0/10 outside, 8/8 testable inside, lasso inside not testable); H3 holds (margins 1,066 K=2, 761 K=5)."}
+{"time": "2026-11-18T17:43:06Z", "role": "econometrician", "action": "claims-written", "detail": "312 result claims (10 plr-<learner>-<k>fold, SEs, tolerances, H2 cell verdicts, H1-H3, baseline, check-noctrl, port deviations, sens-lasso-c11 descriptive, diagnostics); numbers.tex regenerated (291 macros); runs/NOTES.md updated incl. session restart; tasks r-* and e-claims done."}

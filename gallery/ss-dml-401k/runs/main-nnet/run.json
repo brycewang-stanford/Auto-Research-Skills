@@ -1,0 +1,90 @@
+{
+  "id": "main-nnet",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/dml_plr.py",
+    "--learner",
+    "nnet",
+    "--splits",
+    "100"
+  ],
+  "started": "2026-11-18T17:06:42Z",
+  "finished": "2026-11-18T17:10:18Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/dml_plr.py",
+      "sha256": "65c48587a89c37efca296cd4b30d502ba23d047c77f22848989e89ee2a681484"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/sipp1991.csv",
+      "sha256": "4c73b63b77217460e25c2847ebcdb9a2a3273630758c6172879e62dddb8f4916"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/main-nnet/splits.csv",
+      "sha256": "bea7c32bf1ca99791756c20d8303e3d48d66389e74884831a6cc3c161a6249aa"
+    },
+    {
+      "path": "runs/main-nnet/timing.json",
+      "sha256": "c70281e3a5bfa2459000791305f1698d493ccde84f299717fe38feed2adeba2f"
+    },
+    {
+      "path": "runs/main-nnet/metrics.json",
+      "sha256": "9c89c98690e417aadfc7801d9a662aae7d7d81d512941e08cb336571492f8376"
+    }
+  ],
+  "metrics": {
+    "learner": "nnet",
+    "n_splits": 100,
+    "n_obs": 9915,
+    "theta_k2": 9107.081267558893,
+    "se_med_k2": 1386.6911277488623,
+    "se_adj_k2": 1427.521860240695,
+    "published_k2": 8950,
+    "diff_k2": 157.08126755889316,
+    "diff_in_pub_se_k2": 0.11766387083063158,
+    "tolerance_k2": 330,
+    "mds80_k2": 429,
+    "testable_k2": true,
+    "within_tol_k2": true,
+    "split_mad_k2": 313.03404487237367,
+    "split_sd_obs_k2": 464.1042749277812,
+    "implied_mad_obs_k2": 338.9784324815416,
+    "theta_min_k2": 7235.549307526158,
+    "theta_max_k2": 10350.019692600354,
+    "rmse_l_k2": 55914.01922221723,
+    "rmse_m_k2": 0.4461831733299828,
+    "m_out_01_k2": 0.023096318709026727,
+    "theta_k5": 9126.364251868254,
+    "se_med_k5": 1383.3939681122292,
+    "se_adj_k5": 1408.2018497399667,
+    "published_k5": 9038,
+    "diff_k5": 88.36425186825363,
+    "diff_in_pub_se_k5": 0.06684134029368656,
+    "tolerance_k5": 219,
+    "mds80_k5": 285,
+    "testable_k5": true,
+    "within_tol_k5": true,
+    "split_mad_k5": 171.73500213252737,
+    "split_sd_obs_k5": 254.61431416168506,
+    "implied_mad_obs_k5": 263.1607466963192,
+    "theta_min_k5": 8177.450073149051,
+    "theta_max_k5": 9748.19755725726,
+    "rmse_l_k5": 55931.92244958163,
+    "rmse_m_k5": 0.4441639468761166,
+    "m_out_01_k5": 0.01951588502269289,
+    "nnet_iter_med_y": 62.0,
+    "nnet_iter_med_d": 1000.0
+  },
+  "metrics_file": "runs/main-nnet/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}
