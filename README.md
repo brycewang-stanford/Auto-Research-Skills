@@ -31,6 +31,24 @@
 
 <p align="center"><a href="README_EN.md">English</a> · <b>简体中文</b></p>
 
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/brycewang-stanford/StatsPAI"><img src="assets/brand/statspai-logo.png" alt="StatsPAI" width="300" /></a>
+      </td>
+      <td width="56"></td>
+      <td align="center">
+        <a href="https://sccei.fsi.stanford.edu/reap"><img src="assets/brand/stanford-reap-logo.png" alt="Stanford REAP - 斯坦福中国经济与制度研究中心" width="380" /></a>
+      </td>
+    </tr>
+  </table>
+
+  <strong>Stanford REAP × StatsPAI</strong> · 实证研究 AI 工具的学术工业级产品<br/>
+  <sub>由斯坦福实证研究方法论团队打造，与 AERS、StatsPAI 同源维护</sub>
+</div>
+
 ---
 
 ## 👥 认识你的免费助研团
@@ -353,6 +371,16 @@ cd Free-Research-Crew
 >
 > 想收录你的仓库？见 [CONTRIBUTING](CONTRIBUTING.md) —— 提一个 PR，在 `skills/`、`systems/`、`benchmarks/` 或 `lists/` 下添加子模块即可。
 
+## 🏛️ 背后的团队
+
+免费助研团与 [AERS（实证研究智能体技能大全）](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills)、[StatsPAI](https://github.com/brycewang-stanford/StatsPAI) 由同一团队（**Stanford REAP**）开发和持续维护，三者深度集成、同步迭代。
+
+| 层级 | 依托 | 带来什么 |
+|---|---|---|
+| 🏛️ **学术渊源** | **[Stanford REAP / SCCEI](https://sccei.fsi.stanford.edu/reap)** —— 斯坦福中国经济与制度研究中心 | 在实证经济学方法论上有长期发表积累，深耕应用因果推断。 |
+| 🔧 **工程交付** | **[CoPaper.AI](https://copaper.ai)** —— 实证研究 AI 助手 | 内置 20 个计量方法论技能（DID / IV / RDD / PSM / DML 等），Supervisor + 4 个子智能体架构，一句话触发，自动产出可发表的结果。 |
+| ⚙️ **开源引擎** | **[StatsPAI](https://github.com/brycewang-stanford/StatsPAI)** —— 因果推断引擎 | 900+ 函数，一个 `import statspai as sp` 搞定，MIT 开源。社科赛道的 Econometrician 默认用它做估计与稳健性检验。 |
+
 ## 🤝 贡献
 
 欢迎 PR！把项目加到合适的分类，或作为子模块收录。详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
@@ -360,3 +388,44 @@ cd Free-Research-Crew
 ## 📄 协议
 
 [CC0 1.0 Universal](LICENSE) —— 公共领域。各子模块保留其各自的许可协议。
+
+---
+
+<div align="center">
+
+**AI 是放大器，不是替代品。它替你做最耗时的“搬砖”，你保留最核心的“判断”。**
+
+<br/>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/brycewang-stanford/StatsPAI"><img src="assets/brand/statspai-logo.png" alt="StatsPAI" width="260" /></a>
+    </td>
+    <td width="40"></td>
+    <td align="center">
+      <a href="https://sccei.fsi.stanford.edu/reap"><img src="assets/brand/stanford-reap-logo.png" alt="Stanford REAP" width="320" /></a>
+    </td>
+  </tr>
+</table>
+
+<sub><strong>Stanford REAP × StatsPAI</strong> · 实证研究 AI 工具的学术工业级产品</sub>
+
+<br/>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://copaper.ai"><img src="assets/brand/copaper-qrcode.png" alt="扫码访问 copaper.ai" width="180" /></a><br/>
+      <strong>扫码访问 <a href="https://copaper.ai">copaper.ai</a></strong>
+    </td>
+    <td align="center">
+      <img src="assets/brand/copaper-wechat.jpg" alt="CoPaper.AI 公众号" width="180" /><br/>
+      <strong>关注公众号「CoPaper.AI」</strong>
+    </td>
+  </tr>
+</table>
+
+由 <a href="https://copaper.ai"><strong>CoPaper.AI</strong></a> 维护，孵化于 <a href="https://sccei.fsi.stanford.edu/reap"><strong>Stanford REAP / SCCEI</strong></a> · 实证研究 AI 助手
+
+</div>

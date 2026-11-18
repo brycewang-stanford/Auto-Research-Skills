@@ -31,6 +31,24 @@
 
 <p align="center"><b>English</b> · <a href="README.md">简体中文</a></p>
 
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/brycewang-stanford/StatsPAI"><img src="assets/brand/statspai-logo.png" alt="StatsPAI" width="300" /></a>
+      </td>
+      <td width="56"></td>
+      <td align="center">
+        <a href="https://sccei.fsi.stanford.edu/reap"><img src="assets/brand/stanford-reap-logo.png" alt="Stanford REAP - Center on China's Economy &amp; Institutions" width="380" /></a>
+      </td>
+    </tr>
+  </table>
+
+  <strong>Stanford REAP × StatsPAI</strong> · An academic–industrial AI toolkit for empirical research<br/>
+  <sub>Built by Stanford's empirical-methodology team, maintained alongside AERS and StatsPAI</sub>
+</div>
+
 ---
 
 ## 👥 Meet your free research crew
@@ -485,6 +503,16 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
 
 > Want your repo bundled? See [CONTRIBUTING](CONTRIBUTING.md) — open a PR adding a submodule under `skills/`, `systems/`, `benchmarks/`, or `lists/`.
 
+## 🏛️ The team behind the crew
+
+Free-Research-Crew is built and maintained by the same team (**Stanford REAP**) behind [AERS (Auto-Empirical-Research-Skills)](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) and [StatsPAI](https://github.com/brycewang-stanford/StatsPAI), so the three are tightly integrated and evolve together.
+
+| Layer | Anchor | What it brings |
+|---|---|---|
+| 🏛️ **Academic lineage** | **[Stanford REAP / SCCEI](https://sccei.fsi.stanford.edu/reap)** — Stanford Center on China's Economy and Institutions | A research center with a sustained publication record in empirical-economics methodology and a deep tradition in applied causal inference. |
+| 🔧 **Engineering delivery** | **[CoPaper.AI](https://copaper.ai)** — empirical-research AI assistant | Twenty built-in econometric-methodology skills (DID / IV / RDD / PSM / DML, …) behind a Supervisor + 4-sub-agent architecture, one-sentence triggers, publication-ready output. |
+| ⚙️ **Open-source engine** | **[StatsPAI](https://github.com/brycewang-stanford/StatsPAI)** — the causal-inference engine | 900+ functions behind one `import statspai as sp`, MIT licensed. The crew's Econometrician uses it by default for estimation and robustness on the social-science track. |
+
 ## Contributing
 
 PRs welcome! Add a tool to the right category, or vendor a skill as a submodule. See [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -492,3 +520,44 @@ PRs welcome! Add a tool to the right category, or vendor a skill as a submodule.
 ## License
 
 [CC0 1.0 Universal](LICENSE) — public domain. The submodules retain their own licenses.
+
+---
+
+<div align="center">
+
+**AI is an amplifier, not a replacement. It handles the heavy lifting; you keep the core judgment.**
+
+<br/>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/brycewang-stanford/StatsPAI"><img src="assets/brand/statspai-logo.png" alt="StatsPAI" width="260" /></a>
+    </td>
+    <td width="40"></td>
+    <td align="center">
+      <a href="https://sccei.fsi.stanford.edu/reap"><img src="assets/brand/stanford-reap-logo.png" alt="Stanford REAP" width="320" /></a>
+    </td>
+  </tr>
+</table>
+
+<sub><strong>Stanford REAP × StatsPAI</strong> · An academic–industrial AI toolkit for empirical research</sub>
+
+<br/>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://copaper.ai"><img src="assets/brand/copaper-qrcode.png" alt="Visit copaper.ai" width="180" /></a><br/>
+      <strong>Visit <a href="https://copaper.ai">copaper.ai</a></strong>
+    </td>
+    <td align="center">
+      <img src="assets/brand/copaper-wechat.jpg" alt="CoPaper.AI WeChat" width="180" /><br/>
+      <strong>WeChat: CoPaper.AI</strong>
+    </td>
+  </tr>
+</table>
+
+Maintained by <a href="https://copaper.ai"><strong>CoPaper.AI</strong></a>, incubated at <a href="https://sccei.fsi.stanford.edu/reap"><strong>Stanford REAP / SCCEI</strong></a> · AI Assistant for Empirical Research
+
+</div>
