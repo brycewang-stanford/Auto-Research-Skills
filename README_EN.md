@@ -5,14 +5,20 @@
 <h1 align="center">Free-Research-Crew (免费助研团)</h1>
 
 <p align="center">
-  <b>A curated hub of autonomous-research <i>skills</i> & agents</b> — from idea → experiment → paper, on autopilot.
+  <b>Your free research crew.</b> A team of AI research assistants that takes a question to a finished<br>
+  <b>computer-science</b> or <b>social-science</b> paper — real experiments, real data — while you stay the PI.
 </p>
 
 <p align="center">
+  <b>Free</b> to use · <b>Free</b> to fork (CC0) · <b>Free</b> of new runtimes — it runs inside the Claude Code you already have.
+</p>
+
+<p align="center">
+  <a href="#-meet-your-free-research-crew"><img src="https://img.shields.io/badge/crew-v0.1-7c5cff?style=for-the-badge&labelColor=1f2330" alt="crew v0.1"></a>
   <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills_collected-6%2C089-ff4e88?style=for-the-badge&labelColor=1f2330" alt="6,089 skills collected"></a>
 </p>
 
-<p align="center"><b>6,089 skills</b> bundled across <b>110 repos</b> — clone the whole research toolbox in one shot.</p>
+<p align="center">The crew's toolbox: <b>6,089 skills</b> bundled across <b>110 repos</b> — clone it all in one shot.</p>
 
 <p align="center">
   <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-6%2C089-ff4e88?style=flat-square" alt="6,089 skills"></a>
@@ -27,17 +33,35 @@
 
 ---
 
-## 🧭 Where this is going: the research crew
+## 👥 Meet your free research crew
 
-**Goal:** a crew of research-assistant (RA) agents that work together to produce a complete **computer-science** or **social-science** paper — including the real experiments or data modeling behind it — with a human PI approving the key decisions.
+A good research assistant is expensive and hard to find. **Free-Research-Crew** gives you a whole team of them, for free: AI research assistants (RAs) that split up the work of a paper the way a real lab does — and hand every key decision back to you, the PI.
 
-- **One crew, two tracks** — PI, Scout, Designer, Data RA, Experimenter / Econometrician, Writer, Figures RA, Reviewer and Replicator serve both CS and social-science papers.
-- **No new runtime** — roles and skills run inside the Claude Code / Codex you already have.
-- **Integrity first** — every number traces to a logged run and every citation is verified.
+| Crew member | What they do for you |
+|---|---|
+| **PI** (you + the main session) | Sets the question, plans the work, approves each gate |
+| **Scout** | Finds prior work and verifies every reference against its source |
+| **Designer** | Locks the study design before any outcome is seen |
+| **Econometrician** | Social-science track: data, estimation, robustness |
+| **Experimenter** | CS track: experiments with seeds and fair baselines |
+| **Writer** | Drafts the LaTeX paper from recorded claims only |
+| **Reviewer** | Attacks everyone else's work; no gate passes while it has an open critical objection |
 
-- **A Reviewer that never lets up** — one agent's only job is to attack the others' work; no gate passes while it has an open critical objection.
+### Why "free"?
 
-**Crew v0.1 is in [`crew/`](crew/)** as a Claude Code plugin (not yet run end to end on its seed tasks):
+- **Free to use** — no subscription, no server, no extra API bill. The crew is plain role files and skills that run on the agent CLI you already have, on your laptop.
+- **Free to change** — everything is CC0 Markdown and Python. Fork it, rename the roles, add your own field's track.
+- **Free of lock-in** — Claude Code today, Codex next. The crew draws on the 6,000+ open skills collected below rather than a closed platform.
+
+### Why a "crew"?
+
+- **One crew, two tracks** — the same roles write both CS papers (baselines, ablations and benchmarks) and social-science papers (identification, econometrics, public data).
+- **Four human gates** — question → design → results → submission. The crew stops at each and waits for you.
+- **Honest by construction** — analysis cannot run before the design is approved, every number in the paper is generated from a logged run, and every citation has a verification record.
+
+### Hire the crew in three lines
+
+**Crew v0.1 lives in [`crew/`](crew/)** as a Claude Code plugin:
 
 ```bash
 claude plugin marketplace add brycewang-stanford/Free-Research-Crew
@@ -45,7 +69,13 @@ claude plugin install crew@free-research-crew
 # then, in Claude Code:  /crew:start ss-dml-401k
 ```
 
-The rest of this page is the skill hub the crew draws on. The full plan, phases and metrics are in [**ROADMAP.md**](ROADMAP.md).
+> **Status:** v0.1 is built and its tooling is tested, but it has not yet been run end to end on its seed tasks. The full plan, phases and metrics are in [**ROADMAP.md**](ROADMAP.md); how the crew works is in [`crew/README.md`](crew/README.md).
+
+---
+
+## 🧰 The crew's toolbox
+
+Every crew member is only as good as its tools. The rest of this page is the skill hub the crew draws on — and you can use it on its own, too.
 
 ---
 
@@ -90,7 +120,7 @@ The rest of this page is the skill hub the crew draws on. The full plan, phases 
 
 ---
 
-> **What is this?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **6,089 skills** across **110 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
+> **What's in the toolbox?** A community-curated hub for **autonomous research** — reusable skills, full end-to-end systems, domain-science agents, evaluation benchmarks, and curated lists — packaged so that coding agents (Claude Code, Codex, OpenClaw, and any LLM agent) can plug them in directly. **6,089 skills** across **110 repos** are vendored here as **git submodules** (shallow), organized into [`skills/`](skills/), [`systems/`](systems/), [`benchmarks/`](benchmarks/), and [`lists/`](lists/), so you can clone the whole toolbox in one shot.
 
 ```bash
 # recommended: clone first, then let setup.sh handle top-level + nested submodules

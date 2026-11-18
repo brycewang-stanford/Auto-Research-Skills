@@ -5,14 +5,20 @@
 <h1 align="center">Free-Research-Crew (免费助研团)</h1>
 
 <p align="center">
-  <b>自动化研究 <i>技能</i> 与智能体的精选合集</b> —— 从想法 → 实验 → 论文，全程自动驾驶。
+  <b>你的免费助研团。</b>一支 AI 助研（RA）团队，把一个研究问题做成一篇完整的<br>
+  <b>计算机科学</b>或<b>社会科学</b>论文 —— 真实验、真数据，而你始终是 PI。
 </p>
 
 <p align="center">
+  <b>免费</b>使用 · <b>自由</b>修改（CC0）· <b>无需</b>新的运行环境 —— 直接跑在你已有的 Claude Code 里。
+</p>
+
+<p align="center">
+  <a href="#-认识你的免费助研团"><img src="https://img.shields.io/badge/助研团-v0.1-7c5cff?style=for-the-badge&labelColor=1f2330" alt="助研团 v0.1"></a>
   <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/已收录_skills-6%2C089-ff4e88?style=for-the-badge&labelColor=1f2330" alt="已收录 6,089 个 skills"></a>
 </p>
 
-<p align="center"><b>🧩 已收录 6,089 个 skills</b>，分布在 <b>110 个仓库</b> 中 —— 一次克隆拿到整套研究工具箱。</p>
+<p align="center">助研团的工具箱：<b>🧩 已收录 6,089 个 skills</b>，分布在 <b>110 个仓库</b> 中 —— 一次克隆全部拿到。</p>
 
 <p align="center">
   <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/🧩_skills-6%2C089-ff4e88?style=flat-square" alt="6,089 skills"></a>
@@ -27,17 +33,35 @@
 
 ---
 
-## 🧭 我们要去哪里：免费助研团
+## 👥 认识你的免费助研团
 
-**目标：** 让多个助研（RA）智能体组成团队，协作完成一篇**计算机科学**或**社会科学**论文 —— 包括真实的实验或数据建模，关键决策由人类 PI 把关。
+好的助研又贵又难找。**免费助研团（Free-Research-Crew）** 免费给你一整支团队：多个 AI 助研像真实课题组一样分工完成一篇论文 —— 而每个关键决策都交还给你这位 PI。
 
-- **一支团队，两条赛道** —— PI、文献、设计、数据、实验 / 计量、写作、图表、审稿、复现，同一套角色同时支持 CS 与社科论文。
-- **不需要新的运行环境** —— 角色和技能直接跑在你已有的 Claude Code / Codex 里。
-- **可信优先** —— 每个数字都能追溯到一次有记录的运行，每条引用都经过核验。
+| 团队成员 | 为你做什么 |
+|---|---|
+| **PI**（你 + 主会话） | 定问题、做计划、审批每一道关卡 |
+| **Scout（文献）** | 查找已有研究，逐条核验每一条参考文献 |
+| **Designer（设计）** | 在看到任何结果之前锁定研究设计 |
+| **Econometrician（计量）** | 社科赛道：数据、估计、稳健性 |
+| **Experimenter（实验）** | CS 赛道：带随机种子与公平基线的实验 |
+| **Writer（写作）** | 只依据已记录的结论起草 LaTeX 论文 |
+| **Reviewer（审稿）** | 专挑其他成员的毛病；只要还有未解决的严重问题，任何关卡都不能通过 |
 
-- **永不松口的审稿人** —— 有一个智能体只负责挑其他成员的毛病；只要它还有未解决的严重问题，任何关卡都不能通过。
+### 为什么是「免费」？
 
-**团队 v0.1 已在 [`crew/`](crew/) 中**，以 Claude Code 插件形式提供（尚未在种子任务上完整跑通）：
+- **免费使用** —— 不用订阅、不用服务器、没有额外的 API 账单。团队就是一组角色文件和技能，跑在你已有的智能体 CLI 里、你自己的笔记本上。
+- **自由修改** —— 全部是 CC0 的 Markdown 和 Python。fork、改角色、加上你自己领域的赛道都可以。
+- **不被锁定** —— 先支持 Claude Code，接下来支持 Codex。团队用的是下方收录的 6,000+ 个开源技能，而不是某个封闭平台。
+
+### 为什么是「助研团」？
+
+- **一支团队，两条赛道** —— 同一套角色既写 CS 论文（基线、消融、基准），也写社科论文（识别策略、计量、公开数据）。
+- **四道人工关卡** —— 问题 → 设计 → 结果 → 投稿。每一关团队都会停下来等你点头。
+- **从机制上保证诚实** —— 设计未获批准前不能跑分析；论文里的每个数字都由有记录的运行生成；每条引用都有核验记录。
+
+### 三行命令，组建你的助研团
+
+**助研团 v0.1 已在 [`crew/`](crew/) 中**，以 Claude Code 插件形式提供：
 
 ```bash
 claude plugin marketplace add brycewang-stanford/Free-Research-Crew
@@ -45,7 +69,13 @@ claude plugin install crew@free-research-crew
 # 然后在 Claude Code 中：  /crew:start ss-dml-401k
 ```
 
-本页其余部分是团队所依赖的技能库。完整计划、阶段与指标见 [**ROADMAP.md**](ROADMAP.md)。
+> **当前状态：** v0.1 已搭好、工具已测试，但尚未在种子任务上完整跑通。完整计划、阶段与指标见 [**ROADMAP.md**](ROADMAP.md)；团队如何运作见 [`crew/README.md`](crew/README.md)。
+
+---
+
+## 🧰 助研团的工具箱
+
+助研的水平取决于手里的工具。本页其余部分就是助研团所依赖的技能库 —— 你也可以单独使用它。
 
 ---
 
@@ -90,7 +120,7 @@ claude plugin install crew@free-research-crew
 
 ---
 
-> **这是什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**6,089 个 skills**、分布在 **110 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
+> **工具箱里有什么？** 一个社区精选的**自动化研究**中心 —— 收纳可复用技能（skills）、端到端系统（systems）、领域科学智能体、评测基准（benchmarks）、以及精选清单（lists），打包好让编码智能体（Claude Code、Codex、OpenClaw 及任意 LLM agent）直接调用。**6,089 个 skills**、分布在 **110 个仓库**中，以 **git 子模块**（浅克隆）形式收录，分别放在 [`skills/`](skills/)、[`systems/`](systems/)、[`benchmarks/`](benchmarks/)、[`lists/`](lists/) 四个目录，一次克隆即可拿到整套工具箱。
 
 ```bash
 # 推荐：先克隆，再让 setup.sh 处理顶层与嵌套子模块
