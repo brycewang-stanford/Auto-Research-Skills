@@ -1,0 +1,121 @@
+{
+ "id": "paper-r1",
+ "target": "paper",
+ "round": 1,
+ "created": "2026-11-18T14:54:48Z",
+ "reviewer": {
+  "model": "claude-opus-5-5",
+  "independence": "fresh-context"
+ },
+ "files_read": [
+  "reviews/REVIEWER_MEMORY.md",
+  "paper/main.tex",
+  "paper/ai-use.tex",
+  "paper/main.pdf",
+  "paper/numbers.tex",
+  "paper/tables/tab_exclusion.tex",
+  "paper/tables/tab_h1h2.tex",
+  "paper/tables/tab_parts.tex",
+  "paper/tables/tab_ablations.tex",
+  "paper/tables/tab_accuracy.tex",
+  "paper/figures/fig_accuracy.pdf",
+  "paper/figures/fig_contrasts.pdf",
+  "paper/figures/fig_ablations.pdf",
+  "paper/figures/CAPTIONS.md",
+  "claims.jsonl",
+  "plan.json",
+  "refs.bib",
+  "sources/sources.json",
+  "sources/notes.md",
+  "runs/NOTES.md",
+  "runs/descriptives/metrics.json",
+  "code/experiment.py",
+  "log.jsonl",
+  "reviews/question-r1/review.json",
+  "reviews/results-r2/review.json"
+ ],
+ "kill_argument": "Both hypotheses are inconclusive, and the conclusion says 'the study's value is the protocol and its fully logged runs.' So the protocol claims carry the paper, and two of them do not hold as written. First, the disclosure of the pre-gate pilot is false. Section 6 item 1 says the Reviewer's pilot used iris, wine and digits and that 'none of those three datasets is in the study'. But reviews/question-r1/review.json (F1, F3) reports pilot results on breast_cancer, a study dataset: GBDT dropped about 5 points more than RF there, the direction H1 predicts, before H1 was rewritten per dataset. Item 2's selection logic ('used in the pilot ... so only breast_cancer remains') contradicts this, and the Setup's 'fixed ... before any run on study data' is wrong for the same reason. Second, 'fully logged, rerunnable' rests on a clean rerun that the paper says has not happened. What held: every macro-backed number, ranking and 'within noise' statement I checked against descriptives metrics; the A2/A3 sentences; the 1.49 S, 0.72 S and 1.13 S arithmetic; a title and abstract that do not overstate; and the nawaz2025, morampudi2026 and folleco2008 abstracts.",
+ "verdict": "revise",
+ "findings": [
+  {
+   "id": "F1",
+   "severity": "major",
+   "status": "open",
+   "text": "The disclosure of the Reviewer's pre-gate pilot is false. It says the pilot ran on iris, wine and digits and that 'None of those three datasets is in the study'. The question-r1 review records pilot results on breast_cancer as well: RF-minus-GBDT drop -0.05 at 40% flips, and clean RF 0.970 against GBDT 0.965. So a study dataset was piloted, with a result in H1's direction, before the hypotheses were fixed. The dataset-choice disclosure ('the first three were used in the Reviewer's pilot ... so only breast_cancer remains') implies that piloted sets were excluded, and then keeps a piloted set. Setup's opening sentence ('fixed at the design gate, before any run on study data') is also untrue: the pilot, fetch-data and prepare-data all touched study data before the gate. Section 6 says 'We list all of them', and the AI-use statement presents the disclosures as complete. The same error is in plan.json disclosures[0] and [1], so the Writer copied it rather than introduced it. No outcome changes: breast_cancer was forced by the brief, and its H1 outcome is inconclusive.",
+   "evidence": "paper/main.tex Sec. 6 items 1-2 (lines ~588-598) and Sec. 3 first sentence (line 160); plan.json disclosures[0], disclosures[1]; reviews/question-r1/review.json findings F1 and F3 (breast_cancer pilot numbers); reviews/REVIEWER_MEMORY.md question-r1 pilot table",
+   "remedy": "Name all four pilot datasets, including breast_cancer. State the breast_cancer pilot direction: untuned, 5 seeds, 80/20 split, GBDT dropped about 5 points more than RF. Say that breast_cancer was kept because the brief required a bundled dataset, not by a pilot-blind rule. Change line 160 to 'before any analysis run'. The PI should append a correcting entry to plan.json disclosures and leave the original entries unedited.",
+   "response": "",
+   "ruling": ""
+  },
+  {
+   "id": "F2",
+   "severity": "major",
+   "status": "open",
+   "text": "The paper's contribution is framed as 'a fully logged, rerunnable comparison' (What this paper adds; Conclusion). Yet its Limitations and AI-use statement say that the clean rerun 'had not been performed when this draft was written', and replication.json does not exist yet. The submission gate needs a passing replication.json newer than every run. As written, the paper cannot be released, and both sentences will be false or stale once the Replicator finishes. If any metric fails to reproduce at rtol 1e-6, the interpretive A2-adult text that code/make_claims.py hardcodes must also be rechecked.",
+   "evidence": "paper/main.tex Limitations bullet 'Replication pending' (lines ~573-575), lines 99-101 and 632-633; paper/ai-use.tex 'Roles and models' bullet; workspace root (no replication.json)",
+   "remedy": "After replication.json is written, replace both statements with the outcome: runs re-executed, metrics compared, tolerance, and pass or fail. Then regenerate numbers.tex if anything changed and recompile. If the rerun fails, narrow the 'rerunnable' claim.",
+   "response": "",
+   "ruling": ""
+  },
+  {
+   "id": "F3",
+   "severity": "minor",
+   "status": "open",
+   "text": "'Pre-Registered' appears in the title, the abstract and the H1/H2 introduction, but the paper never says what the registration is. Readers will assume a third-party, time-stamped registry. Here it is plan.json, frozen at a human gate in the authors' own git repository. The decision interval named in the question-gate hypotheses was also replaced afterwards (disclosed in Sec. 6 item 6).",
+   "evidence": "paper/main.tex title (lines 19-21), abstract, Sec. 1 line 80; git commit 274c4d6 (design gate approved 2026-11-18T13:00:13Z) precedes main-rho0 (13:18:31Z) in runs/NOTES.md",
+   "remedy": "Add one sentence defining the pre-registration: the plan.json design approved at the design gate, commit 274c4d6 with its timestamp, before the first analysis run. Or say 'pre-specified' instead.",
+   "response": "",
+   "ruling": ""
+  },
+  {
+   "id": "F4",
+   "severity": "minor",
+   "status": "open",
+   "text": "Several result-derived numbers are typed rather than macros. (a) 'one of 21' and '(A1 3, A2 9, A3 9)' in the abstract, line 462, the Fig. 3 caption and line 504: claim c-abl-count has no value or macro. (b) 'with a 5-point headroom' on credit-g (line 445) is typed and inaccurate: the headroom is 0.035 for GBDT and 0.049 for RF (HeadCgGb, HeadCgRf). (c) 'about 5 test rows per seed' (line 571) and 'about 6% and 0.5%' overlap (lines 235, 561) are design arithmetic, not run outputs.",
+   "evidence": "paper/main.tex lines 47, 445, 462, 475-476, 504, 235, 561, 571; claims.jsonl c-abl-count (no 'value'/'macro')",
+   "remedy": "Give c-abl-count count metrics and macros, or add a claim for n_tests = 21 and n_attributed = 1. Replace '5-point headroom' with the headroom macros, or with 'a headroom at or below about 5 points'. Label the overlap and test-row figures as design arithmetic.",
+   "response": "",
+   "ruling": ""
+  },
+  {
+   "id": "F5",
+   "severity": "minor",
+   "status": "open",
+   "text": "The compute section reports only the design estimate ('about 20 wall-minutes') and refers to NOTES for the rest. The CS track requires compute in the paper. The measured analysis wall time was 24.4 min, with about 182 CPU-min of fits (37.7 + 88.6 + 19.8 + 35.6). The hardware disclosure's 'fewer than about 3 cores' comes from the 134 CPU-min design estimate. At the measured 182 CPU-min, 3 cores fit the hour only with perfect scaling.",
+   "evidence": "paper/main.tex Compute paragraph (lines 284-289) and Sec. 6 item 5 (lines 609-611); runs/NOTES.md run table and total",
+   "remedy": "Report the measured wall time and CPU-minutes, from runs/*/timing.json, in the Compute paragraph, and revise the minimum core count from the measured figure.",
+   "response": "",
+   "ruling": ""
+  },
+  {
+   "id": "F6",
+   "severity": "minor",
+   "status": "open",
+   "text": "Related-work statements of fact about cited papers have no citation claim in claims.jsonl. They are: Le Baher et al.'s setup (hinge or squared-error XGBoost losses, fixed hyperparameters, binary tasks, minority-scaled rho, AUC/balanced accuracy/kappa); Dietterich's noise injected before cross-validation, so his test labels were noisy; and Nawaz et al. including no logistic regression. sources/notes.md supports them: full text for lebaher2020 and dietterich2000, and for nawaz2025 I confirmed that the ICML abstract lists seven comparison classifiers without LR. But they are not traceable through the claims ledger.",
+   "evidence": "paper/main.tex lines 126-127, 131-135, 138-139; claims.jsonl citation claims (only c-lebaher-rf, c-dietterich-noise, c-nawaz cover these sources)",
+   "remedy": "Add citation claims with locators (Le Baher Sections 2.3 and 3.5 and Table 1; Dietterich preprint pp. 9-10; Nawaz abstract).",
+   "response": "",
+   "ruling": ""
+  },
+  {
+   "id": "F7",
+   "severity": "minor",
+   "status": "open",
+   "text": "The LR C sentence is inaccurate. It says the median C 'falls' on breast_cancer, credit-g and adult, but 'does not fall consistently' on covtype. On covtype the endpoints fall by a factor of about 3.6 (2.25 to 0.62). breast_cancer (0.0492 to 0.051) and adult (0.0195 to 0.0202) are not monotone either. What differs is the level: C stays near 1 on covtype, against 0.04 or less elsewhere at rho = 0.4.",
+   "evidence": "paper/main.tex lines 348-351; numbers.tex CBc*/CAd*/CCt* macros",
+   "remedy": "Rephrase in terms of level, or 'falls between the endpoints on all four; on covtype it stays an order of magnitude weaker'.",
+   "response": "",
+   "ruling": ""
+  },
+  {
+   "id": "F8",
+   "severity": "minor",
+   "status": "open",
+   "text": "'We add a protocol and an honest negative' calls an inconclusive result a negative one. 'Negative' reads as evidence of no difference, which the paper elsewhere says an inconclusive outcome is not.",
+   "evidence": "paper/main.tex lines 99-100",
+   "remedy": "Write 'an honestly reported inconclusive result'.",
+   "response": "",
+   "ruling": ""
+  }
+ ]
+}

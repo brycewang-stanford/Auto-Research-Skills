@@ -17,7 +17,7 @@
 \newcommand{\ct}{\ds{covtype}}
 
 \title{Does Gradient Boosting Lose More to Label Noise than a Random Forest?\\
-A Pre-Registered Comparison on Four Tabular Datasets in Which\\
+A Pre-Specified Comparison on Four Tabular Datasets in Which\\
 Both Hypotheses Are Inconclusive}
 \author{Bryce Wang (human PI) \\ \small Drafted with Free-Research-Crew; see the AI-use statement.}
 \date{\today}
@@ -36,7 +36,7 @@ labels. The design uses four datasets (\bc, \cg, \ad, \ct; at most 5,000 rows ea
 flip rates from 0 to 0.4 and 10 seeds, for \NCells{} main cells. The outcome is the share of
 headroom above the majority-class rate lost between $\rho=0$ and $\rho=0.4$. It is decided
 per dataset with a paired $t(9)$ interval and a smallest meaningful difference of 0.05.
-\textbf{Both pre-registered hypotheses are inconclusive overall.} \cg{} was excluded before
+\textbf{Both pre-specified hypotheses are inconclusive overall.} \cg{} was excluded before
 any noisy run because its headroom was too small. The H1 prediction (boosting loses more
 than the forest) is supported on \ct{} alone, with $D = \HOneDCt$
 [$\HOneDCtLo$, $\HOneDCtHi$], a single-dataset outcome on 5,000-row subsamples. On \bc{} and
@@ -44,7 +44,7 @@ than the forest) is supported on \ct{} alone, with $D = \HOneDCt$
 \HOneNInf{} informative datasets falls short of the \HOneNNeed{} that the count rule needs.
 The H2 prediction (logistic regression loses least) is inconclusive on all \HTwoNInf{}
 informative datasets. Of three ablations (no early stopping, clean validation labels, half
-the tuning budget), one of 21 tests on informative datasets met the pre-registered
+the tuning budget), one of 21 tests on informative datasets met the pre-specified
 attribution rule. That is about the chance rate. It changes the labels used for both model
 selection and early stopping at once, so it cannot be assigned to model selection.
 \end{abstract}
@@ -75,9 +75,13 @@ of XGBoost alone found it naturally robust to symmetric noise, with early stoppi
 they cannot settle the ordering between them (Section~\ref{sec:related}).
 
 We run a controlled comparison of the three methods and fix every analysis choice before
-any study run. The setup has an exact symmetric flip rate, an equal tuning budget scored on
+any analysis run. The setup has an exact symmetric flip rate, an equal tuning budget scored on
 noisy validation labels, clean test labels, and per-dataset decisions with seed-level
-intervals. Two hypotheses were pre-registered:
+intervals. Two hypotheses were pre-specified. By \emph{pre-specified} we mean fixed in the
+workspace's \texttt{plan.json}, which the human author approved at the design gate
+(2026-11-18T13:00:13Z in \texttt{log.jsonl}, git commit \texttt{274c4d6}) before the first
+analysis run. It is not a third-party, time-stamped registry, and one element of the
+analysis was changed at the design stage (Section~\ref{sec:deviations}, item~6):
 \begin{description}
   \item[H1 (main).] On each dataset, gradient boosting (GBDT) loses a larger share of its
   headroom above the majority-class rate than the random forest (RF) between $\rho=0$ and
@@ -86,7 +90,7 @@ intervals. Two hypotheses were pre-registered:
   the three.
 \end{description}
 
-\paragraph{What we find.} Both hypotheses are inconclusive under the pre-registered count
+\paragraph{What we find.} Both hypotheses are inconclusive under the pre-specified count
 rule. \cg{} is excluded at $\rho=0$ because the headroom of GBDT and RF is below 5 accuracy
 points. Of the \HOneNInf{} informative datasets, H1 is supported on one, \ct, where
 GBDT loses $D=\HOneDCt$ more of its headroom than RF (95\% interval
@@ -96,7 +100,7 @@ datasets. Three ablations probe early stopping, noisy model selection and the tu
 They attribute no mechanism we can interpret: the single test that met the rule is about
 what chance would give, and it changes two things at once.
 
-\paragraph{What this paper adds.} We add a protocol and an honest negative: a fully logged,
+\paragraph{What this paper adds.} We add a protocol and an honestly reported inconclusive result: a fully logged,
 rerunnable comparison whose per-dataset intervals show how little a study of this size can
 resolve. The ordering question stays open. It is not answered in either direction.
 
@@ -157,7 +161,7 @@ three-way comparison on any of our four datasets.
 \section{Setup}
 \label{sec:setup}
 
-Every choice in this section was fixed at the design gate, before any run on study data.
+Every choice in this section was fixed at the design gate, before any analysis run.
 
 \paragraph{Datasets.} We use four tabular classification datasets retrieved through
 scikit-learn's loaders, each pinned by hash (and, for OpenML, by data id and version) in
@@ -232,7 +236,8 @@ $D_2 = r_{\mathrm{LR}} - r_{\mathrm{RF}}$ (both predicted $<0$).
 seeds, built on the per-seed delta-method linearization of the ratio of means:
 $D \pm t_{0.975,9}\sqrt{c}\,S$, where $S$ is the per-seed standard deviation of the
 linearized difference. On \ad{} and \ct{} each seed draws a fresh 5,000-row sample, so two
-seeds share only about 6\% and 0.5\% of their training rows. We treat the seeds as close to
+seeds share only about 6\% and 0.5\% of their training rows (design arithmetic, not a
+measured overlap). We treat the seeds as close to
 independent and use $c = 1/J$ with $J=10$, a half-width of about $0.72\,S$. This interval is
 slightly narrow on \ad{} because of the residual overlap, and we did not correct it. On \bc{}
 and \cg{} every seed re-splits the same rows. Seed-to-seed spread then understates the
@@ -282,11 +287,13 @@ attributed only if the $\Delta$ interval excludes 0 and $|\Delta| \ge 0.05$.
 \end{itemize}
 
 \paragraph{Compute.} The study ran on the PI's laptop, an Apple M3 with 8 cores (4
-performance and 4 efficiency), using 8 worker processes. The budget was one hour, and the
-design estimated about 20 wall-minutes from timing runs on synthetic data. A contingency was
+performance and 4 efficiency), using 8 worker processes. The budget was one hour. From timing
+runs on synthetic data, the design estimated about 134 CPU-minutes and about 20
+wall-minutes; both figures are design estimates, not measurements. A contingency was
 fixed in advance: drop A1, then A2, if the projected time from the $\rho=0$ run exceeded 45
-minutes. It did not trigger, so every planned run was executed. Wall times are in
-\texttt{runs/NOTES.md}.
+minutes. It did not trigger, so every planned run was executed. The measured wall times and CPU time are recorded in
+\texttt{runs/NOTES.md} and \texttt{runs/*/timing.json}. They are kept out of the claims
+ledger because they do not reproduce, so we do not quote them here.
 
 % ---------------------------------------------------------------------------
 \section{Results}
@@ -344,11 +351,13 @@ both tree methods at $\rho$ from 0.1 to 0.3, with intervals that exclude 0. At $
 the order is LR, RF, GBDT, but every gap is within noise. On \bc{} and \cg{} the order
 changes between rates, but every gap at every rate is within noise.
 
-Table~\ref{tab:hyper} in the appendix gives the tuned hyperparameters at each rate. They
-move as expected under noise. The median selected $C$ of LR falls between $\rho=0$ and
-$\rho=0.4$ on \bc{} (from $\CBcZero$ to $\CBcFour$), on \cg{} (from $\CCgZero$ to $\CCgFour$)
-and on \ad{} (from $\CAdZero$ to $\CAdFour$). On \ct{} it does not fall consistently
-($\CCtZero$ at $\rho=0$, $\CCtFour$ at $\rho=0.4$). Stronger regularization under noise is
+Table~\ref{tab:hyper} in the appendix gives the tuned hyperparameters at each rate. The
+median selected $C$ of LR is smaller at $\rho=0.4$ than at $\rho=0$ on all four datasets:
+\bc{} from $\CBcZero$ to $\CBcFour$, \cg{} from $\CCgZero$ to $\CCgFour$, \ad{} from
+$\CAdZero$ to $\CAdFour$, and \ct{} from $\CCtZero$ to $\CCtFour$. The path between the
+endpoints is not monotone on every dataset. What sets \ct{} apart is the level: there the
+selected $C$ stays around an order of magnitude larger (weaker regularization) than on the
+other three datasets at $\rho=0.4$. Stronger regularization under noise is
 the direction in which \citet{vanrooyen2015} would predict robustness, but we did not test
 whether it explains LR's drops. The median RF \texttt{min\_samples\_leaf} rises, for example
 on \ad{} from $\MslAdZero$ to $\MslAdFour$. The median number of GBDT boosting iterations
@@ -365,7 +374,7 @@ estimate, the 95\% decision interval (a paired $t(9)$ interval over 10 seeds, va
 corrected for re-splitting on the datasets marked $\dagger$), the per-seed SD $S$, the
 half-width, and the difference in absolute accuracy drops between $\rho=0$ and $0.4$. To
 support a hypothesis, the interval must exclude 0 in the predicted direction, $|D| \ge 0.05$,
-and the drop difference must be at least 0.01. Outcomes use the pre-registered reporting
+and the drop difference must be at least 0.01. Outcomes use the pre-specified reporting
 words, and the H2 outcome is joint over $D_1$ and $D_2$. \cg{} was excluded at $\rho=0$; its
 rows are reported but not counted. The last rows give each hypothesis's overall verdict
 under the count rule.}
@@ -375,7 +384,7 @@ under the count rule.}
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.92\textwidth]{figures/fig_contrasts.pdf}
-\caption{Pre-registered contrasts in the share of headroom lost between $\rho=0$ and
+\caption{Pre-specified contrasts in the share of headroom lost between $\rho=0$ and
 $\rho=0.4$. Left: H1, $D = r_{\mathrm{GBDT}} - r_{\mathrm{RF}}$ (H1 predicts $D>0$). Middle
 and right: H2, $D_1$ and $D_2$ (H2 predicts both $<0$). The dark line is the 95\% decision
 interval: a paired $t(9)$ interval over 10 seeds, variance corrected for re-splitting on the
@@ -442,7 +451,8 @@ H2 needs both $D_1<0$ and $D_2<0$ to be decided on a dataset. It is inconclusive
 \cg{} is reported for description only. At $\rho=0.4$ all three methods fall below the
 majority rate $m = \MajCg$: $A(0.4)$ is $\AccCgLrFour$ for LR, $\AccCgRfFour$ for RF and
 $\AccCgGbFour$ for GBDT. Every $r$ is therefore above 1 ($\RCgLr$, $\RCgRf$, $\RCgGb$). This is
-the floor case the design anticipated: with a 5-point headroom, the measure divides by a
+the floor case the design anticipated: with headrooms of $\HeadCgLr$ (LR), $\HeadCgRf$ (RF)
+and $\HeadCgGb$ (GBDT), the measure divides by a
 quantity close to the test-set noise. It is why the exclusion rule exists. No \cg{} value
 enters any count.
 
@@ -470,7 +480,7 @@ selection, because A2 also changes the labels GBDT's early stopping monitors.}
 \caption{Ablation tests. Each row is $\Delta = D_{\mathrm{main}} - D_{\mathrm{ablation}}$
 for one ablation and dataset, with the dataset's 95\% paired $t(9)$ decision interval over
 the same 10 seeds (variance corrected for re-splitting on \bc{} and \cg). The gray band marks
-$|\Delta| < 0.05$. Markers give the pre-registered status: filled for attributed (the
+$|\Delta| < 0.05$. Markers give the pre-specified status: filled for attributed (the
 interval excludes 0 and $|\Delta| \ge 0.05$), open for not attributed, and a cross for
 excluded. One of the 21 tests on informative datasets is attributed: A2, H1 contrast, on
 \ad. About one such interval is expected by chance at 95\% across 21 tests, and no
@@ -495,13 +505,16 @@ stopping rule with a different search. Without early stopping, the selected numb
 iterations also falls with noise (median $\IterBcNeZero$ at $\rho=0$ and $\IterBcNeFour$ at
 $\rho=0.4$ on \bc). The search itself chooses shorter boosting under noise.
 
-\paragraph{A2: clean validation labels.} Under the pre-registered rule, the H1 contrast on
+\paragraph{A2: clean validation labels.} Under the pre-specified rule, the H1 contrast on
 \ad{} is attributed: $\Delta = \ATwoDeltaAd$ [$\ATwoDeltaAdLo$, $\ATwoDeltaAdHi$]
 ($S = \ATwoDeltaAdS$, half-width $\ATwoDeltaAdHalf$). \textbf{This result cannot be assigned
 to model selection.} A2 changes two things at once. It changes the labels used to choose
 among candidates, and it changes the labels GBDT's early stopping monitors, so the GBDT
 candidates under A2 are different fits. The ablation does not separate the two. It is
-\textbf{one of the 21} ablation tests on informative datasets (A1 3, A2 9, A3 9) and the only
+\textbf{one of the 21} ablation tests on informative datasets (A1 3, A2 9, A3 9)\footnote{The
+counts in this sentence (21 tests, one attributed) are taken from the workspace's claim
+\texttt{c-abl-count}, a text claim tied to the 21 status metrics. It has no generated macro,
+so these counts are written in words.} and the only
 one whose interval excludes 0. About one such interval is expected by chance at 95\% across
 this many tests, and no multiplicity correction was planned. Its upper end, $\ATwoDeltaAdHi$,
 lies on \ad's plain interval, which the design calls slightly narrow. The direction is that
@@ -530,7 +543,7 @@ rows, scikit-learn's log-loss GBDT with early stopping loses a larger share of i
 than a tuned random forest between $\rho=0$ and $\rho=0.4$. On \ct{} the forest is also the
 more accurate method at every nonzero flip rate. That points the same way as the evidence
 that boosting degrades more than forests or bagging \citep{dietterich2000,breiman2001,
-nawaz2025}, but it is one dataset. The pre-registered count rule asks for more than that,
+nawaz2025}, but it is one dataset. The pre-specified count rule asks for more than that,
 and the overall verdict is inconclusive. We make no claim that GBDT degrades more than RF in
 general, or on \bc{} or \ad. Nor do we claim the reverse, as \citet{lebaher2020} found for
 their untuned forests: no dataset contradicted H1. For H2, LR loses less than GBDT on \ct, but
@@ -558,8 +571,8 @@ seeds are run.
   remaining dataset. The design anticipated this, and it makes an inconclusive overall
   verdict likely whenever one dataset is underpowered.
   \item \textbf{Interval approximations.} The correction on \bc{} and \cg{} assumes a fixed
-  correlation between re-splits. The plain interval on \ad{} ignores about 6\% training-row
-  overlap between seeds and is slightly narrow. The single attributed ablation lies on that
+  correlation between re-splits. The plain interval on \ad{} ignores the training-row
+  overlap between seeds (about 6\% by design arithmetic) between seeds and is slightly narrow. The single attributed ablation lies on that
   interval.
   \item \textbf{Ablation design.} A2 does not separate model selection from GBDT's
   early-stopping monitor. A1 compares different random candidate lists. Neither can isolate
@@ -568,7 +581,8 @@ seeds are run.
   \item \textbf{Equal budget is not equal tuning.} LR searches one dimension and the trees
   three or four, and GBDT's early stopping adds a free choice of the number of iterations.
   A1 and A3 probe this but did not resolve it.
-  \item \textbf{Rare classes.} On \ct{} the smallest class has about 5 test rows per seed,
+  \item \textbf{Rare classes.} On \ct{} the smallest class has about 5 test rows per seed (by
+  design arithmetic),
   and accuracy is dominated by the two largest classes.
   \item \textbf{Replication pending.} The clean rerun of every run from
   \texttt{code/requirements.txt}, which must reproduce every metric to a relative tolerance
@@ -582,20 +596,31 @@ seeds are run.
 During execution we made no deviation from the design approved at the design gate. The
 compute contingency was evaluated as written and did not trigger. The fixes from the code
 review were exact threshold comparisons and input/output hashing. They were made before the
-first study run and change no rule. The following departures and decisions were recorded in
-\texttt{plan.json} before any study run. We list all of them.
+first analysis run and change no rule. The following departures and decisions are recorded
+in \texttt{plan.json}. Items 1 and 2 include a correction that the PI appended at the paper
+stage, after the paper review found the original entries wrong; the original entries are
+left unedited in \texttt{plan.json}. We list all of them.
 \begin{enumerate}
-  \item \textbf{The Reviewer's pre-gate pilot.} During the first review of the research
-  question, the Reviewer agent ran an untuned 5-seed pilot of the three methods on iris,
-  wine and digits, outside the workspace. Its results informed the revised question
-  (per-dataset reporting and decision rules). None of those three datasets is in the study.
+  \item \textbf{The Reviewer's pre-gate pilot, which included a study dataset.} During the
+  first review of the research question, before the hypotheses were fixed, the Reviewer
+  agent ran a pilot of the three methods outside the workspace: untuned scikit-learn
+  defaults, 5 seeds, an 80/20 split and 40\% flips. It used four datasets: iris, wine,
+  digits and \bc. \bc{} is a study dataset. On it, GBDT lost about 5 accuracy points more
+  than RF at 40\% noise, the direction H1 later predicted. The pilot's results informed the
+  revised question (per-dataset reporting and decision rules). Our earlier records stated
+  that no study dataset was piloted. That was wrong: the PI relied on the Reviewer's summary
+  rather than its review file. Readers should weigh \bc{} with this in mind; its H1
+  outcome under the pre-specified interval is no detectable difference (inconclusive).
   \item \textbf{Datasets that depart from the brief.} The seed brief asked for datasets that
-  ship with scikit-learn. Of the bundled classification sets, iris, wine and digits were
-  used in the pilot and digits is image data, so only \bc{} remained. The PI added three
+  ship with scikit-learn. Its bundled classification sets are iris, wine, digits and \bc.
+  \bc{} stayed in the study because the brief requires a dataset bundled with scikit-learn.
+  Iris, wine and digits were left out; the original record gives their use in the pilot as
+  the reason, and digits is image data. Because \bc{} was piloted too (item~1), the
+  selection was not pilot-blind. The PI added three
   tabular datasets retrieved through scikit-learn loaders: \ad{} and \ct, because prior
   label-noise studies used them \citep{lebaher2020,eisenburger2024}, and \cg, a small
   imbalanced dataset with no prior label-noise study that we found. The exact versions and
-  hashes were pinned before any run.
+  hashes were pinned before any analysis run.
   \item \textbf{Validation labels flipped.} The brief says that noise is injected into
   training labels only and that test labels stay clean. Test labels stay clean, but the
   validation labels used for tuning and early stopping are flipped at the training rate,
@@ -607,11 +632,13 @@ first study run and change no rule. The following departures and decisions were 
   interval lies inside $(-0.05, 0.05)$. Otherwise we write ``no detectable difference
   (inconclusive)'', because a wide interval does not show that the methods behave alike.
   \item \textbf{Hardware.} We read ``laptop CPU'' as the PI's laptop: an Apple M3 with
-  8 cores (4 performance and 4 efficiency), run with 8 worker processes. On a machine with
-  fewer than about 3 cores the study would not fit the one-hour budget.
+  8 cores (4 performance and 4 efficiency), run with 8 worker processes. The design
+  estimate of about 134 CPU-minutes implies that a machine with fewer than about 3 cores
+  would not fit the one-hour budget. That bound comes from the estimate, not from measured
+  times; the measured CPU time is in \texttt{runs/NOTES.md}.
   \item \textbf{Interval change.} The approved hypotheses named a 95\% percentile interval
-  from a paired bootstrap over seeds. Following two design reviews, and before any run on
-  study data, the design replaced it with the paired $t(9)$ interval of
+  from a paired bootstrap over seeds. Following two design reviews, and before any analysis
+  run, the design replaced it with the paired $t(9)$ interval of
   Section~\ref{sec:setup}. That interval is variance corrected on \bc{} and \cg{} and plain
   on \ad{} and \ct. The bootstrap, which under-covers with 10 seeds, is kept only as a
   descriptive check. Thresholds, exclusion and count rules are unchanged. The design records
@@ -624,7 +651,7 @@ first study run and change no rule. The following departures and decisions were 
 \label{sec:conclusion}
 
 Under exact symmetric label noise, an equal tuning budget on noisy validation labels and
-clean test labels, we could not decide either pre-registered hypothesis. Log-loss gradient
+clean test labels, we could not decide either pre-specified hypothesis. Log-loss gradient
 boosting with early stopping lost a larger share of its headroom than a random forest on
 \ct{} alone. The other two informative datasets gave no detectable difference, and the
 fourth was excluded before any noisy run. Logistic regression was not shown to be the most
