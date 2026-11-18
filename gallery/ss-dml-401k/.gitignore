@@ -1,5 +1,5 @@
 data/raw/
-.venv/
+.venv
 __pycache__/
 data/derived/
 runs/*/units/

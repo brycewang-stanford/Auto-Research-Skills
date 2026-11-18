@@ -683,7 +683,7 @@ def cmd_init(args: argparse.Namespace) -> int:
     write_json(ws / "data" / "manifest.json", {"datasets": []})
     (ws / "refs.bib").write_text("", encoding="utf-8")
     (ws / "claims.jsonl").write_text("", encoding="utf-8")
-    (ws / ".gitignore").write_text("data/raw/\ndata/derived/\n.venv/\n__pycache__/\n", encoding="utf-8")
+    (ws / ".gitignore").write_text("data/raw/\ndata/derived/\n.venv\n__pycache__/\n", encoding="utf-8")
     append_log(ws, "pi", "init", f"track={args.track}")
     print(f"Created crew workspace at {ws}")
     return 0
