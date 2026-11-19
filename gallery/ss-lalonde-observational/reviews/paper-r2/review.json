@@ -1,0 +1,115 @@
+{
+  "id": "paper-r2",
+  "target": "paper",
+  "round": 2,
+  "created": "2026-11-19T17:03:20Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261119T165853Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/paper-r1/review.json (findings, responses)",
+    "reviews/results-r1/review.json (F1-F3 text and responses)",
+    "paper/main.tex (full)",
+    "paper/ai-use.tex",
+    "paper/numbers.tex (effect, CI, trim, sensitivity macros)",
+    "paper/tables/tab_main.tex",
+    "paper/main.pdf (pdftotext -layout; pdfinfo dates and pages)",
+    "claims.jsonl (diff 14a2f9d..95ba752; c-smith-re74, c-dml-crossfit)",
+    "plan.json (disclosures; design.method.control_only_trimming; diff 14a2f9d..95ba752)",
+    "refs.bib (diff; entry count)",
+    "sources/sources.json (all entries; method counts)",
+    "sources/notes.md (diff 14a2f9d..95ba752)",
+    "runs/sens-imbens/metrics.json (reading-rule metrics)",
+    "runs/post-results-derived/metrics.json and run.json",
+    "runs/*/run.json (ids, kinds, start times)",
+    "replication.json",
+    "log.jsonl",
+    "briefs/ (listing); briefs/20261119T165648Z-writer.md; briefs/20261119T164721Z-scout.md",
+    "git log and diffs 14a2f9d..95ba752 (paper/, plan.json, claims.jsonl, refs.bib, sources/; stat for runs/, code/, data/, numbers.tex, tables, figures: unchanged)",
+    "crew.py validate, validate --strict and status output",
+    "External: users.nber.org/~rdehejia/papers/dehejia_wahba_jasa.pdf (OCR of JASA pp. 1056, 1059)",
+    "External: ideas.repec.org/a/oup/biomet/v96y2009i1p187-199.html (Biometrika abstract)",
+    "External: arxiv.org/pdf/1608.00060v7 (Sec. 3.4, Sec. 5.1, Assumption 5.1)"
+  ],
+  "kill_argument": "The paper's whole claim is procedural: the outcome analysis was fixed before any outcome was read. The analysis adds nothing. Its estimate ($1,573) reproduces a known AIPW-GRF number on this sample, the failed placebo removes any causal reading, and its one decision (H1) holds by $9.6, which three of five fixed seeds, three triggering checks and a weak confounder each reverse. A procedural paper must describe its departures exactly. This version now lists the three post-results reporting changes, but it calls all three 'more cautious' and says none changes 'a decision rule'. In fact one departs from a rule the paper lists among its fixed decision rules, and another reads a failed robustness check as noise after seeing it. The paper also cites double machine learning for bias removal whose theorem needs overlap that this sample visibly fails (no lower clip; most CPS propensities below 0.01). These are wording faults, not hidden analysis choices. Tried and held: every paper-r1 fix; the JASA Table 2/3 numbers and the Biometrika abstract checked at source; nothing in runs, claim values, numbers, tables or figures changed since the clean rerun; validate --strict passes; the PDF is newer than its source.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The deviations section omits a post-results departure from a fixed reporting rule, and the paper's central procedural claim depends on that list being complete. plan.json design.method.sensitivity fixes the reading rule: 'The paper names the strongest benchmark group to which the conclusion is robust and the weakest to which it is not.' sens-imbens logs strongest_robust_zero = 'black' and n_robust_zero = 3. After the results (results-r1 F2), the paper replaced those three 'robust' verdicts with 'no information' (main.tex Sec. 8 para. 3, Table tab:sens 'Verdict' column, Fig. fig:sens caption). The change is conservative and argued openly in Sec. 8, but Sec. 4.6 'Sensitivity reading' still describes the rule as applied, Sec. 11 (deviations and disclosures 1-7) does not list it, and the intro ('every decision rule were fixed and logged before any outcome value was read') and conclusion ('every choice that could have been tuned to the outcome was fixed and logged first') say no such change exists. The other reporting additions made at the results review are listed only as numbers computed (disclosure 2), not as changes to wording: the 'within cross-fitting noise' qualifier on H1 (results-r1 F1) and the reading of the rob-trim trigger as noise, not an overlap failure (results-r1 F3; Sec. 7). Remedy (text only, no run): add a disclosure stating that after the results, at review, (i) the sensitivity rule's literal output (conclusion robust to black, the strongest robust group; also married, nodegree) was reported as uninformative because R2_D is floored at 0 for those groups, and (ii) the H1 noise qualifier and the trim-trigger reading were added. Then qualify the intro and conclusion sentences (e.g., 'fixed first, except the reporting changes listed in Section 11').",
+      "evidence": "plan.json design.method.sensitivity 'Reading rule (fixed)'; runs/sens-imbens/metrics.json strongest_robust_zero, n_robust_zero; paper/main.tex lines 105-117, 454-458, 715-722, 731-732, 838-903, 919-922; reviews/results-r1/review.json F1-F3",
+      "response": "PI: disclosure added to plan.json (post-results reporting changes (a)-(c)); the Writer lists it in Sec. 11 and qualifies the 'fixed in advance' sentences. Writer: Sec. 11 disclosure 3 lists the post-results reporting changes (a)-(c); Sec. 4.6 now says the sensitivity rule was not applied as written and Sec. 8 says black's verdict was relabelled; the intro and conclusion 'fixed first' sentences name these three changes as the exception.",
+      "ruling": "Fixed in the files. Sec. 11 disclosure 3 lists (a)-(c); Sec. 4.6 'Sensitivity reading' now says the rule was not applied as written and that its literal output names black; Sec. 8 para. 3 says black's verdict was relabelled after the results; the intro and conclusion 'fixed first' sentences name the three reporting changes as the exception. plan.json disclosure logged at 16:47:11Z with its hash. No run, claim value or numbers.tex line changed (git diff 14a2f9d..95ba752). The way disclosure 3 characterizes the changes is a new, minor finding (F7)."
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Source versions do not match the citations, and the AI-use statement claims more than the source records show. (a) dehejia1999 is cited as the JASA article with table pin cites ('Tables 2-3', 'Table 3', lines 143-147, 529, 781), but sources.json says that every number cited (Tables 1-3) comes from NBER WP 6586 because the JASA text returned 403. The Limitations bullet 'Benchmark source' (lines 827-831) says only the SE of 633 comes from the WP, and calls 633 'the published' value. The CPS-1 estimates $1,713/$1,774/$1,582/$1,616/-$8,498 and the table numbers are also WP-only. (b) crump2009 is cited as Biometrika 2009, but sources/notes.md says only the 2006 NBER TWP abstract was read. (c) The re74 definition attributed to smith2005 Sec. 5 (lines 217-224, 579-583) has no citation claim in claims.jsonl, and it was checked by the Reviewer at design-r1 from the Scout's fetched text, not by the Scout as ai-use.tex says ('Every citation was checked against its source by the Scout'). Remedy: say that all DW (1999) numbers and table numbers are from the working paper (or cite the WP); say that the Crump rule is taken from the WP abstract; add a citation claim for the smith2005 re74 statement; correct the AI-use sentence.",
+      "evidence": "sources/sources.json dehejia1999.note, crump2009.method; sources/notes.md 'Unverified or not used'; claims.jsonl (no smith2005 re74 claim); paper/main.tex lines 143-147, 217-224, 827-831; paper/ai-use.tex 'Evidence' item",
+      "response": "Writer: Limitations bullet now says the benchmark and SE 633 are as published in DW (1999, Tables 2-3), verified by the Scout against the JASA article; Crump rule attributed to the published abstract (only the abstract read); smith2005 re74 cited [Sec. 5] per c-smith-re74, the after-April rule presented as Smith and Todd's partly trial-and-error reconstruction (Sec. 3 and Sec. 6); AI-use says the Reviewer checked the re74 statement at design-r1 and the Scout verified it at paper-r1; chernozhukov2018 cited for orthogonal scores with cross-fitting and the median-over-splits proposal (the design's mean kept); Imbens (2003) named as unverified and not cited.",
+      "ruling": "Fixed. I checked the sources myself. The JASA scan on the first author's site (11 pp., OCR of pp. 1056 and 1059 in scratch lalonde-reviewer7/) shows NSW 1,794 (633) in Table 2 (RE74 panels) and Table 3, and the CPS-1 row of Table 3 reads -8,498 ... 1,713 1,774 ... 1,582 1,616. So 'Tables 2-3' and the Limitations wording are right. The IDEAS record of the Biometrika article carries the abstract with the [0.1, 0.9] rule of thumb, and the paper now says only the abstract was read. Claim c-smith-re74 exists; the after-April rule is presented as Smith and Todd's reconstruction; ai-use.tex says who checked what. Source count 18 (15 full text, 3 abstract) matches sources.json."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Three statements do not match the paper's own tables. (a) Intro line 96, 'Third, the positive sign is fragile': every robustness point estimate is positive (Sec. 7, line 626: 'Each point estimate is positive'). What is fragile is whether the interval excludes zero; only the sensitivity analysis can reverse the sign. (b) Intro lines 96-97 ('Three of the four pre-specified checks that can trigger the design's disagreement rule') and Limitations line 805 ('three of four triggering checks'): five rows can trigger. Table tab:main marks Hajek IPW 'yes^d' and Fig. fig:forest marks it 'yes*'. Sec. 7 line 661 has the accurate wording, 'through the H1 decision'. (c) Sec. 4.1 lines 291-293, 'every run that reports an ATT targets the same estimand': rob-diff74 reports an ATT on re78 - re74, which Table tab:main note e and Sec. 7 call 'a different estimand'. Remedy: change the wording in these three places.",
+      "evidence": "paper/main.tex lines 96-99, 291-293, 626, 661, 805; paper/tables/tab_main.tex IPW row and note e",
+      "response": "Writer: intro now says the interval's exclusion of zero is fragile (every robustness point estimate positive; only the sensitivity analysis can reverse the sign); triggering checks counted as five that can trigger, four through the H1 decision (three trigger) plus Hajek IPW (does not), in the intro and Limitations; Sec. 4.1 limits 'same estimand' to ATTs on re78 and names rob-diff74 as the exception.",
+      "ruling": "Fixed. Intro: the exclusion of zero is fragile, every robustness point is positive (checked: all nine robustness estimates in tab_main are positive), only the sensitivity analysis can reverse the sign. Five rows can trigger: four through the H1 decision (three do), plus Hajek IPW (does not), in the intro, Sec. 7 and Limitations. Sec. 4.1 limits 'same estimand' to ATTs on re78 and names rob-diff74."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "ai-use.tex is out of date for the submission gate. It says 'The review of this paper has not yet taken place', its round counts stop at the results stage, and it gives the archived briefs as running 'to this Writer's brief (2026-11-19, 13:44 UTC)', although briefs/ also holds 20261119T134412Z-replicator.md and 20261119T164000Z-reviewer.md. Remedy: after the last paper round, update the review item with the paper rounds and verdicts and the brief range, and recompile.",
+      "evidence": "paper/ai-use.tex 'Roles and models' and 'Review' items; briefs/",
+      "response": "Writer: AI-use now reports paper round 1 (revise) and round 2 (pass, three minor findings open), says this version responds to the round-2 findings and leaves the ruling to the Reviewer, and runs the brief range to the Writer's brief of 2026-11-19, 17:04 UTC.",
+      "ruling": "Partly fixed. The review item now reports paper round 1 and the brief range up to 16:56Z. But the remedy was to update it after the last paper round. As it stands, the submitted statement would omit this round and its verdict and the 16:58:53Z reviewer brief, and 'this version answers all six' is the authors' own assessment, not the Reviewer's ruling. Remedy (text only): report paper round 2 with its verdict and the open minor findings, extend the brief range, recompile."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The main title asks whether 'Observational Estimators' (plural) can 'Recover an Experimental Job-Training Effect'. The paper runs one pre-committed estimator, refuses a causal reading because H3 failed, and treats the benchmark comparison as a description with no verdict ('a description that the failed placebo stops us from reading as success'). So the paper does not answer the title question. The title comes from the seed task, and the subtitle is accurate. Cheapest remedy: one sentence in the introduction saying that the paper does not answer the title question and why. Alternatively, lead with the subtitle.",
+      "evidence": "paper/main.tex lines 27-28, 788-794, 916-917",
+      "response": "Writer: new introduction sentence: the paper answers the title question for one pre-specified estimator on one benchmark sample, not for observational estimators in general, and, because the placebo failed, cannot say whether even this estimator recovers the program's effect.",
+      "ruling": "Fixed: the new intro paragraph limits the answer to one pre-specified estimator on one sample, and says the failed placebo leaves even that unanswered."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Two @misc entries have no year, so the citations render as '(Dehejia and Wahba, 1999; Dehejia)' and '(Imbens and Xu, 2025; Xu)' (main.pdf pp. 3-4). A bare 'Dehejia' is ambiguous next to 'Dehejia (2005)'. Remedy: add year fields to dehejiadata and xu2024tutorial in refs.bib, or use a citation label that carries them.",
+      "evidence": "refs.bib dehejiadata, xu2024tutorial; paper/main.pdf pages 3-4 (pdftotext)",
+      "response": "Writer: switched back to standard plainnat and removed paper/plainnat-nodate.bst; BibTeX runs with 0 warnings and the citations render as (Dehejia, 2026) and (Xu, 2026), with the year-of-access note in the bibliography.",
+      "ruling": "Fixed. Standard plainnat; the PDF renders '(Dehejia and Wahba, 1999; Dehejia, 2026)' and '(Imbens and Xu, 2025; Xu, 2026)', and each bibliography entry says the year is the year of access because the page states no date (the Scout's sources.json notes record the checks). No '??' in the PDF."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "Disclosure 3 overstates how harmless the post-results reporting changes are, in two ways. (i) It says 'None of these changes an estimate or a decision rule', and plan.json's matching disclosure says the same. But Sec. 4.6 lists 'Sensitivity reading' among the 'Hypotheses and decision rules' ('All rules below were fixed before any outcome value was read') and now says 'This rule was not applied as written'. Change (a) is a departure from a fixed rule, a reporting rule rather than the H1/H3 rules. (ii) The intro ('three results were reported more cautiously than the fixed rules alone would have reported them'), disclosure 3 ('more cautiously than the fixed rules alone required') and the conclusion ('each of which made the report more cautious') describe all three changes as cautious. That fits (a) and (b). Change (c) reads a triggered robustness check as 'consistent with cross-fitting and refitting noise ..., not with an overlap failure'. That interpretation was added after the result was seen, and it lowers the weight a reader gives to a robustness failure, which is the opposite of caution. Part of (c) was fixed before the results: plan.json design.method.control_only_trimming already said what rob-trim measures and that the dropped men carry 0.09% of the weight. Only the 'noise' reading is post-results. I asked for this reading myself in results-r1 F3, so the fault is in how it is labelled, not in its presence. Remedy (text only, no run): say that (a) departs from the fixed sensitivity reading rule, and that none of the changes alters an estimate or the H1, H3 or disagreement rules; say that (c)'s 'refitting noise' reading is a post-results interpretation that discounts a trigger, while what the check measures was fixed in the design; drop 'each of which made the report more cautious', or limit it to (a) and (b), in the intro, disclosure 3, the conclusion and the plan.json disclosure.",
+      "evidence": "paper/main.tex Sec. 4.6 lines 448 and 475-481, intro lines 121-123, Sec. 11 disclosure 3 lines 902-915 (line 914), conclusion lines 963-966; plan.json disclosures[1]; plan.json design.method.control_only_trimming; reviews/results-r1/review.json F3",
+      "response": "Writer: intro, Sec. 7 (rob-trim), Sec. 11 disclosure 3 and the conclusion now say (a) departs from the fixed sensitivity reading rule, 'more cautious' applies to (a) and (b) only, (c)'s noise reading is a post-results interpretation that discounts a triggered check while what rob-trim measures and the 0.09% share were fixed in the design, and none alters an estimate or the H1, H3 or disagreement rules.",
+      "ruling": ""
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "open",
+      "text": "The citation added at paper-r1 says more than the source. Sec. 4.3 says the estimator 'combines an orthogonal (doubly robust) score for the ATT with cross-fitting, which removes the bias that regularization and overfitting in machine-learned nuisance functions would otherwise cause (Chernozhukov et al., 2018)'. That is unconditional. Chernozhukov et al. prove this for the ATTE score (5.4) only under Assumption 5.1 (arXiv v7 p. 37). It requires strict overlap, P(eps <= m0(X) <= 1 - eps) = 1 (5.1(c)), and an estimated propensity with ||m_hat - 1/2||_inf <= 1/2 - eps (5.1(f)), i.e. bounded away from 0 and 1, plus product-rate conditions on the nuisance errors. This study removed the lower clip (DEV-5). Fig. fig:overlap shows 'almost every CPS man has a propensity far below 0.01', and the treated group is 185 men (Kish ESS of the weighted controls is small). So the theorem's conditions are visibly not met here. The approximation is asymptotic in any case, and Limitations already says the normal approximation may under-cover. Claim c-dml-crossfit itself is accurate; the paper's sentence is the problem. Remedy (text only): write 'is designed to remove ... under regularity conditions that include strict overlap and fast enough nuisance convergence (their Assumption 5.1); with the lower clip removed and most CPS propensities below 0.01, these conditions are not met here, and the paper relies on the guarantee only as motivation'. Or drop the clause and cite the paper for the score alone.",
+      "evidence": "paper/main.tex Sec. 4.3 lines 334-337; claims.jsonl c-dml-crossfit; sources/notes.md chernozhukov2018; arXiv:1608.00060v7 Assumption 5.1(c),(f) (fetched to scratch lalonde-reviewer7/dl/); paper/main.tex DEV-5 and Fig. fig:overlap caption",
+      "response": "Writer: Sec. 4.3 now cites chernozhukov2018 (Sec. 5.1) for the ATT score only and says the paper relies on none of its asymptotic guarantees, because with the lower clip removed most CPS propensities are far below 0.01, overlap is thin and the treated group is small.",
+      "ruling": ""
+    }
+  ]
+}

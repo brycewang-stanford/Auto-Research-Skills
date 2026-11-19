@@ -119,8 +119,11 @@ for within-study comparisons \citep{cook2008}, and it has been applied in other 
 commitment rules out outcome search within the study. It cannot rule out choices shaped by
 the literature, and the paper lists each adaptation of the adopted estimator with its
 reason. Nor did it cover every reporting choice: after the results were seen, at the
-Reviewer's request, three results were reported more cautiously than the fixed rules alone
-would have reported them, and Section~\ref{sec:deviations} lists these changes.
+Reviewer's request, three changes were made to how fixed results are reported. One departs
+from the fixed sensitivity reading rule, two of them make the report more cautious, and the
+third adds an interpretation that discounts a robustness check that triggered;
+Section~\ref{sec:deviations} lists all three. None alters an estimate or the H1, H3 or
+disagreement rules.
 
 The paper therefore answers the title question for one pre-specified estimator on one
 benchmark sample, not for observational estimators in general, and because the placebo
@@ -331,10 +334,12 @@ The primary estimator was adopted from the crew's earlier study of a synthetic d
 (\var{gallery/ss-null-effect}), whose design gate was approved on 2026-11-18 at 13:00 UTC,
 before this study's workspace was created at 16:28 UTC. Its code was taken at a fixed
 commit with recorded hashes, and everything in that design that is not listed as a
-deviation below was carried over unchanged. The estimator combines an orthogonal
-(doubly robust) score for the ATT with cross-fitting, which removes the bias that
-regularization and overfitting in machine-learned nuisance functions would otherwise cause
-\citep{chernozhukov2018}.
+deviation below was carried over unchanged. The estimator uses the orthogonal (doubly
+robust) score for the ATT under unconfoundedness, with cross-fitting
+\citep[Sec.~5.1]{chernozhukov2018}. The paper cites that work for the score only and relies
+on none of its asymptotic guarantees: with the lower propensity clip removed (DEV-5), most CPS
+men have propensities far below 0.01 (Figure~\ref{fig:overlap}), overlap is thin, and the
+treated group is small.
 
 For each of $S = 5$ repetitions $s$, the sample is split into $K = 5$ folds stratified on
 $D$ (seed $20261118 + s$), which puts 37 treated men in every test fold. The propensity score
@@ -657,13 +662,15 @@ primary's.
   \item \textbf{Control-only trimming} (\run{rob-trim}) gives $\TrimEffect$
         \ci{\TrimCiLow}{\TrimCiHigh}, after dropping $\TrimNControlDropped$ CPS men and
         keeping $\TrimNControlKept$. Its interval includes zero, so it \emph{triggers} the
-        rule. What the check measures matters for how to read this. It re-fits the nuisance
+        rule. What the check measures, fixed in the design, matters for how to read this. It re-fits the nuisance
         models on the kept CPS men; it does not test reliance on the dropped men, who carry
         only $\TrimDroppedWeightShare$\% of the control weight, and its cutoff rests on one
         treated man's propensity. Trimming moves the estimate by $\TrimMinusMain$ dollars,
         less than the spread of its own five repetitions (from $\TrimRepMin$ to $\TrimRepMax$
-        dollars). The trigger is therefore consistent with cross-fitting and refitting
-        noise near a lower bound just above zero, not with an overlap failure.
+        dollars). Read after the results were seen, the trigger is consistent with
+        cross-fitting and refitting noise near a lower bound just above zero, not with an
+        overlap failure. This reading was added after the results and discounts a check that
+        triggered (Section~\ref{sec:deviations}, disclosure~3); the rule's verdict stands.
   \item \textbf{Parametric nuisances} (an L2 logit propensity and an OLS outcome model on
         $B(X)$) give $\LearnerLinearEffect$ \ci{\LearnerLinearCiLow}{\LearnerLinearCiHigh};
         the interval includes zero, so this check \emph{triggers}.
@@ -900,19 +907,23 @@ not run because its fixed trigger did not fire.
         equals \run{rob-trim}'s). These numbers were computed after the results were seen, as
         diagnostics, and change no estimate or decision.
   \item \textbf{Reporting changes after the results.} At the Reviewer's first results
-        review, after the results were seen, three fixed results were reported more
-        cautiously than the fixed rules alone required. (a)~The sensitivity reading rule names
+        review, after the results were seen, three changes were made to how fixed results
+        are reported. (a)~The sensitivity reading rule names
         the strongest covariate group to which the conclusion is robust, and the sensitivity
         run records it as black (the rule also returns ``robust'' for married and nodegree).
         Because these three verdicts come from flooring $R^2_D$ at zero, the paper reports them
         as carrying no information instead of naming black (Section~\ref{sec:sensitivity}).
+        This departs from the sensitivity reading rule, one of the decision rules fixed before
+        any outcome was read (Section~\ref{sec:rules}).
         (b)~The H1 decision is qualified as lying within cross-fitting noise, with the
         per-repetition intervals reported (Table~\ref{tab:reps}); the H1 rule is unchanged.
         (c)~The trigger from control-only trimming is read as consistent with refitting
-        noise, not as an overlap failure, because the dropped men carry
-        $\TrimDroppedWeightShare$\% of the control weight (Section~\ref{sec:robustness}).
-        None of these changes an estimate or a decision rule; they change how fixed results
-        are reported, and they were made after the results were seen.
+        noise, not as an overlap failure (Section~\ref{sec:robustness}). What the check
+        measures, and the dropped men's $\TrimDroppedWeightShare$\% share of the control
+        weight, were fixed in the design; the noise reading is a post-results interpretation
+        that lowers the weight given to a check that triggered. Changes (a) and (b) make the
+        report more cautious; (c) does the opposite. None of the three alters an estimate or
+        the H1, H3 or disagreement rules.
   \item \textbf{What the crew knew.} The crew had read the published estimates on this
         sample, including which estimators land near the benchmark, before it chose anything.
         A published estimate from a closely related estimator was known: AIPW with generalized
@@ -961,8 +972,9 @@ failed placebo stops us from reading as success.
 
 These are the answers the literature predicted, and the paper's value is that they were
 reached without outcome search: every choice that could have been tuned to the outcome was
-fixed and logged first, except the three reporting changes listed in
-Section~\ref{sec:deviations}, each of which made the report more cautious, and every check
+fixed and logged first, except the three post-results reporting changes listed in
+Section~\ref{sec:deviations} (one departs from the sensitivity reading rule, and one
+discounts a robustness check that triggered), and every check
 is reported, including the ones that weaken the result. On these data, the pre-committed estimator reproduces the pattern the literature
 reports, a positive estimate with a failed placebo, and the data give no warrant for calling
 the estimate the program's effect.

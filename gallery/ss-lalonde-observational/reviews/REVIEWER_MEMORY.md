@@ -258,3 +258,24 @@ Kill: procedure is the only value, the result reproduces the known AIPW-GRF $1,5
 - Limitations/benchmark bullet covers every DW number; crump cite qualified; a smith2005 re74 citation claim exists.
 - No number, run or claim value changed (diff claims.jsonl, numbers.tex, runs/); replication.json still newer than every run.
 - ai-use.tex lists paper rounds and verdicts; PDF recompiled after the edits (pdfinfo date > main.tex mtime).
+
+## paper-r2 (2026-11-19T17:03Z), verdict: pass
+
+paper-r1 F1, F2, F3, F5, F6 resolved; F4 still open (minor), because ai-use must report this round. Checked at source myself
+(scratch lalonde-reviewer7/dl/): JASA scan OCR p. 1056 Table 2 NSW 1,794 (633) and p. 1059 Table 3 NSW 1,794 (633),
+CPS-1 -8,498 / 1,713 / 1,774 / 1,582 / 1,616; IDEAS Biometrika abstract has the [0.1, 0.9] rule; arXiv v7 Sec. 3.4
+"We recommend using medians", ATTE score eq. 5.4, Assumption 5.1. Since 14a2f9d nothing changed in runs/, code/, data/,
+numbers.tex, tables or figures; validate --strict OK; PDF 00:58:15 local > tex 00:58:07; 18 sources (15 full text, 3 abstract).
+New, open (both minor):
+- F7: disclosure 3, intro and conclusion call all three post-results changes "more cautious" and say none changes "a
+  decision rule". But Sec. 4.6 lists the sensitivity reading among the decision rules and says it was not applied as
+  written, and (c) "trim trigger = refitting noise" discounts a failed check. That was my own results-r1 F3 remedy;
+  the design had already fixed the 0.09% meaning, so only the noise reading is post-results.
+- F8: Sec. 4.3 cites CC2018 for unconditional bias removal. Their Assumption 5.1(c),(f) needs strict overlap and
+  m_hat bounded away from 0. DEV-5 removed the lower clip and most CPS m is below 0.01.
+Kill: procedure is the only value; the disclosure of departures is now complete but labelled too kindly.
+
+## Check if there is a round 3 / at submission
+- ai-use review item lists paper-r2 (pass, F4/F7/F8 minor) and the brief range through 16:58:53Z or later; recompiled.
+- F7 wording in the intro, disclosure 3, conclusion and plan.json disclosures[1]; F8 qualifier or a narrowed citation.
+- Still no change to runs/, claims values, numbers.tex; replication.json newer than every run.
