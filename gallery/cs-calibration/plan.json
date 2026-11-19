@@ -175,9 +175,12 @@
       "note": "Approved in chat on 2026-11-19 after reading H1/H2a/H2b, the electricity dependence and the disclosed narrowing."
     },
     "submission": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-19T13:15:30Z",
-      "summary": "Paper after paper-r2 pass (F13-F16 answered in text); validate --strict OK; clean rerun passed 13/13"
+      "summary": "Paper after paper-r2 pass (F13-F16 answered in text); validate --strict OK; clean rerun passed 13/13",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-19T13:43:46Z",
+      "note": "Approve (in chat, after paper-r2 pass; F13-F16 fixed in text after round 2, not re-reviewed)"
     }
   },
   "design_stage_items": [

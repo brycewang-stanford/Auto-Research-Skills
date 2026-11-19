@@ -1,7 +1,7 @@
 {
   "crew_version": "0.1.0",
   "protocol": "0.1",
-  "scored_on": "2026-11-19T13:05:27Z",
+  "scored_on": "2026-11-19T13:43:47Z",
   "results": [
     {
       "workspace": "gallery/cs-calibration",
@@ -12,14 +12,14 @@
         "question": "approved",
         "design": "approved",
         "results": "approved",
-        "submission": "pending"
+        "submission": "approved"
       },
-      "complete": false,
+      "complete": true,
       "validation_errors": 0,
       "rerun_passed": true,
-      "reviews": 9,
+      "reviews": 10,
       "cross_family_reviews": 0,
-      "protocol": "in-progress",
+      "protocol": "pass",
       "answer": {
         "status": "no-key"
       },
