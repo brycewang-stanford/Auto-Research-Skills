@@ -1,0 +1,72 @@
+{
+  "id": "results-r1",
+  "target": "results",
+  "round": 1,
+  "created": "2026-11-19T07:38:57Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261119T073442Z-reviewer.md",
+    "plan.json",
+    "claims.jsonl",
+    "runs/NOTES.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/code-r1/review.json",
+    "log.jsonl",
+    "code/verdict.py",
+    "code/run_analysis.sh",
+    "sources/notes.md",
+    "data/raw/njmin/codebook",
+    "data/raw/njmin/check.sas",
+    "data/raw/njmin/public.dat",
+    "paper/numbers.tex",
+    "runs/main-t3/run.json",
+    "runs/main-t4/run.json",
+    "runs/se-alt/run.json",
+    "runs/placebo-hiwage/run.json",
+    "runs/h2-winsor/run.json",
+    "runs/h2-winsor/capped.csv",
+    "runs/h2-closures-excl/run.json",
+    "runs/h2-nw-rule/run.json",
+    "runs/verdict/run.json",
+    "runs/check-synthetic/run.json",
+    "runs/prepare-data/run.json",
+    "runs/fetch-data/run.json",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/ss-card-krueger/task.json"
+  ],
+  "kill_argument": "The headline is called reproduced, but it is reproduced only within a 0.05 tolerance that the plan justified as allowing for rounding, and rounding does not explain the gap. Rows 1-2, 4 and 5 of Table 3 and Table 4 column (i) match the published figures at every printed digit. Row 3, the headline, does not. The DiD is 2.7536 (prints as 2.75 against the published 2.76) and the PA change is -2.1656 (prints as -2.17 against -2.16). All three S1 SEs (1.31, 1.22, 0.47) fall below the published 1.36, 1.25 and 0.54. The published entries force an unrounded NJ change in (0.590, 0.595) and a PA change in (-2.165, -2.160), and both replicated values lie outside. The DiD SE target passes by 0.00003. sources/notes.md still calls the gap a rounding difference, and runs/NOTES.md gets the cause of the SE pass backwards. What held: my own numpy code, run from raw public.dat, reproduces every metric to 1e-12. Every pre-registered rule was applied exactly, and each run executed once on the reviewed code. H2 is not closure-driven: one closure is capped, a PA store, and the closures-excluded ratio is 0.849.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "The row-3 point gap is not rounding, but the record says it is. The published row-3 entries are PA -2.16, NJ 0.59 and DiD 2.76. Since 0.59-(-2.16)=2.75 while the DiD prints as 2.76, the unrounded published values must satisfy NJ in (0.590, 0.595) and PA in (-2.165, -2.160). The replicated NJ 0.5880 and PA -2.1656 are both outside these intervals. In the paper's 2-decimal format the replicated row 3 reads 2.75 / -2.17 / 0.59 against 2.76 / -2.16 / 0.59. So the 0.0064 DiD gap is a real discrepancy of unknown source. It could be the data vintage (T1) or an inconsistency in the published table, and it is not a rounding artifact. Rows 1-2 (levels and SEs), row 4, row 5 and Table 4 column (i) match every printed digit, so the discrepancy is specific to the unbalanced row-3 sample. sources/notes.md (Scout arithmetic, lines 70-72) still says 'a replicated 2.75 or 2.76 is only a rounding difference'. The seed task requires every difference to be explained, so a Writer drawing on notes.md would give the headline a false explanation. The H1(a) verdict itself (point targets met at the pre-registered 0.05 tolerance) is applied correctly and is not disputed.",
+      "evidence": "sources/notes.md lines 54 and 70-72; runs/main-t3/metrics.json chg_r3_pa, chg_r3_nj, did_r3; claims.jsonl did-fte, did-fte-pa; paper/numbers.tex DidFte, DidFtePa. Resolve cheaply, with no new run: correct notes.md, and add to runs/NOTES.md (and later the paper) that row 3 is reproduced within the pre-registered tolerance but not at published precision. Say that the gap is not rounding and that its source is unidentified, and set it beside the exact matches of rows 1-2, 4, 5 and Table 4.",
+      "response": "Fixed in runs/NOTES.md and the H1(a) claim texts (no new run, values unchanged): row 3 is reproduced within the 0.05 tolerance but not at published precision (2.75/-2.17 vs 2.76/-2.16; replicated NJ 0.5880 and PA -2.1656 lie outside the intervals the published entries imply), the gap is not rounding and its source is unidentified, set beside the exact matches of rows 1-2, 4, 5 and Table 4; sources/notes.md lines 70-72 are the Scout's file and are flagged in NOTES as wrong but not edited by me.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "open",
+      "text": "runs/NOTES.md ('What the runs gave', H1(a) bullet) explains the DiD SE pass backwards. It says the DiD SE match 'follows from the low NJ SE'. In fact the low NJ SE pushes the DiD SE away from 1.36: with the published 0.54 in place of 0.472, sqrt(1.222^2+0.54^2)=1.336, an absolute difference of 0.024. The DiD SE sits at the boundary (0.04997) because all three row-3 S1 SEs are below the published ones: PA 1.222 vs 1.25 is beyond rounding too, although it is within tolerance. The same pattern appears in an unplanned comparison that NOTES reports selectively. It cites the high-wage NJ change -2.04 as 'the same as the published -2.04' (Table 3 row 3, column vi). It omits that the S1 SE of that change is 0.98 against the published 1.14. Together these say that S1 under-states every unbalanced row-3 SE while matching every balanced row-4 SE exactly. The pre-registered wording 'point reproduced; SE construction not identified' therefore applies to the whole row-3 SE column. h1a_did_se_met = 1 and h1a_pa_se_met = 1 must not be cited as the headline SE being reproduced.",
+      "evidence": "runs/NOTES.md, 'What the runs gave' H1(a) bullet and 'Other report-only runs' placebo bullet; runs/main-t3/metrics.json chg_r3_*_se, did_r3_se; runs/placebo-hiwage/metrics.json chg_r3_nj_hi_se = 0.982; sources/notes.md line 61 (-2.04 (1.14)). Resolve by rewording the NOTES bullets: state the correct direction, report the placebo SE beside its point, and keep the paper to 'within tolerance (by 0.00003); row-3 SE construction not identified'.",
+      "response": "Fixed in runs/NOTES.md and the H1(a) SE claim texts: direction corrected (with NJ SE 0.54 the DiD SE would be 1.336), all three row-3 S1 SEs are low while every row-4 SE matches, so 'SE construction not identified' covers the whole row-3 SE column and the DiD/PA SE met flags must not be cited as the headline SE reproduced; placebo SE 0.98 vs published 1.14 added.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "The plan.json task board does not match the ledger and the reviews. rv-code and pi-design-gate are still 'todo', although reviews/code-r1 exists (verdict pass) and the design gate was approved on 2026-11-19T06:52:04Z. A board that shows the code review as not done, while eight analysis runs have executed, misstates the order of the safeguards to anyone auditing the workspace.",
+      "evidence": "plan.json tasks rv-code and pi-design-gate; reviews/code-r1/review.json; plan.json gates.design; log.jsonl. Resolve by setting both tasks to done.",
+      "response": "PI: rv-code and pi-design-gate set to done (only the tasks field changed).",
+      "ruling": ""
+    }
+  ]
+}

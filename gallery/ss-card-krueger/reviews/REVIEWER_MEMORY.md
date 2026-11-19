@@ -129,3 +129,36 @@ At results review, check:
 - h2-winsor: capped_low_closed (expect up to 6), and the capped counts by state. Whether H2 passes
   only because closures were lifted: compare against h2-closures-excl.
 - se-alt: whichever SE construction matches the published SEs must not become the judged one.
+
+## Round results-r1 (2026-11-19): verdict revise
+
+What I checked, and it held:
+- Code hashes in all 8 analysis run.json files equal the code-r1 pins: ck_analysis 632d2203..., verdict 65599671....
+  check-synthetic was rerun on test_ck f53561d8... before the runs (10/10). log.jsonl shows each analysis run executed
+  once; only check-synthetic is under .superseded. code-r1 F1-F3 are fixed in the files: the guard pins the hashes, there
+  is no replace path, and test 10 exists. They are still marked 'open' in code-r1 because there is no code-r2. Rule them
+  resolved if a code round is ever reopened.
+- My own numpy code (scratch ck-reviewer2/indep.py and cr1.py), run from raw public.dat without ck_analysis, reproduces
+  every metric to 1e-12. That covers rows 1-5, T4 (357, 2.3258, 1.1916, RMSE 8.79), the CR1 SEs, H2 (q05 -17.425,
+  q95 13.7125, did_w 2.3395, caps 12/8/16/4, one closure capped and it is in PA), closures-excluded 2.3345, the NW rule
+  (378 stores, 2.7803) and the placebo (0.129).
+- verdict.py applies the 0.05 inclusive rule after round(.,6), the SE-only-miss flags, N as a data check and the H2 rule
+  exactly. Claims are labelled report-only and descriptive as the plan requires.
+
+Open:
+- F1 (major): the row-3 point gap is not rounding. The published entries force NJ in (0.590, 0.595) and PA in
+  (-2.165, -2.160); the replicated 0.5880 and -2.1656 are outside both. Rows 1-2, 4 and 5 and Table 4 match every digit.
+  sources/notes.md lines 70-72 still say "only a rounding difference".
+- F2 (minor): NOTES says the DiD SE pass "follows from the low NJ SE". The direction is wrong: the low NJ SE pushes it
+  toward failing. All three row-3 S1 SEs are low. NOTES cites the placebo's -2.04 match but leaves out its SE (0.98
+  against 1.14).
+- F3 (minor): the plan.json tasks rv-code and pi-design-gate are still 'todo'.
+
+At results-r2 or the paper, check:
+- notes.md and NOTES are corrected. The paper calls row 3 "within the pre-registered tolerance, not at published
+  precision; gap not rounding, source unidentified", and never "reproduced" without that qualifier.
+- The paper never says S1 reproduces the row-3 SEs, and never cites h1a_did_se_met as the headline SE being reproduced.
+- NW rule: matching 2.78/+0.66/-2.06 must not become "same sample as NW" (NW's N is unknown).
+- H2 wording: tails only, no "survives NW" (question-r3 F10). The low-tail capped stores are large (mean FTE1 46 vs
+  21), so watch that the Ropponen comparison is not overstated.
+- Placebo: descriptive only, and never offered as support for parallel trends.

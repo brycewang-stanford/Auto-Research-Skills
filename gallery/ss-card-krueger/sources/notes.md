@@ -67,9 +67,18 @@ employment".
   sqrt(1.35^2+0.51^2)=1.44. The SE of the PA change, 1.25, is smaller than
   sqrt(1.35^2+0.94^2)=1.64. So the within-state change SEs allow for the correlation between
   waves at the same store, and do not treat the waves as independent samples.
-- **[Scout arithmetic]** From the rounded entries, 0.59-(-2.16) = 2.75. The published 2.76
-  therefore comes from unrounded means, so a replicated 2.75 or 2.76 is only a rounding
-  difference.
+- **[Scout arithmetic]** From the rounded entries, 0.59-(-2.16) = 2.75, but the DiD prints
+  as 2.76, so the published value comes from unrounded means. **In general**, a 2.75 vs 2.76
+  gap can be a rounding artifact. **Here it is not.** For the printed row 3 to be
+  consistent, the unrounded published values must lie in NJ (0.590, 0.595) and
+  PA (-2.165, -2.160). The replicated values, NJ 0.5880 and PA -2.1656 (runs/NOTES.md), lie
+  outside both intervals. In two decimals the replicated row 3 reads 2.75 / -2.17 / 0.59
+  against the published 2.76 / -2.16 / 0.59.
+  - The 0.0064 DiD gap is therefore a real discrepancy, and **its source is unidentified**.
+  - It could be the data release (T1) or an inconsistency in the published table.
+  - Rows 1-2, 4 and 5 and Table 4 column (i) match every printed digit, so the discrepancy
+    is specific to the unbalanced row-3 sample (results-r1 F1).
+  - Do not describe it as rounding.
 
 ### Published regressions: Table 4, "Reduced-form models for change in employment" (p. 780)
 

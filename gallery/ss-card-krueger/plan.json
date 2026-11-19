@@ -110,13 +110,13 @@
       "id": "rv-code",
       "title": "Code review (reviews/code-r1) of prepare_data.py, ck_analysis.py, verdict.py, test_ck.py against the design and check.sas; must pass before any analysis run",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "pi-design-gate",
       "title": "Request and decide the design gate after design and code reviews",
       "owner": "pi",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-main-t3",

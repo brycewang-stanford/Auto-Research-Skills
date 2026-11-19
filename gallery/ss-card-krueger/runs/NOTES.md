@@ -203,10 +203,31 @@ Numbers are rounded here; the claims carry the unrounded values.
 | H1(c) NJ coefficient | 2.3258 | 2.33 | 0.0042 | yes |
 | H1(c) SE | 1.1916 | 1.19 | 0.0016 | yes |
 
-- **H1(a): point reproduced; SE construction not identified.** All point targets are met.
-  S1 misses the NJ change SE (0.472 vs 0.54), as design-r1 F1 predicted (about 0.48
-  under S1). The DiD SE target is met with a margin of 0.00003. That match follows from
-  the low NJ SE, so it should not be read as S1 reproducing the published SEs.
+- **H1(a): point reproduced within tolerance, but not at published precision; SE
+  construction not identified.** (Corrected after results-r1 F1 and F2.)
+  - *Points.* All three point targets are within the pre-registered 0.05. At the paper's
+    two decimals, though, the replicated row 3 reads 2.75 / -2.17 / 0.59 (DiD / PA / NJ)
+    against the published 2.76 / -2.16 / 0.59. The published entries themselves imply
+    narrow intervals: since 0.59 - (-2.16) = 2.75 while the DiD prints 2.76, the
+    unrounded NJ change must lie in (0.590, 0.595) and the PA change in (-2.165,
+    -2.160). The replicated NJ 0.5880 and PA -2.1656 lie outside both. So the 0.0064
+    DiD gap is **not rounding**. Its source is unidentified: it could be the data vintage
+    (threat T1) or an inconsistency in the published table. By contrast, rows 1-2 (levels
+    and SEs), row 4, row 5 and Table 4 column (i) match every printed digit. The
+    discrepancy is therefore specific to the unbalanced row-3 sample.
+    `sources/notes.md` (Scout, lines 70-72) still calls a 2.75-or-2.76 result "only a
+    rounding difference". That is wrong for these values and must not be used in the
+    paper.
+  - *SEs.* All three row-3 S1 SEs are below the published ones: DiD 1.310 vs 1.36, PA
+    1.222 vs 1.25 and NJ 0.472 vs 0.54. The NJ miss is the one design-r1 F1 predicted
+    (about 0.48 under S1). Every row-4 SE matches. The DiD SE target sits at the
+    boundary (0.04997, met by 0.00003) because all three row-3 SEs are low. The low NJ SE
+    does **not** help it pass: it pushes the DiD SE away from 1.36. With the published
+    0.54 in place of 0.472, sqrt(1.222^2 + 0.54^2) = 1.336, a difference of only 0.024.
+    "Point reproduced; SE construction not identified" therefore applies to the whole
+    row-3 SE column. h1a_did_se_met = 1 and h1a_pa_se_met = 1 must not be cited as the
+    headline SE being reproduced. The paper should say "within tolerance (by 0.00003);
+    row-3 SE construction not identified".
 - **H1(b): reproduced.** Every target, points and SEs, is met.
 - **H1(c): reproduced.** N = 357 was already known from data prep. Root MSE is 8.79 and
   the mean and SD of DFTE are -0.237 and 8.825, all matching the published values.
@@ -229,7 +250,10 @@ Numbers are rounded here; the claims carry the unrounded values.
     and NJ 0.73.
   - Row 5 gives 2.51 (SE 1.35); the published value is 2.51 (1.35).
   - placebo-hiwage, descriptive only: 0.13 (row 3) and 0.13 (row 4). The NJ high-wage
-    change is -2.04, the same as the published -2.04.
+    row-3 change is -2.04, the same as the published -2.04 (Table 3 column vi). But its
+    S1 SE is 0.98, against the published 1.14. This is the same under-statement as the
+    other row-3 S1 SEs. (This comparison with the published SE was not planned; it is
+    reported for completeness.)
 
 ### Surprises
 
@@ -237,8 +261,13 @@ Numbers are rounded here; the claims carry the unrounded values.
    row-3 DiD (1.307) is about as close to the published 1.36 as S1 is (1.310). Neither
    reproduces the NJ within-state SE. This is reported only. The judged method was not
    changed.
-2. **H1(a) DiD SE on the boundary.** It passes the 0.05 tolerance by 0.00003. The verdict
-   applies the pre-registered rule exactly, but the paper should say how close it is.
+2. **H1(a) DiD SE on the boundary.** It passes the 0.05 tolerance by 0.00003, because every
+   row-3 S1 SE is low (see H1(a) above). The verdict applies the pre-registered rule
+   exactly, but the paper should say how close it is.
+3. **Row-3 points not at published precision** (results-r1 F1). The row-3 DiD and PA
+   change differ from the published values by more than rounding allows. Every other
+   replicated table entry matches at every printed digit. The source of the gap is
+   unidentified.
 
 ## Claims
 
@@ -256,7 +285,10 @@ listed in `paper/numbers.tex`:
 - both H2 secondaries.
 
 The absolute differences use 5 decimals, so the H1(a) SE boundary is visible; the other
-numbers use 2 decimals, as in the paper.
+numbers use 2 decimals, as in the paper. After results-r1, the texts of the H1(a) claims
+add two statements. Row 3 is reproduced within tolerance, but not at published precision,
+and the gap is not rounding. The row-3 SE met flags must not be read as the headline SE
+being reproduced. The values did not change; numbers.tex was regenerated and is identical.
 
 ## Deviations
 
