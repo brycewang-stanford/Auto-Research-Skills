@@ -64,3 +64,4 @@
 {"time": "2026-11-19T07:04:31Z", "role": "figures-ra", "action": "run", "detail": "tab-port-check exit=0"}
 {"time": "2026-11-19T07:04:32Z", "role": "figures-ra", "action": "run", "detail": "fig-split-spread exit=0"}
 {"time": "2026-11-19T07:05:39Z", "role": "figures-ra", "action": "figures", "detail": "Built tab_side_by_side, fig_h2_diff, tab_port_check, fig_split_spread (runs tab-side-by-side, fig-h2-diff, tab-port-check, fig-split-spread) from logged run outputs only; captions in paper/figures/CAPTIONS.md; 110 table macros checked against claims.jsonl (0 failures); outputs byte-identical on a scratch rerun."}
+{"time": "2026-11-19T07:15:56Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T071555Z"}

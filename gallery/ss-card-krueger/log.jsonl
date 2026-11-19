@@ -35,3 +35,4 @@
 {"time": "2026-11-19T07:02:18Z", "role": "econometrician", "action": "check-synthetic", "detail": "data-prep run check-synthetic on synthetic data only: 9/9 tests passed (S1=HC2, stacked d=did on unbalanced, winsor cutoffs/caps, T4=check.sas C1, S1 Monte Carlo 1.035, known answer, closures, entry points, verdict rules); no analysis run on stores.csv; awaiting code-r1"}
 {"time": "2026-11-19T07:02:18Z", "role": "econometrician", "action": "notes-written", "detail": "runs/NOTES.md: implementation choices and exact commands for runs 1-8"}
 {"time": "2026-11-19T07:02:58Z", "role": "pi", "action": "brief-archived", "detail": "reviewer code-r1 20261119T070258Z"}
+{"time": "2026-11-19T07:15:56Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261119T071555Z"}
