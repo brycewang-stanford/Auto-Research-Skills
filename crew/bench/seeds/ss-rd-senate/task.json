@@ -1,0 +1,17 @@
+{
+  "id": "ss-rd-senate",
+  "track": "social-science",
+  "kind": "replication",
+  "title": "Does winning a US Senate seat help the party win it again? A regression-discontinuity replication of the incumbency advantage",
+  "question": "In US Senate elections from 1914 to 2010, by how many percentage points does a Democratic win in one election raise the Democratic vote share in the next election for the same seat, estimated with a sharp regression-discontinuity design at a zero margin of victory?",
+  "brief": "Replicate the headline sharp regression-discontinuity estimate of the US Senate incumbency advantage reported by Calonico, Cattaneo, Farrell and Titiunik (2017), 'rdrobust: Software for regression-discontinuity designs', The Stata Journal 17(2), using the data of Cattaneo, Frandsen and Titiunik (2015) distributed with the rdrobust package: https://raw.githubusercontent.com/rdpackages/rdrobust/2589686d980af0eb2c0edd945d4a43e8bc081872/R/rdrobust_senate.csv (1,390 rows; outcome `vote`, the Democratic vote share in the next election for the seat; running variable `margin`, the Democratic margin of victory in the current election; cutoff 0). Use local-polynomial estimation with a data-driven bandwidth and robust bias-corrected inference. Before any outcome analysis, pre-specify the falsification checks you will report: at least a density (manipulation) test of the running variable and a test on a predetermined covariate or a placebo cutoff.",
+  "data": {"source": "https://raw.githubusercontent.com/rdpackages/rdrobust/2589686d980af0eb2c0edd945d4a43e8bc081872/R/rdrobust_senate.csv", "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44", "license": "Distributed publicly with the rdrobust package for replication; no explicit licence stated for the data file"},
+  "requirements": [
+    "The design (polynomial order, kernel, bandwidth selector, inference method) and the falsification checks are fixed at the design gate.",
+    "Record the replicated point estimate as a result claim with id `rd-effect` (percentage points), and the robust bias-corrected 95% confidence interval as `rd-ci-low` and `rd-ci-high`.",
+    "The paper reports the published and replicated estimates side by side, with any difference explained (software versions included).",
+    "The paper says the estimate is local to close elections and does not describe it as the incumbency advantage in all elections."
+  ],
+  "budget": {"hardware": "laptop CPU", "wall_time_minutes": 15},
+  "scoring": "See answer.json. Agents must not read it."
+}

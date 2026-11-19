@@ -11,6 +11,7 @@ Seed tasks that a crew must be able to finish, each with a way to score the resu
 | [`ss-lalonde-observational`](seeds/ss-lalonde-observational/task.json) | Social science | Recover an experimental benchmark from observational data | The 95% interval must contain the experimental benchmark; hidden answer key |
 | [`ss-card-krueger`](seeds/ss-card-krueger/task.json) | Social science | Replication of a published difference-in-differences estimate | Distance from the published estimate; hidden answer key |
 | [`ss-card-proximity`](seeds/ss-card-proximity/task.json) | Social science | Replication of a published instrumental-variables estimate (return to schooling) | Distance from the published estimate; hidden answer key |
+| [`ss-rd-senate`](seeds/ss-rd-senate/task.json) | Social science | Replication of a published regression-discontinuity estimate (US Senate incumbency advantage) | Distance from the published estimate and robust interval; hidden answer key |
 
 Run one with `/crew:start <seed id>`.
 

@@ -1,0 +1,18 @@
+{
+  "_note": "Scoring key. Crew agents must not read this file.",
+  "source": {
+    "paper": "Calonico, S., Cattaneo, M. D., Farrell, M. H. and Titiunik, R. (2017). rdrobust: Software for regression-discontinuity designs. The Stata Journal 17(2), 372-404. Data from Cattaneo, M. D., Frandsen, B. and Titiunik, R. (2015), Journal of Causal Inference 3(1), 1-24.",
+    "table": "Section 7.2 'Default results and backward compatibility', p. 392, output of `rdrobust vote margin`: Conventional coef. 7.416, SE 1.4604; Robust 95% CI [4.09441, 10.9255]; N = 1297 (595 left, 702 right); h = 17.708, b = 27.984, triangular kernel, p = 1, q = 2. Read from the text layer of the author-hosted copy https://rdpackages.github.io/references/Calonico-Cattaneo-Farrell-Titiunik_2017_Stata.pdf on 2026-11-19.",
+    "data_check": "The pinned CSV (sha256 def1fc6b...a2ad44) has 1,390 rows, 1,297 with both vote and margin, matching the paper. Python rdrobust 2.1.1 with defaults gave 7.4141 (SE 1.4587), robust CI [4.0937, 10.9193], h = 17.754 (checked 2026-11-19). The small difference from the paper is the bandwidth selector's version drift."
+  },
+  "published": {
+    "default_rdrobust": {"estimate": 7.416, "se": 1.4604, "robust_ci": [4.09441, 10.9255], "n": 1297, "h": 17.708},
+    "with_covariates_class_termshouse_termssenate": {"estimate": 6.8595, "se": 1.4165, "robust_ci": [3.75238, 10.345], "n": 1108, "locator": "Section 7.4, p. 395, `rdrobust vote margin, covs(class termshouse termssenate)`"}
+  },
+  "machine_check": {"claims": {"rd-effect": [7.216, 7.616], "rd-ci-low": [3.894, 4.294], "rd-ci-high": [10.726, 11.126]}, "min_matched": 3},
+  "pass_if": [
+    "The replicated estimate is within 0.2 points of 7.416 and each robust CI bound within 0.2 of [4.094, 10.926] (software-version drift in the bandwidth only).",
+    "The density test and the pre-specified covariate or placebo checks are reported whatever their outcome.",
+    "The workspace passes `crew.py validate --strict`."
+  ]
+}
