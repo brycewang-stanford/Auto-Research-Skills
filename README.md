@@ -103,7 +103,7 @@ claude plugin install crew@free-research-crew
 
 **运行需要：** 支持插件的 Claude Code、Python 3.9+，编译论文需要 LaTeX。种子任务另需各自的科学计算 Python 包，团队会把它们固定在每个工作区的 `code/requirements.txt` 中。六个种子任务（2 个 CS、4 个社科）见 [`crew/bench/`](crew/bench/README.md)。
 
-> **当前状态：** 六篇种子论文正在 [**gallery/**](gallery/) 中进行，每篇都附完整工作区、审稿人的批评与关卡决定；目前还没有一篇通过投稿关。完整计划、阶段与指标见 [**ROADMAP.md**](ROADMAP.md)；团队如何运作见 [`crew/README.md`](crew/README.md)。
+> **当前状态：** 第一篇论文已完成：[表格分类器中的标签噪声](gallery/cs-label-noise/)（[PDF](gallery/cs-label-noise/paper/main.pdf)）于 2026-11-19 通过全部四道关卡。另有五篇正在 [**gallery/**](gallery/README.md) 中进行，每篇都附完整工作区、审稿人的批评与关卡决定。完整计划、阶段与指标见 [**ROADMAP.md**](ROADMAP.md)；团队如何运作见 [`crew/README.md`](crew/README.md)。
 
 ---
 

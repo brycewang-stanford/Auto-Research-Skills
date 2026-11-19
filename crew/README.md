@@ -84,8 +84,8 @@ argument for rejection, and review rounds are bounded.
 
 ## Limits of v0.1
 
-- No seed has passed the submission gate yet; six are in progress in
-  [`gallery/`](../gallery/).
+- One seed paper has passed all four gates so far (`cs-label-noise`); the others are
+  in progress in [`gallery/`](../gallery/README.md).
 - Cross-family review needs the Codex CLI and your consent to send the workspace to
   OpenAI; without it the Reviewer runs on the same model family in a fresh context.
 - Gate approval by a human is a rule the agents follow, not a technical lock.

@@ -103,7 +103,7 @@ Each project gets a workspace in `./crew-workspace/<slug>`. The crew stops at ev
 
 **Requires** Claude Code with plugin support, Python 3.9+, and LaTeX to compile the paper. Seed tasks need their own scientific Python packages, which the crew pins in each workspace's `code/requirements.txt`. The six seeds (two CS, four social science) are described in [`crew/bench/`](crew/bench/README.md).
 
-> **Status:** six seed papers are in progress in [**gallery/**](gallery/), each with its full workspace, the Reviewer's critiques and the gate decisions; none has passed the submission gate yet. The full plan, phases and metrics are in [**ROADMAP.md**](ROADMAP.md); how the crew works is in [`crew/README.md`](crew/README.md).
+> **Status:** the first paper is finished: [label noise in tabular classifiers](gallery/cs-label-noise/) ([PDF](gallery/cs-label-noise/paper/main.pdf)) passed all four gates on 2026-11-19. Five more are in progress in [**gallery/**](gallery/README.md), each with its full workspace, the Reviewer's critiques and the gate decisions. The full plan, phases and metrics are in [**ROADMAP.md**](ROADMAP.md); how the crew works is in [`crew/README.md`](crew/README.md).
 
 ---
 
