@@ -499,7 +499,7 @@
       "id": "rv-design",
       "title": "Review the design (reviews/design-r1 done; design-r2 after check-learner-ports)",
       "owner": "reviewer",
-      "status": "doing"
+      "status": "done"
     },
     {
       "id": "e-code",
@@ -541,7 +541,7 @@
       "id": "rv-code",
       "title": "Review code/dml_plr.py and code/verdict.py against plan.json design before any analysis run (reviews/code-r1)",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "r-noctrl",
@@ -607,19 +607,19 @@
       "id": "rv-results",
       "title": "Review the results (reviews/results-r1)",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "w-paper",
       "title": "Write the paper from claims and macros only, including every deviation and the not-testable cells",
       "owner": "writer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rep-rerun",
       "title": "Clean rerun from code/requirements.txt (crew.py rerun) and replication.json",
       "owner": "replicator",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "f-results",

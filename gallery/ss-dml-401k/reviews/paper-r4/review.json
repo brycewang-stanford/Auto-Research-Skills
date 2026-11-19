@@ -1,0 +1,176 @@
+{
+  "id": "paper-r4",
+  "target": "paper",
+  "round": 4,
+  "created": "2026-11-19T12:39:29Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261119T123604Z-reviewer.md",
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "log.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "runs/NOTES.md",
+    "runs/*/run.json",
+    "runs/check-learner-ports/ (listing)",
+    "replication.json",
+    "REPLICATION.md",
+    "code/requirements.txt",
+    "paper/main.tex",
+    "paper/ai-use.tex",
+    "paper/numbers.tex",
+    "paper/main.pdf",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/paper-r3/review.json",
+    "reviews/question-r1/review.json",
+    "git show 345ebff (paper/main.tex, paper/ai-use.tex diff)",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/social-science.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/ss-dml-401k/task.json"
+  ],
+  "kill_argument": "The headline is a pass from a test that cannot see the one implementation error the crew measured. The forest port is $216 off R on synthetic data. That is below both forest cells' detectable shifts ($373, $569), so 'H2 holds' fits a faithful forest and the known faulty one equally well. The lasso, the most implementation-sensitive learner, cannot be tested. Its split spread, the one clear departure from the published table, is unexplained. What the paper shows is that a cell-by-cell check of Table 2 at affordable S cannot see shifts of a few hundred dollars, and that ours departs in the forest and in the lasso spread. The paper now says exactly this: in the abstract, at each cell, in Limitations and in the conclusion. So the objection narrows the contribution; it does not make the paper wrong. What held: the F11 to F13 deletions leave no unbacked statement about the authors' code and no calibration claim from the earlier run; the replication counts match replication.json; plan.json's disclosures match the reviews and the log; validate and --strict are OK; a scratch compile matches the committed PDF.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Selective use of the authors' second run. Section 2 ('Two runs by the same authors') and claim c-aerpp-rerun report only the closest cell of the AER P&P 2017 run (forest 5-fold, $9,252, 'within $5'). sources/notes.md (section 2, item 6 of section 3, and the section 5 table) records all ten cells: gaps of $5-33 at 5-fold and up to $154 at 2-fold (nnet 9,104 vs 8,950), all inside the pre-registered tolerances. This is the most relevant evidence the paper has for its task ('compare ... and explain any difference'). (a) It is an out-of-sample check that the tolerances are not too tight. (b) It calibrates the replication's differences: our largest testable gap (+$157, nnet 2-fold) is the size of the authors' own run-to-run gap. (c) The earlier run's lasso 5-fold SE (1,581 vs 2018's 1,558) suggests that the large published lasso spread recurs across the authors' runs. That bears directly on the lasso spread discrepancy the paper says it cannot explain. Whether the earlier run's parenthesised SE is the adjusted one must be checked. Quoting only the $5 cell overstates the stability of the authors' procedure. The paragraph also cites the 2018 journal article for the arXiv v4 contents and does not say that v4 and the AER P&P preprint carry the same earlier numbers (sources/hdm_penalty.md section 5).",
+      "evidence": "paper/main.tex lines 192-196 (Two runs by the same authors); claims.jsonl c-aerpp-rerun and c-table2-timing; sources/notes.md section 2 (Chernozhukov et al. 2017 entry), section 3 item 6, section 5 '2017 vs 2018 runs by the authors' table; sources/hdm_penalty.md section 5",
+      "response": "Scout: c-aerpp-rerun now gives all ten 2017-vs-2018 gaps ($5-33 at 5-fold, $10-154 at 2-fold) with locators (1701.08687v1 App. Table 2 p.17; 1608.00060v4 Table 2 p.28; 2018 Table 2) and states all lie inside the pre-registered tolerances ($209-825) and the S=100 ones ($142-825); the 2017 (1,581) is the split-adjusted median-method SE (no bracketed row in 2017), recorded in c-aerpp-lasso-se; the paragraph should cite chernozhukov2017aerpp / new chernozhukov2016dmlv4 for the earlier run, not chernozhukov2018dml. Writer: Sec. 2 now reports all ten earlier-vs-2018 gaps ($5-33 at 5-fold, $10-154 at 2-fold), all inside our tolerances, and the earlier lasso adjusted SEs (1,785/1,581), citing chernozhukov2017aerpp/chernozhukov2016dmlv4; Sec. 6 adds a yardstick paragraph comparing our +$157 (nnet 2-fold) with their +$154; abstract and conclusion mention it.",
+      "ruling": "Fixed in the files. Sec. 2 reports all ten gaps with their signs, cites chernozhukov2017aerpp/chernozhukov2016dmlv4 rather than the 2018 article for the earlier numbers, and the Scout confirmed that the earlier parenthesised SE is the split-adjusted one (c-aerpp-lasso-se; sources/notes.md 'Earlier run's SEs'). I checked each of the ten gaps against notes.md (2017 rows minus 2018 Panel B). The '$33' bound is wrong (F9). The interpretation now built on the earlier run is a new problem (F10). In part it follows from my own round-1 ruling."
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The diagnostics paragraph says the forest has the highest m-hat RMSE of the five learners on the real data and that 'this is the direction the port check found on synthetic data (a noisier Python treatment forest)'. But a cross-learner ranking says nothing about Python versus R. In the port check, R's own treatment forest also had the highest m-hat RMSE of the R learners: 0.4715 against 0.4598-0.4646 (runs/check-learner-ports/metrics.json rmse_m_ra_*). So the forest would rank last even with a perfect port. The sentence implies corroboration that the data do not give.",
+      "evidence": "paper/main.tex lines 706-710 (Nuisance fit and overlap); runs/check-learner-ports/metrics.json rmse_m_ra_forest 0.4715 vs rmse_m_ra_lasso 0.4600, _tree 0.4646, _boosting 0.4598, _nnet 0.4643",
+      "response": "Writer: the sentence is reworded: the cross-learner ranking says nothing about our forest versus randomForest, and no run compares them on real data.",
+      "ruling": "Fixed: the 'direction the port check found' sentence is gone. The text now says the cross-learner ranking says nothing about our forest versus randomForest (main.tex lines 743-746)."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The 92-minute wall time (abstract item 3, Section 7 Wall time, Section 9 Budget overrun) counts only the completed runs, 16:10:03-17:41:56 UTC. The interrupted first main-lasso attempt ran at some point between check-noctrl (14:38:52) and the relaunch brief (16:09:08), and its duration is recorded nowhere. Total analysis compute was therefore larger than 92 minutes by an unknown amount. The paper presents 92 minutes as 'the analysis took'.",
+      "evidence": "paper/main.tex lines 117, 757-764, 818-826; runs/NOTES.md 'Session restart' and 'Main runs' sections; log.jsonl (no entry for the first attempt; check-noctrl 14:38:52, brief-archived 16:09:08)",
+      "response": "Writer: intro, Sec. 7 and Sec. 9 now say the 92 minutes counts completed runs only and excludes the interrupted first lasso attempt, whose duration was not recorded.",
+      "ruling": "Fixed in the intro item 3, Sec. 7 Wall time and Sec. 9 Budget overrun. The abstract no longer quotes 92 minutes."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The abstract says the replicated lasso estimates 'vary several times less across splits than the published ones'. The published split estimates are not observed. Their spread is inferred from the two SE rows through the 1.4826 x (adj^2 - med^2)^{1/2} approximation. On our own lasso runs that approximation overstates the measured spread: the implied MAD is 295 against a measured MAD of 239 at K = 2. The body is careful ('the published SEs imply'); the abstract is not. Separately, Limitations says 'the familywise rate treats the ten cells as independent'. The Bonferroni bound needs no independence; only the combined 33% false-failure figure treats the cells as independent (decision_rules.H2_size_under_measured_ports).",
+      "evidence": "paper/main.tex lines 55-56 (abstract), 791-792 (Tolerance assumptions); paper/numbers.tex ImpliedMadObsLassoTwo 295, SplitSdObsLassoTwo 354 (MAD 239); plan.json design.decision_rules.H2_size_under_measured_ports",
+      "response": "Writer: abstract, intro, Table 3 note, lasso paragraph and Limitations now say the published spread is inferred from the two SE rows; independence is attached to the combined 33% figure (abstract, Limitations), not the Bonferroni bound.",
+      "ruling": "Fixed: the abstract says 'than the published standard errors imply' and that the published spread is inferred. Limitations attaches independence to the 33% figure only and says Bonferroni needs none."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Section 3 attributes the $10,000-$200,000 income band (9,275 households) to Abadie. sources/sources.json records abadie2003 as 'doi-resolved' (Crossref metadata only), and the AI-use statement says the paper cites abadie2003 'for no more than that'. The band actually comes from Abadie's NBER Technical Working Paper 260, read in full by the Data RA (data/CODEBOOK.md source [A]). That paper is not in refs.bib and has no source record. The attribution is right but unsourced in the paper's own terms.",
+      "evidence": "paper/main.tex lines 216-218; paper/ai-use.tex 'Where only the abstract or metadata could be read'; sources/sources.json abadie2003; data/CODEBOOK.md lines 25-30 and 92-103",
+      "response": "Scout: Abadie (2000) NBER TWP 260 (doi 10.3386/t0260) read in full and verified; added as abadie2000 with claim c-abadie-band (Sec. 6 and Table I note: 9,275 obs, SIPP 1991, $10,000-$200,000 family income). Writer: the $10,000-$200,000 band and 9,275 observations are now attributed to abadie2000 (claim c-abadie-band).",
+      "ruling": "Fixed: abadie2000 (NBER TWP 260, doi 10.3386/t0260) is in refs.bib with a fetched-fulltext record, and claim c-abadie-band backs the 9,275 count and the $10,000-$200,000 band. abadie2003 is now cited only for the code's statement, which is consistent with the AI-use wording."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The conclusion's last sentence ('The treatment forest and the lasso's split-to-split variability are where an independent implementation is most likely to depart from the original') generalises from one implementation. The forest cause is an untested conjecture and the lasso spread is unexplained. The evidence supports 'where ours departs', not 'where an independent implementation is most likely to'. Related carried item: crew.json's title is still 'Does 401(k) eligibility raise household net financial assets?'. It promises a causal answer the paper says it does not give, and it differs from the paper title.",
+      "evidence": "paper/main.tex lines 892-893; crew.json title",
+      "response": "Writer: the last sentence is narrowed to our implementation; the paper title now follows crew.json and does not say 'raise'.",
+      "ruling": "Fixed: the conclusion is narrowed to 'our implementation' and says one implementation cannot show where another would depart. crew.json and the paper now share the 'Re-estimating ... An Independent Double Machine Learning Check' title, which promises no causal answer (log 07:42:36Z title-changed)."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Bibliography hygiene. The chernozhukov2017aerpp title prints as 'Double/debiased/neyman' (brace the capital N). doubleml401kdocs and doubleml401krdocs have no year (BibTeX warns 'empty year'), so the entries render as 'DoubleML Developers, a/b'.",
+      "evidence": "refs.bib chernozhukov2017aerpp, doubleml401kdocs, doubleml401krdocs; paper/main.pdf references p. 17-18; bibtex log in a scratch compile",
+      "response": "Scout: Neyman braced ({Double/Debiased/Neyman}); both DoubleML documentation entries now carry year 2023 from the pages' footers (re-fetched 2026-11-19). Writer: recompiled with the Scout's bib fixes; Neyman braced and both DoubleML entries print as 2023a/b, no BibTeX warnings.",
+      "ruling": "Fixed: 'Double/Debiased/Neyman' renders correctly, and both DoubleML entries print as 2023a/2023b. A scratch compile gives no BibTeX warnings. The new dmlv4 date duplication is filed under F9(c)."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Accuracy of the 'Two runs by the same authors' paragraph. (a) 'by $5 to $33 at 5 folds (lasso +15, tree +23, forest +5, boosting -21, neural network +27)': the largest of the five listed gaps is $27, not $33. The $33 matches none of the five in-scope learners. It is probably the Ensemble column (2017 Ensemble 9,199 in sources/notes.md), which is out of scope. The error originates in sources/notes.md ('at most $33 in the 5-fold row') and was repeated in my own paper-r1 F1 text and in claim c-aerpp-rerun. (b) 'The same earlier numbers appear in the appendix of the authors' AER Papers and Proceedings article': sources.json chernozhukov2017aerpp says the AER PDF was not reachable. The appendix was read from the preprint arXiv:1701.08687v1, so the published appendix itself was not checked. The bibliography note discloses this, but the sentence does not. (c) The chernozhukov2016dmlv4 reference renders as 'arXiv:1608.00060v4, 30 December 2016, 2016' (howpublished repeats the year).",
+      "evidence": "paper/main.tex lines 201-207; claims.jsonl c-aerpp-rerun; sources/notes.md section 2 (Chernozhukov et al. 2017 entry) and section 3 item 6; sources/sources.json chernozhukov2017aerpp note; refs.bib chernozhukov2016dmlv4; paper/main.pdf p. 18 references",
+      "response": "Scout: corrected to $5-27 at 5 folds ($33 was the out-of-scope Ensemble column) in c-aerpp-rerun and sources/notes.md (sec. 2, sec. 3 item 6, sec. 5); claim and notes now say only the preprint arXiv:1701.08687v1 was read, not the published AER P&P appendix; chernozhukov2016dmlv4 howpublished no longer repeats the year. Writer: Sec. 2 now gives $5-27 at 5 folds and says only arXiv preprint 1701.08687v1 was read, not the published AER P&P appendix; the v4 reference no longer repeats the year.",
+      "ruling": "Fixed in the files. (a) main.tex Sec. 2 says '$5 to $27 at 5 folds'; c-aerpp-rerun and sources/notes.md section 5 say $27 and label $33 as the out-of-scope Ensemble column. (b) Sec. 2 says 'arXiv preprint 1701.08687v1 ... we read that preprint, not the published appendix'. (c) refs.bib chernozhukov2016dmlv4 has howpublished = arXiv:1608.00060v4 and the reference renders '... arXiv:1608.00060v4, 2016. ... Version of 30 December 2016' with the year once. The RMS of $61 (c-aerpp-rms) recomputes to $61.2 from the ten listed gaps."
+    },
+    {
+      "id": "F10",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The authors' earlier run is read as a draw of run-to-run split noise, and two inferences are drawn from it that the evidence does not support. (a) Results, lasso paragraph: 'The large published lasso adjusted SEs recur in the authors' earlier run (1,785 and 1,581). This suggests that the wide lasso spread is a feature of the authors' procedure rather than of one run of it.' If the two runs used independent splits, the published-implied lasso split SD ($1,656 at K=2, $1,278 at K=5; S = 100) gives a run-to-run SD of the median of about $293 and $227. The observed lasso gaps are -$10 and +$15 (|z| 0.03 and 0.07). The chance that both are this small is about 0.001. Over all ten cells, sum z^2 = 2.95 on 10 df (p about 0.02). Under the replication's own observed spreads it is 5.8 (p about 0.17). So, on independent splits, the earlier run is evidence that the authors' realised lasso spread is narrow, which is what our runs show. That is the opposite of the sentence. If the runs instead shared splits, the recurring adjusted SE is mechanical and says nothing about 'procedure rather than one run'. Either way the sentence fails. Whether the splits were shared cannot be established. The public repository's history starts on 2017-06-01, after the earlier run (arXiv v4, 30 Dec 2016), so that run's code is not public. The public 401K.R calls set.seed(1211) and then draws splits inside foreach %dopar% on a makeCluster PSOCK cluster, with no clusterSetRNGStream or doRNG. So even the public code does not fix the worker splits. (b) Results yardstick paragraph: 'So the tolerances are not narrower than the authors' own run-to-run variation' and 'differences of the size we find also arise between two runs of the original code'. The 2016 code is not known to be the original code. The ten gaps are jointly smaller than the tolerance model predicts, so as a calibration they show the tolerances are, if anything, wide (consistent with 1.4826 being an upper bound). They do not show that the tolerances are adequate. (c) Abstract, yardstick paragraph and conclusion compare maxima ('our largest testable difference is of that size'; '+$157 is close to the authors' +$154'). That is the single cell where the two coincide, the same selective use paper-r1 F1 objected to in the other direction. Cell by cell, our absolute difference is larger in 7 of 10 cells (forest 5-fold $206 vs $5; boosting 5-fold $90 vs $21; nnet 5-fold $88 vs $27; tree 5-fold $63 vs $23). The RMS over the ten cells is about $99 for ours against $61 for theirs. 'Our differences are of the same order' holds only as an order of magnitude. Some of this is expected from our smaller S for forest and boosting and from the port deviations. In part this finding corrects my own paper-r1 F1 ruling, which invited reading the earlier run as an 'out-of-sample check that the tolerances are not too tight'.",
+      "evidence": "paper/main.tex lines 199-213 (Two runs by the same authors), 612-614 (lasso paragraph, 'This suggests ... rather than of one run of it'), 620-628 (A yardstick), abstract lines 57-60, conclusion lines 932-934; claims.jsonl c-aerpp-rerun, c-aerpp-lasso-se; sources/notes.md section 5 tolerance and 2017-vs-2018 tables; paper/numbers.tex SplitSdPub*/SplitSdObs*/Diff*; github.com/VC2015/DMLonGitHub commit history (first commit a8ef8ef 2017-06-01) and 401K.R at a8ef8ef lines 36, 52-53, 105 (doParallel, set.seed(1211), makeCluster(12), foreach %dopar%)",
+      "response": "Scout: added citation claim c-aerpp-rms (RMS of the ten published-run gaps = $61, gaps listed); no run metric holds the RMS of our ten differences (verdict has only per-cell diff_* metrics), so I added no claim for the ~$99 and flagged it to the coordinator; notes.md now states the earlier run's code/splits are not public, so the cause of its gaps is unknown. Writer: lasso 'feature of the authors' procedure' sentence replaced (earlier SEs say nothing about our narrow spread); the runs are now 'two published runs by the same authors' with unknown code and splits, not run-to-run variation of the original code; the +$157/+$154 maximum comparison is removed from abstract, results and conclusion; the gaps are read as suggesting the tolerances are, if anything, wide, and our cell-by-cell differences are compared only by pointing to Table 3 (no RMS of ours printed, per PI ruling).",
+      "ruling": "The three requested changes are in the files. (1) The lasso 'feature of the authors' procedure' sentence is replaced by 'Because its splits and code are not known, this says nothing about why our spread is narrower' (main.tex lines 617-619). (2) 'Run-to-run variation of the original code' and 'two runs of the original code' are gone; the runs are 'two published runs by the same authors' whose code and splits are not known, and the gaps are 'not a measure of the run-to-run variation of the original code' (lines 199-220, 627-636). (3) The max-to-max +$157/+$154 comparison is removed from the abstract, results and conclusion. The cell-by-cell sentence ('larger than the published-run gaps in most cells, notably the 5-fold forest, boosting and neural-network cells') is true: I recomputed |ours| > |theirs| in 7 of 10 cells from numbers.tex Diff* and the gaps in c-aerpp-rerun (ours smaller only for tree 2-fold, forest 2-fold and lasso 5-fold). No RMS of ours is printed, so no unbacked number was added. Two problems in the new text are filed separately: the reason given for the unknown splits is factually wrong (F11, which originates in my own round-2 text), and the abstract and conclusion keep a calibration inference that Sec. 2 disclaims (F12)."
+    },
+    {
+      "id": "F11",
+      "severity": "major",
+      "status": "resolved",
+      "text": "False statement about the authors' public code, which originates in my own paper-r2 F10 text. Sec. 2 says 'the review of this paper found that even the public script does not fix the splits it draws on parallel workers'. That is wrong for the script as published. 401K.R (identical at a8ef8ef and at the current head ff35d21) loads doParallel (line 36), sets options(warn=-1) (line 51) and set.seed(1211) (line 52), and creates cl <- makeCluster(12) (line 53). It never calls registerDoParallel(cl) or any other register function: a grep of 401K.R, ML_Functions.R and Moment_Functions.R for 'regist' finds nothing. With no registered backend, foreach's %dopar% (line 105) runs sequentially in the main R session, and the 'no parallel backend registered' warning is suppressed by warn = -1. The splits are drawn by runif(nrow(data)) inside DoubleML (Moment_Functions.R line 53) in that session, so set.seed(1211) does fix them for a given R and package set. The learners draw from the same stream, so the splits after the first also depend on the package versions. My round-2 reading assumed that the cluster was registered. In addition, 'The authors' public repository begins on 1 June 2017' is slightly off. The first commit (91e7d6c, 'start', adds Readme.Rmd) is dated 2017-05-31T18:06:49Z. The code arrives in a8ef8ef on 2017-06-01T00:54:16Z. Neither fact has a claim in claims.jsonl: the sentence cites 'the review of this paper', which is not a source. The error matters beyond one clause. As committed, the public script is seeded. If the earlier run used the same script and seed, the two runs may share part of their split stream. That would explain why the ten gaps are jointly smaller than independent split noise predicts (paper-r2 F10: sum z^2 = 2.95 on 10 df). It also bears on how the abstract and conclusion use those gaps (F12).",
+      "evidence": "paper/main.tex lines 205-210 (Two published runs by the same authors); paper/main.pdf p. 4; claims.jsonl (no claim for the repository start date or the split-seeding statement); sources/sources.json dmlongithub; github.com/VC2015/DMLonGitHub 401K.R lines 36, 51-53, 105 at a8ef8ef and ff35d21, Moment_Functions.R line 53, commit list (91e7d6c 2017-05-31T18:06:49Z; a8ef8ef 2017-06-01T00:54:16Z); reviews/paper-r2/review.json F10 text",
+      "response": "Writer: the parallel-workers clause and the repository-date clause are deleted; Sec. 2 now says only that the earlier run's code and splits are not known to us, so the runs may differ in code or share part of their splits.",
+      "ruling": "Fixed by deletion, the cheapest remedy. Sec. 2 (main.tex lines 204-208) no longer says that the public script fails to fix its splits, and no longer gives the repository date. It now says only that the earlier run's code and splits 'are not known to us', and that the two runs 'may differ in their splits or share part of them'. Both statements are true and need no claim. A grep of main.tex and ai-use.tex finds no remaining sentence about the authors' parallel backend or repository history. Line 284 ('The authors' set.seed(1211) stream in R cannot be recreated in numpy') agrees with the corrected reading."
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The abstract (lines 58-60) and the conclusion (lines 944-945) read the authors' two published runs as calibrating the tolerances: they 'differ by $5 to $154 per cell, all inside our tolerances, which suggests that the tolerances are, if anything, wide'. Sec. 2 says that these gaps 'cannot be read as run-to-run split noise of one fixed procedure'. Sec. 6 says they 'are not a measure of the run-to-run variation of the original code'. The tolerances are split-noise tolerances. Gaps between runs that may share splits (F11) or differ in code say nothing about whether a split-noise tolerance is wide. The inference holds only under independent splits, which the paper itself disclaims. The paper has its own, better evidence for 'wide': tol_obs < tolerance in every cell (Table 5), and the observed split spread is narrower than the published-implied spread for every learner (Figure 3). The abstract and conclusion pick the weakest evidence for the point, and only the earlier run appears there. That is the reading my paper-r1 F1 ruling invited and paper-r2 F10 partly corrected.",
+      "evidence": "paper/main.tex abstract lines 58-60, Sec. 2 lines 208-210, Sec. 6 lines 627-636, conclusion lines 944-945; numbers.tex TolObs* vs Tol*, SplitSdObs* vs SplitSdPub*",
+      "response": "Writer: abstract and conclusion now keep only that all ten published-run gaps are smaller than our tolerances; 'if anything, wide' is removed everywhere, and Sec. 6 points to the split-spread diagnostic (Sec. 7) as our own evidence.",
+      "ruling": "Fixed as proposed. The abstract (lines 58-60) and the conclusion (lines 944-946) keep only the fact: the gaps are $5 to $154 per cell, and all ten are smaller than our tolerances. 'If anything, wide' is gone everywhere. Sec. 6 (lines 625-630) now says the comparison 'says nothing about whether a split-noise tolerance is too wide or too narrow', and points to the paper's own split-spread diagnostic. I checked each of the ten gaps against its cell's tolerance (TolXxx macros). The largest ratio is nnet 2-fold, 154/330, so 'most of them well inside' holds. c-aerpp-rerun backs the statement."
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The replication counts are stated loosely. Limitations says 'replication.json records all 16 logged runs reproduced at the protocol tolerance'. The AI-use statement says the same and then adds that one run 'has no metrics to compare'. replication.json has 15 runs with status 'match' and timing-synthetic with status 'ran'. So 15 runs were compared and matched, and one was re-executed without comparison. The Limitations sentence omits the qualifier, and the AI-use sentence contradicts itself. The source of the wording is REPLICATION.md ('16 of 16 runs reproduced'). The Replicator's file is outside the paper, but the paper should not copy the overstatement. Nothing in the paper depends on timing-synthetic beyond the design's choice of S, so the substance is unaffected.",
+      "evidence": "paper/main.tex lines 852-855 (Limitations, Replication); paper/ai-use.tex Replication item; replication.json runs[2] timing-synthetic status 'ran'; REPLICATION.md section 5",
+      "response": "Writer: Limitations and ai-use.tex now say 15 runs matched and the timing run was re-executed without comparison; the self-contradiction is gone.",
+      "ruling": "Fixed in both places. Limitations (lines 851-854) and the AI-use Replication item (lines 63-67) now say that 15 runs were re-executed and matched, and that the timing run was re-executed without comparison. replication.json has Counter(match=15, ran=1), passed true, rtol 1e-6, atol 1e-9, reuse_data false. REPLICATION.md still says '16 of 16 runs reproduced' in its header and section 5. That is the Replicator's file, outside the paper, and its own table shows timing-synthetic as 'ran', so it is not filed."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "AI-use statement accuracy. (a) '17 from the full text': three of the 17 'fetched-fulltext' records are web pages read through a summarising fetch tool, by their own notes (doubleml401kdocs, doubleml401krdocs, mendez2026: 'summarized extraction'). These three support the novelty claim (c-no-cellwise). (b) 'No review of the paper has been held yet' and 'Replication. Pending' must be updated with this review and with replication.json before the submission gate.",
+      "evidence": "paper/ai-use.tex Evidence and Review items; sources/sources.json notes for doubleml401kdocs, doubleml401krdocs, mendez2026",
+      "response": "Scout: sources.json now marks doubleml401kdocs, doubleml401krdocs and mendez2026 with fulltext_via = summarising fetch tool. Writer: ai-use.tex now says 16 full text, 3 web pages via a summarising fetch tool, 2 abstract, 1 DOI; review and replication items record paper-r1 and are marked to be updated before the submission gate. Writer: (b) left for the final update after replication.json exists, per PI. Writer (after replication): ai-use.tex now lists the Replicator, 2 paper rounds and the passed clean rerun (replication.json, 16/16, fresh environment, data re-downloaded, R versions, 6,087 s, labelled facts about the replication); Limitations cites replication.json. Writer (paper-r3): Review item now names three paper rounds so far and says the fourth and last is pending (the PI updates it after round 4 if needed). Writer (paper-r4): Review item now gives four paper rounds (1-3 revise, 4 pass) and lists paper round 4 among the final rounds that passed with minor findings open.",
+      "ruling": "(a) resolved in round 2; replication part of (b) resolved in round 3. Still open, and only mechanically: the Review item (paper/ai-use.tex lines 19-34) says 'so far, 3 on the paper', 'All three paper rounds returned revise' and 'A fourth and last paper round is pending'. paper-r4 now exists. Its verdict is pass with minor findings open. Before the submission gate the item must say 4 paper rounds, that rounds 1-3 returned revise and round 4 passed, and add 'paper round 4 (N findings)' to the list of final rounds that passed with minor findings open, saying how each was answered or that it went to the human. It cannot be closed before this review exists, so it is not a defect of the revision. No new evidence is needed."
+    },
+    {
+      "id": "F14",
+      "severity": "minor",
+      "status": "open",
+      "text": "The conclusion's first sentence (main.tex lines 932-933) says the implementation was 'written without the authors' code'. The paper says otherwise elsewhere. Sec. 2 'What only the code says' takes the estimator details (HC0, partialling out, the 275-column dictionary, post = FALSE) from the authors' code. Table 1 says 'Every configuration was copied from the authors' scripts' (line 296). The port check runs a verbatim copy of the authors' ML_Functions.R (line 376). The introduction states it correctly: 'implemented by us with scikit-learn learners rather than taken from the authors' code' (lines 88-89). A reader of the conclusion alone would overrate how independent the check is. That matters because a check whose specification was read off the original code shares any error in that code.",
+      "evidence": "paper/main.tex lines 932-933 (Conclusion), 88-89 (Introduction), 188-197 (What only the code says), 295-297 and Table 1, 375-377",
+      "response": "Writer: the conclusion now says the implementation was written by us with scikit-learn learners rather than taken from the authors' code, whose configurations we copied, matching the introduction.",
+      "ruling": "Cheapest remedy: replace 'written without the authors' code' with 'written in Python from the published procedure and the authors' learner settings, rather than run from their R code'. Or reuse the introduction's wording. The title's 'Independent' is fine with that wording."
+    },
+    {
+      "id": "F15",
+      "severity": "minor",
+      "status": "open",
+      "text": "plan.json's task board contradicts the record it ships with. rv-design is 'doing'. rv-code, rv-results, w-paper and rep-rerun are 'todo'. In fact the design review passed in round 3 (design-r3), the code review passed in round 2 (code-r2) before any analysis run, the results review passed in round 2 (results-r2), the paper exists, and replication.json passed (2026-11-19T09:16:58Z). The AI-use statement points readers to the public workspace and says 'The code was reviewed, and passed, before any analysis run'. Anyone who opens plan.json (or runs crew.py status) sees the code review listed as never done. The paper itself is not wrong.",
+      "evidence": "plan.json tasks rv-design, rv-code, rv-results, w-paper, rep-rerun; crew.py status output; reviews/design-r3, code-r2, results-r2; replication.json; paper/ai-use.tex lines 19-25, 58-59",
+      "response": "PI: the five task statuses set to done in plan.json (log entry plan-updated).",
+      "ruling": "Cheapest remedy: the PI sets the five task statuses to done (w-paper once the submission gate is decided). No paper change is needed."
+    }
+  ]
+}

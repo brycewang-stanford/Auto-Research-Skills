@@ -465,3 +465,35 @@ Check at round 4 (last):
 - F6: the AI-use names paper-r3/r4 and their verdicts. After round 4, the open items go to the
   human.
 - Do not let a new sentence about the authors' code appear without a claim.
+
+## paper-r4 (2026-11-19, last round): pass, 0 critical / 0 major / 3 minor open
+
+Status: F11, F12 and F13 are resolved: the clauses were deleted or reworded as I proposed.
+F1-F5 and F7-F10 stay resolved. Three minor findings are open and go to the human:
+- F6(b): the AI-use Review item says "so far, 3 on the paper ... fourth pending". It must
+  name paper-r4 (pass) and add it to the list of final rounds that passed with minors open.
+  This is mechanical and could not be done before this review existed.
+- F14 (new): the conclusion says "written without the authors' code". The implementation
+  copies every configuration from their scripts, and the port check runs their
+  ML_Functions.R verbatim. The introduction's wording is the accurate one.
+- F15 (new): the plan.json task board is stale. rv-design is "doing"; rv-code, rv-results,
+  w-paper and rep-rerun are "todo". The record shows all of them done.
+
+Verified myself (no model run; file reads and arithmetic only):
+- In commit 345ebff, the diff touched only the sentences I flagged. numbers.tex, claims,
+  refs, sources, plan, runs and figures are unchanged since 4828510.
+- All ten earlier-run gaps are below their tolerances; the largest ratio is nnet-2 at 154/330.
+- replication.json has 15 match and 1 ran.
+- plan.json disclosures 1-3 match question-r1 (synthetic timing data), design-r1 F1,
+  design-r2 F7 and the log.
+- The gate times in the AI-use statement match plan.json. No --accept-findings anywhere.
+- The original R versions are recorded in NOTES.md line 48, so "same R package versions" holds.
+- validate and --strict are OK. A scratch compile gives 20 pp, no warnings, and text
+  identical to the committed main.pdf.
+
+Unfiled observation: REPLICATION.md still says "16 of 16 reproduced" in its header. Its
+own table shows timing-synthetic as "ran", and the file belongs to the Replicator.
+
+Remaining substantive objection, for the human: the test has low power. The forest port
+shift (-$216 synthetic) is below the forest MDS80 ($373/$569), and the lasso cannot be
+tested. The paper states this everywhere, so it limits the contribution but is not an error.
