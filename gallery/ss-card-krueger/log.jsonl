@@ -84,3 +84,4 @@
 {"time": "2026-11-19T12:47:40Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T124739Z (paper-r2 F6, F9-F11)"}
 {"time": "2026-11-19T12:48:21Z", "role": "writer", "action": "revise", "detail": "paper-r2 F6/F9/F10/F11 answered: H2 narrowing no longer attributed to PA low tail (no logged split) and '(in Pennsylvania)' removed; results-review findings assigned to the right round; 'every result number'; AI-use Review item completed (2 paper rounds, paper-r2 findings listed). Responses written in reviews/paper-r2/review.json. main.pdf 16 pages, clean compile"}
 {"time": "2026-11-19T12:48:34Z", "role": "pi", "action": "gate-request", "detail": "submission"}
+{"time": "2026-11-19T12:48:53Z", "role": "pi", "action": "gate-approve", "detail": "submission Bryce Wang"}
