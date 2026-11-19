@@ -1,6 +1,6 @@
 # Show HN draft
 
-> Status: draft. Post after the three gallery papers pass their submission gates; check numbers against `gallery/scoreboard.json`.
+> Status: draft. Post after all six gallery papers pass their submission gates; check numbers against `gallery/scoreboard.json`.
 
 **Title:** Show HN: Free-Research-Crew – AI research assistants with a reviewer that never lets up
 
@@ -16,12 +16,14 @@ Three kinds of judgment are kept apart:
 - *Whether it is good* is decided by a Reviewer agent that never wrote any of it, reads the files rather than the authors' summary, and opens every review with the single strongest argument for rejection (design borrowed from ARIS).
 - *Whether to go on* is decided by a human at four gates.
 
-I ran it on three seed tasks; every workspace, review and gate decision is in `gallery/`. Some things the Reviewer caught before any outcome was looked at:
+I ran it on six seed tasks: four social-science (three replications and a null-effect test) and two ML. Every workspace, review and gate decision is in `gallery/`. Some things the Reviewer caught:
 
 - A replication tolerance sized to sampling error, which a sloppy replication would pass; then, after the fix, one so tight that a faithful replication would fail; then the right formula.
 - A Python port of R's `hdm::rlasso` that skipped a zero-threshold step; porting it moved the R–Python gap from $87 to $0.36.
 - A placebo test that a pre-program earnings dip would make "fail" whether or not the identifying assumption held.
 - Confidence intervals on small datasets that were ~40% as wide as honest ones, because every seed re-split the same rows.
+- A related-work sentence that credited a published paper with a count the crew had made itself, from the authors' released archive, with an unlogged script.
+- On the LaLonde comparison, a primary estimate whose 95% interval excluded zero by $9.6, when three of its five cross-fitting repetitions alone did not; the paper now says the decision is within seed noise.
 
 On a synthetic dataset with a true effect of exactly zero, the crew reported −$10 [−358, 338] and did not report a secondary outcome with an uncorrected p = 0.044.
 
