@@ -1,0 +1,592 @@
+{
+  "adult": {
+    "columns": {
+      "age": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 74,
+        "min": 17.0,
+        "max": 90.0,
+        "mean": 38.64358543876172,
+        "integer_valued": true
+      },
+      "workclass": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 2799,
+        "distinct": 8,
+        "levels": [
+          "Federal-gov",
+          "Local-gov",
+          "Never-worked",
+          "Private",
+          "Self-emp-inc",
+          "Self-emp-not-inc",
+          "State-gov",
+          "Without-pay"
+        ]
+      },
+      "fnlwgt": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 28523,
+        "min": 12285.0,
+        "max": 1490400.0,
+        "mean": 189664.13459727284,
+        "integer_valued": true
+      },
+      "education": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 16,
+        "levels": [
+          "10th",
+          "11th",
+          "12th",
+          "1st-4th",
+          "5th-6th",
+          "7th-8th",
+          "9th",
+          "Assoc-acdm",
+          "Assoc-voc",
+          "Bachelors",
+          "Doctorate",
+          "HS-grad",
+          "Masters",
+          "Preschool",
+          "Prof-school",
+          "Some-college"
+        ]
+      },
+      "education-num": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 16,
+        "min": 1.0,
+        "max": 16.0,
+        "mean": 10.078088530363212,
+        "integer_valued": true
+      },
+      "marital-status": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 7,
+        "levels": [
+          "Divorced",
+          "Married-AF-spouse",
+          "Married-civ-spouse",
+          "Married-spouse-absent",
+          "Never-married",
+          "Separated",
+          "Widowed"
+        ]
+      },
+      "occupation": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 2809,
+        "distinct": 14,
+        "levels": [
+          "Adm-clerical",
+          "Armed-Forces",
+          "Craft-repair",
+          "Exec-managerial",
+          "Farming-fishing",
+          "Handlers-cleaners",
+          "Machine-op-inspct",
+          "Other-service",
+          "Priv-house-serv",
+          "Prof-specialty",
+          "Protective-serv",
+          "Sales",
+          "Tech-support",
+          "Transport-moving"
+        ]
+      },
+      "relationship": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 6,
+        "levels": [
+          "Husband",
+          "Not-in-family",
+          "Other-relative",
+          "Own-child",
+          "Unmarried",
+          "Wife"
+        ]
+      },
+      "race": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 5,
+        "levels": [
+          "Amer-Indian-Eskimo",
+          "Asian-Pac-Islander",
+          "Black",
+          "Other",
+          "White"
+        ]
+      },
+      "sex": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 2,
+        "levels": [
+          "Female",
+          "Male"
+        ]
+      },
+      "capital-gain": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 123,
+        "min": 0.0,
+        "max": 99999.0,
+        "mean": 1079.0676262233324,
+        "integer_valued": true
+      },
+      "capital-loss": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 99,
+        "min": 0.0,
+        "max": 4356.0,
+        "mean": 87.50231358257237,
+        "integer_valued": true
+      },
+      "hours-per-week": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 96,
+        "min": 1.0,
+        "max": 99.0,
+        "mean": 40.422382375824085,
+        "integer_valued": true
+      },
+      "native-country": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 857,
+        "distinct": 41,
+        "levels": [
+          "Cambodia",
+          "Canada",
+          "China",
+          "Columbia",
+          "Cuba",
+          "Dominican-Republic",
+          "Ecuador",
+          "El-Salvador",
+          "England",
+          "France",
+          "Germany",
+          "Greece",
+          "Guatemala",
+          "Haiti",
+          "Holand-Netherlands",
+          "Honduras",
+          "Hong",
+          "Hungary",
+          "India",
+          "Iran",
+          "Ireland",
+          "Italy",
+          "Jamaica",
+          "Japan",
+          "Laos",
+          "Mexico",
+          "Nicaragua",
+          "Outlying-US(Guam-USVI-etc)",
+          "Peru",
+          "Philippines",
+          "Poland",
+          "Portugal",
+          "Puerto-Rico",
+          "Scotland",
+          "South",
+          "Taiwan",
+          "Thailand",
+          "Trinadad&Tobago",
+          "United-States",
+          "Vietnam",
+          "Yugoslavia"
+        ]
+      }
+    }
+  },
+  "bank-marketing": {
+    "columns": {
+      "V1": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 77,
+        "min": 18.0,
+        "max": 95.0,
+        "mean": 40.93621021432837,
+        "integer_valued": true
+      },
+      "V2": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 12,
+        "levels": [
+          "admin.",
+          "blue-collar",
+          "entrepreneur",
+          "housemaid",
+          "management",
+          "retired",
+          "self-employed",
+          "services",
+          "student",
+          "technician",
+          "unemployed",
+          "unknown"
+        ]
+      },
+      "V3": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 3,
+        "levels": [
+          "divorced",
+          "married",
+          "single"
+        ]
+      },
+      "V4": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 4,
+        "levels": [
+          "primary",
+          "secondary",
+          "tertiary",
+          "unknown"
+        ]
+      },
+      "V5": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 2,
+        "levels": [
+          "no",
+          "yes"
+        ]
+      },
+      "V6": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 7168,
+        "min": -8019.0,
+        "max": 102127.0,
+        "mean": 1362.2720576850766,
+        "integer_valued": true
+      },
+      "V7": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 2,
+        "levels": [
+          "no",
+          "yes"
+        ]
+      },
+      "V8": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 2,
+        "levels": [
+          "no",
+          "yes"
+        ]
+      },
+      "V9": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 3,
+        "levels": [
+          "cellular",
+          "telephone",
+          "unknown"
+        ]
+      },
+      "V10": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 31,
+        "min": 1.0,
+        "max": 31.0,
+        "mean": 15.80641879188693,
+        "integer_valued": true
+      },
+      "V11": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 12,
+        "levels": [
+          "apr",
+          "aug",
+          "dec",
+          "feb",
+          "jan",
+          "jul",
+          "jun",
+          "mar",
+          "may",
+          "nov",
+          "oct",
+          "sep"
+        ]
+      },
+      "V12": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 1573,
+        "min": 0.0,
+        "max": 4918.0,
+        "mean": 258.1630797814691,
+        "integer_valued": true
+      },
+      "V13": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 48,
+        "min": 1.0,
+        "max": 63.0,
+        "mean": 2.763840658246887,
+        "integer_valued": true
+      },
+      "V14": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 559,
+        "min": -1.0,
+        "max": 871.0,
+        "mean": 40.19782796222158,
+        "integer_valued": true
+      },
+      "V15": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 41,
+        "min": 0.0,
+        "max": 275.0,
+        "mean": 0.5803233726305546,
+        "integer_valued": true
+      },
+      "V16": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 4,
+        "levels": [
+          "failure",
+          "other",
+          "success",
+          "unknown"
+        ]
+      }
+    }
+  },
+  "electricity": {
+    "columns": {
+      "date": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 933,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.49907955720338987,
+        "integer_valued": false
+      },
+      "day": {
+        "type": "categorical",
+        "dtype": "category",
+        "missing": 0,
+        "distinct": 7,
+        "levels": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ]
+      },
+      "period": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 48,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.5,
+        "integer_valued": false
+      },
+      "nswprice": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 4089,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.057868310138594635,
+        "integer_valued": false
+      },
+      "nswdemand": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 5266,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.42541789525953383,
+        "integer_valued": false
+      },
+      "vicprice": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 3798,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.0034670338983050853,
+        "integer_valued": false
+      },
+      "vicdemand": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 2846,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.4229150757194563,
+        "integer_valued": false
+      },
+      "transfer": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 1878,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.5005263909118998,
+        "integer_valued": false
+      }
+    },
+    "time_checks": {
+      "rows": 45312,
+      "rows_are_whole_days_of_48": true,
+      "days_in_file": 944,
+      "each_48_row_block_is_one_day_period_0_to_1": true,
+      "date_constant_within_each_block": true,
+      "day_constant_within_each_block": true,
+      "day_of_week_advances_by_one_each_block": true,
+      "first_block_day_of_week": 2,
+      "distinct_date_values": 933,
+      "date_nondecreasing_in_file_order": false,
+      "date_decreases_in_file_order": 5,
+      "date_decrease_rows": [
+        25488,
+        34896,
+        35232,
+        36240,
+        40704
+      ],
+      "date_first_row": 0.0,
+      "date_last_row": 0.9158,
+      "date_argmax_row": 40656,
+      "blocks_sharing_a_date_value_with_another_block": 22,
+      "vicprice_leading_constant_rows": 17424,
+      "vicprice_leading_constant_value": 0.003467,
+      "vicdemand_leading_constant_rows": 17424,
+      "vicdemand_leading_constant_value": 0.422915,
+      "transfer_leading_constant_rows": 17424,
+      "transfer_leading_constant_value": 0.414912
+    }
+  },
+  "phoneme": {
+    "columns": {
+      "V1": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 5336,
+        "min": -2.933743,
+        "max": 3.828575,
+        "mean": 3.3308660239885675e-09,
+        "integer_valued": false
+      },
+      "V2": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 5312,
+        "min": -3.038709,
+        "max": 3.664763,
+        "mean": 5.55144337342385e-09,
+        "integer_valued": false
+      },
+      "V3": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 5308,
+        "min": -2.795869,
+        "max": 2.630868,
+        "mean": 6.106587715795521e-09,
+        "integer_valued": false
+      },
+      "V4": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 5336,
+        "min": -2.48534,
+        "max": 3.046948,
+        "mean": -9.437453736496973e-09,
+        "integer_valued": false
+      },
+      "V5": {
+        "type": "numeric",
+        "dtype": "float64",
+        "missing": 0,
+        "distinct": 4499,
+        "min": -2.367461,
+        "max": 4.586666,
+        "mean": -6.698741672752268e-08,
+        "integer_valued": false
+      }
+    }
+  }
+}

@@ -1,3 +1,232 @@
 {
-  "datasets": []
+  "datasets": [
+    {
+      "id": "adult",
+      "origin": "https://www.openml.org/d/1590 (OpenML data_id 1590, version 2, ARFF https://openml.org/data/v1/download/1595261/adult.arff), via sklearn.datasets.fetch_openml",
+      "loader": "sklearn.datasets.fetch_openml(data_id=1590, data_home='data/raw/sklearn_home', as_frame=True, parser='liac-arff')",
+      "openml": {
+        "data_id": 1590,
+        "name": "adult",
+        "version": 2,
+        "file_id": 1595261,
+        "md5_checksum": "bb6510925e5d4b23d136715febb2cdf5",
+        "upload_date": "2015-06-09T16:39:06",
+        "status": "active",
+        "format": "ARFF",
+        "default_target_attribute": "class",
+        "licence": "Public",
+        "original_data_url": "https://archive.ics.uci.edu/ml/datasets/adult"
+      },
+      "source_page": "https://archive.ics.uci.edu/dataset/2/adult",
+      "version": "OpenML version 2",
+      "source_file": "https://openml.org/data/v1/download/1595261/adult.arff (cached as data/raw/sklearn_home/openml/openml.org/data/v1/download/1595261/adult.arff.gz; md5 checked against OpenML)",
+      "source_file_md5": "bb6510925e5d4b23d136715febb2cdf5",
+      "source_file_sha256": "77aa1703717a29f0b5642e94c3ba1defd2486f0b34d4d8eccc1b37a5f7d226b0",
+      "license": "OpenML licence field: 'Public'; original source: CC BY 4.0, as stated on the UCI ML Repository page for the original data",
+      "path": "data/raw/adult.csv",
+      "sha256": "0626dc27f284e083e00cb7cd635825c32b9036a50228648714bc61ac2dd4b754",
+      "target": "target = 1 if OpenML 'class' == '>50K' (income > 50K USD per year), else 0 ('<=50K')",
+      "target_encoding": {
+        "1": ">50K",
+        "0": "<=50K"
+      },
+      "rows": 48842,
+      "n_positive": 11687,
+      "n_negative": 37155,
+      "positive_share": 0.23928176569346055,
+      "missing_cells": 6465,
+      "rows_with_missing": 3620,
+      "numeric_features": [
+        "age",
+        "fnlwgt",
+        "education-num",
+        "capital-gain",
+        "capital-loss",
+        "hours-per-week"
+      ],
+      "categorical_features": [
+        "workclass",
+        "education",
+        "marital-status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native-country"
+      ],
+      "row_order": "as in the OpenML ARFF file",
+      "retrieved_on": "2026-11-19",
+      "sklearn_version": "1.9.1",
+      "pandas_version": "3.1.1"
+    },
+    {
+      "id": "bank-marketing",
+      "origin": "https://www.openml.org/d/1461 (OpenML data_id 1461, version 1, ARFF https://openml.org/data/v1/download/1586218/bank-marketing.arff), via sklearn.datasets.fetch_openml",
+      "loader": "sklearn.datasets.fetch_openml(data_id=1461, data_home='data/raw/sklearn_home', as_frame=True, parser='liac-arff')",
+      "openml": {
+        "data_id": 1461,
+        "name": "bank-marketing",
+        "version": 1,
+        "file_id": 1586218,
+        "md5_checksum": "b29d2eb78e508569fd41172c97bda00e",
+        "upload_date": "2015-05-21T22:16:49",
+        "status": "active",
+        "format": "ARFF",
+        "default_target_attribute": "Class",
+        "licence": "Public",
+        "original_data_url": "https://archive.ics.uci.edu/ml/datasets/bank+marketing"
+      },
+      "source_page": "https://archive.ics.uci.edu/dataset/222/bank+marketing",
+      "version": "OpenML version 1",
+      "source_file": "https://openml.org/data/v1/download/1586218/bank-marketing.arff (cached as data/raw/sklearn_home/openml/openml.org/data/v1/download/1586218/bank-marketing.arff.gz; md5 checked against OpenML)",
+      "source_file_md5": "b29d2eb78e508569fd41172c97bda00e",
+      "source_file_sha256": "7381f5eec0cfcd20b70e70988ead1cff758fa1e9402e1f800ee8a4b59529e4b2",
+      "license": "OpenML licence field: 'Public'; original source: CC BY 4.0, as stated on the UCI ML Repository page for the original data",
+      "path": "data/raw/bank-marketing.csv",
+      "sha256": "0e933553d418fa9cae9c129e11904e1130e9c502564ca296322416351f27f8bc",
+      "target": "target = 1 if OpenML 'Class' == '2' (client subscribed a term deposit (UCI y = 'yes')), else 0 ('1')",
+      "target_encoding": {
+        "1": "2",
+        "0": "1"
+      },
+      "rows": 45211,
+      "n_positive": 5289,
+      "n_negative": 39922,
+      "positive_share": 0.11698480458295547,
+      "missing_cells": 0,
+      "rows_with_missing": 0,
+      "numeric_features": [
+        "V1",
+        "V6",
+        "V10",
+        "V12",
+        "V13",
+        "V14",
+        "V15"
+      ],
+      "categorical_features": [
+        "V2",
+        "V3",
+        "V4",
+        "V5",
+        "V7",
+        "V8",
+        "V9",
+        "V11",
+        "V16"
+      ],
+      "row_order": "as in the OpenML ARFF file",
+      "retrieved_on": "2026-11-19",
+      "sklearn_version": "1.9.1",
+      "pandas_version": "3.1.1"
+    },
+    {
+      "id": "electricity",
+      "origin": "https://www.openml.org/d/151 (OpenML data_id 151, version 1, ARFF https://openml.org/data/v1/download/2419/electricity.arff), via sklearn.datasets.fetch_openml",
+      "loader": "sklearn.datasets.fetch_openml(data_id=151, data_home='data/raw/sklearn_home', as_frame=True, parser='liac-arff')",
+      "openml": {
+        "data_id": 151,
+        "name": "electricity",
+        "version": 1,
+        "file_id": 2419,
+        "md5_checksum": "8ca97867d960ae029ae3a9ac2c923d34",
+        "upload_date": "2014-04-10T02:42:23",
+        "status": "active",
+        "format": "ARFF",
+        "default_target_attribute": "class",
+        "licence": "Public",
+        "original_data_url": "http://www.inescporto.pt/~jgama/ales/ales_5.html"
+      },
+      "source_page": "http://www.inescporto.pt/~jgama/ales/ales_5.html",
+      "version": "OpenML version 1",
+      "source_file": "https://openml.org/data/v1/download/2419/electricity.arff (cached as data/raw/sklearn_home/openml/openml.org/data/v1/download/2419/electricity.arff.gz; md5 checked against OpenML)",
+      "source_file_md5": "8ca97867d960ae029ae3a9ac2c923d34",
+      "source_file_sha256": "2d86fbc74c69a5c04bcde0119bce280dd6d8efa0115987edc75b77ccf024d7f2",
+      "license": "OpenML licence field: 'Public'; original source: no licence stated by the original source (J. Gama, ELEC2); OpenML lists it as 'Public'",
+      "path": "data/raw/electricity.csv",
+      "sha256": "a882e1fb0cfe473e505826a1a97ab4a9070bf5b0ca4add0ec79a90f70eb05c8b",
+      "target": "target = 1 if OpenML 'class' == 'UP' (NSW price UP relative to the moving average of the last 24 hours), else 0 ('DOWN')",
+      "target_encoding": {
+        "1": "UP",
+        "0": "DOWN"
+      },
+      "rows": 45312,
+      "n_positive": 19237,
+      "n_negative": 26075,
+      "positive_share": 0.4245453742937853,
+      "missing_cells": 0,
+      "rows_with_missing": 0,
+      "numeric_features": [
+        "date",
+        "period",
+        "nswprice",
+        "nswdemand",
+        "vicprice",
+        "vicdemand",
+        "transfer"
+      ],
+      "categorical_features": [
+        "day"
+      ],
+      "row_order": "as in the OpenML ARFF file",
+      "time_ordering_columns": [
+        "date",
+        "period",
+        "day"
+      ],
+      "time_order": "file row order is chronological (944 whole days x 48 half-hours); the normalised date column is not monotone in file order, see data/CODEBOOK.md",
+      "retrieved_on": "2026-11-19",
+      "sklearn_version": "1.9.1",
+      "pandas_version": "3.1.1"
+    },
+    {
+      "id": "phoneme",
+      "origin": "https://www.openml.org/d/1489 (OpenML data_id 1489, version 1, ARFF https://openml.org/data/v1/download/1592281/phoneme.arff), via sklearn.datasets.fetch_openml",
+      "loader": "sklearn.datasets.fetch_openml(data_id=1489, data_home='data/raw/sklearn_home', as_frame=True, parser='liac-arff')",
+      "openml": {
+        "data_id": 1489,
+        "name": "phoneme",
+        "version": 1,
+        "file_id": 1592281,
+        "md5_checksum": "902ff27649dbfb512f3fb01fc05c6b24",
+        "upload_date": "2015-05-25T19:34:17",
+        "status": "active",
+        "format": "ARFF",
+        "default_target_attribute": "Class",
+        "licence": "Public",
+        "original_data_url": "https://sci2s.ugr.es/keel/dataset.php?cod=105#sub2"
+      },
+      "source_page": "https://sci2s.ugr.es/keel/dataset.php?cod=105",
+      "version": "OpenML version 1",
+      "source_file": "https://openml.org/data/v1/download/1592281/phoneme.arff (cached as data/raw/sklearn_home/openml/openml.org/data/v1/download/1592281/phoneme.arff.gz; md5 checked against OpenML)",
+      "source_file_md5": "902ff27649dbfb512f3fb01fc05c6b24",
+      "source_file_sha256": "8dcd1c5236cea66cdc4e75cb84fbb4da7a4b1e8b1fe5ad5cd3fd825a1ae4c48b",
+      "license": "OpenML licence field: 'Public'; original source: no licence stated by the original sources (ELENA project, KEEL); OpenML lists it as 'Public'",
+      "path": "data/raw/phoneme.csv",
+      "sha256": "4f8eecda6fb313fd4485d3506b19d2ec6c32a3239c38885f19c169e7e695fd3e",
+      "target": "target = 1 if OpenML 'Class' == '2' (oral vowel (ELENA class 1; OpenML label '2')), else 0 ('1')",
+      "target_encoding": {
+        "1": "2",
+        "0": "1"
+      },
+      "rows": 5404,
+      "n_positive": 1586,
+      "n_negative": 3818,
+      "positive_share": 0.2934863064396743,
+      "missing_cells": 0,
+      "rows_with_missing": 0,
+      "numeric_features": [
+        "V1",
+        "V2",
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "categorical_features": [],
+      "row_order": "as in the OpenML ARFF file",
+      "retrieved_on": "2026-11-19",
+      "sklearn_version": "1.9.1",
+      "pandas_version": "3.1.1"
+    }
+  ]
 }

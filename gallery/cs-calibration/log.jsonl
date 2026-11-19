@@ -13,3 +13,16 @@
 {"time": "2026-11-18T16:59:42Z", "role": "pi", "action": "plan-revised", "detail": "minor F15-F18 after question-r3 (pass). plan.json sha256=92061f08cb74170d04fdf24b3adc49edb40fa62d08f9474e1383f1646c8d721a"}
 {"time": "2026-11-18T16:59:42Z", "role": "pi", "action": "gate-request", "detail": "question"}
 {"time": "2026-11-19T01:17:54Z", "role": "pi", "action": "gate-approve", "detail": "question Bryce Wang"}
+{"time": "2026-11-19T01:19:35Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261119T011935Z"}
+{"time": "2026-11-19T01:19:35Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261119T011935Z"}
+{"time": "2026-11-19T01:24:31Z", "role": "data-ra", "action": "run", "detail": "fetch-data exit=1"}
+{"time": "2026-11-19T01:25:15Z", "role": "designer", "action": "run", "detail": "timing-synthetic exit=0"}
+{"time": "2026-11-19T01:26:05Z", "role": "data-ra", "action": "run", "detail": "fetch-data exit=0"}
+{"time": "2026-11-19T01:26:47Z", "role": "data-ra", "action": "run", "detail": "fetch-data exit=0"}
+{"time": "2026-11-19T01:27:48Z", "role": "designer", "action": "timing-run", "detail": "timing-synthetic (data-prep, synthetic shapes only): ~3.8 CPU-min, <1 wall-min for 40 cells on 8 workers"}
+{"time": "2026-11-19T01:27:48Z", "role": "designer", "action": "design-written", "detail": "plan.json design and tasks; sha256=242f62e354ba3becb096c575c9f278353963ae3c325a482b8fad678f9d49e3c5"}
+{"time": "2026-11-19T01:27:55Z", "role": "data-ra", "action": "data-fetched", "detail": "fetch-data: OpenML adult 1590v2, bank-marketing 1461v1, electricity 151v1, phoneme 1489v1 -> data/raw/*.csv; manifest + CODEBOOK written; md5 and OpenML qualities checked"}
+{"time": "2026-11-19T05:45:27Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261119T054527Z"}
+{"time": "2026-11-19T05:46:24Z", "role": "designer", "action": "design-revised", "detail": "coordinator: sens-elec-time sorts by file row order (not date); Victoria fill-value threat; labels and categorical columns confirmed against manifest and read from it, not CSV dtypes; dt-pin done. plan.json sha256=9be34b9326f7d897cca8075b29662e851b21781192830b8159097a1b6cba58ba"}
+{"time": "2026-11-19T05:46:33Z", "role": "designer", "action": "design-revised", "detail": "method step 12(c): electricity fill-value row counts per split recorded per seed. plan.json sha256=3a0cd6558be2dfc994404933cf61ca2aa537ea447be71c20a8aa7ac1b01efd0c"}
+{"time": "2026-11-19T05:46:50Z", "role": "pi", "action": "brief-archived", "detail": "reviewer design-r1 20261119T054650Z"}

@@ -1,0 +1,88 @@
+{
+  "id": "fetch-data",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/fetch_data.py"
+  ],
+  "started": "2026-11-19T01:26:44Z",
+  "finished": "2026-11-19T01:26:47Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fetch_data.py",
+      "sha256": "9686caa4c0e4d4f2cb89ee59e872f5ef2bb09285fed3045936714953456f0cf2"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "data/manifest.json",
+      "sha256": "f0b3caf066df137464aa3a34b24ca354f2dafb96800bcee38d91f56d006223ea"
+    },
+    {
+      "path": "runs/fetch-data/profile.json",
+      "sha256": "52feba49f3e455ac50ccb677d00a7273d13284ac17c320a4161d7d1170bdcdf1"
+    },
+    {
+      "path": "data/raw/adult.csv",
+      "sha256": "0626dc27f284e083e00cb7cd635825c32b9036a50228648714bc61ac2dd4b754"
+    },
+    {
+      "path": "data/raw/bank-marketing.csv",
+      "sha256": "0e933553d418fa9cae9c129e11904e1130e9c502564ca296322416351f27f8bc"
+    },
+    {
+      "path": "data/raw/electricity.csv",
+      "sha256": "a882e1fb0cfe473e505826a1a97ab4a9070bf5b0ca4add0ec79a90f70eb05c8b"
+    },
+    {
+      "path": "data/raw/phoneme.csv",
+      "sha256": "4f8eecda6fb313fd4485d3506b19d2ec6c32a3239c38885f19c169e7e695fd3e"
+    },
+    {
+      "path": "runs/fetch-data/metrics.json",
+      "sha256": "35693ca45edf76a2edd74ff77dc02fb48dec3adb43923267b1d11fd1c0cc4a55"
+    }
+  ],
+  "metrics": {
+    "adult.rows": 48842,
+    "adult.n_positive": 11687,
+    "adult.positive_share": 0.23928176569346055,
+    "adult.n_numeric": 6,
+    "adult.n_categorical": 8,
+    "adult.missing_cells": 6465,
+    "adult.sha256": "0626dc27f284e083e00cb7cd635825c32b9036a50228648714bc61ac2dd4b754",
+    "adult.source_md5": "bb6510925e5d4b23d136715febb2cdf5",
+    "bank-marketing.rows": 45211,
+    "bank-marketing.n_positive": 5289,
+    "bank-marketing.positive_share": 0.11698480458295547,
+    "bank-marketing.n_numeric": 7,
+    "bank-marketing.n_categorical": 9,
+    "bank-marketing.missing_cells": 0,
+    "bank-marketing.sha256": "0e933553d418fa9cae9c129e11904e1130e9c502564ca296322416351f27f8bc",
+    "bank-marketing.source_md5": "b29d2eb78e508569fd41172c97bda00e",
+    "electricity.rows": 45312,
+    "electricity.n_positive": 19237,
+    "electricity.positive_share": 0.4245453742937853,
+    "electricity.n_numeric": 7,
+    "electricity.n_categorical": 1,
+    "electricity.missing_cells": 0,
+    "electricity.sha256": "a882e1fb0cfe473e505826a1a97ab4a9070bf5b0ca4add0ec79a90f70eb05c8b",
+    "electricity.source_md5": "8ca97867d960ae029ae3a9ac2c923d34",
+    "phoneme.rows": 5404,
+    "phoneme.n_positive": 1586,
+    "phoneme.positive_share": 0.2934863064396743,
+    "phoneme.n_numeric": 5,
+    "phoneme.n_categorical": 0,
+    "phoneme.missing_cells": 0,
+    "phoneme.sha256": "4f8eecda6fb313fd4485d3506b19d2ec6c32a3239c38885f19c169e7e695fd3e",
+    "phoneme.source_md5": "902ff27649dbfb512f3fb01fc05c6b24"
+  },
+  "metrics_file": "runs/fetch-data/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

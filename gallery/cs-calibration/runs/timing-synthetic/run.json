@@ -1,0 +1,55 @@
+{
+  "id": "timing-synthetic",
+  "role": "designer",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/timing_synthetic.py"
+  ],
+  "started": "2026-11-19T01:25:02Z",
+  "finished": "2026-11-19T01:25:15Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/timing_synthetic.py",
+      "sha256": "8941b30d5ca6b308a4495f391578cabce09ec84f1634f2f67d3f81aabca08de9"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "runs/timing-synthetic/timing.json",
+      "sha256": "29fb4d9381d2ee6f749ef38f17f3fefcfe369511c910dfcc6a5dc7f8d9c777f1"
+    },
+    {
+      "path": "runs/timing-synthetic/metrics.json",
+      "sha256": "f95929e27a6a2c4ef25b08eca87176b687f48086146c1dc7c2eba44a05235e0c"
+    }
+  ],
+  "metrics": {
+    "timed_cells": 8,
+    "n_jobs": 8,
+    "timing_seeds": 2,
+    "n_train_adult": 10000,
+    "n_train_bank_marketing": 10000,
+    "n_train_electricity": 10000,
+    "n_train_phoneme": 2702,
+    "n_cal_adult": 5000,
+    "n_cal_bank_marketing": 5000,
+    "n_cal_electricity": 5000,
+    "n_cal_phoneme": 1351,
+    "n_test_adult": 5000,
+    "n_test_bank_marketing": 5000,
+    "n_test_electricity": 5000,
+    "n_test_phoneme": 1351,
+    "n_columns_adult": 108,
+    "n_columns_bank_marketing": 51,
+    "n_columns_electricity": 14,
+    "n_columns_phoneme": 5
+  },
+  "metrics_file": "runs/timing-synthetic/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

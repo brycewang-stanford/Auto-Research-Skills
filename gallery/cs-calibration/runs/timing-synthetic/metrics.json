@@ -1,0 +1,21 @@
+{
+  "timed_cells": 8,
+  "n_jobs": 8,
+  "timing_seeds": 2,
+  "n_train_adult": 10000,
+  "n_train_bank_marketing": 10000,
+  "n_train_electricity": 10000,
+  "n_train_phoneme": 2702,
+  "n_cal_adult": 5000,
+  "n_cal_bank_marketing": 5000,
+  "n_cal_electricity": 5000,
+  "n_cal_phoneme": 1351,
+  "n_test_adult": 5000,
+  "n_test_bank_marketing": 5000,
+  "n_test_electricity": 5000,
+  "n_test_phoneme": 1351,
+  "n_columns_adult": 108,
+  "n_columns_bank_marketing": 51,
+  "n_columns_electricity": 14,
+  "n_columns_phoneme": 5
+}
