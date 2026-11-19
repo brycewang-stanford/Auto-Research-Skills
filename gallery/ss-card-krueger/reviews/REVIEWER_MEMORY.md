@@ -103,3 +103,29 @@ At code review, check:
   (< q05, > q95). Ties at the cutoffs are likely, because DFTE values come in multiples of 0.5.
 - check-synthetic never reads stores.csv. verdict.py takes its inputs only from metrics.
 - Any SE-method switch after main-t3 is a red flag. The design fixes S1.
+
+## Round code-r1 (2026-11-19): verdict pass
+
+Reviewed code hashes (sha256): ck_analysis.py 632d2203..., verdict.py 65599671..., test_ck.py
+9d065575... (equal to runs/check-synthetic/run.json). Synthetic data only. The 9 shipped tests pass
+on rerun in scratch. My own numpy re-implementation (no ck functions) matched every estimator to
+1e-10 on the synthetic file: S1 rows 3-4, the C1 filter from raw components, the conventional OLS
+SE and root MSE, pooled 5/95 winsorization (strict caps, per-tail counts, closures counted), the
+closures-excluded variant, the NW rule, row 5 and the placebo. On synthetic data all 6 closures land
+in the pooled low tail, so the bias toward passing H2 is real; it is a design-level issue that was
+already disclosed. Open findings, all minor:
+- F1: run_analysis.sh's guard does not check that the code is the reviewed version (no hash binding).
+- F2: REPLACE=1 / --replace overwrites run.json and metrics with no archive, so a run can be
+  re-done after a miss and leave no trace.
+- F3: test_ck.py only checks that the report-only paths run (NW controls, closures-excl capping,
+  placebo, row 5); it never checks their values.
+
+At results review, check:
+- Do the hashes of ck_analysis.py and verdict.py recorded in each analysis run.json equal the
+  hashes above? If not, find what changed and why.
+- In log.jsonl, was any analysis run executed more than once (a sign of REPLACE)?
+- verdict metrics: every flag must come from the verdict run. If a point target is met and an SE
+  target missed, the paper must say "point reproduced; SE construction not identified".
+- h2-winsor: capped_low_closed (expect up to 6), and the capped counts by state. Whether H2 passes
+  only because closures were lifted: compare against h2-closures-excl.
+- se-alt: whichever SE construction matches the published SEs must not become the judged one.

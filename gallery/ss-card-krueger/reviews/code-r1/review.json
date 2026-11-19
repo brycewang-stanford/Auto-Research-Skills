@@ -1,0 +1,59 @@
+{
+  "id": "code-r1",
+  "target": "code",
+  "round": 1,
+  "created": "2026-11-19T07:06:34Z",
+  "reviewer": {"model": "claude-opus-5-5", "independence": "fresh-context"},
+  "files_read": [
+    "plan.json",
+    "code/ck_analysis.py",
+    "code/verdict.py",
+    "code/test_ck.py",
+    "code/run_analysis.sh",
+    "code/prepare_data.py",
+    "code/requirements.txt",
+    "data/raw/njmin/check.sas",
+    "data/raw/njmin/codebook",
+    "data/prepare_metrics.json",
+    "data/derived/stores.csv (header line only)",
+    "runs/NOTES.md",
+    "runs/check-synthetic/run.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r1/review.json",
+    "../../crew/scripts/crew.py (cmd_run, same_value, review validation)",
+    "../../crew/agents/reviewer.md",
+    "../../crew/PROTOCOL.md",
+    "../../crew/bench/seeds/ss-card-krueger/task.json"
+  ],
+  "kill_argument": "A hostile referee would say the reviewed code is not bound to the code that will produce the numbers, and the first numbers can be overwritten. run_analysis.sh releases all eight runs on the latest code-r* review without checking that ck_analysis.py and verdict.py still hash to what was reviewed, and REPLACE=1 (crew.py --replace) rewrites runs/<id>/run.json in place. A main-t3 that misses an SE target could be followed by an edited S1 and a rerun, leaving only an exit-code line in log.jsonl. For a paper whose contribution is 'no specification search within this study', that is the weak point. I attacked the estimators and they held. My own re-implementation, run on the synthetic file without calling ck_analysis functions, reproduced every estimator to 1e-10: S1 rows 3-4 with the n12 covariance term, the check.sas C1 filter from raw components, the conventional OLS SE and root MSE in closed form, pooled 5/95 winsorization with strict caps and per-tail counts, the closures-excluded variant, the NW-rule regression, row 5 and the placebo. The nine shipped tests pass on rerun, and the code hashes match check-synthetic's record. No study data were used.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "minor",
+      "status": "open",
+      "text": "The guard in run_analysis.sh accepts the latest reviews/code-r*/review.json whatever has happened to the code since. It never checks that code/ck_analysis.py, code/verdict.py and code/test_ck.py are the files that were reviewed, so an edit after this review would still let all eight analysis runs start. This review covers ck_analysis.py sha256 632d22031ff807d4cac23bbe985ac5023de6ec872641087391b233b3b8b9ff9a, verdict.py 65599671fb46d8580abfaa4ed43850f4d8a4ec70c188130da05a2d66f89d53bd and test_ck.py 9d06557561f490ec2a723faf661215248f60788ef14ab13566d54d4d5c770166, which are the hashes in runs/check-synthetic/run.json.",
+      "evidence": "code/run_analysis.sh lines 21-35 (the guard reads only finding statuses, not code hashes).",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "open",
+      "text": "With REPLACE=1, run_analysis.sh passes --replace to crew.py run. cmd_run then overwrites runs/<id>/run.json and deletes the old metrics file, so any superseded analysis result disappears. log.jsonl keeps only 'run <id> exit=0'. The plan forbids changing the SE method, a sample rule or the FTE definition after a miss (analysis_plan, last item), but nothing in the code keeps the evidence that would show it was not done. Cheapest remedy: remove the REPLACE path for analysis runs, or require that any replacement first archive the old run.json and metrics under runs/<id>/superseded-<UTC>/ and be recorded as a deviation in runs/NOTES.md. Committing each run.json as soon as it lands would also do it.",
+      "evidence": "code/run_analysis.sh line 19; crew/scripts/crew.py cmd_run (run_dir overwrite and metrics_file.unlink()).",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "test_ck.py only checks that the report-only estimators run and write their metric names. Nothing checks that their values are right. In the known-answer file every store has the same effect, so the chain and ownership controls in h2-nw-rule have no influence on the estimate, h2-closures-excl caps no store, and placebo-hiwage and row 5 are never compared with an independent computation. My separate synthetic check found all four correct, so nothing is wrong today. But the Replicator's clean rerun would not catch a later regression in these paths. Remedy: add value assertions for these runs, computed with plain numpy, to test_ck.py. Any edit to test_ck.py means check-synthetic must be rerun.",
+      "evidence": "code/test_ck.py test_known_answer (lines 292-308) and test_entry_points (lines 347-403); ck_analysis.py h2_closures_excl, h2_nw_rule, placebo_hiwage, table3 row r5.",
+      "response": "",
+      "ruling": ""
+    }
+  ]
+}

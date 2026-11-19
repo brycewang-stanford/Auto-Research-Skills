@@ -159,9 +159,12 @@
       "note": "Approved in chat on 2026-11-19 after reading the question, the Reviewer's verdicts and kill argument."
     },
     "design": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-19T07:05:01Z",
-      "summary": "Design passed review in round 2; minor F5 answered and disclosed."
+      "summary": "Design passed review in round 2; minor F5 answered and disclosed.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-19T07:15:19Z",
+      "note": "Approved in chat on 2026-11-19 after reading the design, the ECE noise-floor caveat and the disclosed amendments."
     },
     "results": {
       "status": "pending"

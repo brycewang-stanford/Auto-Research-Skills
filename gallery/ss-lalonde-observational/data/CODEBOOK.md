@@ -40,12 +40,25 @@ numbers. Field 10 (RE78) is never converted, summarised or written, and it is no
 | `hisp` | Hispanic | 1/0 | raw field 5 |
 | `married` | married | 1/0 | raw field 6 |
 | `nodegree` | no high-school degree | 1/0 | raw field 7 |
-| `re74` | earnings in 1974 | dollars (1982 dollars per Dehejia and Wahba 1999; the data page states no unit) | raw field 8 |
+| `re74` | "1974" earnings, **defined differently by group** (see below). CPS: calendar-1974 SSA earnings. NSW treated: earnings in months 13-24 before the month of random assignment, not calendar 1974 | dollars (1982 dollars per Dehejia and Wahba 1999; the data page states no unit) | raw field 8 |
 | `re75` | earnings in 1975 | as `re74` | raw field 9 |
-| `u74` | zero earnings in 1974 | 1 if `re74 == 0`, else 0 | constructed (not in the files) |
+| `u74` | zero "1974" earnings | 1 if `re74 == 0`, else 0; inherits the group-specific period of `re74` | constructed (not in the files) |
 | `u75` | zero earnings in 1975 | 1 if `re75 == 0`, else 0 | constructed (not in the files) |
 
 Not in the working file: `re78` (earnings in 1978, raw field 10, the outcome).
+
+**`re74` and `u74` do not measure the same period in the two groups** (design-r1 F2).
+The data page labels field 8 "RE74 (earnings in 1974)" for every file. For NSW men,
+smith2005 (Sec. 5) states that Dehejia and Wahba's "Re74" is "real earnings in months
+13-24 prior to the month of random assignment", and that "for persons randomly assigned
+later in the experiment, these months largely overlap with 1975". For CPS men it is
+calendar-1974 earnings. smith2005 also reconstructs the DW sample rule: men randomly
+assigned January-April 1976 are kept, and men assigned later are kept only if their
+"Re74" is zero. So for some of the 185 treated men, `u74 = 1` holds by sample
+construction, over months that overlap 1975. The files carry no assignment date, so
+which treated men are affected cannot be identified from these data. (Source:
+smith2005 as cited in reviews/design-r1/review.json F2; the Data RA did not re-read
+smith2005.)
 
 Earnings for CPS men are SSA administrative earnings, top-coded at the Social Security
 maximum; for NSW men they are survey earnings (lalonde1986; smith2005; sources/notes.md).

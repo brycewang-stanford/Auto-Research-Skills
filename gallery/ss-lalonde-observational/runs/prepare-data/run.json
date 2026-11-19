@@ -7,8 +7,8 @@
     "-I",
     "code/prepare_data.py"
   ],
-  "started": "2026-11-19T01:21:41Z",
-  "finished": "2026-11-19T01:21:42Z",
+  "started": "2026-11-19T07:01:03Z",
+  "finished": "2026-11-19T07:01:03Z",
   "exit_code": 0,
   "code": [
     {
@@ -89,7 +89,10 @@
   },
   "metrics_file": "data/prepare_metrics.json",
   "env": {
-    "python": "3.14.6",
-    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-lalonde-observational/.venv"
   }
 }

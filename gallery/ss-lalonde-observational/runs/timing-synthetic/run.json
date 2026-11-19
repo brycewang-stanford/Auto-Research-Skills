@@ -7,13 +7,13 @@
     "-I",
     "code/timing_synthetic.py"
   ],
-  "started": "2026-11-19T01:24:22Z",
-  "finished": "2026-11-19T01:27:14Z",
+  "started": "2026-11-19T07:02:02Z",
+  "finished": "2026-11-19T07:05:10Z",
   "exit_code": 0,
   "code": [
     {
       "path": "code/timing_synthetic.py",
-      "sha256": "0736e939ee74196b1e24639aa975a96ec283ef4b3acd1358a22ab61e6a4198e8"
+      "sha256": "41dc225d631c2d79edc729d4c5c89ec9fb6a4a538d4ff1a7abb062462ec2f4ed"
     }
   ],
   "inputs": [
@@ -25,7 +25,7 @@
   "outputs": [
     {
       "path": "runs/timing-synthetic/timing.json",
-      "sha256": "ab3caea74d41838308528b028b5044c16d1416c31ef14b4658f2794c007fe70e"
+      "sha256": "a6987acce6d690ccb6bd8aab2c076b3a5d1345c1970a5d498b7e9e9d1439b861"
     },
     {
       "path": "runs/timing-synthetic/metrics.json",
@@ -46,7 +46,10 @@
   },
   "metrics_file": "runs/timing-synthetic/metrics.json",
   "env": {
-    "python": "3.14.6",
-    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-lalonde-observational/.venv"
   }
 }

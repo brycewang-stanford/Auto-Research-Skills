@@ -189,6 +189,19 @@ class CrewWorkspaceTest(unittest.TestCase):
         self.assertIn("crew_python", env)
         self.assertEqual(env["command_executable"], sys.executable)
 
+    def test_replacing_a_run_archives_the_old_record(self) -> None:
+        self.to_design()
+        self.run_main(value=0.5)
+        code, out = call("run", str(self.ws), "--id", "main", "--role", "experimenter", "--kind", "analysis",
+                         "--code", "code/main.py", "--metrics", "metrics.json", "--replace",
+                         "--", sys.executable, "code/main.py")
+        self.assertEqual(code, 0, out)
+        archived = list((self.ws / "runs" / ".superseded").iterdir())
+        self.assertEqual(len(archived), 1)
+        self.assertEqual(json.loads((archived[0] / "metrics.json").read_text()), {"acc": 0.5})
+        self.assertIn("run-superseded", (self.ws / "log.jsonl").read_text())
+        self.assertEqual(self.errors(), [])
+
     def test_failed_run_cannot_support_a_claim(self) -> None:
         self.to_design()
         (self.ws / "code" / "bad.py").write_text("raise SystemExit(3)\n")

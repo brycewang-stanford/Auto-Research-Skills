@@ -87,3 +87,41 @@ is procedural only. Disclosed in plan.json, so it is the human's call.
 - No RE78 in data-prep outputs or run logs; no placebo-set diagnostics; no benchmark
   comparison in the files before the results gate.
 - H2 combined SE: plan uses 633 (DW); the tutorial gives 670.82. Check which is used.
+
+## design-r1 (2026-11-19T06:57Z), verdict: block
+
+Question-stage F15/F16 are fixed in plan.json (question wording now says "passes (as defined
+in H3)"; H3 fail-takes-precedence rule). Held: RE78 never parsed pre-gate (prepare_data.py
+parses fields 1-9 only; derived header has no re78); timing-synthetic fits X- only with a
+permuted treatment; trimming drops controls only; u74/u75 = 1[RE = 0] checked in code; SE
+method fixed (IF, mean aggregation); H2 uses 633; no benchmark comparison in runs/ (the 1794
+grep hits in diag outputs are float digits).
+Findings, all open:
+- F1 (critical): DEV-9/DEV-11 drop sens-imbens, rob-covsets, rob-estimators, rob-diff74 and the
+  matching disagreement triggers. These are exactly the checks the notes say are fragile on
+  LDW-CPS: OLS 1,066 (554), IPW 1,237 (687) CIs cover 0; covariate-set fragility per Smith-Todd
+  and DW Sec. 5.2. The adopted design said sens-imbens + rob-diff74 are its only assumption
+  probes. DEV-9's reason ("hypotheses this question does not have") is false.
+- F2 (major): NSW re74 = months 13-24 before RA (largely 1975 for later assignees; smith2005
+  Sec. 5). The DW rule admits men assigned after April 1976 only if re74 = 0. This hits the main
+  X and the H3 placebo (re75 outcome given re74/u74). Not in the threats; CODEBOOK says "1974".
+- F3 (minor): rob-trim drops 8,125 CPS men carrying 0.09% of the m_bar-weight (my arithmetic
+  on propensity.csv). The cutoff hinges on one treated man (9,218 / 11,193 at the 2nd / 3rd
+  lowest). The disagreement rule rests in practice on rob-learners.
+- F4 (minor): pre-diagnostic plan (sha 320cc2..., 01:29Z) never committed; plan edited after
+  diag-overlap (05:47Z) -> 20b2f5... at 06:52Z. Rebuild by deleting diagnostics did not
+  match, so other text changed too.
+- F5 (minor): all four run.json record python 3.14.6, but the .venv is 3.12.11 (tool fix
+  047c99f came later). Rerun the data-prep runs.
+
+## Check next round
+- F1: restored components with mechanical mappings (rob-covsets (a) "earnings-history core"
+  mapping; sens-imbens benchmark groups) and the adopted disagreement rule; or DEV-9 reason
+  replaced with the true one plus a "never call H1 robust" rule. Was sens-imbens timed?
+- F2: threats + h3_placebo wording + CODEBOOK corrected; H3 spec itself unchanged (a change
+  would need the question gate).
+- F4: change list 320cc2 -> 20b2f5 logged.
+- F5: data-prep runs re-run; diag-overlap metrics identical.
+- At code review: placebo_re75.py must not read re78 and must not use re75/u75 in X-;
+  no benchmark in any script but h2_benchmark.py; the "unchanged" learner settings match
+  ss-null-effect aipw_lib.py@716b6c3.

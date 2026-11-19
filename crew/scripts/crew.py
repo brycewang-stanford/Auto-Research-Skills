@@ -126,7 +126,7 @@ def read_runs(ws: Path) -> tuple[dict[str, dict], list[str]]:
     root = ws / "runs"
     if not root.is_dir():
         return runs, errors
-    for directory in sorted(p for p in root.iterdir() if p.is_dir()):
+    for directory in sorted(p for p in root.iterdir() if p.is_dir() and not p.name.startswith(".")):
         record = directory / "run.json"
         if not record.exists():
             errors.append(f"runs/{directory.name}: missing run.json")
@@ -803,6 +803,22 @@ def command_env(ws: Path, command: list[str]) -> dict:
     return env
 
 
+def archive_run(ws: Path, run_dir: Path) -> str:
+    """Keep a replaced run's record, logs and metrics: a superseded result must leave a trace."""
+    old = read_json(run_dir / "run.json")
+    stamp = str(old.get("finished") or now()).replace(":", "").replace("-", "")
+    dest = ws / "runs" / ".superseded" / f"{run_dir.name}-{stamp}"
+    dest.mkdir(parents=True, exist_ok=True)
+    for name in ("run.json", "stdout.log", "stderr.log"):
+        if (run_dir / name).exists():
+            shutil.copy2(run_dir / name, dest / name)
+    metrics_file = old.get("metrics_file")
+    target = inside(ws, metrics_file) if metrics_file else None
+    if target is not None and target.is_file():
+        shutil.copy2(target, dest / "metrics.json")
+    return str(dest.relative_to(ws))
+
+
 def hash_entries(ws: Path, values: list[str], must_exist: bool) -> list[dict]:
     entries = []
     for value in values:
@@ -833,6 +849,9 @@ def cmd_run(args: argparse.Namespace) -> int:
             sys.exit("ERROR: analysis runs are blocked until the design gate is approved")
     code = hash_entries(ws, args.code, must_exist=True)
     inputs = hash_entries(ws, args.input, must_exist=True)
+    if run_dir.exists() and (run_dir / "run.json").exists():
+        archived = archive_run(ws, run_dir)
+        append_log(ws, args.role, "run-superseded", f"{args.id} archived to {archived}")
     run_dir.mkdir(parents=True, exist_ok=True)
     metrics_file = inside(ws, args.metrics) if args.metrics else None
     if args.metrics and metrics_file is None:

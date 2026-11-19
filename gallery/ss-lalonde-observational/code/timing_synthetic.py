@@ -12,6 +12,12 @@ under X- = X without re75 and u75 before the design gate. The placebo's propensi
 cross-fit is therefore timed with a SYNTHETIC treatment (a seeded random permutation of
 treat, which keeps 185 treated), so no fit of the real treatment on X- is ever made.
 
+Other reduced covariate sets: rob-covsets (a) and (b) are timed with the real treatment
+(neither is the placebo set). The time-invariant set of rob-diff74 is a subset of X-, so
+it is not fitted at all: its propensity cost is projected at the full-set cost (an upper
+bound). sens-imbens is timed on 4 probe points of the Imbens (2003) EM with a noise
+outcome and projected to the planned 166 points.
+
 No balance or overlap statistic is printed or saved; those belong to run diag-overlap.
 The one design constant saved besides timings is a precision multiplier: the standard
 error the primary estimator gives for a unit-variance noise outcome with the real
@@ -35,7 +41,8 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import (HistGradientBoostingRegressor, RandomForestClassifier,
                               RandomForestRegressor)
-from sklearn.linear_model import LinearRegression, LogisticRegressionCV
+from scipy.special import expit
+from sklearn.linear_model import LinearRegression, LogisticRegression, LogisticRegressionCV
 from sklearn.model_selection import StratifiedKFold
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -51,6 +58,11 @@ BUDGET_MIN = 30
 STARTUP_S = 3.0          # interpreter and import overhead per run
 COVS = ["age", "educ", "black", "hisp", "married", "nodegree", "re74", "re75", "u74", "u75"]
 COVS_MINUS = [c for c in COVS if c not in ("re75", "u75")]
+COVSET_A = ["age", "educ", "married", "re74", "re75", "u74", "u75"]
+COVSET_B = [c for c in COVS if c not in ("re74", "u74")]
+B_IPW = 999
+EM_MAX_ITER = 200
+SENS_POINTS = 128 + 22 + 16   # R2 grid, diagonal, 8 benchmark groups x 2 signs
 
 
 def load() -> pd.DataFrame:
@@ -133,6 +145,38 @@ def att_se(d, y, m_raw, g):
     return float(np.sqrt(np.mean(ses ** 2 + (thetas - thetas.mean()) ** 2)))
 
 
+def imbens_em(d, y, Z, alpha, delta):
+    """One Imbens (2003) grid point by generalized EM (adopted method.sensitivity); returns tau."""
+    W = np.column_stack([d, Z])
+    gamma = np.zeros(Z.shape[1]); b = np.linalg.lstsq(W, y, rcond=None)[0]
+    sigma2 = np.mean((y - W @ b) ** 2); ll_old = -np.inf
+    for _ in range(EM_MAX_ITER):
+        p0, p1 = expit(Z @ gamma), expit(Z @ gamma + alpha)
+        r = y - W @ b
+        l0 = np.where(d == 1, p0, 1 - p0) * np.exp(-r ** 2 / (2 * sigma2))
+        l1 = np.where(d == 1, p1, 1 - p1) * np.exp(-(r - delta) ** 2 / (2 * sigma2))
+        ll = np.sum(np.log(0.5 * (l0 + l1) + 1e-300))
+        q = l1 / (l0 + l1 + 1e-300)
+        grad = Z.T @ (d - (1 - q) * p0 - q * p1)
+        h = (1 - q) * p0 * (1 - p0) + q * p1 * (1 - p1)
+        gamma = gamma + np.linalg.solve((Z * h[:, None]).T @ Z + 1e-8 * np.eye(Z.shape[1]), grad)
+        b = np.linalg.lstsq(W, y - delta * q, rcond=None)[0]
+        sigma2 = np.mean((y - delta * q - W @ b) ** 2 + delta ** 2 * q * (1 - q))
+        if abs(ll - ll_old) < 1e-8 * abs(ll):
+            break
+        ll_old = ll
+    return b[0]
+
+
+def ipw_bootstrap(Xb, d):
+    """rob-estimators (b): C from the full-sample LogisticRegressionCV, then 999 bootstrap refits."""
+    c_full = propensity_learner(SEED).fit(Xb, d)[-1].C_[0]
+    brng = np.random.default_rng(SEED + 2)
+    for _ in range(B_IPW):
+        idx = brng.integers(0, len(d), len(d))
+        make_pipeline(StandardScaler(), LogisticRegression(C=c_full, max_iter=10_000)).fit(Xb[idx], d[idx])
+
+
 def timed(fn, *args):
     t0 = time.perf_counter()
     out = fn(*args)
@@ -168,6 +212,18 @@ def main() -> int:
     _, T["rf_propensity_crossfit"] = timed(crossfit_propensity, Xt, d, rf_c)
     _, T["rf_outcome_crossfit"] = timed(crossfit_outcome, Xt, d, y_noise, rf_r)
 
+    for name, cs in (("covset_a", COVSET_A), ("covset_b", COVSET_B)):
+        _, T[f"A_{name}_propensity_crossfit"] = timed(crossfit_propensity, basis(df, cs), d)
+        _, T[f"G_{name}_outcome_crossfit"] = timed(crossfit_outcome, df[cs].to_numpy(float), d, y_noise)
+    _, T["ipw_bootstrap_999"] = timed(ipw_bootstrap, Xb, d)
+    Z = np.column_stack([np.ones(len(d)), StandardScaler().fit_transform(Xb)])
+    probe = [(a, dl) for a in (0.5, 3.0) for dl in (0.1, 0.6)]
+    t0 = time.perf_counter()
+    for a, dl in probe:
+        imbens_em(d, y_noise, Z, a, dl)
+    per_point = (time.perf_counter() - t0) / len(probe)
+    T["imbens_em_per_point"] = per_point
+
     A, Am, Ap = T["A_propensity_crossfit"], T["Aminus_propensity_crossfit_synthetic_treat"], T["Aplus_propensity_crossfit"]
     G, Gm = T["G_outcome_crossfit"], T["Gminus_outcome_crossfit"]
     # rob-trim is timed at full-sample cost (an upper bound): its trimmed size is an
@@ -178,13 +234,19 @@ def main() -> int:
         "placebo-re75": Am + Gm,
         "rob-trim": A + A + G,
         "rob-learners": A + T["linear_outcome_crossfit"] + T["rf_propensity_crossfit"] + T["rf_outcome_crossfit"],
+        "rob-covsets": (T["A_covset_a_propensity_crossfit"] + T["G_covset_a_outcome_crossfit"]
+                        + T["A_covset_b_propensity_crossfit"] + T["G_covset_b_outcome_crossfit"]),
+        "rob-estimators": T["ipw_bootstrap_999"],
+        "rob-diff74": A + G,
+        "sens-imbens": per_point * SENS_POINTS,
         "h2-benchmark": 0.0,
     }
+    ipow_if_triggered = A + G + STARTUP_S   # rob-ipow runs only if its trigger fires
     plan = {k: v + STARTUP_S for k, v in plan.items()}
     total = sum(plan.values())
     # Worst case: rule B1 fails, diag-overlap-ext runs, and B+(X) replaces B(X) in every
     # logistic propensity fit (placebo: B+ restricted to X-, timed here at the B+ cost).
-    worst = total + (Ap + STARTUP_S) + (Ap - A) * 4 + (Ap - Am)
+    worst = total + ipow_if_triggered + (Ap + STARTUP_S) + max(Ap - A, 0) * 6 + max(Ap - Am, 0)
     out = {
         "covariate_source": str(DATA),
         "n": int(len(d)), "n_treated": int(d.sum()), "n_control": int(len(d) - d.sum()),
@@ -196,7 +258,9 @@ def main() -> int:
         "block_seconds": {k: round(v, 2) for k, v in T.items()},
         "projected_run_seconds": {k: round(v, 1) for k, v in plan.items()},
         "projected_total_minutes": round(total / 60, 2),
-        "projected_total_minutes_if_Bplus": round(worst / 60, 2),
+        "projected_total_minutes_if_Bplus_and_ipow": round(worst / 60, 2),
+        "rob_ipow_if_triggered_seconds": round(ipow_if_triggered, 1),
+        "sens_imbens_points": SENS_POINTS,
         "budget_minutes": BUDGET_MIN,
         "within_budget": bool(worst / 60 <= BUDGET_MIN),
         "se_per_unit_outcome_sd": round(se_unit, 4),

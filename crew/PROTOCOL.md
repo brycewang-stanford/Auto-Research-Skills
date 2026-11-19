@@ -108,7 +108,8 @@ The command runs with the workspace as its working directory and must write its 
 as a flat JSON object to the `--metrics` path. The record stores the command, times,
 exit code, and the hash of every code, input and output file. `kind` is `data-prep`
 (allowed any time) or `analysis` (allowed only after the design gate). If a code file
-changes after the run, validation fails until the run is repeated.
+changes after the run, validation fails until the run is repeated. Repeating a run with `--replace` archives the old record, logs and metrics under
+`runs/.superseded/` and logs it, so a superseded result always leaves a trace.
 
 ### Clean rerun
 

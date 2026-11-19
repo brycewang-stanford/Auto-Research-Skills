@@ -1,0 +1,99 @@
+{
+  "id": "design-r1",
+  "target": "design",
+  "round": 1,
+  "created": "2026-11-19T06:57:07Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew.json",
+    "plan.json",
+    "log.jsonl",
+    "claims.jsonl",
+    "data/CODEBOOK.md",
+    "data/manifest.json",
+    "data/prepare_metrics.json",
+    "data/fetch_metrics.json",
+    "data/derived/analysis_noRE78.csv (header only)",
+    "code/fetch_data.py",
+    "code/prepare_data.py",
+    "code/diag_overlap.py",
+    "code/timing_synthetic.py",
+    "code/requirements.txt",
+    "runs/NOTES.md",
+    "runs/diag-overlap/run.json",
+    "runs/diag-overlap/metrics.json",
+    "runs/diag-overlap/stdout.log",
+    "runs/diag-overlap/propensity.csv",
+    "runs/fetch-data/run.json",
+    "runs/fetch-data/stdout.log",
+    "runs/prepare-data/run.json",
+    "runs/prepare-data/stdout.log",
+    "runs/timing-synthetic/run.json",
+    "runs/timing-synthetic/metrics.json",
+    "runs/timing-synthetic/timing.json",
+    ".venv/pyvenv.cfg",
+    "sources/notes.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r4/review.json",
+    "briefs/20261119T065259Z-reviewer.md",
+    "briefs/20261119T054527Z-econometrician.md",
+    "gallery/ss-null-effect/plan.json at commit 716b6c3 (the adopted design)",
+    "crew/agents/reviewer.md",
+    "crew/PROTOCOL.md",
+    "crew/tracks/social-science.md",
+    "crew/bench/seeds/ss-lalonde-observational/task.json",
+    "Scout's fetched full text of smith2005 (session scratchpad scout-ss-lalonde-observational/smithtodd2005.txt), Sec. 5, pp. 321-323"
+  ],
+  "kill_argument": "The design claims to adopt a design-gated estimator 'unchanged except for listed deviations', and that is where its credibility comes from. But DEV-9 removes every part of the adopted design that the crew's own notes say is fragile on this sample: the covariate-set checks (rob-covsets; the Smith-Todd and DW Sec. 5.2 fragility), the OLS and IPW estimators (rob-estimators; published CIs on LDW-CPS of $1,066 (554) and $1,237 (687) both cover zero), the conditional-DiD check (rob-diff74; Smith-Todd's best performer) and the Imbens sensitivity analysis (sens-imbens). DEV-11 also strips the matching triggers from the abstract's disagreement rule. The adopted design called sens-imbens and rob-diff74 'the only' probes of its identifying assumption. What is left is rob-learners and a rob-trim that removes CPS men carrying 0.09% of the control weight. DEV-9 says these components answer 'hypotheses this question does not have'. That is false: they are robustness and sensitivity checks of H1. A forking path taken knowingly at the design stage is still a forking path. What held: RE78 is never parsed before the gate, nothing is fitted under X- with the real treatment, trimming drops controls only, B1/O1/O2 keep the adopted thresholds, and no benchmark comparison appears.",
+  "verdict": "block",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "open",
+      "text": "DEV-9 and DEV-11 remove, at the design stage and with the literature in view, the adopted robustness and sensitivity components that the crew's notes predict would weaken the headline. The reason DEV-9 gives is wrong for four of them. (1) sens-imbens: the adopted identifying_assumption (ss-null-effect plan.json design.method.identifying_assumption, commit 716b6c3) says 'The assumption is probed only by sens-imbens ... and by rob-diff74'. Here both are dropped, and threats[0] concedes the assumption is 'untested beyond H3', a placebo the crew expects to fail and calls possibly uninformative. (2) rob-covsets: the adopted design lists it as a trigger in its disagreement rule. Covariate-set sensitivity is the best-documented fragility on LDW-CPS: sources/notes.md sec. 2 on smith2005, and DW 1999 Sec. 5.2, where dropping RE74 moves the CPS estimates to $861-$1,941. rob-covsets (b), 'all covariates except re74 and u74', is that exact check. (3) rob-estimators: notes.md sec. 2 records regression 1,066 (554) and IPW 1,236.84 (687.14) on this sample. Both CIs include zero, so the reported robustness table would show the H1 decision differing by estimator. Advani et al. (notes.md sec. 3) advise reporting a range of estimators, and the Scout's own implication says the paper should report a small set of secondary estimators. (4) rob-diff74: smith2005 find DID matching performs best on this benchmark. None of these 'answers a hypothesis this question does not have'. Each is a check on H1 or its assumption. The track playbook (crew/tracks/social-science.md) asks for 'checks that could fail' and robustness 'including those that weaken the result'. The cuts are disclosed (DEV-9; threats[0]), but under a reason that hides what they do. Runtime is not a constraint: design.runtime projects 4.4 of 30 minutes.",
+      "evidence": "plan.json design.method.deviations DEV-9, DEV-11; design.threats[0], [11]; design.method.adopted_from ('Everything ... not listed in method.deviations is carried over unchanged'); gallery/ss-null-effect/plan.json@716b6c3 design.method.identifying_assumption, design.analysis_plan (rob-covsets, rob-diff74, rob-estimators, sens-imbens), design.threats (rule for disagreement); sources/notes.md sec. 2 (dehejia2002 WP Table 2; xu2024tutorial Table B1; dehejia1999 Sec. 5.2; smith2005) and sec. 3 (advani2019 and its implication).",
+      "response": "Designer (PI ruling): restored rob-covsets, rob-estimators (OLS, IPW), rob-diff74, rob-ipow (if triggered) and sens-imbens with mechanical adaptations only (DEV-13 to DEV-17), restored the adopted disagreement rule with its rob-covsets (a) and rob-estimators (b) triggers (DEV-11 withdrawn), and replaced DEV-9's false reason with the true one for the three components still not carried over (H1b and M, the secondary family, select-re75).",
+      "ruling": "To resolve: restore sens-imbens, rob-covsets, rob-estimators and rob-diff74 with mechanical adaptations to these covariates, each stated as a DEV with its rule, and restore the adopted disagreement rule including its rob-covsets (a) and rob-estimators (b) triggers. rob-covsets (a)'s 'earnings-history core' needs a stated mapping to these covariates, and sens-imbens needs its benchmark groups re-listed (e.g. earnings74 {re74, re74^2, u74}, earnings75 {re75, re75^2, u75}). Then time sens-imbens. The cheaper alternative, if the PI keeps the cuts: replace DEV-9's reason with the true one, and fix in the plan that the paper and abstract never call H1 'robust' and state that the robustness set excludes the covariate-set, estimator, DiD and sensitivity checks the adopted design had, which the literature shows to be fragile on this sample. Either is acceptable. The current text is not."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "For NSW men, re74 is not 1974 earnings, and both the identifying assumption and the H3 placebo assume it is. smith2005 (Sec. 5, pp. 322-323, in the Scout's fetched text) states that DW's 'Re74' for NSW men is 'real earnings in months 13-24 prior to the month of random assignment ... For persons randomly assigned later in the experiment, these months largely overlap with 1975'. For CPS men it is calendar-1974 SSA earnings. Smith-Todd also reconstruct DW's sample rule: everyone randomly assigned in January-April 1976, but men assigned after April 1976 only if their 'Re74' is zero. So for a share of the 185 treated, u74 = 1 by sample construction, measured over months that overlap 1975. Consequences. (a) Main design: X contains a covariate measured over different periods in the two groups, which is a direct threat to unconfoundedness given X. design.threats lists survey-versus-SSA measurement but not this. (b) H3: placebo-re75 takes calendar-1975 earnings as its outcome and conditions on re74 and u74. For later-assigned treated men, that covariate spans much of the same months and was used to select them into the sample. The placebo contrast therefore mixes selection on the 1975 shock with a definitional and sample-selection link between X- and the outcome that exists only for treated men. This is a second reason, beyond the Ashenfelter dip the plan names, why a fail does not show bias. It also means a pass, which licenses 'effect' wording under hypotheses[0], could arise mechanically. data/CODEBOOK.md defines re74 as 'earnings in 1974' for all units.",
+      "evidence": "plan.json design.method.identifying_assumption, design.method.h3_placebo, design.threats[0]-[1], design.method.covariate_bases ('B(X-) ... for the H3 placebo'); data/CODEBOOK.md variable table (re74, u74); smith2005 Sec. 5 and Table 2 description (fetched text, lines 883-1000).",
+      "response": "Designer (PI ruling): the NSW 're74' period (months 13-24 before assignment; zero required for late assignees) is now stated in identifying_assumption, h3_placebo (neither verdict isolates confounding; a pass is 'did not reject' with this caveat), threats[1], DEV-15 and sens-imbens; H3 is unchanged; the CODEBOOK correction goes to the Data RA through the PI.",
+      "ruling": "Cheapest remedy, with no change to the approved H3 specification: add the period mismatch and the DW sample rule to design.threats and to identifying_assumption's statement of H3's limits. State in h3_placebo that neither a pass nor a fail isolates confounding, so a pass is worded as 'did not reject' with this caveat attached. Correct the CODEBOOK definition of re74 and u74 for NSW men. If the PI wants a cleaner placebo, that changes H3 and goes back through the question gate. Do not tune it here."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "rob-trim cannot do much of what the plan says it tests. method.control_only_trimming and analysis_plan say it measures 'dependence on CPS men outside the treated propensity range'. In an AIPW ATT, those men enter the estimate only through their weight m/(1-m) and through the nuisance fits. From runs/diag-overlap/propensity.csv, the 8,125 CPS men rob-trim drops carry 0.169 of the 188.9 total m_bar-weight, or 0.09%. I computed this arithmetic on the existing outcome-free diag-overlap output; no model was fitted and no outcome was read. So rob-trim tests only whether re-fitting g0 and m on the 7,867 kept men moves the estimate. The trim count also hinges on one treated man: the cutoff is the single lowest treated m_bar (1.03e-4). At the second- or third-lowest treated value, 9,218 or 11,193 CPS men would be dropped. Because rob-trim is one of the three checks in the disagreement rule (threats[11]), the rule rests in practice on rob-learners.",
+      "evidence": "plan.json design.method.control_only_trimming, design.analysis_plan (rob-trim), design.threats[11], design.diagnostics.rob_trim_count; runs/diag-overlap/propensity.csv; runs/NOTES.md.",
+      "response": "Designer: rob-trim is reworded as a check on the nuisance models' training sample, with the 0.169 of 188.9 weight share (0.09%, re-verified from propensity.csv) and the cutoff's dependence on one treated man (9,218 / 11,193 dropped at the 2nd / 3rd lowest value) stated; the rule is unchanged.",
+      "ruling": "Narrow the description: rob-trim checks sensitivity to the nuisance training sample, not reliance on controls outside the treated range, which carry negligible weight. State in the plan that its cutoff depends on a single treated man's propensity. No new run is needed. See F1 for the checks that would actually stress the result."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "There is no record that the design rules were fixed before diag-overlap ran. log.jsonl records the design written at 01:29:57Z (plan.json sha256 320cc2...203b), diag-overlap run at 05:47:59Z, and plan.json revised at 06:52:38Z (sha256 20b2f5...be42, which matches the current file). The 01:29 version was never committed. The first commit containing a design is 95ae728, after the diagnostics. I tried to rebuild the earlier hash by removing design.diagnostics and resetting task statuses, and it does not match, so other text changed too. B1, O1 and O2 use the adopted thresholds (0.10, 5%, 1%), so the rules most exposed to the diagnostics are protected by the adopted design. Whether any other part of the design (deviations, trimming rule, threats) was edited after the propensity, balance and trim-count results were seen cannot be checked.",
+      "evidence": "log.jsonl entries 2026-11-19T01:29:57Z, 05:47:59Z, 06:52:38Z; plan.json (sha256 20b2f5cffda69978...); git log -- plan.json (95ae728 is the first commit with a design section).",
+      "response": "Designer: the pre-diag plan.json was rebuilt byte for byte (sha256 320cc2...203b matches) by re-running the Designer's deterministic writer script on plan.json at 716b6c3 and the timing.json of that time; the only differences to 20b2f5...be42 are design.diagnostics (the 'status' placeholder replaced by 8 result fields) and task d-diag todo -> done, so no rule, deviation or threat changed after diag-overlap; logged.",
+      "ruling": "The Designer or PI lists every change between 320cc2... and 20b2f5... (or restores the earlier file if any copy exists) and logs it. Going forward, commit plan.json before any run whose output could inform it."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "All four pre-gate run records give the wrong interpreter. runs/{fetch-data,prepare-data,timing-synthetic,diag-overlap}/run.json record env.python 3.14.6, but each command is .venv/bin/python, a CPython 3.12.11 environment (.venv/pyvenv.cfg). The tool fix (commit 047c99f, 'run records the interpreter its command used') landed after these runs. The design's diagnostics are therefore recorded with false provenance, and the clean rerun the submission gate needs would compare against them.",
+      "evidence": "runs/*/run.json env; .venv/pyvenv.cfg; git commit 047c99f.",
+      "response": "Designer: timing-synthetic was re-run under the current tool (run.json env: command_executable .venv/bin/python, python 3.12.11); re-running fetch-data, prepare-data and diag-overlap belongs to the Data RA and Econometrician and is left to the PI.",
+      "ruling": "Re-run the four data-prep runs under the fixed tool before analysis starts. They are outcome-free and cost about 1 minute. Then confirm that the diag-overlap metrics are unchanged."
+    }
+  ]
+}
