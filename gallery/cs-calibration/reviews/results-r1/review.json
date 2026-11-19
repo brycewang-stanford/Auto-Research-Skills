@@ -1,0 +1,121 @@
+{
+  "id": "results-r1",
+  "target": "results",
+  "round": 1,
+  "created": "2026-11-19T08:11:35Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/cs.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/cs-calibration/task.json",
+    "/Users/brycewang/Auto-Research-Skills/crew/scripts/crew.py (review validation, ID_RE)",
+    "briefs/20261119T080143Z-reviewer.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/code-r1/review.json",
+    "plan.json (hypotheses, contribution, design.method steps 1-14, analysis_plan, threats, tasks, gates, disclosures)",
+    "plan.json at git 3c9ad4d and e0b9816 (structural diff; sha256 reconstruction of bee7499f)",
+    "log.jsonl",
+    "runs/NOTES.md",
+    "runs/*/run.json (all 8)",
+    "runs/main/metrics.json",
+    "runs/h-tests/metrics.json",
+    "runs/describe/metrics.json",
+    "runs/sens-ncal/metrics.json",
+    "runs/sens-elec-time/metrics.json",
+    "runs/.superseded/ (listing)",
+    "results/cells.csv",
+    "results/htests.csv",
+    "results/describe_summary.csv",
+    "results/describe_paired.csv",
+    "results/sens_elec_time_cells.csv",
+    "results/sens_elec_time_tests.csv",
+    "results/sens_ncal_tests.csv (via metrics)",
+    "results/main_timing.json",
+    "results/preds/main/*.npz (40 files)",
+    "claims.jsonl (all 385)",
+    "paper/numbers.tex (head)",
+    "code/analyze.py",
+    "code/experiment.py (function index; ece, equal_mass_bins, brier imported)",
+    "git diff 3c9ad4d..e0b9816 code/experiment.py code/describe.py"
+  ],
+  "kill_argument": "The only 'holds' for H1 and the only 'holds' for H2a both come from electricity, a half-hourly time series split at random. The check the design assigned to that leak, sens-elec-time, cannot answer the question. Under the chronological split every model's uncalibrated ECE is 0.17-0.33 (0.02-0.05 under random splits). Recalibrating on the calibration quarter makes LR worse (Brier 0.202 to 0.253), and HGB's Brier starts at 0.327. So its 'H2a contradicted' and 'H2b holds (-0.078)' measure drift from the calibration quarter to the test quarter, confounded with the fill regime and with date extrapolation. They do not measure leakage. The absolute levels that show this were computed but left out of claims.jsonl. The overall verdicts do not hinge on electricity (H1 is contradicted on bank-marketing and phoneme; H2a is inconclusive either way), so the remedy is narrowing, not rejection. What I attacked that held: all 16 categories and 4 overall verdicts recomputed from cells.csv; all five analysis scripts re-executed in scratch, every output byte-identical; ledger order (F1 fix and plan narrowing before main); H1 against the estimator floor (floor-adjusted intervals still contradicted); precedence for H2b; ece_db never used as a licence.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "code-r1.F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Carried from code-r1 F1 (main would crash on the constant one-hot width assertion). Fixed before any analysis run. experiment.summarize_main and describe.describe record width min and max and no longer assert it constant. The diff 3c9ad4d..e0b9816 touches only width bookkeeping and the describe() refactor, with no metric code. A single-row-level unit test was added. unit-tests was rerun with --replace (run.json started 2026-11-19T07:42:47Z, 33/33), and the old record is archived under runs/.superseded/unit-tests-20261119T072827Z. main started at 07:43:43Z, after it. On study data adult's width was 106-107, so the old assertion would have failed. main exited 0, and there is exactly one main record with no superseded main.",
+      "evidence": "code/experiment.py summarize_main; code/describe.py describe(); runs/unit-tests/run.json; runs/main/run.json; runs/main/metrics.json width_min_adult 106, width_max_adult 107; log.jsonl 07:43:10Z-07:44:09Z",
+      "response": "",
+      "ruling": "Resolved: fixed in the files and run in the right order."
+    },
+    {
+      "id": "code-r1.F2",
+      "severity": "major",
+      "status": "conceded",
+      "text": "Carried from code-r1 F2 (ece_db removes only about 41% of a calibrated bin's floor, so 'replication where ece_db agrees' was close to automatic). The claim was narrowed instead. hypotheses[0] now says 'never called a replication; the debiased ECE is reported descriptively'. design.method step 8 and threats[0] state the 2 - sqrt(2) ratio, and the replication licence is removed from the contribution. The disclosure is in plan.json disclosures[2]. The narrowing was logged at 07:41:34Z (plan sha256 bee7499f), before main. The current plan.json (sha256 cff3831b) differs from bee7499f only in five task statuses (e-main through e-sens-elec set to done); I verified this by resetting them and reproducing bee7499f byte for byte. The H1 metric, margin and rule are unchanged, and analyze.py uses ece for H1 and ece_db only as h1db. No claim and no NOTES line calls H1 a replication. Every h1db claim says 'Sensitivity (a), descriptive, never changes the H1 verdict' and carries the 41% caveat.",
+      "evidence": "plan.json hypotheses[0], contribution, design.method step 8, threats[0], disclosures[2]; log.jsonl 2026-11-19T07:41:34Z plan-narrowed; code/analyze.py HYPOTHESES; claims.jsonl r-h1db-*",
+      "response": "",
+      "ruling": "Conceded: claim narrowed before any analysis run, as recommended."
+    },
+    {
+      "id": "code-r1.F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from code-r1 F3 (isotonic on the logit is not isotonic on the probability between calibration points). design.method step 7 now says the two are equal only at the calibration points and that scikit-learn interpolates linearly in the logit between them, and that the paper describes the calibrator that way. No code changed.",
+      "evidence": "plan.json design.method step 7; disclosures[2] item (3)",
+      "response": "",
+      "ruling": "Resolved: wording fixed in plan.json."
+    },
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "Sensitivity (c) cannot do what analysis_plan[8] says it does ('show whether random-split temporal leakage drives the electricity results'). The claims report its categories without the numbers that show why. Electricity supplies the only H1 'holds' (+0.0270) and the only H2a 'holds' (-0.0028). Under the chronological split, every uncalibrated model is badly miscalibrated: ECE 0.168 (LR), 0.169 (RF), 0.334 (HGB), against 0.022, 0.049 and 0.028 under random splits. AUC drops to 0.83-0.84 from 0.94 for RF and HGB. Recalibration fitted on the calibration quarter makes LR worse on the test quarter (Brier 0.202 none, 0.251 Platt, 0.253 isotonic; ECE 0.168 to 0.262), so the calibration and test quarters differ in distribution. Three things change at once. (i) The Victoria fill rows sit only in train (7,642-7,753; calibration and test have 0), which threats[4] discloses. (ii) The normalised date column is a feature, and the test quarter's dates lie beyond most of the training range. (iii) The calibration quarter and the test quarter differ. 'H2a contradicted' (+0.0265 [+0.0209, +0.0322]) and 'H2b holds' (-0.0782 [-0.1013, -0.0551]) therefore measure whether isotonic fitted on the calibration quarter happens to move a badly shifted model toward the test quarter. They do not measure whether random-split leakage inflates main's electricity results. The per-model chronological levels are in runs/sens-elec-time/metrics.json (electricity_time_<model>_<cal>_<metric>_mean) but none is in claims.jsonl, so the Writer cannot state them with a macro, and a reader of the claims sees only the categories. The cheapest remedy is to narrow, with no new run. (a) Add claims for the chronological none and isotonic ECE, Brier and AUC per model, and for LR's Brier rise under recalibration. (b) Reword the r-h*_time-electricity-* claims and NOTES: under the chronological split all three models are miscalibrated by 0.17-0.33 ECE, the calibration and test quarters are shifted, and the run therefore cannot tell whether main's electricity 'holds' come from random-split leakage. (c) The paper says plainly that the leakage question for electricity is open. The overall verdicts do not depend on it: H1 stays contradicted and H2a stays inconclusive if electricity is dropped.",
+      "evidence": "runs/sens-elec-time/metrics.json electricity_time_*_mean and n_vicfill_*; results/sens_elec_time_cells.csv (per-model means, seed-level RF Brier); results/sens_elec_time_tests.csv; claims.jsonl r-h1_time-*, r-h2a_time-*, r-h2b_time-* (no claim on chronological levels); plan.json analysis_plan[8], threats[3], threats[4], design.method step 1 (date kept as a feature); runs/NOTES.md 'Things that surprised me' item 4",
+      "response": "Added claims r-time-<model>-<cal>-{ece,brier,auc}-{mean,sd} (incl. LR Brier 0.2018 none -> 0.2509 Platt -> 0.2531 isotonic) from sens-elec-time metrics; r-h*_time-* texts and NOTES now say the chronological split measures calibration-to-test-quarter drift mixed with the fill regime, the leakage question stays open, and state exactly which overall verdicts depend on electricity (H1 no; H2a cannot be supported without it; H2b's 'no difference' needs it).",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "open",
+      "text": "sens-ncal reports an overall k-of-4 verdict for H2a ('contradicted') and H2b ('inconclusive') as claims r-h2a-ncal-overall and r-h2b-ncal-overall. The plan asks only that 'H2a and H2b categories [be] recomputed' (analysis_plan[7], design.method step 12(b)), not for an overall verdict. That verdict mixes three refits on 1,351 calibration rows with phoneme's main cells. The H2a 'contradicted' rests on mean increases of +0.00087 (adult) and +0.00084 (bank-marketing), whose intervals [+0.00054, +0.00121] and [+0.00056, +0.00112] cross the 0.001 margin only at their upper end. Each claim is labelled verdict-neutral, but an overall 'contradicted' is the most quotable sensitivity number and is a post hoc aggregation. Remedy: drop the two overall claims, or relabel them as an aggregation not in the plan, and report the per-dataset categories with their intervals.",
+      "evidence": "claims.jsonl r-h2a-ncal-overall, r-h2b-ncal-overall; runs/sens-ncal/metrics.json h2a_ncal_*_lo/hi, h2b_ncal_adult_lo/hi; plan.json analysis_plan[7], design.method step 12(b); runs/NOTES.md results table rows 'n_cal = 1,351'",
+      "response": "Kept r-h2a-ncal-overall and r-h2b-ncal-overall but labelled them 'UNPLANNED AGGREGATION' in the claim text and NOTES, with the per-dataset intervals reported beside them.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "Spread and bin counts were computed but are not claimed. (a) All 240 describe claims are seed means. None of the 72 *_sd metrics in runs/describe/metrics.json, or the per-cell SDs in results/describe_summary.csv, is a claim. task.json requires that 'Results report mean and spread across seeds', and the cs track asks for mean and SD for every configuration. (b) threats[1] promises that 'ece_bins is reported per cell'. Uncalibrated RF uses 13 non-empty bins on adult and phoneme and 11.1 on bank-marketing, against LR's 15, so H1's two arms are scored on different numbers of bins. No ece_bins claim exists. Remedy: add SD claims, at least for every cell in the main table, or state that the table is generated from describe_summary.csv with its sd column. Add claims for RF-none ece_bins per dataset.",
+      "evidence": "runs/describe/metrics.json *_sd (72 keys), *_rf_none_ece_bins_mean; results/describe_summary.csv sd column; claims.jsonl (no *_sd or ece_bins metric among 354 result claims); plan.json threats[1]; task.json requirements[3]",
+      "response": "Added an SD claim (r-sd-*) for every describe seed-mean claim and ece_bins claims r-bins-<ds>-<model>-none (RF 13.0/11.1/13.0 vs LR 15 on adult/bank/phoneme).",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "Two readings that the claims allow but the evidence does not support. (a) H1 'contradicted' comes from LR's own miscalibration, not from RF being well calibrated. On bank-marketing LR none has ECE 0.031 (ece_db 0.030). On phoneme it has ECE 0.063 (ece_db 0.055), Platt leaves it at 0.063, and LR's AUC is 0.81 against RF's 0.95: a linear model that is misspecified on a nonlinear problem. RF none still has ECE 0.016 and 0.037 there, and isotonic lowers RF's ECE on all four datasets. My floor check (below) confirms that the contradiction is not a floor artefact, but what it shows is 'default LR was worse calibrated than default RF on these two datasets'. It does not show 'RF is well calibrated'. (b) H2b 'no difference' covers intervals that lie wholly on both sides of zero. On adult, [+0.00008, +0.00042] means isotonic raised HGB Brier on 9 of 10 seeds. On bank-marketing and electricity the intervals lie wholly below zero. All are inside +/-0.001. Under the pre-registered precedence the category is correct, but it means 'a change smaller than 0.001 Brier', not 'no effect'. Remedy: wording in the r-h1-overall and r-h2b-overall claim texts and in the paper. No new run.",
+      "evidence": "results/cells.csv (lr/rf none and platt ece, ece_db, auc means by dataset); runs/h-tests/metrics.json h2b_*_lo/hi; claims.jsonl r-h1-overall, r-h2b-overall, r-h2b-adult-cat; reviewer scratch calib-reviewer3/floor.py (floor-adjusted H1: bank-marketing -0.0139 [-0.0153, -0.0124], phoneme -0.0142 [-0.0222, -0.0062])",
+      "response": "r-h1-overall now says the contradiction reflects default LR's own miscalibration (phoneme LR ECE 0.063 not reduced by Platt, AUC 0.81 vs RF 0.95) and not that RF is well calibrated; r-h2b-overall and the H2b category claims say 'no difference' means inside +/-0.001 even where the interval excludes zero.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "Bookkeeping. (a) plan.json now hashes to cff3831b..., and no log line records it. The last logged sha256 is bee7499f (07:41:34Z). I confirmed that the only difference is the five task statuses, but the ledger should say so. (b) Task e-tests still says 'H1 on ece_adj as sensitivity', although ece_adj was replaced by ece_db before any run. Tasks rv-design, g-design and rv-code are still 'todo' although those reviews and the design gate are done. (c) runs/NOTES.md says the runs were 'run once … none was repeated', while its own table records that unit-tests was rerun with --replace. Otherwise NOTES matches the ledger: every interval, category, sensitivity row, CPU time (2.55 min, 23 s wall), width and vicfill count I checked equals the run metrics. Remedy: one crew.py log line with the current plan sha256, the task titles and statuses corrected, and the NOTES sentence corrected.",
+      "evidence": "plan.json tasks e-tests, rv-design, g-design, rv-code; log.jsonl last designer line (bee7499f); shasum plan.json = cff3831b28b1924cfb9d384c18fc0be53674a4ed6e2c0123a5cb7000b00c2037; runs/NOTES.md Status paragraph",
+      "response": "NOTES corrected (unit-tests was rerun once with --replace before main); task e-tests title says ece_db; rv-design, g-design, rv-code set done; new plan sha256 logged.",
+      "ruling": ""
+    }
+  ]
+}

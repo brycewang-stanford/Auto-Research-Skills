@@ -2,8 +2,10 @@
 
 ## Status (2026-11-19 UTC)
 
-Every planned run is done. All of them were run once, in the planned order, with the commands
-below, and none was repeated or changed after its results were seen.
+Every planned run is done, in the planned order, with the commands below. The five analysis runs
+each ran once and were not repeated or changed after their results were seen. The data-prep run
+`unit-tests` ran twice: the second time with `--replace`, after the code-r1 F1 fix and before
+`main`. The first record is archived under `runs/.superseded/`.
 
 | Order | Run id | Kind | Status |
 |---|---|---|---|
@@ -25,9 +27,38 @@ below, and none was repeated or changed after its results were seen.
 | **H2a** Brier RF iso − none (pred. < 0, margin 0.001) | +0.0003 [−0.0001, +0.0007] no difference | −0.0000 [−0.0003, +0.0002] no difference | −0.0028 [−0.0030, −0.0025] holds | −0.0007 [−0.0018, +0.0005] inconclusive | **inconclusive** |
 | **H2b** Brier HGB iso − none (pred. < 0, margin 0.001) | +0.0002 [+0.0001, +0.0004] no difference | −0.0005 [−0.0008, −0.0002] no difference | −0.0004 [−0.0007, −0.0002] no difference | +0.0006 [−0.0001, +0.0014] inconclusive | **no difference** |
 | H1 on ece_db (sens. a, descriptive) | holds | contradicted | holds | contradicted | contradicted |
-| H2a, n_cal = 1,351 (sens. b) | contradicted | contradicted | holds | (main) inconclusive | contradicted |
-| H2b, n_cal = 1,351 (sens. b) | contradicted | no difference | no difference | (main) inconclusive | inconclusive |
+| H2a, n_cal = 1,351 (sens. b) | contradicted [+0.0005, +0.0012] | contradicted [+0.0006, +0.0011] | holds | (main) inconclusive | (unplanned aggregation: contradicted) |
+| H2b, n_cal = 1,351 (sens. b) | contradicted | no difference | no difference | (main) inconclusive | (unplanned aggregation: inconclusive) |
 | Electricity chronological (sens. c) | H1 inconclusive [−0.0100, +0.0116]; H2a contradicted [+0.0209, +0.0322]; H2b holds [−0.1013, −0.0551] | | | | not counted |
+
+How to read the rows above (results-r1):
+- **Sensitivity (b) overall.** The plan asks only for per-dataset categories. The overall entries
+  are an unplanned aggregation and are labelled that way in their claims. Adult's and
+  bank-marketing's H2a 'contradicted' rest on mean rises of about 0.0009 Brier, whose intervals
+  cross the 0.001 margin only at their upper ends.
+- **Sensitivity (c), electricity chronological.** Under the chronological split, all three
+  uncalibrated models are badly miscalibrated on the test quarter. ECE is 0.168 for LR, 0.169 for
+  RF and 0.334 for HGB, against 0.022, 0.049 and 0.028 under random splits. Recalibration fitted on
+  the calibration quarter can make the test quarter worse: LR's Brier is 0.202 with no
+  recalibration, 0.251 with Platt and 0.253 with isotonic. The run therefore measures drift from the
+  calibration quarter to the test quarter, mixed with the Victoria fill regime (every fill row is in
+  train) and with test-quarter normalised dates lying beyond most of the training range. It does not show whether
+  random-split leakage drives main's electricity results. **That question remains open.**
+- **What depends on electricity.** H1's 'contradicted' does not: it is contradicted whatever
+  electricity's category, because bank-marketing and phoneme are contradicted. H2a is not supported
+  without electricity, because electricity is its only 'holds'. H2b's 'no difference' does depend on
+  electricity, which is one of the three 'no difference' datasets that verdict needs.
+- **H1 'contradicted'.** It reflects default LR's own miscalibration on bank-marketing (ECE 0.031)
+  and phoneme (ECE 0.063, not reduced by Platt; AUC 0.81 against RF's 0.95). It does not show that
+  RF is well calibrated. Uncalibrated RF also scores ECE on fewer non-empty bins: 13 on adult and
+  phoneme and 11.1 on bank-marketing, against LR's 15.
+- **H2b 'no difference'.** It means each interval lies inside ±0.001 Brier, not that isotonic had
+  no effect. Adult's interval lies wholly above 0, and bank-marketing's and electricity's wholly
+  below 0.
+
+Claims now also cover the seed SD of every reported mean, the ece_bins of each uncalibrated model,
+and the chronological per-model levels (mean and SD of ECE, Brier and AUC for none, Platt and
+isotonic). That makes 576 result claims.
 
 Every number above is a claim in `claims.jsonl` with a macro in `paper/numbers.tex`. There are
 354 result claims: every per-dataset mean, lo, hi and category, the overall codes, both

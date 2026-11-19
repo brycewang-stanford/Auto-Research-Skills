@@ -258,3 +258,58 @@ Things I ran: no model and no estimate on study data, and data/raw was not opene
 reran code/test_metrics.py with cwd in reviewer scratch (32/32 pass; the workspace runs/
 was untouched). I ran a synthetic width demo and a synthetic ece_db sign simulation
 (calib-reviewer2/width_demo.py, ecedb_sign.py) and crew.py validate (OK).
+
+## results-r1 (2026-11-19 UTC), verdict: revise (0 critical, 1 major, 4 minor open)
+
+Status of code-r1 findings: F1 resolved (width min/max; unit-tests --replace at 07:42:47Z
+before main at 07:43:43Z; adult width 106-107). F2 conceded (narrowing logged at 07:41:34Z,
+sha256 bee7499f, before main; the current plan cff3831b = bee7499f + five task statuses,
+verified by reconstruction). F3 resolved (step 7 wording).
+
+What I checked and found sound: all 16 per-dataset categories and 4 overall verdicts
+recomputed independently from cells.csv (precedence, paired t(9), margins and k-of-4 exact).
+main, analyze, describe, sens_ncal and sens_elec_time re-executed in
+calib-reviewer3/rerun; every CSV and metrics file is byte-identical. ece and brier
+recomputed from the .npz files equal cells.csv exactly. lr_nonconverged 0, hgb n_iter
+100/100, 2.55 CPU-min. No claim says replication. h1db is labelled descriptive everywhere.
+H1 floor check (calib-reviewer3/floor.py, analytic floor sum_k p_k sqrt(2/pi)
+sqrt(y_k(1-y_k)/n_k)): the floor difference is -0.0009 on bank-marketing and -0.0121 on
+phoneme. The floor-adjusted intervals stay contradicted (bank-marketing -0.0139
+[-0.0153, -0.0124], phoneme -0.0142 [-0.0222, -0.0062]), so H1 is not a floor artefact.
+LR is genuinely miscalibrated there (ece_db close to ece).
+
+New:
+- F1 (major): sens-elec-time is degenerate. The chronological split gives ECE 0.17-0.33
+  for every model, and recalibration makes LR worse (Brier 0.202 to 0.253), so it
+  measures drift from the calibration quarter to the test quarter (plus the fill regime
+  and date extrapolation), not leakage. Its H2a 'contradicted' and H2b 'holds' (-0.078)
+  are claimed, but the absolute levels are not. Electricity carries the only H1 'holds'
+  and the only H2a 'holds'. Remedy: narrow the claims and add the level claims.
+- F2 (minor): the sens-ncal overall k-of-4 verdicts are not in the plan.
+- F3 (minor): no SD claims and no ece_bins claims (RF none 11-13 bins against LR 15).
+- F4 (minor): H1 contradicted reflects LR's miscalibration (phoneme AUC 0.81), not RF
+  being well calibrated. H2b 'no difference' covers intervals that exclude 0 on both
+  sides.
+- F5 (minor): no log line for the plan sha; stale task titles and statuses
+  (ece_adj; rv-*); a NOTES sentence says 'none was repeated'.
+
+Suspicions carried forward:
+- At the paper stage, watch whether electricity's 'holds' or the sens (c) H2b -0.078 is
+  used as evidence that isotonic helps gradient boosting under drift.
+- Watch that the abstract does not say 'RF is well calibrated' or 'isotonic has no
+  effect on HGB'.
+- Watch that the floor-adjusted H1 numbers in this memory do not enter the paper as
+  findings. They are my post hoc check; if the crew wants them, they must be a logged,
+  labelled post hoc run.
+- Replication: main_timing.json is an output but not a metric, so a rerun is unaffected.
+  results/preds is git-ignored and is rebuilt by main.
+
+Check next time (results-r2):
+- F1: new claims for the chronological per-model levels, reworded r-h*_time-* texts and
+  NOTES, crew.py validate OK, and no new run needed (the metrics already exist).
+- F2-F5: the claims and plan bookkeeping, with a log line holding the plan sha256.
+
+Things I ran: crew.py validate (OK, also --strict) and status. I recomputed the decision
+rule from results/cells.csv. I re-executed all five analysis scripts in reviewer
+scratch, a copy of code/ plus data/raw CSVs and the manifest; the workspace was not
+touched. I ran a post hoc analytic-floor check on results/preds/main (calib-reviewer3/floor.py).

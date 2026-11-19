@@ -68,13 +68,13 @@
       "id": "rv-design",
       "title": "Review the design (target 'design') before the design gate",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "g-design",
       "title": "Request the design gate after the design review",
       "owner": "pi",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-code",
@@ -92,7 +92,7 @@
       "id": "rv-code",
       "title": "Review the experiment code against design.method before any analysis run (target 'code')",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-main",
@@ -102,7 +102,7 @@
     },
     {
       "id": "e-tests",
-      "title": "Run h-tests: H1 (ECE), H2a and H2b (Brier) paired t(9) intervals, per-dataset categories and overall verdicts; H1 on ece_adj as sensitivity",
+      "title": "Run h-tests: H1 (ECE), H2a and H2b (Brier) paired t(9) intervals, per-dataset categories and overall verdicts; H1 on ece_db as sensitivity",
       "owner": "experimenter",
       "status": "done"
     },
