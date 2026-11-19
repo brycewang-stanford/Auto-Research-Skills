@@ -1,0 +1,91 @@
+{
+  "created": "2026-11-19T12:52:00Z",
+  "passed": true,
+  "rtol": 1e-06,
+  "atol": 1e-09,
+  "reuse_data": false,
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "runs": [
+    {
+      "run": "fetch-data",
+      "record_sha256": "e1e5ea9dc39a8fac364f2f141bfe62a32f66c67bf8879d04cc46f3feb735193a",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "timing-synthetic",
+      "record_sha256": "c9219742abe4c8403d5c508c27890c8799747dee2ee8b64ebe728d60efc11fe5",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "unit-tests",
+      "record_sha256": "831402bd412a3b748a636902261d040f12d93b10887ea6433c5f3b2f1af89e70",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "main",
+      "record_sha256": "20479eee765e1923e66547a2e0d39df1f42430dc3596c27c7fa04aa53c423032",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "h-tests",
+      "record_sha256": "5324ae6486f72faadd25f44ca2b296d5ae44be025476fcf3ba3fd65349aab2dc",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "describe",
+      "record_sha256": "403133e5942f8a406fda560e269eb85289c83706659890b259cdca28e1451e37",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "sens-ncal",
+      "record_sha256": "882362ab7476bdd8d372e45342996aa15126fd84996bba3b4b7642804a03271d",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "sens-elec-time",
+      "record_sha256": "2114021aaa2a8230bd24b38c43175393a06c5fa67454ba2609efa1c0642dc172",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-decision",
+      "record_sha256": "f0e4ecfc6f7814a853a61a5226af46dd2c4ccc052b9b9889c5a4186bdb46bb91",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-levels",
+      "record_sha256": "09910c0f9177d592e0bd6170ee6e1d15b7d313d43933e253274c052d564aa46c",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-sensitivity",
+      "record_sha256": "800454a266926d109c257811d17a84098c7e69d6f953370a8e87517b58f3cebe",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-reliability",
+      "record_sha256": "f068bd9f074e606697d9c3c63f5c1791fd416799f2656724c091fa33e810ac2d",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-intervals",
+      "record_sha256": "168ccfcbc2510782ed90bb078644010543b2412130576e22b7e722769fc16da5",
+      "exit_code": 0,
+      "status": "match"
+    }
+  ]
+}

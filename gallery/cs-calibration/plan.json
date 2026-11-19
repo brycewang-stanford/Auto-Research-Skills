@@ -146,7 +146,7 @@
       "id": "r-rerun",
       "title": "Clean rerun from code/requirements.txt (crew.py rerun) before submission",
       "owner": "replicator",
-      "status": "todo"
+      "status": "done"
     }
   ],
   "gates": {
