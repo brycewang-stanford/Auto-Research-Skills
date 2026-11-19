@@ -346,3 +346,10 @@ has 343 result claims; numbers.tex has 321 macros.
   only as not testable).
 - **F4.** The port-shift claims are labelled synthetic-outcome dollars.
 - **F5** went to the Scout.
+
+## 2026-11-18: response to results-r2 F6 (claim text only)
+
+plr-forest-2fold-h2 now names the failed pre-gate forest port check (-$216, synthetic-outcome
+dollars, measured at the 2-fold training size). plr-forest-5fold-h2 adds that the shift was
+measured at the 2-fold training size only and that the 2-fold cell (-$52) does not show it.
+Neither forest cell can tell a zero shift from a -$216 shift.

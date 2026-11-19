@@ -321,3 +321,27 @@ Check at round 2 / paper:
 - The paper must not use the lasso's $16/$14 as proof that the port matches.
 - The K = 5 port caveat must appear.
 - The crew.json title still says "raise" (paper stage). The estimand is the PLR coefficient, not the ATE.
+
+## results-r2 (2026-11-19): pass, 0 critical / 0 major / 1 minor open
+
+Status: F1-F5 resolved. F2(b)(c) accepted under the PI ruling (33% and p_outside are plan.json design
+facts fixed before the gate; wall time cited from NOTES, and it agrees with run.json times 16:10:03-
+17:41:56). I checked the timeline rather than taking the ruling on trust. New: F6 (minor): the forest
+port caveat is one-sided. The 5-fold claim says the cell "sits where the port deviation predicts" without
+saying the shift was measured at 2-fold only. The 2-fold cell (diff -$52, $164 from -$216) carries no
+port-FAIL note. Pooled forest diff is about -$160 +/- $85, so neither zero nor -$216 is excluded.
+
+Verified: every typed number in the reworded H2 claims and lasso-spread-discrepancy against the metrics;
+30 pub constants against sources/notes.md Table 2 Panel B; c-hdm-c against hdm_penalty.md; commit
+d9a78ee touched only claims, numbers.tex, NOTES (no code, run or plan). validate and --strict OK.
+Ran no model this round.
+
+Check at paper:
+- 33% and p_outside are labelled pre-analysis design figures from plan.json, never findings. They will
+  be typed literals (no macro); the paper review must check that they match plan.json exactly.
+- Derived numbers typed only in claim text (4.7x/6.7x spread ratio, $164, 1.30 x tolerance) have no
+  macro. The Writer must not type them unless backed by a macro or plan.json.
+- MDS80 next to every pass; "no shift > MDS80 detected", never "reproduced"/"replicates" for H2.
+- Forest: both cells need the port-FAIL caveat; K = 5 needs the "2-fold only" caveat (F6).
+- The lasso $16/$14 must not be called a reproduction (lasso-spread-discrepancy).
+- crew.json title still says "raise". The estimand is the PLR coefficient, not the ATE.
