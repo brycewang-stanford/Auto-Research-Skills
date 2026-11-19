@@ -9,13 +9,15 @@ for the paper's content.
 \begin{itemize}
   \item \textbf{Roles and models.} Every crew role ran on Anthropic Claude through Claude
         Code. The PI role was the main Claude Code session. The Scout, Designer, Data RA,
-        Experimenter, Figures RA, Reviewer and Writer ran as subagents launched from that
-        session. The review records name the model as \texttt{claude-opus-5-5}. The
-        Replicator role, which reruns every run from a clean environment, had not run when
-        this draft was written.
+        Experimenter, Figures RA, Reviewer, Writer and Replicator ran as subagents launched
+        from that session. The review records name the model as \texttt{claude-opus-5-5}.
+        The Replicator reran every logged run (20 runs, a count of the replication ledger)
+        in a fresh environment from the pinned requirements, with the data downloaded again,
+        on the same laptop. Every recorded metric reproduced to a relative tolerance of
+        $10^{-6}$ (\texttt{replication.json}, 2026-11-18).
   \item \textbf{Review.} The Reviewer agent ran 4 rounds on the research question, 3 on the
-        design, 1 on the code and 2 on the results. The paper review comes before the
-        submission gate. Its independence level was \emph{fresh-context}: a new context in
+        design, 1 on the code, 2 on the results and, so far, 1 on the paper. This version
+        answers that paper review, which comes before the submission gate. Its independence level was \emph{fresh-context}: a new context in
         every round, with the same model family as the other roles. The human author chose
         this over a cross-family reviewer. In the last question round the Reviewer still
         recommended revision, with two findings open. The human approved the question gate

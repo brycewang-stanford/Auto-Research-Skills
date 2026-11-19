@@ -100,8 +100,9 @@ datasets. Three ablations probe early stopping, noisy model selection and the tu
 They attribute no mechanism we can interpret: the single test that met the rule is about
 what chance would give, and it changes two things at once.
 
-\paragraph{What this paper adds.} We add a protocol and an honestly reported inconclusive result: a fully logged,
-rerunnable comparison whose per-dataset intervals show how little a study of this size can
+\paragraph{What this paper adds.} We add a protocol and an honestly reported inconclusive result: a fully logged
+comparison, rerun from a clean environment with every metric reproduced
+(Section~\ref{sec:discussion}), whose per-dataset intervals show how little a study of this size can
 resolve. The ordering question stays open. It is not answered in either direction.
 
 % ---------------------------------------------------------------------------
@@ -128,19 +129,27 @@ but it is a constructed data set and does not predict average behaviour on real 
 \paragraph{Boosting against bagging and forests.} The classic comparisons
 \citep{dietterich2000,breiman2001} concern AdaBoost with exponential loss and no shrinkage,
 not log-loss gradient boosting \citep{friedman2001} with early stopping. Dietterich also
-flipped labels before cross-validation, so his test labels were noisy too. An injection
+changed a fraction of all labels to a randomly chosen wrong class before splitting the data
+for 10-fold cross-validation, so his test folds held noisy labels too
+\citep{dietterich2000}. % claims: c-dietterich-noise, c-dietterich-testnoise
+An injection
 study on five class-imbalanced software-engineering datasets recommended random forests for
 noisy data \citep{folleco2008}. \citet{lebaher2020} dispute that recommendation: in their
 benchmark random forests did very well without noise but became among the worst methods
-once noise was added. Their setup differs from ours on every point that bears on H1 and H2.
-Their XGBoost used hinge or squared-error losses rather than log-loss. Hyperparameters were
-fixed, with no tuning budget. Tasks were binary only. The noise rate was scaled by the
-minority-class share, so their ``$\rho=0.4$'' is not 40\% flipped labels. They measured AUC,
-balanced accuracy and Cohen's kappa rather than accuracy. \citet{nawaz2025} found boosting
+once noise was added. % claim: c-lebaher-rf
+Their setup differs from ours on every point that bears on H1 and H2
+\citep{lebaher2020}. % claim: c-lebaher-setup
+Their XGBoost used hinge or squared-error losses (and the symmetric unhinged and ramp
+losses) rather than log-loss. Hyperparameters were fixed, with no tuning budget; their
+logistic regression, for example, used $C = 1.0$. Tasks were binary only. Noise was
+completely at random with equal flip rates for both classes, but the rate was scaled by the
+minority-class share, so their ``$\rho=0.4$'' is an effective flip rate of 0.4 times that
+share, not 40\%. They measured AUC, balanced accuracy and Cohen's kappa rather than accuracy.
+\citet{nawaz2025} found boosting
 models (XGBoost, LightGBM, CatBoost) the most sensitive and random forests moderately
 robust, on 15 OpenML datasets with up to 30\% noise. From their abstract we cannot tell their
-noise model, their tuning, or whether their test folds were clean, and they include no
-logistic regression.
+noise model, their tuning, or whether their test folds were clean. Their seven comparison
+classifiers do not include logistic regression \citep{nawaz2025}. % claims: c-nawaz, c-nawaz-nolr
 
 \paragraph{Gradient boosting alone.} \citet{eisenburger2024} study XGBoost alone and compare
 no other model family. They find gradient-boosted trees naturally robust to label noise,
@@ -572,7 +581,7 @@ seeds are run.
   verdict likely whenever one dataset is underpowered.
   \item \textbf{Interval approximations.} The correction on \bc{} and \cg{} assumes a fixed
   correlation between re-splits. The plain interval on \ad{} ignores the training-row
-  overlap between seeds (about 6\% by design arithmetic) between seeds and is slightly narrow. The single attributed ablation lies on that
+  overlap between seeds (about 6\% by design arithmetic) and is slightly narrow. The single attributed ablation lies on that
   interval.
   \item \textbf{Ablation design.} A2 does not separate model selection from GBDT's
   early-stopping monitor. A1 compares different random candidate lists. Neither can isolate
@@ -584,9 +593,16 @@ seeds are run.
   \item \textbf{Rare classes.} On \ct{} the smallest class has about 5 test rows per seed (by
   design arithmetic),
   and accuracy is dominated by the two largest classes.
-  \item \textbf{Replication pending.} The clean rerun of every run from
-  \texttt{code/requirements.txt}, which must reproduce every metric to a relative tolerance
-  of $10^{-6}$, had not been performed when this draft was written.
+  \item \textbf{Replication: passed, on the same machine.} After the results were final, a
+  clean rerun re-executed every logged run (20 runs, a count of the replication ledger) in a
+  fresh environment built from \texttt{code/requirements.txt} alone, with all three
+  downloaded datasets fetched again from OpenML and figshare. Every recorded metric
+  reproduced to a relative tolerance of $10^{-6}$ (absolute $10^{-9}$), with no mismatch
+  and no failed run (\texttt{replication.json}, 2026-11-18; \texttt{REPLICATION.md}). The
+  rerun used the same laptop and operating system as the original runs, so it shows that
+  the results follow from the logged code, pinned packages and pinned data; it does not
+  show that they are bit-identical on other hardware, operating systems or BLAS builds.
+  Fit times are not metrics and were not compared.
 \end{itemize}
 
 % ---------------------------------------------------------------------------
@@ -656,7 +672,8 @@ boosting with early stopping lost a larger share of its headroom than a random f
 \ct{} alone. The other two informative datasets gave no detectable difference, and the
 fourth was excluded before any noisy run. Logistic regression was not shown to be the most
 robust of the three on any dataset. The ablations attribute no mechanism we can interpret.
-The study's value is the protocol and its fully logged runs. It also gives a concrete
+The study's value is the protocol and its fully logged runs, which a clean rerun
+reproduced metric for metric. It also gives a concrete
 measure of how wide the intervals are at these sample sizes, which a future study of the
 same question should plan for.
 

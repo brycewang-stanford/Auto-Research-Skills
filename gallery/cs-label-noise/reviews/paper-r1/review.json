@@ -54,7 +54,7 @@
    "text": "The paper's contribution is framed as 'a fully logged, rerunnable comparison' (What this paper adds; Conclusion). Yet its Limitations and AI-use statement say that the clean rerun 'had not been performed when this draft was written', and replication.json does not exist yet. The submission gate needs a passing replication.json newer than every run. As written, the paper cannot be released, and both sentences will be false or stale once the Replicator finishes. If any metric fails to reproduce at rtol 1e-6, the interpretive A2-adult text that code/make_claims.py hardcodes must also be rechecked.",
    "evidence": "paper/main.tex Limitations bullet 'Replication pending' (lines ~573-575), lines 99-101 and 632-633; paper/ai-use.tex 'Roles and models' bullet; workspace root (no replication.json)",
    "remedy": "After replication.json is written, replace both statements with the outcome: runs re-executed, metrics compared, tolerance, and pass or fail. Then regenerate numbers.tex if anything changed and recompile. If the rerun fails, narrow the 'rerunnable' claim.",
-   "response": "",
+   "response": "Done: Limitations ('Replication: passed, on the same machine') and ai-use.tex now report the passed clean rerun from replication.json (all 20 logged runs, fresh env from requirements.txt, data re-downloaded, every metric at rtol 1e-6, no mismatch), note it was the same laptop, and the intro and conclusion tie 'rerunnable' to it.",
    "ruling": ""
   },
   {
@@ -94,7 +94,7 @@
    "text": "Related-work statements of fact about cited papers have no citation claim in claims.jsonl. They are: Le Baher et al.'s setup (hinge or squared-error XGBoost losses, fixed hyperparameters, binary tasks, minority-scaled rho, AUC/balanced accuracy/kappa); Dietterich's noise injected before cross-validation, so his test labels were noisy; and Nawaz et al. including no logistic regression. sources/notes.md supports them: full text for lebaher2020 and dietterich2000, and for nawaz2025 I confirmed that the ICML abstract lists seven comparison classifiers without LR. But they are not traceable through the claims ledger.",
    "evidence": "paper/main.tex lines 126-127, 131-135, 138-139; claims.jsonl citation claims (only c-lebaher-rf, c-dietterich-noise, c-nawaz cover these sources)",
    "remedy": "Add citation claims with locators (Le Baher Sections 2.3 and 3.5 and Table 1; Dietterich preprint pp. 9-10; Nawaz abstract).",
-   "response": "",
+   "response": "Done: the Dietterich test-noise, Le Baher setup and Nawaz no-LR sentences in Related work now follow claims c-dietterich-testnoise, c-lebaher-setup and c-nawaz-nolr (cited, with claim-id comments in main.tex).",
    "ruling": ""
   },
   {

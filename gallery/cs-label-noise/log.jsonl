@@ -65,3 +65,5 @@
 {"time": "2026-11-18T16:09:08Z", "role": "pi", "action": "brief-archived", "detail": "replicator brief 20261118T160907Z"}
 {"time": "2026-11-18T17:11:29Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
 {"time": "2026-11-18T17:12:20Z", "role": "replicator", "action": "replication-written", "detail": "rerun passed 20/20 at rtol 1e-6 in a fresh env from code/requirements.txt (61 min, fresh downloads, no --reuse-data); REPLICATION.md written; r-rerun done"}
+{"time": "2026-11-19T01:18:34Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T011834Z"}
+{"time": "2026-11-19T01:20:25Z", "role": "writer", "action": "paper-revised", "detail": "paper-r1 F2 (clean-rerun outcome in Limitations, ai-use, intro, conclusion; review rounds updated) and F6 (related work uses c-lebaher-setup, c-dietterich-testnoise, c-nawaz-nolr); recompiled 19 pages, no undefined refs"}
