@@ -10,22 +10,24 @@ submission gate. He takes responsibility for the paper's content.
 \begin{itemize}
   \item \textbf{Roles and models.} Every crew role ran on Anthropic Claude through Claude
         Code. The PI role was the main Claude Code session. The Scout, Designer, Data RA,
-        Experimenter, Figures RA, Reviewer and Writer ran as agents launched from that
+        Experimenter, Figures RA, Reviewer, Writer and Replicator ran as agents launched from that
         session; the review records name the model as \texttt{claude-opus-5-5}. The PI's
         brief to each agent is archived in \texttt{briefs/}, from the Scout's first brief
         (2026-11-18, 16:28 UTC) to this Writer's brief.
   \item \textbf{Review.} The Reviewer ran 3 rounds on the research question, 2 on the
-        design, 1 on the code and 2 on the results; the paper review comes before the
-        submission gate, and this item is to be updated after it. No separate literature
-        round was held. The code review passed with no critical finding before any analysis
-        run. The Reviewer's independence level was \emph{fresh-context}: a new context in
-        every round, with the same model family as the other roles. The human author chose
-        this over a cross-family review. The last round of each stage passed with minor
-        findings still open: question round~3 (deferred to the design and answered there),
-        design round~2 (one, answered and disclosed before the design gate), code round~1
-        (verdict \emph{revise}, no critical finding; one fixed and two answered by narrowing
-        the plan before any analysis run, Section~\ref{sec:deviations}) and results round~2
-        (three, answered in the run notes and claims before the results gate).
+        design, 1 on the code, 2 on the results and 1 on the paper (verdict \emph{revise},
+        no critical finding; this version answers its twelve findings). No separate
+        literature round was held. The Reviewer's independence level was
+        \emph{fresh-context}: a new context in every round, with the same model family as the
+        other roles. The human author chose this over a cross-family review. The question
+        (round~3), design (round~2) and results (round~2) stages ended with a \emph{pass} and
+        minor findings still open, all answered before the next gate. The code review ended
+        differently: its one round returned \emph{revise} with two major findings and one
+        minor, none critical. The first major finding was fixed in code and the other two
+        were answered by narrowing the plan text, and the main run then started without a
+        second code-review round; the Reviewer first checked these fixes at results round~1,
+        after the analysis runs (Section~\ref{sec:deviations}, item~4). The plan's bar for
+        starting analysis, no open critical finding, was met.
   \item \textbf{Findings accepted over the Reviewer's objection.} None. Where the crew
         narrowed a claim instead of changing the analysis (the H1 wording at design round~1
         and code round~1), the Reviewer recorded the finding as conceded.
@@ -41,7 +43,10 @@ submission gate. He takes responsibility for the paper's content.
         \url{https://github.com/brycewang-stanford/Free-Research-Crew/tree/main/gallery/cs-calibration}.
         It contains the plan with its disclosures, the run ledger and notes, the code, the
         data manifest, every review, the archived briefs and the source notes.
-  \item \textbf{Replication.} Pending. The clean rerun of every logged run from
-        \texttt{code/requirements.txt} (task \texttt{r-rerun}) has not yet been done, and no
-        \texttt{replication.json} exists; this item is to be updated when it does.
+  \item \textbf{Replication.} Passed. The Replicator's clean rerun, recorded in
+        \texttt{replication.json} (2026-11-19, 12:52 UTC), copied the workspace, deleted every
+        recorded output, downloaded the data again rather than reusing it, and re-executed all
+        13 logged runs in a fresh environment built from \texttt{code/requirements.txt}; all
+        13 reproduced every recorded metric to a relative tolerance of $10^{-6}$.
+        \texttt{REPLICATION.md} explains how to repeat it.
 \end{itemize}

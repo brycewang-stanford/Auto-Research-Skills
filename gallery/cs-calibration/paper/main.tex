@@ -20,8 +20,10 @@
 \newcommand{\ph}{\ds{phoneme}}
 \newcommand{\cat}[1]{\emph{#1}}
 
-\title{Are Default Tabular Classifiers Calibrated, and Does Isotonic Recalibration Help?\\
-A Pre-Specified Test on Four OpenML Datasets}
+\title{Random Forest versus Logistic Regression on a Plug-in ECE,\\
+and Isotonic Recalibration of Tree Ensembles,\\
+under scikit-learn Defaults:\\
+Pre-Specified Tests on Four OpenML Datasets}
 \author{Bryce Wang (human PI) \\ \small Drafted with Free-Research-Crew; see the AI-use statement.}
 \date{\today}
 
@@ -36,10 +38,11 @@ split change them, on four OpenML binary datasets (\ad, \bm, \el, \ph) with 10 s
 base model held fixed. Three hypotheses were fixed before any analysis run, each with one
 confirmatory metric, a margin and a paired $t(9)$ decision rule; every verdict is scoped to
 these samples. \textbf{H1} (uncalibrated RF has a higher plug-in 15-bin equal-mass ECE than
-LR) is \cat{contradicted}: RF scored lower, with RF-minus-LR differences of
-\md{\HOneBankMean}{\HOneBankLo}{\HOneBankHi} on \bm{} and
-\md{\HOnePhonemeMean}{\HOnePhonemeLo}{\HOnePhonemeHi} on \ph. This reflects default
-LR's own miscalibration on those two datasets, not evidence that RF is well calibrated, and
+LR) is \cat{contradicted}: RF scored lower on two of the four datasets, with RF-minus-LR
+differences of \md{\HOneBankMean}{\HOneBankLo}{\HOneBankHi} on \bm{} and
+\md{\HOnePhonemeMean}{\HOnePhonemeLo}{\HOnePhonemeHi} on \ph; the published direction held on
+\el{} (\md{\HOneElecMean}{\HOneElecLo}{\HOneElecHi}), and \ad{} was inconclusive. The
+contradiction reflects default LR's own miscalibration on \bm{} and \ph, not evidence that RF is well calibrated, and
 it does not depend on \el. \textbf{H2a} (isotonic regression lowers RF's Brier score) is
 \cat{inconclusive}: it holds only on \el{}
 (\md{\HTwoAElecMean}{\HTwoAElecLo}{\HTwoAElecHi}); on \ad{} and \bm{} the interval lies inside
@@ -50,8 +53,9 @@ series that our random splits cut across neighbouring time points; had \el{} sho
 difference, H2a would read \cat{no difference}, and H2b needs \el{} as one of its three. A
 chronological split of \el{} measured drift rather than leakage, so whether leakage drives
 \el's results remains open. H1 is a statement about the plug-in ECE estimator, whose noise
-floor exceeds H1's margin; a debiased estimator, reported descriptively, points the same way
-on every dataset.
+floor exceeds H1's margin. A debiased estimator, reported descriptively, gives the same signs,
+but it keeps most of any difference in noise floors, so its agreement is not independent
+confirmation.
 \end{abstract}
 
 % ---------------------------------------------------------------------------
@@ -63,8 +67,10 @@ means what it says. Two textbook results guide practice for tabular data. First,
 regression is usually well calibrated without post-hoc correction, while random forests
 push their predictions away from 0 and 1 \citep{niculescumizil2005}. Second, a monotone map
 fitted on held-out data, either Platt's two-parameter sigmoid \citep{platt1999} or isotonic
-regression \citep{zadrozny2002}, can repair miscalibration once the calibration set has about
-1,000 cases or more \citep{niculescumizil2005}. Recent large benchmarks have unsettled the
+regression \citep{zadrozny2002}, can repair distortions of this kind, such as the
+sigmoid-shaped ones of boosted trees \citep{niculescumizil2005boosting}; isotonic regression needs more calibration data, and in
+the learning curves of \citet{niculescumizil2005} it caught up with Platt scaling only at about
+1,000 calibration cases or more, Platt scaling doing better below about 200 to 1,000. Recent large benchmarks have unsettled the
 second result. On 104 tabular datasets with tuned models, no post-hoc method consistently
 improved over the uncalibrated model \citep{berta2026}, and on 30 datasets, Platt scaling and
 isotonic regression could degrade proper scores for strong modern tabular models
@@ -153,10 +159,7 @@ model, and that Platt scaling on probabilities and binning-based methods degrade
 scaling and isotonic regression can degrade proper scores of strong modern tabular models and
 that no method dominates. In their expected log-loss ranks, isotonic recalibration improved
 the rank of random forests but worsened the ranks of scikit-learn's two gradient-boosting
-classifiers, and Platt scaling ranked ahead of isotonic for all three tree models; per
-dataset, with default hyperparameters and the calibration split taken from the training
-folds, isotonic lowered the mean log-loss of random forests on 18 of 30 datasets but that of
-\texttt{HistGradientBoostingClassifier} on only 4 of 30. Our design differs from theirs in
+classifiers, and Platt scaling ranked ahead of isotonic for all three tree models. Our design differs from theirs in
 holding the trained base model fixed across \emph{none}, Platt and isotonic, so that the
 calibrator is not confounded with a smaller training set.
 
@@ -174,7 +177,7 @@ calibration error by subtracting a simulated estimate of its bias; they describe
 estimator as a heuristic and leave guarantees for it open, since their sample-complexity
 guarantees apply to the squared ($\ell_2$) calibration error. Strictly proper scoring rules,
 such as the logarithmic and quadratic (Brier) scores, reward honest probability forecasts
-\citep{gneiting2007,brier1950}. Because post-hoc calibration cannot reduce refinement error,
+\citep{gneiting2007}. Because post-hoc calibration cannot reduce refinement error,
 the change in a proper score such as the Brier score before and after calibration measures the
 calibration gain net of any loss in discrimination \citep{berta2026}; this is why H2a and H2b
 use the Brier score. Reliability diagrams plot the observed frequency of the positive class
@@ -261,7 +264,7 @@ split or elsewhere.
 Each (dataset, model, calibrator, seed) cell, $4\times3\times3\times10=360$ in all, is scored
 once on its test split, from $p=P(y=1)$:
 \begin{itemize}
-  \item \textbf{Brier score}, the mean of $(p-y)^2$, unclipped.
+  \item \textbf{Brier score} \citep{brier1950}, the mean of $(p-y)^2$, unclipped.
   \item \textbf{Log-loss}, with $p$ clipped to $[10^{-6}, 1-10^{-6}]$; the number of clipped
         predictions is recorded.
   \item \textbf{Plug-in ECE}: 15 equal-mass bins on $P(y=1)$, and
@@ -352,9 +355,17 @@ are computed for \el{} alone, outside the k-of-4 rule.
 All analysis runs together stayed within the 60 CPU-minute budget fixed at the design gate,
 on one laptop CPU. Before any study data was scored, a unit-test run checked the ECE tie rule
 on hand-computed cases, the clip counts, the Brier score against scikit-learn's, and that
-the frozen model is unchanged by calibration, and the Reviewer checked the code against the
-approved method. Every run was recorded by the crew's ledger tool with the hashes of its
-code, inputs and outputs.
+the frozen model is unchanged by calibration. The Reviewer then reviewed the code against the
+approved method in one round, with verdict \emph{revise}: two major findings and one minor,
+none critical. The first major finding (a one-hot width assertion that a rare \ad{} level
+would have broken) was fixed in code and the unit-test run repeated; the other two were
+answered by narrowing plan text (Section~\ref{sec:deviations}). The main run then started
+without a second code-review round; the Reviewer first checked these fixes at the first
+results review, after the analysis runs. Every run was recorded by the crew's ledger tool
+with the hashes of its code, inputs and outputs. A clean rerun of all 13 logged runs from
+\texttt{code/requirements.txt} in a fresh environment, with the data downloaded again,
+reproduced every recorded metric to a relative tolerance of $10^{-6}$
+(\texttt{replication.json}).
 
 % ---------------------------------------------------------------------------
 \section{Results}
@@ -401,8 +412,8 @@ the dashed lines and gray band mark $\pm$ the margin (0.005 ECE for H1, 0.001 Br
 and H2b). Markers give the category: filled circle \cat{holds}, cross \cat{contradicted},
 open diamond \cat{no difference}, open gray circle \cat{inconclusive}. Panel titles give the
 overall verdict. The x-axes differ between panels and are scaled by the factor printed at
-their right end. The dagger on \el's label marks the hypotheses whose overall verdict would
-change if \el's category changed (H2a and H2b); H1's does not depend on \el.}
+their right end. A dagger on \el's category label marks the hypotheses whose overall verdict
+would change if \el's category changed (H2a and H2b); H1's does not depend on \el.}
 \label{fig:intervals}
 \end{figure}
 
@@ -428,7 +439,8 @@ its ECE at $\PhonemeLrPlattEce$. The uncalibrated RF still had ECE $\BankRfNoneE
 and $\PhonemeRfNoneEce$ on \ph. The two arms are also scored on different numbers of bins:
 RF's outputs tie at multiples of 0.01, so uncalibrated RF used $\AdultRfNoneEceBins$,
 $\BankRfNoneEceBins$, $\ElecRfNoneEceBins$ and $\PhonemeRfNoneEceBins$ non-empty bins on
-average on \ad, \bm, \el{} and \ph, against 15 for LR. ECE values on different numbers of bins
+average on \ad, \bm, \el{} and \ph, against $\AdultLrNoneEceBins$, $\BankLrNoneEceBins$,
+$\ElecLrNoneEceBins$ and $\PhonemeLrNoneEceBins$ for LR. ECE values on different numbers of bins
 are not on an identical footing, which is part of why we read H1 as a statement about the
 estimator.
 
@@ -467,8 +479,8 @@ regression lowered RF's Brier score beyond the 0.001 margin only on \el{}
 (\md{\HTwoAAdultMean}{\HTwoAAdultLo}{\HTwoAAdultHi}) and \bm{}
 (\md{\HTwoABankMean}{\HTwoABankLo}{\HTwoABankHi}) the whole interval lies inside $\pm0.001$
 (\cat{no difference}). The \bm{} mean prints as $\HTwoABankMean$: the mean change is
-negative, a fall in the Brier score, but smaller in size than $0.00005$, so it rounds to zero
-at four decimals; it is not exactly zero, and its interval is well inside the margin on both
+negative, a fall in the Brier score, but so small that it rounds to zero at four decimals; it
+is not exactly zero, and its interval is well inside the margin on both
 sides. On \ph{} (\md{\HTwoAPhonemeMean}{\HTwoAPhonemeLo}{\HTwoAPhonemeHi}) the interval
 crosses both zero and $-0.001$, so there is no detectable difference (inconclusive). With one
 \cat{holds}, two \cat{no difference} and one inconclusive, the k-of-4 rule gives
@@ -490,7 +502,16 @@ $\ElecRfNoneLogloss$ to $\ElecRfIsoLogloss$ on \el{} and $\PhonemeRfNoneLogloss$
 $\PhonemeRfIsoLogloss$ on \ph{} (none to isotonic). Uncalibrated RF outputs many exact zeros:
 on average $\AdultRfNoneClipLow$, $\BankRfNoneClipLow$, $\ElecRfNoneClipLow$ and
 $\PhonemeRfNoneClipLow$ of its test predictions per seed fell below $10^{-6}$ on the four
-datasets, so its log-loss depends on the clipping constant. Across all 360 cells,
+datasets, so its log-loss depends on the clipping constant. In the planned sensitivity that
+clips at machine epsilon instead of $10^{-6}$, uncalibrated RF's log-loss rose to
+$\AdultRfNoneLoglossMach$ ($\AdultRfNoneLoglossMachSd$), $\BankRfNoneLoglossMach$
+($\BankRfNoneLoglossMachSd$), $\ElecRfNoneLoglossMach$ ($\ElecRfNoneLoglossMachSd$) and
+$\PhonemeRfNoneLoglossMach$ ($\PhonemeRfNoneLoglossMachSd$) on \ad, \bm, \el{} and \ph{}
+(mean (SD) over seeds), and RF with isotonic regression to $\AdultRfIsoLoglossMach$,
+$\BankRfIsoLoglossMach$, $\ElecRfIsoLoglossMach$ and $\PhonemeRfIsoLoglossMach$. At this
+clipping constant isotonic's log-loss advantage over no recalibration is larger on \ad, and on
+\ph{} the two are equal at three decimals, as they are at $10^{-6}$; the log-loss comparison is
+descriptive at either constant. Across all 360 cells,
 $\ClipLowTotal$ predictions fell below $10^{-6}$ and $\ClipHighTotal$ above $1-10^{-6}$. The
 ECE of RF was lower with isotonic than without on each dataset in Table~\ref{tab:levels} (for
 example $\ElecRfNoneEce$ to $\ElecRfIsoEce$ on \el), but isotonic outputs tie and were scored
@@ -520,7 +541,10 @@ $\ElecHgbIsoMinusPlattAuc$ and $\PhonemeHgbIsoMinusPlattAuc$ on the four dataset
 log-loss went from $\AdultHgbNoneLogloss$ to $\AdultHgbIsoLogloss$ on \ad,
 $\BankHgbNoneLogloss$ to $\BankHgbIsoLogloss$ on \bm, $\ElecHgbNoneLogloss$ to
 $\ElecHgbIsoLogloss$ on \el{} and $\PhonemeHgbNoneLogloss$ to $\PhonemeHgbIsoLogloss$ on \ph{}
-(descriptive).
+(descriptive). Clipped at machine epsilon, where isotonic's exact zeros and ones weigh more,
+HGB's log-loss went from $\AdultHgbNoneLoglossMach$ to $\AdultHgbIsoLoglossMach$,
+$\BankHgbNoneLoglossMach$ to $\BankHgbIsoLoglossMach$, $\ElecHgbNoneLoglossMach$ to
+$\ElecHgbIsoLoglossMach$ and $\PhonemeHgbNoneLoglossMach$ to $\PhonemeHgbIsoLoglossMach$.
 
 \subsection{Calibration levels and Platt scaling (descriptive)}
 \label{sec:levels}
@@ -532,7 +556,7 @@ Table~\ref{tab:levels} gives every level. Default HGB had the lowest Brier score
 ($\AdultHgbNoneBrier$, against $\AdultLrNoneBrier$ for LR and $\AdultRfNoneBrier$ for RF), and
 RF and HGB had far lower Brier scores than LR on \el{} and \ph.
 
-Platt scaling, fitted on the logit, changed little. Platt minus none on the Brier score was
+Platt scaling, fitted on the logit, changed little except for the tree models on \el. Platt minus none on the Brier score was
 \md{\AdultLrPlattMinusNoneBrierMean}{\AdultLrPlattMinusNoneBrierLo}{\AdultLrPlattMinusNoneBrierHi},
 \md{\BankLrPlattMinusNoneBrierMean}{\BankLrPlattMinusNoneBrierLo}{\BankLrPlattMinusNoneBrierHi},
 \md{\ElecLrPlattMinusNoneBrierMean}{\ElecLrPlattMinusNoneBrierLo}{\ElecLrPlattMinusNoneBrierHi}
@@ -540,7 +564,7 @@ and
 \md{\PhonemeLrPlattMinusNoneBrierMean}{\PhonemeLrPlattMinusNoneBrierLo}{\PhonemeLrPlattMinusNoneBrierHi}
 for LR on \ad, \bm, \el{} and \ph; for RF it was largest on \el{}
 (\md{\ElecRfPlattMinusNoneBrierMean}{\ElecRfPlattMinusNoneBrierLo}{\ElecRfPlattMinusNoneBrierHi}),
-about the size of isotonic's change there; for HGB it was largest on \el{}
+the same size as isotonic's change there, which is H2a's one \cat{holds}; for HGB it was largest on \el{}
 (\md{\ElecHgbPlattMinusNoneBrierMean}{\ElecHgbPlattMinusNoneBrierLo}{\ElecHgbPlattMinusNoneBrierHi}).
 These intervals are descriptive; no margin or rule applies to them. Where LR was
 miscalibrated, isotonic regression changed more than Platt scaling did: on \bm{} LR's ECE went
@@ -548,7 +572,8 @@ from $\BankLrNoneEce$ (none) and $\BankLrPlattEce$ (Platt) to $\BankLrIsoEce$ (i
 Brier score from $\BankLrNoneBrier$ to $\BankLrIsoBrier$; on \ph{} its ECE went from
 $\PhonemeLrNoneEce$ and $\PhonemeLrPlattEce$ to $\PhonemeLrIsoEce$ and its Brier score from
 $\PhonemeLrNoneBrier$ to $\PhonemeLrIsoBrier$. The isotonic ECE values were again scored on
-fewer bins ($\BankLrIsoEceBins$ and $\PhonemeLrIsoEceBins$, against 15). On \ph{} isotonic
+fewer bins ($\BankLrIsoEceBins$ and $\PhonemeLrIsoEceBins$, against $\BankLrNoneEceBins$ and
+$\PhonemeLrNoneEceBins$ without recalibration). On \ph{} isotonic
 regression raised LR's AUC slightly (isotonic minus Platt $\PhonemeLrIsoMinusPlattAuc$).
 
 \begin{figure}[!htbp]
@@ -658,8 +683,9 @@ does not depend on \el. Isotonic recalibration lowered RF's Brier score beyond t
 margin only on \el, and changed HGB's by less than 0.001 on three datasets, in both
 directions. Both H2 verdicts depend on \el. None of this says that
 recalibration is useless: where LR was miscalibrated (\bm, \ph), isotonic regression lowered
-its Brier score and, on fewer bins, its ECE (descriptive), and Platt scaling on the logit changed little
-throughout.
+its Brier score and, on fewer bins, its ECE (descriptive). Platt scaling on the logit changed
+little except for RF and HGB on \el, where for RF it lowered the Brier score by as much as
+isotonic regression did.
 
 \paragraph{Electricity's time ordering.} \el{} is a half-hourly series. Our random splits
 put neighbouring half-hours on both sides of each split, which can make test predictions
@@ -704,7 +730,8 @@ attribute nothing to the dataset itself. \bm's call-duration feature is known on
 call; it raises discrimination for all models alike and does not bias the within-model
 isotonic-versus-none comparison, but \bm's results are not deployment-realistic. Log-loss, that
 of uncalibrated RF in particular, depends on the clipping constant, since RF and isotonic
-regression output exact zeros and ones; it is descriptive only. Platt scaling on the logit of a
+regression output exact zeros and ones (Section~\ref{sec:h2a} gives it at both constants); it
+is descriptive only. Platt scaling on the logit of a
 clipped probability turns RF's exact 0/1 outputs into leverage points at about $\pm13.8$, which
 may distort the Platt fit for RF; Platt is descriptive only.
 
@@ -712,8 +739,10 @@ may distort the Platt fit for RF; Platt is descriptive only.
 \section{Deviations from the approved design and disclosures}
 \label{sec:deviations}
 
-Every amendment below is recorded in \texttt{plan.json} (\texttt{disclosures}) and in the
-crew's log, with the plan's hash, before any analysis run unless stated otherwise.
+Each item below says where it is recorded. \texttt{plan.json} holds five disclosures: the
+first three (items 1--3) were written before any analysis run, the fourth (item 4) and the
+fifth (items 5 and 6) were added by the PI at the paper review. Each was logged in the crew's
+log with the hash of the resulting \texttt{plan.json}.
 
 \begin{enumerate}
   \item \textbf{H1 narrowed to the plug-in estimator (design stage, before any run on study
@@ -727,11 +756,14 @@ crew's log, with the plan's hash, before any analysis run unless stated otherwis
         claim was narrowed from calibration error to this estimator on these samples. A
         planned sensitivity that subtracted a simulated perfect-calibration floor was replaced
         by the debiased estimator before any run. The human saw this at the design gate.
+        \emph{Recorded:} \texttt{plan.json} disclosure~1; log, design revision of
+        2026-11-19, 06:55 UTC.
   \item \textbf{H1 no longer called a replication (design stage).} At the Reviewer's request,
         H1's label and the contribution were reworded from a replication of
         \citet{niculescumizil2005} to a test of the published direction on the plug-in
         estimator, because the two models' noise floors alone could decide H1. The metric,
         margin and rule did not change. The human saw this at the design gate.
+        \emph{Recorded:} disclosure~2; log, plan revision of 2026-11-19, 07:03 UTC.
   \item \textbf{Plan text narrowed after the design gate, before any analysis run.} At the
         PI's ruling on the code review, three passages were narrowed without changing any
         metric, margin, rule or code: (i) the debiased ECE removes only about 41\% of a
@@ -741,22 +773,32 @@ crew's log, with the plan's hash, before any analysis run unless stated otherwis
         regression on the logit equals isotonic regression on the clipped probability only at
         the calibration points, with linear interpolation in the logit between them, and the
         paper describes the calibrator that way. Because this came after the design gate, the
-        human saw it at the results gate.
-  \item \textbf{A code fix before the main run.} The code review found that the main script
-        asserted a constant one-hot width across seeds, which a rare \ad{} level would have
-        broken. The assertion was replaced by recording the minimum and maximum width, a unit
-        test was added, and the unit-test run was repeated, with the first record archived,
-        before the main run. No metric code changed and no result was involved.
+        human saw it at the results gate. \emph{Recorded:} disclosure~3; log, plan narrowing
+        of 2026-11-19, 07:41 UTC.
+  \item \textbf{A code fix before the main run, without a second code review.} The code
+        review returned \emph{revise} with two major findings and one minor. The first major
+        finding was that the main script asserted a constant one-hot width across seeds, which
+        a rare \ad{} level would have broken. The assertion was replaced by recording the
+        minimum and maximum width, a unit test was added, and the unit-test run was repeated,
+        with the first record archived, before the main run. No metric code changed and no
+        result was involved. The other two findings were answered by item~3. The main run then
+        started without a second code-review round, at the PI's choice; the plan's bar (no
+        open critical finding before analysis) was met, and the Reviewer first checked the
+        fixes at the first results review. \emph{Recorded:} log, code fix of 2026-11-19,
+        07:43 UTC; disclosure~4, added at the paper review (log, 12:57 UTC).
   \item \textbf{The chronological sensitivity could not serve its stated purpose.} The plan
         said sensitivity~(c) would show whether random-split leakage drives \el's results.
         It measured drift instead (Section~\ref{sec:elec}), and we report it as such; the
-        leakage question remains open.
-  \item \textbf{Reporting choices.} The sensitivity-(b) script also computed a k-of-4 summary
-        across the three refits and \ph's main cells; the plan defines no such verdict, so we
-        report only the per-dataset categories. The machine-epsilon log-loss that the plan
-        lists as a descriptive sensitivity was computed but is not reported, and the
-        reliability diagrams show \emph{none} and isotonic but not Platt; the levels of every
-        calibrator, Platt included, are in Table~\ref{tab:levels}.
+        leakage question remains open. \emph{Recorded:} disclosure~5(a), added after results
+        at the paper review (log, 12:57 UTC).
+  \item \textbf{Reporting choices after results.} The sensitivity-(b) script also computed a
+        k-of-4 summary across the three refits and \ph's main cells; the plan defines no such
+        verdict, so we report only the per-dataset categories. The reliability diagrams show
+        \emph{none} and isotonic but not Platt, as the PI's brief to the Figures RA specified;
+        the levels of every calibrator, Platt included, are in Table~\ref{tab:levels}. The
+        planned machine-epsilon log-loss sensitivity was left out of the first draft and is
+        now reported (Sections~\ref{sec:h2a} and~\ref{sec:h2b}). \emph{Recorded:}
+        disclosure~5(b)--(d), added at the paper review (log, 12:57 UTC).
 \end{enumerate}
 
 % ---------------------------------------------------------------------------
@@ -776,7 +818,7 @@ whose noise floor lies below the margin of interest.
 
 \input{ai-use}
 
-\bibliographystyle{plainnat-crew}
+\bibliographystyle{plainnat}
 \bibliography{../refs}
 
 \appendix
