@@ -53,9 +53,8 @@ resolution only.**
   - **Ranking evidence on log-loss (Manokhin & Grønhaug, Appendix A).** With defaults,
     uncalibrated RF has a better expected log-loss rank than uncalibrated LR: 67.69
     against 75.84. This points the same way as Fonseca & Lopes on a proper score.
-    In their archive, uncalibrated RF has a higher `ece_freq` than LR on only 12 of 30
-    datasets. Their LR uses unscaled features and default C, so its fit may be poor; the
-    plan does not yet say whether LR features are standardised (see D9).
+    Their LR uses unscaled features and default C (their code), so its fit may be poor.
+    The plan does not yet say whether LR features are standardised (see D9).
   - **Caveat:** LR is well calibrated only when its model is roughly correct
     [`kull2017` §1; `sklearn_calibration_docs` §1.16.1, "well specified" and C "tuned
     to be appropriate"]. On a strongly nonlinear dataset, H1 can fail on ECE too.
@@ -74,9 +73,6 @@ resolution only.**
     - Manokhin & Grønhaug (2026, Appendix A; details below): `rf.isotonic` improves on
       `rf` in expected log-loss rank (59.19 against 67.69) but is clearly worse than
       `rf.platt` (43.45), `rf.beta` (41.65) and `rf.venn_abers` (34.09).
-      - Per dataset (their archive): isotonic lowers RF fold-mean log-loss on 18 of 30
-        datasets (median −1.6%) and Brier on only 13 of 30. In both, the training set is
-        confounded.
   - The log-loss outcome is likely to hinge on how isotonic's 0/1 outputs are clipped
     (D2), so the clipping epsilon matters for H2a.
 - **H2b: isotonic reduces HistGradientBoosting log-loss (Brier co-primary).**
@@ -92,8 +88,6 @@ resolution only.**
     scikit-learn boosters worse on expected log-loss rank:
     - `hgb` 38.76 → `hgb.isotonic` 57.37;
     - `gbc` 30.38 → `gbc.isotonic` 62.85.
-    - Per dataset (their archive): HGB log-loss is lower with isotonic on 4 of 30
-      datasets (worse on all 5 folds on 13), Brier on 14 of 30.
 
     Their defaults are close to the plan's. `rf`, `gbc` and `hgb` use scikit-learn
     defaults plus a seed. The calibration split is 20% of the training folds, so it
@@ -165,8 +159,7 @@ for the design author and the Reviewer.
   prefers Brier for this reason [`berta2026` §5]. The clipping epsilon must be fixed at
   the design gate, and the paper must report how often clipping was applied.
   The same applies to uncalibrated RF: `predict_proba` can be exactly 0 or 1 when all
-  trees agree. In the Manokhin & Grønhaug archive this inflates RF log-loss (see §3), so
-  the epsilon also drives the H2a log-loss comparison.
+  trees agree, so the epsilon also drives the H2a log-loss comparison.
 - **D3. Calibration-set size decides the Platt-vs-isotonic result.**
   - Isotonic needs about ≥1000 calibration cases to match or beat Platt
     [`niculescumizil2005` Fig. 7; `sklearn_calibration_docs` §1.16.3.2]. Below about
@@ -343,39 +336,9 @@ for the design author and the Reviewer.
     these ranks Platt beats isotonic for all three tree models. These are ranks pooled
     over 30 datasets × 5 folds, not effect sizes, and the appendix gives no per-dataset
     breakdown.
-  - *Archive (per-dataset results; checked after review F4).*
-    - Source: `src/archive/archive.zip` in the same repository, a Git LFS object with
-      sha256 7d33f9cd…54bd, matching the LFS pointer. The merged `archive/results.txt`
-      holds 5 folds × 30 datasets per model × calibrator.
-    - My own summary of their raw numbers (scratchpad script, not a crew run): for each
-      dataset, I compared the mean over its 5 folds with calibration and without.
-      "All 5" counts datasets where every fold moved in the same direction.
-
-    | Model | Metric | Isotonic better on (of 30) | All 5 folds better | All 5 folds worse | Median relative change |
-    |---|---|---|---|---|---|
-    | RF  | log-loss | 18 | 9 | 5  | −1.6% |
-    | RF  | Brier    | 13 | 6 | 6  | +0.6% |
-    | HGB | log-loss | 4  | 0 | 13 | +7.3% |
-    | HGB | Brier    | 14 | 5 | 4  | +0.4% |
-    | GBC | log-loss | 1  | 1 | 17 | +11.9% |
-    | GBC | Brier    | 8  | 2 | 12 | +0.8% |
-
-    - Platt, for comparison: RF log-loss is better on 24 of 30 (median −7.4%); HGB
-      log-loss is better on 11 of 30 (median +1.0%).
-    - H1-relevant: uncalibrated RF has a higher `ece_freq` than uncalibrated LR on only
-      12 of 30 datasets, higher log-loss on 12 of 30, and higher Brier on 6 of 30.
-      Their LR is fitted on unscaled features with default C.
-    - Overlap with our datasets: only `bank-marketing` (TabArena's version, which may not
-      be OpenML 1461). Fold-mean log-loss there:
-      - RF 0.4612 → isotonic 0.3205, Platt 0.3179;
-      - HGB 0.3031 → isotonic 0.3111.
-    - The RF "none" log-loss is inflated: RF can output exactly 0 or 1, and their log-loss
-      uses scikit-learn's default handling. Clipping therefore matters for uncalibrated RF,
-      not only for isotonic. See D2.
-    - **Caveat:** every calibrated variant was trained on 80% of the training folds, while
-      "none" was trained on 100%. Their per-model differences therefore mix the
-      calibrator with a smaller training set (D4). For HGB and GBC, part of the
-      degradation may come from this.
+  - *Archive:* a per-dataset tabulation of the authors' released archive stood here.
+    It was withdrawn after paper-r1 F2 (see §5). Only the Appendix A ranks above are
+    citable.
   - *Code (github.com/valeman/classifier_calibration, commit a52349f):*
     - The calibration split is a stratified 20% of the training folds. The base model is
       refit on the remaining 80% for calibrated variants only, which is the confound
@@ -512,3 +475,32 @@ for the design author and the Reviewer.
 
   If the Reviewer wants more on RF-specific calibration, Shaker & Hüllermeier is the
   next source to check.
+
+---
+
+## 5. Changes after paper-r1 (2026-11-19 UTC)
+
+- **F2: per-dataset archive counts withdrawn.**
+  - What was removed: claim `c-manokhin-archive`, the archive table in §3, and the
+    archive sentences in §1 and D2.
+  - Why: the counts came from my own tabulation of Manokhin & Grønhaug's released
+    `results.txt`. The paper does not report them, and the script was a scratchpad
+    script, not a logged run.
+  - No replacement count was made. The Appendix A ranks (claim `c-manokhin-appendix`)
+    and the code facts stay, because they were read from the paper and the repository.
+- **F9: `brier1950` removed from the propriety claim.**
+  - `brier1950` is DOI-resolved only. It is removed from the support of
+    `c-proper-scores`, which now cites `gneiting2007` alone.
+  - That claim's text drops "(Brier)", because the Gneiting & Raftery abstract names "the
+    logarithmic, spherical, pseudospherical, and quadratic scores" but not Brier.
+  - New claim `c-brier-origin` cites `brier1950` only as the origin of the Brier score,
+    the one use its DOI-level record clears.
+- **`naeini2015` BibTeX.**
+  - Crossref registers DOI 10.1609/aaai.v29i1.9602 as a *journal-article* in
+    "Proceedings of the AAAI Conference on Artificial Intelligence", volume 29, issue 1,
+    with no page field. PubMed (PMID 25927013) gives pages 2901–2907.
+  - The entry was `@inproceedings` with both volume and number, which plainnat rejects.
+    It is now `@article` with `journal` = the proceedings title, volume 29, number 1 and
+    pages 2901--2907, matching the Crossref record type. For `@article`, plainnat accepts
+    volume and number together.
+

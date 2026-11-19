@@ -356,3 +356,49 @@ the electricity-dependency counterfactuals from results/cells.csv and sens_elec_
 (calib-reviewer4/recompute.py, 0 mismatches). I checked claim text against metric key for the new
 claims (calib-reviewer4/check_claims.py). No model was refitted; the workspace was not modified
 except for my review and this memory.
+
+## paper-r1 (2026-11-19 UTC), verdict: revise (0 critical, 3 major, 9 minor open)
+
+What I checked and found sound: all 197 macros used in main.tex map to the intended run metric
+(name-to-key dump); every per-dataset category (h1, h2a, h2b, h1db, ncal, time; 25 in all)
+recomputes from the run metrics (0 mismatches); the 48 plain (non-macro) numbers in tab_levels (the
+Platt log-loss and AUC cells) match describe metrics; plan.json has changed only in tasks and gates
+since e0b9816 (cff3831b); crew.py validate --strict is OK. The paper does not use my calib-reviewer3
+floor-adjusted numbers, does not call H1 a replication, states the electricity dependence of H2a/H2b
+in the abstract, intro, results and conclusion, labels sens (c) as drift, gives the bin caveat for
+isotonic ECE, and does not say 'RF is well calibrated' or 'isotonic has no effect'. The noise-floor
+arithmetic (0.8 sqrt(p(1-p)/n_b); 41%; logit(1e-6) = -13.8) checks out.
+
+Findings:
+- F1 (major): the abstract's 'debiased estimator ... points the same way on every dataset' is
+  presented as reassurance; the body says that agreement is not confirmation (code-r1 F2).
+- F2 (major): related work line 156-159 credits manokhin2026 with 18/30 and 4/30 per-dataset log-loss
+  counts. Those are the Scout's unlogged scratchpad tabulation of their archive, not the paper. It is
+  also selective: the Brier counts (RF 13/30, HGB 14/30) remove the RF/HGB contrast.
+- F3 (major): ai-use.tex says the code review 'passed' and lists code-r1 among stages that 'passed
+  with minor findings'. code-r1 was revise with 2 major. main ran under two minutes later with no
+  code-r2, and the fixes were verified first at results-r1.
+- F4-F12 (minor): Sec. 6 lead overstates the plan.json disclosures (items 4-6 are absent); the
+  machine-eps log-loss sensitivity was suppressed while the clipping dependence is asserted; the
+  abstract's H1 sentence omits electricity 'holds'; 'Platt changed little' contradicts RF/electricity
+  -0.0029; stale ai-use placeholders (replication.json now exists, passed); brier1950 (DOI-only) is
+  cited for propriety; the intro's 1,000-case misattribution; typed '15' and '0.00005' and the Fig. 1
+  dagger caption; the title promises more than the tests deliver.
+
+Suspicions carried forward:
+- If F2 is fixed by keeping the counts with a logged run, check that the run hashes the archive
+  (sha256 7d33f9cd...) and that Brier is reported beside log-loss.
+- When ai-use.tex is updated after this round and the replication, check the review counts (paper
+  rounds), the replication.json timestamp against every run (the tab/fig runs finished 12:35-12:39Z;
+  replication created 12:52:00Z), and the replicator's env (.venv 3.12.11, not crew.py's 3.14.6).
+- Watch that a fix for F1 does not swap in another reassurance (for example 'robust to the
+  estimator').
+
+Check next time (paper-r2):
+- Each F1-F12 against the files; numbers.tex regenerated and validate OK; main.pdf rebuilt after the
+  tex; no new runs unless F2/F5 add a logged one (then check its kind and hashes).
+
+Things I ran: crew.py validate (also --strict) and status; pdftotext of main.pdf; rendered both
+figures to PNG; macro-to-metric dump; category recompute; plain-number check of tab_levels against
+describe metrics (calib-reviewer5/plain.py); plan.json hash history via git show. No model was fitted,
+and nothing in the workspace was modified except reviews/paper-r1/review.json and this memory.
