@@ -701,6 +701,10 @@ completion.
 \item \textbf{Horizon.} The primary outcome is measured roughly a year after the program.
 Training effects are typically close to zero in the short run and larger two to three years
 later \citep{card2018}; \var{re79} extends the horizon by one year only.
+\item \textbf{Reproducibility, not validity.} A clean rerun from a fresh environment
+reproduced every logged run (recorded in \texttt{replication.json}; details in the AI-use
+statement). This shows that the numbers
+follow from the code and the data, not that the identifying assumption holds.
 \item \textbf{Synthetic data.} The results describe this synthetic extract. They are not
 evidence about any real program, and no policy claim follows from them.
 \end{itemize}
@@ -717,7 +721,11 @@ if overlap rule O1 or O2 fails was not coded. It was dormant, because both rules
 the primary run, and the trimmed 90\% interval \ci{\TrimCINinetyLow}{\TrimCINinetyHigh} lies
 inside $\pm M$ in any case.
 Otherwise every planned analysis run was executed once, in the planned order, after the
-design gate, and none was repeated or replaced. The inverse-probability-of-observation check
+design gate. One was later re-recorded without a change of design: on 2026-11-19, after the
+first clean rerun (below), the random-forest run (\texttt{rob-learners}) was made bit-stable
+by summing the forests' per-tree predictions in a fixed order (single-threaded prediction;
+same learners, settings, seeds and inputs), and it and the figure and table runs built on it
+were re-recorded. Its metrics changed only in the last bits, and no printed number changed. The inverse-probability-of-observation check
 was not run because its trigger, fixed and evaluated before the design gate, did not fire.
 The design part of the plan was unchanged from the gate to the results; only task statuses
 were updated.
@@ -739,7 +747,8 @@ that acted as PI for this study, so the PI knew the true effect. That session al
 the research question and hypotheses, replaced the \$1,000 margin with the 10\%-of-\var{re75}
 rule at the Reviewer's suggestion, wrote the pre-gate diagnostics into the plan, issued the
 pre-gate rulings that let two runs read the outcome columns, and wrote every brief to the
-other agents. The briefs were not archived when they were sent. A reconstruction written by
+other agents. The briefs up to and including the results stage were not archived when they
+were sent; the crew archived briefs from the paper stage on (\texttt{briefs/}). A reconstruction written by
 the PI after the fact (\texttt{briefs/RECONSTRUCTION.md}) says that no brief passed on the
 true effect, the generator's structure or the key, and that the PI suggested the admissible
 outcome ranges to the Designer; it cannot be verified. The agents that designed and ran the
@@ -799,8 +808,8 @@ The honest summary is an interval and a conditional statement, not a verdict on 
 program. Pre-specification did what it is supposed to do here: it kept the outcome list, the
 margin and the reading of every check fixed, so the fragility of the result is reported
 rather than discovered by a reader. It cannot remove the fragility. Pre-analysis plans have
-costs and limits \citep{olken2015,coffman2015}, and the clean rerun of every result and
-outside replication remain the stronger correctives. Settling the question would need data
+costs and limits \citep{olken2015,coffman2015}. The clean rerun shows that every number
+follows from the logged code and data; outside replication remains the stronger corrective. Settling the question would need data
 that this extract does not contain: 1976 earnings, or a source of variation in enrolment
 unrelated to earnings shocks.
 
