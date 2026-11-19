@@ -81,3 +81,8 @@
 {"time": "2026-11-19T13:15:43Z", "role": "figures-ra", "action": "run", "detail": "fig-sensitivity exit=0"}
 {"time": "2026-11-19T13:15:43Z", "role": "figures-ra", "action": "run", "detail": "tab-main exit=0"}
 {"time": "2026-11-19T13:17:01Z", "role": "figures-ra", "action": "figures", "detail": "Runs fig-overlap, fig-forest, fig-sensitivity, tab-main (analysis; inputs are logged run outputs only, no claims.jsonl or data/raw): paper/figures/fig_overlap.pdf, fig_forest.pdf, fig_sensitivity.pdf, paper/tables/tab_main.tex (36 claim macros, checked against claims.jsonl outside the run), paper/figures/CAPTIONS.md; task f-figures done"}
+{"time": "2026-11-19T13:44:06Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T134406Z"}
+{"time": "2026-11-19T13:44:12Z", "role": "pi", "action": "brief-archived", "detail": "replicator 20261119T134412Z"}
+{"time": "2026-11-19T13:59:29Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
+{"time": "2026-11-19T16:39:20Z", "role": "replicator", "action": "replication-written", "detail": "REPLICATION.md: clean rerun 2026-11-19T13:45:10Z-13:59:29Z (859 s), 19/19 match, fresh uv venv (py 3.12.11, requirements.txt only), data re-downloaded, no --reuse-data, authors' .venv restored"}
+{"time": "2026-11-19T16:39:22Z", "role": "writer", "action": "paper", "detail": "paper/main.tex and paper/ai-use.tex written; main.pdf 20 pages, compiles clean (no undefined refs/citations, no overfull boxes, no BibTeX warnings via paper/plainnat-nodate.bst); every result number a numbers.tex macro; every \\cite in refs.bib; AI-use replication item cites replication.json (19/19); task w-paper done"}

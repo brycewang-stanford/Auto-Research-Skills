@@ -1,0 +1,59 @@
+\section*{AI-use statement}
+
+This paper was drafted by a crew of AI research-assistant agents
+(Free-Research-Crew, protocol v0.1) under the direction of the human author, Bryce Wang.
+He approved the research question (2026-11-19, 01:17 UTC), the design (2026-11-19, 07:34 UTC)
+and the results (2026-11-19, 13:05 UTC) at three human gates, each in chat after reading the
+Reviewer's verdict and kill argument. The manuscript itself is subject to a fourth, the
+submission gate. He takes responsibility for the paper's content.
+
+\begin{itemize}
+  \item \textbf{Roles and models.} Every crew role ran on Anthropic Claude through Claude
+        Code. The PI role was the main Claude Code session. The Scout, Designer, Data RA,
+        Econometrician, Figures RA, Reviewer, Writer and Replicator ran as agents launched
+        from that session; the review records name the model as \texttt{claude-opus-5-5}.
+        The PI's brief to each agent is archived in \texttt{briefs/}, from the Scout's first
+        brief (2026-11-18, 16:28 UTC) to this Writer's brief (2026-11-19, 13:44 UTC).
+  \item \textbf{Review.} The Reviewer's independence level was \emph{fresh-context}: a new
+        context in every round, with the same model family as the other roles. The human
+        author chose this over a cross-family review. The Reviewer ran 4 rounds on the
+        research question (\emph{block}, \emph{revise}, \emph{revise}, \emph{pass}), 2 on the
+        design (\emph{block}, with one critical finding, then \emph{pass}), 1 on the code
+        (\emph{pass} with four minor findings) and 2 on the results (\emph{revise}, then
+        \emph{pass}). No separate literature round was held. The review of this paper has not
+        yet taken place. The question (round~4), design (round~2) and results (round~2)
+        stages each ended with a \emph{pass} and minor findings still open, which were
+        answered afterwards: the question wording by the PI, checked by the Reviewer at the
+        first design round; the design wording before the design gate; and the claim texts
+        and run notes after the results gate. The code review's four minor findings were fixed
+        and the analysis then ran without a second code-review round, at the PI's instruction;
+        the Reviewer checked the fixes at the first results round
+        (Section~\ref{sec:deviations}, disclosure~1). A post-results arithmetic run was not
+        code-reviewed (disclosure~2).
+  \item \textbf{Findings accepted over the Reviewer's objection.} None. No gate was approved
+        with an open critical finding, and no gate note records an override. One question-stage
+        finding (that the original H2 was close to unfalsifiable) was conceded by narrowing H2
+        to a descriptive comparison.
+  \item \textbf{Evidence.} Every result number in the text and tables is a macro generated
+        from the metrics of a logged run, or is printed by a logged table script from run
+        metrics. Numbers typed by hand are design facts fixed in the plan before any analysis
+        run (sample counts, folds, seeds, the propensity clip, the placebo bound, basis sizes,
+        the outcome-free overlap diagnostics), descriptive covariate statistics from the
+        outcome-free data-preparation and diagnostic runs (Table~\ref{tab:summary}), facts from
+        the cited sources as the Scout's notes record them, and process facts such as dates and
+        round counts. Every citation was checked against its source by the Scout: of the 17
+        sources, 14 were read in full text and 3 from the abstract only, and each is cited for
+        no more than was read. The full workspace is public at
+        \url{https://github.com/brycewang-stanford/Free-Research-Crew/tree/main/gallery/ss-lalonde-observational}.
+        It contains the plan with its deviations and disclosures, the run ledger and notes, the
+        code, the data manifest (the data files themselves are fetched, not committed), every
+        review, the archived briefs and the source notes.
+  \item \textbf{Replication.} Passed. The Replicator's clean rerun, recorded in
+        \texttt{replication.json} (2026-11-19, 13:59 UTC), copied the workspace, deleted every
+        recorded output and re-executed all 19 logged runs, from the data download to the
+        figures and the main table, in a fresh environment built from
+        \texttt{code/requirements.txt} alone. The data were fetched again rather than reused.
+        All 19 runs reproduced every recorded metric within the protocol tolerance (relative
+        $10^{-6}$, absolute $10^{-9}$). No code, data or tolerance was changed for it. The
+        Replicator's account is in \texttt{REPLICATION.md}.
+\end{itemize}

@@ -238,6 +238,18 @@
       "title": "Propensity histogram; forest plot of primary, robustness and placebo; sensitivity contour (benchmark only after the results gate)",
       "owner": "figures-ra",
       "status": "done"
+    },
+    {
+      "id": "w-paper",
+      "title": "Write paper/main.tex and paper/ai-use.tex from plan.json, claims.jsonl, refs.bib and the figures; compile paper/main.pdf cleanly",
+      "owner": "writer",
+      "status": "done"
+    },
+    {
+      "id": "r-rerun",
+      "title": "Clean rerun of every run from a fresh environment built from code/requirements.txt; write REPLICATION.md",
+      "owner": "replicator",
+      "status": "done"
     }
   ],
   "gates": {
