@@ -15,8 +15,9 @@ submission gate. He takes responsibility for the paper's content.
         brief to each agent is archived in \texttt{briefs/}, from the Scout's first brief
         (2026-11-18, 16:28 UTC) to this Writer's brief.
   \item \textbf{Review.} The Reviewer ran 3 rounds on the research question, 2 on the
-        design, 1 on the code, 2 on the results and 1 on the paper (verdict \emph{revise},
-        no critical finding; this version answers its twelve findings). No separate
+        design, 1 on the code, 2 on the results and 2 on the paper: round~1 returned \emph{revise} (no critical
+        finding; twelve findings, answered) and round~2 \emph{pass} with four minor findings,
+        answered in this version. No separate
         literature round was held. The Reviewer's independence level was
         \emph{fresh-context}: a new context in every round, with the same model family as the
         other roles. The human author chose this over a cross-family review. The question
@@ -45,8 +46,10 @@ submission gate. He takes responsibility for the paper's content.
         data manifest, every review, the archived briefs and the source notes.
   \item \textbf{Replication.} Passed. The Replicator's clean rerun, recorded in
         \texttt{replication.json} (2026-11-19, 12:52 UTC), copied the workspace, deleted every
-        recorded output, downloaded the data again rather than reusing it, and re-executed all
-        13 logged runs in a fresh environment built from \texttt{code/requirements.txt}; all
-        13 reproduced every recorded metric to a relative tolerance of $10^{-6}$.
+        recorded output and re-executed all 13 logged runs in a fresh environment built from
+        \texttt{code/requirements.txt}; all 13 reproduced every recorded metric to a relative
+        tolerance of $10^{-6}$. The rerun rebuilt the data from the md5-checked download cache,
+        which is not a recorded output; a separate, unlogged cold download from OpenML matched
+        every data hash and every \texttt{fetch-data} metric.
         \texttt{REPLICATION.md} explains how to repeat it.
 \end{itemize}

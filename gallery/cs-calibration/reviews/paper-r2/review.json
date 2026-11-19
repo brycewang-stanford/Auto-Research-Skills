@@ -1,0 +1,194 @@
+{
+  "id": "paper-r2",
+  "target": "paper",
+  "round": 2,
+  "created": "2026-11-19T13:13:08Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "paper/main.tex",
+    "paper/ai-use.tex",
+    "paper/main.pdf",
+    "paper/numbers.tex",
+    "claims.jsonl",
+    "plan.json",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "runs/NOTES.md",
+    "runs/main/run.json",
+    "runs/describe/metrics.json",
+    "runs/tab-levels/run.json",
+    "runs/tab-decision/run.json",
+    "runs/tab-sensitivity/run.json",
+    "runs/fig-reliability/run.json",
+    "runs/fig-intervals/run.json",
+    "runs/fetch-data/run.json",
+    "runs/timing-synthetic/run.json",
+    "runs/unit-tests/run.json",
+    "runs/h-tests/run.json",
+    "runs/sens-ncal/run.json",
+    "runs/sens-elec-time/run.json",
+    "log.jsonl",
+    "replication.json",
+    "REPLICATION.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/paper-r1/review.json",
+    "briefs/20261119T122759Z-figures-ra.md",
+    "briefs/20261119T130549Z-writer.md",
+    "briefs/20261119T130914Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "https://arxiv.org/pdf/2601.19944v1 (p. 61, Appendix A)"
+  ],
+  "kill_argument": "The paper now says what it found, but what it found is thin. Its one confirmatory calibration test (H1) is relative, and it uses an estimator whose noise floor (0.01-0.04) exceeds the 0.005 margin. Its 'contradicted' verdict comes down to default LR being miscalibrated on two datasets where a linear model fits poorly, which is the textbook caveat to the textbook result. Both isotonic verdicts turn on electricity, whose random splits straddle neighbouring half-hours; the one check meant to test that measured drift instead, so their basis is open. Everything else is descriptive. A referee would call this a careful null-ish report on four datasets, not evidence on whether recalibration helps. What I attacked that held: the 12 paper-r1 findings are fixed in the files. Every Sec. 6 'Recorded' pointer matches a log line and plan.json hash, and the current plan.json sha256 equals the 12:57Z log line. The Manokhin Appendix A ranks match the arXiv figure. All 72 new machine-epsilon macros map to the right describe keys. main.pdf is built from the current tex. No run, code or result file changed since the results gate. validate --strict passes. What remains is four minor wording and disclosure-accuracy points.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The abstract presents the debiased ECE as corroboration: 'a debiased estimator, reported descriptively, points the same way on every dataset'. The body says the opposite about what that agreement is worth. The estimator keeps about 0.6 of any floor difference with its sign, so its agreement 'is not confirmation' (Sec. 3.4, Sec. 4.1, Table 3 caption). It also moves adult from inconclusive to holds. This was conceded at code-r1 F2: the replication licence was dropped because ece_db agreement is close to vacuous. A reader of the abstract alone takes the sentence as a robustness check. Remedy (cheap): delete the clause, or add 'which, since it keeps most of any floor difference, is not independent confirmation'.",
+      "evidence": "paper/main.tex lines 52-54 (abstract) vs lines 289-293, 440-443, 621-623; plan.json disclosures[2]; reviews/code-r1 F2",
+      "response": "Abstract now says the debiased ECE gives the same signs but keeps most of any noise-floor difference, so its agreement is not independent confirmation (matches Sec. 3.4, 4.1 and Table 3).",
+      "ruling": "Abstract (main.tex lines 56-58) now says the debiased ECE gives the same signs but keeps most of any floor difference, so its agreement is not independent confirmation. This matches Sec. 3.4, Sec. 4.1 and Table 3. No replacement reassurance was added."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Related work attributes to Manokhin and Gronhaug (2026) per-dataset counts that the cited paper does not report: 'isotonic lowered the mean log-loss of random forests on 18 of 30 datasets but that of HistGradientBoostingClassifier on only 4 of 30'. sources/notes.md says Appendix A 'gives no per-dataset breakdown'. The counts are the Scout's own summary of the authors' released archive, made by a scratchpad script that was not kept and is not a logged run (sources.json manokhin2026 note). They are also selective. The same tabulation gives Brier counts, and Brier is this paper's own H2 metric: isotonic was better for RF on 13 of 30 and for HGB on 14 of 30. On Brier, the RF/HGB contrast the sentence draws disappears. Claim c-manokhin-archive carries the same attribution. Remedy (cheapest): drop the sentence and keep the Appendix A ranks. Otherwise, label it as the crew's tabulation of the released results, back it with a logged data-prep run that hashes the archive, and report Brier beside log-loss.",
+      "evidence": "paper/main.tex lines 156-159; claims.jsonl c-manokhin-archive; sources/notes.md manokhin2026 Archive table and Appendix A paragraph; sources/sources.json manokhin2026.note",
+      "response": "Dropped the per-dataset 18-of-30 / 4-of-30 sentence; related work keeps only the Appendix A rank result (c-manokhin-appendix).",
+      "ruling": "The 18/30 and 4/30 sentence is gone from main.tex, and claim c-manokhin-archive is gone from claims.jsonl. Related work keeps only c-manokhin-appendix. I checked that claim myself against arXiv 2601.19944v1 p. 61, rendered at 300 dpi. Expected log-loss rank: rf 67.69 to rf.isotonic 59.19 (improved); hgb 38.76 to 57.37 and gbc 30.38 to 62.85 (worsened); rf.platt 43.45, hgb.platt 42.88 and gbc.platt 45.57 are each ahead of isotonic. The claim holds."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The AI-use statement misreports the code review. It says 'The code review passed with no critical finding before any analysis run', and lists code round 1 among stages whose 'last round ... passed with minor findings still open'. In fact code-r1's verdict was revise, with two major findings open (F1 one-hot width assertion; F2 ece_db replication licence) and one minor. There was no code round 2. main started at 07:43:43Z, under two minutes after code-r1 (created 07:42:00Z) and 33 s after the re-run of unit-tests finished. The Reviewer first checked the fixes at results-r1 (08:11Z), after all five analysis runs. Sec. 3.6 likewise says only that 'the Reviewer checked the code against the approved method'. The plan's bar (no open critical finding before analysis; analysis_plan[3]) was met, so this is a disclosure error, not a protocol breach. But the AI-use statement is the record of oversight and must be exact. Remedy: state the verdict (revise; 2 major, 1 minor), that F1 was fixed and F2/F3 narrowed before main without a second code review, and that results-r1 verified them.",
+      "evidence": "paper/ai-use.tex lines 20-28; paper/main.tex lines 353-356; reviews/code-r1/review.json; reviews/results-r1/review.json; runs/main/run.json started; log.jsonl lines 50-54",
+      "response": "Sec. 3.7 and AI-use now state code-r1 was revise (2 major, 1 minor, none critical), F1 fixed in code and F2/F3 answered by narrowing plan text, main started without a second code round, fixes first checked at results-r1; Sec. 6 item 4 cites the new disclosure.",
+      "ruling": "Sec. 3.7 (main.tex lines 358-366) and ai-use.tex now give the code-r1 verdict (revise; 2 major, 1 minor, none critical), say that main started without a second code round, and say the fixes were first checked at results-r1. This matches reviews/code-r1, log lines 50-54 and runs/main started 07:43:43Z."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Sec. 6 opens with 'Every amendment below is recorded in plan.json (disclosures) and in the crew's log, with the plan's hash'. plan.json disclosures has three entries, which cover items 1-3. Item 4 (the code fix) is logged (07:43:18Z) but is not a disclosure. Items 5 and 6 are decisions made after results: sensitivity (c) failed its stated purpose; the sens-ncal overall was dropped; the machine-epsilon log-loss was not reported; Platt was omitted from the reliability diagrams. They appear in neither the disclosures nor any log line. The current plan.json (sha256 855bfa1d) is also not logged, though it differs from the logged c3ebd78c only in tasks and gates. Remedy: add disclosures for items 4-6 with a log line and hash, or reword the lead sentence to say which items are recorded where.",
+      "evidence": "paper/main.tex lines 715-716, 745-759; plan.json disclosures (3 entries); log.jsonl",
+      "response": "Sec. 6 lead and each item now say where it is recorded (plan.json disclosures 1-5 and log lines with times); items 4-6 cite the PI's new disclosures 4 and 5, logged 12:57 UTC with the plan hash.",
+      "ruling": "Sec. 6 now says where each item is recorded. Checked against log.jsonl: disclosure 1 at 06:55:27Z (sha afd41598), disclosure 2 at 07:03:54Z (c1d03097), disclosure 3 at 07:41:34Z (bee7499f), the code fix at 07:43:18Z, and disclosures 4-5 at 12:57:23Z (20c41f3c, equal to the sha256 of the current plan.json). Disclosure 5(c) agrees with the Figures RA brief 20261119T122759Z, which asked for uncalibrated and isotonic only."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The planned machine-epsilon log-loss sensitivity was computed but suppressed. It is planned in threats[8] 'so readers can see how much of any difference the epsilon makes', and in analysis_plan[6] (logloss_mach). Yet the paper asserts twice that RF's log-loss 'depends on the clipping constant', and the dropped sensitivity is the evidence for that claim. Remedy (cheap; describe metrics already hold *_logloss_mach_mean/sd): add the values to Table 4 or quote them for uncalibrated RF.",
+      "evidence": "paper/main.tex lines 492-493, 705-707, 756-757; plan.json design.threats[8], analysis_plan[6]; runs/describe/metrics.json *_logloss_mach_*",
+      "response": "Machine-epsilon log-loss now reported from the new macros: uncalibrated RF (mean, SD) and RF isotonic in Sec. 4.2, HGB none/isotonic in Sec. 4.3; limitations point to it.",
+      "ruling": "Machine-epsilon log-loss is reported through 72 new claims from runs/describe (*_logloss_mach_{mean,sd}). All 72 map to the correct metric key and macro. No run was added, and main.pdf shows the values. A new minor issue with the summary sentence is F15."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The abstract's H1 sentence ('is contradicted: RF scored lower, with RF-minus-LR differences of ... on bank-marketing and ... on phoneme') omits that H1 held on electricity (0.0270 [0.0232, 0.0308]) and was inconclusive on adult. Read alone, 'RF scored lower' sounds general. Remedy: 'RF scored lower on two of four datasets; the published direction held on electricity'.",
+      "evidence": "paper/main.tex lines 38-43; h-tests h1_electricity_*",
+      "response": "Abstract's H1 sentence now says RF scored lower on two of four datasets, the published direction held on electricity (with its interval) and adult was inconclusive.",
+      "ruling": "The abstract's H1 sentence now says RF scored lower on two of four datasets, that the published direction held on electricity (with its interval), and that adult was inconclusive."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "'Platt scaling, fitted on the logit, changed little' (Sec. 4.4) and 'Platt scaling on the logit changed little throughout' (Sec. 5) contradict the paper's own numbers. For RF on electricity, Platt minus none was -0.0029 [-0.0032, -0.0027]. That is the same size as isotonic's -0.0028, which the paper treats as the one H2a 'holds' beyond the margin. For HGB on electricity it was -0.0008 [-0.0010, -0.0006]. Remedy: 'changed little except for the tree models on electricity'.",
+      "evidence": "paper/main.tex lines 535-545, 661-662; describe electricity_rf_platt_minus_none_brier_*",
+      "response": "Sec. 4.4 and Sec. 5 now say Platt changed little except for the tree models on electricity, where for RF it matched isotonic's change (H2a's one holds).",
+      "ruling": "The text now carries the qualifier I proposed ('except for the tree models on electricity'). My remedy was incomplete: RF on phoneme is a second exception. That is raised as new F13, not reopened here."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The AI-use statement still has placeholders that are now stale. 'this item is to be updated after it' refers to the paper review. 'no replication.json exists' is no longer true: replication.json (passed: true, created 2026-11-19T12:52:00Z) is now in the workspace. Both items must be filled in before the submission gate.",
+      "evidence": "paper/ai-use.tex lines 17-19, 44-46; replication.json",
+      "response": "AI-use now records the paper review (round 1, revise, answered by this version) and replication passed (replication.json, 12:52 UTC, 13/13 at rtol 1e-6); Sec. 3.7 also cites it.",
+      "ruling": "The placeholders are filled: the paper review (round 1, revise) and replication passed (replication.json 12:52:00Z, 13/13). replication.json is newer than every run (the last, fig-intervals, finished 12:39:14Z). The new description of the rerun is inaccurate in one respect; see F14."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "brier1950 is cited beyond what was read. It is a DOI-only entry, and sources.json says 'Cite only as the origin of the Brier score'. The paper cites it, with gneiting2007, for the property that strictly proper scores 'reward honest probability forecasts' (claim c-proper-scores). This also makes the AI-use sentence 'each is cited for no more than was read' inaccurate. Remedy: cite gneiting2007 alone for propriety, and brier1950 only where the score is defined.",
+      "evidence": "paper/main.tex lines 176-177; paper/ai-use.tex lines 38-41; sources/sources.json brier1950.note; claims.jsonl c-proper-scores",
+      "response": "gneiting2007 alone is cited for propriety (c-proper-scores); brier1950 is cited only where the Brier score is defined in Sec. 3.4 (c-brier-origin).",
+      "ruling": "brier1950 is cited only at the Brier definition (main.tex line 267, c-brier-origin), and gneiting2007 alone for propriety. A leftover '(Brier)' in the propriety sentence is F16."
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The introduction says that Platt or isotonic 'can repair miscalibration once the calibration set has about 1,000 cases or more' (Niculescu-Mizil and Caruana 2005). The source puts the 200-1,000 threshold on isotonic matching or beating Platt; Platt works with fewer cases (claim c-nm-isotonic-data; notes Sec. 5, Fig. 7). Related work states it correctly. Remedy: reword the introduction to match.",
+      "evidence": "paper/main.tex lines 64-67 vs 142-144; claims.jsonl c-nm-isotonic-data",
+      "response": "Introduction now says isotonic needs more calibration data and caught up with Platt only at about 1,000 cases, Platt doing better below about 200-1,000 (c-nm-isotonic-data).",
+      "ruling": "The introduction (main.tex lines 69-73) now matches c-nm-isotonic-data: isotonic caught up with Platt at about 1,000 cases, and Platt was better below about 200-1,000."
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Some result numbers are typed rather than macros, and one caption does not match its figure. 'against 15 for LR' (line 431) and 'against 15' (line 551) are LR ece_bins results; macros exist (\\AdultLrNoneEceBins, \\ElecLrNoneEceBins, ...). 'smaller in size than $0.00005$' (line 470) is a typed bound on a result. Fig. 1's caption says the dagger is on electricity's label, but the figure prints it on the category labels ('holds†', 'no difference†').",
+      "evidence": "paper/main.tex lines 403-405, 431, 470, 551; paper/figures/fig_intervals.pdf",
+      "response": "Typed 15s replaced by the LR ece_bins macros; the 0.00005 bound replaced by 'rounds to zero at four decimals'; Fig. 1 caption now says the dagger is on electricity's category label.",
+      "ruling": "The typed 15s are replaced by the LR ece_bins macros (all 15.0), the 0.00005 bound is now in words, and Fig. 1's caption now matches the daggers printed on electricity's category labels ('holds†', 'no difference†')."
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The title promises more than the tests deliver. 'Are Default Tabular Classifiers Calibrated, and Does Isotonic Recalibration Help?' invites absolute answers. The confirmatory test of calibration is relative (RF vs LR) and estimator-bound. The isotonic tests end inconclusive and no difference, with both verdicts resting on electricity. Remedy: a title that names what was tested, e.g. 'Random Forest versus Logistic Regression Calibration and Isotonic Recalibration under scikit-learn Defaults: Pre-Specified Tests on Four OpenML Datasets'.",
+      "evidence": "paper/main.tex lines 23-24",
+      "response": "Title narrowed to 'Random Forest versus Logistic Regression on a Plug-in ECE, and Isotonic Recalibration of Tree Ensembles, under scikit-learn Defaults: Pre-Specified Tests on Four OpenML Datasets'.",
+      "ruling": "The title now names the relative, estimator-bound RF-versus-LR test and isotonic recalibration of tree ensembles under defaults, on four OpenML datasets. It no longer promises absolute answers."
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "open",
+      "text": "'Platt scaling, fitted on the logit, changed little except for the tree models on electricity' (Sec. 4.4) and 'changed little except for RF and HGB on electricity, where for RF it lowered the Brier score by as much as isotonic regression did' (Sec. 5) leave out a second case. For RF on phoneme, Platt minus none was -0.0009 [-0.0017, -0.0001]. That is about the 0.001 margin, its interval excludes zero, and it is a larger fall than isotonic's H2a phoneme change of -0.0007 [-0.0018, 0.0005], which was inconclusive. For HGB, Platt's changes on bank-marketing and phoneme (-0.0005, both intervals excluding zero) are the same size as the isotonic H2b changes. My paper-r1 F7 remedy was too narrow. Remedy (cheap; the macros exist): 'changed LR's Brier score little; for RF it lowered it by about the margin on electricity and phoneme, at least as much as isotonic did', or quote the phoneme RF interval.",
+      "evidence": "paper/main.tex lines 559-569 and 686-688; paper/numbers.tex PhonemeRfPlattMinusNoneBrier{Mean,Lo,Hi}, HTwoAPhoneme{Mean,Lo,Hi}, BankHgbPlattMinusNoneBrierMean, PhonemeHgbPlattMinusNoneBrierMean; runs/describe/metrics.json",
+      "response": "Sec. 4.4 now gives Platt-minus-none for LR, RF (electricity, phoneme with intervals; adult, bank-marketing) and HGB (electricity, bank-marketing, phoneme with intervals; adult) beside isotonic's H2a/H2b means, saying Platt lowered the tree models' Brier score on several datasets by at least as much as isotonic; Sec. 5 summarises the same and points to Sec. 4.4.",
+      "ruling": ""
+    },
+    {
+      "id": "F14",
+      "severity": "minor",
+      "status": "open",
+      "text": "The AI-use statement says the clean rerun 'downloaded the data again rather than reusing it', and Sec. 3.7 says 'with the data downloaded again'. REPLICATION.md Sec. 2 says otherwise. fetch-data does not record data/raw/sklearn_home/ as an output, so the cache was copied in, and the rerun's fetch-data rebuilt the CSVs from cached ARFF files (md5-checked) 'without contacting OpenML'. The cold download was a separate, unlogged fetch_data.py run that matched the 4 CSV hashes and the 32 fetch-data metrics. replication.json's reuse_data:false covers only the recorded outputs. The data are the same, so no number is affected, but the AI-use statement is the record of oversight and should be exact. Remedy: 'rebuilt the data from the md5-checked download cache; a separate cold download from OpenML matched every data hash'.",
+      "evidence": "paper/ai-use.tex lines 46-50; paper/main.tex lines 364-367; REPLICATION.md Sec. 2 'The cached download is not a recorded output'; log.jsonl 12:55:06Z replicator line; replication.json reuse_data",
+      "response": "AI-use and Sec. 3.7 now say the rerun rebuilt the data from the md5-checked download cache (not a recorded output) and a separate, unlogged cold download from OpenML matched every data hash (REPLICATION.md).",
+      "ruling": ""
+    },
+    {
+      "id": "F15",
+      "severity": "minor",
+      "status": "open",
+      "text": "The new machine-epsilon summary sentence is selective: 'At this clipping constant isotonic's log-loss advantage over no recalibration is larger on adult, and on phoneme the two are equal'. It leaves out electricity, the dataset that carries H2a's only holds. There the advantage halves, from 0.010 (0.323 to 0.313) at 1e-6 to 0.005 (0.326 to 0.321) at machine epsilon. It also leaves out bank-marketing, where the advantage grows from 0.002 to 0.007. All the levels are printed as macros, so nothing is hidden, but the sentence picks two of four. Remedy: 'larger on adult and bank-marketing, smaller on electricity, unchanged on phoneme', or drop the comparison.",
+      "evidence": "paper/main.tex lines 505-514; paper/numbers.tex {Adult,Bank,Elec,Phoneme}RfNoneLogloss[Mach], {...}RfIsoLogloss[Mach]",
+      "response": "The machine-epsilon sentence now covers all four datasets: isotonic's RF log-loss advantage is larger on adult and bank-marketing, smaller on electricity, unchanged on phoneme.",
+      "ruling": ""
+    },
+    {
+      "id": "F16",
+      "severity": "minor",
+      "status": "open",
+      "text": "The propriety sentence still reads 'the logarithmic and quadratic (Brier) scores, reward honest probability forecasts (gneiting2007)'. The Scout removed '(Brier)' from claim c-proper-scores because the Gneiting and Raftery abstract, the only part read, names the quadratic score but not Brier (sources/notes.md, paper-r1 F9 section). The paper text no longer matches its claim. Remedy: drop '(Brier)' here; Sec. 3.4 already links the Brier score to brier1950.",
+      "evidence": "paper/main.tex line 179; claims.jsonl c-proper-scores; sources/notes.md lines 493-495",
+      "response": "Dropped '(Brier)' from the propriety sentence cited to gneiting2007; brier1950 remains only at the Brier score's definition.",
+      "ruling": ""
+    }
+  ]
+}

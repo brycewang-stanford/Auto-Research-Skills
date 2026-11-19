@@ -176,7 +176,7 @@ ranking of recalibration methods can change sharply with the calibration measure
 calibration error by subtracting a simulated estimate of its bias; they describe this
 estimator as a heuristic and leave guarantees for it open, since their sample-complexity
 guarantees apply to the squared ($\ell_2$) calibration error. Strictly proper scoring rules,
-such as the logarithmic and quadratic (Brier) scores, reward honest probability forecasts
+such as the logarithmic and quadratic scores, reward honest probability forecasts
 \citep{gneiting2007}. Because post-hoc calibration cannot reduce refinement error,
 the change in a proper score such as the Brier score before and after calibration measures the
 calibration gain net of any loss in discrimination \citep{berta2026}; this is why H2a and H2b
@@ -363,9 +363,10 @@ answered by narrowing plan text (Section~\ref{sec:deviations}). The main run the
 without a second code-review round; the Reviewer first checked these fixes at the first
 results review, after the analysis runs. Every run was recorded by the crew's ledger tool
 with the hashes of its code, inputs and outputs. A clean rerun of all 13 logged runs from
-\texttt{code/requirements.txt} in a fresh environment, with the data downloaded again,
-reproduced every recorded metric to a relative tolerance of $10^{-6}$
-(\texttt{replication.json}).
+\texttt{code/requirements.txt} in a fresh environment reproduced every recorded metric to a
+relative tolerance of $10^{-6}$ (\texttt{replication.json}). That rerun rebuilt the data from
+the md5-checked download cache; a separate, unlogged cold download from OpenML matched every
+data hash (\texttt{REPLICATION.md}).
 
 % ---------------------------------------------------------------------------
 \section{Results}
@@ -509,9 +510,9 @@ $\AdultRfNoneLoglossMach$ ($\AdultRfNoneLoglossMachSd$), $\BankRfNoneLoglossMach
 $\PhonemeRfNoneLoglossMach$ ($\PhonemeRfNoneLoglossMachSd$) on \ad, \bm, \el{} and \ph{}
 (mean (SD) over seeds), and RF with isotonic regression to $\AdultRfIsoLoglossMach$,
 $\BankRfIsoLoglossMach$, $\ElecRfIsoLoglossMach$ and $\PhonemeRfIsoLoglossMach$. At this
-clipping constant isotonic's log-loss advantage over no recalibration is larger on \ad, and on
-\ph{} the two are equal at three decimals, as they are at $10^{-6}$; the log-loss comparison is
-descriptive at either constant. Across all 360 cells,
+clipping constant isotonic's log-loss advantage over no recalibration is larger on \ad{} and
+\bm, smaller on \el, and unchanged on \ph{} (where the two are equal at three decimals at both
+constants); the log-loss comparison is descriptive at either constant. Across all 360 cells,
 $\ClipLowTotal$ predictions fell below $10^{-6}$ and $\ClipHighTotal$ above $1-10^{-6}$. The
 ECE of RF was lower with isotonic than without on each dataset in Table~\ref{tab:levels} (for
 example $\ElecRfNoneEce$ to $\ElecRfIsoEce$ on \el), but isotonic outputs tie and were scored
@@ -556,16 +557,26 @@ Table~\ref{tab:levels} gives every level. Default HGB had the lowest Brier score
 ($\AdultHgbNoneBrier$, against $\AdultLrNoneBrier$ for LR and $\AdultRfNoneBrier$ for RF), and
 RF and HGB had far lower Brier scores than LR on \el{} and \ph.
 
-Platt scaling, fitted on the logit, changed little except for the tree models on \el. Platt minus none on the Brier score was
+Platt scaling, fitted on the logit, changed LR's Brier score little: Platt minus none was
 \md{\AdultLrPlattMinusNoneBrierMean}{\AdultLrPlattMinusNoneBrierLo}{\AdultLrPlattMinusNoneBrierHi},
 \md{\BankLrPlattMinusNoneBrierMean}{\BankLrPlattMinusNoneBrierLo}{\BankLrPlattMinusNoneBrierHi},
 \md{\ElecLrPlattMinusNoneBrierMean}{\ElecLrPlattMinusNoneBrierLo}{\ElecLrPlattMinusNoneBrierHi}
 and
 \md{\PhonemeLrPlattMinusNoneBrierMean}{\PhonemeLrPlattMinusNoneBrierLo}{\PhonemeLrPlattMinusNoneBrierHi}
-for LR on \ad, \bm, \el{} and \ph; for RF it was largest on \el{}
-(\md{\ElecRfPlattMinusNoneBrierMean}{\ElecRfPlattMinusNoneBrierLo}{\ElecRfPlattMinusNoneBrierHi}),
-the same size as isotonic's change there, which is H2a's one \cat{holds}; for HGB it was largest on \el{}
-(\md{\ElecHgbPlattMinusNoneBrierMean}{\ElecHgbPlattMinusNoneBrierLo}{\ElecHgbPlattMinusNoneBrierHi}).
+on \ad, \bm, \el{} and \ph. For the tree models it lowered the Brier score on several datasets,
+in each case by at least as much as isotonic regression did. For RF it was
+\md{\ElecRfPlattMinusNoneBrierMean}{\ElecRfPlattMinusNoneBrierLo}{\ElecRfPlattMinusNoneBrierHi}
+on \el{} (isotonic: $\HTwoAElecMean$, H2a's one \cat{holds}) and
+\md{\PhonemeRfPlattMinusNoneBrierMean}{\PhonemeRfPlattMinusNoneBrierLo}{\PhonemeRfPlattMinusNoneBrierHi}
+on \ph{} (isotonic: $\HTwoAPhonemeMean$, inconclusive), and smaller on \ad{} and \bm{}
+($\AdultRfPlattMinusNoneBrierMean$ and $\BankRfPlattMinusNoneBrierMean$). For HGB it was
+\md{\ElecHgbPlattMinusNoneBrierMean}{\ElecHgbPlattMinusNoneBrierLo}{\ElecHgbPlattMinusNoneBrierHi}
+on \el,
+\md{\BankHgbPlattMinusNoneBrierMean}{\BankHgbPlattMinusNoneBrierLo}{\BankHgbPlattMinusNoneBrierHi}
+on \bm{} and
+\md{\PhonemeHgbPlattMinusNoneBrierMean}{\PhonemeHgbPlattMinusNoneBrierLo}{\PhonemeHgbPlattMinusNoneBrierHi}
+on \ph{} (isotonic: $\HTwoBElecMean$, $\HTwoBBankMean$ and $\HTwoBPhonemeMean$), and
+$\AdultHgbPlattMinusNoneBrierMean$ on \ad.
 These intervals are descriptive; no margin or rule applies to them. Where LR was
 miscalibrated, isotonic regression changed more than Platt scaling did: on \bm{} LR's ECE went
 from $\BankLrNoneEce$ (none) and $\BankLrPlattEce$ (Platt) to $\BankLrIsoEce$ (isotonic) and its
@@ -684,8 +695,9 @@ margin only on \el, and changed HGB's by less than 0.001 on three datasets, in b
 directions. Both H2 verdicts depend on \el. None of this says that
 recalibration is useless: where LR was miscalibrated (\bm, \ph), isotonic regression lowered
 its Brier score and, on fewer bins, its ECE (descriptive). Platt scaling on the logit changed
-little except for RF and HGB on \el, where for RF it lowered the Brier score by as much as
-isotonic regression did.
+LR's Brier score little, and lowered that of RF and HGB on several datasets by at least as
+much as isotonic regression did (Section~\ref{sec:levels}); like all Platt results, this is
+descriptive.
 
 \paragraph{Electricity's time ordering.} \el{} is a half-hourly series. Our random splits
 put neighbouring half-hours on both sides of each split, which can make test predictions

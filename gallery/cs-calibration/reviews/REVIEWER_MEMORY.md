@@ -402,3 +402,39 @@ Things I ran: crew.py validate (also --strict) and status; pdftotext of main.pdf
 figures to PNG; macro-to-metric dump; category recompute; plain-number check of tab_levels against
 describe metrics (calib-reviewer5/plain.py); plan.json hash history via git show. No model was fitted,
 and nothing in the workspace was modified except reviews/paper-r1/review.json and this memory.
+
+## paper-r2 (2026-11-19 UTC), verdict: pass (0 critical, 0 major, 4 minor open)
+
+Status of paper-r1 findings: F1-F12 are all resolved in the files. No run, code or result file
+changed since the results gate. The last run is fig-intervals (12:39:14Z), and replication.json
+(12:52:00Z) is newer. The current plan.json sha256 is 20c41f3c, which equals the 12:57:23Z
+disclosure-added log line. Each Sec. 6 'Recorded' pointer matches a log line with a hash (06:55
+afd41598, 07:03 c1d03097, 07:41 bee7499f, 07:43:18 code fix). Disclosure 5(c) matches the Figures
+RA brief 20261119T122759Z. All 72 new LoglossMach macros map to the right describe keys. main.pdf
+was rebuilt from the current tex (numbers.tex mtime is later but unchanged in content). I finally
+checked Manokhin Appendix A on arXiv 2601.19944v1 p. 61 at 300 dpi: rf 67.69 -> iso 59.19,
+hgb 38.76 -> 57.37, gbc 30.38 -> 62.85, and Platt ahead of isotonic for all three (rf.platt
+43.45, hgb.platt 42.88, gbc.platt 45.57), so c-manokhin-appendix holds.
+
+New (all minor):
+- F13: 'Platt changed little except tree models on electricity' leaves out RF on phoneme. There
+  Platt was -0.0009 [-0.0017, -0.0001], larger than isotonic's H2a -0.0007, which was
+  inconclusive. HGB Platt on bank and phoneme was -0.0005, excluding 0. My r1 F7 remedy was too
+  narrow.
+- F14: AI-use and Sec. 3.7 say the rerun 'downloaded the data again'. REPLICATION.md says the
+  rerun rebuilt from the copied sklearn_home cache. The cold download was a separate, unlogged run.
+- F15: the machine-epsilon summary names adult (larger) and phoneme (equal) but leaves out
+  electricity, where isotonic's log-loss advantage halves (0.010 -> 0.005), and bank (grows).
+- F16: main.tex line 179 still says 'quadratic (Brier)' under gneiting2007. The Scout dropped
+  '(Brier)' from c-proper-scores because the abstract does not name Brier.
+
+Suspicions carried forward (submission):
+- If the Writer edits for F13-F16, check that main.pdf is rebuilt, validate --strict is OK, and
+  no new run is added (a run would make replication.json stale for the submission gate).
+- The H2 verdicts' dependence on electricity and its open leakage question must stay in the
+  abstract, results and conclusion through any further edit.
+
+Things I ran: crew.py validate (also --strict) and status; pdftotext of main.pdf; a macro-to-key
+check for the 72 LoglossMach claims; log/hash cross-checks; and a download of the Manokhin arXiv
+PDF into calib-reviewer6/dl, with p. 61 rendered and read. No model was fitted, and nothing in the
+workspace was modified except reviews/paper-r2/review.json and this memory.
