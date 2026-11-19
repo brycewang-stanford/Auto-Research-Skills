@@ -2,22 +2,40 @@
 
 ## Status (2026-11-19 UTC)
 
-The code is written; the unit tests ran as a data-prep run on synthetic data only. **No analysis run
-has touched the study data.** design.method step 13 requires a Reviewer code review (target `code`)
-with no open critical finding before `main`. If the review changes any file under `code/`, rerun
-`unit-tests` with `--replace` first. Validation fails while a recorded code hash is stale.
+Every planned run is done. All of them were run once, in the planned order, with the commands
+below, and none was repeated or changed after its results were seen.
 
 | Order | Run id | Kind | Status |
 |---|---|---|---|
 | (done) | `timing-synthetic` | data-prep | designer, budget estimate |
 | (done) | `fetch-data` | data-prep | data-ra, pinned data |
-| 1 | `unit-tests` | data-prep | **done**: 32/32 tests passed, exit 0, synthetic only |
-| 2 | code review | Reviewer, target `code` | **pending; blocks every run below** |
-| 3 | `main` | analysis | not run |
-| 4 | `h-tests` | analysis | not run (needs `main`) |
-| 5 | `describe` | analysis | not run (needs `main`) |
-| 6 | `sens-ncal` | analysis | not run (needs `main`: checks its base models against `results/cells.csv`) |
-| 7 | `sens-elec-time` | analysis | not run |
+| 1 | `unit-tests` | data-prep | done 07:28Z (32/32); rerun `--replace` 07:43Z after code-r1 F1: **33/33 passed** |
+| 2 | code review | Reviewer, `code-r1` | verdict revise, 0 critical. F1 (code) fixed. F2/F3 (plan wording) were narrowed by the designer: `plan-narrowed` log entry 07:41:34Z, plan sha256 `bee7499f…`. The diff changes only step 7/8, threats[0], the H1 label and contribution wording; procedure, metric, margin and rule are unchanged |
+| 3 | `main` | analysis | done 07:43Z; **2.55 CPU-minutes**, 23 s wall (under the 30 CPU-minute stop) |
+| 4 | `h-tests` | analysis | done |
+| 5 | `describe` | analysis | done |
+| 6 | `sens-ncal` | analysis | done; base models asserted identical to main's |
+| 7 | `sens-elec-time` | analysis | done |
+
+## Results (seed-paired t(9) 95% intervals; verdicts scoped to these samples)
+
+| | adult | bank-marketing | electricity | phoneme | overall |
+|---|---|---|---|---|---|
+| **H1** ECE RF − LR (pred. > 0, margin 0.005) | +0.0033 [−0.0001, +0.0068] inconclusive | −0.0147 [−0.0161, −0.0134] **contradicted** | +0.0270 [+0.0232, +0.0308] holds | −0.0263 [−0.0339, −0.0187] **contradicted** | **contradicted** |
+| **H2a** Brier RF iso − none (pred. < 0, margin 0.001) | +0.0003 [−0.0001, +0.0007] no difference | −0.0000 [−0.0003, +0.0002] no difference | −0.0028 [−0.0030, −0.0025] holds | −0.0007 [−0.0018, +0.0005] inconclusive | **inconclusive** |
+| **H2b** Brier HGB iso − none (pred. < 0, margin 0.001) | +0.0002 [+0.0001, +0.0004] no difference | −0.0005 [−0.0008, −0.0002] no difference | −0.0004 [−0.0007, −0.0002] no difference | +0.0006 [−0.0001, +0.0014] inconclusive | **no difference** |
+| H1 on ece_db (sens. a, descriptive) | holds | contradicted | holds | contradicted | contradicted |
+| H2a, n_cal = 1,351 (sens. b) | contradicted | contradicted | holds | (main) inconclusive | contradicted |
+| H2b, n_cal = 1,351 (sens. b) | contradicted | no difference | no difference | (main) inconclusive | inconclusive |
+| Electricity chronological (sens. c) | H1 inconclusive [−0.0100, +0.0116]; H2a contradicted [+0.0209, +0.0322]; H2b holds [−0.1013, −0.0551] | | | | not counted |
+
+Every number above is a claim in `claims.jsonl` with a macro in `paper/numbers.tex`. There are
+354 result claims: every per-dataset mean, lo, hi and category, the overall codes, both
+sensitivities, seed means of ece, ece_db and Brier for every cell, log-loss and AUC for none and
+isotonic, the RF − LR and Platt − none descriptive intervals, the isotonic AUC control, clip counts
+and the procedure checks. Values are copied from the run metrics by a generator script, not typed.
+Overall verdicts and categories are numeric codes (validation requires numbers), and each claim's
+text gives the word.
 
 ## Code (all under `code/`)
 
@@ -39,11 +57,12 @@ file lists it as `--code`, so a later edit invalidates the run.
 All commands are run from the repository root. `crew.py run` executes the command with the workspace
 as its working directory. Python is the workspace `.venv` (3.12.11, `code/requirements.txt`).
 
-### 1. unit-tests (data-prep; done)
+### 1. unit-tests (data-prep; done, rerun with `--replace` after code-r1 F1)
 
 ```bash
-TMPDIR=<any scratch dir> python3 crew/scripts/crew.py run gallery/cs-calibration --id unit-tests --role experimenter --kind data-prep \
-  --code code/test_metrics.py --code code/experiment.py --code code/analyze.py --code code/sens_ncal.py --code code/sens_elec_time.py \
+TMPDIR=<any scratch dir> python3 crew/scripts/crew.py run gallery/cs-calibration --id unit-tests --role experimenter --kind data-prep --replace \
+  --code code/test_metrics.py --code code/experiment.py --code code/analyze.py --code code/describe.py \
+  --code code/sens_ncal.py --code code/sens_elec_time.py \
   --metrics runs/unit-tests/metrics.json -- .venv/bin/python code/test_metrics.py
 ```
 
@@ -153,7 +172,27 @@ After all five runs: `python3 crew/scripts/crew.py validate gallery/cs-calibrati
    upward. This is the estimator's property, not a code issue: the implementation matches Def. G.3
    term by term (test `ece_db_matches_explicit_formula_and_draw_layout`). The PI should decide
    whether the paper's wording changes; the procedure does not.
-3. The first synthetic smoke run of `experiment.py` failed in loky (the `__main__` worker could not
+   *Status:* code-r1 F2 and F3 agreed. The designer narrowed the plan wording before `main`.
+   H1 is no longer called a replication, and ece_db is descriptive.
+3. **code-r1 F1 (fixed before `main`):** the one-hot width is not constant across seeds. The
+   encoder is fitted on each seed's training split, and a rare adult level is sometimes absent from
+   it. `main` had asserted a constant width. It now records the min and max (`summarize_main`), and
+   `describe` does the same. On the study data, adult's width was 106-107, so the old assertion
+   would have failed `main`. A unit test with a single-row level covers this.
+4. **Results that weaken the hypotheses, as pre-registered.** H1 is contradicted overall: on
+   bank-marketing and phoneme the uncalibrated RF has *lower* plug-in ECE than LR. ece_db agrees in
+   sign on all four datasets, and on adult it moves from inconclusive to holds. Per code-r1 F2,
+   that agreement is not evidence against a floor artefact. On adult and bank-marketing, H2a ends
+   in the margin, not in a gain. For H2b, the adult interval lies wholly above 0 and the
+   bank-marketing and electricity intervals lie wholly below 0. All three lie inside ±0.001, so
+   the pre-registered precedence rule makes them 'no difference'.
+   With isotonic fitted on 1,351 calibration rows (sens. b), isotonic *raises* RF Brier on adult and
+   bank-marketing ('contradicted') and HGB Brier on adult. On the chronological electricity split
+   (sens. c), isotonic raises RF Brier by about 0.027 but lowers HGB Brier by about 0.078. In that
+   split, the calibration and test quarters contain no Victoria fill-value rows (min = max = 0), and
+   the train half contains 7,642-7,753 of them. So drift and the fill regime are confounded, as
+   threats[4] says. None of this changes a verdict.
+5. The first synthetic smoke run of `experiment.py` failed in loky (the `__main__` worker could not
    be unpickled because of an `lru_cache`). Fixed by dispatching `experiment.main_cell` by module
    reference. No result was involved.
 

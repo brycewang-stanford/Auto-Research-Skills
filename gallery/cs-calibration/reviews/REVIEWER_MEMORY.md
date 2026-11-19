@@ -214,3 +214,47 @@ Check next time (code-r1):
 
 Things I ran: no model and no estimate on study data. crew.py validate (OK), sha256 of
 plan.json, and fetched arXiv:1909.10155v2 into reviewer scratch to read Def. G.3.
+
+## code-r1 (2026-11-19 UTC), verdict: revise (0 critical, 2 major, 1 minor open)
+
+Checked against the design-r1/r2 "Check next time" lists, and all of it held: LogitScore
+decision_function routing, bit-identity assertion, electricity sort by original file row,
+tie-edge test, manifest feature lists, debias child order (0..8 main, 9..11 sens-ncal),
+one rng.normal((1000, K)) per cell, no flooring, pure bins give zero correction,
+SeedSequence([20261119, 2, s, 1]), fit seconds kept out of metrics.json, runs/ holds
+data-prep runs only, and no results/ dir. crew.py rerun compares metrics only, so
+main_timing.json as an --output is harmless.
+
+Findings:
+- F1 (major): experiment.main() asserts that one-hot width is constant across seeds. The
+  adult native-country level 'Holand-Netherlands' (one row in UCI) puts P(crash) at
+  about 0.90. The assertion fires after cells.csv is written. describe.py reports seed 0's
+  width. Synthetic demo reproduced the varying width.
+- F2 (major): NOTES item 2 is not just wording. ece_db keeps about 59% of the floor, so
+  it keeps the sign of a floor-only RF-minus-LR difference (synthetic: 86-88% per seed,
+  mean sign always). The "replication only where ece_db agrees" licence (hypotheses[0],
+  contribution) and threats[0]'s disagreement fallback are therefore close to vacuous.
+  Cheapest fix: reword before main and drop the replication licence.
+- F3 (minor): NOTES item 1 is wording only (step 7 parenthetical); the code matches step 7.
+
+Suspicions carried forward:
+- If F2 is fixed by adding an analytic-floor metric, it must be logged before main. Check
+  the plan.json sha256 against the log, and that the H1 metric, margin and rule are
+  unchanged.
+- If main crashes on F1 before the fix, cells.csv will exist before the code edit. Check
+  that the rerun main is byte-identical and that nothing in the plan changed between
+  them.
+- Results: if H1 holds or is contradicted while |dbar| is below the floor difference,
+  and ece_db "agrees", the paper must not say "replicates".
+
+Check next time (code-r2 / results-r1):
+- F1: width min/max instead of the assertion; a unit test with a single-row level;
+  unit-tests rerun with --replace; crew.py validate OK.
+- F2/F3: plan.json wording edits logged, with the sha256 matching the last log line.
+- Results: main exit 0; cpu_minutes <= 30; lr_nonconverged_cells; hgb_n_iter 100/100;
+  ece_bins on RF none (ties); the clip counts.
+
+Things I ran: no model and no estimate on study data, and data/raw was not opened. I
+reran code/test_metrics.py with cwd in reviewer scratch (32/32 pass; the workspace runs/
+was untouched). I ran a synthetic width demo and a synthetic ece_db sign simulation
+(calib-reviewer2/width_demo.py, ecedb_sign.py) and crew.py validate (OK).

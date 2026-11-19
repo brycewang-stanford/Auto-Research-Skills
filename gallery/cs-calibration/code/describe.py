@@ -28,9 +28,8 @@ CONTRAST_METRICS = ("brier", "logloss", "ece", "auc")
 CAL_CONTRASTS = {"platt_minus_none": ("platt", "none"), "iso_minus_platt": ("isotonic", "platt")}
 
 
-def main() -> None:
-    cells = pd.read_csv("results/cells.csv")
-    assert len(cells) == 360, len(cells)
+def describe(cells: pd.DataFrame) -> tuple[list[dict], list[dict], dict]:
+    """Summary rows, descriptive paired intervals and flat metrics from the 360 main cells."""
     metrics: dict = {"n_seeds": N_SEEDS}
 
     summary = []
@@ -71,7 +70,9 @@ def main() -> None:
     for name in DATASETS:
         sub = per_cell.loc[name]
         metrics[f"{ds_key(name)}_lr_nonconverged"] = int((sub["lr_converged"] == 0).sum())
-        metrics[f"{ds_key(name)}_width"] = int(sub["width"].iloc[0])
+        # the one-hot width can vary across seeds (a rare level missing from a seed's training split)
+        metrics[f"{ds_key(name)}_width_min"] = int(sub["width"].min())
+        metrics[f"{ds_key(name)}_width_max"] = int(sub["width"].max())
     elec = per_cell.loc["electricity"]
     for split in ("train", "cal", "test"):
         col = f"n_vicfill_{split}"
@@ -79,6 +80,13 @@ def main() -> None:
         metrics[f"electricity_{col}_min"] = int(elec[col].min())
         metrics[f"electricity_{col}_max"] = int(elec[col].max())
 
+    return summary, paired, metrics
+
+
+def main() -> None:
+    cells = pd.read_csv("results/cells.csv")
+    assert len(cells) == 360, len(cells)
+    summary, paired, metrics = describe(cells)
     pd.DataFrame(summary).to_csv("results/describe_summary.csv", index=False, float_format="%.17g")
     pd.DataFrame(paired).to_csv("results/describe_paired.csv", index=False, float_format="%.17g")
     out = Path("runs/describe")

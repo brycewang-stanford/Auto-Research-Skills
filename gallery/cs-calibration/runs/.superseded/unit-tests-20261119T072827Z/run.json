@@ -1,0 +1,73 @@
+{
+  "id": "unit-tests",
+  "role": "experimenter",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/test_metrics.py"
+  ],
+  "started": "2026-11-19T07:28:16Z",
+  "finished": "2026-11-19T07:28:27Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/test_metrics.py",
+      "sha256": "3596b133d2bffee3cab56312bccf4dd744b7bbed1b30c5d421252759a4359103"
+    },
+    {
+      "path": "code/experiment.py",
+      "sha256": "c3a823b9af1fd66637c290c583c856587847766098870382d47ec1ad60b68add"
+    },
+    {
+      "path": "code/analyze.py",
+      "sha256": "cf98c82dd5d72bc653c945fd57d49da9f539f69796a55d0a3b9f5742b2f1d393"
+    },
+    {
+      "path": "code/sens_ncal.py",
+      "sha256": "d03a5213931d856b71132a4c38fc9a91602332f5c2b8e62332a53b0b102449bc"
+    },
+    {
+      "path": "code/sens_elec_time.py",
+      "sha256": "f4a9ef92f84c1ad64ec5d7690b167eeb91856b1fa5cad80a3b72e0032d886f92"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "runs/unit-tests/metrics.json",
+      "sha256": "51c7c999416ddff6d307c72fb72dd3b5f9401b8e1a5a00b679cae91861bd3012"
+    }
+  ],
+  "metrics": {
+    "tests_run": 32,
+    "tests_passed": 32,
+    "tests_failed": 0,
+    "reads_study_data": 0,
+    "ece_hand_tie_edge": 0.17033333333333334,
+    "ece_hand_all_tied": 0.09999999999999953,
+    "ece_db_single_bin": -0.01263913842696209,
+    "ece_db_single_bin_target": -0.0126156626101008,
+    "synthetic_calibrated_ece_mean": 0.016457733828950997,
+    "synthetic_calibrated_ece_db_mean": 0.00919888755449973,
+    "synthetic_calibrated_db_ratio": 0.5589401098660288,
+    "synthetic_calibrated_db_ratio_theory": 0.5857864376269049,
+    "synthetic_miscalibrated_ece_mean": 0.24896695863369298,
+    "synthetic_miscalibrated_ece_db_mean": 0.2489110036086301,
+    "clip_low_hand": 2,
+    "clip_high_hand": 2,
+    "rf_logit_bound": 13.815509557963773,
+    "iso_logit_vs_prob_max_abs_diff_lr": 0.00019572106083043384,
+    "iso_logit_vs_prob_max_abs_diff_rf": 0.0009909608514331453,
+    "iso_logit_vs_prob_max_abs_diff_hgb": 0.0009138930443588419,
+    "synthetic_adult_width": 109,
+    "synthetic_adult_rf_none_ece": 0.09747999999999998
+  },
+  "metrics_file": "runs/unit-tests/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/cs-calibration/.venv"
+  }
+}

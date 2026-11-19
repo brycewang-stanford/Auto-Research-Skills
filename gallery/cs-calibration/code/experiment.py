@@ -438,6 +438,37 @@ def save_preds(path: Path, y_test: np.ndarray, preds: dict) -> None:
     np.savez_compressed(path, y=y_test.astype(np.float64), **preds)
 
 
+def summarize_main(df: pd.DataFrame) -> dict:
+    """Flat counts and checks for runs/main/metrics.json.
+
+    Split sizes are fixed by construction and asserted constant across seeds. The one-hot width is
+    not: the encoder is fitted on each seed's training split, so a rare level (adult native-country
+    has a level with about one row) that misses a seed's training split drops a column. The width is
+    recorded as its min and max over seeds (design step 5: 'the realised width is recorded').
+    """
+    n_cells = df.groupby(["dataset", "seed"]).ngroups
+    per_cell = df.groupby(["dataset", "seed"]).first()
+    metrics = dict(n_rows=len(df), n_dataset_seed_cells=n_cells, n_pred_files=n_cells,
+                   n_seeds=int(df["seed"].nunique()),
+                   lr_nonconverged_cells=int((per_cell["lr_converged"] == 0).sum()),
+                   lr_n_iter_max=int(df["lr_n_iter"].max()),
+                   hgb_n_iter_min=int(df["hgb_n_iter"].min()), hgb_n_iter_max=int(df["hgb_n_iter"].max()),
+                   n_clip_low_total=int(df["n_clip_low"].sum()), n_clip_high_total=int(df["n_clip_high"].sum()))
+    for name in DATASETS:
+        sub = df[df["dataset"] == name]
+        k = ds_key(name)
+        for col in ("n_train", "n_cal", "n_test"):
+            vals = sub[col].unique()
+            assert len(vals) == 1, f"{name}: {col} varies across seeds"
+            metrics[f"{col}_{k}"] = int(vals[0])
+        metrics[f"width_min_{k}"] = int(sub["width"].min())
+        metrics[f"width_max_{k}"] = int(sub["width"].max())
+        metrics[f"n_cal_min_{k}"] = int(sub["n_cal"].min())
+        metrics[f"mean_brier_{k}"] = float(sub["brier"].mean())   # grand means: a rerun check, not a result
+        metrics[f"mean_ece_{k}"] = float(sub["ece"].mean())
+    return metrics
+
+
 def main() -> None:
     from joblib import Parallel, delayed
 
@@ -457,21 +488,7 @@ def main() -> None:
              per_cell=[o["secs"] for o in out]), indent=2) + "\n")
 
     assert len(df) == len(DATASETS) * len(MODELS) * len(CALIBRATORS) * len(SEEDS) == 360
-    metrics = dict(n_rows=len(df), n_dataset_seed_cells=len(jobs), n_pred_files=len(jobs), n_seeds=len(SEEDS),
-                   lr_nonconverged_cells=int((df.groupby(["dataset", "seed"])["lr_converged"].first() == 0).sum()),
-                   lr_n_iter_max=int(df["lr_n_iter"].max()),
-                   hgb_n_iter_min=int(df["hgb_n_iter"].min()), hgb_n_iter_max=int(df["hgb_n_iter"].max()),
-                   n_clip_low_total=int(df["n_clip_low"].sum()), n_clip_high_total=int(df["n_clip_high"].sum()))
-    for name in DATASETS:
-        sub = df[df["dataset"] == name]
-        k = ds_key(name)
-        for col in ("n_train", "n_cal", "n_test", "width"):
-            vals = sub[col].unique()
-            assert len(vals) == 1, f"{name}: {col} varies across seeds"
-            metrics[f"{col}_{k}"] = int(vals[0])
-        metrics[f"n_cal_min_{k}"] = int(sub["n_cal"].min())
-        metrics[f"mean_brier_{k}"] = float(sub["brier"].mean())   # grand means: a rerun check, not a result
-        metrics[f"mean_ece_{k}"] = float(sub["ece"].mean())
+    metrics = summarize_main(df)
     out_dir = Path("runs/main")
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "metrics.json").write_text(json.dumps(metrics, indent=2) + "\n")

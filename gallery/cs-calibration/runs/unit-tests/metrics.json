@@ -1,6 +1,6 @@
 {
-  "tests_run": 32,
-  "tests_passed": 32,
+  "tests_run": 33,
+  "tests_passed": 33,
   "tests_failed": 0,
   "reads_study_data": 0,
   "ece_hand_tie_edge": 0.17033333333333334,
@@ -19,6 +19,7 @@
   "iso_logit_vs_prob_max_abs_diff_lr": 0.00019572106083043384,
   "iso_logit_vs_prob_max_abs_diff_rf": 0.0009909608514331453,
   "iso_logit_vs_prob_max_abs_diff_hgb": 0.0009138930443588419,
+  "single_row_level_widths": "108/108/109/109/108/108/108/108/108/108",
   "synthetic_adult_width": 109,
   "synthetic_adult_rf_none_ece": 0.09747999999999998
 }

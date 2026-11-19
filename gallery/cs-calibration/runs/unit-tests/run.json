@@ -6,21 +6,25 @@
     ".venv/bin/python",
     "code/test_metrics.py"
   ],
-  "started": "2026-11-19T07:28:16Z",
-  "finished": "2026-11-19T07:28:27Z",
+  "started": "2026-11-19T07:42:47Z",
+  "finished": "2026-11-19T07:43:10Z",
   "exit_code": 0,
   "code": [
     {
       "path": "code/test_metrics.py",
-      "sha256": "3596b133d2bffee3cab56312bccf4dd744b7bbed1b30c5d421252759a4359103"
+      "sha256": "8a7eb2fed6d21517a984254fc110ee012dd8eab3550ff074474153ee431d2792"
     },
     {
       "path": "code/experiment.py",
-      "sha256": "c3a823b9af1fd66637c290c583c856587847766098870382d47ec1ad60b68add"
+      "sha256": "cf439bcde90570127ec076b6fe694beb60cc96b641c884aeb2939e3562a350a3"
     },
     {
       "path": "code/analyze.py",
       "sha256": "cf98c82dd5d72bc653c945fd57d49da9f539f69796a55d0a3b9f5742b2f1d393"
+    },
+    {
+      "path": "code/describe.py",
+      "sha256": "518447298a25eb93eca7c94d6ac7a33d29a31f423040dfc5b49fe11c53d4cbeb"
     },
     {
       "path": "code/sens_ncal.py",
@@ -35,12 +39,12 @@
   "outputs": [
     {
       "path": "runs/unit-tests/metrics.json",
-      "sha256": "51c7c999416ddff6d307c72fb72dd3b5f9401b8e1a5a00b679cae91861bd3012"
+      "sha256": "c3c24f53d6c0826b0cd3a4ffe8a3d3dd842d8fea8f49a4c48407e66f0d529075"
     }
   ],
   "metrics": {
-    "tests_run": 32,
-    "tests_passed": 32,
+    "tests_run": 33,
+    "tests_passed": 33,
     "tests_failed": 0,
     "reads_study_data": 0,
     "ece_hand_tie_edge": 0.17033333333333334,
@@ -59,6 +63,7 @@
     "iso_logit_vs_prob_max_abs_diff_lr": 0.00019572106083043384,
     "iso_logit_vs_prob_max_abs_diff_rf": 0.0009909608514331453,
     "iso_logit_vs_prob_max_abs_diff_hgb": 0.0009138930443588419,
+    "single_row_level_widths": "108/108/109/109/108/108/108/108/108/108",
     "synthetic_adult_width": 109,
     "synthetic_adult_rf_none_ece": 0.09747999999999998
   },

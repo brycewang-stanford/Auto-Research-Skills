@@ -1,0 +1,67 @@
+{
+  "id": "code-r1",
+  "target": "code",
+  "round": 1,
+  "created": "2026-11-19T07:42:00Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/cs.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/cs-calibration/task.json",
+    "/Users/brycewang/Auto-Research-Skills/crew/scripts/crew.py (validate hash checks, cmd_rerun)",
+    "briefs/20261119T073442Z-reviewer.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r2/review.json (format)",
+    "plan.json (question, hypotheses, contribution, design.*, design_stage_items, disclosures)",
+    "claims.jsonl (grep: floor, replicat, rank-based, heuristic)",
+    "crew.json",
+    "log.jsonl (tail)",
+    "data/manifest.json (adult, bank-marketing entries)",
+    "data/CODEBOOK.md (category levels)",
+    "runs/NOTES.md",
+    "runs/unit-tests/metrics.json",
+    "runs/*/run.json (kind field)",
+    "code/experiment.py",
+    "code/analyze.py",
+    "code/describe.py",
+    "code/sens_ncal.py",
+    "code/sens_elec_time.py",
+    "code/test_metrics.py",
+    "code/requirements.txt"
+  ],
+  "kill_argument": "The code faithfully computes a debiased ECE whose stated job it cannot do, and the paper's H1 licence depends on that job. plan.json says ece_db 'corrects a well-calibrated bin by about its floor' and that H1 is 'called a replication only where the debiased ECE agrees in direction'. Def. G.3, coded correctly here, removes only 2 - sqrt(2), about 41%, of the l1 floor for a calibrated bin (unit-tests ratio 0.559). When RF and LR are both well calibrated and the plug-in RF-minus-LR difference is pure floor difference, ece_db shrinks that difference by about 40% but keeps its sign: in my synthetic check it agreed per seed in 86-88% of draws and in mean sign every time. So 'ece_db agrees' cannot separate a real H1 effect from a floor artefact, and the replication label becomes close to automatic. Separately, main as written will probably crash. It asserts the one-hot width is constant across seeds, and adult has a native-country level with about one row. Attacked and held: split leakage, test-set tuning, FrozenEstimator bit-identity, decision_function routing, seed streams and debias child order, the tie rule, decision-rule precedence, sens-ncal base-model identity, and the chronological sort.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "The main run will most likely fail at its own assertion after scoring everything. experiment.main() lines 468-471 assert that 'width' takes one value per dataset across the 10 seeds. The OneHotEncoder is fitted on each seed's training split (correctly, step 5), so a level absent from that split drops one column. In UCI adult, native-country 'Holand-Netherlands' occurs in one row of the 48,842 (a known property of the source data; I did not open data/raw to confirm it). P(that row lands in a seed's 10,000-row train) = (20,000/48,842) x 0.5 = 0.205, so P(width is constant over 10 seeds) = 0.795^10 + 0.205^10 = 0.10. On a synthetic adult-shaped pool with one single-row level, using experiment.seed_streams/subsample/split_random/preprocess, the widths for seeds 0-9 were [4,5,4,4,4,4,4,4,4,4]. The assertion fires after results/cells.csv and the .npz files are written but before runs/main/metrics.json, so the ledger records a failed main with results already on disk. Design step 5 says only that 'the realised width is recorded', not that it is constant. describe.py line 74 has the same assumption: it reports sub['width'].iloc[0], seed 0's width, as the dataset width. No unit test covers a categorical level that is absent from the training split. Resolves when the code is changed: record width min and max per dataset in main and describe (sens_elec_time.py already does this), and do not assert it constant. Add a unit test with a single-row categorical level that checks main's summary code survives a varying width. Then rerun unit-tests with --replace before main. Optionally, the Data RA can confirm the adult native-country frequency table as a data-prep check. None of this changes any metric.",
+      "evidence": "code/experiment.py main() lines 465-471; code/describe.py line 74; plan.json design.method step 5; data/CODEBOOK.md adult native-country (41 levels); reviewer scratch calib-reviewer2/width_demo.py (synthetic only)",
+      "response": "Fixed: main (summarize_main) and describe now record one-hot width min/max per dataset instead of asserting it constant; new unit test single_row_level_width_varies_and_summaries_survive checks a single-row level (widths 108/109 across seeds) and both summaries; unit-tests rerun with --replace, 33/33 pass.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "Sensitivity (a) cannot do what plan.json says it does, and H1's 'replication' licence rests on it. I judge the Experimenter's NOTES item 2 to be more than a wording issue. The code is right: ece_debiased matches Def. G.3 term by term (test ece_db_matches_explicit_formula_and_draw_layout passes; I reran the 32 tests in reviewer scratch and all pass). The plan text is wrong. Under the normal approximation, E[ece_db]/E[ece] = 2 - sqrt(2) = 0.586 for a calibrated bin (unit-tests measured 0.559), so about 59% of the floor remains. design.method step 8 says the opposite ('corrects by about the floor for a well-calibrated bin'), and so does design.threats[0] ('corrects a well-calibrated bin by about its floor'). Consequence: when H1's plug-in difference is a pure floor difference, which threats[0] and H1 itself name as possible, ece_db reproduces it at about 0.6x with the same sign. Synthetic check (both models perfectly calibrated, different prediction spreads, 300 reps): at n_test 5,000 the plug-in difference averaged -0.0037 and the ece_db difference -0.0025, with the same sign in 88% of draws; at 1,351 the figures were -0.0064 and -0.0038, same sign in 86%. With RF miscalibrated, ece_db widens the gap in H1's favour. So 'called a replication only where the debiased ECE agrees in direction' (hypotheses[0], contribution) is nearly automatic. threats[0]'s fallback ('where the two disagree the paper says the H1 margin is below what the instrument resolves') will rarely trigger, even in exactly the case it was written for. Cheapest remedy (narrow the claim, before main runs, logged with the new plan.json sha256): correct step 8 and threats[0] to say ece_db removes about 41% of the floor for a well-calibrated bin (ratio 2 - sqrt(2) under the normal approximation) and close to none for a miscalibrated one. Drop the rule that ece_db agreement licenses 'replication' from hypotheses[0] and the contribution, and never call H1 a replication. The alternative is a design change, also logged before main: report a per-cell analytic floor, sum_k p_k * sqrt(2/pi) * sqrt(y_k(1-y_k)/n_k), so that |dbar| can be compared with the RF-minus-LR floor difference. The confirmatory H1 metric, margin and rule must not change.",
+      "evidence": "plan.json hypotheses[0] label, contribution, design.method step 8 (ece_db paragraph), design.threats[0]; code/experiment.py ece_debiased; runs/unit-tests/metrics.json synthetic_calibrated_db_ratio 0.559 vs theory 0.586; runs/NOTES.md item 2; reviewer scratch calib-reviewer2/ecedb_sign.py (synthetic only)",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "Isotonic on the logit versus isotonic on the probability (NOTES item 1): this is a wording issue only, and the code is right. fit_calibrator does what step 7 prescribes, isotonic on logit(clip(p)) through CalibratedClassifierCV/FrozenEstimator. The test calibrators_fit_on_frozen_logit_scores_of_all_calibration_rows confirms it equals IsotonicRegression(out_of_bounds='clip') on the calibration logits to 1e-12, and it is the same at the calibration points as isotonic on the clipped probability. The parenthetical in step 7, 'being rank-based, equals isotonic on the clipped probability', is false at test points between thresholds, because sklearn interpolates linearly in the input scale (max |difference| on synthetic models 0.0002 LR, 0.0010 RF, 0.0009 HGB). The procedure is fixed and verdict-relevant only through H2's isotonic arm, which is computed one way, so no result depends on this. The paper must describe the calibrator as fitted on the logit score with linear interpolation in the logit, not as isotonic on the probability. Resolves by rewording step 7 (or by a disclosure in the paper's method section) to say 'equal at the calibration scores; between them, test predictions are interpolated linearly in the logit'. No code change.",
+      "evidence": "plan.json design.method step 7 (parenthetical); code/experiment.py fit_calibrator; code/test_metrics.py calibrators_fit_on_frozen_logit_scores_of_all_calibration_rows; runs/unit-tests/metrics.json iso_logit_vs_prob_max_abs_diff_*",
+      "response": "",
+      "ruling": ""
+    }
+  ]
+}

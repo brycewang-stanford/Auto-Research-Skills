@@ -1,0 +1,106 @@
+{
+  "id": "main",
+  "role": "experimenter",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/experiment.py"
+  ],
+  "started": "2026-11-19T07:43:43Z",
+  "finished": "2026-11-19T07:44:09Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/experiment.py",
+      "sha256": "cf439bcde90570127ec076b6fe694beb60cc96b641c884aeb2939e3562a350a3"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/manifest.json",
+      "sha256": "f0b3caf066df137464aa3a34b24ca354f2dafb96800bcee38d91f56d006223ea"
+    },
+    {
+      "path": "data/raw/adult.csv",
+      "sha256": "0626dc27f284e083e00cb7cd635825c32b9036a50228648714bc61ac2dd4b754"
+    },
+    {
+      "path": "data/raw/bank-marketing.csv",
+      "sha256": "0e933553d418fa9cae9c129e11904e1130e9c502564ca296322416351f27f8bc"
+    },
+    {
+      "path": "data/raw/electricity.csv",
+      "sha256": "a882e1fb0cfe473e505826a1a97ab4a9070bf5b0ca4add0ec79a90f70eb05c8b"
+    },
+    {
+      "path": "data/raw/phoneme.csv",
+      "sha256": "4f8eecda6fb313fd4485d3506b19d2ec6c32a3239c38885f19c169e7e695fd3e"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "results/cells.csv",
+      "sha256": "e1f900eebfd964025813902077b879a82a3ad96942241e8cb8e4d408145c5ee4"
+    },
+    {
+      "path": "results/main_timing.json",
+      "sha256": "4a5a5a812d3a4cceb09a782d6a3493642b16930a1e39158fd3cf0752526d1078"
+    },
+    {
+      "path": "runs/main/metrics.json",
+      "sha256": "dbc382daf6bd667b6deeeaa272205bbb574d176c869b2bb6ea705b82c3b74446"
+    }
+  ],
+  "metrics": {
+    "n_rows": 360,
+    "n_dataset_seed_cells": 40,
+    "n_pred_files": 40,
+    "n_seeds": 10,
+    "lr_nonconverged_cells": 0,
+    "lr_n_iter_max": 79,
+    "hgb_n_iter_min": 100,
+    "hgb_n_iter_max": 100,
+    "n_clip_low_total": 84274,
+    "n_clip_high_total": 8850,
+    "n_train_adult": 10000,
+    "n_cal_adult": 5000,
+    "n_test_adult": 5000,
+    "width_min_adult": 106,
+    "width_max_adult": 107,
+    "n_cal_min_adult": 5000,
+    "mean_brier_adult": 0.09938244384845049,
+    "mean_ece_adult": 0.01444659361704064,
+    "n_train_bank_marketing": 10000,
+    "n_cal_bank_marketing": 5000,
+    "n_test_bank_marketing": 5000,
+    "width_min_bank_marketing": 51,
+    "width_max_bank_marketing": 51,
+    "n_cal_min_bank_marketing": 5000,
+    "mean_brier_bank_marketing": 0.0672934097896329,
+    "mean_ece_bank_marketing": 0.017106650584294687,
+    "n_train_electricity": 10000,
+    "n_cal_electricity": 5000,
+    "n_test_electricity": 5000,
+    "width_min_electricity": 14,
+    "width_max_electricity": 14,
+    "n_cal_min_electricity": 5000,
+    "mean_brier_electricity": 0.11847965139337509,
+    "mean_ece_electricity": 0.022544237362071864,
+    "n_train_phoneme": 2702,
+    "n_cal_phoneme": 1351,
+    "n_test_phoneme": 1351,
+    "width_min_phoneme": 5,
+    "width_max_phoneme": 5,
+    "n_cal_min_phoneme": 1351,
+    "mean_brier_phoneme": 0.10648109733375526,
+    "mean_ece_phoneme": 0.03526714343860747
+  },
+  "metrics_file": "runs/main/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/cs-calibration/.venv"
+  }
+}

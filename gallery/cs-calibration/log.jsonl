@@ -45,3 +45,16 @@
 {"time": "2026-11-19T07:29:16Z", "role": "experimenter", "action": "code-written", "detail": "experiment.py, analyze.py, describe.py, sens_ncal.py, sens_elec_time.py, test_metrics.py per design.method; runs/NOTES.md lists exact commands; no analysis run (code review pending)"}
 {"time": "2026-11-19T07:29:16Z", "role": "experimenter", "action": "unit-tests-passed", "detail": "unit-tests (data-prep, synthetic only): 32/32 passed; notes: isotonic logit-vs-prob interpolation differs off-threshold (max 0.001); Kumar G.3 removes ~41% of l1 floor on calibrated bins (ratio 2-sqrt2), see runs/NOTES.md"}
 {"time": "2026-11-19T07:34:43Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261119T073442Z"}
+{"time": "2026-11-19T07:40:48Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261119T074048Z"}
+{"time": "2026-11-19T07:40:48Z", "role": "pi", "action": "brief-archived", "detail": "experimenter 20261119T074048Z"}
+{"time": "2026-11-19T07:41:34Z", "role": "designer", "action": "plan-narrowed", "detail": "code-r1 F2/F3 (PI ruling, after design gate, before any analysis run): ece_db removes ~41% (2-sqrt2) of a calibrated bin's floor (step 8, threats[0]); replication licence dropped from hypotheses[0] label and contribution; step 7 isotonic-on-logit wording; disclosure added; metric, margin, decision rule unchanged. plan.json sha256=bee7499fc182d5b490177046507855d5dc0ade7ad91402cfe361fefa80a07fa5"}
+{"time": "2026-11-19T07:42:47Z", "role": "experimenter", "action": "run-superseded", "detail": "unit-tests archived to runs/.superseded/unit-tests-20261119T072827Z"}
+{"time": "2026-11-19T07:43:10Z", "role": "experimenter", "action": "run", "detail": "unit-tests exit=0"}
+{"time": "2026-11-19T07:43:18Z", "role": "experimenter", "action": "code-r1-F1-fixed", "detail": "width recorded as min/max per dataset in experiment.summarize_main and describe.describe; unit test for a single-row categorical level; unit-tests rerun --replace 33/33"}
+{"time": "2026-11-19T07:44:09Z", "role": "experimenter", "action": "run", "detail": "main exit=0"}
+{"time": "2026-11-19T07:44:25Z", "role": "experimenter", "action": "run", "detail": "h-tests exit=0"}
+{"time": "2026-11-19T07:44:26Z", "role": "experimenter", "action": "run", "detail": "describe exit=0"}
+{"time": "2026-11-19T07:44:47Z", "role": "experimenter", "action": "run", "detail": "sens-ncal exit=0"}
+{"time": "2026-11-19T07:44:55Z", "role": "experimenter", "action": "run", "detail": "sens-elec-time exit=0"}
+{"time": "2026-11-19T07:47:11Z", "role": "experimenter", "action": "analysis-runs-done", "detail": "main (2.55 CPU-min), h-tests, describe, sens-ncal, sens-elec-time run in plan order after plan-narrowed (sha256 bee7499f); H1 contradicted (adult inconclusive, bank contradicted, elec holds, phoneme contradicted); H2a inconclusive; H2b no difference"}
+{"time": "2026-11-19T07:47:12Z", "role": "experimenter", "action": "claims-written", "detail": "354 result claims from run metrics (all H1/H2a/H2b per-dataset mean/lo/hi/category and overall codes, ece_db sensitivity, sens-ncal, sens-elec-time, descriptive means and intervals, checks); numbers.tex regenerated"}

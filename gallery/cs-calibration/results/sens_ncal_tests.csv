@@ -1,0 +1,9 @@
+hypothesis,role,dataset,metric,treatment,comparison,predicted_sign,margin,mean,sd,lo,hi,n,category_code,category
+h2a,"sensitivity (b): calibration n = 1,351 on all datasets",adult,brier,rf/isotonic,rf/none,-1,0.001,0.00087371480513814131,0.00046776749847065934,0.00053909409471853287,0.0012083355155577498,10,2,contradicted
+h2a,"sensitivity (b): calibration n = 1,351 on all datasets",bank-marketing,brier,rf/isotonic,rf/none,-1,0.001,0.00083976594289568158,0.00039499352279843058,0.00055720459854814307,0.0011223272872432201,10,2,contradicted
+h2a,"sensitivity (b): calibration n = 1,351 on all datasets",electricity,brier,rf/isotonic,rf/none,-1,0.001,-0.0021936678900329812,0.00059304714419583656,-0.0026179082601996534,-0.0017694275198663089,10,1,holds
+h2a,"sensitivity (b): calibration n = 1,351 on all datasets",phoneme,brier,rf/isotonic,rf/none,-1,0.001,-0.00065360487807815805,0.0016512080049993641,-0.0018348079276484968,0.0005275981714921807,10,3,no detectable difference (inconclusive)
+h2b,"sensitivity (b): calibration n = 1,351 on all datasets",adult,brier,hgb/isotonic,hgb/none,-1,0.001,0.0009629063580210345,0.00041237101637101579,0.00066791390363788632,0.0012578988124041827,10,2,contradicted
+h2b,"sensitivity (b): calibration n = 1,351 on all datasets",bank-marketing,brier,hgb/isotonic,hgb/none,-1,0.001,8.0207481786975793e-05,0.00067286894560687218,-0.00040113396526609971,0.00056154892884005135,10,0,no difference
+h2b,"sensitivity (b): calibration n = 1,351 on all datasets",electricity,brier,hgb/isotonic,hgb/none,-1,0.001,8.3137817291308036e-05,0.00039749736805923068,-0.00020121467005502575,0.00036749030463764182,10,0,no difference
+h2b,"sensitivity (b): calibration n = 1,351 on all datasets",phoneme,brier,hgb/isotonic,hgb/none,-1,0.001,0.00064693769340549013,0.001049828723352501,-0.00010406453393108789,0.001397939920742068,10,3,no detectable difference (inconclusive)

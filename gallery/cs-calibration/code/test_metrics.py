@@ -35,6 +35,7 @@ from sklearn.metrics import brier_score_loss, log_loss
 from threadpoolctl import threadpool_limits
 
 import analyze
+import describe
 import experiment as ex
 import sens_elec_time
 import sens_ncal
@@ -592,6 +593,59 @@ def csv_reader_uses_manifest_types():
             pass
         else:
             raise AssertionError("header mismatch not detected")
+
+
+@test
+def single_row_level_width_varies_and_summaries_survive():
+    """code-r1 F1: a categorical level with a single row (as adult native-country has) is in a seed's
+    training split only sometimes, so the one-hot width varies across seeds. The width must equal the
+    base width plus one exactly when that row is in train, and main's and describe's summaries must
+    record min/max instead of failing."""
+    X, y, num, cat = synthetic_pool("adult", missing=False)
+    rare_row = 123
+    X.loc[rare_row, cat[0]] = "ONLY_ONE_ROW"
+    widths, in_train = [], []
+    for s in ex.SEEDS:
+        st = ex.seed_streams(0, s)
+        Xs, ys = ex.subsample(X, y, st["sub_int"])
+        (Xtr, _), (Xca, _), (Xte, _) = ex.split_random(Xs, ys, st["i_test"], st["i_cal"])
+        _, (Atr, Aca, Ate) = ex.preprocess(num, cat, Xtr, Xca, Xte)
+        base = len(num) + sum(Xtr[c][Xtr[c] != "ONLY_ONE_ROW"].nunique() for c in cat)
+        inside = rare_row in Xtr.index
+        assert Atr.shape[1] == Aca.shape[1] == Ate.shape[1] == base + int(inside), (s, Atr.shape[1], base, inside)
+        widths.append(Atr.shape[1])
+        in_train.append(inside)
+    assert any(in_train) and not all(in_train), in_train      # both cases occur over seeds 0..9
+    assert len(set(widths)) == 2, widths
+    RECORD["single_row_level_widths"] = "/".join(map(str, widths))
+
+    # main's and describe's summaries on 360 synthetic cells whose width varies by seed
+    rng = np.random.default_rng(2)
+    rows = []
+    for name in ex.DATASETS:
+        sizes = (2702, 1351, 1351) if name == "phoneme" else (10_000, 5_000, 5_000)
+        for s in ex.SEEDS:
+            book = dict(n_train=sizes[0], n_cal=sizes[1], n_test=sizes[2], pos_train=1, pos_cal=1, pos_test=1,
+                        width=widths[s], lr_n_iter=50, lr_converged=1, hgb_n_iter=100)
+            if name == "electricity":
+                book.update(n_vicfill_train=3000, n_vicfill_cal=1500, n_vicfill_test=1500)
+            for m in ex.MODELS:
+                for c in ex.CALIBRATORS:
+                    rows.append(dict(dataset=name, seed=s, model=m, calibrator=c, brier=0.1 + 0.01 * rng.random(),
+                                     logloss=0.3 + 0.01 * rng.random(), logloss_mach=0.3, n_clip_low=0, n_clip_high=0,
+                                     ece=0.02 + 0.01 * rng.random(), ece_bins=15, ece_db=0.01 * rng.random(),
+                                     auc=0.9, **book))
+    with tempfile.TemporaryDirectory() as tmp:     # the CSV round trip main -> describe uses
+        path = Path(tmp) / "cells.csv"
+        ex.write_cells(rows, path)
+        cells = pd.read_csv(path)
+    m = ex.summarize_main(cells)
+    assert m["n_rows"] == 360 and m["n_dataset_seed_cells"] == 40
+    assert (m["width_min_adult"], m["width_max_adult"]) == (min(widths), max(widths))
+    assert m["n_train_phoneme"] == 2702 and m["n_cal_adult"] == 5000
+    summary, paired, dm = describe.describe(cells)
+    assert (dm["adult_width_min"], dm["adult_width_max"]) == (min(widths), max(widths))
+    assert len(summary) == 324 and len(paired) == 104
 
 
 # ---------------------------------------------------------------- end-to-end cells on synthetic pools

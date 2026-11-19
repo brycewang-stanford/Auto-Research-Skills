@@ -1,0 +1,4 @@
+hypothesis,role,dataset,metric,treatment,comparison,predicted_sign,margin,mean,sd,lo,hi,n,category_code,category
+h1,"sensitivity (c): chronological split, electricity only",electricity,ece,rf/none,lr/none,1,0.0050000000000000001,0.00079485624815121836,0.015138463941458409,-0.010034548478158942,0.011624260974461379,10,3,no detectable difference (inconclusive)
+h2a,"sensitivity (c): chronological split, electricity only",electricity,brier,rf/isotonic,rf/none,-1,0.001,0.026506281940135788,0.0079053361685583121,0.020851145117937925,0.032161418762333652,10,2,contradicted
+h2b,"sensitivity (c): chronological split, electricity only",electricity,brier,hgb/isotonic,hgb/none,-1,0.001,-0.078181894424386805,0.032313254735840249,-0.10129740435405941,-0.055066384494714196,10,1,holds
