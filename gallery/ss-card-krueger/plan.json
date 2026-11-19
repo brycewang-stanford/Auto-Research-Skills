@@ -98,13 +98,13 @@
       "id": "e-code",
       "title": "Write code/ck_analysis.py (one entry point per run id: main-t3, main-t4, se-alt, placebo-hiwage, h2-winsor, h2-closures-excl, h2-nw-rule) and code/verdict.py, exactly as design.method and analysis_plan specify; DFTE, FTE2_R5, sample flags and the T4 cascade are built here, keyed by ROW_ID",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-check-synthetic",
       "title": "Write code/test_ck.py and run check-synthetic (data-prep, synthetic data only) before the design gate",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-code",
