@@ -94,3 +94,4 @@
 {"time": "2026-11-19T13:09:14Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261119T130914Z (paper-r2)"}
 {"time": "2026-11-19T13:14:15Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T131415Z (paper-r2 F13-F16)"}
 {"time": "2026-11-19T13:15:11Z", "role": "writer", "action": "paper-revised", "detail": "paper-r2 F13-F16 answered in paper/ (Platt changes stated per model with macros; rerun data from md5-checked cache plus unlogged cold download; machine-eps summary over all four datasets; '(Brier)' dropped under gneiting2007); AI-use review item updated (paper round 2 pass); 21 pp, clean compile; responses in reviews/paper-r2/review.json"}
+{"time": "2026-11-19T13:15:30Z", "role": "pi", "action": "gate-request", "detail": "submission"}

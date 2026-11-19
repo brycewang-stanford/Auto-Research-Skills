@@ -175,7 +175,9 @@
       "note": "Approved in chat on 2026-11-19 after reading H1/H2a/H2b, the electricity dependence and the disclosed narrowing."
     },
     "submission": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-19T13:15:30Z",
+      "summary": "Paper after paper-r2 pass (F13-F16 answered in text); validate --strict OK; clean rerun passed 13/13"
     }
   },
   "design_stage_items": [
