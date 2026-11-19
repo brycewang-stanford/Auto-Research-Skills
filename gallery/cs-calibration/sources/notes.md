@@ -142,6 +142,9 @@ for the design author and the Reviewer.
   - *Binned ECE tilts the Platt-vs-isotonic comparison toward isotonic.*
     - It underestimates the calibration error of continuous-output methods such as
       Platt scaling [`kumar2019` abstract, §1].
+  - *Estimator choice (design).* The design uses Kumar et al.'s debiased ℓ1 estimator
+    (App. G, Def. G.3). The paper presents it as a heuristic without proven guarantees;
+    see §3 for what it does and does not establish.
     - It favours binning-like calibrators, which includes isotonic's step functions
       [`berta2026` §5: "binned ECE estimators favor binning-based calibration functions
       and ignore refinement error"].
@@ -418,6 +421,42 @@ for the design author and the Reviewer.
   are "less calibrated than reported". Binned estimates cannot measure the calibration
   error of continuous outputs. The plug-in estimator is less accurate than a debiased
   one. → D1.
+  - *Debiased ECE.* I read Appendix G.1 and §5 of arXiv:1909.10155v2 on 2026-11-18 for
+    the design's ECE estimator.
+    - **Definition G.2 (plug-in ℓ1 estimator).** For bins k = 1…B:
+      - p̂_k = |L_k|/n is the share of points in bin k;
+      - ŷ_k is the mean label in the bin;
+      - ŝ_k is the mean model output in the bin;
+      - Ê_pl = Σ_k p̂_k |ŝ_k − ŷ_k|.
+
+      The paper's prose calls this a "weighted squared difference", but the formula uses
+      an absolute value. That is a typo in the paper. The paper states this estimator
+      overestimates the binned calibration error.
+    - **Definition G.3 (debiased ℓ1 estimator).** For each bin, draw
+      R_k ∼ N(ŷ_k, ŷ_k(1 − ŷ_k)/(n p̂_k)), a normal approximation to the bin's label
+      mean. Then Ê_db = Ê_pl − (E[Σ_k p̂_k |ŝ_k − R_k|] − Ê_pl). The expectation is
+      approximated "by simulating many draws from a normal distribution". The paper
+      assumes "the number of points in each bin is not too small".
+    - **Status of the estimator.**
+      - The paper says "our proposed estimator is a heuristic approach". In §6 (open
+        problems, item 6) it asks "can we prove guarantees for this?"
+      - The sample-complexity guarantees (Theorems 5.3–5.4) are for the *squared* ℓ2
+        calibration error with the closed-form debiased estimator of Definition 5.2:
+        Σ_s p̂_s[(s − ŷ_s)² − ŷ_s(1 − ŷ_s)/(p̂_s n − 1)].
+      - So no guarantee covers the unsquared ECE estimator the design uses.
+    - **Evidence.** Experiments are multiclass top-label (ImageNet VGG-16, CIFAR-10) with
+      uniform-mass bins, B = 15 or 100 (Figs. 12–13, 4a; G.2 also reports B = 10). There
+      the debiased estimate is closer to ground truth, "especially when B is large or n
+      is small". For B = 10 (Fig. 14a) "the results are mixed but we avoid very bad
+      estimates". There is no tabular or binary evidence.
+    - **For us (D1).**
+      - The estimator is a reasonable choice for the 15 equal-mass-bin ECE.
+      - The paper must call it a heuristic and must not claim a guarantee for it.
+      - The number of Monte Carlo draws and the RNG seed are part of the metric and must
+        be fixed at the design gate.
+      - Ê_db can be negative when the calibration error is near zero. This is my
+        inference from the formula, not a statement in the paper. The design should say
+        whether such values are reported as they are or floored at 0.
 - **Nixon et al. (2019)** [`nixon2019`, full text of arXiv v2]: ECE "has numerous
   flaws". The ranking of recalibration methods is "drastically impacted" by the choice of
   calibration measure. They recommend adaptive (equal-mass) bins and the L2 norm. → D1.

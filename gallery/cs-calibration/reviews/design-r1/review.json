@@ -1,0 +1,78 @@
+{
+  "id": "design-r1",
+  "target": "design",
+  "round": 1,
+  "created": "2026-11-19T05:51:55Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/cs.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/cs-calibration/task.json",
+    "briefs/20261119T054650Z-reviewer.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "crew.json",
+    "plan.json",
+    "data/manifest.json",
+    "data/CODEBOOK.md",
+    "code/requirements.txt",
+    "code/timing_synthetic.py",
+    ".gitignore",
+    "claims.jsonl",
+    "log.jsonl",
+    "sources/notes.md",
+    "refs.bib (grep)",
+    "reviews/question-r3/review.json",
+    "runs/fetch-data/run.json",
+    "runs/fetch-data/metrics.json",
+    "runs/timing-synthetic/run.json",
+    "runs/timing-synthetic/metrics.json",
+    "runs/timing-synthetic/timing.json",
+    "data/raw/{adult,bank-marketing,electricity,phoneme}.csv (feature-only duplicate count)",
+    ".venv sklearn 1.9.1 source: calibration.py, ensemble/_hist_gradient_boosting/gradient_boosting.py, utils/validation.py"
+  ],
+  "kill_argument": "H1's confirmatory comparison is drawn finer than its instrument can resolve. The margin is 0.005 ECE, but plug-in 15-bin equal-mass ECE has a positive bias of about 0.01 at 5,000 test rows and 0.03 at 1,351 (design.threats[0]), and the bias is not additive: it sits at the floor for a well-calibrated model and shrinks toward zero as true miscalibration grows. If RF is the miscalibrated one, raw RF-minus-LR is pulled toward zero by up to LR's floor; if neither is, it equals the floor difference. ece_adj subtracts RF's full floor even where RF's bias is near zero, so the only check is biased against H1 by up to RF's floor. Neither metric separates a calibration difference of 0.005-0.03 from estimator artefact, and on phoneme the artefact is several margins wide. What held: preprocessing is train-only; the FrozenEstimator/ensemble=False path, binary predict_proba (1-p, no renormalisation), HGB's n_samples > 10_000 early-stopping switch and is_categorical_=None for arrays match the pinned sklearn 1.9.1 source; duplicate feature vectors are negligible; only data-prep runs exist; deferred question findings F6 and F13-F18 are addressed in plan.json.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "H1 margin (0.005 ECE) lies below the resolution of its estimator, and the pre-declared correction is biased in a known direction. Plug-in binned ECE per bin is E|g + e| with e of SD s = sqrt(p(1-p)/n_b): about 0.8 s when the true gap g is 0, about |g| when |g| >> s. With n_b = 333 (5,000 test rows) and p near 0.3, 0.8 s is about 0.02 per bin; with n_b = 90 (phoneme) about 0.04. So (i) raw RF-minus-LR is biased toward zero by up to LR's floor when RF is truly worse calibrated, and equals floor_RF - floor_LR when neither is; (ii) ece_adj = ece - ece_floor removes the whole floor from both models, which is right only for a calibrated model and over-corrects a miscalibrated one, so sensitivity (a) is biased against H1 by up to RF's floor. A disagreement between (a) and the confirmatory verdict, which step 11 promises to report, cannot then be read either way. sources/notes.md D1 pointed to the debiased estimator (kumar2019) or ECE_sweep (roelofs2022), both already verified in refs.bib; the design chose floor subtraction instead without saying why.",
+      "evidence": "plan.json hypotheses[0] (margin 0.005); design.method steps 8 (ece_floor, ece_adj), 11 and 12(a); design.threats[0]; sources/notes.md D1 (Roelofs/Kumar entries)",
+      "response": "Designer: H1 text narrowed to the plug-in 15-bin equal-mass estimator with its bias direction stated (amendment disclosed in plan.json disclosures); ece_floor/ece_adj replaced by Kumar et al. (2019) Def. G.3 debiased l1 ECE (M=1,000 normal draws), reported only (method steps 8 and 12a, threats[0]).",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "open",
+      "text": "sens-ncal equalises only calibration n. Phoneme also differs in training n (2,702 vs 10,000) and test n (1,351 vs 5,000), so a phoneme-specific H2 pattern that survives sens-ncal can still come from training size (a different base model) or test-set noise, not from the dataset. The stated purpose, 'separate the effect of calibration-set size from the dataset', is right only for calibration n.",
+      "evidence": "plan.json design.analysis_plan (sens-ncal 'Purpose'); design.threats[2]; design.method step 12(b)",
+      "response": "Designer: sens-ncal's purpose narrowed to equalising calibration n only; training n and test n differences on phoneme stated (method step 12b, analysis_plan, threats[2]).",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "The Python interpreter is not pinned and the ledger misreports it. .venv/bin/python, which executed both runs, is 3.12.11, but runs/fetch-data/run.json and runs/timing-synthetic/run.json record env.python = 3.14.6 (crew.py's own interpreter). code/requirements.txt has no Python version, so the Replicator's clean environment is under-specified.",
+      "evidence": "runs/timing-synthetic/run.json env; runs/fetch-data/run.json env; code/requirements.txt; .venv/lib/python3.12",
+      "response": "Designer: .python-version (3.12) added and '# python 3.12.11' header line added to code/requirements.txt.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "results/preds/ stores every test probability (about 1.5 million values in main plus about 0.75 million in the two sensitivities) but neither format nor git status is fixed; results/ is not in .gitignore, so as CSV this adds tens of MB to a gallery committed to main.",
+      "evidence": "plan.json design.method step 8 (last line); .gitignore",
+      "response": "Designer: predictions stored as numpy.savez_compressed .npz under results/preds/<run>/ (method step 8); results/preds/ added to the workspace .gitignore.",
+      "ruling": ""
+    }
+  ],
+  "ran": "No model, estimate or label-dependent statistic on study data. One check on data/raw CSVs, features only (target column dropped): count of duplicate feature vectors. Excess duplicates: adult 57 (111 rows in duplicate groups), bank-marketing 0, electricity 0, phoneme 9 (18 rows). Read the pinned sklearn 1.9.1 source to confirm method steps 6-7."
+}

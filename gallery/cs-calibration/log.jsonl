@@ -31,3 +31,5 @@
 {"time": "2026-11-19T06:57:53Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261119T065753Z"}
 {"time": "2026-11-19T06:58:42Z", "role": "scout", "action": "sources-verified", "detail": "kumar2019 re-verified from arXiv v2 full text: Appendix G Def. G.3 debiased l1-ECE (heuristic, no guarantee; guarantees in Sec. 5 are for squared l2 CE); claims c-kumar-debiased-ece, c-kumar-heuristic; notes D1 and Sec. 3 updated"}
 {"time": "2026-11-19T07:00:13Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261119T070013Z"}
+{"time": "2026-11-19T07:00:49Z", "role": "designer", "action": "design-revised", "detail": "PI rulings on ece_db: M=1,000 with fixed seeds (debias.spawn(12); sens-elec-time SeedSequence([20261119,2,s,1])); negative ece_db reported unfloored, with reason; presented as heuristic without guarantee for unsquared ECE; timing note clarified. plan.json sha256=a697fbf63835bddbabc617c5e1f4c596cbb189d71f4a6e77ab073e124ddc3ced"}
+{"time": "2026-11-19T07:01:02Z", "role": "pi", "action": "brief-archived", "detail": "reviewer design-r2 20261119T070102Z"}

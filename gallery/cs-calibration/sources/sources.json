@@ -93,7 +93,7 @@
     "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
-    "note": "No DOI. Metadata from the NeurIPS proceedings page. Full text read from arXiv:1909.10155v2: abstract and Sec. 1 (scaling methods are less calibrated than reported; binned estimates cannot measure the calibration error of continuous outputs; plug-in estimator vs debiased estimator)."
+    "note": "No DOI. Metadata from the NeurIPS proceedings page. Full text read from arXiv:1909.10155v2: abstract and Sec. 1 (scaling methods are less calibrated than reported; binned estimates cannot measure the calibration error of continuous outputs; plug-in estimator vs debiased estimator). Extended 2026-11-18 (UTC) for the design's ECE estimator: read Appendix G.1 (Definitions G.1-G.3, debiased l1 estimator via a normal approximation and simulated draws; stated to be 'a heuristic approach'), Appendix G.2 and Figs. 12-14, Section 5 (Definitions 5.1-5.2, Theorems 5.3-5.4 on the squared l2 calibration error) and Section 6 open problem 6, from the arXiv v2 PDF (pdftotext). Locator: Appendix G, Def. G.3, pp. 33-34; Section 5, p. 7."
   },
   "nixon2019": {
     "url": "https://arxiv.org/abs/1904.01685",

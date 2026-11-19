@@ -127,3 +127,53 @@ Check next time (design-r1):
 
 Things I ran: nothing on study data. I ran crew.py validate and status, and queried the
 OpenML qualities API for row counts (metadata only).
+
+## design-r1 (2026-11-19 UTC), verdict: revise (0 critical, 1 major, 3 minor open)
+
+Deferred question findings: F6, F13, F14, F15, F16, F17 and F18 are all addressed in
+plan.json design.method (preprocessing, HGB early_stopping=False, eps 1e-6 with clip
+counts, tie rule, paired d_s, one variance rule, overall "no difference", electricity
+threats). Confirmed in the pinned sklearn 1.9.1 source: HGB 'auto' early stopping is
+n_samples > 10_000 (line 534); CalibratedClassifierCV with ensemble=False calls
+cross_val_predict on the cloned FrozenEstimator and the binary predict_proba is 1 - p
+with no renormalisation; is_categorical_ is None for ndarray input. sklearn 1.9.1 also
+ships method='temperature' (not used; not required).
+
+New:
+- F1 (major): H1 margin 0.005 is below the resolution of plug-in ECE (floor about 0.01
+  at 5,000 test rows, about 0.03-0.04 on phoneme). The bias is not additive (it shrinks
+  as true miscalibration grows), so ece_adj = ece - floor over-corrects the
+  miscalibrated model and is biased against H1. The Scout's D1 pointed to Kumar's
+  debiased estimator or ECE_sweep; the design used floor subtraction instead.
+  Remedies: narrow H1 to the plug-in estimator and state the bias directions, or swap
+  sensitivity (a) to kumar2019's debiased estimator. Either must be fixed before any run.
+- F2 (minor): sens-ncal equalises calibration n only; phoneme's train n and test n
+  also differ.
+- F3 (minor): run.json env.python records 3.14.6 (crew.py's interpreter), but .venv is
+  3.12.11; Python is not pinned in requirements.txt.
+- F4 (minor): format and git status of results/preds/ (about 2.2M probabilities) are
+  unspecified.
+
+Suspicions carried forward:
+- If H1 comes back "holds" on 3 of 4 with phoneme deciding, check whether |dbar| on
+  phoneme is below its mean ece_floor.
+- Watch that the confirmatory ECE is not swapped for ece_adj (or a new debiased
+  estimator) after results. Any change must have a log line timestamped before the
+  main run.
+- The timing script's seed streams (3 spawns, split.spawn) differ from method step 2
+  (4 spawns, generate_state(2)). That does not matter for timing, but the code review
+  must check that experiment.py follows step 2, not the timing script.
+
+Check next time (design-r2 / code-r1):
+- F1: a resolution, a debiased estimator, or narrowed H1 wording, with a plan.json
+  sha256 logged.
+- Code: the LogitScore decision_function path is used (not predict_proba); the
+  bit-identity assertion exists and runs; electricity sort order is by original index
+  carried through train_test_split; the ECE tie rule test covers a group that spans a
+  bin edge; the manifest feature lists are used, not dtypes; floor Generators are in
+  order (lr, rf, hgb) x (none, platt, isotonic).
+- runs/ must contain only data-prep runs until the design gate is approved.
+
+Things I ran: no model and no estimate on study data. I counted duplicate feature
+vectors on data/raw CSVs with the target dropped (adult 57 excess, phoneme 9, others
+0; negligible), read the sklearn 1.9.1 source, and ran crew.py validate (OK).
