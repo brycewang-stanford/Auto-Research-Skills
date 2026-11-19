@@ -182,7 +182,10 @@ which is what a clean-environment rerun needs.
 
 ## What the tool cannot check
 
-- Whether the human, and not an agent, typed the approval. This is a rule for agents, not
-  a lock.
+- Whether the human, and not an agent, typed the approval. The tool cannot tell; the
+  crew's Claude Code hook ([`hooks/guard.py`](hooks/guard.py)) narrows it by refusing an
+  approve command, or an edit of `plan.json` that approves a gate, unless the human's
+  latest message or AskUserQuestion answer approves that gate. An agent that writes and
+  runs its own script can still get around the hook, so the rule stays.
 - Whether a number written by hand in the paper matches a run. Use macros.
 - Whether a source actually says what the claim attributes to it. That is the Reviewer's job.

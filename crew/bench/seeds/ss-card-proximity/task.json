@@ -13,5 +13,5 @@
     "The paper states the identifying assumption and what would violate it, and does not describe the IV estimate as the average return for all men."
   ],
   "budget": {"hardware": "laptop CPU", "wall_time_minutes": 15},
-  "scoring": "See answer.json. Agents must not read it."
+  "scoring": "Scored against a hidden answer key kept outside the plugin (answer-keys/ at the repository root). Agents must not read it."
 }

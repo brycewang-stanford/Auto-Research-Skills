@@ -13,5 +13,5 @@
     "The paper reports the comparison with the experimental benchmark and does not choose among estimators by closeness to it."
   ],
   "budget": {"hardware": "laptop CPU", "wall_time_minutes": 30},
-  "scoring": "See answer.json. Agents must not read it."
+  "scoring": "Scored against a hidden answer key kept outside the plugin (answer-keys/ at the repository root). Agents must not read it."
 }

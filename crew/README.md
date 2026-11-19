@@ -68,10 +68,11 @@ Reviewer's verdict and open objections. Nothing proceeds until you approve.
 ```text
 agents/      the roles
 skills/      /crew:start, /crew:status, /crew:gate
-scripts/     crew.py, the workspace tool (standard library only)
+scripts/     crew.py, the workspace tool (standard library only); usage.py, cost and time
+hooks/       guard.py: only the human approves a gate; agents never read answer keys
 tracks/      what a finished paper needs, per track
 templates/   LaTeX paper skeleton and AI-use statement
-bench/       seed tasks and answer keys
+bench/       seed tasks (their answer keys live outside the plugin, in ../answer-keys/)
 ```
 
 ## Credit
@@ -84,10 +85,17 @@ argument for rejection, and review rounds are bounded.
 
 ## Limits of v0.1
 
-- One seed paper has passed all four gates so far (`cs-label-noise`); the others are
-  in progress in [`gallery/`](../gallery/README.md).
+- Five seed papers have passed all four gates; the sixth is in progress in
+  [`gallery/`](../gallery/README.md). Each cost about $58–103 of model usage at API list
+  prices; `python3 scripts/usage.py <workspace>` measures a project from the local
+  Claude Code transcripts.
 - Cross-family review needs the Codex CLI and your consent to send the workspace to
   OpenAI; without it the Reviewer runs on the same model family in a fresh context.
-- Gate approval by a human is a rule the agents follow, not a technical lock.
+- Gate approval is guarded by a hook ([`hooks/guard.py`](hooks/guard.py)): an approve
+  command, or an edit of `plan.json` that approves a gate, is refused unless the human's
+  latest message or AskUserQuestion answer approves that gate, and subagents can never
+  approve. The same hook keeps agents out of the bench answer keys. It narrows the
+  agents to the honest path; a determined workaround (a script written to disk and run
+  later) is still possible, so the rule in `PI.md` stays.
 - Claude Code is the primary runtime; the Codex adapter ([`adapters/codex/`](adapters/codex/))
   is newer and less tested.

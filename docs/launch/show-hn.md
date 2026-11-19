@@ -27,4 +27,6 @@ I ran it on six seed tasks: four social-science (three replications and a null-e
 
 On a synthetic dataset with a true effect of exactly zero, the crew reported −$10 [−358, 338] and did not report a secondary outcome with an uncorrected p = 0.044.
 
-Limits: gate approval is a rule the agents follow, not a lock; the Reviewer runs on the same model family unless you opt into cross-family review via Codex; the papers are demos and are not submitted anywhere. CC0.
+Cost: each paper took 18–25 hours of wall time (much of it waiting for me at gates) and about $58–103 of model usage at Claude API list prices, measured from the transcripts (`gallery/usage.json`); on a Claude subscription it comes out of the plan.
+
+Limits: gate approval is guarded by a hook that refuses an approve command unless my latest answer approved that gate, but a determined agent could still work around it; the Reviewer runs on the same model family unless you opt into cross-family review via Codex; the papers are demos and are not submitted anywhere. CC0.

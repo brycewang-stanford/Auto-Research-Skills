@@ -20,7 +20,7 @@
     "hardware": "laptop CPU",
     "wall_time_minutes": 30
   },
-  "scoring": "Scored against a hidden answer key. Agents must not open the answer/ directory or answer.json.",
+  "scoring": "Scored against a hidden answer key. The key is kept outside the plugin (answer-keys/ at the repository root); agents must not read it.",
   "report_claims": {
     "ids": [
       "primary-effect",

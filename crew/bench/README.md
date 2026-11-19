@@ -17,9 +17,11 @@ Run one with `/crew:start <seed id>`.
 
 ## Rules
 
-- A seed is a `task.json` the crew reads, and where there is a right answer an
-  `answer.json` (and sometimes an `answer/` directory) it must not read. A replication's
-  answer key cites where each number was read.
+- A seed is a `task.json` the crew reads. Where there is a right answer, its key is
+  `answer-keys/<seed>/answer.json` at the repository root (with any generator script),
+  outside the plugin, so an installed crew does not ship it. The crew's hook refuses
+  any agent tool call that touches `answer-keys/`. A replication's answer key cites
+  where each number was read.
 - Every seed must run on a laptop CPU in under an hour.
 - A run counts only if the workspace passes `crew.py validate --strict` and a human
   approved all four gates.
@@ -28,5 +30,5 @@ Run one with `/crew:start <seed id>`.
 ## Adding a seed
 
 Copy an existing seed directory, write `task.json`, and for a replication record the
-published numbers in `answer.json` with the exact table and the date you read it. Good
+published numbers in `answer-keys/<seed>/answer.json` with the exact table and the date you read it. Good
 seeds have public data, a published or checkable answer, and a small compute budget.

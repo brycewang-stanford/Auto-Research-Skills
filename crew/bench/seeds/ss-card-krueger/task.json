@@ -12,5 +12,5 @@
     "The paper reports the published and replicated estimates side by side, with any difference explained."
   ],
   "budget": {"hardware": "laptop CPU", "wall_time_minutes": 15},
-  "scoring": "See answer.json. Agents must not read it."
+  "scoring": "Scored against a hidden answer key kept outside the plugin (answer-keys/ at the repository root). Agents must not read it."
 }

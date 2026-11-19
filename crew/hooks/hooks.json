@@ -1,0 +1,13 @@
+{
+  "description": "Crew guard: only the human approves a gate; agents never read the bench answer keys.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Edit|Write|MultiEdit|Read|Grep|Glob|NotebookEdit",
+        "hooks": [
+          {"type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/guard.py\"", "timeout": 10}
+        ]
+      }
+    ]
+  }
+}

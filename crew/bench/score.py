@@ -24,6 +24,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
+# Answer keys live outside the plugin directory, so an installed crew never ships them.
+KEYS = ROOT / "answer-keys"
 sys.path.insert(0, str(HERE.parent / "scripts"))
 import crew  # noqa: E402
 
@@ -76,8 +78,7 @@ def score(ws: Path) -> dict:
     cross = sum(1 for r in reviews.values() if (r.get("reviewer") or {}).get("independence") == "cross-family")
     replication = ws / "replication.json"
     rerun = crew.read_json(replication).get("passed") if replication.exists() else None
-    seed_dir = HERE / "seeds" / str(meta.get("seed"))
-    key_path = seed_dir / "answer.json"
+    key_path = KEYS / str(meta.get("seed")) / "answer.json"
     if not key_path.exists():
         answer = {"status": "no-key"}
     elif gates["results"] != "approved":

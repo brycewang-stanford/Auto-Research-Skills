@@ -395,7 +395,7 @@ class BenchScoreTest(unittest.TestCase):
         self.assertEqual(score.check_answer(self.ws, key)["status"], "fail")
 
     def test_every_answer_key_has_a_machine_check_or_none(self) -> None:
-        for key_path in (ROOT / "crew" / "bench" / "seeds").glob("*/answer.json"):
+        for key_path in (ROOT / "answer-keys").glob("*/answer.json"):
             rule = json.loads(key_path.read_text()).get("machine_check", {})
             self.assertTrue(set(rule) <= {"claims", "min_matched", "interval_contains_zero", "interval_contains"}, key_path)
 

@@ -19,8 +19,8 @@ The workspace tool is `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/crew.py"`.
 
 1. Work out the track (`cs` or `social-science`) from the request; ask only if it is
    genuinely unclear. If the request names a seed under
-   `${CLAUDE_PLUGIN_ROOT}/bench/seeds/`, read its `task.json` and follow it; do not open
-   any `answer.json`.
+   `${CLAUDE_PLUGIN_ROOT}/bench/seeds/`, read its `task.json` and follow it; never look for its
+   answer key (kept outside the plugin, under `answer-keys/`).
 2. Create the workspace (default `./crew-workspace/<short-slug>`):
    `crew.py init <dir> --track <track> --title "<title>" [--seed <id>]`
 3. Read the track playbook: `${CLAUDE_PLUGIN_ROOT}/tracks/<track>.md`.
