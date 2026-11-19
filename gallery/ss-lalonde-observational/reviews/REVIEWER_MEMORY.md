@@ -229,3 +229,32 @@ New, open (both minor):
 - No hand-typed 55/57/-20/-26/-3, 0.09%, V, V_-G unless from a logged run.
 - No "robust to race/married/degree"; deviations list has the code re-review skip (results-r1 F4) + AI-use statement.
 - h2-benchmark run time after the results gate approval; H2 descriptive only, combined SE 633, no ranking by closeness.
+
+## paper-r1 (2026-11-19T16:46Z), verdict: revise
+
+What held: validate OK (numbers.tex current); Table 1 literals = covariate_summary.json + diag-overlap nd_raw; 3,052 / 3,007 /
+35,040 = prepare_metrics; 0.059 / 0.884 / 37 = diag-overlap; gate times; 19 runs; unit-tests is data-prep (so "no analysis
+rerun" holds); h2-benchmark 13:06:38 > gate 13:05:27; disclosures 1-7 checked against log.jsonl, the 12:27 econometrician brief,
+NOTES, design-r2; post_results_derived.py read (arithmetic correct, self-checks as stated); abstract-only sources (abadie,
+crump, keller) cited for abstract content; the "1976 shock plausibly at least as strong" sentence comes from plan sensitivity
+text, not invented; the H2 combined-SE direction is correct; the "within cross-fitting noise" qualifier appears at every place
+that says the interval excludes zero; figures match their captions.
+Open:
+- F1 (major): Sec. 11 omits the post-results override of the fixed sensitivity reading rule (sens-imbens
+  strongest_robust_zero = black; paper says "no information"). Intro and conclusion say every rule was fixed first. Also
+  results-r1 F1/F3 wording additions (noise qualifier, trim-trigger reading) not listed as reporting changes. Text-only fix.
+- F2 (minor): dehejia1999 numbers and table pin cites are WP 6586 only (Limitations says only the SE); crump2009 Biometrika
+  cited, only the 2006 WP abstract was read; smith2005 Sec. 5 re74 has no citation claim and I checked it, not the Scout.
+- F3 (minor): "positive sign is fragile" (all robustness points are positive); "three of four triggering checks" (5 can
+  trigger, incl. IPW); Sec. 4.1 "every run that reports an ATT targets the same estimand" vs diff74.
+- F4 (minor): ai-use.tex stale ("review of this paper has not yet taken place"; brief range).
+- F5 (minor): main title asks a question the paper does not answer (seed title); one intro sentence would fix it.
+- F6 (minor): yearless @misc citations render "(...; Dehejia)" and "(...; Xu)".
+Kill: procedure is the only value, the result reproduces the known AIPW-GRF $1,571, and H1 is a coin flip.
+
+## Check next round
+- Sec. 11 has the sensitivity-rule disclosure (names black as the rule's strongest robust group) + the results-r1 F1/F3
+  reporting additions; intro/conclusion "fixed first" sentences qualified.
+- Limitations/benchmark bullet covers every DW number; crump cite qualified; a smith2005 re74 citation claim exists.
+- No number, run or claim value changed (diff claims.jsonl, numbers.tex, runs/); replication.json still newer than every run.
+- ai-use.tex lists paper rounds and verdicts; PDF recompiled after the edits (pdfinfo date > main.tex mtime).

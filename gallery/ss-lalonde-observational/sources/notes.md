@@ -74,8 +74,24 @@ Sections I-II.
   list it as a threat, not try to fix it.
 
 ### Dehejia and Wahba (1999) `[dehejia1999]`: source of the $1,794 benchmark
-Read: full text of NBER WP 6586 (June 1998). The JASA typeset version was not accessible
-(403). The benchmark is corroborated by smith2005 Table 1, dehejia2002 and imbens2025.
+Read: full text of NBER WP 6586 (June 1998) on 2026-11-18, and on 2026-11-19 (paper-r1 F2a)
+the **published JASA article** itself: a JSTOR page scan of JASA 94(448):1053-1062 hosted on
+the first author's site (https://users.nber.org/~rdehejia/papers/dehejia_wahba_jasa.pdf),
+read by OCR, with the Table 3 rows checked against the page image. Tandfonline still
+returns 403. The benchmark is also corroborated by smith2005 Table 1, dehejia2002 and imbens2025.
+- **Checked in the JASA text (2026-11-19), all identical to the WP:** the RE74 subset is
+  selected on month of assignment and employment history, 185 treated and 260 controls
+  (p. 1054); CPS-1 has 15,992 men (Table 1, p. 1055); NSW benchmark **1,794 (633)** in
+  Table 2, panels B and C, col. (1) (p. 1056) and Table 3, col. (1) (p. 1059), and 1,672
+  (638) adjusted (Table 3, col. (2)); Table 2 note: the NSW-control estimates are unbiased
+  estimates of the impact for the original sample ($886) and the RE74 sample ($1,794);
+  CPS-1 row of Table 3: -8,498 (712), 972 (550), stratification **1,713 (1,115)** and
+  **1,774 (1,152)**, matching **1,582 (1,069)** and **1,616 (751)**; 12,611 of 15,992 CPS-1
+  units discarded (p. 1058 and Figure 2); the balance-driven specification search, "we add
+  higher-order terms and interactions of the covariates until this condition is
+  satisfied" (p. 1058); with RE74 dropped, matching estimates range from $861 to $1,941
+  (p. 1061). So the paper may cite the JASA article, with these table numbers, for
+  every DW (1999) number it uses. Section numbers in the bullets below are the WP's.
 - **Sample:** the "RE74 subset" of LaLonde's men, defined by month of assignment so that 1974
   earnings are available: **185 treated, 260 controls** (Sec. 2.1; Table 1).
 - **Benchmark:** **$1,794 (SE 633)**. This is the unadjusted experimental difference in mean
@@ -102,6 +118,9 @@ Read: full text of NBER WP 6586 (June 1998). The JASA typeset version was not ac
 
 ### Dehejia (data page) `[dehejiadata]`
 Read: https://users.nber.org/~rdehejia/data/.nswdata2.html and the directory index.
+- **Year (paper-r1 F6, 2026-11-19):** the page text states no date. The server's HTTP
+  Last-Modified header is 8 Oct 2012, but that is server metadata, not a date stated on
+  the page. refs.bib therefore has `year = {2026}` (year of access) and a note saying so.
 - `nswre74_treated.txt` has 185 rows, `nswre74_control.txt` 260 and `cps_controls.txt` **15,992**.
 - Column order for the DW and CPS files: treat, age, educ, black, hisp, married, nodegree,
   RE74, RE75, RE78. The binary variables are coded 1/0. **There are no u74/u75 columns.**
@@ -132,6 +151,17 @@ Read: full text of both (article-in-press PDFs).
   biases are $5-$407. On LaLonde's full sample and on the "Early RA" subsample (108 T /
   142 C, experimental impact $2,748) the biases are far larger (e.g. $7,781 for one
   nearest neighbour on Early RA).
+- **What "Re74" measures (Sec. 5, pp. 321-323; checked by the Scout 2026-11-19 against the
+  fetched article-in-press text, claim `c-smith-re74`):** "Real Earnings in 1974" for the
+  NSW samples "consists of real earnings in months 13-24 prior to the month of random
+  assignment"; for persons assigned early these months largely overlap calendar 1974, for
+  persons assigned later they largely overlap 1975, and this is "the variable denoted
+  'Re74' in DW (1999, 2002)" (pp. 321-322). The DW inclusion rule that Smith and Todd
+  reconstructed "partly through trial and error", accounting for all but one observation
+  (p. 323, Table 2): everyone randomly assigned January-April 1976, plus, of those
+  assigned after April 1976, only persons with zero earnings in months 13-24. They say
+  this rule "corresponds fairly closely to the verbal statement in DW (1999)". The
+  after-April rule is therefore Smith and Todd's reconstruction, not a rule DW state.
 - **Mechanisms they name:** comparison units come from national samples, so they are mostly
   from different local labour markets. Earnings are also measured differently for the two groups:
   SSA administrative records for CPS, survey data for NSW (Sec. 5). They find that
@@ -162,6 +192,10 @@ Read: NBER WP 19959 (March 2014). Sec. 4 and Sec. 6.3, Tables 20-22.
 ### Imbens and Xu (2025) `[imbens2025]` and replication tutorial `[xu2024tutorial]`
 Read: full text of arXiv v3 (JEP forthcoming version), the AEA abstract page and the
 tutorial page.
+- **Tutorial year (paper-r1 F6, 2026-11-19):** neither the 02-LDW page nor the tutorial
+  index page states a date, and the server sends no Last-Modified header. refs.bib
+  therefore has `year = {2026}` (year of access) and a note saying so. The index page says
+  the tutorial condenses the analysis of "Imbens & Xu (2024)", the arXiv version.
 - This is the **closest prior work**. On LDW-CPS (185 treated) they use ten estimators: regression,
   regression with interactions, GRF, 1:5 NN matching with bias correction, IPW with GRF
   scores, CBPS, entropy balancing, DML-ElasticNet and AIPW-GRF. All give positive
@@ -219,8 +253,14 @@ Read: abstract only.
 ## 4. Overlap and outcome-free design
 
 ### Crump, Hotz, Imbens and Mitnik (2009) `[crump2009]`
-Read: abstract of NBER TWP 330 (2006, earlier title). The published Biometrika paper was
-not read.
+Read: abstract of NBER TWP 330 (2006, earlier title) on 2026-11-18, and on 2026-11-19
+(paper-r1 F2b) the **abstract of the published Biometrika article** (IDEAS/RePEc record
+https://ideas.repec.org/a/oup/biomet/v96y2009i1p187-199.html, "Copyright 2009, Oxford
+University Press"). The Biometrika abstract states the rule: "a good approximation to the
+optimal rule is provided by the simple rule of thumb to discard all units with estimated
+propensity scores outside the range [0.1,0.9]". The rule as cited (claim `c-crump-rule`)
+is thus verified against the published article's abstract; the body of the Biometrika
+article was not read (academic.oup.com returned 403).
 - They characterise optimal subsamples. As an approximation they recommend dropping units with
   estimated scores outside **[0.1, 0.9]**.
 - **Implication:** that rule targets ATE-type estimands and drops **treated** units, so it
@@ -234,6 +274,20 @@ Read: arXiv full text (abstract, Sec. 1-2).
   design is "absolutely critical for objectivity".
 - **Implication:** this is the methodological basis for the plan's contribution. Cite it
   for the principle, and imbens2015 for its application to these data.
+
+### Chernozhukov et al. (2018) `[chernozhukov2018]` (added 2026-11-19 for paper-r1)
+Read: full text, arXiv:1608.00060v7; published metadata (Econometrics Journal 21(1):C1-C68)
+from Crossref.
+- DML combines Neyman-orthogonal scores with cross-fitting; together they remove the bias
+  that regularization and overfitting in machine-learned nuisance estimates would otherwise
+  cause, so the estimator is root-N consistent and approximately normal (Summary; Sec. 3.1,
+  Definitions 3.1-3.2, K-fold cross-fitting, DML1/DML2).
+- Sec. 5.1 gives the orthogonal (doubly robust, AIPW-type) score for the ATE (eq. 5.3) and
+  for the ATT, "ATTE" (eq. 5.4), under unconfoundedness, with Theorem 5.1 for inference.
+- Sec. 3.4, Definition 3.3: repeat the estimator over S random splits and report the mean
+  or the median; "We recommend using medians".
+- **Use:** the reference for cross-fitted AIPW for the ATT (claim `c-dml-crossfit`). It
+  is a methods reference, not prior work on this benchmark.
 
 ## 5. Within-study comparisons and blinding or pre-specification (added for F6)
 
@@ -308,6 +362,20 @@ Read: abstract (EconPapers record of the OSF preprint).
   published LDW-CPS estimates ($972-$1,774 in dehejia1999 Table 3; $1,066-$1,729 in the
   tutorial Table B1), so readers can see whether the pre-committed choice is typical.
 
+## Revision log
+
+- **2026-11-19, paper-r1 (F2, F6).** (a) dehejia1999 verified against the JASA article
+  (JSTOR scan on the author's site); every number and table number used matches the WP;
+  sources.json updated; no WP entry needed. (b) crump2009 rule verified against the
+  Biometrika abstract (IDEAS); sources.json updated. (c) Added claim `c-smith-re74`,
+  verified by the Scout against smith2005 Sec. 5, pp. 321-323. F6: `year = {2026}` plus a
+  note added to dehejiadata and xu2024tutorial (no date stated on either page). Optional:
+  added chernozhukov2018 (full text) with claim `c-dml-crossfit`; Imbens (2003) could not
+  be read and was not added. Searches: "Dehejia Wahba 1999 Causal Effects in
+  Nonexperimental Studies JASA pdf" (led to the author's papers/ directory); "Crump Hotz
+  Imbens Mitnik Dealing with limited overlap Biometrika pdf"; "Imbens 2003 Sensitivity to
+  Exogeneity Assumptions in Program Evaluation pdf" (standard and extended).
+
 ## Search log (2026-11-18)
 
 - Crossref API: DOIs resolved for all journal entries above. A bibliographic query found
@@ -332,10 +400,18 @@ Read: abstract (EconPapers record of the OSF preprint).
 
 ## Unverified or not used
 
-- **Published JASA (1999) and REStat (2002) typeset tables.** Not accessible (403/paywall).
-  Numbers come from the NBER working-paper versions. The $1,794 benchmark itself is
-  corroborated by three independent fetched sources. The SE of 633 comes from the WP only.
-- **Crump et al. (2009), published Biometrika text.** Not read. Only the 2006 WP abstract was read.
+- **Published REStat (2002) typeset tables.** Not accessible (paywall); dehejia2002 numbers
+  come from NBER WP 6829. (The JASA 1999 article *was* read on 2026-11-19; see above.)
+- **Crump et al. (2009), Biometrika body text.** Not read (403). The published abstract,
+  which states the [0.1, 0.9] rule, was read on 2026-11-19.
+- **Imbens (2003), "Sensitivity to Exogeneity Assumptions in Program Evaluation", AER
+  93(2):126-132, DOI 10.1257/000282803321946921** (metadata from Crossref and IDEAS).
+  Not added. The author's copy on scholar.harvard.edu returned 403 to curl, WebFetch and
+  a browser; the AEA page is paywalled and shows no abstract; IDEAS has no abstract;
+  OpenAlex and Semantic Scholar list no open copy. Nothing about the model it proposes
+  could be checked against the source, so there is no entry and no citation claim. The
+  plan's sensitivity model (plan.json design.method.sensitivity) is attributed to it
+  without a verified source.
 - **Abadie and Imbens (2011).** Only the abstract was read. No numbers are cited from it.
 - **Hainmueller (2012), entropy balancing.** The publisher page did not show a LaLonde
   application, so it was not added.

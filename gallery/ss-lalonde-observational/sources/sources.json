@@ -7,12 +7,12 @@
     "note": "Full text: scan of the published AER article (pp. 604-620) hosted by a third party (gwern.net), text extracted with pdftotext. Metadata (vol 76, no 4, pp 604-620, Sept 1986) from IDEAS/RePEc https://ideas.repec.org/a/aea/aecrev/v76y1986i4p604-20.html. No DOI (JSTOR stable 1806062). Table 5 read: experimental male impact $886 (SE 476), 1982 dollars; CPS-SSA definition in footnote, p. 611-612."
   },
   "dehejia1999": {
-    "verified_on": "2026-11-18",
+    "verified_on": "2026-11-19",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "doi": "10.1080/01621459.1999.10473858",
-    "url": "https://www.nber.org/system/files/working_papers/w6586/w6586.pdf",
-    "note": "Full text read is the NBER Working Paper 6586 version (PDF dated June 1998), not the JASA typeset article (tandfonline returned 403). Journal metadata from Crossref. Numbers cited (Tables 1-3) are from the working paper; the benchmark $1,794 is corroborated by smith2005 (Table 1), imbens2025 and dehejia2002."
+    "url": "https://users.nber.org/~rdehejia/papers/dehejia_wahba_jasa.pdf",
+    "note": "Full text of the published JASA article (94(448):1053-1062, Dec 1999): JSTOR page scan (11 pp. incl. JSTOR cover) hosted on the first author's site, OCR with tesseract and Table 3 checked against the page image, 2026-11-19. Verified in the JASA text: subsample with 1974 earnings, selected on month of assignment and employment history, 185 treated and 260 controls (p. 1054); CPS-1 N = 15,992 (Table 1, p. 1055); NSW benchmark 1,794 (SE 633) in Table 2 panels B-C (p. 1056) and Table 3 (p. 1059); CPS-1 in Table 3: difference in means -8,498, stratification 1,713 (unadjusted) and 1,774 (adjusted), matching 1,582 (unadjusted) and 1,616 (adjusted); specification chosen by adding higher-order terms and interactions until covariates balance within strata (p. 1058). All these numbers and table numbers match NBER WP 6586 (https://www.nber.org/system/files/working_papers/w6586/w6586.pdf), read 2026-11-18. The cited version, JASA 1999, is the version verified. Journal metadata from Crossref."
   },
   "dehejia2002": {
     "verified_on": "2026-11-18",
@@ -27,7 +27,7 @@
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "url": "https://users.nber.org/~rdehejia/data/.nswdata2.html",
-    "note": "Data documentation page fetched 2026-11-18 (and directory index https://users.nber.org/~rdehejia/data/). States file names, N (nswre74_treated 185, nswre74_control 260, cps_controls 15,992), column order, and that LaLonde gave permission to publish; no explicit licence. Data files themselves were not downloaded by the Scout."
+    "note": "Data documentation page fetched 2026-11-18 (and directory index https://users.nber.org/~rdehejia/data/). States file names, N (nswre74_treated 185, nswre74_control 260, cps_controls 15,992), column order, and that LaLonde gave permission to publish; no explicit licence. Data files themselves were not downloaded by the Scout. Re-fetched 2026-11-19 for the year field (F6): the page text states no date (HTTP Last-Modified header: 8 Oct 2012, server metadata, not stated on the page), so refs.bib uses year 2026, the year of access, with a note saying so."
   },
   "smith2005": {
     "verified_on": "2026-11-18",
@@ -66,7 +66,7 @@
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "url": "https://yiqingxu.org/tutorials/lalonde/02-LDW.html",
-    "note": "Replication tutorial page for imbens2025, fetched 2026-11-18. Tables B1 and B2 (LDW-CPS1 ATT and placebo estimates with robust SEs) read from the page. Numbers are the tutorial's; they need not equal the figure in the published JEP article."
+    "note": "Replication tutorial page for imbens2025, fetched 2026-11-18. Tables B1 and B2 (LDW-CPS1 ATT and placebo estimates with robust SEs) read from the page. Numbers are the tutorial's; they need not equal the figure in the published JEP article. Re-fetched 2026-11-19 for the year field (F6): the page (and the tutorial index page) states no date and the server sends no Last-Modified header, so refs.bib uses year 2026, the year of access, with a note saying so."
   },
   "advani2019": {
     "verified_on": "2026-11-18",
@@ -93,12 +93,12 @@
     "note": "Metadata from Crossref; abstract from IDEAS/RePEc (mentions application to the NSW data of LaLonde 1986 and an NSW-based simulation). Full text not read."
   },
   "crump2009": {
-    "verified_on": "2026-11-18",
+    "verified_on": "2026-11-19",
     "verified_by": "scout",
     "method": "fetched-abstract",
     "doi": "10.1093/biomet/asn055",
-    "url": "https://www.nber.org/system/files/working_papers/t0330/t0330.pdf",
-    "note": "Abstract read from NBER Technical Working Paper 330 (2006), circulated as 'Moving the Goalposts: Addressing Limited Overlap in the Estimation of Average Treatment Effects by Changing the Estimand'. Published Biometrika metadata from Crossref; published article not read. The [0.1, 0.9] rule is stated in the WP abstract and attributed to Crump et al. (2009) in imbens2025."
+    "url": "https://ideas.repec.org/a/oup/biomet/v96y2009i1p187-199.html",
+    "note": "Abstract of the published Biometrika article (96(1):187-199, 2009; 'Copyright 2009, Oxford University Press') read on IDEAS/RePEc 2026-11-19; it states the rule of thumb: discard all units with estimated propensity scores outside [0.1, 0.9] as a good approximation to the optimal rule for a wide range of distributions. Publisher full text (academic.oup.com) returned 403 and was not read. Earlier (2026-11-18) the abstract of NBER Technical Working Paper 330 (2006, 'Moving the Goalposts...') was read; it states the same rule. Metadata from Crossref."
   },
   "rubin2008": {
     "verified_on": "2026-11-18",
@@ -131,5 +131,13 @@
     "doi": "10.31219/osf.io/2gur9",
     "url": "https://econpapers.repec.org/RePEc:osf:osfxxx:2gur9",
     "note": "Abstract from the EconPapers record of the OSF preprint (dated 2024-09-10): the eligibility criteria, recruitment, allocation and analysis plan were preregistered on OSF. Full text not read; no results reported in the abstract."
+  },
+  "chernozhukov2018": {
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1111/ectj.12097",
+    "url": "https://arxiv.org/abs/1608.00060",
+    "note": "Full text: arXiv:1608.00060v7 (3 Nov 2024), pdftotext. Published metadata (Econometrics Journal 21(1):C1-C68, 2018) from Crossref. Read: Summary; Sec. 3.1 (Definitions 3.1-3.2, DML1/DML2 with K-fold cross-fitting); Sec. 3.4 (Definition 3.3: repeat over S sample splits, report mean or median; the authors recommend the median); Sec. 5.1 (orthogonal scores for the ATE, eq. 5.3, and the ATTE, eq. 5.4, under unconfoundedness; Theorem 5.1)."
   }
 }
