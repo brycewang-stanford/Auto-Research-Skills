@@ -140,7 +140,7 @@
       "id": "w-paper",
       "title": "Write the paper with macros from claims.jsonl; limitations include electricity's time ordering, ECE bias and the defaults-only scope",
       "owner": "writer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "r-rerun",

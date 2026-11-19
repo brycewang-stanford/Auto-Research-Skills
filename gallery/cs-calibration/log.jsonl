@@ -79,3 +79,5 @@
 {"time": "2026-11-19T12:38:02Z", "role": "pi", "action": "plan-updated", "detail": "rv-results marked done (stale); f-figs in-progress"}
 {"time": "2026-11-19T12:39:15Z", "role": "figures-ra", "action": "run", "detail": "fig-intervals exit=0"}
 {"time": "2026-11-19T12:39:30Z", "role": "figures-ra", "action": "figures-done", "detail": "f-figs follow-up: fig_intervals.pdf (forest plot of H1/H2a/H2b per-dataset paired t(9) intervals with margins, zero, categories, electricity dagger) from run fig-intervals reading runs/h-tests/metrics.json only; caption added to paper/figures/CAPTIONS.md; f-figs set to done in plan.json"}
+{"time": "2026-11-19T12:40:03Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T124003Z"}
+{"time": "2026-11-19T12:49:08Z", "role": "writer", "action": "paper-drafted", "detail": "w-paper: paper/main.tex and ai-use.tex written from plan.json, claims.jsonl (macros only) and refs.bib; tables/figures from Figures RA; compiles clean (20 pp incl. appendix table; no undefined refs, no overfull boxes, no BibTeX warnings via paper/plainnat-crew.bst); w-paper set done"}
