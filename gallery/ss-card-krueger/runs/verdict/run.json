@@ -1,0 +1,122 @@
+{
+  "id": "verdict",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/verdict.py"
+  ],
+  "started": "2026-11-19T07:18:28Z",
+  "finished": "2026-11-19T07:18:28Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/verdict.py",
+      "sha256": "65599671fb46d8580abfaa4ed43850f4d8a4ec70c188130da05a2d66f89d53bd"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/main-t3/metrics.json",
+      "sha256": "802bee9d43adc0deea9433e496641821372bc5e6d316ee014a7ca93146d00605"
+    },
+    {
+      "path": "runs/main-t4/metrics.json",
+      "sha256": "5531dc037af8cb3cb329c3fc596f524f51ca39ede1cc5fbeee880d776f4595f8"
+    },
+    {
+      "path": "runs/h2-winsor/metrics.json",
+      "sha256": "b581f6f2498e10d49683f74b455b2f2f4bcbeb9696f83dcba4ce2c34f0cc972c"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/verdict/metrics.json",
+      "sha256": "ab9d537c411ad889ddbbbc5753acd0c241f5c15214905e749b1fcdadc7d06983"
+    }
+  ],
+  "metrics": {
+    "h1a_did_rep": 2.753605782980582,
+    "h1a_did_pub": 2.76,
+    "h1a_did_absdiff": 0.0063942170194177805,
+    "h1a_did_met": 1,
+    "h1a_did_se_rep": 1.310026429216899,
+    "h1a_did_se_pub": 1.36,
+    "h1a_did_se_absdiff": 0.04997357078310105,
+    "h1a_did_se_met": 1,
+    "h1a_pa_rep": -2.1655844155844157,
+    "h1a_pa_pub": -2.16,
+    "h1a_pa_absdiff": 0.005584415584415581,
+    "h1a_pa_met": 1,
+    "h1a_pa_se_rep": 1.2219866674630695,
+    "h1a_pa_se_pub": 1.25,
+    "h1a_pa_se_absdiff": 0.028013332536930502,
+    "h1a_pa_se_met": 1,
+    "h1a_nj_rep": 0.5880213673961663,
+    "h1a_nj_pub": 0.59,
+    "h1a_nj_absdiff": 0.0019786326038336854,
+    "h1a_nj_met": 1,
+    "h1a_nj_se_rep": 0.4721417475602858,
+    "h1a_nj_se_pub": 0.54,
+    "h1a_nj_se_absdiff": 0.06785825243971422,
+    "h1a_nj_se_met": 0,
+    "h1a_point_met": 1,
+    "h1a_se_met": 0,
+    "h1a_met": 0,
+    "h1b_did_rep": 2.7499999999999964,
+    "h1b_did_pub": 2.75,
+    "h1b_did_absdiff": 3.552713678800501e-15,
+    "h1b_did_met": 1,
+    "h1b_did_se_rep": 1.342340976908276,
+    "h1b_did_se_pub": 1.34,
+    "h1b_did_se_absdiff": 0.002340976908275838,
+    "h1b_did_se_met": 1,
+    "h1b_pa_rep": -2.2833333333333314,
+    "h1b_pa_pub": -2.28,
+    "h1b_pa_absdiff": 0.003333333333331634,
+    "h1b_pa_met": 1,
+    "h1b_pa_se_rep": 1.2532689987321886,
+    "h1b_pa_se_pub": 1.25,
+    "h1b_pa_se_absdiff": 0.003268998732188555,
+    "h1b_pa_se_met": 1,
+    "h1b_nj_rep": 0.466666666666665,
+    "h1b_nj_pub": 0.47,
+    "h1b_nj_absdiff": 0.0033333333333349646,
+    "h1b_nj_met": 1,
+    "h1b_nj_se_rep": 0.4808285714304861,
+    "h1b_nj_se_pub": 0.48,
+    "h1b_nj_se_absdiff": 0.0008285714304860914,
+    "h1b_nj_se_met": 1,
+    "h1b_point_met": 1,
+    "h1b_se_met": 1,
+    "h1b_met": 1,
+    "h1c_b_nj_rep": 2.3258311888831806,
+    "h1c_b_nj_pub": 2.33,
+    "h1c_b_nj_absdiff": 0.0041688111168194375,
+    "h1c_b_nj_met": 1,
+    "h1c_se_nj_rep": 1.191596277699937,
+    "h1c_se_nj_pub": 1.19,
+    "h1c_se_nj_absdiff": 0.0015962776999369765,
+    "h1c_se_nj_met": 1,
+    "h1c_n_rep": 357,
+    "h1c_n_pub": 357,
+    "h1c_n_met": 1,
+    "h1c_point_met": 1,
+    "h1c_se_met": 1,
+    "h1c_met": 1,
+    "h2_did_u": 2.75,
+    "h2_did_w": 2.339501618122977,
+    "h2_sign_same": 1,
+    "h2_half_kept": 1,
+    "h2_holds": 1
+  },
+  "metrics_file": "runs/verdict/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}

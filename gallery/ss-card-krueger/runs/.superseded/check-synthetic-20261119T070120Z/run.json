@@ -1,0 +1,106 @@
+{
+  "id": "check-synthetic",
+  "role": "econometrician",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/test_ck.py"
+  ],
+  "started": "2026-11-19T07:01:17Z",
+  "finished": "2026-11-19T07:01:20Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/test_ck.py",
+      "sha256": "9d06557561f490ec2a723faf661215248f60788ef14ab13566d54d4d5c770166"
+    },
+    {
+      "path": "code/ck_analysis.py",
+      "sha256": "632d22031ff807d4cac23bbe985ac5023de6ec872641087391b233b3b8b9ff9a"
+    },
+    {
+      "path": "code/verdict.py",
+      "sha256": "65599671fb46d8580abfaa4ed43850f4d8a4ec70c188130da05a2d66f89d53bd"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "runs/check-synthetic/synthetic_stores.csv",
+      "sha256": "b7747304e6a241e1877ff9ef3407c3eeb167b9859e807a6b140a84dbcf5007dd"
+    },
+    {
+      "path": "runs/check-synthetic/metrics.json",
+      "sha256": "1e77f4ef5e00dbbeadc48be994331945dc06b115216808ee622e9922dfe0d15f"
+    }
+  ],
+  "metrics": {
+    "seed": 20261119,
+    "syn_rows": 410,
+    "syn_nj": 331,
+    "syn_pa": 79,
+    "s1_hc2_se": 0.634782,
+    "s1_hc2_maxdiff_lt_1e10": 1,
+    "pass_s1_vs_hc2": 1,
+    "stacked_did_r3": 3.927658,
+    "stacked_nobs": 794,
+    "stacked_nclusters": 410,
+    "stacked_unbalanced_stores": 26,
+    "pass_stacked_did": 1,
+    "winsor_syn_q05": -7.5,
+    "winsor_syn_q95": 9.5,
+    "winsor_syn_n_low": 16,
+    "winsor_syn_n_high": 19,
+    "winsor_ties_ok": 1,
+    "pass_winsor": 1,
+    "t4_hand_cases": 10,
+    "t4_syn_n": 350,
+    "pass_t4_filter": 1,
+    "mc_reps": 4000,
+    "mc_n1": 266,
+    "mc_n2": 251,
+    "mc_n12": 224,
+    "mc_ratio_s1_var_to_mc_var": 1.0353,
+    "mc_ratio_true_var_to_mc_var": 1.0357,
+    "mc_ratio_indep_var_to_mc_var": 2.5984,
+    "pass_s1_monte_carlo": 1,
+    "known_did_r3": 4.0,
+    "known_b_nj": 4.0,
+    "known_did_w": 4.0,
+    "known_nw_b_nj": 4.0,
+    "pass_known_answer": 1,
+    "closures_r5_added": 4,
+    "syn_n_bal": 384,
+    "pass_closures": 1,
+    "ep_main_t3_n_metrics": 43,
+    "ep_main_t4_n_metrics": 18,
+    "ep_se_alt_n_metrics": 16,
+    "ep_placebo_hiwage_n_metrics": 14,
+    "ep_h2_winsor_n_metrics": 21,
+    "ep_h2_closures_excl_n_metrics": 12,
+    "ep_h2_nw_rule_n_metrics": 8,
+    "syn_did_r3": 3.927658,
+    "syn_did_r3_se": 0.631116,
+    "syn_did_r4": 3.758188,
+    "syn_did_r4_se": 0.634782,
+    "syn_t4_b_nj": 4.047215,
+    "syn_t4_n": 350,
+    "syn_h2_did_w": 3.419612,
+    "syn_h2_capped": 35,
+    "syn_did_r3_cr1_se": 0.630003,
+    "pass_entry_points": 1,
+    "verdict_cases": 12,
+    "pass_verdict": 1,
+    "tests_run": 9,
+    "tests_failed": 0
+  },
+  "metrics_file": "runs/check-synthetic/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}

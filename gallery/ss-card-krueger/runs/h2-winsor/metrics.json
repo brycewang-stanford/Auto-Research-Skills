@@ -1,0 +1,23 @@
+{
+  "n": 384,
+  "n_nj": 309,
+  "n_pa": 75,
+  "n_closed_nj": 5,
+  "n_closed_pa": 1,
+  "q05": -17.424999999999997,
+  "q95": 13.712499999999991,
+  "did_u": 2.75,
+  "did_u_se": 1.342340976908276,
+  "did_w": 2.339501618122977,
+  "did_w_se": 1.097748478084447,
+  "ratio_w_u": 0.850727861135628,
+  "capped_low_nj": 12,
+  "capped_low_pa": 8,
+  "capped_low_closed": 1,
+  "capped_high_nj": 16,
+  "capped_high_pa": 4,
+  "capped_high_closed": 0,
+  "fte1_mean_bal": 21.006640625,
+  "fte1_mean_capped_low": 45.95,
+  "fte1_mean_capped_high": 19.525
+}

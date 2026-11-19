@@ -1,0 +1,56 @@
+{
+  "id": "placebo-hiwage",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/ck_analysis.py",
+    "placebo-hiwage"
+  ],
+  "started": "2026-11-19T07:18:24Z",
+  "finished": "2026-11-19T07:18:25Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/ck_analysis.py",
+      "sha256": "632d22031ff807d4cac23bbe985ac5023de6ec872641087391b233b3b8b9ff9a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/stores.csv",
+      "sha256": "79b110fcf268a47b5a35ab6b46705fa0c8c9a4b0ef3a4daba93af5404cdddfd9"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/placebo-hiwage/metrics.json",
+      "sha256": "c39614f25fb756c34f4a8376744b015fb95fb53268461edbeff7e9f8f166a21f"
+    }
+  ],
+  "metrics": {
+    "plac_r3": 0.12935253152644322,
+    "plac_r3_se": 1.5676385541411462,
+    "chg_r3_nj_hi": -2.0362318840579725,
+    "chg_r3_nj_hi_se": 0.9819568325401302,
+    "chg_r3_pa": -2.1655844155844157,
+    "plac_r4": 0.12661691542288267,
+    "plac_r4_se": 1.6079109967053806,
+    "chg_r4_nj_hi": -2.1567164179104488,
+    "chg_r4_nj_hi_se": 1.0073205002097931,
+    "chg_r4_pa": -2.2833333333333314,
+    "n_nj_hi": 73,
+    "n_nj_hi_w1": 71,
+    "n_nj_hi_w2": 69,
+    "n_nj_hi_bal": 67
+  },
+  "metrics_file": "runs/placebo-hiwage/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}

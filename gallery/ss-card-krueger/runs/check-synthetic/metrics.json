@@ -55,6 +55,12 @@
   "pass_entry_points": 1,
   "verdict_cases": 12,
   "pass_verdict": 1,
-  "tests_run": 9,
+  "f3_row5_did": 3.492417,
+  "f3_placebo_r3": 3.015496,
+  "f3_closures_excl_did_w": 3.215243,
+  "f3_nw_b_nj": 3.967182,
+  "f3_nw_controls_shift": -0.071224,
+  "pass_report_only_values": 1,
+  "tests_run": 10,
   "tests_failed": 0
 }

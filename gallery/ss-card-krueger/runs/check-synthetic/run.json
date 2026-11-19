@@ -7,13 +7,13 @@
     "-I",
     "code/test_ck.py"
   ],
-  "started": "2026-11-19T07:01:17Z",
-  "finished": "2026-11-19T07:01:20Z",
+  "started": "2026-11-19T07:18:13Z",
+  "finished": "2026-11-19T07:18:15Z",
   "exit_code": 0,
   "code": [
     {
       "path": "code/test_ck.py",
-      "sha256": "9d06557561f490ec2a723faf661215248f60788ef14ab13566d54d4d5c770166"
+      "sha256": "f53561d8e61e7e3edd39b97ae3abbb73ad7379144266976827d4516a5c879729"
     },
     {
       "path": "code/ck_analysis.py",
@@ -32,7 +32,7 @@
     },
     {
       "path": "runs/check-synthetic/metrics.json",
-      "sha256": "1e77f4ef5e00dbbeadc48be994331945dc06b115216808ee622e9922dfe0d15f"
+      "sha256": "136e2760f6523903caa0b59436fe2354d3fe39b7cf8e089d13c86743963022ed"
     }
   ],
   "metrics": {
@@ -92,7 +92,13 @@
     "pass_entry_points": 1,
     "verdict_cases": 12,
     "pass_verdict": 1,
-    "tests_run": 9,
+    "f3_row5_did": 3.492417,
+    "f3_placebo_r3": 3.015496,
+    "f3_closures_excl_did_w": 3.215243,
+    "f3_nw_b_nj": 3.967182,
+    "f3_nw_controls_shift": -0.071224,
+    "pass_report_only_values": 1,
+    "tests_run": 10,
     "tests_failed": 0
   },
   "metrics_file": "runs/check-synthetic/metrics.json",

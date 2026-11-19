@@ -36,3 +36,16 @@
 {"time": "2026-11-19T07:02:18Z", "role": "econometrician", "action": "notes-written", "detail": "runs/NOTES.md: implementation choices and exact commands for runs 1-8"}
 {"time": "2026-11-19T07:02:58Z", "role": "pi", "action": "brief-archived", "detail": "reviewer code-r1 20261119T070258Z"}
 {"time": "2026-11-19T07:15:56Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261119T071555Z"}
+{"time": "2026-11-19T07:18:13Z", "role": "econometrician", "action": "run-superseded", "detail": "check-synthetic archived to runs/.superseded/check-synthetic-20261119T070120Z"}
+{"time": "2026-11-19T07:18:15Z", "role": "econometrician", "action": "run", "detail": "check-synthetic exit=0"}
+{"time": "2026-11-19T07:18:22Z", "role": "econometrician", "action": "run", "detail": "main-t3 exit=0"}
+{"time": "2026-11-19T07:18:23Z", "role": "econometrician", "action": "run", "detail": "main-t4 exit=0"}
+{"time": "2026-11-19T07:18:24Z", "role": "econometrician", "action": "run", "detail": "se-alt exit=0"}
+{"time": "2026-11-19T07:18:25Z", "role": "econometrician", "action": "run", "detail": "placebo-hiwage exit=0"}
+{"time": "2026-11-19T07:18:26Z", "role": "econometrician", "action": "run", "detail": "h2-winsor exit=0"}
+{"time": "2026-11-19T07:18:27Z", "role": "econometrician", "action": "run", "detail": "h2-closures-excl exit=0"}
+{"time": "2026-11-19T07:18:28Z", "role": "econometrician", "action": "run", "detail": "h2-nw-rule exit=0"}
+{"time": "2026-11-19T07:18:28Z", "role": "econometrician", "action": "run", "detail": "verdict exit=0"}
+{"time": "2026-11-19T07:21:07Z", "role": "econometrician", "action": "code-r1-fixed", "detail": "F1 guard pins ck_analysis.py 632d2203, verdict.py 65599671 (code-r1) and test_ck.py f53561d8 (post-F3); F2 replace path removed, analysis runs never replaced; F3 test 10 numpy value checks, check-synthetic rerun --replace 10/10"}
+{"time": "2026-11-19T07:21:07Z", "role": "econometrician", "action": "analysis-runs", "detail": "runs 1-8 once each via run_analysis.sh, all exit 0: H1(a) point met, NJ SE 0.472 vs 0.54 missed (point reproduced; SE not identified; DiD SE met by 0.00003); H1(b) reproduced; H1(c) reproduced (2.33, 1.19, N 357); H2 holds (2.34 vs 2.75, ratio 0.851)"}
+{"time": "2026-11-19T07:21:07Z", "role": "econometrician", "action": "claims-written", "detail": "127 result claims from run metrics; paper/numbers.tex regenerated; runs/NOTES.md updated"}

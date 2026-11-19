@@ -1,0 +1,60 @@
+{
+  "id": "main-t4",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/ck_analysis.py",
+    "main-t4"
+  ],
+  "started": "2026-11-19T07:18:22Z",
+  "finished": "2026-11-19T07:18:23Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/ck_analysis.py",
+      "sha256": "632d22031ff807d4cac23bbe985ac5023de6ec872641087391b233b3b8b9ff9a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/stores.csv",
+      "sha256": "79b110fcf268a47b5a35ab6b46705fa0c8c9a4b0ef3a4daba93af5404cdddfd9"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/main-t4/metrics.json",
+      "sha256": "5531dc037af8cb3cb329c3fc596f524f51ca39ede1cc5fbeee880d776f4595f8"
+    }
+  ],
+  "metrics": {
+    "t4_n_all_pa": 79,
+    "t4_n_fte_both_pa": 75,
+    "t4_n_pa": 67,
+    "t4_n_closed_pa": 1,
+    "t4_n_all_nj": 331,
+    "t4_n_fte_both_nj": 309,
+    "t4_n_nj": 290,
+    "t4_n_closed_nj": 5,
+    "n": 357,
+    "n_nj": 290,
+    "n_pa": 67,
+    "b_nj": 2.3258311888831806,
+    "se_nj": 1.191596277699937,
+    "se_nj_hc1": 1.4522845008487095,
+    "const": -2.1268656716417973,
+    "root_mse": 8.790861345008944,
+    "dep_mean": -0.23753501400560229,
+    "dep_sd": 8.825484522270923
+  },
+  "metrics_file": "runs/main-t4/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}

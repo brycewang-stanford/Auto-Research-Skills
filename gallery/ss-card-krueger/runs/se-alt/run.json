@@ -1,0 +1,58 @@
+{
+  "id": "se-alt",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/ck_analysis.py",
+    "se-alt"
+  ],
+  "started": "2026-11-19T07:18:23Z",
+  "finished": "2026-11-19T07:18:24Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/ck_analysis.py",
+      "sha256": "632d22031ff807d4cac23bbe985ac5023de6ec872641087391b233b3b8b9ff9a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/stores.csv",
+      "sha256": "79b110fcf268a47b5a35ab6b46705fa0c8c9a4b0ef3a4daba93af5404cdddfd9"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/se-alt/metrics.json",
+      "sha256": "4d4919411c1d205647337bbebb8d29f8c858250bd8cebecc0be6a86b19b674f7"
+    }
+  ],
+  "metrics": {
+    "did_r3": 2.753605782980582,
+    "did_r3_se_s1": 1.310026429216899,
+    "did_r4": 2.7499999999999964,
+    "did_r4_se_s1": 1.342340976908276,
+    "did_r3_stacked": 2.753605782980557,
+    "did_r3_cr1_se": 1.3066070124191118,
+    "stacked_r3_nobs": 794,
+    "stacked_r3_nclusters": 410,
+    "did_r4_stacked": 2.7499999999998987,
+    "did_r4_cr1_se": 1.3385982150769564,
+    "stacked_r4_nobs": 768,
+    "stacked_r4_nclusters": 384,
+    "did_r4_hc1_se": 1.337725311029071,
+    "did_r4_hc2_se": 1.3423409769082737,
+    "chg_r3_pa_indep_se": 1.647807450513859,
+    "chg_r3_nj_indep_se": 0.7273588231020133
+  },
+  "metrics_file": "runs/se-alt/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}

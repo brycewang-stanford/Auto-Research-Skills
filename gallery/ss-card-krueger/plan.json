@@ -122,55 +122,55 @@
       "id": "e-main-t3",
       "title": "Run main-t3 (Table 3 rows 1-5, S1 SEs; H1(a), H1(b))",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-main-t4",
       "title": "Run main-t4 (Table 4 column (i), conventional OLS SE; H1(c))",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-se-alt",
       "title": "Run se-alt (store-clustered stacked regression and HC1/HC2 SEs; report only)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-placebo",
       "title": "Run placebo-hiwage (NJ high-wage stores vs PA; report only)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h2-winsor",
       "title": "Run h2-winsor (H2: pooled 5/95 winsorization on the balanced sample, capped counts and capped.csv)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h2-closures-excl",
       "title": "Run h2-closures-excl (H2 secondary s1; report only)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h2-nw-rule",
       "title": "Run h2-nw-rule (H2 secondary s2, Neumark-Wascher rule; report only)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-verdict",
       "title": "Run verdict (H1(a)-(c) target-by-target flags, h2_holds)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-claims",
       "title": "Write result claims per design.claims_plan (did-fte, did-fte-se, did-fte-balanced, H1 and H2 claims) and crew.py numbers",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-results",

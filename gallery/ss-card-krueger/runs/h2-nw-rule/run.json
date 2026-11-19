@@ -1,0 +1,50 @@
+{
+  "id": "h2-nw-rule",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/ck_analysis.py",
+    "h2-nw-rule"
+  ],
+  "started": "2026-11-19T07:18:27Z",
+  "finished": "2026-11-19T07:18:28Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/ck_analysis.py",
+      "sha256": "632d22031ff807d4cac23bbe985ac5023de6ec872641087391b233b3b8b9ff9a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/stores.csv",
+      "sha256": "79b110fcf268a47b5a35ab6b46705fa0c8c9a4b0ef3a4daba93af5404cdddfd9"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h2-nw-rule/metrics.json",
+      "sha256": "8ccd833cde7427c60839e9fb9fb575a824683847635aeee2278cc9e34101ea75"
+    }
+  ],
+  "metrics": {
+    "n": 378,
+    "n_nj": 304,
+    "n_pa": 74,
+    "b_nj": 2.780300376648848,
+    "se_nj": 1.1570127586480958,
+    "se_nj_hc1": 1.3439761961938612,
+    "chg_nj": 0.6577302631578947,
+    "chg_pa": -2.064189189189189
+  },
+  "metrics_file": "runs/h2-nw-rule/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}

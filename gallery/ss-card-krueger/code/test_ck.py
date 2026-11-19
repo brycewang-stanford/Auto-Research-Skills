@@ -30,6 +30,11 @@ Assertions (the four required by step 0c come first):
  9. verdict         verdict.judge on hand-built metrics: the 0.05 tolerance is inclusive
                     after rounding to 6 decimals, N must match exactly, SE-only misses give
                     point_met = 1 and met = 0, and the H2 sign / half rules.
+10. report-only     (code-r1 F3) Values of the report-only paths against plain-numpy
+                    computations from the raw synthetic columns: row 5, placebo-hiwage
+                    (rows 3 and 4), h2-closures-excl (cutoffs, caps by state and tail,
+                    closures left uncapped) and h2-nw-rule (coefficient, conventional and
+                    HC1 SEs, with controls that move the estimate).
 
 Outputs: runs/check-synthetic/synthetic_stores.csv and runs/check-synthetic/metrics.json
 (flat: pass flags and synthetic-only numbers). Exit code 1 if any assertion fails.
@@ -440,6 +445,137 @@ def test_verdict() -> dict:
     return {"verdict_cases": 12}
 
 
+# ------------------------------------------- report-only runs: plain-numpy values (code-r1 F3)
+def raw_arrays(syn: pd.DataFrame) -> dict:
+    """Variables rebuilt with numpy from the raw synthetic columns, without ck.build."""
+    a = {c: syn[c].to_numpy(float) for c in ("EMPFT", "EMPPT", "NMGRS", "EMPFT2", "EMPPT2",
+                                              "NMGRS2", "WAGE_ST", "STATE", "STATUS2",
+                                              "CHAIN", "CO_OWNED")}
+    st = a["STATUS2"]
+    fte1 = a["EMPFT"] + a["NMGRS"] + 0.5 * a["EMPPT"]
+    fte2 = a["EMPFT2"] + a["NMGRS2"] + 0.5 * a["EMPPT2"]
+    fte2 = np.where(st == 3, 0.0, fte2)
+    fte2 = np.where(np.isin(st, [0, 2, 4, 5]), np.nan, fte2)
+    fte2_r5 = np.where(np.isin(st, [2, 4, 5]), 0.0, fte2)
+    return {"fte1": fte1, "fte2": fte2, "fte2_r5": fte2_r5, "nj": a["STATE"] == 1,
+            "perm": st == 3, "temp": np.isin(st, [2, 4, 5]), "chain": a["CHAIN"],
+            "co": a["CO_OWNED"], "wage": a["WAGE_ST"]}
+
+
+def np_s1(y1: np.ndarray, y2: np.ndarray, a1: np.ndarray, a2: np.ndarray) -> tuple[float, float]:
+    """S1 written out with numpy sums (no np.var / np.cov)."""
+    a12 = a1 & a2
+    n1, n2, n12 = a1.sum(), a2.sum(), a12.sum()
+    m1, m2 = y1[a1].sum() / n1, y2[a2].sum() / n2
+    v1 = ((y1[a1] - m1) ** 2).sum() / (n1 - 1)
+    v2 = ((y2[a2] - m2) ** 2).sum() / (n2 - 1)
+    c = ((y1[a12] - y1[a12].mean()) * (y2[a12] - y2[a12].mean())).sum() / (n12 - 1)
+    return m2 - m1, math.sqrt(v1 / n1 + v2 / n2 - 2 * c * n12 / (n1 * n2))
+
+
+def np_did(nj_chg: tuple, pa_chg: tuple) -> tuple[float, float]:
+    return nj_chg[0] - pa_chg[0], math.sqrt(nj_chg[1] ** 2 + pa_chg[1] ** 2)
+
+
+def close(a: float, b: float, tol: float = 1e-10) -> bool:
+    return abs(a - b) <= tol
+
+
+def test_report_only_values(syn: pd.DataFrame) -> dict:
+    v = raw_arrays(syn)
+    d = ck.build(syn)
+    w1, w2 = ~np.isnan(v["fte1"]), ~np.isnan(v["fte2"])
+    bal = w1 & w2
+    nj, pa = v["nj"], ~v["nj"]
+    dfte = v["fte2"] - v["fte1"]
+    out: dict = {}
+
+    # row 5: B plus temporary closures (with FTE1) at FTE2 = 0, balanced-form S1
+    r5 = w1 & ~np.isnan(v["fte2_r5"])
+    d5 = v["fte2_r5"] - v["fte1"]
+    chg = {}
+    for tag, s in (("nj", nj), ("pa", pa)):
+        x = d5[r5 & s]
+        chg[tag] = (x.mean(), x.std(ddof=1) / math.sqrt(len(x)))
+    did5, se5 = np_did(chg["nj"], chg["pa"])
+    t3 = ck.table3(d)
+    assert close(t3["did_r5"], did5) and close(t3["did_r5_se"], se5), (t3["did_r5"], did5)
+    assert close(t3["chg_r5_nj"], chg["nj"][0]) and close(t3["chg_r5_pa_se"], chg["pa"][1])
+    assert (r5 & v["temp"]).sum() > 0 and not close(did5, t3["did_r4"], 1e-6)
+    out["f3_row5_did"] = r(did5)
+
+    # placebo-hiwage: NJ stores with WAGE_ST >= 5.00 vs PA, rows 3 and 4
+    hi = nj & (np.round(v["wage"], 2) >= 5.00)
+    pl = ck.placebo_hiwage(d)
+    for label, a1, a2 in (("r3", w1, w2), ("r4", bal, bal)):
+        c_hi = np_s1(v["fte1"], v["fte2"], a1 & hi, a2 & hi)
+        c_pa = np_s1(v["fte1"], v["fte2"], a1 & pa, a2 & pa)
+        did, se = np_did(c_hi, c_pa)
+        assert close(pl[f"plac_{label}"], did) and close(pl[f"plac_{label}_se"], se), label
+    assert pl["n_nj_hi_w1"] == int((w1 & hi).sum()) and pl["n_nj_hi_bal"] == int((bal & hi).sum())
+    out["f3_placebo_r3"] = r(pl["plac_r3"])
+
+    # h2-closures-excl: pool and caps on B minus permanent closures; closures keep DFTE
+    open_b = bal & ~v["perm"]
+    q05, q95 = pct_linear(dfte[open_b], 5), pct_linear(dfte[open_b], 95)
+    wv = dfte.copy()
+    wv[open_b] = np.minimum(np.maximum(dfte[open_b], q05), q95)
+    did_w = wv[bal & nj].mean() - wv[bal & pa].mean()
+    se_w = math.sqrt(wv[bal & nj].var(ddof=1) / (bal & nj).sum()
+                     + wv[bal & pa].var(ddof=1) / (bal & pa).sum())
+    did_u = dfte[bal & nj].mean() - dfte[bal & pa].mean()
+    cx = ck.h2_closures_excl(d)
+    assert close(cx["q05_nc"], q05) and close(cx["q95_nc"], q95)
+    assert close(cx["did_w"], did_w) and close(cx["did_w_se"], se_w) and close(cx["did_u"], did_u)
+    assert close(cx["ratio_w_u"], did_w / did_u)
+    for tail, mask in (("low", dfte < q05), ("high", dfte > q95)):
+        for tag, s in (("nj", nj), ("pa", pa)):
+            assert cx[f"capped_{tail}_{tag}"] == int((open_b & mask & s).sum()), (tail, tag)
+    assert (bal & v["perm"]).sum() > 0 and (dfte[bal & v["perm"]] < q05).any(), \
+        "test needs a closure below the open-store cutoff, left uncapped"
+    # and differs from pooled winsorization, which does cap closures
+    h2, _ = ck.h2_winsor(d)
+    assert not close(h2["did_w"], cx["did_w"], 1e-6)
+    out["f3_closures_excl_did_w"] = r(did_w)
+
+    # h2-nw-rule: OLS of DFTE on NJ + BK + KFC + ROYS + CO_OWNED, B minus closures.
+    # A variant file adds chain and ownership effects to wave-2 employment of answered
+    # stores, so the controls move the estimate and the test can see them.
+    syn_nw = syn.copy()
+    ans = syn_nw["STATUS2"] == 1
+    syn_nw.loc[ans, "EMPFT2"] = (syn_nw.loc[ans, "EMPFT2"] + 4.0 * (syn_nw.loc[ans, "CHAIN"] == 1)
+                                 - 3.0 * (syn_nw.loc[ans, "CHAIN"] == 3)
+                                 - 2.0 * syn_nw.loc[ans, "CO_OWNED"])
+    syn_nw = add_derived(syn_nw)
+    v = raw_arrays(syn_nw)
+    d = ck.build(syn_nw)
+    w1, w2 = ~np.isnan(v["fte1"]), ~np.isnan(v["fte2"])
+    bal = w1 & w2
+    nj = v["nj"]
+    dfte = v["fte2"] - v["fte1"]
+    open_b = bal & ~v["perm"]
+    X = np.column_stack([np.ones(open_b.sum()), nj[open_b], v["chain"][open_b] == 1,
+                         v["chain"][open_b] == 2, v["chain"][open_b] == 3,
+                         v["co"][open_b]]).astype(float)
+    y = dfte[open_b]
+    xtx_inv = np.linalg.inv(X.T @ X)
+    beta = xtx_inv @ X.T @ y
+    e = y - X @ beta
+    n, k = X.shape
+    se_conv = math.sqrt((e @ e) / (n - k) * xtx_inv[1, 1])
+    meat = (X * e[:, None] ** 2).T @ X
+    se_hc1 = math.sqrt((xtx_inv @ meat @ xtx_inv)[1, 1] * n / (n - k))
+    nw = ck.h2_nw_rule(d)
+    assert nw["n"] == n and close(nw["b_nj"], beta[1]) and close(nw["se_nj"], se_conv)
+    assert close(nw["se_nj_hc1"], se_hc1)
+    assert close(nw["chg_nj"], y[nj[open_b]].mean()) and close(nw["chg_pa"], y[~nj[open_b]].mean())
+    # the controls must move the estimate on this file, so the test can see them
+    assert abs(beta[1] - (nw["chg_nj"] - nw["chg_pa"])) > 1e-3
+    out["f3_nw_b_nj"] = r(beta[1])
+    out["f3_nw_controls_shift"] = r(beta[1] - (nw["chg_nj"] - nw["chg_pa"]))
+    return out
+
+
 def main() -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     syn = synthetic_stores()
@@ -454,7 +590,8 @@ def main() -> int:
              ("known_answer", test_known_answer),
              ("closures", lambda: test_closures(syn)),
              ("entry_points", lambda: test_entry_points(syn)),
-             ("verdict", test_verdict)]
+             ("verdict", test_verdict),
+             ("report_only_values", lambda: test_report_only_values(syn))]
     metrics: dict = {"seed": SEED, "syn_rows": len(syn),
                      "syn_nj": int((syn["STATE"] == 1).sum()), "syn_pa": int((syn["STATE"] == 0).sum())}
     failed = 0

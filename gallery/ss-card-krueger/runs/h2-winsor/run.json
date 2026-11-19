@@ -1,0 +1,67 @@
+{
+  "id": "h2-winsor",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/ck_analysis.py",
+    "h2-winsor"
+  ],
+  "started": "2026-11-19T07:18:25Z",
+  "finished": "2026-11-19T07:18:26Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/ck_analysis.py",
+      "sha256": "632d22031ff807d4cac23bbe985ac5023de6ec872641087391b233b3b8b9ff9a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/stores.csv",
+      "sha256": "79b110fcf268a47b5a35ab6b46705fa0c8c9a4b0ef3a4daba93af5404cdddfd9"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h2-winsor/capped.csv",
+      "sha256": "7f19a2a4b1061bcb3b4ab40235e2d05dcdb39cd80629761778c9447d040d36ef"
+    },
+    {
+      "path": "runs/h2-winsor/metrics.json",
+      "sha256": "b581f6f2498e10d49683f74b455b2f2f4bcbeb9696f83dcba4ce2c34f0cc972c"
+    }
+  ],
+  "metrics": {
+    "n": 384,
+    "n_nj": 309,
+    "n_pa": 75,
+    "n_closed_nj": 5,
+    "n_closed_pa": 1,
+    "q05": -17.424999999999997,
+    "q95": 13.712499999999991,
+    "did_u": 2.75,
+    "did_u_se": 1.342340976908276,
+    "did_w": 2.339501618122977,
+    "did_w_se": 1.097748478084447,
+    "ratio_w_u": 0.850727861135628,
+    "capped_low_nj": 12,
+    "capped_low_pa": 8,
+    "capped_low_closed": 1,
+    "capped_high_nj": 16,
+    "capped_high_pa": 4,
+    "capped_high_closed": 0,
+    "fte1_mean_bal": 21.006640625,
+    "fte1_mean_capped_low": 45.95,
+    "fte1_mean_capped_high": 19.525
+  },
+  "metrics_file": "runs/h2-winsor/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}

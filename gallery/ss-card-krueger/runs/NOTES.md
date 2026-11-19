@@ -1,9 +1,9 @@
 # Econometrician notes: ss-card-krueger
 
-This file lists what ran, in order, and the exact commands for every planned run. Nothing in
-it is a result on the study data. As of 2026-11-19 no analysis run has touched
-`data/derived/stores.csv`. The plan (analysis_plan 0d) blocks analysis runs until the
-Reviewer's code review (`reviews/code-r1`) has no open critical or major finding.
+This file lists what ran, in order, the exact commands, and anything that surprised us.
+code-r1 passed with three minor findings, which were fixed before any analysis run (see
+0d). The eight planned analysis runs then ran once each, in the planned order, on
+2026-11-19. None has been replaced.
 
 ## Code (written 2026-11-19, after the design gate)
 
@@ -12,7 +12,7 @@ Reviewer's code review (`reviews/code-r1`) has no open critical or major finding
 | `code/ck_analysis.py` | `build()` constructs every analysis variable from `stores.csv`, keyed by ROW_ID: FTE1, FTE2 with the closure override, FTE2_R5, DFTE, NJ, the chain dummies, the wage groups, and the sample flags in_w1, in_w2, in_bal, in_r5 and in_t4. There is one entry point for each analysis run: `main-t3`, `main-t4`, `se-alt`, `placebo-hiwage`, `h2-winsor`, `h2-closures-excl` and `h2-nw-rule`. Each writes `runs/<id>/metrics.json` |
 | `code/verdict.py` | Step 8, the only place a hypothesis is judged. It reads the metrics of main-t3, main-t4 and h2-winsor. For every H1 target it writes the published value, the absolute difference and a met flag. It also writes the H2 flags |
 | `code/test_ck.py` | Step 0c, check-synthetic. It runs the tests on synthetic data only and never reads `stores.csv` |
-| `code/run_analysis.sh` | Runs 1-8 in order through `crew.py run`. It refuses to start unless the latest `reviews/code-r*/review.json` has no open critical or major finding |
+| `code/run_analysis.sh` | Runs 1-8 in order through `crew.py run`. It refuses to start unless all of the following hold: the latest `reviews/code-r*/review.json` has no open critical or major finding; `ck_analysis.py` and `verdict.py` hash to the values recorded in code-r1; `test_ck.py` hashes to its post-F3 value; and check-synthetic passed on exactly those files (code-r1 F1). It has no replace path (code-r1 F2) |
 
 ### Implementation choices the design leaves implicit
 
@@ -59,7 +59,9 @@ None of these changes a sample rule, the FTE definition, an SE method or a decis
 
 ## Runs
 
-### 0c. `check-synthetic` (data-prep, 2026-11-19): 9/9 tests passed
+### 0c. `check-synthetic` (data-prep, 2026-11-19): 9/9 tests passed; rerun after code-r1 F3: 10/10 passed
+
+The first record is archived by crew.py under `runs/.superseded/check-synthetic-20261119T070120Z/`.
 
 The run used synthetic data only. `code/test_ck.py` generates 410 synthetic stores (331 NJ,
 79 PA; seed 20261119) shaped like the public file:
@@ -85,11 +87,23 @@ The file is written to `runs/check-synthetic/synthetic_stores.csv` and read back
 | 8. Entry points | All seven run ids run on the synthetic file and write every metric that analysis_plan names, as JSON-safe flat output. The internal identities hold, and the capped list is keyed by ROW_ID |
 | 9. Verdict (extra) | The 0.05 tolerance is inclusive after rounding to 6 decimals: 2.81 and 2.71 are met against 2.76, and 2.8100011 is not. An SE-only miss gives point_met = 1 and met = 0. N = 356 fails h1c_met but not h1c_point_met. On H2, half the magnitude kept exactly holds, 0.99 of half fails, and a sign flip fails. A did_u that differs from did_r4 is refused |
 
+| 10. Report-only values (code-r1 F3) | Each report-only path is checked against plain-numpy computations from the raw synthetic columns, to 1e-10: row 5; placebo-hiwage, rows 3 and 4; h2-closures-excl (cutoffs, caps by state and tail, closures left uncapped although one lies below the cutoff, and a result different from pooled capping); h2-nw-rule (coefficient, conventional and HC1 SEs, and the within-state means). The h2-nw-rule check uses a variant file with chain and ownership effects, so the controls move the estimate by -0.071. Four deliberate mutations of a scratch copy of `ck_analysis.py` were each caught: row 5 without temporary closures; the high-wage group at > 5.00; the closures-excluded pool taken over all of B; CO_OWNED dropped from the NW rule |
+
 The synthetic numbers in the metrics file describe the generator only, not the study.
 Running the test twice gave byte-identical metrics.
 
-If the code review changes `ck_analysis.py`, `verdict.py` or `test_ck.py`, check-synthetic
-must be rerun first. Its record hashes all three files.
+Pinned hashes (sha256) that the guard in `run_analysis.sh` checks:
+
+| File | sha256 | Status |
+|---|---|---|
+| `code/ck_analysis.py` | `632d22031ff807d4cac23bbe985ac5023de6ec872641087391b233b3b8b9ff9a` | as reviewed in code-r1 |
+| `code/verdict.py` | `65599671fb46d8580abfaa4ed43850f4d8a4ec70c188130da05a2d66f89d53bd` | as reviewed in code-r1 |
+| `code/test_ck.py` | `f53561d8e61e7e3edd39b97ae3abbb73ad7379144266976827d4516a5c879729` | after the F3 edit; code-r1 reviewed `9d065575...` |
+
+The F3 edit added only value tests; the estimators are unchanged.
+
+check-synthetic was rerun with this command after the F3 edit. Its record hashes all
+three files:
 
 ```bash
 cd /Users/brycewang/Auto-Research-Skills
@@ -100,18 +114,23 @@ python3 crew/scripts/crew.py run gallery/ss-card-krueger --id check-synthetic \
   --metrics runs/check-synthetic/metrics.json -- .venv/bin/python -I code/test_ck.py
 ```
 
-(This is the command that ran, without `--replace`.)
+### 0d. Code review `reviews/code-r1`: pass, minor F1-F3, fixed
 
-### 0d. Code review: pending (Reviewer, `reviews/code-r1`)
+Responses are recorded in the review file.
 
-No analysis run is started until it has no open critical or major finding.
+- **F1.** The guard now pins the code hashes.
+- **F2.** The replace path was removed. **Analysis runs are never replaced.** Rerunning one
+  needs a deviation that the PI has approved and recorded in this file. crew.py would then
+  archive the old record under `runs/.superseded/`.
+- **F3.** Test 10 was added, and check-synthetic was rerun.
 
-## Planned analysis runs (not run yet)
+## Analysis runs 1-8 (2026-11-19, once each, in this order)
 
-Run these in this order, from the repository root, only after 0d. `bash
-gallery/ss-card-krueger/code/run_analysis.sh` runs all eight, with the same guard. Each
-command uses `.venv/bin/python -I` relative to the workspace, the working directory that
-crew.py uses.
+Before the runs, `crew.py validate --strict` passed. Then the eight runs ran with `bash
+gallery/ss-card-krueger/code/run_analysis.sh`: the guard passed and every run exited 0
+with an empty stderr. The script is equivalent to the commands below, from the repository
+root. Each command uses `.venv/bin/python -I` relative to the workspace, which is the
+working directory crew.py uses.
 
 ```bash
 cd /Users/brycewang/Auto-Research-Skills
@@ -162,10 +181,86 @@ python3 $CREW run $WS --id verdict --role econometrician --kind analysis \
   --metrics runs/verdict/metrics.json -- .venv/bin/python -I code/verdict.py
 ```
 
-Then write the result claims in `design.claims_plan` and run `crew.py numbers` and
-`crew.py validate`.
+### What the runs gave
+
+Numbers are rounded here; the claims carry the unrounded values.
+
+| Target | Replicated | Published | Absolute difference | Met |
+|---|---|---|---|---|
+| H1(a) DiD row 3 | 2.7536 | 2.76 | 0.0064 | yes |
+| H1(a) SE | 1.3100 | 1.36 | **0.04997** | yes, by 0.00003 |
+| H1(a) PA change | -2.1656 | -2.16 | 0.0056 | yes |
+| H1(a) PA SE | 1.2220 | 1.25 | 0.0280 | yes |
+| H1(a) NJ change | 0.5880 | 0.59 | 0.0020 | yes |
+| H1(a) NJ SE | 0.4721 | 0.54 | 0.0679 | **no** |
+| H1(b) DiD row 4 | 2.7500 | 2.75 | 0.0000 | yes |
+| H1(b) SE | 1.3423 | 1.34 | 0.0023 | yes |
+| H1(b) PA change | -2.2833 | -2.28 | 0.0033 | yes |
+| H1(b) PA SE | 1.2533 | 1.25 | 0.0033 | yes |
+| H1(b) NJ change | 0.4667 | 0.47 | 0.0033 | yes |
+| H1(b) NJ SE | 0.4808 | 0.48 | 0.0008 | yes |
+| H1(c) N | 357 | 357 | 0 | yes (a data check) |
+| H1(c) NJ coefficient | 2.3258 | 2.33 | 0.0042 | yes |
+| H1(c) SE | 1.1916 | 1.19 | 0.0016 | yes |
+
+- **H1(a): point reproduced; SE construction not identified.** All point targets are met.
+  S1 misses the NJ change SE (0.472 vs 0.54), as design-r1 F1 predicted (about 0.48
+  under S1). The DiD SE target is met with a margin of 0.00003. That match follows from
+  the low NJ SE, so it should not be read as S1 reproducing the published SEs.
+- **H1(b): reproduced.** Every target, points and SEs, is met.
+- **H1(c): reproduced.** N = 357 was already known from data prep. Root MSE is 8.79 and
+  the mean and SD of DFTE are -0.237 and 8.825, all matching the published values.
+- **H2 holds.** On the 384 balanced stores, the pooled 5/95 cutoffs are -17.425 and
+  13.7125. The winsorized DiD is 2.34 (SE 1.10), against 2.75 unwinsorized, a ratio of
+  0.851. The sign is the same and more than half the magnitude is kept.
+  - Capped stores, low tail: NJ 12, PA 8. One of them is a closure (PA).
+  - Capped stores, high tail: NJ 16, PA 4. None is a closure.
+  - Low-tail stores were large in wave 1 (mean FTE1 46.0, against 21.0 on B). High-tail
+    stores had mean FTE1 19.5.
+- **H2 secondaries, report only.**
+  - With closures excluded from winsorization, the DiD is 2.33 (ratio 0.849).
+  - Under the Neumark-Wascher rule (378 stores), the coefficient is 2.78 (SE 1.16;
+    HC1 1.34), with unadjusted NJ +0.66 and PA -2.06. NW report 2.78, NJ +0.66 and
+    PA -2.1, so their sample and ours appear to coincide. NW's N is not recorded, so this
+    is not established.
+- **Other report-only runs.**
+  - se-alt: the store-clustered CR1 SEs are 1.31 (row 3) and 1.34 (row 4). The HC2 SE
+    on B equals S1 (1.3423). The independent-waves SEs of the row-3 changes are PA 1.65
+    and NJ 0.73.
+  - Row 5 gives 2.51 (SE 1.35); the published value is 2.51 (1.35).
+  - placebo-hiwage, descriptive only: 0.13 (row 3) and 0.13 (row 4). The NJ high-wage
+    change is -2.04, the same as the published -2.04.
+
+### Surprises
+
+1. **Store-clustered SE close to the published one.** The store-clustered CR1 SE of the
+   row-3 DiD (1.307) is about as close to the published 1.36 as S1 is (1.310). Neither
+   reproduces the NJ within-state SE. This is reported only. The judged method was not
+   changed.
+2. **H1(a) DiD SE on the boundary.** It passes the 0.05 tolerance by 0.00003. The verdict
+   applies the pre-registered rule exactly, but the paper should say how close it is.
+
+## Claims
+
+There are 127 result claims (`claims.jsonl`), all generated from the run metrics and
+listed in `paper/numbers.tex`:
+
+- the seed-required `did-fte`, `did-fte-se` and `did-fte-balanced`;
+- Table 3 levels and counts;
+- every H1 target, with its absolute difference and met flag, plus the point, SE and part
+  flags;
+- Table 4;
+- se-alt and placebo-hiwage;
+- H2: estimates, cutoffs, capped counts by state and tail with closures, and the wave-1
+  size of capped stores;
+- both H2 secondaries.
+
+The absolute differences use 5 decimals, so the H1(a) SE boundary is visible; the other
+numbers use 2 decimals, as in the paper.
 
 ## Deviations
 
-None so far. D1 and D2 are design-level deviations that were approved at the design gate
-(see plan.json design.deviations).
+None in the analysis. D1 and D2 are design-level deviations approved at the design gate
+(plan.json design.deviations). Two code-review fixes are not deviations from the plan: the
+F1-F3 changes before the runs (guard, no replace path, extra tests), and the rerun of the
+data-prep run check-synthetic.

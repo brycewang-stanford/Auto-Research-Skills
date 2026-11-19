@@ -1,0 +1,54 @@
+{
+  "id": "h2-closures-excl",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/ck_analysis.py",
+    "h2-closures-excl"
+  ],
+  "started": "2026-11-19T07:18:26Z",
+  "finished": "2026-11-19T07:18:27Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/ck_analysis.py",
+      "sha256": "632d22031ff807d4cac23bbe985ac5023de6ec872641087391b233b3b8b9ff9a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/stores.csv",
+      "sha256": "79b110fcf268a47b5a35ab6b46705fa0c8c9a4b0ef3a4daba93af5404cdddfd9"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h2-closures-excl/metrics.json",
+      "sha256": "829ee09bfc650dbaff878ad3ebdce8057ade5fb58d1776c4c744b3044d951e01"
+    }
+  ],
+  "metrics": {
+    "n": 384,
+    "n_pool": 378,
+    "q05_nc": -17.075,
+    "q95_nc": 13.787499999999994,
+    "did_u": 2.75,
+    "did_w": 2.3345226537216828,
+    "did_w_se": 1.0946315082898639,
+    "ratio_w_u": 0.8489173286260665,
+    "capped_low_nj": 12,
+    "capped_low_pa": 7,
+    "capped_high_nj": 15,
+    "capped_high_pa": 4
+  },
+  "metrics_file": "runs/h2-closures-excl/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}
