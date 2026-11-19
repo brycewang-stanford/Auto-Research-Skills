@@ -849,10 +849,13 @@ impossible. This does not affect point estimates or H2.
 participation estimates. The novelty claim rests on the literature and documentation we
 read, not on a systematic search of code repositories.
 
-\paragraph{Replication.} All runs were made on one machine. The lasso and neural-network
-fits use BLAS-dependent floating point, so a rerun on another machine may differ beyond
-the protocol's tolerance. The clean rerun required before release is pending (AI-use
-statement).
+\paragraph{Replication.} The clean rerun passed. \texttt{replication.json} records all 16
+logged runs reproduced at the protocol tolerance (relative $10^{-6}$), from a fresh Python
+environment built from \texttt{code/requirements.txt} and with the data downloaded again
+(details, as facts about that replication, in the AI-use statement). The rerun was made
+on the same machine as the original runs, with the same R package versions. The lasso and
+neural-network fits use BLAS-dependent floating point, so a rerun on another machine has
+not been tested and may differ beyond the protocol's tolerance.
 
 % ---------------------------------------------------------------------------------------
 \section{Deviations and disclosures}

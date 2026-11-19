@@ -81,3 +81,4 @@
 {"time": "2026-11-19T09:16:58Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
 {"time": "2026-11-19T09:17:59Z", "role": "replicator", "action": "replication-written", "detail": "REPLICATION.md: clean rerun passed 16/16 in 6087 s from a fresh uv env (py 3.12.11, requirements.txt only; system R 4.5.2 + listed packages); no --reuse-data, no OMP_NUM_THREADS, no mismatches"}
 {"time": "2026-11-19T12:27:59Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T122759Z"}
+{"time": "2026-11-19T12:28:52Z", "role": "writer", "action": "paper-revised", "detail": "paper-r2 F6(b): ai-use.tex updated with the Replicator, 2 paper rounds and the passed clean rerun (replication.json 16/16); Limitations cites replication.json; compiles clean"}

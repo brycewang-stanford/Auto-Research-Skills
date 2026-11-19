@@ -10,17 +10,16 @@ submission gate. He takes responsibility for the paper's content.
 \begin{itemize}
   \item \textbf{Roles and models.} Every crew role ran on Anthropic Claude through Claude
         Code. The PI role was the main Claude Code session. The Scout, Data RA, Designer,
-        Econometrician, Figures RA, Reviewer and Writer ran as subagents launched from
-        that session; the Replicator has not yet run. The review records name the model as
+        Econometrician, Figures RA, Reviewer, Writer and Replicator ran as subagents
+        launched from that session. The review records name the model as
         \texttt{claude-opus-5-5}. The Econometrician's session was restarted once during
         the analysis runs (Section~\ref{sec:deviations}). Briefs to the agents were archived
         in \texttt{briefs/} from the Econometrician's relaunch brief (2026-11-18, 16:09 UTC)
         onward. Earlier briefs were not archived.
   \item \textbf{Review.} The Reviewer agent ran 4 rounds on the research question, 3 on the
-        design, 2 on the code, 2 on the results and, so far, 1 on the paper (verdict:
-        revise; this version answers its findings). No separate literature round was held.
-        This item is to be updated after the final paper round, before the submission
-        gate. The code was reviewed, and passed,
+        design, 2 on the code, 2 on the results and 2 on the paper. Both paper rounds
+        returned \emph{revise}, and this version answers their findings. No separate
+        literature round was held. The code was reviewed, and passed,
         before any analysis run. Its independence level was \emph{fresh-context}: a new
         context in every round, with the same model family as the other roles. The human
         author chose this over a cross-family reviewer. Three final rounds passed with
@@ -44,13 +43,15 @@ submission gate. He takes responsibility for the paper's content.
           \item published or source facts, quoted as the Scout's source notes record them;
           \item process facts: dates, review-round counts, and the 92-minute wall time
                 with its load figures, taken from \texttt{runs/NOTES.md} and the run
-                records.
+                records; and the counts, versions and times of the clean rerun below,
+                taken from \texttt{replication.json} and \texttt{REPLICATION.md}.
         \end{itemize}
         Every citation was checked against its source by the Scout. Of the 22 sources, 16
         were read in full text and 3 are web pages (the two DoubleML documentation
         examples and the Mendez tutorial) read through a summarising fetch tool, so their
         numbers were transcribed from a model's summary rather than from the raw page. Two
-        were read from the abstract only, and one was checked by resolving its DOI. Where only the abstract or
+        were read from the abstract only, and one was checked by resolving its DOI. Where only
+        the abstract or
         metadata could be read (as for \citet{chernozhukov2004}, \citet{poterba1995} and
         \citet{abadie2003}), the paper cites the source for no more than that. The full
         workspace is public at
@@ -58,8 +59,26 @@ submission gate. He takes responsibility for the paper's content.
         It contains the plan, the run ledger and notes, the code (with a verbatim copy of
         the authors' \texttt{ML\_Functions.R}), the data manifest, every review, the
         archived briefs and the source notes.
-  \item \textbf{Replication.} Pending; to be updated before the submission gate. No
-        \texttt{replication.json} exists at the time of writing. The Replicator's clean
-        rerun from \texttt{code/requirements.txt} is required before that gate, and its
-        result will be reported here.
+  \item \textbf{Replication.} The Replicator's clean rerun passed:
+        \texttt{replication.json} (created 2026-11-19T09:16:58Z) records all 16 logged runs
+        reproduced at the protocol tolerance (relative $10^{-6}$, absolute $10^{-9}$). One
+        of them, the synthetic timing run, records only wall-clock timings, so it was
+        re-executed but has no metrics to compare. The following are facts about that
+        replication, from \texttt{REPLICATION.md}:
+        \begin{itemize}
+          \item The Python environment was built fresh from \texttt{code/requirements.txt}
+                alone (CPython 3.12.11, 25 pinned packages; the Python 3.14.6 that
+                \texttt{replication.json} records is the interpreter that ran the crew
+                tool, not the runs).
+          \item The R side of the port check used the system R at the versions recorded
+                in the requirements file (R 4.5.2, \texttt{hdm} 0.3.2, \texttt{rpart}
+                4.1.24, \texttt{randomForest} 4.7.1.2, \texttt{gbm} 2.3.1, \texttt{nnet}
+                7.3.20, \texttt{glmnet} 4.1.10).
+          \item The data were downloaded again from the authors' repository and re-derived,
+                not reused.
+          \item The rerun took 6,087 seconds (about 1 hour 41 minutes) on the same
+                8-core machine, which other jobs were loading for most of that time.
+          \item No code, data, metric or tolerance was changed for it, and no thread
+                setting was changed.
+        \end{itemize}
 \end{itemize}
