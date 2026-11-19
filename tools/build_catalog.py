@@ -68,6 +68,8 @@ TEMPLATE_BODY_MARKERS = (
 _QUOTE_PAIRS = (('"', '"'), ("'", "'"))
 _KEY_RE = re.compile(r"^([A-Za-z0-9_.-]+):\s?(.*)$")
 _HTML_COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
+# YAML block scalar headers: | > with optional chomping (+/-) and indentation digit.
+_BLOCK_INDICATOR_RE = re.compile(r"^[|>](?:[+-]?[1-9]?|[1-9][+-])$")
 # A line carries no real text if it has no latin letter, digit, or CJK ideograph
 # (e.g. box-drawing banners like ╔═══╗ that some vendored skills inject).
 _HAS_TEXT_RE = re.compile(r"[A-Za-z0-9一-鿿]")
@@ -136,7 +138,7 @@ def parse_frontmatter(text: str) -> tuple[dict[str, str], str, bool]:
         key = match.group(1).strip().lower()
         raw = match.group(2).strip()
 
-        if raw in ("|", ">", "|-", ">-", "|+", ">+"):
+        if _BLOCK_INDICATOR_RE.match(raw):
             block: list[str] = []
             i += 1
             while i < len(fm):
@@ -153,8 +155,18 @@ def parse_frontmatter(text: str) -> tuple[dict[str, str], str, bool]:
             meta[key] = re.sub(r"\s+", " ", " ".join(block)).strip()
             continue
 
-        meta[key] = _strip_quotes(raw)
+        # A plain or quoted scalar may continue on more-indented lines:
+        #   description: Use when the user
+        #     asks for a literature review.
+        # An empty value is a nested mapping or list instead, which is skipped.
         i += 1
+        if raw:
+            parts = [raw]
+            while i < len(fm) and fm[i][:1] in (" ", "\t") and fm[i].strip():
+                parts.append(fm[i].strip())
+                i += 1
+            raw = " ".join(parts)
+        meta[key] = _strip_quotes(raw)
     return meta, body, True
 
 
@@ -280,7 +292,7 @@ def load_skills(urls: dict[str, str]) -> list[Skill]:
             continue
         meta, body, has_fm = parse_frontmatter(text)
         collection, depth = collection_of(skill_md)
-        rel_path = str(skill_md.relative_to(ROOT))
+        rel_path = skill_md.relative_to(ROOT).as_posix()
 
         name = meta.get("name", "").strip()
         has_name = bool(name)
@@ -515,7 +527,7 @@ def write_catalog_md(
         "",
         f"> The headline **{total:,}** counts every `SKILL.md` on disk. Aggregator "
         f"collections re-bundle other collections inside themselves, so only "
-        f"**{unique:,}** of those skills are actually distinct — a ~{(1 - unique / total) * 100:.0f}% "
+        f"**{unique:,}** of those skills are actually distinct — a ~{(1 - unique / total) * 100 if total else 0:.0f}% "
         "redundancy rate worth knowing when you browse.",
         "",
         "## Collections",

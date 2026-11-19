@@ -7,6 +7,16 @@ from tools import check_docs
 
 
 class CheckDocsTests(unittest.TestCase):
+    def test_links_in_text_checks_the_target_of_a_badge_link(self) -> None:
+        links = check_docs.links_in_text(Path("README.md"), "[![CI](badge.svg)](docs/MISSING.md)")
+        self.assertEqual(sorted(link.target for link in links), ["badge.svg", "docs/MISSING.md"])
+
+    def test_shorter_fence_inside_longer_fence_does_not_close_it(self) -> None:
+        text = "````md\n```\n[x](inside.md)\n```\n````\n[y](outside.md)\n"
+        cleaned = check_docs.strip_code_fences(text)
+        self.assertNotIn("inside.md", cleaned)
+        self.assertIn("outside.md", cleaned)
+
     def test_strip_code_fences_removes_links_inside_fences(self) -> None:
         text = "before\n```bash\n[missing](nope.md)\n```\nafter\n"
 

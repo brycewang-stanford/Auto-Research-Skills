@@ -7,6 +7,21 @@ from tools import build_catalog
 
 
 class FrontmatterParsingTests(unittest.TestCase):
+    def test_plain_scalar_continues_on_indented_lines(self) -> None:
+        meta, _, _ = build_catalog.parse_frontmatter(
+            "---\nname: a\ndescription: Use when the user\n  asks for a review.\nlicense: MIT\n---\nbody"
+        )
+        self.assertEqual(meta["description"], "Use when the user asks for a review.")
+        self.assertEqual(meta["license"], "MIT")
+
+    def test_block_scalar_with_indentation_indicator(self) -> None:
+        meta, _, _ = build_catalog.parse_frontmatter("---\ndescription: >2\n   folded\n   text\n---\n")
+        self.assertEqual(meta["description"], "folded text")
+
+    def test_empty_value_followed_by_nested_mapping_stays_empty(self) -> None:
+        meta, _, _ = build_catalog.parse_frontmatter("---\nmetadata:\n  type: x\nname: a\n---\n")
+        self.assertEqual(meta, {"metadata": "", "name": "a"})
+
     def test_parses_frontmatter_after_leading_html_comment(self) -> None:
         text = """<!-- collected upstream -->
 ---

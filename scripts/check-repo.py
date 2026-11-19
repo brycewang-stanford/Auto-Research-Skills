@@ -141,14 +141,16 @@ def parse_gitmodules(path: Path, reporter: Reporter) -> list[Submodule]:
 
 
 def tracked_gitlinks(cwd: Path = ROOT) -> set[str]:
-    proc = run_git(["ls-files", "--stage"], cwd=cwd)
+    # -z: NUL-terminated records with paths unquoted, so spaces and non-ASCII
+    # names survive. Each record is "<mode> <object> <stage>\t<path>".
+    proc = run_git(["ls-files", "--stage", "-z"], cwd=cwd)
     if proc.returncode != 0:
         return set()
     out: set[str] = set()
-    for line in proc.stdout.splitlines():
-        parts = line.split()
-        if len(parts) >= 4 and parts[0] == "160000":
-            out.add(parts[3])
+    for record in proc.stdout.split("\0"):
+        meta, sep, path = record.partition("\t")
+        if sep and meta.split(" ", 1)[0] == "160000":
+            out.add(path)
     return out
 
 
@@ -196,7 +198,8 @@ def category_counts(submodules: list[Submodule]) -> dict[str, int]:
 def read_text(path: Path) -> str:
     if not path.exists():
         return ""
-    return path.read_text(encoding="utf-8")
+    # Vendored files are not always UTF-8; a bad byte must not crash the check.
+    return path.read_text(encoding="utf-8", errors="replace")
 
 
 def has_watermark_hidden_frontmatter(path: Path) -> bool:
@@ -224,7 +227,9 @@ def skill_file_paths() -> list[Path]:
 def numbers_from(pattern: str, text: str) -> set[int]:
     values: set[int] = set()
     for match in re.finditer(pattern, text, flags=re.IGNORECASE):
-        values.add(int(match.group(1).replace(",", "")))
+        digits = match.group(1).replace(",", "")
+        if digits:  # a pattern like [0-9,]+ can match a lone comma
+            values.add(int(digits))
     return values
 
 

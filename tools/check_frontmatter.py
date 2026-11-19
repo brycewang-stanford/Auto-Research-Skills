@@ -83,7 +83,7 @@ def scan() -> list[SkillFM]:
         collection, _depth = collection_of(skill_md)
         rows.append(
             SkillFM(
-                path=str(skill_md.relative_to(ROOT)),
+                path=skill_md.relative_to(ROOT).as_posix(),
                 collection=collection,
                 has_frontmatter=has_fm,
                 has_name=bool(meta.get("name", "").strip()),

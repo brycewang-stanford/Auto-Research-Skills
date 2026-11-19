@@ -22,6 +22,23 @@ check_repo = load_check_repo_module()
 
 
 class SubmoduleIndexTests(unittest.TestCase):
+    def test_tracked_gitlinks_keeps_spaces_and_non_ascii_paths(self) -> None:
+        import subprocess
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            subprocess.run(["git", "init", "-q"], cwd=root, check=True)
+            sha = "0123456789abcdef0123456789abcdef01234567"
+            for path in ["skills/café", "skills/my skill"]:
+                subprocess.run(
+                    ["git", "update-index", "--add", "--cacheinfo", f"160000,{sha},{path}"],
+                    cwd=root, check=True,
+                )
+            self.assertEqual(check_repo.tracked_gitlinks(root), {"skills/café", "skills/my skill"})
+
+    def test_numbers_from_ignores_a_lone_comma(self) -> None:
+        self.assertEqual(check_repo.numbers_from(r"\*\*([0-9,]+)\s+repos\*\*", "**, repos** **110 repos**"), {110})
+
     def test_github_repo_slug_accepts_common_github_remote_urls(self) -> None:
         self.assertEqual(
             check_repo.github_repo_slug("https://github.com/owner/repo.git"),

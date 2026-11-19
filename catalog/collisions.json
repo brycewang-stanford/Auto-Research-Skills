@@ -6415,14 +6415,14 @@
         {
           "collection": "claude-research",
           "repo_url": "https://github.com/flonat/claude-research",
-          "trigger": "Write clear, detailed mathematical proofs for academic papers. Use when",
+          "trigger": "Write clear, detailed mathematical proofs for academic papers. Use when the user asks to prove a result, derive an equation, justify a claim analytically, or…",
           "path": "skills/claude-research/skills/math-proof/SKILL.md",
           "bodies_in_collection": 1
         },
         {
           "collection": "franklee-academic-research-skills",
           "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Write clear, detailed mathematical proofs for academic papers. Use when",
+          "trigger": "Write clear, detailed mathematical proofs for academic papers. Use when the user asks to prove a result, derive an equation, justify a claim analytically, or…",
           "path": "skills/franklee-academic-research-skills/theory-skills/theorist-toolbox-master/skills/math-proof/SKILL.md",
           "bodies_in_collection": 1
         }
@@ -7016,7 +7016,7 @@
         {
           "collection": "franklee-academic-research-skills",
           "repo_url": "https://github.com/franklee16/academic-research-skills",
-          "trigger": "Improve the readability and exposition of mathematical proofs that are",
+          "trigger": "Improve the readability and exposition of mathematical proofs that are already verified as correct, without changing their mathematical content. Use when the…",
           "path": "skills/franklee-academic-research-skills/theory-skills/theorist-toolbox-master/skills/proof-readability/SKILL.md",
           "bodies_in_collection": 1
         }

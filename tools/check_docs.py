@@ -26,7 +26,9 @@ DEFAULT_ROOTS = (
 SKIP_DIRS = {".git", "benchmarks", "lists", "skills", "systems", "node_modules"}
 MARKDOWN_TARGET = r"(<[^>]+>|[^)\s]+)"
 MARKDOWN_TITLE = r"(?:\s+(?:\"[^\"]*\"|'[^']*'))?"
-MARKDOWN_LINK_RE = re.compile(rf"(?<!!)\[[^\]]+\]\({MARKDOWN_TARGET}{MARKDOWN_TITLE}\)")
+# Link text may hold one image, as in a badge: [![CI](badge.svg)](target).
+MARKDOWN_LINK_TEXT = r"(?:[^\[\]]|!\[[^\]]*\]\([^)]*\))+"
+MARKDOWN_LINK_RE = re.compile(rf"(?<!!)\[{MARKDOWN_LINK_TEXT}\]\({MARKDOWN_TARGET}{MARKDOWN_TITLE}\)")
 MARKDOWN_IMAGE_RE = re.compile(rf"!\[[^\]]*\]\({MARKDOWN_TARGET}{MARKDOWN_TITLE}\)")
 MARKDOWN_REFERENCE_RE = re.compile(
     rf"^[ \t]{{0,3}}\[(?!\^)[^\]]+\]:[ \t]*{MARKDOWN_TARGET}"
@@ -65,16 +67,22 @@ def strip_code_fences(text: str) -> str:
     fence_marker = ""
     out: list[str] = []
     for line in lines:
-        match = re.match(r"^(\s*)(`{3,}|~{3,})", line)
+        match = re.match(r"^(\s*)(`{3,}|~{3,})(.*)$", line.rstrip("\r\n"))
         if match:
-            marker = match.group(2)[0]
+            marker = match.group(2)
             if not in_fence:
                 in_fence = True
                 fence_marker = marker
-            elif marker == fence_marker:
+                out.append("\n")
+                continue
+            # CommonMark: only a fence of the same character, at least as long
+            # as the opening one and with nothing after it, closes the block.
+            # A ``` line inside a ```` block is content.
+            if marker[0] == fence_marker[0] and len(marker) >= len(fence_marker) \
+                    and not match.group(3).strip():
                 in_fence = False
-            out.append("\n")
-            continue
+                out.append("\n")
+                continue
         out.append("\n" if in_fence else line)
     return "".join(out)
 

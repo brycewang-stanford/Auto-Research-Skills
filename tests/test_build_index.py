@@ -5,6 +5,17 @@ from tools import build_index
 
 
 class BuildIndexTests(unittest.TestCase):
+    def test_tags_for_matches_whole_words_plurals_and_stems_only(self) -> None:
+        # Substring matching gave "latex" to any text with "text"/"context" and
+        # "grants" to "transform"; ~2/3 of those tags in the index were false.
+        self.assertEqual(build_index.tags_for("x", "Manage text and context windows"), [])
+        self.assertEqual(build_index.tags_for("x", "transform and transfer files"), [])
+        self.assertNotIn("presentation", build_index.tags_for("x", "posterior sampling"))
+        self.assertIn("citations", build_index.tags_for("x", "format citations"))   # plural
+        self.assertIn("statistics", build_index.tags_for("x", "statistical tests"))  # stem
+        self.assertIn("latex", build_index.tags_for("x", "compile the TeX source"))
+        self.assertIn("grants", build_index.tags_for("nsf-proposal", ""))
+
     def test_tags_for_matches_research_facets(self) -> None:
         tags = build_index.tags_for(
             "zotero-literature-review",

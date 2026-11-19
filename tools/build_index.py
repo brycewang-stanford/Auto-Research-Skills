@@ -45,14 +45,18 @@ COLLISIONS_PATH = OUT_DIR / "collisions.json"
 
 # --------------------------------------------------------------------------
 # Tagging — a small, deterministic, researcher-facing facet taxonomy.
-# Each tag maps to substrings matched (case-insensitively) against a skill's
-# name + description. Order does not matter; a skill can carry several tags.
+# Each tag maps to keywords matched (case-insensitively) against a skill's
+# name + description. A keyword must start at a word boundary and end at one,
+# allowing a plural "s"/"es" ("citation" matches "citations", but "tex" does
+# not match "text" and "nsf" does not match "transform"). A trailing "*" marks
+# a stem that may continue ("statistic*" matches "statistical").
+# Order does not matter; a skill can carry several tags.
 # Keep this list curated and small: tags are a *filter*, not a folksonomy.
 # --------------------------------------------------------------------------
 TAG_KEYWORDS: dict[str, tuple[str, ...]] = {
     "literature-review": (
-        "literature review", "lit review", "systematic review", "survey of",
-        "related work", "prisma", "meta-analysis", "scoping review",
+        "literature review*", "lit review", "systematic review*", "survey of",
+        "related work", "prisma", "meta-analysis", "scoping review*",
     ),
     "paper-search": (
         "arxiv", "semantic scholar", "google scholar", "pubmed", "openalex",
@@ -61,41 +65,42 @@ TAG_KEYWORDS: dict[str, tuple[str, ...]] = {
     "writing": (
         "paper writing", "paper writer", "academic paper", "manuscript",
         "write paper", "drafting", "academic writing", "scientific writing",
-        "abstract", "introduction section", "proofread", "copyedit", "editing",
+        "abstract", "introduction section", "proofread*", "copyedit*", "editing",
     ),
     "citations": (
         "zotero", "mendeley", "endnote", "reference manager", "bibtex",
-        "citation", "bibliograph", "reference",
+        "citation", "bibliograph*", "referenc*",
     ),
     "peer-review": (
-        "peer review", "peer-review", "reviewer", "rebuttal", "referee",
-        "review response", "respond to review", "review loop",
+        "peer review*", "reviewer", "rebuttal", "referee",
+        "review response", "respond to review*", "review loop",
     ),
     "causal-inference": (
-        "causal", "difference-in-difference", "difference in difference",
+        "causal*", "difference-in-difference", "difference in difference",
         "diff-in-diff", "did regression", "event study", "instrumental variable",
         "regression discontinuity", "synthetic control", "propensity",
         "treatment effect", "counterfactual",
     ),
     "statistics": (
-        "statistic", "regression", "econometric", "hypothesis test", "p-value",
-        "bayesian", "inference", "estimation", "confidence interval", "anova",
+        "statistic*", "biostatistic*", "regression", "econometric*", "hypothesis test*", "p-value",
+        "bayesian", "inference", "estimation", "confidence interval", "anova", "permanova",
     ),
     "data": (
         "data analysis", "dataset", "data cleaning", "pandas", "dataframe",
-        "visualization", "visualisation", "plot", "figure", "chart", "table",
+        "visualization", "visualisation", "plot*", "figure", "chart", "table",
     ),
     "reproducibility": (
-        "reproducib", "replicat", "audit", "provenance", "preregistration",
+        "reproducib*", "replicat*", "audit*", "provenance", "preregistration",
         "pre-registration",
     ),
     "bioinformatics": (
-        "bioinformatic", "genomic", "sequencing", "rna-seq", "single-cell",
-        "protein", "phylogen", "variant calling", "samtools",
+        "bioinformatic*", "genomic*", "sequencing", "rna-seq", "single-cell",
+        "protein*", "phylogen*", "metagenomic*", "epigenomic*", "pharmacogenomic*",
+        "toxicogenomic*", "scrna*", "variant calling", "samtools",
     ),
     "medical": (
-        "medical", "clinical", "patient", "diagnosis", "health", "disease",
-        "epidemiolog",
+        "medical", "biomedical", "clinical", "preclinical", "patient", "diagnosis", "health*", "disease",
+        "epidemiolog*",
     ),
     "grants": (
         "grant", "funding", "proposal", "nih", "nsf", "fellowship",
@@ -104,18 +109,18 @@ TAG_KEYWORDS: dict[str, tuple[str, ...]] = {
         "slides", "presentation", "poster", "keynote", "talk", "beamer",
     ),
     "ideation": (
-        "ideation", "hypothesis generation", "research idea", "brainstorm",
+        "ideation", "hypothesis generation", "research idea", "brainstorm*",
         "novelty", "research question", "research direction",
     ),
     "latex": (
-        "latex", "overleaf", "tex ", "beamer", "tikz",
+        "latex", "overleaf", "tex", "beamer", "tikz",
     ),
     "automation": (
-        "pipeline", "orchestrat", "workflow", "autonomous", "multi-agent",
+        "pipeline", "orchestrat*", "workflow", "autonom*", "multi-agent",
         "end-to-end", "agent loop", "automated research",
     ),
     "experiment": (
-        "experiment", "ablation", "benchmark", "evaluation", "training run",
+        "experiment*", "ablation", "benchmark*", "evaluation", "training run",
         "hyperparameter",
     ),
 }
@@ -132,8 +137,14 @@ def _normalize(text: str) -> str:
     return _SEP_RE.sub(" ", text.lower()).strip()
 
 
-_NORMALIZED_TAG_KEYWORDS: dict[str, tuple[str, ...]] = {
-    tag: tuple(_normalize(n) for n in needles) for tag, needles in TAG_KEYWORDS.items()
+def _needle_re(needle: str) -> re.Pattern[str]:
+    if needle.endswith("*"):
+        return re.compile(r"(?<![a-z0-9])" + re.escape(_normalize(needle[:-1])))
+    return re.compile(r"(?<![a-z0-9])" + re.escape(_normalize(needle)) + r"(?:s|es)?(?![a-z0-9])")
+
+
+_TAG_PATTERNS: dict[str, tuple[re.Pattern[str], ...]] = {
+    tag: tuple(_needle_re(n) for n in needles) for tag, needles in TAG_KEYWORDS.items()
 }
 
 
@@ -146,8 +157,8 @@ def tags_for(name: str, description: str) -> list[str]:
     haystack = _normalize(f"{name} {description}")
     return sorted(
         tag
-        for tag, needles in _NORMALIZED_TAG_KEYWORDS.items()
-        if any(n in haystack for n in needles)
+        for tag, patterns in _TAG_PATTERNS.items()
+        if any(p.search(haystack) for p in patterns)
     )
 
 

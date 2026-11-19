@@ -160,7 +160,7 @@ class Pick:
 
     @property
     def skill_dir(self) -> str:
-        return str(Path(self.path).parent)
+        return Path(self.path).parent.as_posix()
 
 
 def load_scan_module():
@@ -429,7 +429,7 @@ def install(kits: dict[str, list[Pick]], stage: str, dest: Path, dry_run: bool,
     for p in picks:
         src = root / p.skill_dir
         target = dest / p.name
-        if not (src / "SKILL.md").exists():
+        if not (root / p.path).exists():  # the catalog path keeps the file's own case
             print(f"ERROR: {p.skill_dir} is not checked out; run ./setup.sh first", file=sys.stderr)
             return 1
         if target.exists() and not force:
