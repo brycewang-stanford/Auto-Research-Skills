@@ -278,7 +278,9 @@
       "note": "Approve (in chat, after results-r2 pass; H1 within cross-fitting noise, H3 placebo failed, contrast not an effect; minor F6/F7 open for the Econometrician)"
     },
     "submission": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-19T17:05:21Z",
+      "summary": "Paper after paper-r2 pass (F4, F7, F8 answered in text); validate --strict OK; clean rerun passed 19/19"
     }
   },
   "design_constraints": [

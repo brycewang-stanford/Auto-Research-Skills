@@ -96,3 +96,4 @@
 {"time": "2026-11-19T17:04:11Z", "role": "pi", "action": "disclosure-added", "detail": "paper-r2 F7: correction to the post-results reporting disclosure. plan.json sha256=22dd451121382d34340021148c4f2673e241eed1e783f8f8554f6af68d51fcb8"}
 {"time": "2026-11-19T17:04:11Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T170411Z (paper-r2)"}
 {"time": "2026-11-19T17:05:05Z", "role": "writer", "action": "paper-revised", "detail": "paper-r2 F4, F7, F8 answered in paper/ (reporting-change labels per the plan.json correction, chernozhukov2018 cited for the score only, AI-use paper rounds and brief range); main.pdf 21 pages, compiles clean; responses in reviews/paper-r2/review.json"}
+{"time": "2026-11-19T17:05:21Z", "role": "pi", "action": "gate-request", "detail": "submission"}
