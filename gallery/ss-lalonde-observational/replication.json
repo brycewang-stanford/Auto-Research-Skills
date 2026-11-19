@@ -1,0 +1,127 @@
+{
+  "created": "2026-11-19T13:59:29Z",
+  "passed": true,
+  "rtol": 1e-06,
+  "atol": 1e-09,
+  "reuse_data": false,
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "runs": [
+    {
+      "run": "fetch-data",
+      "record_sha256": "619c830c6386cdaba0fc44f347e24a646661b55179fe9eb52e5013a6a1ab2f09",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "prepare-data",
+      "record_sha256": "60a603bd05c3d3d37b013527fad8c2f68f44a20fd7bc052caf14a773c4f1d7f9",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "timing-synthetic",
+      "record_sha256": "c37e111952b7db05950f0a489bc3b66e087287dbcb87961465e537fbf49c1be2",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "diag-overlap",
+      "record_sha256": "c88543655037418b48bc3f310ed4ed9a4c055163fe3350558f8418d9e984ef30",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "unit-tests",
+      "record_sha256": "06630e0324ef45ad4b6b20df821498e3a3ded79e89d41d79a0271d08b1bc034a",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "main-aipw",
+      "record_sha256": "d1ed576efd7204094d07ac7d6d0d0a946c6fcd7d3d2e1e7fe36f34e2a5f5fed6",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "placebo-re75",
+      "record_sha256": "2acee2c0e1c75ffbe1aa896d1a6f0b396510108ceb9d94741bee30cc4d9cae94",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "rob-trim",
+      "record_sha256": "e986e6d6e7dcb4cd186a999fcede77c1416eed3b82569d6bb0fb69232cb2d588",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "rob-learners",
+      "record_sha256": "fdf116fb658398871f656794f5445b8212e62d2c5e4ec3992b411ae53de83be7",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "rob-covsets",
+      "record_sha256": "2637813effec91f8f6e06689f6cb5386cf9ea82ba93a34208f5a9085a06bffbc",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "rob-estimators",
+      "record_sha256": "a5d91a0de41e7f9d7621096461f2ee75ce74453d5ffda32d0bfe10f8699560bd",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "rob-diff74",
+      "record_sha256": "88fdc389a2679ccc6ccb5b2ff22246893e0a415b6a9d68fd711b6762f6db28d4",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "sens-imbens",
+      "record_sha256": "badcc95fcc47f2109fb3c8074a14e4059db2d658f7ff826ec53c4e06995b754e",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "post-results-derived",
+      "record_sha256": "9b1011c31cd57560be0f50ba8e88d10aa66a3288652f1bebc8b4e38f25cc20cf",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "h2-benchmark",
+      "record_sha256": "5fe6e587dfa290802dc4e28442e483b5c5b77a9faad36af54f05c9c77ad41972",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-overlap",
+      "record_sha256": "5947e6165824b98240d017b5af3d245265d383ce5063b24cce2cee7cb1bbd4a2",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-forest",
+      "record_sha256": "d1139b51d4700e3046e310c57d00ada1b39283cbc8245b8756add3ea7a200a8c",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-sensitivity",
+      "record_sha256": "c897d2ce0e3990a97e4fb83cbfcc5f87d7cfef33c3e671789b18387010ded0fa",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-main",
+      "record_sha256": "cc08a66fbec948d57f2d1b12a9609a1a1a2ef60c95177319d02d085d29cab7a3",
+      "exit_code": 0,
+      "status": "match"
+    }
+  ]
+}
