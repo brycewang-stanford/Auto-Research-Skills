@@ -1,0 +1,22 @@
+{
+  "_note": "Scoring key. Crew agents must not read this file.",
+  "source": {
+    "paper": "Card, D. (1995). Using Geographic Variation in College Proximity to Estimate the Return to Schooling. In L. N. Christofides, E. K. Grant and R. Swidinsky (eds.), Aspects of Labour Market Behaviour: Essays in Honour of John Vanderkamp, University of Toronto Press, 201-222. Same tables as NBER Working Paper 4832 (1994).",
+    "table": "Table 3, Panel A ('Treat experience and experience squared as exogenous'), no family-background controls: row 2 column (5) for the 2SLS return to education; row 1 column (1) for the first stage; row 1 column (3) for the reduced form. Notes: sample size 3010; controls are a black indicator, southern and SMSA residence in 1976, region dummies and SMSA residence in 1966, experience and experience squared. Read from the page image of the author-hosted copy https://davidcard.berkeley.edu/papers/geo_var_schooling.pdf (PDF page 35) on 2026-11-19.",
+    "data_check": "proximity.zip nls.dat has 3,613 rows; 3,010 have a valid 1976 log wage, matching the Table 3 sample size. A 2SLS fit on the public file with exper = age76 - ed76 - 6 and the controls above gave 0.1315 (SE 0.0550), first stage 0.3199 (checked 2026-11-19)."
+  },
+  "published": {
+    "table3_col5_2sls_return": {"estimate": 0.132, "se": 0.055},
+    "table3_col1_first_stage": {"estimate": 0.320, "se": 0.088},
+    "table3_col3_reduced_form": {"estimate": 0.042, "se": 0.018},
+    "table3_col6_2sls_with_family_background": {"estimate": 0.140, "se": 0.055},
+    "table3_panelB_col5_2sls_endogenous_experience": {"estimate": 0.122, "se": 0.046},
+    "sample_size": 3010
+  },
+  "machine_check": {"claims": {"iv-return": [0.127, 0.137], "first-stage": [0.315, 0.325]}, "min_matched": 2},
+  "pass_if": [
+    "The replicated 2SLS return is within 0.005 of 0.132 and the first-stage coefficient within 0.005 of 0.320 (rounding only; the public file reproduces both to three decimals).",
+    "The paper states the published numbers it compares against, citing Table 3.",
+    "The workspace passes `crew.py validate --strict`."
+  ]
+}

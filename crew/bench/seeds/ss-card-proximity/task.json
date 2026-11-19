@@ -1,0 +1,17 @@
+{
+  "id": "ss-card-proximity",
+  "track": "social-science",
+  "kind": "replication",
+  "title": "Does growing up near a college raise schooling and earnings? A replication of Card's (1995) instrumental-variables return to schooling",
+  "question": "Does a replication of Card (1995) from his public NLS Young Men extract reproduce the instrumental-variables estimate of the return to a year of schooling, using proximity to a four-year college in 1966 as the instrument for completed education?",
+  "brief": "Replicate the headline two-stage least squares estimate in David Card, 'Using Geographic Variation in College Proximity to Estimate the Return to Schooling' (NBER Working Paper 4832, 1994; published 1995 in Aspects of Labour Market Behaviour: Essays in Honour of John Vanderkamp, University of Toronto Press, with identical tables), using the public data at https://davidcard.berkeley.edu/data_sets/proximity.zip (nls.dat, 3,613 men; the codebook and an example SAS program are in the zip). Follow the paper's sample rule (men with a valid 1976 wage) and its control set, report OLS next to IV, the first stage and the reduced form, and compare with the published numbers. Then pre-specify and report at least one check on instrument strength or validity from the later literature (for example weak-instrument-robust inference, or sensitivity to the exclusion restriction).",
+  "data": {"source": "https://davidcard.berkeley.edu/data_sets/proximity.zip", "license": "Distributed publicly by the author for research use; no explicit licence stated"},
+  "requirements": [
+    "Experience and the control variables are constructed as in the paper; the instrument is the indicator for growing up near a four-year college (nearc4).",
+    "Record the replicated 2SLS return to schooling as a result claim with id `iv-return` and its standard error as `iv-return-se`; the first-stage coefficient on the instrument as `first-stage`; and the OLS return to schooling as `ols-return`.",
+    "The paper reports the published and replicated estimates side by side, with any difference explained.",
+    "The paper states the identifying assumption and what would violate it, and does not describe the IV estimate as the average return for all men."
+  ],
+  "budget": {"hardware": "laptop CPU", "wall_time_minutes": 15},
+  "scoring": "See answer.json. Agents must not read it."
+}
