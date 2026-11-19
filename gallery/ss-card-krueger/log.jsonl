@@ -25,3 +25,6 @@
 {"time": "2026-11-19T01:24:24Z", "role": "data-ra", "action": "data-prepared", "detail": "stores.csv 410 rows (331 NJ/79 PA), FTE/FTE2 per CK p.775; Table 1 status counts, Table 4 n=357, NJ wage-group Ns all match; SHEET 407 duplicated -> ROW_ID key; run prepare-data"}
 {"time": "2026-11-19T01:24:24Z", "role": "data-ra", "action": "codebook-written", "detail": "data/CODEBOOK.md, data/manifest.json (5 entries)"}
 {"time": "2026-11-19T01:24:48Z", "role": "pi", "action": "brief-archived", "detail": "reviewer design-r1 20261119T012448Z"}
+{"time": "2026-11-19T05:45:27Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261119T054527Z"}
+{"time": "2026-11-19T05:46:43Z", "role": "designer", "action": "design-revised", "detail": "design-r1 F1-F6 answered in design.responses_design_r1 (SE-only-miss wording, ROW_ID key, data section matches prepare-data, N=357 observed at data prep incl. contribution, placebo descriptive, NW N unknown + chg_nj/chg_pa); plan.json sha256 5cfb844a57559c4f5a6c3fae39416264efa75134198e40b5e609c5188ce5d5d2"}
+{"time": "2026-11-19T05:47:03Z", "role": "pi", "action": "gate-request", "detail": "design"}

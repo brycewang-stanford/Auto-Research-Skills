@@ -1,0 +1,95 @@
+{
+  "id": "design-r1",
+  "target": "design",
+  "round": 1,
+  "created": "2026-11-19T01:28:44Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/social-science.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/ss-card-krueger/task.json",
+    "briefs/20261119T012448Z-reviewer.md",
+    "briefs/20261119T011935Z-designer.md",
+    "briefs/20261119T011935Z-data-ra.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r3/review.json",
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "log.jsonl",
+    "sources/notes.md",
+    "data/manifest.json",
+    "data/CODEBOOK.md",
+    "data/prepare_metrics.json",
+    "data/raw/njmin/check.sas",
+    "data/raw/njmin/codebook",
+    "data/raw/njmin/read.me",
+    "code/prepare_data.py",
+    "code/requirements.txt",
+    "runs/prepare-data/run.json",
+    "runs/prepare-data/stdout.log",
+    "/Users/brycewang/Auto-Research-Skills/crew/scripts/crew.py (review validation section only)"
+  ],
+  "kill_argument": "The design's distinctive claim is that it reproduces what earlier replications missed: the published standard errors and the 357-store regression sample. Neither is a blind test. N = 357 was already observed at data-prep, and Mamula had already reproduced the Table 3 means and 2.75. For balanced row 4, the judged SE is the only natural paired formula (per-state sd(DFTE)/sqrt(n), i.e. HC2). For row 3, S1 is a guess at an undocumented method. Its stated support (T3) is PA arithmetic only. The NJ entries (0.54 in row 3, 0.48 in row 4) fit S1 only if the 22 NJ stores outside the balanced panel are clearly more dispersed than the rest. So the H1(a) SE target tests a guess: a match will read as discovering CK's method, a miss says nothing about the replication. What I attacked and what held: FTE and closure coding against check.sas and the file; the Table 4 filter (check.sas C1 verbatim); the S1 algebra and its HC2 and stacked-regression identities; H2, which is not true by construction and fully fixed; D1; and question-r3 F10-F12, all fixed. These defects need narrower wording, not a new design.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "minor",
+      "status": "open",
+      "text": "The rationale for the judged row-3 SE method rests on Pennsylvania alone. T3 says S1 was chosen because column (iii) equals sqrt(SE_PA^2 + SE_NJ^2) and because the PA change SE (1.25) is below the independent-waves value (1.64). I ran S1 on the published table entries only, not on the study's data. It gives about 1.245 for PA, which supports S1. For NJ it does not clearly support it. With the published wave SEs (0.51 on 321 stores, 0.52 on 319), the balanced change SE (0.48 on 309), and equal wave variances inside and outside the balanced panel, S1 gives about 0.48 for the row-3 NJ change, not the published 0.54. Reaching 0.54 needs the balanced-panel wave variances to be about 10% below the full-sample ones. That is possible, but untested. So H1(a)'s SE targets test a guess about CK's method, and S1 is not evidence-based for NJ.",
+      "evidence": "plan.json design.threats T3 and design.method 'TABLE 3 ESTIMATES AND SEs (method S1, fixed)'; published entries in sources/notes.md sec. 1 Table 3. Remedy, no new run needed: in T3, say the NJ entries do not single out S1. Pre-state that an SE-only miss on H1(a) will be reported as 'point reproduced; SE construction not identified'. Commit now that, if S1 matches, the paper will say S1 reproduces the published SEs, not that it is CK's method. Optionally add the independent-waves SE to se-alt, because T3 already uses it as an argument.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "open",
+      "text": "The design names the wrong unit identifier. design.data says 'SHEET is the unique store id', and run h2-winsor lists capped stores by SHEET. But prepare-data found SHEET = 407 on two different stores: ROW_ID 42 is a PA KFC and ROW_ID 168 is an NJ Wendy's. If the code follows the design, it can mislabel rows in capped.csv. And if the store-clustered stacked regression in se-alt clusters on SHEET, it merges a PA store and an NJ store into one cluster. The numerical effect is negligible, but the design must not define the unit of observation wrongly.",
+      "evidence": "plan.json design.data ('SHEET is the unique store id'), analysis_plan step 5 (capped.csv 'SHEET, state, ...') and step 3 (store-clustered CR1); data/prepare_metrics.json sheet_unique_values = 409, sheet_duplicated_rows = 2; data/CODEBOOK.md 'Discrepancies' item 1. Remedy: use ROW_ID as the store key and cluster variable everywhere, and keep SHEET as a label only.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "The design describes data-prep outputs that do not exist. It was written in parallel with prepare-data (design-written at 01:24:18, after prepare-data ran at 01:23:14). design.data and analysis_plan 0b say prepare-data writes FTE1, DFTE, FTE2_R5, NJ, the chain dummies, the wage group, the flags in_w1/in_w2/in_bal/in_r5/in_t4/closed_perm/closed_temp/refused, and data/derived/sample_counts.json with a filter cascade by state. The actual stores.csv has FTE (not FTE1), FTE2, CLOSED_PERM, CLOSED_TEMP and REFUSED2. It has no DFTE, no sample flags and no sample_counts.json. Only part of the cascade (counts) exists, in data/prepare_metrics.json. The code review (0d) checks code against the design, so the design and the data must agree first. The design also asks data-prep for DFTE, a per-store outcome change, which the PI's Data RA brief withheld until analysis.",
+      "evidence": "plan.json design.data and analysis_plan 0b vs code/prepare_data.py (outputs listed in its docstring) and data/prepare_metrics.json; log.jsonl timestamps 01:23:14 / 01:24:18. Remedy: either revise 0b and design.data to match prepare-data as run, with DFTE, the flags and the per-step cascade built in the analysis code, or rerun prepare-data with the flags and cascade but still without DFTE. Then state which file carries the T4 filter cascade that T4 promises.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "The H1(c) sample-size target is already met, and the design still reads as if it were a blind test. T4 says 'N = 357 must match exactly. If it does not, the filter cascade shows where stores are lost'. But prepare-data already computed the check.sas C1 subset as 357 before the gate (a count, which is legitimate), and the latest commit announces it. In the same way, the NJ wage-group Ns (101/140/73) and the per-state FTE availability counts (321/77, 319/77, balanced 309/75) are known and match the secondary references. The paper could present 'N = 357 reproduced' as a pre-specified success. The contribution sentence already leans that way ('targets ... the 357-store regression sample, which an earlier informal replication did not reproduce').",
+      "evidence": "plan.json design.threats T4, contribution, hypotheses H1(c); data/prepare_metrics.json checksas_table4_subset_n = 357. Remedy: add one line to the design saying that H1(c)'s N target was observed at data-prep (run prepare-data) and that only the coefficient and SE targets of H1(c) are untested.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "The only planned check against parallel trends has no decision rule, and its answer is already known. In analysis_plan step 4, 'A clearly non-zero difference would count against parallel trends' leaves 'clearly' undefined. The published values (NJ high-wage change -2.04 vs PA -2.16) mean the check will almost surely 'pass', so it cannot fail in practice. It is also not clean as a placebo. The group is WAGE_ST >= 5.00 and the new minimum is $5.05, so stores at $5.00-5.04 are bound, and the design itself says the rise 'barely binds' them. The track rule asks for checks that could fail. H1 and H2 can fail, so the study complies overall. But this check should not be described in the paper as evidence for the identifying assumption.",
+      "evidence": "plan.json analysis_plan step 4, design.identifying_assumption, threats T9; sources/notes.md sec. 1 (row-3 within-NJ changes). Remedy (narrow the claim): call placebo-hiwage descriptive and say in the design that the paper will not cite it as support for parallel trends. Or fix a numeric rule now, for example |plac_r3| relative to did_r3, and state that its outcome is known from the published table.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The comparator for H2 secondary s2 has no recorded sample. The design calls Neumark-Wascher's 2.78 the 'published comparator' for an OLS on B minus the six permanent closures, which is 378 stores if B has 384. But neither the design nor notes.md records NW's N for Table 1 panel A, or whether NW also required wage data or other items. The notes give NW's within-state changes (NJ +0.66, PA -2.1), which would pin the sample better than the controlled coefficient. Without the N, a gap between b_nj and 2.78 cannot be attributed to the sample or to the specification.",
+      "evidence": "plan.json design.method 'H2 secondary s2' and analysis_plan step 7; sources/notes.md sec. 2 ('Their CK baseline (p. 3, Table 1 panel A)'); claims.jsonl c-nw-ckbaseline. Remedy: have the Scout record NW's N and the sample rule from NW 1995 Table 1 panel A. If they cannot be found, the design should say that the samples may differ. Also have h2-nw-rule report the unadjusted within-state mean changes beside b_nj, for comparison with +0.66 and -2.1.",
+      "response": "",
+      "ruling": ""
+    }
+  ]
+}

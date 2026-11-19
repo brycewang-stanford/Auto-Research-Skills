@@ -72,3 +72,34 @@ At design, check:
 - NW secondary: "drop closed stores" means permanent closures (temporary are already missing);
   chain + ownership controls specified exactly.
 - Whether F10-F12 were fixed or carried forward.
+
+## Round design-r1 (2026-11-19): verdict pass
+
+No critical or major findings; six minor, all open:
+- F1: S1 is supported only by the PA arithmetic. On the published entries alone (no study data),
+  S1 gives about 0.48 for the row-3 NJ change SE against the published 0.54, if wave variances are
+  equal inside and outside the balanced panel. A match must not be called "CK's method". A miss
+  should be reported as "SE construction not identified".
+- F2: SHEET is not unique (407 = PA KFC ROW_ID 42 and NJ Wendy's ROW_ID 168). The design calls it
+  the unique id and uses it in capped.csv and, by implication, as the se-alt cluster variable.
+  ROW_ID must be used.
+- F3: design.data and analysis_plan 0b describe prepare-data outputs that do not exist (FTE1, DFTE,
+  in_* flags, sample_counts.json). The design was written in parallel with prepare-data.
+- F4: N = 357 was already observed at data-prep (prepare_metrics checksas_table4_subset_n), so
+  H1(c)'s N target is not blind; the design should say so.
+- F5: placebo-hiwage has no decision rule ("clearly non-zero"), its answer is published (-2.04 vs
+  -2.16), and the stores at $5.00-5.04 are bound. It must not be cited as support for parallel trends.
+- F6: the sample behind NW's 2.78 is not recorded. Ask for the within-state changes (+0.66 and
+  -2.1) as comparators.
+Feasibility arithmetic done (recorded in F1): S1 on published Table 3 SEs only. No study data used.
+
+At code review, check:
+- ROW_ID as the key and cluster; DFTE built in analysis code; the closure override is explicit.
+- S1 implements the n12 covariance term with denominator n12-1 on A1 and A2 intersected; the balanced
+  case equals HC2.
+- The T4 filter is C1 verbatim; GAP is not needed. pandas 3 nullable Int64 / NA arithmetic: missing FTE
+  must propagate as in SAS.
+- Winsorization: numpy.percentile method='linear' on the pooled B including the closures; caps strict
+  (< q05, > q95). Ties at the cutoffs are likely, because DFTE values come in multiples of 0.5.
+- check-synthetic never reads stores.csv. verdict.py takes its inputs only from metrics.
+- Any SE-method switch after main-t3 is a red flag. The design fixes S1.
