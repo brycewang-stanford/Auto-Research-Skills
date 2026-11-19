@@ -1,11 +1,19 @@
 name: Repository checks
 
 on:
+  push:
+    branches: [main]
   pull_request:
   workflow_dispatch: {}
 
 permissions:
   contents: read
+
+# Most work lands by direct push to main, often several commits a minute while
+# crew agents write into gallery/. Only the newest commit per ref needs checking.
+concurrency:
+  group: repo-check-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   metadata:
