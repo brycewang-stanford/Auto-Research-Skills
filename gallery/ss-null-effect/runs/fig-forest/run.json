@@ -1,6 +1,6 @@
 {
   "id": "fig-forest",
-  "role": "figures-ra",
+  "role": "econometrician",
   "kind": "analysis",
   "command": [
     ".venv/bin/python",
@@ -11,8 +11,8 @@
     "--metrics",
     "runs/fig-forest/metrics.json"
   ],
-  "started": "2026-11-18T14:50:53Z",
-  "finished": "2026-11-18T14:50:54Z",
+  "started": "2026-11-19T01:22:18Z",
+  "finished": "2026-11-19T01:22:19Z",
   "exit_code": 0,
   "code": [
     {
@@ -39,7 +39,7 @@
     },
     {
       "path": "runs/rob-learners/metrics.json",
-      "sha256": "e1dec84a9e3f4b4441ef3adbccec28fee0087e4ba0cd3fb89e4fb9cf6c488f44"
+      "sha256": "40410221aebc6f44100899ca7c742c2c362480411f00a96f89bfbe76540f0b3b"
     },
     {
       "path": "runs/rob-estimators/metrics.json",

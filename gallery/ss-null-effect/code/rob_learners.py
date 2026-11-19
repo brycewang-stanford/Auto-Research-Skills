@@ -8,6 +8,13 @@
     (20261118 + s); propensity clipped to [0.01, 0.99] as in the primary estimator.
 Same folds, repetitions and seeds as the primary. Both are in the disagreement rule.
 
+Determinism (implementation fix, 2026-11-19; not a design change): the forests are fitted with
+n_jobs = -1 as planned (each tree's fit depends only on random_state, so the fitted forest is
+the same whatever the thread count), but predicted with n_jobs = 1. scikit-learn sums the
+per-tree predictions into one array in whatever order the threads finish, so a multi-threaded
+predict differs in the last bits from run to run; a single-threaded predict sums the trees in
+a fixed order (tree 0, 1, ..., 499) and makes the metrics bit-stable.
+
 Run from the workspace root:  .venv/bin/python -I code/rob_learners.py
 """
 
@@ -29,14 +36,35 @@ def ols(seed: int):
     return make_pipeline(StandardScaler(), LinearRegression())
 
 
+class _SerialPredictMixin:
+    """Fit with the configured n_jobs; predict single-threaded so the per-tree sum has a fixed order."""
+
+    def _serial(self, method, X):
+        n_jobs, self.n_jobs = self.n_jobs, 1
+        try:
+            return method(X)
+        finally:
+            self.n_jobs = n_jobs
+
+
+class SerialPredictRFC(_SerialPredictMixin, RandomForestClassifier):
+    def predict_proba(self, X):
+        return self._serial(super().predict_proba, X)
+
+
+class SerialPredictRFR(_SerialPredictMixin, RandomForestRegressor):
+    def predict(self, X):
+        return self._serial(super().predict, X)
+
+
 def rf_c(seed: int):
-    return RandomForestClassifier(n_estimators=500, min_samples_leaf=5, max_features="sqrt",
-                                  random_state=seed, n_jobs=-1)
+    return SerialPredictRFC(n_estimators=500, min_samples_leaf=5, max_features="sqrt",
+                            random_state=seed, n_jobs=-1)
 
 
 def rf_r(seed: int):
-    return RandomForestRegressor(n_estimators=500, min_samples_leaf=5, max_features="sqrt",
-                                 random_state=seed, n_jobs=-1)
+    return SerialPredictRFR(n_estimators=500, min_samples_leaf=5, max_features="sqrt",
+                            random_state=seed, n_jobs=-1)
 
 
 def main() -> int:

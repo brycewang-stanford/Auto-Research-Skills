@@ -116,8 +116,11 @@ repeated or replaced.
 3. rob-trim recomputes the primary propensity fits; m_bar matches runs/diag-overlap/propensity.csv
    to 5e-11. Units with m_bar exactly 0.1 or 0.9 would be kept (none sit on a bound).
 4. rob-learners: OLS outcome model standardized within fold (no effect on predictions); random
-   forests use n_jobs = -1 (deterministic given random_state); RF propensity clipped to
-   [0.01, 0.99] like the primary (0 clipped).
+   forests are fitted with n_jobs = -1 (the fitted trees are deterministic given random_state)
+   and, since 2026-11-19, predicted with n_jobs = 1 (see "Implementation fix: rob-learners
+   made bit-stable" below; the original note claimed determinism, which held for the fit but
+   not for the multi-threaded prediction sum); RF propensity clipped to [0.01, 0.99] like the
+   primary (0 clipped).
 5. rob-estimators (b): propensity fitted in-sample on all units with B(X) standardized, C =
    0.0464 picked by LogisticRegressionCV (inner-CV seed 20261118); m clipped to [0.01, 0.99]
    (an implementation choice: the plan specifies clipping only for the primary AIPW, not for
@@ -174,3 +177,29 @@ plan.json without `tasks` and `gates` is unchanged
   sec-maxt-crit carry the psi_bar caveat. No run, script or metric changed.
 - Figures (propensity histogram, forest plot with M, sensitivity contour) remain with the
   Figures RA (task f-figures); runs/sens-imbens/metrics.json holds the full grid for the contour.
+
+## Implementation fix: rob-learners made bit-stable (2026-11-19, after the clean rerun)
+
+Not a design change: same learners, hyperparameters, seeds, folds, repetitions, clipping and
+inputs; the fitted forests are unchanged. The Replicator's clean rerun (REPLICATION.md,
+cause B) found that rob-learners' random-forest metrics changed in the last bits from run to
+run: scikit-learn 1.9.1 sums per-tree predictions into a shared array under a lock in
+whatever order the threads finish, so with n_jobs = -1 the floating-point sum is not
+reproducible, and tab-main's exact claim check failed.
+
+- `code/rob_learners.py`: the forests (`SerialPredictRFC`, `SerialPredictRFR`, thin
+  subclasses of RandomForestClassifier/Regressor) still fit with n_jobs = -1 as planned but
+  run `predict_proba` / `predict` with n_jobs = 1, so the 500 trees are summed in a fixed order.
+- Checked in a scratch copy before re-recording: two consecutive runs gave byte-identical
+  `metrics.json`, and a third with OMP_NUM_THREADS=1 was identical too.
+- rob-learners re-recorded with `--replace`. Only one metric changed: `rf_effect`
+  -10.006344405782134 -> -10.00634440578213 (relative 3.6e-16). All other 40 metrics,
+  including every rf_ CI bound and p-value, are bit-identical to the old record. Claim
+  learner-rf-effect value refreshed accordingly (id, text, macro unchanged);
+  `paper/numbers.tex` regenerated and unchanged (formatted to whole dollars, -10).
+- Downstream runs re-recorded with `--replace` because they read runs/rob-learners/metrics.json
+  or claims.jsonl: fig-forest, tab-main, tab-balance, tab-secondary, tab-sensitivity (same
+  commands, code, inputs and outputs; executed by the Econometrician at the PI's request, so
+  their records now carry role econometrician instead of figures-ra). Each was run twice in
+  scratch first: metrics, tables and the forest PDF byte-identical between the two runs and
+  to the previous ledger; the re-recorded outputs are unchanged.

@@ -7,13 +7,13 @@
     "-I",
     "code/rob_learners.py"
   ],
-  "started": "2026-11-18T13:45:08Z",
-  "finished": "2026-11-18T13:45:24Z",
+  "started": "2026-11-19T01:21:22Z",
+  "finished": "2026-11-19T01:22:08Z",
   "exit_code": 0,
   "code": [
     {
       "path": "code/rob_learners.py",
-      "sha256": "9183c75f847ce56299616e2ca3426e43ffff9a69c4d6d38b22c8a7354296ba48"
+      "sha256": "f6cc9bc191b148b7e229f0875a8c256c9a596decff4f8442178b9ba50293957c"
     },
     {
       "path": "code/aipw_lib.py",
@@ -45,7 +45,7 @@
   "outputs": [
     {
       "path": "runs/rob-learners/metrics.json",
-      "sha256": "e1dec84a9e3f4b4441ef3adbccec28fee0087e4ba0cd3fb89e4fb9cf6c488f44"
+      "sha256": "40410221aebc6f44100899ca7c742c2c362480411f00a96f89bfbe76540f0b3b"
     }
   ],
   "metrics": {
@@ -69,7 +69,7 @@
     "linear_h1_differs_from_main": false,
     "linear_h1b_differs_from_main": false,
     "linear_effect_outside_main_ci95": false,
-    "rf_effect": -10.006344405782134,
+    "rf_effect": -10.00634440578213,
     "rf_se": 177.59709756617426,
     "rf_ci_low": -358.0902593943298,
     "rf_ci_high": 338.0775705827655,

@@ -1,6 +1,6 @@
 {
   "id": "tab-secondary",
-  "role": "figures-ra",
+  "role": "econometrician",
   "kind": "analysis",
   "command": [
     ".venv/bin/python",
@@ -11,8 +11,8 @@
     "--metrics",
     "runs/tab-secondary/metrics.json"
   ],
-  "started": "2026-11-18T14:50:57Z",
-  "finished": "2026-11-18T14:50:57Z",
+  "started": "2026-11-19T01:22:19Z",
+  "finished": "2026-11-19T01:22:19Z",
   "exit_code": 0,
   "code": [
     {
@@ -31,7 +31,7 @@
     },
     {
       "path": "claims.jsonl",
-      "sha256": "04ea9368e79664ef29dcaa5713e3615af3276f951b044bc8dd86af57a884406a"
+      "sha256": "acf0e2f752e805ecf0f7ab8f2219a8a004093d071e795aa5b10963cd1a4e39a2"
     }
   ],
   "outputs": [
