@@ -228,7 +228,9 @@
       "note": "Approved in chat on 2026-11-18 after reading the results, the conditional equivalence caveat and the DiD readings."
     },
     "submission": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-19T06:57:53Z",
+      "summary": "Paper passed review in round 2 (minor F9/F10 answered); clean rerun 23/23; answer key pass."
     }
   },
   "outcomes": {

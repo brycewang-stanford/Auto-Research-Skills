@@ -77,3 +77,4 @@
 {"time": "2026-11-19T05:47:03Z", "role": "pi", "action": "brief-archived", "detail": "reviewer paper-r2 20261119T054703Z"}
 {"time": "2026-11-19T06:52:59Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T065259Z"}
 {"time": "2026-11-19T06:54:10Z", "role": "writer", "action": "paper-revised", "detail": "Answered paper-r2 F9 (Replicator in role list, 'had not run' removed; Evidence lists hand-typed design/date/process numbers and sources; Section 6 notes the rob-learners re-record) and F10 (briefs archived only from the paper-r1 revision brief, 15:11Z; unarchived Figures RA, Writer drafting and paper-r1 Reviewer briefs named; log deletion described as the PI's own choice); review counts now include paper-r2. Responses written to reviews/paper-r2 F9, F10. 20 pages, clean compile."}
+{"time": "2026-11-19T06:57:53Z", "role": "pi", "action": "gate-request", "detail": "submission"}

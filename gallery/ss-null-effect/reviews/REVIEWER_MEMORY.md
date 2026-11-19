@@ -275,3 +275,25 @@ Next time (paper-r2):
 - Recheck F1-F8 against main.tex, ai-use.tex and the recompiled main.pdf (pdftotext). Run validate --strict.
 - Confirm no number changed: numbers.tex diff and the run ledger untouched.
 - If a literature review round is added, still spot-check imbens2003 and hirano2003 in full text.
+
+## paper-r2 (2026-11-19T05:5xZ), verdict: pass
+paper-r1 F1-F8 are all resolved, checked in main.tex, ai-use.tex and the recompiled PDF, not in the responses.
+Since paper-r1 (cbd31cd -> HEAD):
+- rob_learners.py now predicts single-threaded (it still fits with n_jobs=-1).
+- rob-learners and five fig/tab runs were re-recorded. Only rf_effect changed, by 3.6e-16, and numbers.tex content is unchanged.
+- The design hash 146cb81e is unchanged at the gate, at HEAD and in the working copy.
+- replication.json passes 23/23 (01:26:40Z), and every record_sha256 equals the current run.json.
+- validate --strict is OK.
+- The typed proxies 173/2.8/253/416/67 are plan facts (threats[8]) and match margin_metrics.json and timing.json.
+- M ran at 12:28:10Z, before missing-counts (12:46:55Z), so "M fixed before any outcome column was read" is true.
+New, both minor:
+- F9: ai-use still says "Replicator had not run" while also reporting its pass. The 'no number typed by hand' sentence ignores typed process numbers. main.tex l.489 "run, once" ignores the rob-learners re-record.
+- F10: "briefs archived from the paper stage on" is false, because archiving began 15:11:21Z after paper-r1. The Figures RA, Writer-draft and paper-r1 Reviewer briefs are unarchived. The log deletion is attributed to "the Reviewer's request", but question-r1 F8 asked to correct or explain.
+Suspicions:
+- Fixes to my findings keep arriving through PI briefs that dictate the exact wording (see 20261118T151121Z-writer.md). The F10(b) misattribution came from that channel. Read disclosures against the primary record, never the brief.
+- The re-recorded fig/tab runs now carry role econometrician, not figures-ra (NOTES discloses this; the paper does not). This is harmless but worth knowing.
+Next time (paper-r3, if any):
+- F9 and F10 wording.
+- Recheck that the PDF is newer than the .tex files.
+- Check that numbers.tex is unchanged and that replication.json is still newer than every run.
+- Check that no new run or code change has happened since 483d5dd.

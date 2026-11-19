@@ -57,3 +57,5 @@
 {"time": "2026-11-19T06:52:59Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261119T065259Z"}
 {"time": "2026-11-19T06:53:44Z", "role": "econometrician", "action": "review-response", "detail": "results-r2 F6: forest H2 claim texts (2-fold names the failed port check; 5-fold says the shift was measured at 2-fold only and the 2-fold cell does not show it). Claim text only; numbers.tex unchanged (321 macros)."}
 {"time": "2026-11-19T06:53:55Z", "role": "pi", "action": "gate-request", "detail": "results"}
+{"time": "2026-11-19T06:57:53Z", "role": "pi", "action": "gate-approve", "detail": "results Bryce Wang"}
+{"time": "2026-11-19T06:57:53Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261119T065753Z"}
