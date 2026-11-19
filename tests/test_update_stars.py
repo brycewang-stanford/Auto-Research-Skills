@@ -92,6 +92,27 @@ class ReadmeTopTests(unittest.TestCase):
         self.assertTrue(text.endswith("outro\n"))
         self.assertIn("[o/a](https://github.com/o/a)", text)
 
+    def test_main_refuses_to_write_when_most_lookups_fail(self) -> None:
+        # A rate limit makes every lookup return None; the leaderboard and the
+        # README blocks must survive untouched and the run must fail.
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "STARS.md"
+            out.write_text("previous leaderboard\n", encoding="utf-8")
+            subs = [(f"skills/r{i}", f"o/r{i}") for i in range(20)]
+            with mock.patch.object(update_stars, "parse_submodules", return_value=subs), \
+                    mock.patch.object(update_stars, "get_stars", return_value=None), \
+                    mock.patch.object(update_stars, "OUT", out), \
+                    mock.patch.object(update_stars, "update_readmes") as readmes, \
+                    mock.patch("sys.stdout"), mock.patch("sys.stderr"):
+                self.assertEqual(update_stars.main(), 1)
+            self.assertEqual(out.read_text(encoding="utf-8"), "previous leaderboard\n")
+            readmes.assert_not_called()
+
+    def test_one_missing_repo_is_tolerated(self) -> None:
+        self.assertFalse(update_stars.too_many_failures(1, 110))
+        self.assertTrue(update_stars.too_many_failures(12, 110))
+        self.assertFalse(update_stars.too_many_failures(0, 0))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from dataclasses import asdict, dataclass
@@ -163,16 +164,19 @@ RULES = [
         "remote-shell-pipe",
         "critical",
         re.compile(
-            r"\b(?:curl|wget)\b[^\n|]{0,240}\|\s*(?:sudo\s+)?"
+            r"\b(?:curl|wget)\b[^\n|]{0,240}\|\s*(?:sudo(?:\s+-\S+)*\s+)?"
             # Shells always execute the fetched bytes as code -> always flag.
             r"(?:(?:sh|bash|zsh)\b"
             # Scripting interpreters only execute the download itself when run
             # bare (or `-`); `python3 -c/-m/script.py` treats the curl output as
             # *data* on stdin, which is the common (benign) research-API parse.
-            r"|(?:python3?|perl|ruby)\b(?!\s+(?:-c\b|-m\b|[\w./~-]+\.(?:py|pl|rb)\b)))",
+            r"|(?:python3?|perl|ruby)\b(?!\s+(?:-c\b|-m\b|[\w./~-]+\.(?:py|pl|rb)\b)))"
+            # The same download-and-run without a pipe: `bash <(curl …)` and
+            # `sh -c "$(curl …)"`.
+            r"|\b(?:ba|z)?sh\s+(?:<\(|-c\s+[\"']?\$\()\s*(?:curl|wget)\b",
             re.IGNORECASE,
         ),
-        "Remote downloads piped directly into an interpreter need explicit review.",
+        "Remote downloads executed directly by a shell or interpreter need explicit review.",
     ),
     Rule(
         "powershell-iex",
@@ -188,7 +192,10 @@ RULES = [
         "destructive-root-delete",
         "critical",
         re.compile(
-            r"\brm\s+-[A-Za-z]*r[A-Za-z]*f[A-Za-z]*\s+(?:/\*|/)(?=$|[\s;&|])",
+            # Any flag spelling that includes recursion: -rf, -fr, -r -f, -R,
+            # --recursive, --no-preserve-root ...
+            r"\brm\s+(?=(?:-{1,2}[\w-]+\s+)*?(?:-[A-Za-z]*r|--recursive\b))"
+            r"(?:-{1,2}[\w-]+\s+)+(?:/\*|/)(?=$|[\s;&|])",
             re.IGNORECASE,
         ),
         "Recursive deletion from filesystem root should never appear in a skill.",
@@ -546,20 +553,25 @@ def main() -> int:
         findings = [finding for finding in findings if finding.context in selected_contexts]
     findings.sort(key=sort_key)
 
+    status = 0
+    if args.fail_on != "none":
+        fail_threshold = SEVERITY[args.fail_on]
+        if any(SEVERITY[finding.severity] >= fail_threshold for finding in findings):
+            status = 1
+
     try:
         if args.json:
             shown = findings if args.max_findings <= 0 else findings[: args.max_findings]
             print(json.dumps([asdict(finding) for finding in shown], indent=2))
         else:
             print_text(findings, args.max_findings)
+        sys.stdout.flush()
     except BrokenPipeError:
-        return 0
-
-    if args.fail_on != "none":
-        fail_threshold = SEVERITY[args.fail_on]
-        if any(SEVERITY[finding.severity] >= fail_threshold for finding in findings):
-            return 1
-    return 0
+        # The reader closed early (e.g. `| head`). Keep the --fail-on verdict,
+        # and stop Python from failing again while flushing at exit.
+        devnull = os.open(os.devnull, os.O_WRONLY)
+        os.dup2(devnull, sys.stdout.fileno())
+    return status
 
 
 if __name__ == "__main__":

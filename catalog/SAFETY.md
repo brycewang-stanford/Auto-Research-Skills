@@ -5,10 +5,10 @@ It is reviewer-assist output, not a proof that a skill is safe or unsafe.
 
 - Scope: `skills`
 - Minimum severity: `high`
-- Findings: **502**
-- Critical: **329**
+- Findings: **521**
+- Critical: **348**
 - High: **173**
-- In `skill`/`script` files (not docs or examples): **165** (79 critical, 86 high)
+- In `skill`/`script` files (not docs or examples): **169** (83 critical, 86 high)
 
 Findings are bucketed by where they live. A `curl … | bash` line in a
 README is install documentation; the same line inside a `SKILL.md` body
@@ -29,17 +29,17 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Context | Findings |
 |---|---:|
-| `docs` | 284 |
-| `script` | 93 |
+| `docs` | 298 |
+| `script` | 97 |
 | `skill` | 61 |
-| `example` | 53 |
+| `example` | 54 |
 | `other` | 11 |
 
 ## By Rule
 
 | Rule | Findings |
 |---|---:|
-| `remote-shell-pipe` | 274 |
+| `remote-shell-pipe` | 293 |
 | `credential-print` | 75 |
 | `echo-secret-value` | 50 |
 | `concealment-instruction` | 45 |
@@ -52,8 +52,8 @@ so a downgraded critical no longer inflates the high+ report.
 
 | Collection | Findings |
 |---|---:|
-| `scienceclaw` | 157 |
-| `empirical-research-skills` | 57 |
+| `scienceclaw` | 168 |
+| `empirical-research-skills` | 64 |
 | `autoresearch` | 49 |
 | `bionemo-agent-toolkit` | 40 |
 | `feynman` | 25 |
@@ -72,7 +72,7 @@ so a downgraded critical no longer inflates the high+ report.
 | `research-skills` | 5 |
 | `zotero-mcp` | 5 |
 | `claude-scientific-writer` | 4 |
-| _Other_ | 25 |
+| _Other_ | 26 |
 
 ## Example Findings
 
@@ -121,7 +121,7 @@ Ordered to surface executable (`skill`/`script`) contexts first.
 | high | skill | `concealment-instruction` | `skills/empirical-research-skills/skills/58-charlescoverdale-econstack/longlist/SKILL.md:402` | `Do not show it to the user` |
 | high | skill | `concealment-instruction` | `skills/empirical-research-skills/skills/58-charlescoverdale-econstack/longlist/SKILL.md:518` | `Do not show stakeholder lists, ToC steps, or lens-by-lens working in the output. The user` |
 
-_Truncated 462 additional findings._
+_Truncated 481 additional findings._
 
 ## Regenerate
 

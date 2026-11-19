@@ -88,7 +88,25 @@ class FormatTests(unittest.TestCase):
         self.assertEqual(health.fmt_age(None), "?")
         self.assertEqual(health.fmt_age(5), "5d")
         self.assertEqual(health.fmt_age(60), "2mo")
-        self.assertTrue(health.fmt_age(400).endswith("m") or "y" in health.fmt_age(400))
+        self.assertEqual(health.fmt_age(400), "1y1m")
+        # 360-364 days past a whole year rounds up instead of printing "12m".
+        self.assertEqual(health.fmt_age(364), "1y0m")
+        self.assertEqual(health.fmt_age(729), "2y0m")
+
+    def test_main_refuses_to_write_when_most_repos_unreachable(self) -> None:
+        import tempfile
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp) / "HEALTH.md"
+            out.write_text("previous report\n", encoding="utf-8")
+            subs = [(f"skills/r{i}", f"o/r{i}") for i in range(20)]
+            with mock.patch.object(health, "parse_submodules", return_value=subs), \
+                    mock.patch.object(health, "fetch_repo", return_value=None), \
+                    mock.patch.object(health, "OUT", out), \
+                    mock.patch("sys.stdout"), mock.patch("sys.stderr"):
+                self.assertEqual(health.main([]), 1)
+            self.assertEqual(out.read_text(encoding="utf-8"), "previous report\n")
 
 
 class RenderTests(unittest.TestCase):

@@ -122,6 +122,16 @@ def update_readmes(rows: list[tuple[int, str, str]], when: str) -> None:
         print(f"Updated Top {TOP_N} in {name}.")
 
 
+# A renamed or deleted repo fails one lookup; a rate limit or outage fails most
+# of them. Above this share of failures, nothing is written, so one bad weekly
+# run cannot publish an empty leaderboard.
+MAX_FAILED_SHARE = 0.10
+
+
+def too_many_failures(failed: int, total: int) -> bool:
+    return total > 0 and failed / total > MAX_FAILED_SHARE
+
+
 def main() -> int:
     subs = parse_submodules()
     rows = []
@@ -130,6 +140,15 @@ def main() -> int:
         print(f"  {slug}: {stars}")
         rows.append((stars if stars is not None else -1, path, slug))
     rows.sort(reverse=True)
+
+    failed = sum(1 for stars, _, _ in rows if stars < 0)
+    if too_many_failures(failed, len(rows)):
+        print(
+            f"error: {failed} of {len(rows)} star lookups failed (rate limit or outage?); "
+            f"left {OUT.name} and the READMEs unchanged.",
+            file=sys.stderr,
+        )
+        return 1
 
     now = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     lines = [

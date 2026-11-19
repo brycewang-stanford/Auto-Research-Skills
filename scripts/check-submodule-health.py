@@ -71,6 +71,10 @@ def parse_submodules() -> list[tuple[str, str]]:
     return out
 
 
+# One deleted repo is a finding; most repos failing at once is an API problem.
+MAX_UNREACHABLE_SHARE = 0.10
+
+
 def fetch_repo(slug: str) -> dict | None:
     """Return the raw GitHub repo object, or None on error."""
     req = urllib.request.Request(API + slug)
@@ -158,10 +162,13 @@ def fmt_stars(n: int | None) -> str:
 def fmt_age(days: int | None) -> str:
     if days is None:
         return "?"
-    if days >= 365:
-        return f"{days // 365}y{(days % 365) // 30}m"
-    if days >= 30:
-        return f"{days // 30}mo"
+    years, months = days // 365, (days % 365) // 30
+    if months == 12:  # 360-364 days past a whole year: round up, never "1y12m"
+        years, months = years + 1, 0
+    if years:
+        return f"{years}y{months}m"
+    if months:
+        return f"{months}mo"
     return f"{days}d"
 
 
@@ -267,6 +274,15 @@ def main(argv: list[str] | None = None) -> int:
         flag_note = f" [{','.join(row['flags'])}]" if row["flags"] else ""
         print(f"  {slug}: {fmt_stars(row['stars'])}{flag_note}")
         rows.append(row)
+
+    unreachable = sum(1 for r in rows if not r["reachable"])
+    if rows and unreachable / len(rows) > MAX_UNREACHABLE_SHARE:
+        print(
+            f"error: {unreachable} of {len(rows)} repos unreachable (rate limit or outage?); "
+            f"left {OUT.name} unchanged.",
+            file=sys.stderr,
+        )
+        return 1
 
     OUT.write_text(render(rows, now, args.stale_days), encoding="utf-8")
     print(f"Wrote {OUT} ({len(rows)} submodules, "
