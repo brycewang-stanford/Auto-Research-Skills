@@ -1,7 +1,7 @@
 {
   "crew_version": "0.1.0",
   "protocol": "0.1",
-  "scored_on": "2026-11-19T07:00:13Z",
+  "scored_on": "2026-11-19T07:34:42Z",
   "results": [
     {
       "workspace": "gallery/cs-calibration",
@@ -10,14 +10,14 @@
       "title": "Are the predicted probabilities of common tabular classifiers calibrated, and does post-hoc recalibration help?",
       "gates": {
         "question": "approved",
-        "design": "pending",
+        "design": "approved",
         "results": "pending",
         "submission": "pending"
       },
       "complete": false,
       "validation_errors": 0,
       "rerun_passed": null,
-      "reviews": 4,
+      "reviews": 5,
       "cross_family_reviews": 0,
       "protocol": "in-progress",
       "answer": {
@@ -61,7 +61,7 @@
       "complete": false,
       "validation_errors": 0,
       "rerun_passed": null,
-      "reviews": 4,
+      "reviews": 5,
       "cross_family_reviews": 0,
       "protocol": "in-progress",
       "answer": {
@@ -132,14 +132,14 @@
       "title": "Can observational estimators recover an experimental job-training effect? The NSW and the CPS comparison group",
       "gates": {
         "question": "approved",
-        "design": "pending",
+        "design": "approved",
         "results": "pending",
         "submission": "pending"
       },
       "complete": false,
       "validation_errors": 0,
       "rerun_passed": null,
-      "reviews": 5,
+      "reviews": 6,
       "cross_family_reviews": 0,
       "protocol": "in-progress",
       "answer": {

@@ -250,9 +250,12 @@
       "note": "Approved in chat on 2026-11-19 after reading the question, the Reviewer's verdicts and kill argument."
     },
     "design": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-19T07:20:38Z",
-      "summary": "Design passed review in round 2 after a blocking round 1; minor F6 answered."
+      "summary": "Design passed review in round 2 after a blocking round 1; minor F6 answered.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-19T07:34:42Z",
+      "note": "Approved in chat on 2026-11-19 after reading the restored design, the placebo limits and the Reviewer's kill argument."
     },
     "results": {
       "status": "pending"
