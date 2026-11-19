@@ -1,0 +1,60 @@
+{
+  "id": "fetch-data",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/fetch_data.py"
+  ],
+  "started": "2026-11-19T01:20:57Z",
+  "finished": "2026-11-19T01:20:58Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fetch_data.py",
+      "sha256": "2bee9576fc8492dc16c2d128bc3a0e06d09f9974c8289beb6bfe4f8e2e277c2a"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "data/raw/nswre74_treated.txt",
+      "sha256": "e7b742fe0ff07a0f45e129b4ff108bb9611cd83d53604732c48a8a0a3e20eda3"
+    },
+    {
+      "path": "data/raw/cps_controls.txt",
+      "sha256": "dce640066f8bcdf447864b158b2cb0390bd3f8d6cbe3a27576a06926477d51f8"
+    },
+    {
+      "path": "data/fetch_metrics.json",
+      "sha256": "4501b4ea1743aece2129a88375400e4000b33f7ad4f59123a39cf7fe329cf51e"
+    }
+  ],
+  "metrics": {
+    "nswre74_treated_size_bytes": 29785,
+    "nswre74_treated_sha256": "e7b742fe0ff07a0f45e129b4ff108bb9611cd83d53604732c48a8a0a3e20eda3",
+    "nswre74_treated_rows": 185,
+    "nswre74_treated_rows_expected": 185,
+    "nswre74_treated_rows_match": true,
+    "nswre74_treated_fields_per_row": "10",
+    "nswre74_treated_fields_match": true,
+    "nswre74_treated_treat_tokens": "1.0000000e+000",
+    "nswre74_treated_treat_match": true,
+    "cps_controls_size_bytes": 2574712,
+    "cps_controls_sha256": "dce640066f8bcdf447864b158b2cb0390bd3f8d6cbe3a27576a06926477d51f8",
+    "cps_controls_rows": 15992,
+    "cps_controls_rows_expected": 15992,
+    "cps_controls_rows_match": true,
+    "cps_controls_fields_per_row": "10",
+    "cps_controls_fields_match": true,
+    "cps_controls_treat_tokens": "0.0000000e+000",
+    "cps_controls_treat_match": true,
+    "experimental_controls_fetched": false
+  },
+  "metrics_file": "data/fetch_metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

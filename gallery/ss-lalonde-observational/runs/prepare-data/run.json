@@ -1,0 +1,95 @@
+{
+  "id": "prepare-data",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/prepare_data.py"
+  ],
+  "started": "2026-11-19T01:21:41Z",
+  "finished": "2026-11-19T01:21:42Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/prepare_data.py",
+      "sha256": "aca4688746117603e3ec7ba5be1e9188434ca0e6ffa148c5a8675bfb1e0b0140"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/nswre74_treated.txt",
+      "sha256": "e7b742fe0ff07a0f45e129b4ff108bb9611cd83d53604732c48a8a0a3e20eda3"
+    },
+    {
+      "path": "data/raw/cps_controls.txt",
+      "sha256": "dce640066f8bcdf447864b158b2cb0390bd3f8d6cbe3a27576a06926477d51f8"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/derived/analysis_noRE78.csv",
+      "sha256": "35195cc4c3ce0dce11803b3c1f866b73f844ae16896cdf95d1ea639b90c3b524"
+    },
+    {
+      "path": "data/derived/covariate_summary.json",
+      "sha256": "f817404768cc21d14b3ff095602e2988d230f1be82a118ba536e21255e80a85c"
+    },
+    {
+      "path": "data/prepare_metrics.json",
+      "sha256": "e4bf613791fcb47ab77a67f26227cbb29e1b0b55038cfb868b784fd8914185c0"
+    }
+  ],
+  "metrics": {
+    "rows_read_nswre74_treated": 185,
+    "rows_expected_nswre74_treated": 185,
+    "rows_match_nswre74_treated": true,
+    "treat_constant_nswre74_treated": true,
+    "rows_read_cps_controls": 15992,
+    "rows_expected_cps_controls": 15992,
+    "rows_match_cps_controls": true,
+    "treat_constant_cps_controls": true,
+    "missing_treat": 0,
+    "missing_age": 0,
+    "missing_educ": 0,
+    "missing_black": 0,
+    "missing_hisp": 0,
+    "missing_married": 0,
+    "missing_nodegree": 0,
+    "missing_re74": 0,
+    "missing_re75": 0,
+    "nonintegral_age": 0,
+    "nonintegral_educ": 0,
+    "negative_re74": 0,
+    "max_re74_nswre74_treated": 35040.07,
+    "count_at_max_re74_nswre74_treated": 1,
+    "max_re74_cps_controls": 25862.32,
+    "count_at_max_re74_cps_controls": 3052,
+    "negative_re75": 0,
+    "max_re75_nswre74_treated": 25142.24,
+    "count_at_max_re75_nswre74_treated": 1,
+    "max_re75_cps_controls": 25243.55,
+    "count_at_max_re75_cps_controls": 3007,
+    "nonbinary_treat": 0,
+    "nonbinary_black": 0,
+    "nonbinary_hisp": 0,
+    "nonbinary_married": 0,
+    "nonbinary_nodegree": 0,
+    "nonbinary_u74": 0,
+    "nonbinary_u75": 0,
+    "count_black_and_hisp": 0,
+    "count_nodegree_ne_educ_lt_12": 0,
+    "duplicate_covariate_rows_within_src": 2401,
+    "rows_kept": 16177,
+    "rows_dropped": 0,
+    "rows_kept_treat_1": 185,
+    "rows_kept_treat_0": 15992,
+    "columns_written": "src,row,treat,age,educ,black,hisp,married,nodegree,re74,re75,u74,u75",
+    "re78_written": false
+  },
+  "metrics_file": "data/prepare_metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

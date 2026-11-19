@@ -1,0 +1,37 @@
+{
+  "covariate_source": "data/derived/analysis_noRE78.csv",
+  "n": 16177,
+  "n_treated": 185,
+  "n_control": 15992,
+  "n_terms_B": 14,
+  "n_terms_B_minus": 11,
+  "n_terms_B_plus": 56,
+  "outcomes": "synthetic N(0,1) noise (numpy default_rng(20261217)), independent of treat and X",
+  "placebo_set_timing": "propensity on B(X-) timed with a seeded permutation of treat (synthetic)",
+  "cpu_note": "wall-clock seconds on the machine that ran this script",
+  "block_seconds": {
+    "A_propensity_crossfit": 15.43,
+    "Aminus_propensity_crossfit_synthetic_treat": 5.12,
+    "Aplus_propensity_crossfit": 14.48,
+    "G_outcome_crossfit": 40.96,
+    "Gminus_outcome_crossfit": 49.72,
+    "linear_outcome_crossfit": 0.1,
+    "rf_propensity_crossfit": 14.82,
+    "rf_outcome_crossfit": 18.61
+  },
+  "projected_run_seconds": {
+    "diag-overlap": 18.4,
+    "main-aipw": 59.4,
+    "placebo-re75": 57.8,
+    "rob-trim": 74.8,
+    "rob-learners": 52.0,
+    "h2-benchmark": 3.0
+  },
+  "projected_total_minutes": 4.42,
+  "projected_total_minutes_if_Bplus": 4.81,
+  "budget_minutes": 30,
+  "within_budget": true,
+  "se_per_unit_outcome_sd": 0.1514,
+  "se_per_unit_outcome_sd_note": "SE of the primary estimator for a N(0,1) noise outcome with the real full-set propensity",
+  "script_seconds": 159.3
+}

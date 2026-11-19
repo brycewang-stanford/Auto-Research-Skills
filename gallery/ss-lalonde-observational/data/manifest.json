@@ -1,3 +1,42 @@
 {
-  "datasets": []
+  "datasets": [
+    {
+      "id": "nswre74-treated",
+      "origin": "https://users.nber.org/~rdehejia/data/nswre74_treated.txt",
+      "license": "No licence is stated. Rajeev Dehejia's data page (https://users.nber.org/~rdehejia/data/.nswdata2.html) publishes the file as the data from Dehejia and Wahba (1999, JASA; 2002, REStat), drawn from LaLonde (1986), and states: 'We are grateful to him [Robert LaLonde] for allowing us to use this data, assistance in reading his original data tapes, and permission to publish it here.' Used here for non-commercial research replication; the file is not redistributed (data/raw is git-ignored).",
+      "path": "data/raw/nswre74_treated.txt",
+      "sha256": "e7b742fe0ff07a0f45e129b4ff108bb9611cd83d53604732c48a8a0a3e20eda3",
+      "retrieved_on": "2026-11-19",
+      "size_bytes": 29785,
+      "integrity_check": "No checksum is published. code/fetch_data.py checks the row count (185) and field count (10) stated on the data page and that every treat token is 1; all matched.",
+      "fetched_by": "code/fetch_data.py (run fetch-data)",
+      "rows": 185,
+      "columns": 10,
+      "note": "Contains RE78 (field 10). RE78 is not parsed by any data-prep script; it is joined back only by the first analysis run after the design gate."
+    },
+    {
+      "id": "cps1-controls",
+      "origin": "https://users.nber.org/~rdehejia/data/cps_controls.txt",
+      "license": "No licence is stated. Same data page and statement as nswre74-treated (LaLonde's permission to publish; CPS-SSA comparison group constructed by LaLonde 1986). Used here for non-commercial research replication; the file is not redistributed (data/raw is git-ignored).",
+      "path": "data/raw/cps_controls.txt",
+      "sha256": "dce640066f8bcdf447864b158b2cb0390bd3f8d6cbe3a27576a06926477d51f8",
+      "retrieved_on": "2026-11-19",
+      "size_bytes": 2574712,
+      "integrity_check": "No checksum is published. code/fetch_data.py checks the row count (15,992) and field count (10) stated on the data page and that every treat token is 0; all matched.",
+      "fetched_by": "code/fetch_data.py (run fetch-data)",
+      "rows": 15992,
+      "columns": 10,
+      "note": "Contains RE78 (field 10). RE78 is not parsed by any data-prep script."
+    },
+    {
+      "id": "analysis-noRE78",
+      "origin": "Derived from nswre74-treated and cps1-controls by code/prepare_data.py (run prepare-data): fields 1-9 of every row, zero-earnings indicators u74/u75 added, row key (src, row) added, RE78 not included. No sample restriction.",
+      "license": "Same terms as the two source files (derived subset of columns).",
+      "path": "data/derived/analysis_noRE78.csv",
+      "sha256": "35195cc4c3ce0dce11803b3c1f866b73f844ae16896cdf95d1ea639b90c3b524",
+      "retrieved_on": "2026-11-19",
+      "rows": 16177,
+      "columns": 13
+    }
+  ]
 }

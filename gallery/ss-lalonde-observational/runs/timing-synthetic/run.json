@@ -1,0 +1,52 @@
+{
+  "id": "timing-synthetic",
+  "role": "designer",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/timing_synthetic.py"
+  ],
+  "started": "2026-11-19T01:24:22Z",
+  "finished": "2026-11-19T01:27:14Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/timing_synthetic.py",
+      "sha256": "0736e939ee74196b1e24639aa975a96ec283ef4b3acd1358a22ab61e6a4198e8"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/analysis_noRE78.csv",
+      "sha256": "35195cc4c3ce0dce11803b3c1f866b73f844ae16896cdf95d1ea639b90c3b524"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/timing-synthetic/timing.json",
+      "sha256": "ab3caea74d41838308528b028b5044c16d1416c31ef14b4658f2794c007fe70e"
+    },
+    {
+      "path": "runs/timing-synthetic/metrics.json",
+      "sha256": "701489b38f8346fa13a6a3329b775aaa2d81666e507e59d3894b77cdcfc3cf3c"
+    }
+  ],
+  "metrics": {
+    "n_obs": 16177,
+    "n_treated": 185,
+    "n_folds": 5,
+    "n_repetitions": 5,
+    "seed": 20261118,
+    "clip_upper": 0.99,
+    "n_terms_B": 14,
+    "n_terms_B_minus": 11,
+    "n_terms_B_plus": 56,
+    "budget_minutes": 30
+  },
+  "metrics_file": "runs/timing-synthetic/metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

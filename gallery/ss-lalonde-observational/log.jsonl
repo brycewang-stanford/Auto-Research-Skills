@@ -14,3 +14,16 @@
 {"time": "2026-11-18T16:50:17Z", "role": "pi", "action": "plan-revised", "detail": "F15/F16 wording after question-r4 (pass). plan.json sha256=0fc569b26dc4e7a159e9d5e50713ba7a17d8779def0d94a7316d31bcb4ca7e39"}
 {"time": "2026-11-18T16:50:17Z", "role": "pi", "action": "gate-request", "detail": "question"}
 {"time": "2026-11-19T01:17:54Z", "role": "pi", "action": "gate-approve", "detail": "question Bryce Wang"}
+{"time": "2026-11-19T01:19:35Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261119T011935Z"}
+{"time": "2026-11-19T01:19:35Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261119T011935Z"}
+{"time": "2026-11-19T01:20:58Z", "role": "data-ra", "action": "run", "detail": "fetch-data exit=0"}
+{"time": "2026-11-19T01:21:27Z", "role": "data-ra", "action": "run", "detail": "prepare-data exit=0"}
+{"time": "2026-11-19T01:21:43Z", "role": "data-ra", "action": "run", "detail": "prepare-data exit=0"}
+{"time": "2026-11-19T01:22:35Z", "role": "data-ra", "action": "data-prepared", "detail": "fetch-data + prepare-data: nswre74_treated 185 rows, cps_controls 15,992 rows (both match data page); analysis_noRE78.csv 16,177 rows, RE78 not parsed; manifest and CODEBOOK written"}
+{"time": "2026-11-19T01:27:14Z", "role": "designer", "action": "run", "detail": "timing-synthetic exit=0"}
+{"time": "2026-11-19T01:29:57Z", "role": "designer", "action": "design-written", "detail": "design and tasks written: adopted ss-null-effect cross-fitted AIPW ATT with 12 listed deviations (DEV-1..DEV-12), H3 placebo rule, H2 after results gate, code review before analysis runs; timing-synthetic projects 4.4 min (4.8 with B+) of 30. diag-overlap pending. plan.json sha256=320cc2cf094043462c430df864a96aad8f0a4f7da1668327ebbb37982c78203b"}
+{"time": "2026-11-19T05:45:27Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261119T054527Z"}
+{"time": "2026-11-19T05:47:59Z", "role": "econometrician", "action": "run", "detail": "diag-overlap exit=0"}
+{"time": "2026-11-19T05:48:13Z", "role": "econometrician", "action": "diag-overlap-run", "detail": "data-prep diag-overlap on analysis_noRE78.csv, basis B(X) 14 terms, seeds 20261118+s: B1 pass (max |SMD| 0.059 age_sq), O1 pass (0/185 treated m_bar>0.9), O2 pass (0 clipped); no B+ fallback; Kish ESS 126.4; max control weight 6.41; rob-trim drops 8125 CPS men (keeps 7867)"}
+{"time": "2026-11-19T06:52:38Z", "role": "pi", "action": "diagnostics-recorded", "detail": "B1/O1/O2 pass recorded. plan.json sha256=20b2f5cffda69978b8150edd87bcf4a1714155d238a5afec365f8775f00fbe42"}
+{"time": "2026-11-19T06:52:59Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261119T065259Z"}

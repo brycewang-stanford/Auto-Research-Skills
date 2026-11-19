@@ -1,0 +1,21 @@
+{
+  "nswre74_treated_size_bytes": 29785,
+  "nswre74_treated_sha256": "e7b742fe0ff07a0f45e129b4ff108bb9611cd83d53604732c48a8a0a3e20eda3",
+  "nswre74_treated_rows": 185,
+  "nswre74_treated_rows_expected": 185,
+  "nswre74_treated_rows_match": true,
+  "nswre74_treated_fields_per_row": "10",
+  "nswre74_treated_fields_match": true,
+  "nswre74_treated_treat_tokens": "1.0000000e+000",
+  "nswre74_treated_treat_match": true,
+  "cps_controls_size_bytes": 2574712,
+  "cps_controls_sha256": "dce640066f8bcdf447864b158b2cb0390bd3f8d6cbe3a27576a06926477d51f8",
+  "cps_controls_rows": 15992,
+  "cps_controls_rows_expected": 15992,
+  "cps_controls_rows_match": true,
+  "cps_controls_fields_per_row": "10",
+  "cps_controls_fields_match": true,
+  "cps_controls_treat_tokens": "0.0000000e+000",
+  "cps_controls_treat_match": true,
+  "experimental_controls_fetched": false
+}

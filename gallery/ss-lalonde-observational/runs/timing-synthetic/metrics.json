@@ -1,0 +1,12 @@
+{
+  "n_obs": 16177,
+  "n_treated": 185,
+  "n_folds": 5,
+  "n_repetitions": 5,
+  "seed": 20261118,
+  "clip_upper": 0.99,
+  "n_terms_B": 14,
+  "n_terms_B_minus": 11,
+  "n_terms_B_plus": 56,
+  "budget_minutes": 30
+}
