@@ -8,7 +8,7 @@
 > 包括真实的实验或数据建模，关键决策由人类 PI 把关。
 
 Status: plan adopted 2026-11-18 and compressed into a one-week sprint the same day
-(section 3). The crew is built under [`crew/`](crew/); five papers are final and one more is in progress
+(section 3). The crew is built under [`crew/`](crew/); all six seed papers are final
 in [`gallery/`](gallery/).
 
 ## 1. Where we are
@@ -108,7 +108,7 @@ human PI at four gates, so the papers move at the speed of those approvals.
 | 2 | Thu 11-19 | Question and design gates for both seeds; null-effect seed (true effect zero; the crew must not find one); Codex adapter | done early (11-18): all three question gates and all three design gates approved; null-effect seed and Codex adapter built |
 | 3 | Fri 11-20 | Data and analysis runs; results reviews; results gates | done (11-19): all three results gates approved; 401(k) main estimates within tolerance |
 | 4 | Sat 11-21 | Figures, papers, clean reruns, submission gates → first two gallery papers with token cost and wall time | done early (11-19): cs-label-noise, ss-null-effect and ss-dml-401k final, each with a passing clean rerun |
-| 5 | Sun 11-22 | Null-effect seed run; three more seeds (six in total) with sourced answer keys; bench scorer; scoreboard page on the site | mostly done (11-19): six seeds with answer keys, scorer and scoreboard built; Card–Krueger and calibration papers final; LaLonde past its results gate, paper in progress; per-paper token cost and time measured by `crew/scripts/usage.py` ([`gallery/usage.json`](gallery/usage.json)); gate approval enforced by a hook (`crew/hooks/guard.py`); answer keys moved out of the plugin to `answer-keys/` |
+| 5 | Sun 11-22 | Null-effect seed run; three more seeds (six in total) with sourced answer keys; bench scorer; scoreboard page on the site | done (11-19/20): six seeds with answer keys, scorer and scoreboard built; all six papers final (Card–Krueger, calibration and LaLonde added); per-paper token cost and time measured by `crew/scripts/usage.py` ([`gallery/usage.json`](gallery/usage.json)); gate approval enforced by a hook (`crew/hooks/guard.py`); answer keys moved out of the plugin to `answer-keys/` |
 | 6 | Mon 11-23 | Run further seeds as gates allow; role kits (skills picked per role from the hub) | |
 | 7 | Tue 11-24 | Launch kit: demo video, bilingual posts (Zhihu, Xiaohongshu, WeChat, X), Show HN draft, technical-report draft, new cover images | |
 | 8 | Wed 11-25 | Release v0.5; GitHub Discussions; tracking issues; the human posts the launch | |

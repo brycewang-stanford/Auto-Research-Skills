@@ -85,7 +85,7 @@ argument for rejection, and review rounds are bounded.
 
 ## Limits of v0.1
 
-- Five seed papers have passed all four gates; the sixth is in progress in
+- All six seed papers have passed all four gates; see
   [`gallery/`](../gallery/README.md). Each cost about $58–103 of model usage at API list
   prices; `python3 scripts/usage.py <workspace>` measures a project from the local
   Claude Code transcripts.

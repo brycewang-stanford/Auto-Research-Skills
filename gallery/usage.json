@@ -1,5 +1,5 @@
 {
-  "measured_on": "2026-11-19T22:47:22+08:00",
+  "measured_on": "2026-11-20T01:07:57+08:00",
   "prices_usd_per_mtok": {
     "claude-opus-5-5": {
       "input": 4.0,
@@ -59,28 +59,28 @@
         "pi": {
           "tokens": {
             "input": 244,
-            "output": 82777,
-            "cache_read": 38765563,
+            "output": 82812,
+            "cache_read": 38804608,
             "cache_write_5m": 0,
-            "cache_write_1h": 894590
+            "cache_write_1h": 895025
           },
-          "api_usd": 16.69,
+          "api_usd": 16.7,
           "unpriced_models": []
         }
       },
       "tokens": {
         "input": 1606,
-        "output": 790422,
-        "cache_read": 116249458,
+        "output": 790456,
+        "cache_read": 116288502,
         "cache_write_5m": 4761180,
-        "cache_write_1h": 894590
+        "cache_write_1h": 895025
       },
       "models": [
         "<synthetic>",
         "claude-fable-5-2",
         "claude-opus-5-5"
       ],
-      "api_usd": 70.15,
+      "api_usd": 70.16,
       "unpriced_models": [
         "<synthetic>"
       ]
@@ -109,26 +109,26 @@
         "pi": {
           "tokens": {
             "input": 235,
-            "output": 77969,
-            "cache_read": 39943656,
+            "output": 78003,
+            "cache_read": 39982700,
             "cache_write_5m": 0,
-            "cache_write_1h": 146850
+            "cache_write_1h": 147285
           },
-          "api_usd": 10.72,
+          "api_usd": 10.74,
           "unpriced_models": []
         }
       },
       "tokens": {
         "input": 1777,
-        "output": 860598,
-        "cache_read": 127979234,
+        "output": 860632,
+        "cache_read": 128018279,
         "cache_write_5m": 4251852,
-        "cache_write_1h": 146850
+        "cache_write_1h": 147285
       },
       "models": [
         "claude-opus-5-5"
       ],
-      "api_usd": 65.25,
+      "api_usd": 65.26,
       "unpriced_models": []
     },
     {
@@ -154,28 +154,28 @@
         },
         "pi": {
           "tokens": {
-            "input": 304,
-            "output": 105581,
-            "cache_read": 56060601,
+            "input": 305,
+            "output": 105616,
+            "cache_read": 56099645,
             "cache_write_5m": 0,
-            "cache_write_1h": 453005
+            "cache_write_1h": 453440
           },
-          "api_usd": 17.19,
+          "api_usd": 17.2,
           "unpriced_models": []
         }
       },
       "tokens": {
-        "input": 2106,
-        "output": 1045284,
-        "cache_read": 171865393,
+        "input": 2107,
+        "output": 1045318,
+        "cache_read": 171904438,
         "cache_write_5m": 8672845,
-        "cache_write_1h": 453005
+        "cache_write_1h": 453440
       },
       "models": [
         "claude-fable-5-2",
         "claude-opus-5-5"
       ],
-      "api_usd": 102.51,
+      "api_usd": 102.53,
       "unpriced_models": []
     },
     {
@@ -201,28 +201,28 @@
         },
         "pi": {
           "tokens": {
-            "input": 150,
-            "output": 48315,
-            "cache_read": 33486393,
+            "input": 151,
+            "output": 48350,
+            "cache_read": 33525437,
             "cache_write_5m": 0,
-            "cache_write_1h": 1344031
+            "cache_write_1h": 1344466
           },
-          "api_usd": 18.42,
+          "api_usd": 18.43,
           "unpriced_models": []
         }
       },
       "tokens": {
-        "input": 1134,
-        "output": 625407,
-        "cache_read": 90644289,
+        "input": 1135,
+        "output": 625442,
+        "cache_read": 90683333,
         "cache_write_5m": 3447895,
-        "cache_write_1h": 1344031
+        "cache_write_1h": 1344466
       },
       "models": [
         "claude-haiku-5-5",
         "claude-opus-5-5"
       ],
-      "api_usd": 58.49,
+      "api_usd": 58.5,
       "unpriced_models": []
     },
     {
@@ -248,73 +248,73 @@
         },
         "pi": {
           "tokens": {
-            "input": 196,
-            "output": 61670,
-            "cache_read": 35828640,
+            "input": 199,
+            "output": 62053,
+            "cache_read": 35969413,
             "cache_write_5m": 0,
-            "cache_write_1h": 568759
+            "cache_write_1h": 570129
           },
-          "api_usd": 12.95,
+          "api_usd": 13.0,
           "unpriced_models": []
         }
       },
       "tokens": {
-        "input": 1604,
-        "output": 797101,
-        "cache_read": 130548634,
+        "input": 1607,
+        "output": 797484,
+        "cache_read": 130689407,
         "cache_write_5m": 4639895,
-        "cache_write_1h": 568759
+        "cache_write_1h": 570129
       },
       "models": [
         "claude-opus-5-5"
       ],
-      "api_usd": 69.81,
+      "api_usd": 69.85,
       "unpriced_models": []
     },
     {
       "workspace": "ss-lalonde-observational",
       "started": "2026-11-18T16:28:21+00:00",
-      "finished": "2026-11-19T13:59:29+00:00",
-      "complete": false,
-      "elapsed_hours": 21.5,
+      "finished": "2026-11-19T17:07:34+00:00",
+      "complete": true,
+      "elapsed_hours": 24.7,
       "human_gate_wait_hours": 8.8,
       "logged_compute_minutes": 14.0,
-      "subagent_transcripts": 17,
+      "subagent_transcripts": 20,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 1152,
-            "output": 610009,
-            "cache_read": 84147702,
-            "cache_write_5m": 3504470,
+            "input": 1554,
+            "output": 747606,
+            "cache_read": 111069618,
+            "cache_write_5m": 4963836,
             "cache_write_1h": 0
           },
-          "api_usd": 46.56,
+          "api_usd": 61.99,
           "unpriced_models": []
         },
         "pi": {
           "tokens": {
-            "input": 178,
-            "output": 49785,
-            "cache_read": 31010321,
+            "input": 236,
+            "output": 62307,
+            "cache_read": 35708467,
             "cache_write_5m": 0,
-            "cache_write_1h": 559499
+            "cache_write_1h": 763084
           },
-          "api_usd": 11.67,
+          "api_usd": 14.49,
           "unpriced_models": []
         }
       },
       "tokens": {
-        "input": 1330,
-        "output": 659794,
-        "cache_read": 115158022,
-        "cache_write_5m": 3504470,
-        "cache_write_1h": 559499
+        "input": 1790,
+        "output": 809913,
+        "cache_read": 146778085,
+        "cache_write_5m": 4963836,
+        "cache_write_1h": 763084
       },
       "models": [
         "claude-opus-5-5"
       ],
-      "api_usd": 58.23,
+      "api_usd": 76.48,
       "unpriced_models": []
     }
   ]

@@ -9,7 +9,7 @@ decisions. Failures stay here next to successes.
 | [How much does training-label noise hurt common tabular classifiers?](cs-label-noise/) | CS | [`cs-label-noise`](../crew/bench/seeds/cs-label-noise/task.json) | **Final** (all four gates approved). Both hypotheses inconclusive; clean rerun 20/20. [PDF](cs-label-noise/paper/main.pdf) |
 | [Did a job-training program raise participants' earnings?](ss-null-effect/) | Social science (null-effect test) | [`ss-null-effect`](../crew/bench/seeds/ss-null-effect/task.json) | **Final** (all four gates approved). Effect −$9.8, 95% CI [−358, 338]; answer key **pass** (no effect found where none exists); clean rerun 23/23. [PDF](ss-null-effect/paper/main.pdf) |
 | [Does 401(k) eligibility raise household net financial assets? A DML replication](ss-dml-401k/) | Social science | [`ss-dml-401k`](../crew/bench/seeds/ss-dml-401k/task.json) | **Final** (all four gates approved). All 10 cells within the pre-registered tolerances; the test cannot see shifts of a few hundred dollars and the lasso cell is untestable; clean rerun passed. [PDF](ss-dml-401k/paper/main.pdf) |
-| [Can observational estimators recover an experimental job-training effect?](ss-lalonde-observational/) | Social science | [`ss-lalonde-observational`](../crew/bench/seeds/ss-lalonde-observational/task.json) | Results approved: contrast $1,573 [10, 3,136] within cross-fitting noise; placebo failed, so a statistical contrast, not a program effect; benchmark comparison, figures and paper next |
+| [Can observational estimators recover an experimental job-training effect?](ss-lalonde-observational/) | Social science | [`ss-lalonde-observational`](../crew/bench/seeds/ss-lalonde-observational/task.json) | **Final** (all four gates approved). Contrast $1,573 [9.6, 3,136], within cross-fitting noise; placebo failed, so a statistical contrast, not a program effect; not robust to three pre-specified checks; $221 below the experimental benchmark (descriptive); clean rerun 19/19. [PDF](ss-lalonde-observational/paper/main.pdf) |
 | [Did New Jersey's 1992 minimum-wage increase reduce fast-food employment?](ss-card-krueger/) | Social science | [`ss-card-krueger`](../crew/bench/seeds/ss-card-krueger/task.json) | **Final** (all four gates approved). H1(b), H1(c) reproduced; H1(a) points within tolerance but not at published precision, row-3 SE construction not identified; tail winsorization keeps 0.85 of the effect; clean rerun 15/15. [PDF](ss-card-krueger/paper/main.pdf) |
 | [Are tabular classifiers' probabilities calibrated?](cs-calibration/) | CS | [`cs-calibration`](../crew/bench/seeds/cs-calibration/task.json) | **Final** (all four gates approved). H1 contradicted, H2a inconclusive, H2b no difference (both H2 verdicts depend on one dataset); clean rerun 13/13. [PDF](cs-calibration/paper/main.pdf) |
 
@@ -30,7 +30,7 @@ time each paper waited for the human at its gates.
 | ss-dml-401k | 25.0 h | 0.4 h | 106 min | ~$103 |
 | ss-card-krueger | 20.3 h | 9.7 h | <1 min | ~$58 |
 | cs-calibration | 21.3 h | 13.1 h | 2 min | ~$70 |
-| ss-lalonde-observational (in progress) | 21.5 h so far | 8.8 h | 14 min | ~$58 so far |
+| ss-lalonde-observational | 24.7 h | 8.8 h | 14 min | ~$76 |
 
 About 80% of the usage is the role subagents (17–29 per paper); the rest is the PI
 session, whose requests are split among the papers it was running at the time. The six
