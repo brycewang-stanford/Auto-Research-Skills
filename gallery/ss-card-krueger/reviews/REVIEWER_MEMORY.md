@@ -162,3 +162,27 @@ At results-r2 or the paper, check:
 - H2 wording: tails only, no "survives NW" (question-r3 F10). The low-tail capped stores are large (mean FTE1 46 vs
   21), so watch that the Ropponen comparison is not overstated.
 - Placebo: descriptive only, and never offered as support for parallel trends.
+
+## Round results-r2 (2026-11-19): verdict pass
+
+Checked, and it held:
+- The code hashes are unchanged: ck_analysis 632d2203..., verdict 65599671..., test_ck f53561d8.... `validate --strict` is OK. I re-executed all 7
+  ck_analysis entry points and verdict.py in scratch (ck-reviewer3/ws) from stores.csv, and every metrics.json and capped.csv is byte-identical.
+  The ledger matches NOTES: each analysis run executed once, and the only superseded run is check-synthetic.
+- results-r1 F1-F3 are resolved. NOTES, the H1(a) claim texts and sources/notes.md now say "within tolerance, not at published precision, not
+  rounding, source unidentified". The SE direction is fixed, the placebo SE 0.98 vs 1.14 is reported and labelled unplanned, and the tasks are done.
+- The pre-registered labels are intact: the N=357 data check; H2's secondaries report-only; placebo-hiwage "Not evidence for parallel trends";
+  "SE construction not identified" covers the whole row-3 column.
+
+New, both minor and open:
+- F4: replicated row 3 == row2 - row1 exactly (same wave samples). "Rows 1-2 match every printed digit, so the gap is specific to row 3" is
+  a false contrast. The row-3 gap implies sub-rounding differences in the wave means; the location among the 26 single-wave stores is a conjecture.
+- F5: Table 4 dep mean -0.237535 prints as -0.238 vs the published -0.237 (sum -84.80 vs <= -84.7875). NOTES line 233 says it matches.
+
+At the paper stage, check:
+- No "rows 1-2 match exactly / gap specific to row 3" contrast. No "Table 4 matches every digit" unless the dependent mean is qualified.
+- No placebo SE 0.98 is typed by hand: there is no claim for chg_r3_nj_hi_se, so the Writer needs one or must omit it.
+- NW rule: NOTES says "appear to coincide". The paper must not say "same sample as NW".
+- The H2 wording covers tails only, with no "survives NW". The Ropponen comparison is not overstated (low-tail capped mean FTE1 46 vs 21).
+- The headline is "within the 0.05 tolerance", never a bare "reproduced". The DiD SE is "within tolerance by 0.00003; SE construction not identified".
+- code-r1 F1-F3 are still marked open in the code-r1 file, although they are fixed. Rule them resolved if a code round reopens.

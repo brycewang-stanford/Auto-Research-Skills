@@ -76,8 +76,15 @@ employment".
   against the published 2.76 / -2.16 / 0.59.
   - The 0.0064 DiD gap is therefore a real discrepancy, and **its source is unidentified**.
   - It could be the data release (T1) or an inconsistency in the published table.
-  - Rows 1-2, 4 and 5 and Table 4 column (i) match every printed digit, so the discrepancy
-    is specific to the unbalanced row-3 sample (results-r1 F1).
+  - **Where the gap lies (results-r2 F4):** rows 1-3 use the same wave samples, and the
+    replicated row 3 is exactly row 2 minus row 1. So the gap lies in the **unbalanced wave
+    means**. Card and Krueger's unrounded NJ change must be at least 0.0020 higher than ours,
+    and their PA change at least 0.0006 higher.
+  - Rows 1-2 match only at printed (two-decimal) precision, a test too weak to detect a
+    difference that small. They do not confirm the wave means.
+  - The balanced row 4 matches, as do row 5 and Table 4 column (i).
+  - This fits a difference among the stores observed in only one wave, or a data difference
+    below rounding, but proves neither.
   - Do not describe it as rounding.
 
 ### Published regressions: Table 4, "Reduced-form models for change in employment" (p. 780)

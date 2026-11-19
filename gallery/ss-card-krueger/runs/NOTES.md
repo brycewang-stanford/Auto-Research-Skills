@@ -212,9 +212,22 @@ Numbers are rounded here; the claims carry the unrounded values.
     unrounded NJ change must lie in (0.590, 0.595) and the PA change in (-2.165,
     -2.160). The replicated NJ 0.5880 and PA -2.1656 lie outside both. So the 0.0064
     DiD gap is **not rounding**. Its source is unidentified: it could be the data vintage
-    (threat T1) or an inconsistency in the published table. By contrast, rows 1-2 (levels
-    and SEs), row 4, row 5 and Table 4 column (i) match every printed digit. The
-    discrepancy is therefore specific to the unbalanced row-3 sample.
+    (threat T1) or an inconsistency in the published table.
+
+    **Where the gap is** (results-r2 F4). Rows 1-3 use the same wave samples (n_w1 77/321,
+    n_w2 77/319). The replicated row 3 is exactly row 2 minus row 1, to machine
+    precision, both for the state changes and for the DiD. So the gap is in the unbalanced
+    wave means themselves. The published row 3 implies that CK's unrounded wave means
+    differ from ours by amounts below the printed precision: enough to raise the NJ
+    change by at least 0.0020 and the PA change by at least 0.0006. Rows 1-2 match only
+    at their two printed decimals. That test is too coarse to detect differences this
+    small, so it is not a contrast with row 3. The balanced row 4 matches.
+
+    This pattern is consistent with a difference among the 26 stores observed in one wave
+    only (PA 2 + 2, NJ 12 + 10). It is equally consistent with a sub-rounding data
+    difference. Both are conjectures; the data cannot tell them apart. Row 5 matches. In
+    Table 4 column (i), the coefficient, SE, N, root MSE and SD match; the dependent mean
+    misses by a hair (see H1(c)).
     `sources/notes.md` (Scout, lines 70-72) still calls a 2.75-or-2.76 result "only a
     rounding difference". That is wrong for these values and must not be used in the
     paper.
@@ -229,8 +242,17 @@ Numbers are rounded here; the claims carry the unrounded values.
     headline SE being reproduced. The paper should say "within tolerance (by 0.00003);
     row-3 SE construction not identified".
 - **H1(b): reproduced.** Every target, points and SEs, is met.
-- **H1(c): reproduced.** N = 357 was already known from data prep. Root MSE is 8.79 and
-  the mean and SD of DFTE are -0.237 and 8.825, all matching the published values.
+- **H1(c): reproduced.** N = 357 was already known from data prep. These match the
+  published values at every printed digit: the coefficient, its SE, N, the root MSE
+  (8.79) and the SD of DFTE (8.825).
+  - The mean of DFTE does not match exactly (results-r2 F5). It is -0.2375 (unrounded
+    -0.237535, so it prints -0.238), against the published -0.237. That is just outside
+    the rounding interval [-0.2375, -0.2365), by 0.00004: the DFTE sum over the 357
+    stores is -84.800, against at most -84.7875 implied by the published figure.
+  - The cause could be a printing convention (truncation) or a sub-rounding data
+    difference.
+  - It is not a pre-registered target, so H1(c) is unaffected. Claim `reg-dep-mean` now
+    prints 4 decimals.
 - **H2 holds.** On the 384 balanced stores, the pooled 5/95 cutoffs are -17.425 and
   13.7125. The winsorized DiD is 2.34 (SE 1.10), against 2.75 unwinsorized, a ratio of
   0.851. The sign is the same and more than half the magnitude is kept.
@@ -265,9 +287,13 @@ Numbers are rounded here; the claims carry the unrounded values.
    row-3 S1 SE is low (see H1(a) above). The verdict applies the pre-registered rule
    exactly, but the paper should say how close it is.
 3. **Row-3 points not at published precision** (results-r1 F1). The row-3 DiD and PA
-   change differ from the published values by more than rounding allows. Every other
-   replicated table entry matches at every printed digit. The source of the gap is
-   unidentified.
+   change differ from the published values by more than rounding allows. The gap is in
+   the unbalanced wave means (rows 1-3 share the wave samples; rows 1-2 match only at
+   printed precision). The balanced row 4, row 5, and the Table 4 coefficient, SE, N,
+   root MSE and SD match. Its source is unidentified. A difference among the 26
+   single-wave stores is a conjecture.
+4. **Table 4 dependent mean** (results-r2 F5): -0.2375 against the published -0.237, just
+   outside rounding. Not a target.
 
 ## Claims
 
@@ -289,6 +315,10 @@ numbers use 2 decimals, as in the paper. After results-r1, the texts of the H1(a
 add two statements. Row 3 is reproduced within tolerance, but not at published precision,
 and the gap is not rounding. The row-3 SE met flags must not be read as the headline SE
 being reproduced. The values did not change; numbers.tex was regenerated and is identical.
+After results-r2, the H1(a) point-claim texts locate the gap in the unbalanced wave means
+(F4). They limit the exact Table 4 match to the coefficient, SE, N, root MSE and SD (F5).
+`reg-dep-mean` now uses format `.4f`, which changes only how \RegDepMean prints
+(-0.2375).
 
 ## Deviations
 
