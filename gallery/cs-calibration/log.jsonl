@@ -58,3 +58,4 @@
 {"time": "2026-11-19T07:44:55Z", "role": "experimenter", "action": "run", "detail": "sens-elec-time exit=0"}
 {"time": "2026-11-19T07:47:11Z", "role": "experimenter", "action": "analysis-runs-done", "detail": "main (2.55 CPU-min), h-tests, describe, sens-ncal, sens-elec-time run in plan order after plan-narrowed (sha256 bee7499f); H1 contradicted (adult inconclusive, bank contradicted, elec holds, phoneme contradicted); H2a inconclusive; H2b no difference"}
 {"time": "2026-11-19T07:47:12Z", "role": "experimenter", "action": "claims-written", "detail": "354 result claims from run metrics (all H1/H2a/H2b per-dataset mean/lo/hi/category and overall codes, ece_db sensitivity, sens-ncal, sens-elec-time, descriptive means and intervals, checks); numbers.tex regenerated"}
+{"time": "2026-11-19T08:01:44Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261119T080143Z"}
