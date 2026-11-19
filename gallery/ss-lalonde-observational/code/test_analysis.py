@@ -385,6 +385,29 @@ def test_rules():
 
 
 @test
+def test_mbar_check():
+    m = np.array([0.5, 1e-4, 0.9])
+    check(L.mbar_check(m.copy(), m)["ok"], "equal")
+    c = L.mbar_check(np.array([0.5 + 4e-10, 1e-4 + 5e-13, 0.9]), m)
+    check(c["ok"] and c["n_outside_tol"] == 0, "within 1e-12 + 1e-9 m_bar")
+    c = L.mbar_check(np.array([0.5, 1e-4 + 5e-12, 0.9 + 1e-6]), m)
+    check(not c["ok"] and c["n_outside_tol"] == 2 and close(c["max_abs_diff"], 1e-6, 1e-6), "outside")
+
+
+@test
+def test_hgb_thread_invariance():
+    """code-r1 F1: the outcome learner's predictions do not depend on the OpenMP thread count."""
+    rng = np.random.default_rng(13)
+    X = rng.normal(size=(4000, 8))
+    y = X[:, 0] * 3 + np.sin(X[:, 1]) * 5 + rng.normal(size=4000)
+    preds = []
+    for k in (1, 4):
+        with threadpool_limits(limits=k, user_api="openmp"):
+            preds.append(L.outcome_learner(L.SEED).fit(X, y).predict(X))
+    check(np.array_equal(preds[0], preds[1]), "1 vs 4 threads")
+
+
+@test
 def test_trim_keep():
     m_bar = np.array([0.2, 0.05, 0.01, 0.05, 0.2, 0.3, 0.001])
     d = np.array([1, 1, 0, 0, 0, 0, 1])
@@ -622,6 +645,7 @@ def test_end_to_end_synthetic():
             got = pd.read_csv("data/derived/re78_by_key.csv")
             check(np.array_equal(got["re78"].to_numpy(), exp["re78"].to_numpy(float)), "joined file")
             check(m["max_abs_diff_mbar_vs_diag_overlap"] < 1e-12, "m_bar = diag-overlap (csv has 12 digits)")
+            check(m["mbar_matches_diag_overlap"] is True and m["n_mbar_outside_tol_vs_diag_overlap"] == 0, "F3 flag")
             check(m["unobserved_re78_treated"] == 0 and m["unobserved_re78_control"] == 0, "no missing")
             check(m["ipow_trigger"] is False, "trigger off")
             check(m["n"] == diag["n"] and m["n_control"] == diag["n_control"], "n")
@@ -648,13 +672,26 @@ def test_end_to_end_synthetic():
             for mod in (rob_trim, rob_learners, rob_covsets, rob_estimators, rob_diff74, sens_imbens):
                 check(quiet(mod.main) == 0, mod.__name__)
             check("not planned" in expect_exit(rob_ipow.main), "rob-ipow refuses without trigger")
-            check(quiet(h2_benchmark.main) == 0, "h2")
+            # F4: h2-benchmark refuses unless the results gate is approved.
+            check(not Path("plan.json").exists(), "synthetic ws has no plan.json yet")
+            for status in ("pending", "rejected"):
+                Path("plan.json").write_text(json.dumps({"gates": {"results": {"status": status}}}))
+                check("results gate" in expect_exit(h2_benchmark.main), f"h2 refuses ({status})")
+                check(not Path("runs/h2-benchmark/metrics.json").exists(), "nothing written")
+            Path("plan.json").write_text(json.dumps({"gates": {"results": {"status": "approved"}}}))
+            check(quiet(h2_benchmark.main) == 0, "h2 after approval")
 
             t = metrics(ws, "rob-trim")
             check(t["n_treated_dropped"] == 0 and t["n_treated"] == diag["n_treated"], "trim keeps treated")
             check(t["n_control_dropped"] == diag["trim_n_control_dropped"]
                   and t["n_control_dropped_matches_diag_overlap"], "trim count = diag-overlap")
-            check(t["max_abs_diff_mbar_vs_diag_overlap"] < 1e-12, "trim m_bar")
+            check(t["max_abs_diff_mbar_vs_diag_overlap"] < 1e-12 and t["mbar_matches_diag_overlap"], "trim m_bar")
+            check(t["n_control_dropped_minus_diag_overlap"] == 0, "trim count difference reported")
+            # F2: convergence counts are written by every AIPW robustness script.
+            check("n_convergence_warnings" in t and "n_convergence_warnings_trim_propensity" in t, "trim conv")
+            check("linear_n_convergence_warnings" in metrics(ws, "rob-learners"), "learners conv")
+            check(all(f"covset_{k}_n_convergence_warnings" in metrics(ws, "rob-covsets") for k in "ab"), "covsets conv")
+            check("n_convergence_warnings" in metrics(ws, "rob-diff74"), "diff74 conv")
             RECORD["e2e_trim_n_control_dropped"] = t["n_control_dropped"]
             c = metrics(ws, "rob-covsets")
             check(c["covset_a_basis_n_terms"] == 11 and c["covset_a_tree_n_columns"] == 7
@@ -671,6 +708,9 @@ def test_end_to_end_synthetic():
             check(close(s["target_zero"], min(abs(m["ci_low"]), abs(m["ci_high"]))), "t_0")
             RECORD["e2e_sens_r2star_zero"] = s["r2star_zero"]
             RECORD["e2e_em_nonconverged"] = s["em_nonconverged_points"]
+            check(s["logit_gamma0_converged"] and s["logit_full_converged"]
+                  and all(s[f"bench_{g}_logit_converged"] for g in sens_imbens.GROUPS)
+                  and s["n_logits_nonconverged"] == 0, "sens logits converged (F2)")
             h = metrics(ws, "h2-benchmark")
             check(close(h["h2_diff"], m["effect"] - h2_benchmark.BENCH), "h2")
 
@@ -682,6 +722,18 @@ def test_end_to_end_synthetic():
             # Rerun determinism of main-aipw on the same files.
             before = metrics(ws, "main-aipw")
             check(quiet(main_aipw.main) == 0 and metrics(ws, "main-aipw") == before, "main-aipw deterministic")
+
+            # F3: main-aipw stops if diag-overlap's propensities differ from the refit.
+            prop = Path("runs/diag-overlap/propensity.csv")
+            text = prop.read_text()
+            pdf = pd.read_csv(prop)
+            pdf.loc[5, "m_bar"] = pdf.loc[5, "m_bar"] * (1 + 1e-6)
+            pdf.to_csv(prop, index=False, float_format="%.12g")
+            try:
+                check("differ from diag-overlap" in expect_exit(main_aipw.main), "main stops on m_bar mismatch")
+                check(metrics(ws, "main-aipw")["mbar_matches_diag_overlap"] is False, "mismatch recorded")
+            finally:
+                prop.write_text(text)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
@@ -707,7 +759,8 @@ def test_end_to_end_missing_outcomes():
                   and m["inadmissible_re78_control"] == 1, "counts")
             check(m["n"] == len(df) - n_sent - 2 and m["n_treated"] == len(t_idx) - n_sent, "complete cases")
             check(m["ipow_trigger"] is True, "trigger fires")
-            check("max_abs_diff_mbar_vs_diag_overlap" not in m, "no m_bar comparison on a subsample")
+            check("max_abs_diff_mbar_vs_diag_overlap" not in m
+                  and str(m["mbar_matches_diag_overlap"]).startswith("not applicable"), "no m_bar comparison on a subsample")
             check(quiet(rob_ipow.main) == 0, "rob-ipow")
             o = metrics(ws, "rob-ipow")
             check(o["n"] == len(df) and o["n_observed"] == len(df) - n_sent - 2, "ipow sample")

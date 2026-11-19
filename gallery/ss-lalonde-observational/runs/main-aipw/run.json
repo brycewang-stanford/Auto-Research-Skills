@@ -1,0 +1,137 @@
+{
+  "id": "main-aipw",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    ".venv/bin/python",
+    "-I",
+    "code/main_aipw.py"
+  ],
+  "started": "2026-11-19T12:35:36Z",
+  "finished": "2026-11-19T12:36:14Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/main_aipw.py",
+      "sha256": "f11ba854eab438439ec4f0a748a4309a7e2ed49ef1288bcf55fedbccd1df7336"
+    },
+    {
+      "path": "code/aipw_lib.py",
+      "sha256": "78867e6976d3ee5bffea6d72ca022801ef61475f8b92fa5bb90b132b6f850d95"
+    },
+    {
+      "path": "code/diag_overlap.py",
+      "sha256": "e931ff4075f577ef0397c4f19b3ba3c1cd1e0373ea1ea245290f008e3a7eb115"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/analysis_noRE78.csv",
+      "sha256": "35195cc4c3ce0dce11803b3c1f866b73f844ae16896cdf95d1ea639b90c3b524"
+    },
+    {
+      "path": "data/raw/nswre74_treated.txt",
+      "sha256": "e7b742fe0ff07a0f45e129b4ff108bb9611cd83d53604732c48a8a0a3e20eda3"
+    },
+    {
+      "path": "data/raw/cps_controls.txt",
+      "sha256": "dce640066f8bcdf447864b158b2cb0390bd3f8d6cbe3a27576a06926477d51f8"
+    },
+    {
+      "path": "runs/diag-overlap/metrics.json",
+      "sha256": "0f3a156de0198a2144914e5e8d2e684a6fed46846213aa93c2bf1bfa16e613a8"
+    },
+    {
+      "path": "runs/diag-overlap/propensity.csv",
+      "sha256": "f705a34212ec568811e5c4c07097d16b8e8b411ab4d9a4721149a4e35d0d1eef"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/derived/re78_by_key.csv",
+      "sha256": "71d3e815eb68e06d986583e97b3317d1ce49d0ee787c349a114178f9c0dec2c2"
+    },
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "fd8ba72636658dfb5716b8f0eef8ba93ec7754db6a3aebf4380a08264115169f"
+    }
+  ],
+  "metrics": {
+    "outcome": "re78",
+    "units": "1982 dollars",
+    "estimand": "ATT, all NSW-treated men with admissible re78 (complete cases)",
+    "seed_base": 20261118,
+    "n_folds": 5,
+    "n_repetitions": 5,
+    "clip_upper": 0.99,
+    "propensity_basis": "B(X)",
+    "propensity_basis_n_terms": 14,
+    "tree_n_columns": 10,
+    "n_rows_joined": 16177,
+    "effect": 1572.764316543202,
+    "se": 797.5433542833656,
+    "ci_low": 9.60806603853689,
+    "ci_high": 3135.9205670478673,
+    "p": 0.04860834380666138,
+    "n": 16177,
+    "n_treated": 185,
+    "n_control": 15992,
+    "n_clipped_units": 0,
+    "h1_holds": true,
+    "theta_rep0": 1596.7454680125325,
+    "se_rep0": 786.4947041845599,
+    "theta_rep1": 1612.490494737136,
+    "se_rep1": 793.8812078306402,
+    "theta_rep2": 1522.0680315032507,
+    "se_rep2": 786.8452145646683,
+    "theta_rep3": 1511.4803498082108,
+    "se_rep3": 784.4313941253317,
+    "theta_rep4": 1621.03723865488,
+    "se_rep4": 828.4252147379185,
+    "se_psi_bar": 791.0789995709115,
+    "n_clipped_unit_reps": 0,
+    "n_convergence_warnings": 0,
+    "treated_mean": 6349.143530270271,
+    "cf_mean": 4776.379213727069,
+    "rel_effect": 0.3292796166651002,
+    "rel_se": 0.19402917696579786,
+    "rel_ci_low": -0.05101058213781223,
+    "rel_ci_high": 0.7095698154680126,
+    "rel_effect_pct": 32.92796166651002,
+    "rel_ci_low_pct": -5.101058213781223,
+    "rel_ci_high_pct": 70.95698154680126,
+    "control_mean_raw": 14846.659672907264,
+    "share_treated_above_09": 0.0,
+    "n_treated_above_09": 0,
+    "share_clipped_units": 0.0,
+    "rule_O1_pass": true,
+    "rule_O2_pass": true,
+    "kish_ess_controls": 126.43262739983713,
+    "max_control_weight": 6.408970221370441,
+    "m_bar_min_treated": 0.00010318085757010874,
+    "m_bar_max_treated": 0.8835065760160938,
+    "max_abs_diff_mbar_vs_diag_overlap": 4.988232049640828e-13,
+    "n_mbar_outside_tol_vs_diag_overlap": 0,
+    "mbar_matches_diag_overlap": true,
+    "missing_re78_treated": 0,
+    "inadmissible_re78_treated": 0,
+    "unobserved_re78_treated": 0,
+    "share_unobserved_re78_treated": 0.0,
+    "missing_re78_control": 0,
+    "inadmissible_re78_control": 0,
+    "unobserved_re78_control": 0,
+    "share_unobserved_re78_control": 0.0,
+    "unobserved_share_gap": 0.0,
+    "ipow_trigger": false,
+    "n_dropped_treated": 0,
+    "n_dropped_control": 0
+  },
+  "metrics_file": "runs/main-aipw/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "env"
+  }
+}

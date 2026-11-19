@@ -1,0 +1,88 @@
+{
+  "id": "rob-estimators",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    ".venv/bin/python",
+    "-I",
+    "code/rob_estimators.py"
+  ],
+  "started": "2026-11-19T12:40:23Z",
+  "finished": "2026-11-19T12:41:34Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/rob_estimators.py",
+      "sha256": "a3851f6868f1002ae9f23dbddd7c663b82f08ef239eefb05dedadf070abf9def"
+    },
+    {
+      "path": "code/aipw_lib.py",
+      "sha256": "78867e6976d3ee5bffea6d72ca022801ef61475f8b92fa5bb90b132b6f850d95"
+    },
+    {
+      "path": "code/diag_overlap.py",
+      "sha256": "e931ff4075f577ef0397c4f19b3ba3c1cd1e0373ea1ea245290f008e3a7eb115"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/analysis_noRE78.csv",
+      "sha256": "35195cc4c3ce0dce11803b3c1f866b73f844ae16896cdf95d1ea639b90c3b524"
+    },
+    {
+      "path": "data/derived/re78_by_key.csv",
+      "sha256": "71d3e815eb68e06d986583e97b3317d1ce49d0ee787c349a114178f9c0dec2c2"
+    },
+    {
+      "path": "runs/diag-overlap/metrics.json",
+      "sha256": "0f3a156de0198a2144914e5e8d2e684a6fed46846213aa93c2bf1bfa16e613a8"
+    },
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "fd8ba72636658dfb5716b8f0eef8ba93ec7754db6a3aebf4380a08264115169f"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/rob-estimators/metrics.json",
+      "sha256": "75a7b10a919c08ea28b927eff10462f0a903935b9d345887b362e6535782853e"
+    }
+  ],
+  "metrics": {
+    "ols_effect": 1198.9873005075867,
+    "ols_se": 626.1776444351681,
+    "ols_ci_low": -28.29833050947059,
+    "ols_ci_high": 2426.2729315246443,
+    "ols_p": 0.05552161126035794,
+    "ols_n": 16177,
+    "ols_n_regressors": 16,
+    "ols_h1_holds": false,
+    "ols_effect_outside_main_ci95": false,
+    "ipw_C": 21.54434690031882,
+    "ipw_effect": 1452.6422941153287,
+    "ipw_se": 727.7040405973186,
+    "ipw_ci_low": 26.368583140310875,
+    "ipw_ci_high": 2878.9160050903465,
+    "ipw_pct_ci_low": 118.8760149129589,
+    "ipw_pct_ci_high": 3044.279521411294,
+    "ipw_n": 16177,
+    "ipw_n_treated": 185,
+    "ipw_n_clipped": 0,
+    "ipw_n_bootstrap": 999,
+    "ipw_bootstrap_seed": 20261120,
+    "ipw_bootstrap_n_treated_min": 141,
+    "ipw_bootstrap_n_treated_max": 228,
+    "ipw_h1_holds": true,
+    "ipw_h1_differs_from_main": false,
+    "ipw_effect_outside_main_ci95": false,
+    "ipw_triggers_abstract_statement": false
+  },
+  "metrics_file": "runs/rob-estimators/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "env"
+  }
+}

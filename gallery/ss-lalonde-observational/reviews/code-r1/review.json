@@ -1,0 +1,81 @@
+{
+  "id": "code-r1",
+  "target": "code",
+  "round": 1,
+  "created": "2026-11-19T08:36:09Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261119T081838Z-reviewer.md",
+    "crew/agents/reviewer.md",
+    "crew/PROTOCOL.md",
+    "crew/bench/seeds/ss-lalonde-observational/task.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r2/review.json",
+    "plan.json (question, hypotheses, contribution, design_constraints, design.*, tasks, gates; git diff against HEAD: task a-code status only)",
+    "log.jsonl (git diff against HEAD)",
+    "runs/NOTES.md",
+    "runs/unit-tests/run.json",
+    "code/aipw_lib.py",
+    "code/diag_overlap.py",
+    "code/main_aipw.py",
+    "code/placebo_re75.py",
+    "code/rob_trim.py",
+    "code/rob_learners.py",
+    "code/rob_covsets.py",
+    "code/rob_estimators.py",
+    "code/rob_diff74.py",
+    "code/rob_ipow.py",
+    "code/sens_imbens.py",
+    "code/h2_benchmark.py",
+    "code/test_analysis.py",
+    "code/prepare_data.py (row-key and float-format lines only)",
+    "code/requirements.txt",
+    "gallery/ss-null-effect/code/{aipw_lib,main_aipw,diag_overlap,rob_trim,rob_learners,rob_covsets,rob_estimators,rob_diff74,sens_imbens}.py at commit 716b6c3 (aipw_lib sha256 86435b8f...b541 checked)",
+    "gallery/ss-null-effect/code/rob_learners.py diff at commit 9f3133a",
+    "crew/scripts/crew.py (run arguments, review validation)",
+    ".venv sklearn 1.9.1 _hist_gradient_boosting/grower.py (root gradient sum)"
+  ],
+  "kill_argument": "The code is a faithful transcription of the approved design. The case against it is that the first real run will not behave as tested. Every test used benign synthetic data (5% treated, treatment drawn from a logit in B(X)) and one OpenMP thread. The real runs use unlimited threads on a machine whose load average was 70-105 today. Under that load, one gradient-boosting fit took 96.6 s with 8 threads and 4.8 s with 1. The plan has about 150 such fits plus 5,000 forest trees, so the 30-minute budget would be exceeded by hours. Several failure signals are computed and then dropped: convergence counts in four scripts, convergence of the sens-imbens logits, and whether the refitted propensities match the diag-overlap fits the gate rules were applied to. What I attacked that held: score, learners, folds, seeds and variance match 716b6c3 apart from DEV-1 to DEV-17. re78 is read only by main-aipw, through the join rule. The placebo never reads re78 and uses no re75 term. The benchmark appears only in h2_benchmark.py. The disagreement rule and the H3 order are coded as fixed. Every script also runs end to end on synthetic data at study scale.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "minor",
+      "status": "open",
+      "text": "The analysis runs do not limit OpenMP threads (runs/NOTES.md, 'Test-only setting'; every command in 'Exact commands'). The Econometrician plans to raise OMP_NUM_THREADS with the PI only if a run stalls. I measured it on synthetic data only, with the workspace .venv (scikit-learn 1.9.1) and the primary outcome learner's exact settings on 16,000 rows and 8 columns. Load average was 70-105 on 8 cores. One fit took 96.6 s with OMP_NUM_THREADS=8, 30.3 s with 3 and 4.8 s with 1. The predictions were bit-identical across 1, 3 and 8 threads (max abs diff 0.0). In scikit-learn 1.9.1 the root gradient sum comes from per-feature histograms, so thread count does not change the result. main-aipw, placebo-re75, rob-trim, rob-covsets and rob-diff74 make 150 such fits between them. At the 8-thread rate that is about 4 hours, against the seed's 30-minute budget and design.runtime's 5.8-minute projection. With one OpenMP thread, my synthetic run of every script at study scale took 8.5 minutes in all (main-aipw 39 s, rob-learners 139 s). Projected wall time feeds no decision rule, so the delay itself is not a correctness problem. The risk is a stalled or killed run that someone then restarts with changed settings.",
+      "evidence": "runs/NOTES.md 'Test-only setting' and 'Exact commands'; reviewer scratch check (synthetic): HGB with the design.method.outcome_learner settings, OMP_NUM_THREADS 1/3/8 -> 4.8 s / 30.3 s / 96.6 s, predictions identical. Resolve by running every analysis command as `-- env OMP_NUM_THREADS=1 .venv/bin/python -I code/<script>.py` (the run record then shows the setting), and saying so in NOTES. The fitted values do not change, so no PI decision on the design is needed. Optionally repeat my 1-vs-8-thread equality check as a unit test.",
+      "response": "Fixed: every analysis command in runs/NOTES.md runs as 'env OMP_NUM_THREADS=1 .venv/bin/python -I code/<script>.py' (recorded in each run.json); results are thread-invariant (new unit test test_hgb_thread_invariance).",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "open",
+      "text": "runs/NOTES.md says 'ConvergenceWarnings are counted and reported (n_convergence_warnings)', but four scripts count them and never write the count. aipw_lib.aipw returns res['n_convergence_warnings'], and rob_trim.py, rob_learners.py (linear propensity), rob_covsets.py (both sets) and rob_diff74.py never write it to metrics. In sens_imbens.py, three statsmodels Logit fits are not checked for convergence: lines 85, 142 and 199, method newton, maxiter 100. These are the EM starting values gamma0 and the benchmark variances V and V_-G that set R2_D(G) and so the 'robust to G' sentences. statsmodels returns unconverged parameters with only a warning. The EM non-convergence count is reported, but the logits it starts from are not. On my study-scale synthetic run everything converged (em_nonconverged_points 0). The real file has 1.1% treated, a treated re74 above every CPS value and top-coded CPS earnings, so a failure there would pass silently.",
+      "evidence": "code/rob_trim.py, rob_learners.py, rob_covsets.py and rob_diff74.py: no n_convergence_warnings in met. code/sens_imbens.py lines 85, 142 and 199: fit(...) with no check of mle_retvals['converged']. Resolve by writing the counts, writing a converged flag for each sens-imbens logit (gamma0, V, and V_-G per group), and adding them to NOTES. No rule depends on them; they only make a failure visible.",
+      "response": "Fixed: n_convergence_warnings now written by rob-trim (incl. its m_bar refit), rob-learners (linear), rob-covsets (a, b) and rob-diff74; sens-imbens writes converged flags for gamma0, V and each V_-G plus n_logits_nonconverged.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "The design fixed the basis, the O1/O2 branch and the rob-trim count (8,125) on diag-overlap's propensity fits. design.method.overlap_and_balance and design.diagnostics say the primary uses 'the same fits'. main_aipw.py lines 84-88 compute max_abs_diff_mbar_vs_diag_overlap but carry on whatever its value. rob_trim.py writes n_control_dropped_matches_diag_overlap but still trims on its own refitted m_bar. If the refit does not reproduce diag-overlap's fits (for example after a BLAS or thread change, see F1), the gate's diagnostics no longer describe the fits used. The trimmed set, which hinges on one treated man's m_bar (design-r1 F3), can then change silently. The scripts then run on fits the pre-gate rules never saw. On synthetic data the difference is exactly 0 (unit tests; my study-scale check: max diff 0.0, trimmed counts equal).",
+      "evidence": "code/main_aipw.py lines 84-88; code/rob_trim.py lines 49-51 and 66-67; plan.json design.method.overlap_and_balance, design.diagnostics. Cheapest remedy: main-aipw stops if max_abs_diff_mbar_vs_diag_overlap exceeds a tolerance consistent with the %.12g CSV, e.g. 1e-12 + 1e-9 x m_bar. rob-trim reports, and does not hide, a count that differs from 8,125.",
+      "response": "Fixed: main-aipw stops (exit 1) if any refitted m_bar differs from diag-overlap's by more than 1e-12 + 1e-9 m_bar; rob-trim writes mbar_matches_diag_overlap and n_control_dropped_minus_diag_overlap and warns if its count is not 8,125; unit-tested.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "The rule that H2 is computed only after the results gate is enforced only by people (runs/NOTES.md implementation choice 6). code/h2_benchmark.py runs whenever it is called, and crew.py does not stop an analysis run before the results gate. The reason NOTES gives does not rule out a guard. Listing plan.json as --input would invalidate the run when the task board changes, but the script can read plan.json gates.results.status and exit unless it is 'approved' without declaring the file as an input. A clean rerun copies plan.json with the gate already approved, so the guard would pass there. The run is cheap and would print the estimate-minus-benchmark difference to the console and the run log the first time anyone calls it early.",
+      "evidence": "code/h2_benchmark.py main(); runs/NOTES.md 'Implementation choices' item 6; plan.json design.method.h2_descriptive ('No file written before the results gate contains a comparison of any estimate with the benchmark'). Resolve with a three-line guard on plan.json gates.results.status, plus a unit test that the script exits when the status is 'pending'.",
+      "response": "Fixed: h2_benchmark.py exits unless plan.json gates.results.status is 'approved' (plan.json read, not a recorded input); unit test checks refusal for pending and rejected and that nothing is written.",
+      "ruling": ""
+    }
+  ]
+}

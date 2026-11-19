@@ -1,7 +1,9 @@
 """Run h2-benchmark (H2, descriptive): ONLY after the results gate is approved (design.method.h2_descriptive).
 
 This is the only script in code/ that contains the experimental benchmark. It reads
-runs/main-aipw/metrics.json and nothing else.
+runs/main-aipw/metrics.json; it also reads plan.json (deliberately not a recorded --input, so
+the run does not go stale when the task board changes) and refuses to run unless
+gates.results.status is 'approved' (code-r1 F4).
   diff     = theta - BENCH
   se_comb  = sqrt(SE^2 + BENCH_SE^2), BENCH_SE the SE published with the benchmark
              (Dehejia and Wahba 1999, Table 3, row NSW, column (1); the robust 670.82 is not used)
@@ -21,6 +23,7 @@ from pathlib import Path
 from scipy.stats import norm
 
 MAIN_METRICS = Path("runs/main-aipw/metrics.json")
+PLAN = Path("plan.json")
 OUT = Path("runs/h2-benchmark/metrics.json")
 BENCH = 1794.0
 BENCH_SE = 633.0
@@ -35,6 +38,9 @@ def h2(theta: float, se: float) -> dict:
 
 
 def main() -> int:
+    status = json.loads(PLAN.read_text()).get("gates", {}).get("results", {}).get("status")
+    if status != "approved":
+        sys.exit(f"ERROR: the results gate is {status!r}, not 'approved'; h2-benchmark must wait (code-r1 F4)")
     m = json.loads(MAIN_METRICS.read_text())
     met = {"benchmark": BENCH, "benchmark_se": BENCH_SE,
            "main_effect": float(m["effect"]), "main_se": float(m["se"])}

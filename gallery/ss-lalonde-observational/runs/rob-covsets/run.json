@@ -1,0 +1,101 @@
+{
+  "id": "rob-covsets",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    ".venv/bin/python",
+    "-I",
+    "code/rob_covsets.py"
+  ],
+  "started": "2026-11-19T12:39:19Z",
+  "finished": "2026-11-19T12:40:23Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/rob_covsets.py",
+      "sha256": "d449d09216446af1425bf8e3d84040b129d5cbfcae0ce6cb026d53f102966932"
+    },
+    {
+      "path": "code/aipw_lib.py",
+      "sha256": "78867e6976d3ee5bffea6d72ca022801ef61475f8b92fa5bb90b132b6f850d95"
+    },
+    {
+      "path": "code/diag_overlap.py",
+      "sha256": "e931ff4075f577ef0397c4f19b3ba3c1cd1e0373ea1ea245290f008e3a7eb115"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/analysis_noRE78.csv",
+      "sha256": "35195cc4c3ce0dce11803b3c1f866b73f844ae16896cdf95d1ea639b90c3b524"
+    },
+    {
+      "path": "data/derived/re78_by_key.csv",
+      "sha256": "71d3e815eb68e06d986583e97b3317d1ce49d0ee787c349a114178f9c0dec2c2"
+    },
+    {
+      "path": "runs/diag-overlap/metrics.json",
+      "sha256": "0f3a156de0198a2144914e5e8d2e684a6fed46846213aa93c2bf1bfa16e613a8"
+    },
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "fd8ba72636658dfb5716b8f0eef8ba93ec7754db6a3aebf4380a08264115169f"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/rob-covsets/metrics.json",
+      "sha256": "72e14b8b0464b1822634adab0c863947fe4b13a0dbab680cf5d7119d3bcf228d"
+    }
+  ],
+  "metrics": {
+    "seed_base": 20261118,
+    "covset_a_covariates": "age,educ,married,re74,re75,u74,u75",
+    "covset_a_dropped_covariates": "black,hisp,nodegree",
+    "covset_a_basis_n_terms": 11,
+    "covset_a_tree_n_columns": 7,
+    "covset_a_effect": 1081.412122525752,
+    "covset_a_se": 645.0802238877725,
+    "covset_a_ci_low": -182.92188343331668,
+    "covset_a_ci_high": 2345.7461284848205,
+    "covset_a_p": 0.09365997962589226,
+    "covset_a_n": 16177,
+    "covset_a_n_treated": 185,
+    "covset_a_n_control": 15992,
+    "covset_a_n_clipped_units": 0,
+    "covset_a_h1_holds": false,
+    "covset_a_h1_differs_from_main": true,
+    "covset_a_effect_outside_main_ci95": false,
+    "covset_a_n_convergence_warnings": 0,
+    "covset_a_kish_ess_controls": 565.0299766525998,
+    "covset_a_max_control_weight": 2.649433317477679,
+    "covset_b_covariates": "age,educ,black,hisp,married,nodegree,re75,u75",
+    "covset_b_dropped_covariates": "re74,u74",
+    "covset_b_basis_n_terms": 11,
+    "covset_b_tree_n_columns": 8,
+    "covset_b_effect": 1213.0263587652248,
+    "covset_b_se": 745.0055556839735,
+    "covset_b_ci_low": -247.15769865761308,
+    "covset_b_ci_high": 2673.2104161880625,
+    "covset_b_p": 0.10348011959299756,
+    "covset_b_n": 16177,
+    "covset_b_n_treated": 185,
+    "covset_b_n_control": 15992,
+    "covset_b_n_clipped_units": 0,
+    "covset_b_h1_holds": false,
+    "covset_b_h1_differs_from_main": true,
+    "covset_b_effect_outside_main_ci95": false,
+    "covset_b_n_convergence_warnings": 0,
+    "covset_b_kish_ess_controls": 181.85240889762454,
+    "covset_b_max_control_weight": 5.126415628541437,
+    "covset_a_triggers_abstract_statement": true
+  },
+  "metrics_file": "runs/rob-covsets/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "env"
+  }
+}

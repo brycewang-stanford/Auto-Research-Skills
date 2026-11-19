@@ -3,21 +3,23 @@
   "role": "econometrician",
   "kind": "data-prep",
   "command": [
+    "env",
+    "OMP_NUM_THREADS=1",
     ".venv/bin/python",
     "-I",
     "code/test_analysis.py"
   ],
-  "started": "2026-11-19T08:11:54Z",
-  "finished": "2026-11-19T08:17:29Z",
+  "started": "2026-11-19T12:31:03Z",
+  "finished": "2026-11-19T12:35:30Z",
   "exit_code": 0,
   "code": [
     {
       "path": "code/test_analysis.py",
-      "sha256": "9b3cdd847a3f1c0322363269159642f90246691aa31a579e4f899c52db9ab216"
+      "sha256": "ff9405710c120380df3bd1b7ebdb4c26d26431f010c63fc9fd57c6a3931c7159"
     },
     {
       "path": "code/aipw_lib.py",
-      "sha256": "b5c341e72e7aeaef15a573bf8b3e592d3d9a23de511b7c09d47478fb95872c29"
+      "sha256": "78867e6976d3ee5bffea6d72ca022801ef61475f8b92fa5bb90b132b6f850d95"
     },
     {
       "path": "code/diag_overlap.py",
@@ -29,7 +31,7 @@
     },
     {
       "path": "code/main_aipw.py",
-      "sha256": "e25bf4b24d62fe0a07d1b4e19f675ddf24d684ec11a70de8ef474997279ad355"
+      "sha256": "f11ba854eab438439ec4f0a748a4309a7e2ed49ef1288bcf55fedbccd1df7336"
     },
     {
       "path": "code/placebo_re75.py",
@@ -37,15 +39,15 @@
     },
     {
       "path": "code/rob_trim.py",
-      "sha256": "754308bcdc3d94767b5871529347764c32faba4e68f5d34f3268aced64e7d585"
+      "sha256": "7e22fb3e36b9a77a5f30b98ee0a849696bac289ff9453afcd9711ca4290c8173"
     },
     {
       "path": "code/rob_learners.py",
-      "sha256": "56b98e33b8c919a36e6e3a270594b490e5094fb45d1cf8a9c4f83059335b2d81"
+      "sha256": "8d982970a14f5bd174a693ccf2bd8004c9aef67b820ce8f7a2bcec55e975a2a4"
     },
     {
       "path": "code/rob_covsets.py",
-      "sha256": "75619146581ddece6174611eaa87cc1125be8be4dd96c4b1bf47c408a5bcf831"
+      "sha256": "d449d09216446af1425bf8e3d84040b129d5cbfcae0ce6cb026d53f102966932"
     },
     {
       "path": "code/rob_estimators.py",
@@ -53,7 +55,7 @@
     },
     {
       "path": "code/rob_diff74.py",
-      "sha256": "030808b5ab10c5ccf63c7b35f72bd2c8da9b054c42fb67dea8fb781c95b5809c"
+      "sha256": "8b9305b48295fc9f2c95c92153e250f40ceffde7cd8dde6d37b7091fa0526860"
     },
     {
       "path": "code/rob_ipow.py",
@@ -61,23 +63,23 @@
     },
     {
       "path": "code/sens_imbens.py",
-      "sha256": "4d020c5e48f9287284c67d7574d71705548d03cd3f9ceb60a5877de3ce95bca7"
+      "sha256": "c00620c83bce267346322f2fb7899e58d8c42f7c751803894e80f48ffcbf27b7"
     },
     {
       "path": "code/h2_benchmark.py",
-      "sha256": "7bcaf2f7b1b5631cd886ec01997f191b8ef6975b5b8fa66be866216e6b406f37"
+      "sha256": "6f257cf29b140e6c52060e6d18951dbb35b0163567d37ba273283c7760259e38"
     }
   ],
   "inputs": [],
   "outputs": [
     {
       "path": "runs/unit-tests/metrics.json",
-      "sha256": "86e84225ceeba75df0db27d9788cee5c20f45f5eaebe0bc51e548bd7ca28c7c5"
+      "sha256": "6563c8f6586527e14505971f6e0f7dc1961b24f9712bd16d188f69c20e7b8d95"
     }
   ],
   "metrics": {
-    "tests_run": 19,
-    "tests_passed": 19,
+    "tests_run": 21,
+    "tests_passed": 21,
     "tests_failed": 0,
     "failed_tests": "",
     "reads_study_data": 0,
@@ -102,8 +104,6 @@
   "env": {
     "crew_python": "3.14.6",
     "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
-    "command_executable": ".venv/bin/python",
-    "python": "3.12.11",
-    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-lalonde-observational/.venv"
+    "command_executable": "env"
   }
 }

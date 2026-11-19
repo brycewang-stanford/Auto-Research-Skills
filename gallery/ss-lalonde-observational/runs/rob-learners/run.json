@@ -1,0 +1,93 @@
+{
+  "id": "rob-learners",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    ".venv/bin/python",
+    "-I",
+    "code/rob_learners.py"
+  ],
+  "started": "2026-11-19T12:37:45Z",
+  "finished": "2026-11-19T12:39:19Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/rob_learners.py",
+      "sha256": "8d982970a14f5bd174a693ccf2bd8004c9aef67b820ce8f7a2bcec55e975a2a4"
+    },
+    {
+      "path": "code/aipw_lib.py",
+      "sha256": "78867e6976d3ee5bffea6d72ca022801ef61475f8b92fa5bb90b132b6f850d95"
+    },
+    {
+      "path": "code/diag_overlap.py",
+      "sha256": "e931ff4075f577ef0397c4f19b3ba3c1cd1e0373ea1ea245290f008e3a7eb115"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/analysis_noRE78.csv",
+      "sha256": "35195cc4c3ce0dce11803b3c1f866b73f844ae16896cdf95d1ea639b90c3b524"
+    },
+    {
+      "path": "data/derived/re78_by_key.csv",
+      "sha256": "71d3e815eb68e06d986583e97b3317d1ce49d0ee787c349a114178f9c0dec2c2"
+    },
+    {
+      "path": "runs/diag-overlap/metrics.json",
+      "sha256": "0f3a156de0198a2144914e5e8d2e684a6fed46846213aa93c2bf1bfa16e613a8"
+    },
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "fd8ba72636658dfb5716b8f0eef8ba93ec7754db6a3aebf4380a08264115169f"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/rob-learners/metrics.json",
+      "sha256": "6439d5167639ad76d33edf5285209b00af42f148c96ab06dd92570d2d7489974"
+    }
+  ],
+  "metrics": {
+    "seed_base": 20261118,
+    "linear_effect": 1432.826452439745,
+    "linear_se": 775.8161644643527,
+    "linear_ci_low": -87.7452885343896,
+    "linear_ci_high": 2953.3981934138797,
+    "linear_p": 0.06476694540892212,
+    "linear_n": 16177,
+    "linear_n_treated": 185,
+    "linear_n_control": 15992,
+    "linear_n_clipped_units": 0,
+    "linear_h1_holds": false,
+    "linear_h1_differs_from_main": true,
+    "linear_effect_outside_main_ci95": false,
+    "linear_n_clipped_unit_reps": 0,
+    "linear_n_convergence_warnings": 0,
+    "rf_effect": 1584.3206098522835,
+    "rf_se": 735.110543522298,
+    "rf_ci_low": 143.53041989291546,
+    "rf_ci_high": 3025.1107998116513,
+    "rf_p": 0.031145083896181567,
+    "rf_n": 16177,
+    "rf_n_treated": 185,
+    "rf_n_control": 15992,
+    "rf_n_clipped_units": 0,
+    "rf_h1_holds": true,
+    "rf_h1_differs_from_main": false,
+    "rf_effect_outside_main_ci95": false,
+    "rf_n_clipped_unit_reps": 0,
+    "rf_kish_ess_controls": 149.24080217189072,
+    "rf_max_control_weight": 8.715978223864601,
+    "linear_triggers_abstract_statement": true,
+    "rf_triggers_abstract_statement": false
+  },
+  "metrics_file": "runs/rob-learners/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "env"
+  }
+}

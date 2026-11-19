@@ -1,0 +1,107 @@
+{
+  "id": "rob-trim",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    ".venv/bin/python",
+    "-I",
+    "code/rob_trim.py"
+  ],
+  "started": "2026-11-19T12:36:56Z",
+  "finished": "2026-11-19T12:37:45Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/rob_trim.py",
+      "sha256": "7e22fb3e36b9a77a5f30b98ee0a849696bac289ff9453afcd9711ca4290c8173"
+    },
+    {
+      "path": "code/aipw_lib.py",
+      "sha256": "78867e6976d3ee5bffea6d72ca022801ef61475f8b92fa5bb90b132b6f850d95"
+    },
+    {
+      "path": "code/diag_overlap.py",
+      "sha256": "e931ff4075f577ef0397c4f19b3ba3c1cd1e0373ea1ea245290f008e3a7eb115"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/analysis_noRE78.csv",
+      "sha256": "35195cc4c3ce0dce11803b3c1f866b73f844ae16896cdf95d1ea639b90c3b524"
+    },
+    {
+      "path": "data/derived/re78_by_key.csv",
+      "sha256": "71d3e815eb68e06d986583e97b3317d1ce49d0ee787c349a114178f9c0dec2c2"
+    },
+    {
+      "path": "runs/diag-overlap/metrics.json",
+      "sha256": "0f3a156de0198a2144914e5e8d2e684a6fed46846213aa93c2bf1bfa16e613a8"
+    },
+    {
+      "path": "runs/diag-overlap/propensity.csv",
+      "sha256": "f705a34212ec568811e5c4c07097d16b8e8b411ab4d9a4721149a4e35d0d1eef"
+    },
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "fd8ba72636658dfb5716b8f0eef8ba93ec7754db6a3aebf4380a08264115169f"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/rob-trim/metrics.json",
+      "sha256": "823396ef540e84968a0f9d548fe167c10447e812fd53022c181fd1f8307112c5"
+    }
+  ],
+  "metrics": {
+    "estimand": "ATT for all treated men; CPS men outside the treated m_bar range dropped",
+    "seed_base": 20261118,
+    "max_abs_diff_mbar_vs_diag_overlap": 4.988232049640828e-13,
+    "n_mbar_outside_tol_vs_diag_overlap": 0,
+    "mbar_matches_diag_overlap": true,
+    "trim_m_bar_low": 0.00010318085757010874,
+    "trim_m_bar_high": 0.8835065760160938,
+    "n_treated_dropped": 0,
+    "n_control_dropped": 8125,
+    "n_control_dropped_below": 8125,
+    "n_control_dropped_above": 0,
+    "n_control_kept": 7867,
+    "n_control_dropped_diag_overlap": 8125,
+    "n_control_dropped_minus_diag_overlap": 0,
+    "n_control_dropped_matches_diag_overlap": true,
+    "effect": 1513.633290127726,
+    "se": 812.9626146540666,
+    "ci_low": -79.74415537175878,
+    "ci_high": 3107.010735627211,
+    "p": 0.06262096800755972,
+    "n": 8052,
+    "n_treated": 185,
+    "n_control": 7867,
+    "n_clipped_units": 0,
+    "h1_holds": false,
+    "theta_rep0": 1608.2893490966298,
+    "se_rep0": 841.0210137133967,
+    "theta_rep1": 1265.478073962487,
+    "se_rep1": 810.6510786190582,
+    "theta_rep2": 1623.8492114854607,
+    "se_rep2": 757.3640389018515,
+    "theta_rep3": 1612.964203765201,
+    "se_rep3": 772.8587612405914,
+    "theta_rep4": 1457.5856123288515,
+    "se_rep4": 820.6474836268529,
+    "n_convergence_warnings_trim_propensity": 0,
+    "n_convergence_warnings": 0,
+    "kish_ess_controls": 126.81722377799426,
+    "max_control_weight": 6.899604516032272,
+    "h1_differs_from_main": true,
+    "effect_outside_main_ci95": false,
+    "triggers_abstract_statement": true
+  },
+  "metrics_file": "runs/rob-trim/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "env"
+  }
+}

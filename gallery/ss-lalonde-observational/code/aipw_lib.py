@@ -406,6 +406,18 @@ def placebo_verdict(ci_low: float, ci_high: float, bound: float = PLACEBO_BOUND)
     return "inconclusive", 0
 
 
+MBAR_ATOL, MBAR_RTOL = 1e-12, 1e-9  # code-r1 F3: runs/diag-overlap/propensity.csv is written with %.12g
+
+
+def mbar_check(diag_mbar: np.ndarray, m_bar: np.ndarray) -> dict:
+    """Compare refitted m_bar with diag-overlap's (code-r1 F3): a unit is outside tolerance if
+    |diag - m_bar| > 1e-12 + 1e-9 |m_bar|. Returns the max abs difference, the count outside
+    tolerance and whether all units are within it."""
+    diff = np.abs(np.asarray(diag_mbar, float) - m_bar)
+    n_out = int(np.sum(diff > MBAR_ATOL + MBAR_RTOL * np.abs(m_bar)))
+    return {"max_abs_diff": float(diff.max()), "n_outside_tol": n_out, "ok": n_out == 0}
+
+
 def trim_keep(m_bar: np.ndarray, d: np.ndarray) -> np.ndarray:
     """design.method.control_only_trimming: keep every treated man; keep a CPS man iff his
     m_bar lies in [min, max] of m_bar over the treated (inclusive)."""

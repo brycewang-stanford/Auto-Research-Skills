@@ -1,0 +1,23 @@
+{
+  "tests_run": 19,
+  "tests_passed": 19,
+  "tests_failed": 0,
+  "failed_tests": "",
+  "reads_study_data": 0,
+  "true_att_synthetic": 1500.0,
+  "oracle_att_estimate": 295.5620599993306,
+  "oracle_ipow_estimate": 263.655988284287,
+  "imbens_bias_pos_r2_01": -0.35813711650815105,
+  "e2e_n": 2500,
+  "e2e_n_treated": 131,
+  "e2e_diag_smd_w_max_abs": 0.05750357213546221,
+  "e2e_main_effect": 1647.694255839168,
+  "e2e_main_se": 243.4502079222903,
+  "e2e_placebo_effect": -2812.8621998909175,
+  "e2e_placebo_verdict_code": -1,
+  "e2e_trim_n_control_dropped": 12,
+  "e2e_sens_r2star_zero": 0.3,
+  "e2e_em_nonconverged": 0,
+  "e2e_ipow_effect": 1523.7680588304995,
+  "e2e_ipow_se": 254.05699308749416
+}

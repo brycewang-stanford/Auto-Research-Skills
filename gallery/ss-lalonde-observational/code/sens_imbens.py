@@ -37,6 +37,9 @@ group's (R2_D(G), R2_Y(G)), both signs (16 points; 166 in all); robust to G iff 
 for both signs. Strongest robust group = largest max-|bias| among robust groups; weakest
 non-robust group = smallest among non-robust groups; the earn75 result is always reported.
 The earn74 benchmark carries the F2 caveat (re74 measured over different periods).
+Convergence (code-r1 F2): the converged flag of each unpenalized logit (EM start gamma0, full
+index V, and V_-G for every group) is written, with their count of failures
+(n_logits_nonconverged), next to the EM non-convergence count; no rule depends on them.
 
 Run from the workspace root:  .venv/bin/python -I code/sens_imbens.py
 """
@@ -82,7 +85,9 @@ class Imbens:
         self.d, self.y = d.astype(float), y
         self.Z = np.column_stack([np.ones(len(d)), standardize(Xb)])
         self.W = np.column_stack([self.d, self.Z])
-        self.gamma0 = sm.Logit(self.d, self.Z).fit(method="newton", disp=0, maxiter=100, tol=1e-12).params
+        lg0 = sm.Logit(self.d, self.Z).fit(method="newton", disp=0, maxiter=100, tol=1e-12)
+        self.gamma0_converged = bool(lg0.mle_retvals["converged"])
+        self.gamma0 = lg0.params
         self.b0 = np.linalg.lstsq(self.W, y, rcond=None)[0]
         self.sigma0_sq = float(np.mean((y - self.W @ self.b0) ** 2))
 
@@ -142,7 +147,7 @@ def benchmark_r2(d: np.ndarray, y: np.ndarray, XB, terms: list[str], rss_full: f
     lg_g = sm.Logit(d, Zg).fit(method="newton", disp=0, maxiter=100, tol=1e-12)
     Vg = float(np.var(Zg @ lg_g.params, ddof=1))
     r2d = max(0.0, (V - Vg) / (V - Vg + PI2_3))
-    return r2d, r2y
+    return r2d, r2y, bool(lg_g.mle_retvals["converged"])
 
 
 def main() -> int:
@@ -198,9 +203,11 @@ def main() -> int:
     Zfull = sm.add_constant(standardize(Xb), has_constant="add")
     lg_full = sm.Logit(d, Zfull).fit(method="newton", disp=0, maxiter=100, tol=1e-12)
     V = float(np.var(Zfull @ lg_full.params, ddof=1))
+    met["logit_full_converged"] = bool(lg_full.mle_retvals["converged"])
     bench_absmax = {}
     for g, terms in GROUPS.items():
-        r2d, r2y = benchmark_r2(d, y, XB, terms, rss_full, V)
+        r2d, r2y, conv_g = benchmark_r2(d, y, XB, terms, rss_full, V)
+        met[f"bench_{g}_logit_converged"] = conv_g
         bp, bn = bias_at(r2d, r2y)
         met[f"bench_{g}_r2d"] = r2d
         met[f"bench_{g}_r2y"] = r2y
@@ -227,6 +234,10 @@ def main() -> int:
     met["strongest_robust_zero"] = max(rob, key=lambda g: bench_absmax[g]) if rob else ""
     met["weakest_nonrobust_zero"] = min(non, key=lambda g: bench_absmax[g]) if non else ""
 
+    met["logit_gamma0_converged"] = model.gamma0_converged
+    logit_flags = [met["logit_gamma0_converged"], met["logit_full_converged"]] + [
+        met[f"bench_{g}_logit_converged"] for g in GROUPS]
+    met["n_logits_nonconverged"] = int(sum(not f for f in logit_flags))
     met["em_points"] = len(iters)
     met["em_max_iterations_used"] = int(max(iters))
     met["em_nonconverged_points"] = nonconv

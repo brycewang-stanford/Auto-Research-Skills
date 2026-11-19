@@ -8,7 +8,8 @@ men (aipw_lib.trim_keep; bounds inclusive). The estimand stays the ATT for all t
 m_bar = mean over the five repetitions of the unclipped out-of-fold propensity from the
 primary propensity fits (re-fitted here with the identical pre-gate code and seeds on the
 primary analysis sample, and compared with runs/diag-overlap/propensity.csv and with the
-trimming count diag-overlap recorded). The full primary estimator is then re-run on the kept
+trimming count diag-overlap recorded; code-r1 F3: a count different from diag-overlap's is
+written to the metrics and printed as a warning, never hidden). The full primary estimator is then re-run on the kept
 units (folds re-drawn on them with the same seeds, propensity and outcome models re-fitted);
 the kept set is treated as fixed for the SE.
 
@@ -42,13 +43,16 @@ def main() -> int:
     y_all = y_all[ok]
 
     d = df["treat"].to_numpy(int)
-    m_raw, _ = L.crossfit_propensity(L.basis(df, L.COVS).to_numpy(float), d)
+    m_raw, n_conv_trim = L.crossfit_propensity(L.basis(df, L.COVS).to_numpy(float), d)
     m_bar = m_raw.mean(axis=0)
     met = {"estimand": "ATT for all treated men; CPS men outside the treated m_bar range dropped",
            "seed_base": L.SEED}
     if len(df) == diag_m["n"]:
         diag = pd.read_csv(L.DIAG_PROP)
-        met["max_abs_diff_mbar_vs_diag_overlap"] = float(np.max(np.abs(diag["m_bar"].to_numpy() - m_bar)))
+        chk = L.mbar_check(diag["m_bar"].to_numpy(), m_bar)
+        met["max_abs_diff_mbar_vs_diag_overlap"] = chk["max_abs_diff"]
+        met["n_mbar_outside_tol_vs_diag_overlap"] = chk["n_outside_tol"]
+        met["mbar_matches_diag_overlap"] = chk["ok"]
     keep = L.trim_keep(m_bar, d)
     lo, hi = float(m_bar[d == 1].min()), float(m_bar[d == 1].max())
     sub = df[keep].reset_index(drop=True)
@@ -63,10 +67,16 @@ def main() -> int:
         "n_control_dropped_above": int(((d == 0) & (m_bar > hi)).sum()),
         "n_control_kept": int(((d == 0) & keep).sum()),
     })
-    met["n_control_dropped_matches_diag_overlap"] = bool(
-        met["n_control_dropped"] == diag_m["trim_n_control_dropped"])
+    met["n_control_dropped_diag_overlap"] = int(diag_m["trim_n_control_dropped"])
+    met["n_control_dropped_minus_diag_overlap"] = met["n_control_dropped"] - met["n_control_dropped_diag_overlap"]
+    met["n_control_dropped_matches_diag_overlap"] = bool(met["n_control_dropped_minus_diag_overlap"] == 0)
+    if not met["n_control_dropped_matches_diag_overlap"]:
+        print(f"WARNING (code-r1 F3): rob-trim drops {met['n_control_dropped']} CPS men, diag-overlap "
+              f"recorded {met['n_control_dropped_diag_overlap']}; reported in the metrics, not hidden.")
     met.update(L.summarize(res))
     met.update(L.per_repetition(res))
+    met["n_convergence_warnings_trim_propensity"] = int(n_conv_trim)
+    met["n_convergence_warnings"] = res["n_convergence_warnings"]
     met["kish_ess_controls"] = res["kish_ess_controls"]
     met["max_control_weight"] = res["max_control_weight"]
     met.update(L.compare_with_main(met, "", main_m))

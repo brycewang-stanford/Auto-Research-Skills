@@ -41,6 +41,7 @@ def main() -> int:
     met.update(L.summarize(res))
     met.update(L.per_repetition(res))
     met.update(L.compare_with_main(met, "", main_m))
+    met["n_convergence_warnings"] = res["n_convergence_warnings"]
     met["kish_ess_controls"] = res["kish_ess_controls"]
     met["max_control_weight"] = res["max_control_weight"]
     met["triggers_abstract_statement"] = False  # never, by the fixed rule

@@ -45,6 +45,7 @@ def main() -> int:
         met[f"{p}tree_n_columns"] = int(Xt.shape[1])
         met.update(L.summarize(res, p))
         met.update(L.compare_with_main(met, p, main_m))
+        met[f"{p}n_convergence_warnings"] = res["n_convergence_warnings"]
         met[f"{p}kish_ess_controls"] = res["kish_ess_controls"]
         met[f"{p}max_control_weight"] = res["max_control_weight"]
     met["covset_a_triggers_abstract_statement"] = bool(met["covset_a_h1_differs_from_main"])

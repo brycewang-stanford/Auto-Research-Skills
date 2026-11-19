@@ -50,3 +50,16 @@
 {"time": "2026-11-19T08:18:38Z", "role": "pi", "action": "tasks-updated", "detail": "a-code done"}
 {"time": "2026-11-19T08:18:38Z", "role": "pi", "action": "brief-archived", "detail": "reviewer code-r1 20261119T081838Z"}
 {"time": "2026-11-19T12:28:00Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261119T122759Z"}
+{"time": "2026-11-19T12:31:03Z", "role": "econometrician", "action": "run-superseded", "detail": "unit-tests archived to runs/.superseded/unit-tests-20261119T081729Z"}
+{"time": "2026-11-19T12:35:30Z", "role": "econometrician", "action": "run", "detail": "unit-tests exit=0"}
+{"time": "2026-11-19T12:36:14Z", "role": "econometrician", "action": "run", "detail": "main-aipw exit=0"}
+{"time": "2026-11-19T12:36:55Z", "role": "econometrician", "action": "run", "detail": "placebo-re75 exit=0"}
+{"time": "2026-11-19T12:37:45Z", "role": "econometrician", "action": "run", "detail": "rob-trim exit=0"}
+{"time": "2026-11-19T12:39:19Z", "role": "econometrician", "action": "run", "detail": "rob-learners exit=0"}
+{"time": "2026-11-19T12:40:23Z", "role": "econometrician", "action": "run", "detail": "rob-covsets exit=0"}
+{"time": "2026-11-19T12:41:34Z", "role": "econometrician", "action": "run", "detail": "rob-estimators exit=0"}
+{"time": "2026-11-19T12:41:55Z", "role": "econometrician", "action": "run", "detail": "rob-diff74 exit=0"}
+{"time": "2026-11-19T12:42:03Z", "role": "econometrician", "action": "run", "detail": "sens-imbens exit=0"}
+{"time": "2026-11-19T12:44:17Z", "role": "econometrician", "action": "code-r1-fixed", "detail": "F1 env OMP_NUM_THREADS=1 on every analysis command; F2 convergence counts and sens logit flags; F3 main-aipw stops on m_bar mismatch, rob-trim reports count difference; F4 h2_benchmark guard on results gate; unit-tests rerun 21/21"}
+{"time": "2026-11-19T12:44:17Z", "role": "econometrician", "action": "analysis-done", "detail": "main-aipw 1,573 (SE 798) [9.6, 3,136] H1 holds; placebo-re75 -1,543 [-2,699, -387] H3 FAIL -> contrast wording; disagreement rule triggered by rob-trim, rob-covsets (a), rob-learners (a); rob-ipow not triggered; h2-benchmark waits for results gate"}
+{"time": "2026-11-19T12:44:17Z", "role": "econometrician", "action": "claims-written", "detail": "93 result claims (84 macros), numbers.tex regenerated"}

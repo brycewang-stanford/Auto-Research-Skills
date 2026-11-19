@@ -17,13 +17,12 @@
 - Worth noting: the trimmed set is large (about half the CPS men) because the lowest treated
   m_bar (1.03e-4) sits just above the CPS median m_bar (9.5e-5).
 
-## Analysis code (written after the design gate, 2026-11-19; NOT yet run on the study data)
+## Analysis code (written after the design gate, 2026-11-19)
 
-Status: the design gate was approved 2026-11-19T07:34:42Z. The analysis scripts are written and
-tested on synthetic data only (run `unit-tests`, data-prep). **No analysis run has been made and
-re78 has not been read.** design.analysis_plan requires a Reviewer code review (target `code`)
-with no open critical or major finding before any analysis run. If the review changes any file
-under `code/`, rerun `unit-tests` with `--replace` first, then have the changed file re-reviewed.
+Status: design gate approved 2026-11-19T07:34:42Z; code review code-r1 passed (four minor
+findings, fixed below); unit-tests rerun 21/21; every planned analysis run executed once, in the
+planned order, with no rerun or replacement (results below). h2-benchmark waits for the results
+gate.
 
 | File | Run | Design source |
 |---|---|---|
@@ -90,13 +89,32 @@ Implementation choices the plan left open (fixed now, before any outcome is read
 5. sens-imbens reports t_0 = min(|ci_low|, |ci_high|) of main-aipw exactly as specified, also
    if the 95% CI includes zero. `r2star_zero` is 0.30 with `r2star_zero_out_of_grid` true when
    no diagonal point reaches t_0 (claim text '> 0.30').
-6. h2-benchmark does not read plan.json to check the results gate (listing plan.json as an
-   input would invalidate the run whenever the task board changes); the gate is enforced by
-   running it only after approval, as below.
+6. h2-benchmark reads plan.json and refuses unless `gates.results.status` is `approved`
+   (code-r1 F4). plan.json is deliberately not a recorded `--input`: as an input it would make
+   the run stale whenever the task board changes. A clean rerun copies plan.json with the gate
+   approved, so the guard passes there.
+
+## Code review code-r1 (pass, four minor findings) and the changes made
+
+- **F1** (threads): every analysis command now runs as `env OMP_NUM_THREADS=1 .venv/bin/python
+  -I code/<script>.py`, so the run record shows the setting. Fitted values do not depend on the
+  OpenMP thread count (the Reviewer's check, and unit test `test_hgb_thread_invariance`); on
+  this loaded machine one thread is far faster.
+- **F2** (convergence): `n_convergence_warnings` is now written by rob-trim (also for its
+  m_bar refit), rob-learners (linear), rob-covsets (both sets) and rob-diff74. sens-imbens
+  writes `logit_gamma0_converged`, `logit_full_converged`, `bench_<g>_logit_converged` and
+  `n_logits_nonconverged`. No rule depends on them.
+- **F3** (fits used = fits the gate saw): main-aipw stops (exit 1, metrics written) if any
+  refitted m_bar differs from `runs/diag-overlap/propensity.csv` by more than
+  1e-12 + 1e-9 m_bar (the CSV has 12 significant digits). rob-trim writes
+  `mbar_matches_diag_overlap`, `n_control_dropped_diag_overlap` and
+  `n_control_dropped_minus_diag_overlap`, and prints a warning if its count is not 8,125.
+- **F4** (H2 timing): see item 6 above; unit test checks the refusal for `pending` and
+  `rejected` and that nothing is written.
 
 ## unit-tests (data-prep, synthetic data only)
 
-`code/test_analysis.py`, run `unit-tests` (2026-11-19T08:11:54Z to 08:17:29Z): **19/19 tests passed,
+First version (before code-r1): `code/test_analysis.py`, run `unit-tests` (2026-11-19T08:11:54Z to 08:17:29Z): **19/19 tests passed,
 exit 0, no study file read** (`--input` empty; synthetic workspaces in a temporary directory).
 Its metrics equal, to the last bit, those of an identical dry run in the scratch directory, so
 the code is deterministic on fixed inputs.
@@ -123,11 +141,64 @@ run gives identical metrics. (B) the same data with 10% of treated re78 set to t
 9999999, one CPS value non-numeric and one negative: the counts are exact, main-aipw uses the
 complete cases, the trigger fires, rob-ipow runs (1,523.8, SE 254.1) on all 2,500 units.
 
-Test-only setting: the tests run with one OpenMP thread (threadpoolctl). On this machine, with
-other sessions' runs in progress (load average above 40), HistGradientBoosting spin-waited in
-libomp and a first attempt had not finished main-aipw on 2,500 synthetic units after ten
-minutes. The analysis runs do not limit threads; if they stall the same way, the fix is to
-set `OMP_NUM_THREADS` for the run, which I would raise with the PI first.
+Threads: the tests run with one OpenMP thread (threadpoolctl). On this machine, with other
+sessions' runs in progress (load average above 40), HistGradientBoosting spin-waited in libomp,
+and a first attempt had not finished main-aipw on 2,500 synthetic units after ten minutes.
+After code-r1 F1, the analysis runs also use one thread (`env OMP_NUM_THREADS=1`).
+
+Rerun after code-r1 (`--replace`, 2026-11-19, command `env OMP_NUM_THREADS=1 .venv/bin/python -I
+code/test_analysis.py`): **21/21 passed**. The two new tests are `test_mbar_check` and
+`test_hgb_thread_invariance`. The end-to-end tests now also check the F2 counts, F3's stop and
+report, and F4's refusal. The first version is archived under `runs/.superseded/`.
+
+## Analysis runs (2026-11-19, after code-r1)
+
+All ran through `crew.py run --kind analysis` with `env OMP_NUM_THREADS=1`, in this order, each
+exactly once with exit 0 and an empty stderr. No script or setting was changed after any number
+was seen. Dollars are 1982 dollars; CIs are 95%.
+
+| Order | Run | Result |
+|---|---|---|
+| 1 | main-aipw (12:35:36Z) | ATT contrast **1,573 (SE 798), CI [9.6, 3,136]**, p = 0.049; n = 16,177 (185 / 15,992); 0 missing or inadmissible re78 in either arm (rob-ipow trigger off); 0 clipped; m_bar equals diag-overlap's (max diff 5.0e-13); Kish ESS 126.4, max control weight 6.41. Treated mean 6,349, counterfactual mean 4,776, relative contrast 32.9% [-5.1%, 71.0%]. Per-repetition thetas 1,511 to 1,621. |
+| 2 | placebo-re75 | **-1,543 (SE 590), CI [-2,699, -387] → H3 FAIL** (verdict code -1). Balance on B(X-) max weighted SMD 0.065 (age); 0 clipped. |
+| 3 | rob-trim | 1,514 [-80, 3,107]; 8,125 CPS dropped (= diag-overlap), 7,867 kept; **H1 decision differs → triggers** |
+| 4 | rob-learners | (a) parametric 1,433 [-88, 2,953] **triggers**; (b) random forests 1,584 [144, 3,025], same decision |
+| 5 | rob-covsets | (a) earnings-history core 1,081 [-183, 2,345] **triggers** ("not robust to dropping race, ethnicity and degree status"); (b) single lag 1,213 [-247, 2,673] (never triggers) |
+| 6 | rob-estimators | (a) OLS coefficient 1,199 [-28, 2,426] (HC2; never triggers); (b) Hajek IPW 1,453 [26, 2,879] (bootstrap SE 728), inside main's CI, so it does not trigger |
+| 7 | rob-diff74 | 2,798 [1,331, 4,265] (different assumption and estimand; never triggers) |
+| - | rob-ipow | not run: trigger did not fire (0 unobserved re78 in both arms), as fixed in the design |
+| 8 | sens-imbens | t_0 = 9.6; R2*_0 = 0.0011; robust only to black, married, nodegree; not robust to age, educ, hisp, earn74, earn75 (earn75: R2_D 0.53, R2_Y 0.087, max bias 1,876); tau(0,0) = 1,199 = OLS (diff 5e-5); 0 EM or logit non-convergence |
+| - | h2-benchmark | not run: waits for the results gate |
+
+Convergence: 0 ConvergenceWarnings in every run that counts them; all sens-imbens logits and
+EM points converged (max 8 EM iterations).
+
+### Decisions under the fixed rules
+
+- **H1:** holds, because the 95% CI lies above zero. Its lower bound is 9.6 dollars and
+  p = 0.049. The macro `\PrimaryCiLow` prints "10" under the ",.0f" format.
+- **H3:** FAIL. The placebo CI excludes zero, so H1 is worded as a statistical contrast between
+  the groups, never as an effect of the program. The design's limits apply: the pre-program dip
+  and the different meaning of re74 for treated men. The failure is therefore not proof of bias.
+- **Disagreement rule:** triggered by rob-trim, rob-covsets (a) and rob-learners (a). The
+  abstract must say the conclusion is not robust to control-only trimming, to dropping race,
+  ethnicity and degree status, or to parametric nuisance models. rob-learners (b) and the Hajek
+  IPW estimate do not trigger.
+- **Sensitivity:** the conclusion is not robust to a confounder as strong as earnings75. The
+  paper must say the result could be produced by unobserved selection of that strength.
+
+### Surprises (for the Reviewer and the Writer)
+
+- **Benchmarks with R2_D = 0.** The black, married and nodegree benchmarks have R2_D exactly 0,
+  because V - V_-G was negative and the design floors it at 0. black has the largest raw
+  imbalance (nd 1.72). So the unpenalized logit's index variance did not fall when black was
+  dropped, and the other coefficients absorbed it. "Robust to black" is therefore a mechanical
+  result of the fixed floor, not evidence that race is a weak confounder. I report it as the
+  rule gives it. V and V_-G are not in the metrics; I did not compute them outside a run.
+- **Sensitivity target.** t_0 is tiny (9.6 dollars) because the lower bound sits just above
+  zero. Almost any confounder flips H1, as R2*_0 = 0.0011 shows.
+- **rob-diff74** is larger than the primary (2,798). The design predicted an upward bias if
+  treated men's 're74' base was transitorily depressed. It is not a defence of the primary.
 
 ## Exact commands
 
@@ -148,7 +219,7 @@ python3 $CREW run $WS --id unit-tests --role econometrician --kind data-prep \
   --code code/rob_trim.py --code code/rob_learners.py --code code/rob_covsets.py \
   --code code/rob_estimators.py --code code/rob_diff74.py --code code/rob_ipow.py \
   --code code/sens_imbens.py --code code/h2_benchmark.py \
-  --metrics runs/unit-tests/metrics.json -- .venv/bin/python -I code/test_analysis.py
+  --metrics runs/unit-tests/metrics.json -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/test_analysis.py
 
 # --- STOP: Reviewer code review (target 'code'); no open critical or major finding ---
 
@@ -159,13 +230,13 @@ python3 $CREW run $WS --id main-aipw --role econometrician --kind analysis \
   --input data/raw/cps_controls.txt --input runs/diag-overlap/metrics.json \
   --input runs/diag-overlap/propensity.csv \
   --output data/derived/re78_by_key.csv \
-  --metrics runs/main-aipw/metrics.json -- .venv/bin/python -I code/main_aipw.py
+  --metrics runs/main-aipw/metrics.json -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/main_aipw.py
 
 # 2. placebo-re75 (never reads re78)
 python3 $CREW run $WS --id placebo-re75 --role econometrician --kind analysis \
   --code code/placebo_re75.py --code code/aipw_lib.py --code code/diag_overlap.py \
   --input data/derived/analysis_noRE78.csv --input runs/diag-overlap/metrics.json \
-  --metrics runs/placebo-re75/metrics.json -- .venv/bin/python -I code/placebo_re75.py
+  --metrics runs/placebo-re75/metrics.json -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/placebo_re75.py
 
 # 3. rob-trim
 python3 $CREW run $WS --id rob-trim --role econometrician --kind analysis \
@@ -173,56 +244,56 @@ python3 $CREW run $WS --id rob-trim --role econometrician --kind analysis \
   --input data/derived/analysis_noRE78.csv --input data/derived/re78_by_key.csv \
   --input runs/diag-overlap/metrics.json --input runs/diag-overlap/propensity.csv \
   --input runs/main-aipw/metrics.json \
-  --metrics runs/rob-trim/metrics.json -- .venv/bin/python -I code/rob_trim.py
+  --metrics runs/rob-trim/metrics.json -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/rob_trim.py
 
 # 4. rob-learners
 python3 $CREW run $WS --id rob-learners --role econometrician --kind analysis \
   --code code/rob_learners.py --code code/aipw_lib.py --code code/diag_overlap.py \
   --input data/derived/analysis_noRE78.csv --input data/derived/re78_by_key.csv \
   --input runs/diag-overlap/metrics.json --input runs/main-aipw/metrics.json \
-  --metrics runs/rob-learners/metrics.json -- .venv/bin/python -I code/rob_learners.py
+  --metrics runs/rob-learners/metrics.json -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/rob_learners.py
 
 # 5. rob-covsets
 python3 $CREW run $WS --id rob-covsets --role econometrician --kind analysis \
   --code code/rob_covsets.py --code code/aipw_lib.py --code code/diag_overlap.py \
   --input data/derived/analysis_noRE78.csv --input data/derived/re78_by_key.csv \
   --input runs/diag-overlap/metrics.json --input runs/main-aipw/metrics.json \
-  --metrics runs/rob-covsets/metrics.json -- .venv/bin/python -I code/rob_covsets.py
+  --metrics runs/rob-covsets/metrics.json -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/rob_covsets.py
 
 # 6. rob-estimators
 python3 $CREW run $WS --id rob-estimators --role econometrician --kind analysis \
   --code code/rob_estimators.py --code code/aipw_lib.py --code code/diag_overlap.py \
   --input data/derived/analysis_noRE78.csv --input data/derived/re78_by_key.csv \
   --input runs/diag-overlap/metrics.json --input runs/main-aipw/metrics.json \
-  --metrics runs/rob-estimators/metrics.json -- .venv/bin/python -I code/rob_estimators.py
+  --metrics runs/rob-estimators/metrics.json -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/rob_estimators.py
 
 # 7. rob-diff74
 python3 $CREW run $WS --id rob-diff74 --role econometrician --kind analysis \
   --code code/rob_diff74.py --code code/aipw_lib.py --code code/diag_overlap.py \
   --input data/derived/analysis_noRE78.csv --input data/derived/re78_by_key.csv \
   --input runs/diag-overlap/metrics.json --input runs/main-aipw/metrics.json \
-  --metrics runs/rob-diff74/metrics.json -- .venv/bin/python -I code/rob_diff74.py
+  --metrics runs/rob-diff74/metrics.json -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/rob_diff74.py
 
 # 8. rob-ipow: ONLY if runs/main-aipw/metrics.json has "ipow_trigger": true (else not run, and say so)
 python3 $CREW run $WS --id rob-ipow --role econometrician --kind analysis \
   --code code/rob_ipow.py --code code/aipw_lib.py --code code/diag_overlap.py \
   --input data/derived/analysis_noRE78.csv --input data/derived/re78_by_key.csv \
   --input runs/diag-overlap/metrics.json --input runs/main-aipw/metrics.json \
-  --metrics runs/rob-ipow/metrics.json -- .venv/bin/python -I code/rob_ipow.py
+  --metrics runs/rob-ipow/metrics.json -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/rob_ipow.py
 
 # 9. sens-imbens
 python3 $CREW run $WS --id sens-imbens --role econometrician --kind analysis \
   --code code/sens_imbens.py --code code/aipw_lib.py --code code/diag_overlap.py \
   --input data/derived/analysis_noRE78.csv --input data/derived/re78_by_key.csv \
   --input runs/diag-overlap/metrics.json --input runs/main-aipw/metrics.json \
-  --metrics runs/sens-imbens/metrics.json -- .venv/bin/python -I code/sens_imbens.py
+  --metrics runs/sens-imbens/metrics.json -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/sens_imbens.py
 
 # --- claims (design.claim_ids, table below); results gate (human) ---
 
 # 10. h2-benchmark: ONLY after the results gate is approved
 python3 $CREW run $WS --id h2-benchmark --role econometrician --kind analysis \
   --code code/h2_benchmark.py --input runs/main-aipw/metrics.json \
-  --metrics runs/h2-benchmark/metrics.json -- .venv/bin/python -I code/h2_benchmark.py
+  --metrics runs/h2-benchmark/metrics.json -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/h2_benchmark.py
 
 python3 $CREW validate $WS
 ```
@@ -240,7 +311,7 @@ Every metric below is checked to exist by `test_end_to_end_synthetic` (rob-ipow'
 | primary-effect, -ci-low, -ci-high, -se, -p | main-aipw | effect, ci_low, ci_high, se, p |
 | primary-n, -n-treated, -n-control, -n-clipped | main-aipw | n, n_treated, n_control, n_clipped_units |
 | primary-treated-mean, -cf-mean | main-aipw | treated_mean, cf_mean |
-| primary-rel-effect, -rel-ci-low, -rel-ci-high | main-aipw | rel_effect, rel_ci_low, rel_ci_high (fractions; `*_pct` also reported) |
+| primary-rel-effect, -rel-ci-low, -rel-ci-high | main-aipw | rel_effect_pct, rel_ci_low_pct, rel_ci_high_pct (percent) |
 | primary-re78-invalid-treated, -control | main-aipw | unobserved_re78_treated, unobserved_re78_control |
 | overlap-treated-above-09, overlap-kish-ess, overlap-max-control-weight | main-aipw | share_treated_above_09, kish_ess_controls, max_control_weight |
 | placebo-effect, -se, -ci-low, -ci-high | placebo-re75 | effect, se, ci_low, ci_high |
@@ -256,7 +327,14 @@ Every metric below is checked to exist by `test_end_to_end_synthetic` (rob-ipow'
 | sens-bench-g-r2d, -r2y, -bias, g in age, educ, black, hisp, married, nodegree, earn74, earn75 | sens-imbens | bench_g_r2d, bench_g_r2y, bench_g_abs_bias |
 | h2-diff, h2-se-combined, h2-ci-low, h2-ci-high (after the results gate) | h2-benchmark | h2_diff, h2_se_combined, h2_ci_low, h2_ci_high |
 
-Decision flags for the paper's wording (not claims): main-aipw `h1_holds`; placebo-re75
+Extra claims beyond design.claim_ids: primary-control-mean-raw, overlap-mbar-max-diff,
+placebo-p, placebo-se-needed, ipw-se, sens-target-zero, sens-sigma0. There are also value-free
+decision claims (h1-decision, h3-decision, disagree-trim, disagree-covset-a,
+disagree-learner-linear, agree-learner-rf, agree-ipw, nontrigger-checks, sens-reading) that
+cite the flags below. Claims are generated from the run records by a scratch script; every
+value is copied from a metric, and `crew.py validate --strict` checks them.
+
+Decision flags for the paper's wording: main-aipw `h1_holds`; placebo-re75
 `verdict`; `*_triggers_abstract_statement` in rob-trim, rob-covsets (covset_a), rob-learners
 (linear, rf) and rob-estimators (ipw); sens-imbens `robust_zero_<g>`, `strongest_robust_zero`,
 `weakest_nonrobust_zero`, `robust_zero_earn75`.

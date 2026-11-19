@@ -152,3 +152,33 @@ pass; SE_p < 459 needed); value procedural; disclosed and accepted at the questi
 - sens_imbens.py: 8 groups, 128+22+16 points, t_0 from main-aipw, reading rule as fixed.
 - Only h2_benchmark.py contains 1794 / 633; join_rule checks fields 1-9.
 - F6 wording, if adopted, appears in the claims/abstract logic, not as a changed covariate set.
+
+## code-r1 (2026-11-19T08:36Z), verdict: pass
+
+Held (checked line by line against ss-null-effect@716b6c3 and 9f3133a): AIPW score, per-repetition SE,
+mean aggregation + between-repetition variance, HGB settings, the LRCV propensity (now diag_overlap.crossfit,
+only warning handling added), folds/seeds; DEV-1..17 coded as written (B 14, B(X-) 11 / T 8, covsets a/b
+11/7 and 11/8, diff74 8/6, upper-only clip everywhere incl. Hajek and RF, HC2 OLS 16 regressors, C from
+LRCV seed 20261118, bootstrap 999 seed 20261120 unstratified, 8 sens groups partition B(X), 166 points);
+join rule (fields 1-9 exact, u74/u75 rebuilt, both-way match, NA -> missing); only main_aipw touches
+data/raw; placebo reads only analysis_noRE78.csv; benchmark only in h2_benchmark.py; disagreement rule
+(h1 flag for trim/covset-a/linear/rf; IPW by point outside CI). Pre-existing workspace not otherwise changed
+(plan.json diff = a-code status only).
+My synthetic checks (scratch lalonde-reviewer3/, no study file read): (1) HGB 1/3/8 OpenMP threads ->
+bit-identical predictions; 4.8 s vs 96.6 s per fit under load 70-105. (2) every script end to end on a
+16,177-row synthetic file with 210 treated (true ATT 1,500): main 1,662 (SE 347); all runs rc 0, 8.5 min
+single-threaded; m_bar diff vs diag 0.0; EM all converged. (A first, more extreme synthetic file failed B1
+and load_covariates correctly refused to run.) Side observation, design-level and already disclosed:
+when selection depends on re75/u75, unconfoundedness given X can hold while the placebo fails hugely
+(-4,873, SE 416 on my synthetic data). A placebo failure on the real data says little.
+Open (all minor): F1 OMP threads unlimited (fix: env OMP_NUM_THREADS=1, result-neutral); F2 convergence
+counts not written (4 scripts) + sens-imbens Logit convergence unchecked; F3 no stop when refit m_bar !=
+diag-overlap's; F4 h2-benchmark has no gate guard.
+
+## Check at results review
+- Run records: OMP setting in the command; n_convergence_warnings present; main-aipw
+  max_abs_diff_mbar_vs_diag_overlap ~0 and rob-trim n_control_dropped == 8,125.
+- No code change after this review without unit-tests --replace and a re-review (sha256 in unit-tests run.json).
+- h2-benchmark run time after the results gate approval time; no benchmark in claims before it.
+- Claims: wording follows the placebo verdict (contrast unless pass); every robustness run reported; the
+  covset-a sentence names race/ethnicity/degree if it triggers; sens earn75 sentence present.

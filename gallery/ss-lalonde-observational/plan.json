@@ -159,7 +159,7 @@
       "id": "a-code",
       "title": "Write analysis scripts aipw_lib.py, main_aipw.py, placebo_re75.py, rob_trim.py, rob_covsets.py, rob_learners.py, rob_estimators.py, rob_diff74.py, rob_ipow.py, sens_imbens.py, h2_benchmark.py per design.method (no run)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "r-code",

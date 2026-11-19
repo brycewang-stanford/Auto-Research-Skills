@@ -22,6 +22,9 @@ Relative effect: r = theta / (mu1 - theta), delta-method CI (aipw_lib.relative_e
 Overlap: m_bar = mean over repetitions of the unclipped out-of-fold propensity; share of
 treated with m_bar > 0.9 (O1), share of units clipped (O2), Kish ESS of the weighted controls,
 largest control weight; m_bar compared with runs/diag-overlap/propensity.csv (same fits).
+code-r1 F3: on the full sample the run STOPS (exit 1) if any unit's refitted m_bar differs from
+diag-overlap's by more than 1e-12 + 1e-9 m_bar (the CSV holds 12 significant digits), because
+the pre-gate rules B1/O1/O2 and the trimming count were fixed on those fits.
 rob-ipow trigger (design.method.missing_outcomes, DEV-17): |share unobserved among treated -
 share unobserved among controls| > 0.02, from counts only.
 
@@ -85,7 +88,17 @@ def main() -> int:
         diag = pd.read_csv(L.DIAG_PROP)
         if not diag[L.KEY].equals(sub[L.KEY]):
             sys.exit("ERROR: runs/diag-overlap/propensity.csv row keys differ from the working file")
-        met["max_abs_diff_mbar_vs_diag_overlap"] = float(np.max(np.abs(diag["m_bar"].to_numpy() - m_bar)))
+        chk = L.mbar_check(diag["m_bar"].to_numpy(), m_bar)
+        met["max_abs_diff_mbar_vs_diag_overlap"] = chk["max_abs_diff"]
+        met["n_mbar_outside_tol_vs_diag_overlap"] = chk["n_outside_tol"]
+        met["mbar_matches_diag_overlap"] = chk["ok"]
+        if not chk["ok"]:
+            L.write_metrics(OUT, met)
+            sys.exit(f"ERROR: refitted propensities differ from diag-overlap's for {chk['n_outside_tol']} "
+                     f"units (max abs diff {chk['max_abs_diff']:.3g}; tolerance 1e-12 + 1e-9 m_bar); "
+                     "the gate's diagnostics would not describe the fits used. Stopping (code-r1 F3).")
+    else:
+        met["mbar_matches_diag_overlap"] = "not applicable: complete-case subsample, folds re-drawn"
 
     # Outcome counts by arm and the rob-ipow trigger (counts only).
     met.update(counts)

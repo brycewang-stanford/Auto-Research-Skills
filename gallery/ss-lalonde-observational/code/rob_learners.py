@@ -85,6 +85,7 @@ def main() -> int:
     met.update(L.summarize(lin, "linear_"))
     met.update(L.compare_with_main(met, "linear_", main_m))
     met["linear_n_clipped_unit_reps"] = lin["n_clipped_unit_reps"]
+    met["linear_n_convergence_warnings"] = lin["n_convergence_warnings"]
 
     rf = L.aipw(d, y, Xt, Xt, prop_make=rf_c, out_make=rf_r)
     met.update(L.summarize(rf, "rf_"))

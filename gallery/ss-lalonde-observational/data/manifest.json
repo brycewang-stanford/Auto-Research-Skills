@@ -37,6 +37,17 @@
       "retrieved_on": "2026-11-19",
       "rows": 16177,
       "columns": 13
+    },
+    {
+      "id": "re78-by-key",
+      "origin": "Derived by analysis run main-aipw (code/main_aipw.py, method.join_rule): field 10 (RE78) of data/raw/nswre74_treated.txt and data/raw/cps_controls.txt keyed by (src, row), after checking fields 1-9 against data/derived/analysis_noRE78.csv exactly (0 mismatches, 0 unmatched rows).",
+      "license": "Same terms as the two source files (derived subset of columns); not redistributed (data/derived is git-ignored).",
+      "path": "data/derived/re78_by_key.csv",
+      "sha256": "71d3e815eb68e06d986583e97b3317d1ce49d0ee787c349a114178f9c0dec2c2",
+      "retrieved_on": "2026-11-19",
+      "rows": 16177,
+      "columns": 3,
+      "note": "The only file outside data/raw that contains re78; read by every analysis run after main-aipw except placebo-re75."
     }
   ]
 }
