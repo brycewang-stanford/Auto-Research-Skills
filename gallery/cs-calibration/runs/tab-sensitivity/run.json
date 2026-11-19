@@ -1,0 +1,78 @@
+{
+  "id": "tab-sensitivity",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/tab_sensitivity.py",
+    "--out-tests",
+    "paper/tables/tab_sensitivity.tex",
+    "--out-elec",
+    "paper/tables/tab_elec_time.tex",
+    "--metrics",
+    "runs/tab-sensitivity/metrics.json"
+  ],
+  "started": "2026-11-19T12:34:58Z",
+  "finished": "2026-11-19T12:35:01Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_sensitivity.py",
+      "sha256": "bed28381f9326ff318c6a890d8eafee2aa6b6b46b6984535b347f24a203a10d1"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "a6c7da965f4eee83650b3936c11e3e784678119fe3282087c0b813ef625ad2ac"
+    },
+    {
+      "path": "code/analyze.py",
+      "sha256": "cf98c82dd5d72bc653c945fd57d49da9f539f69796a55d0a3b9f5742b2f1d393"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/h-tests/metrics.json",
+      "sha256": "537d3b05096d660e64407a5b9b42b6d93b6e14522512bc3adafded1302a3f3fc"
+    },
+    {
+      "path": "runs/sens-ncal/metrics.json",
+      "sha256": "18de76e4b77bfa8ee6304d01ee2829260c86ee073e837d387bb745069219159d"
+    },
+    {
+      "path": "runs/sens-elec-time/metrics.json",
+      "sha256": "4cf03f21c705468437f0505d3d98e2726b3f331a1fe79675c6b1b405cf8b8f45"
+    },
+    {
+      "path": "runs/describe/metrics.json",
+      "sha256": "b391d6868ef60951711050fba6a0b54d651f558c3cfa4365efa4377a683e6c60"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_sensitivity.tex",
+      "sha256": "f3b239134a0f839da753a729b6d9237e24fe926a21f633c5dd1084b961c90b87"
+    },
+    {
+      "path": "paper/tables/tab_elec_time.tex",
+      "sha256": "fa4eccc20b18b764745f540ff506980bbe7c55a916b6520e27081c497a1c0809"
+    },
+    {
+      "path": "runs/tab-sensitivity/metrics.json",
+      "sha256": "a70401ad678fb37eaf8eaad142987d574b9a678656a68054fa1e193765de8045"
+    }
+  ],
+  "metrics": {
+    "checksum_values": 1385.3180056488504,
+    "n_macro_cells": 126,
+    "n_plain_cells": 1,
+    "n_rows": 21
+  },
+  "metrics_file": "runs/tab-sensitivity/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/cs-calibration/.venv"
+  }
+}

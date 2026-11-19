@@ -1,0 +1,56 @@
+{
+  "id": "tab-levels",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/tab_levels.py",
+    "--out",
+    "paper/tables/tab_levels.tex",
+    "--metrics",
+    "runs/tab-levels/metrics.json"
+  ],
+  "started": "2026-11-19T12:34:57Z",
+  "finished": "2026-11-19T12:34:57Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_levels.py",
+      "sha256": "ca3826c39e908e7f832755b4193aa2ba1bb4a1a37f850372f99c0084dee1d1a5"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "a6c7da965f4eee83650b3936c11e3e784678119fe3282087c0b813ef625ad2ac"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/describe/metrics.json",
+      "sha256": "b391d6868ef60951711050fba6a0b54d651f558c3cfa4365efa4377a683e6c60"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_levels.tex",
+      "sha256": "ec5842eb78c3ce04a0a821aa1e2366272b1513967a04cc50fcc38f389fa0d5ba"
+    },
+    {
+      "path": "runs/tab-levels/metrics.json",
+      "sha256": "f86847d8f52af0211c90369febaea7493d5b5d74d608004089bc3f6336c2c2e9"
+    }
+  ],
+  "metrics": {
+    "checksum_values": 538.5339842413141,
+    "n_macro_cells": 276,
+    "n_plain_cells": 48,
+    "n_rows": 36
+  },
+  "metrics_file": "runs/tab-levels/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/cs-calibration/.venv"
+  }
+}

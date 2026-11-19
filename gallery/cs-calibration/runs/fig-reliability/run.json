@@ -1,0 +1,246 @@
+{
+  "id": "fig-reliability",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/fig_reliability.py",
+    "--out",
+    "paper/figures/fig_reliability.pdf",
+    "--metrics",
+    "runs/fig-reliability/metrics.json"
+  ],
+  "started": "2026-11-19T12:35:01Z",
+  "finished": "2026-11-19T12:35:06Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_reliability.py",
+      "sha256": "25f3a0c248089f83ec13ac549135b262d420f210025e2de0076a4e117349e0bf"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "a6c7da965f4eee83650b3936c11e3e784678119fe3282087c0b813ef625ad2ac"
+    },
+    {
+      "path": "code/experiment.py",
+      "sha256": "cf439bcde90570127ec076b6fe694beb60cc96b641c884aeb2939e3562a350a3"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "results/preds/main/adult_s0.npz",
+      "sha256": "360cecce5374c203a056103b9631faabc802face2606c95e2abada15662cbc5f"
+    },
+    {
+      "path": "results/preds/main/adult_s1.npz",
+      "sha256": "9cc342cf4e8845046a9799ba75094c8141b608c7c7f119709c548a2de6f3c3e7"
+    },
+    {
+      "path": "results/preds/main/adult_s2.npz",
+      "sha256": "ccd5a24c89343ae747e65fb92abb3fb31930fce25ce9e32a444c568ceb5119b9"
+    },
+    {
+      "path": "results/preds/main/adult_s3.npz",
+      "sha256": "7994e74e8296cf00ea621bfa01dc74e61b7fcdb96e7bd3508654a478d02d81dc"
+    },
+    {
+      "path": "results/preds/main/adult_s4.npz",
+      "sha256": "5155879d45813d19fbb54d02e6f45efeb5f44cecb4e47af9d6e875f73ac87938"
+    },
+    {
+      "path": "results/preds/main/adult_s5.npz",
+      "sha256": "645d5701b848c1488e771a9be7bca7c10347770578649a644bb9c38b8c6cede9"
+    },
+    {
+      "path": "results/preds/main/adult_s6.npz",
+      "sha256": "b11bded74bc9304c9ce9593d56bf870025ed62cab5f2a11e948a7f58eae8ec62"
+    },
+    {
+      "path": "results/preds/main/adult_s7.npz",
+      "sha256": "ec8a4b76978ea3068a59f7b98088844e233cafab300133245f8489d89e7bcd0f"
+    },
+    {
+      "path": "results/preds/main/adult_s8.npz",
+      "sha256": "1f40583dc081a2b6c77ee9cde95b1ab1dc971495981827f3253bf6e6a843a2a4"
+    },
+    {
+      "path": "results/preds/main/adult_s9.npz",
+      "sha256": "f275c6bdeacba50cef6f630a9e3e21f65449726e63c5ebe4df4a5fa1bfd8e961"
+    },
+    {
+      "path": "results/preds/main/bank-marketing_s0.npz",
+      "sha256": "d9a9495cb07a0574d56c7a60ff5d959de38899a97edec494f8d1c9ef883eec91"
+    },
+    {
+      "path": "results/preds/main/bank-marketing_s1.npz",
+      "sha256": "812bff88dfc965ae5e2029af96066f31ab50a790cc8ab1382b390aa775b1c076"
+    },
+    {
+      "path": "results/preds/main/bank-marketing_s2.npz",
+      "sha256": "a3da02afaa0b14b19d3d8c0c403611e784a86ab5f774af478823f0c9d60d7827"
+    },
+    {
+      "path": "results/preds/main/bank-marketing_s3.npz",
+      "sha256": "a8c56e219d45a4eef9fced63f063d41313f28640da5e52b87c6c3a2325e755f8"
+    },
+    {
+      "path": "results/preds/main/bank-marketing_s4.npz",
+      "sha256": "c667498e4713008aedbcbee3a7d825e9b72a634dc8087e5c76542163c9f75979"
+    },
+    {
+      "path": "results/preds/main/bank-marketing_s5.npz",
+      "sha256": "be0640623d275e6f17718cb4e2ad2a922090f03209dd1694731ced085d05a337"
+    },
+    {
+      "path": "results/preds/main/bank-marketing_s6.npz",
+      "sha256": "30bcc58ff2be7d1d7106d49e3fa9db2be391d6eac79b83ff889b06e5df151dd2"
+    },
+    {
+      "path": "results/preds/main/bank-marketing_s7.npz",
+      "sha256": "b4e9d1e6380e1fc986ac3baf0b4660e43a847f815ce27635110765e21243c925"
+    },
+    {
+      "path": "results/preds/main/bank-marketing_s8.npz",
+      "sha256": "3cda476be8e6f466f2517bc778dcac033591bae0f52f1a453e6d496983a284a8"
+    },
+    {
+      "path": "results/preds/main/bank-marketing_s9.npz",
+      "sha256": "f62ca6dc013ad683ef68b68430fe264ac4b8687761fccea022fc37810fa3627e"
+    },
+    {
+      "path": "results/preds/main/electricity_s0.npz",
+      "sha256": "8197ef4cb00c90401f0e664b89e651b2e98bb3b76463b9fdad8b6397a4a65611"
+    },
+    {
+      "path": "results/preds/main/electricity_s1.npz",
+      "sha256": "d1916b8b1729cacce22117009d732e9245cadbc8657d52ae6561fae96101b4f8"
+    },
+    {
+      "path": "results/preds/main/electricity_s2.npz",
+      "sha256": "d978b049388d5a23a2688cc6438f49decf23c0abf92ce51f05b02a33ff1daed2"
+    },
+    {
+      "path": "results/preds/main/electricity_s3.npz",
+      "sha256": "c1f41ea96aea0e4300d1d4f8c8d9137e2ae71e708677da4c7908741260c95136"
+    },
+    {
+      "path": "results/preds/main/electricity_s4.npz",
+      "sha256": "361914c54c90b9ed2be24b664d157e1e41d191b99c03b8a882be046ed7290e61"
+    },
+    {
+      "path": "results/preds/main/electricity_s5.npz",
+      "sha256": "058b1ab59234c3c3d33b839d514379f2d43247b33cba76160a38d443b5dfd8bc"
+    },
+    {
+      "path": "results/preds/main/electricity_s6.npz",
+      "sha256": "634acab7b2c3ad9ac46ef685643f1373afab236ab9f7e24fbe3690f650c0cd06"
+    },
+    {
+      "path": "results/preds/main/electricity_s7.npz",
+      "sha256": "3566af8016b2af86e3f7685d4c6812bd72004acd247c55ca3b8534cbc8e55137"
+    },
+    {
+      "path": "results/preds/main/electricity_s8.npz",
+      "sha256": "513c412b5be5f964e47a60ba31e9bfb8cd9eab0a4402167f7d155d6564101629"
+    },
+    {
+      "path": "results/preds/main/electricity_s9.npz",
+      "sha256": "c86b849138d248afeebedabe6cdef632c11c044ba07b6be9b3243514377c48f6"
+    },
+    {
+      "path": "results/preds/main/phoneme_s0.npz",
+      "sha256": "73b09de392267ab482e01907af73db0fd91b649a2a7d726e7d56c32f7ed528b4"
+    },
+    {
+      "path": "results/preds/main/phoneme_s1.npz",
+      "sha256": "b3513e2eb15bcd8f5ce066a89a8c5c50d98fb2c7017b242c6cee8975ef17297f"
+    },
+    {
+      "path": "results/preds/main/phoneme_s2.npz",
+      "sha256": "879de02871a968b19544288a9cc12f426f2cc7d31a87a3efc8d9706b56340696"
+    },
+    {
+      "path": "results/preds/main/phoneme_s3.npz",
+      "sha256": "0e3fc4c48ef98b176b344f59691c6b0ed1cadd8b4e07d371dd0af79743624c8f"
+    },
+    {
+      "path": "results/preds/main/phoneme_s4.npz",
+      "sha256": "08735af762036b19c71c0820f930066a1b7311fb4cc1964b8977ab4c1fdcb680"
+    },
+    {
+      "path": "results/preds/main/phoneme_s5.npz",
+      "sha256": "586dfc4c0136088d9f97f751b867cd7c34a273efa41cee6f6974459f1ade72b8"
+    },
+    {
+      "path": "results/preds/main/phoneme_s6.npz",
+      "sha256": "93a46a37a096bdd65122155cd3a2b2bd595a20fdc98097d62e13e0503e5b46cc"
+    },
+    {
+      "path": "results/preds/main/phoneme_s7.npz",
+      "sha256": "198dfd7bc09b9e018b625d8741361f40789d333b3bb0e8c02d73b7d24adaa65f"
+    },
+    {
+      "path": "results/preds/main/phoneme_s8.npz",
+      "sha256": "36d549e593fb258cbc721ce2b533f9abcc60c84dea29d264758c58e781e893b7"
+    },
+    {
+      "path": "results/preds/main/phoneme_s9.npz",
+      "sha256": "9bec7e121d8d3b30331f1898911fd750168652378f003ed66953f60247e90ba5"
+    },
+    {
+      "path": "runs/describe/metrics.json",
+      "sha256": "b391d6868ef60951711050fba6a0b54d651f558c3cfa4365efa4377a683e6c60"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_reliability.pdf",
+      "sha256": "8ba6234c8c7fcadb7eff730a59d3503047d07acaa60b66452a3eebb869b8184f"
+    },
+    {
+      "path": "runs/fig-reliability/metrics.json",
+      "sha256": "06c1f2be80fcb00c266c70f9fac03ccc5c291b73bc33e548e4a166d9a4636ed6"
+    }
+  ],
+  "metrics": {
+    "adult_hgb_isotonic_pooled_bins": 14,
+    "adult_hgb_none_pooled_bins": 15,
+    "adult_lr_isotonic_pooled_bins": 15,
+    "adult_lr_none_pooled_bins": 15,
+    "adult_rf_isotonic_pooled_bins": 15,
+    "adult_rf_none_pooled_bins": 13,
+    "bank_marketing_hgb_isotonic_pooled_bins": 14,
+    "bank_marketing_hgb_none_pooled_bins": 15,
+    "bank_marketing_lr_isotonic_pooled_bins": 15,
+    "bank_marketing_lr_none_pooled_bins": 15,
+    "bank_marketing_rf_isotonic_pooled_bins": 15,
+    "bank_marketing_rf_none_pooled_bins": 11,
+    "checksum_plotted": 544.6154152380569,
+    "ece_matches_describe_1e12": 1,
+    "electricity_hgb_isotonic_pooled_bins": 15,
+    "electricity_hgb_none_pooled_bins": 15,
+    "electricity_lr_isotonic_pooled_bins": 15,
+    "electricity_lr_none_pooled_bins": 15,
+    "electricity_rf_isotonic_pooled_bins": 15,
+    "electricity_rf_none_pooled_bins": 15,
+    "min_seeds_in_bin": 2,
+    "n_bins_rule": 15,
+    "n_panels": 12,
+    "n_points": 348,
+    "phoneme_hgb_isotonic_pooled_bins": 13,
+    "phoneme_hgb_none_pooled_bins": 15,
+    "phoneme_lr_isotonic_pooled_bins": 15,
+    "phoneme_lr_none_pooled_bins": 15,
+    "phoneme_rf_isotonic_pooled_bins": 15,
+    "phoneme_rf_none_pooled_bins": 13
+  },
+  "metrics_file": "runs/fig-reliability/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/cs-calibration/.venv"
+  }
+}

@@ -69,3 +69,9 @@
 {"time": "2026-11-19T08:18:53Z", "role": "pi", "action": "gate-request", "detail": "results"}
 {"time": "2026-11-19T12:27:59Z", "role": "pi", "action": "gate-approve", "detail": "results Bryce Wang"}
 {"time": "2026-11-19T12:28:00Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261119T122759Z"}
+{"time": "2026-11-19T12:31:13Z", "role": "figures-ra", "action": "start", "detail": "f-figs: decision table (H1/H2a/H2b), reliability diagrams (LR/RF/HGB none vs isotonic), levels table, sensitivity table; scripts code/figlib.py, tab_decision.py, fig_reliability.py, tab_levels.py, tab_sensitivity.py, run through crew.py run --kind analysis"}
+{"time": "2026-11-19T12:34:57Z", "role": "figures-ra", "action": "run", "detail": "tab-decision exit=0"}
+{"time": "2026-11-19T12:34:57Z", "role": "figures-ra", "action": "run", "detail": "tab-levels exit=0"}
+{"time": "2026-11-19T12:35:01Z", "role": "figures-ra", "action": "run", "detail": "tab-sensitivity exit=0"}
+{"time": "2026-11-19T12:35:06Z", "role": "figures-ra", "action": "run", "detail": "fig-reliability exit=0"}
+{"time": "2026-11-19T12:37:00Z", "role": "figures-ra", "action": "figures-done", "detail": "f-figs: 1 figure (fig_reliability) and 4 table fragments (tab_decision, tab_levels, tab_sensitivity, tab_elec_time) from runs fig-reliability, tab-decision, tab-levels, tab-sensitivity; 438 table cells as claim macros, 61 plain (unquoted) numbers, 0 typed; unlogged macro check against claims.jsonl 0 failures; captions in paper/figures/CAPTIONS.md with electricity-dependence and bin-count caveats; validate OK"}

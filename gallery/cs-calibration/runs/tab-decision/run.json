@@ -1,0 +1,63 @@
+{
+  "id": "tab-decision",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/tab_decision.py",
+    "--out",
+    "paper/tables/tab_decision.tex",
+    "--metrics",
+    "runs/tab-decision/metrics.json"
+  ],
+  "started": "2026-11-19T12:34:55Z",
+  "finished": "2026-11-19T12:34:57Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_decision.py",
+      "sha256": "4166f5080291682238cb0540362129d95732339a6cdbdeedbcc783e4feb6ec3f"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "a6c7da965f4eee83650b3936c11e3e784678119fe3282087c0b813ef625ad2ac"
+    },
+    {
+      "path": "code/analyze.py",
+      "sha256": "cf98c82dd5d72bc653c945fd57d49da9f539f69796a55d0a3b9f5742b2f1d393"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/h-tests/metrics.json",
+      "sha256": "537d3b05096d660e64407a5b9b42b6d93b6e14522512bc3adafded1302a3f3fc"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_decision.tex",
+      "sha256": "2838afbeed4f7190bcb07c9ecccc340551a1f74f78822977c0dd13ac8ca88ea5"
+    },
+    {
+      "path": "runs/tab-decision/metrics.json",
+      "sha256": "c996c1e1e096d04865451ee2aee16a1aa136223b61e4c9148e7d02ccbc9f0f14"
+    }
+  ],
+  "metrics": {
+    "checksum_values": 31.958617605082555,
+    "h1_elec_pivotal": 0,
+    "h2a_elec_pivotal": 1,
+    "h2b_elec_pivotal": 1,
+    "n_dataset_rows": 12,
+    "n_macro_cells": 36,
+    "n_plain_cells": 12
+  },
+  "metrics_file": "runs/tab-decision/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/cs-calibration/.venv"
+  }
+}
