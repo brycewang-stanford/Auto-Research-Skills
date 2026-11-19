@@ -428,3 +428,40 @@ Check at round 3:
   replication line, all against the Replicator's replication.json and REPLICATION.md.
 - Check that the Replicator's result, if it fails on lasso/nnet BLAS, is reported per run with
   its magnitude, not just "differs".
+
+## paper-r3 (2026-11-19): revise, 0 critical / 1 major / 3 minor open
+
+Status: F9 and F10 are resolved. F6(b) is resolved for the replication part, but the AI-use
+review count still says 2 paper rounds. New: F11 (major), F12 and F13 (minor).
+
+- F11 corrects MY OWN paper-r2 error. 401K.R never calls registerDoParallel. makeCluster(12)
+  is created but never registered, so %dopar% runs sequentially, and the warning is hidden
+  by options(warn=-1). set.seed(1211) therefore fixes the splits (runif inside DoubleML,
+  Moment_Functions.R line 53), given the package versions. The paper now prints my false claim
+  ('does not fix the splits it draws on parallel workers'), attributed to 'the review'. Also:
+  the repository starts at 91e7d6c on 2017-05-31T18:06Z (Readme only); the code comes in
+  a8ef8ef on 2017-06-01T00:54Z. My earlier memory had both wrong.
+  Lesson: check for backend registration before claiming anything about foreach RNG.
+- F12: the abstract and conclusion still infer that the tolerances are 'if anything, wide'
+  from the earlier-run gaps, which Sec. 2 says are not split noise. Better evidence is
+  already in the paper: tol_obs < tol in all 10 cells.
+- F13: replication.json has 15 'match' and 1 'ran' (timing-synthetic). The paper says
+  'all 16 reproduced'.
+
+Verified myself (no model run; file reads, arithmetic, GitHub API reads of public code):
+- Every min/max or ordering statement against numbers.tex: Tol and MDS ranges, CiLow, Pct and
+  SD ranges, RMSE ranges, SE-ratio ranges, the 15% statement, tol_obs, nnet-2 largest, H3
+  margins vs tree.
+- Ours larger than the earlier-run gap in 7/10 cells. RMS $61.2.
+- Gate times and code-r2 (14:33:17Z) before check-noctrl (14:38:52Z).
+- The replication facts against replication.json, REPLICATION.md and the run.json env.
+  Every record has the same platform string; "same machine" cannot be proved beyond that.
+- plan.json is unchanged since paper-r2. validate and --strict OK. A scratch compile gives
+  20 pp, and its text equals the committed main.pdf.
+
+Check at round 4 (last):
+- F11: the clause is deleted or corrected with a dmlongithub claim; the date wording is fixed.
+- F12: 'if anything, wide' is dropped or tied to tol_obs. F13: '15 matched + 1 ran'.
+- F6: the AI-use names paper-r3/r4 and their verdicts. After round 4, the open items go to the
+  human.
+- Do not let a new sentence about the authors' code appear without a claim.

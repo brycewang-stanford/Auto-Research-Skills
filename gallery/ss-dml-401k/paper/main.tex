@@ -55,9 +55,9 @@ detected. Smaller shifts are not ruled out. The two lasso cells lie inside their
 tolerance but cannot be tested at this resolution, and the replicated lasso estimates
 vary several times less across splits than the published standard errors imply (the
 published split spread is not observed; it is inferred from the two standard-error
-rows). Two published runs by the same authors, whose code and splits are not known,
-differ by \$5 to \$154 per cell, all inside our tolerances, which suggests that the
-tolerances are, if anything, wide. The lasso estimate is
+rows). Two published runs by the same authors, whose code and splits are not known to
+us, differ from each other by \$5 to \$154 per cell; all ten gaps are smaller than our
+tolerances. The lasso estimate is
 below every flexible learner's at both fold counts (H3).
 \end{abstract}
 
@@ -203,11 +203,9 @@ earlier numbers appear in the appendix of arXiv preprint 1701.08687v1 of the aut
 \emph{AER Papers and Proceedings} article; we read that preprint, not the published
 appendix \citep{chernozhukov2017aerpp,chernozhukov2016dmlv4}. The earlier run is the same
 exercise, also aggregated by the median over splits, but its code and splits are not
-known. The authors' public repository begins on 1 June 2017, after that run
-\citep{dmlongithub}, and the review of this paper found that even the public script does
-not fix the splits it draws on parallel workers. The two runs may therefore differ in
-splits, code or package versions, and their gaps cannot be read as run-to-run split noise
-of one fixed procedure. Taking the earlier value minus the 2018 value, the earlier PLR
+known to us. The two runs may differ in code or package versions, and they may differ in
+their splits or share part of them. Their gaps therefore cannot be read as independent
+run-to-run split noise of one fixed procedure. Taking the earlier value minus the 2018 value, the earlier PLR
 cells differ from the published ones by \$5 to \$27 at 5 folds
 (lasso $+15$, tree $+23$, forest $+5$, boosting $-21$, neural network $+27$) and by \$10
 to \$154 at 2 folds (lasso $-10$, tree $+61$, forest $+88$, boosting $-13$, neural network
@@ -626,12 +624,13 @@ times narrower is weak evidence that our port behaves like the authors' lasso on
 
 \paragraph{The two published runs as a comparison.} The gaps between the authors' two
 published runs (\$5 to \$154 per cell; Section~\ref{sec:original}) all lie inside our
-tolerances, most of them well inside. As a calibration they suggest that the tolerances are, if anything, wide, which
-fits the factor 1.4826 being an upper bound. They do not show that the tolerances are
-adequate. Cell by cell, our differences (Table~\ref{tab:side}) are larger than the
+tolerances, most of them well inside. Because the two runs may share splits or differ
+in code, this says nothing about whether a split-noise tolerance is too wide or too
+narrow; our own evidence on that is the split-spread diagnostic in
+Section~\ref{sec:diagnostics}. Cell by cell, our differences (Table~\ref{tab:side}) are larger than the
 published-run gaps in most cells, notably the 5-fold forest, boosting and neural-network
 cells. Some of this is expected from our smaller $S$ for the forest and boosting and from
-the port deviations. Because the earlier run's code and splits are not known, its gaps
+the port deviations. Because the earlier run's code and splits are not known to us, its gaps
 are not a measure of the run-to-run variation of the original code, and we do not read
 our differences against them as a test.
 
@@ -849,8 +848,10 @@ impossible. This does not affect point estimates or H2.
 participation estimates. The novelty claim rests on the literature and documentation we
 read, not on a systematic search of code repositories.
 
-\paragraph{Replication.} The clean rerun passed. \texttt{replication.json} records all 16
-logged runs reproduced at the protocol tolerance (relative $10^{-6}$), from a fresh Python
+\paragraph{Replication.} The clean rerun passed. \texttt{replication.json} records that
+15 logged runs were re-executed and matched their recorded metrics at the protocol
+tolerance (relative $10^{-6}$). The sixteenth, the synthetic timing run, records only
+wall-clock timings, so it was re-executed without comparison. The rerun used a fresh Python
 environment built from \texttt{code/requirements.txt} and with the data downloaded again
 (details, as facts about that replication, in the AI-use statement). The rerun was made
 on the same machine as the original runs, with the same R package versions. The lasso and
@@ -941,8 +942,8 @@ expected, that every estimate is positive and significant and that the lasso giv
 smallest estimate. For readers who use this application as a benchmark, the main lessons
 concern precision, not the sign or size of the effect. Even with 100 splits, a
 cell-by-cell check of these estimates cannot see shifts of a few hundred dollars. The
-authors' two published runs differ by up to \$154 per cell, inside every tolerance, which
-suggests the tolerances are, if anything, wide. In our implementation, the treatment forest and the lasso's
+authors' two published runs differ from each other by up to \$154 per cell, and all ten
+gaps are smaller than our tolerances. In our implementation, the treatment forest and the lasso's
 split-to-split variability are where the estimates depart, or may depart, from the
 original. Whether another independent implementation would depart in the same places is
 not something one implementation can show.

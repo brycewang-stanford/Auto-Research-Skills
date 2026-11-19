@@ -17,8 +17,9 @@ submission gate. He takes responsibility for the paper's content.
         in \texttt{briefs/} from the Econometrician's relaunch brief (2026-11-18, 16:09 UTC)
         onward. Earlier briefs were not archived.
   \item \textbf{Review.} The Reviewer agent ran 4 rounds on the research question, 3 on the
-        design, 2 on the code, 2 on the results and 2 on the paper. Both paper rounds
-        returned \emph{revise}, and this version answers their findings. No separate
+        design, 2 on the code, 2 on the results and, so far, 3 on the paper. All three paper
+        rounds returned \emph{revise}, and this version answers their findings. A fourth
+        and last paper round is pending; the PI updates this item after it if needed. No separate
         literature round was held. The code was reviewed, and passed,
         before any analysis run. Its independence level was \emph{fresh-context}: a new
         context in every round, with the same model family as the other roles. The human
@@ -60,10 +61,10 @@ submission gate. He takes responsibility for the paper's content.
         the authors' \texttt{ML\_Functions.R}), the data manifest, every review, the
         archived briefs and the source notes.
   \item \textbf{Replication.} The Replicator's clean rerun passed:
-        \texttt{replication.json} (created 2026-11-19T09:16:58Z) records all 16 logged runs
-        reproduced at the protocol tolerance (relative $10^{-6}$, absolute $10^{-9}$). One
-        of them, the synthetic timing run, records only wall-clock timings, so it was
-        re-executed but has no metrics to compare. The following are facts about that
+        \texttt{replication.json} (created 2026-11-19T09:16:58Z) records that 15 logged
+        runs were re-executed and matched their recorded metrics at the protocol tolerance
+        (relative $10^{-6}$, absolute $10^{-9}$). The sixteenth, the synthetic timing run,
+        records only wall-clock timings, so it was re-executed without comparison. The following are facts about that
         replication, from \texttt{REPLICATION.md}:
         \begin{itemize}
           \item The Python environment was built fresh from \texttt{code/requirements.txt}
