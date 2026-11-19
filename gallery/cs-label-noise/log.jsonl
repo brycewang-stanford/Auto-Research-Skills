@@ -71,3 +71,5 @@
 {"time": "2026-11-19T01:25:51Z", "role": "pi", "action": "disclosure-corrected", "detail": "paper-r2 F9. plan.json sha256=d323555567a93c7f2f5fa2a2a78856c3b715f71e369900779827d7e1650b3999"}
 {"time": "2026-11-19T01:25:51Z", "role": "pi", "action": "brief-archived", "detail": "writer paper-r2 20261119T012551Z"}
 {"time": "2026-11-19T01:26:39Z", "role": "writer", "action": "paper-revised", "detail": "paper-r2 F4 (c-abl-count numerals named in footnote and AI-use), F10 (question-gate history, paper reviews 2), F11 (covtype interval below 0.05); 'before any analysis run' per plan.json 2026-11-19 correction; 19 pages, clean"}
+{"time": "2026-11-19T01:27:07Z", "role": "pi", "action": "gate-request", "detail": "submission"}
+{"time": "2026-11-19T05:44:45Z", "role": "pi", "action": "gate-approve", "detail": "submission Bryce Wang"}

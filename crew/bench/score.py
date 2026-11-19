@@ -111,7 +111,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{row['seed']:<18} protocol={row['protocol']:<11} answer={row['answer']['status']:<8} "
               f"gates={sum(s == 'approved' for s in row['gates'].values())}/4 "
               f"reviews={row['reviews']} (cross-family {row['cross_family_reviews']})")
-    crew.write_json(Path(args.out), {"crew_version": "0.5.0-dev", "protocol": crew.PROTOCOL_VERSION,
+    crew.write_json(Path(args.out), {"crew_version": "0.1.0", "protocol": crew.PROTOCOL_VERSION,
                                      "scored_on": crew.now(), "results": rows})
     print(f"Wrote {args.out}")
     return 0

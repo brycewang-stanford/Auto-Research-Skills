@@ -176,7 +176,12 @@
       "note": "Approved in chat on 2026-11-18 after reading the results, the Reviewer's verdict and its warning about the headline."
     },
     "submission": {
-      "status": "pending"
+      "status": "approved",
+      "requested_on": "2026-11-19T01:27:07Z",
+      "summary": "Paper passed review in round 2 (minor findings answered); clean rerun passed 20/20.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-19T05:44:45Z",
+      "note": "Approved in chat on 2026-11-19 after reading the paper summary, the Reviewer's verdict and kill argument, the clean rerun and the PI's disclosure correction. Published in the gallery as a demonstration, not submitted to any venue."
     }
   },
   "disclosures": [
