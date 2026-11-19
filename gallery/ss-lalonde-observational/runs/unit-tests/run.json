@@ -1,0 +1,109 @@
+{
+  "id": "unit-tests",
+  "role": "econometrician",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/test_analysis.py"
+  ],
+  "started": "2026-11-19T08:11:54Z",
+  "finished": "2026-11-19T08:17:29Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/test_analysis.py",
+      "sha256": "9b3cdd847a3f1c0322363269159642f90246691aa31a579e4f899c52db9ab216"
+    },
+    {
+      "path": "code/aipw_lib.py",
+      "sha256": "b5c341e72e7aeaef15a573bf8b3e592d3d9a23de511b7c09d47478fb95872c29"
+    },
+    {
+      "path": "code/diag_overlap.py",
+      "sha256": "e931ff4075f577ef0397c4f19b3ba3c1cd1e0373ea1ea245290f008e3a7eb115"
+    },
+    {
+      "path": "code/prepare_data.py",
+      "sha256": "aca4688746117603e3ec7ba5be1e9188434ca0e6ffa148c5a8675bfb1e0b0140"
+    },
+    {
+      "path": "code/main_aipw.py",
+      "sha256": "e25bf4b24d62fe0a07d1b4e19f675ddf24d684ec11a70de8ef474997279ad355"
+    },
+    {
+      "path": "code/placebo_re75.py",
+      "sha256": "4d3f74d7bc69fb05694eab8d9c1a2c548aae052b9036f8a9b65782a043b6a70f"
+    },
+    {
+      "path": "code/rob_trim.py",
+      "sha256": "754308bcdc3d94767b5871529347764c32faba4e68f5d34f3268aced64e7d585"
+    },
+    {
+      "path": "code/rob_learners.py",
+      "sha256": "56b98e33b8c919a36e6e3a270594b490e5094fb45d1cf8a9c4f83059335b2d81"
+    },
+    {
+      "path": "code/rob_covsets.py",
+      "sha256": "75619146581ddece6174611eaa87cc1125be8be4dd96c4b1bf47c408a5bcf831"
+    },
+    {
+      "path": "code/rob_estimators.py",
+      "sha256": "a3851f6868f1002ae9f23dbddd7c663b82f08ef239eefb05dedadf070abf9def"
+    },
+    {
+      "path": "code/rob_diff74.py",
+      "sha256": "030808b5ab10c5ccf63c7b35f72bd2c8da9b054c42fb67dea8fb781c95b5809c"
+    },
+    {
+      "path": "code/rob_ipow.py",
+      "sha256": "fcbebf8343ead808dcd816fa4e550b2d6a32042c81c4962bff4621a7ae117727"
+    },
+    {
+      "path": "code/sens_imbens.py",
+      "sha256": "4d020c5e48f9287284c67d7574d71705548d03cd3f9ceb60a5877de3ce95bca7"
+    },
+    {
+      "path": "code/h2_benchmark.py",
+      "sha256": "7bcaf2f7b1b5631cd886ec01997f191b8ef6975b5b8fa66be866216e6b406f37"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "runs/unit-tests/metrics.json",
+      "sha256": "86e84225ceeba75df0db27d9788cee5c20f45f5eaebe0bc51e548bd7ca28c7c5"
+    }
+  ],
+  "metrics": {
+    "tests_run": 19,
+    "tests_passed": 19,
+    "tests_failed": 0,
+    "failed_tests": "",
+    "reads_study_data": 0,
+    "true_att_synthetic": 1500.0,
+    "oracle_att_estimate": 295.5620599993306,
+    "oracle_ipow_estimate": 263.655988284287,
+    "imbens_bias_pos_r2_01": -0.35813711650815105,
+    "e2e_n": 2500,
+    "e2e_n_treated": 131,
+    "e2e_diag_smd_w_max_abs": 0.05750357213546221,
+    "e2e_main_effect": 1647.694255839168,
+    "e2e_main_se": 243.4502079222903,
+    "e2e_placebo_effect": -2812.8621998909175,
+    "e2e_placebo_verdict_code": -1,
+    "e2e_trim_n_control_dropped": 12,
+    "e2e_sens_r2star_zero": 0.3,
+    "e2e_em_nonconverged": 0,
+    "e2e_ipow_effect": 1523.7680588304995,
+    "e2e_ipow_se": 254.05699308749416
+  },
+  "metrics_file": "runs/unit-tests/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-lalonde-observational/.venv"
+  }
+}

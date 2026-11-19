@@ -45,3 +45,5 @@
 {"time": "2026-11-19T07:20:38Z", "role": "pi", "action": "gate-request", "detail": "design"}
 {"time": "2026-11-19T07:34:42Z", "role": "pi", "action": "gate-approve", "detail": "design Bryce Wang"}
 {"time": "2026-11-19T07:34:43Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261119T073442Z"}
+{"time": "2026-11-19T08:17:29Z", "role": "econometrician", "action": "run", "detail": "unit-tests exit=0"}
+{"time": "2026-11-19T08:17:54Z", "role": "econometrician", "action": "code-written", "detail": "a-code: aipw_lib, main_aipw, placebo_re75, rob_trim, rob_learners, rob_covsets, rob_estimators, rob_diff74, rob_ipow, sens_imbens, h2_benchmark per design.method; unit-tests (data-prep, synthetic only) 19/19 passed; no analysis run; awaiting Reviewer code review; commands in runs/NOTES.md"}

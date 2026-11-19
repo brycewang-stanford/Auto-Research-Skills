@@ -96,7 +96,38 @@ Implementation choices the plan left open (fixed now, before any outcome is read
 
 ## unit-tests (data-prep, synthetic data only)
 
-UNIT_TESTS_RESULT
+`code/test_analysis.py`, run `unit-tests` (2026-11-19T08:11:54Z to 08:17:29Z): **19/19 tests passed,
+exit 0, no study file read** (`--input` empty; synthetic workspaces in a temporary directory).
+Its metrics equal, to the last bit, those of an identical dry run in the scratch directory, so
+the code is deterministic on fixed inputs.
+
+What is tested: design constants (seeds 20261118 + s, K = S = 5, clip 0.99, placebo bound 900,
+IPW bootstrap 999 / seed 20261120, EM settings, 128 + 22 + 16 sensitivity points, learner
+hyperparameters); B(X), B(X-) (11 terms, no re75/u75), covset and time-invariant bases and
+T(X) widths; the outcome-validity and sentinel rule and the counts by arm; the AIPW score, the
+upper-only clip and the aggregation/variance rule on hand cases; the estimator with oracle
+nuisances on 200,000 synthetic units; the H1, H3 and disagreement rules; control-only
+trimming; the relative-effect delta method against finite differences; the IPOW score (equals
+AIPW when R = r = 1; oracle MAR check); Hajek IPW and HC2 against hand computations; the
+Imbens model (R2 maps, tau(0,0) = OLS, bias signs, R2* interpolation and '> 0.30'); H2's
+formula; that pandas' default CSV parser round-trips floats exactly (the join compares
+exactly); the join rule (exact match, a covariate changed in its last digit, a missing raw
+line, an extra field, a non-numeric re78); that only `h2_benchmark.py` contains the benchmark;
+that only `main_aipw.py` refers to `data/raw`; and two end-to-end runs of the real
+`prepare_data.py`, `diag_overlap.py` and every analysis script on synthetic workspaces in the
+raw-file format: (A) 2,500 units, 131 treated, true ATT 1,500, no missing re78: main-aipw
+1,647.7 (SE 243.5); its m_bar equals diag-overlap's; rob-trim's dropped count equals
+diag-overlap's; the placebo runs with `data/raw` and the joined outcome removed; rob-ipow
+refuses (trigger off); every metric named in design.claim_ids exists; a second main-aipw
+run gives identical metrics. (B) the same data with 10% of treated re78 set to the sentinel
+9999999, one CPS value non-numeric and one negative: the counts are exact, main-aipw uses the
+complete cases, the trigger fires, rob-ipow runs (1,523.8, SE 254.1) on all 2,500 units.
+
+Test-only setting: the tests run with one OpenMP thread (threadpoolctl). On this machine, with
+other sessions' runs in progress (load average above 40), HistGradientBoosting spin-waited in
+libomp and a first attempt had not finished main-aipw on 2,500 synthetic units after ten
+minutes. The analysis runs do not limit threads; if they stall the same way, the fix is to
+set `OMP_NUM_THREADS` for the run, which I would raise with the PI first.
 
 ## Exact commands
 

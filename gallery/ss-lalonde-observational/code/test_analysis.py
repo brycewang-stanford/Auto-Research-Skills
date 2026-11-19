@@ -442,6 +442,16 @@ def test_ipow_score():
     check(np.isfinite(o["theta"]) and abs(o["theta"] - 250) < 4 * o["se"], f"ipow {o['theta']:.1f}")
 
 
+@test
+def test_csv_float_round_trip():
+    """The join compares floats exactly, so pandas' default CSV parser must round-trip repr and %.10g."""
+    rng = np.random.default_rng(12)
+    v = np.concatenate([rng.lognormal(8, 2, 20000), np.round(rng.uniform(0, 90000, 20000), 2)])
+    text = "x\n" + "\n".join([repr(float(x)) for x in v] + [f"{x:.10g}" for x in v])
+    got = pd.read_csv(io.StringIO(text))["x"].to_numpy()
+    check(np.array_equal(got, np.array([float(t) for t in text.split("\n")[1:]])), "default parser exact")
+
+
 # ---------------------------------------------------------------- join rule
 @test
 def test_join_rule():
@@ -609,7 +619,7 @@ def test_end_to_end_synthetic():
             check(quiet(main_aipw.main) == 0, "main-aipw")
             m = metrics(ws, "main-aipw")
             exp = ordered_like_derived(df)
-            got = pd.read_csv("data/derived/re78_by_key.csv", float_precision="round_trip")
+            got = pd.read_csv("data/derived/re78_by_key.csv")
             check(np.array_equal(got["re78"].to_numpy(), exp["re78"].to_numpy(float)), "joined file")
             check(m["max_abs_diff_mbar_vs_diag_overlap"] < 1e-12, "m_bar = diag-overlap (csv has 12 digits)")
             check(m["unobserved_re78_treated"] == 0 and m["unobserved_re78_control"] == 0, "no missing")

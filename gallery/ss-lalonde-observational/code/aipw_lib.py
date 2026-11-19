@@ -136,8 +136,9 @@ def join_re78_from_raw(df: pd.DataFrame) -> np.ndarray:
     raw = pd.DataFrame(recs, columns=KEY + RAW_FIELDS)
     if raw.duplicated(KEY).any():
         sys.exit("ERROR: duplicate (src, row) keys in the raw files")
-    # The derived values are re-read with the exact (round-trip) parser for the comparison.
-    exact = pd.read_csv(DERIVED_FILE, usecols=KEY + ["treat"] + COVS, float_precision="round_trip")
+    # The derived values are re-read for the comparison (pandas >= 3 parses floats exactly by
+    # default; the unit tests check the round trip).
+    exact = pd.read_csv(DERIVED_FILE, usecols=KEY + ["treat"] + COVS)
     if not exact[KEY].equals(df[KEY].reset_index(drop=True)):
         sys.exit("ERROR: working file row keys differ between readers")
     m = exact.merge(raw, on=KEY, how="outer", suffixes=("", "_raw"), indicator=True)
@@ -167,7 +168,7 @@ def load_re78(df: pd.DataFrame) -> np.ndarray:
 
     Stops unless its keys are exactly the working file's keys, in the same order.
     """
-    out = pd.read_csv(RE78_FILE, dtype={"src": str, "row": "int64"}, float_precision="round_trip")
+    out = pd.read_csv(RE78_FILE, dtype={"src": str, "row": "int64"})
     if list(out.columns) != KEY + ["re78"]:
         sys.exit(f"ERROR: {RE78_FILE} has columns {list(out.columns)}")
     if not out[KEY].equals(df[KEY].reset_index(drop=True)):
