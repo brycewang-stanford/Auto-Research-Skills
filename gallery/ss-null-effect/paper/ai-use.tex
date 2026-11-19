@@ -9,25 +9,26 @@ for the paper's content.
 \begin{itemize}
   \item \textbf{Roles and models.} Every crew role ran on Anthropic Claude through Claude
         Code. The PI role was the main Claude Code session. The Scout, Designer, Data RA,
-        Econometrician, Figures RA, Reviewer and Writer ran as subagents launched from that
-        session. The review records name the model as \texttt{claude-opus-5-5}. The
-        Replicator role, which reruns every run from a clean environment, had not run when
-        this draft was written.
+        Econometrician, Figures RA, Reviewer, Writer and Replicator ran as subagents
+        launched from that session. The review records name the model as
+        \texttt{claude-opus-5-5}. The Replicator's clean rerun is reported below.
   \item \textbf{The PI session held the answer key.} The same session that acted as PI
         wrote the synthetic dataset's generator and its hidden answer key, so it knew the
         true effect. It also drafted the research question and hypotheses, replaced the
         \$1,000 equivalence margin with 10\% of enrolees' mean 1975 earnings at the
         Reviewer's suggestion, wrote the pre-gate diagnostics into the plan, issued the
         pre-gate rulings that let two runs read the outcome columns, and wrote every brief
-        to the other agents. The briefs up to and including the results stage were not archived when they were sent
-        (later briefs are in \texttt{briefs/});
+        to the other agents. Briefs were archived (\texttt{briefs/}) only from the
+        Writer's revision brief after the first paper review on (2026-11-18, 15:11 UTC).
+        All earlier briefs were not archived, including the Figures RA's brief, the
+        Writer's drafting brief and the brief for the first paper review;
         \texttt{briefs/RECONSTRUCTION.md} is the PI's after-the-fact reconstruction and
         cannot be verified. The agents that analysed the data and wrote the paper did not
         open the answer key; that the key did not reach them through the briefs rests on
         the PI's word.
   \item \textbf{Review.} The Reviewer agent ran 3 rounds on the research question, 3 on the
-        design, 1 on the code, 2 on the results and 1 on the paper (whose findings this version
-        answers; the paper review continues before the submission gate). No literature
+        design, 1 on the code, 2 on the results and 2 on the paper (the second passed with two
+        minor findings, which this version answers). No literature
         review round was held, although the crew's playbook calls for one before the design
         gate. Its independence level was \emph{fresh-context}: a new context in every
         round, with the same model family as the other roles. The human author chose this
@@ -44,13 +45,19 @@ for the paper's content.
         allowed a pre-gate run to count missing outcome values by arm, was logged only
         after that run, at the Reviewer's request, and is marked as retroactive. That it was
         given before the run rests on the PI's word (Section~\ref{sec:deviations}).
-  \item \textbf{Log repair.} The PI removed a hand-written Scout entry with a future
-        timestamp from the append-only log, at the Reviewer's request, and logged the
-        removal.
+  \item \textbf{Log repair.} The PI chose to remove a hand-written Scout entry with a
+        future timestamp from the append-only log, and logged the removal. The Reviewer
+        (question round 1, finding F8) had asked only that the entry be corrected or
+        explained.
   \item \textbf{Evidence.} Every number in the text is a macro generated from the metrics
         of a logged run. Every table cell is either such a macro or written by a logged
-        table script from run metrics; no number was typed by hand, apart from design facts
-        fixed in the plan. Every citation was checked against its source by the Scout: 9
+        table script from run metrics; no result number was typed by hand. The numbers typed
+        by hand are of three kinds: design facts fixed in the plan (including the pre-gate
+        precision proxies and the margin's earlier \$1,000 value); dates; and process facts
+        about the review and the replication (the review-round counts, the citation counts
+        below, the run counts and the rerun's 183 seconds), taken from \texttt{reviews/},
+        \texttt{sources/sources.json}, \texttt{replication.json} and
+        \texttt{REPLICATION.md}. Every citation was checked against its source by the Scout: 9
         from the full text and 14 from the abstract or opening text only. Where only the
         abstract or opening text could be read (as for \citet{imbens2003} and
         \citet{hirano2003}), the paper cites the source for no more than that text says.

@@ -1,0 +1,140 @@
+{
+  "id": "paper-r2",
+  "target": "paper",
+  "round": 2,
+  "created": "2026-11-19T05:50:41Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "../../crew/agents/reviewer.md",
+    "../../crew/PROTOCOL.md",
+    "../../crew/tracks/social-science.md",
+    "../../crew/PI.md (grep: brief archiving)",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/paper-r1/review.json",
+    "reviews/question-r1/review.json (F8)",
+    "reviews/question-r2/review.json (F9)",
+    "reviews/question-r3, code-r1, results-r2 review.json (finding statuses)",
+    "briefs/*.md (all six archived briefs and RECONSTRUCTION.md)",
+    "paper/main.tex",
+    "paper/ai-use.tex",
+    "paper/numbers.tex",
+    "paper/main.pdf (pdftotext -layout; pdfinfo: 20 pages, newer than main.tex and ai-use.tex)",
+    "paper/tables/tab_main.tex (grep)",
+    "paper/figures/CAPTIONS.md (grep)",
+    "plan.json (hypotheses[1], design.threats[8], gates; design hash without tasks/gates at 274c4d6, HEAD, working copy)",
+    "claims.jsonl (diff since cbd31cd; c-sensitivity, c-ipw-efficient)",
+    "refs.bib (entry count)",
+    "sources/sources.json",
+    "sources/notes.md (Dehejia 2005, Olken, Coffman)",
+    "REPLICATION.md",
+    "replication.json (record_sha256 recomputed against runs/*/run.json)",
+    "runs/*/run.json (ids, kinds, roles, times)",
+    "runs/tab-balance/run.json (inputs)",
+    "runs/NOTES.md (diff since cbd31cd)",
+    "runs/timing-synthetic/metrics.json",
+    "runs/timing-synthetic/timing.json",
+    "data/derived/margin_metrics.json",
+    "code/rob_learners.py (diff since cbd31cd)",
+    "code/tab_balance.py (inputs)",
+    "log.jsonl",
+    "git log/diff of gallery/ss-null-effect since cbd31cd",
+    "crew.py validate --strict; crew.py status"
+  ],
+  "kill_argument": "The paper's only affirmative result is a conditional equivalence, and the paper's own evidence takes it apart. A confounder as strong as the observed 1975-earnings covariates moves the estimate by $1,716, about 3.5 times M, and one as weak as 1974 earnings ends equivalence. The only estimate under another assumption (-1,087) has its whole 90% interval below -M. So the title's question gets no answer: the two assumptions the data cannot choose between give answers more than 2M apart. What remains is a claim about process, that the analysis was pre-specified and blind. That claim is attested only by the crew's own code, log and git, and the frame (question, margin, admissible ranges, every brief) was set by the session that held the answer key. The paper now says all of this plainly. What I attacked and found holding: F1-F8 are fixed in the files. numbers.tex and every metric are unchanged since paper-r1 except one bit of rf_effect (3.6e-16). The design hash 146cb81e is identical at the gate, at HEAD and in the working copy. replication.json passes 23/23, and its record hashes equal the current ledger. validate --strict is OK. The typed proxies match the plan and runs.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The seed-authorship disclosure is literally true but leaves out the channel that matters. paper/main.tex l.719-721 and ai-use.tex ('Seed authorship') say the generator and answer key were written by the session that acted as PI, and that 'the agents that designed and ran the analysis, and wrote this paper, never saw the answer key'. But crew/PI.md stage 1 has the PI draft question, hypotheses and contribution, and log.jsonl shows the PI did so. The PI revised the question and the margin rule (12:09:00Z: closed outcome set, covariates, ATT, M = 10% of re75; this replaced the $1,000 margin in commit e8e27e2) and the H1b wording (12:11:06Z). The PI also wrote design.diagnostics into plan.json twice (12:39:07Z, 12:52:38Z), issued the pre-gate rulings that let two runs read the outcome columns (12:50:12Z), and wrote every subagent's brief. None of those briefs is in the workspace. So the estimand, the closed outcome list and the equivalence margin, which carries the only affirmative claim, were set by the key-holder, and nothing in the files shows what the briefs passed on. A reader of a 'pre-specified, blind' evaluation of a seeded benchmark needs this.",
+      "evidence": "paper/main.tex l.719-721; paper/ai-use.tex item 'Seed authorship'; log.jsonl lines 3-4, 18, 22-23, 26; crew/PI.md section 'Stages / 1. Question'; git show e8e27e2:gallery/ss-null-effect/plan.json (margin $1,000). Resolve by stating in both places that the key-holding PI session wrote the question, hypotheses and margin rule (and revised the margin once), recorded the pre-gate diagnostics, issued the rulings and wrote all briefs, and that the briefs are not archived, so the crew's blindness to the key cannot be checked from the workspace. Archiving the briefs, if they exist, would be stronger still.",
+      "response": "Writer (recorded by PI): main.tex and ai-use.tex state the PI session's role (held the key; drafted question/hypotheses; margin change at the Reviewer's suggestion; diagnostics; pre-gate rulings; all briefs), that briefs were not archived, and that briefs/RECONSTRUCTION.md is unverifiable.",
+      "ruling": "Fixed in the files. main.tex Section 9 'The PI held the answer key and set the frame of the study' and ai-use.tex item 2 now state that the key-holding session drafted the question and hypotheses, replaced the margin, wrote the diagnostics, issued the pre-gate rulings and wrote every brief, that early briefs were not archived, and that RECONSTRUCTION.md cannot be verified. Checked against log.jsonl and briefs/. One residual inaccuracy (which briefs are archived) is raised as new F10."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The paper overstates outcome-blindness in four places. (a) The abstract (l.40-41) and intro (l.87-88) say everything was fixed 'before any outcome was read'. The Data paragraph (l.157-158) says the two pre-gate runs counted entries 'without reading any value', and Table 1's caption (l.165-166) says 'without reading any outcome value'. That is false. code/missing_counts.py reads all six outcome columns as text. code/range_counts.py parses every value, tests it against the bounds and the integer rule, and computes each outcome's admissible extreme for the sentinel rule. The process disclosure (l.713) itself says the runs 'touched outcome columns'. (b) The admissible-range rule (method.outcome_validity) was written at 12:51:05Z, after missing-counts had read the outcome columns at 12:46:55Z. (c) l.93-95 cite Burlig (2018) for plans 'fixed before the researcher can access the data' and add 'outcomes were not [seen]'. Per sources/notes.md, Burlig's three credible settings all register the plan before access (own collection, prospective, restricted access). Here the full outcome file was in data/raw from 12:27:53Z, and the plan was committed to the crew's own git repository, not registered. Blindness rests on usecols in the code and on the crew's own log. (d) 'pre-registered' (l.104, 561, 733) implies a registry that did not exist.",
+      "evidence": "paper/main.tex l.40-41, 87-88, 93-95, 104, 157-158, 165-166, 561, 733; code/range_counts.py docstring and sentinel_mask; code/missing_counts.py l.35; log.jsonl 12:27:53Z (fetch-data), 12:46:55Z (missing-counts), 12:51:05Z (outcome_validity written); sources/notes.md 'Burlig (2018)'. Narrowing the wording resolves this; no new run is needed. Say 'before any analysis read an outcome value; two counts-only runs read the outcome columns to count missing and inadmissible entries' and fix the caption to 'without reporting any value or summary'. Say the setting falls outside Burlig's three, so outcome-blindness rests on the logged code and runs. Replace 'pre-registered' with 'pre-specified'.",
+      "response": "Writer: wording now says the plan was fixed before any analysis used an outcome value; two counts-only pre-gate runs read outcome columns; range rule written after missing-counts; file present from data prep; blindness attested only by the crew's own records; 'pre-specified' throughout; Burlig's condition not met.",
+      "ruling": "Fixed in the files. Abstract l.40-42, intro l.88-101, Data l.162-165, the Table 1 caption and Section 9 now say the plan was fixed before any analysis used an outcome value, that two counts-only runs read the outcome columns, that the range rule followed missing-counts, that the file was present from data prep, and that Burlig's condition is not met. 'pre-registered' no longer appears in main.tex or ai-use.tex. The remaining 'before any outcome (column) was read' phrases (l.204-205, l.546, tables/tab_main.tex note) concern M only. They are true: margin ran 12:28:10Z, before missing-counts at 12:46:55Z, and fetch-data's byte copy is disclosed at l.761-762."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Section 9 says 'Deviations. None.' (l.680) and then lists two departures from the approved design as 'implementation choices the plan left open'. Item (ii): the plan's rob-estimators (b) specifies no clipping, and the code adds it. Item (iii): a rule the plan does specify (h1b_test's O1/O2 branch) was not coded. Item (i) says it follows 'as the plan specifies', so it was not left open either. Neither departure changes a number or a decision (0 clipped; the branch was dormant and the trimmed 90% CI lies inside +/-M), but a referee will read 'None' followed by two departures as relabelling.",
+      "evidence": "paper/main.tex l.680-702; plan.json design.analysis_plan[rob-estimators], design.method.h1b_test; reviews/code-r1 F3, F4. Resolve by listing (ii) and (iii) under Deviations, each with 'no effect on any reported number or decision'.",
+      "response": "Writer: IPW clipping and the uncoded O1/O2 H1b rule listed as deviations (a) and (b), no change to any number or decision.",
+      "ruling": "Fixed. l.715-722 lists the IPW clipping and the uncoded O1/O2 rule as deviations (a) and (b), with no effect on any number or decision."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The process disclosures miss several items on the record. (a) No literature review round was held, although crew/PI.md stage 2 requires one before the design gate. ai-use.tex lists the review rounds without saying so. Its line 'Every citation was checked against its source' therefore rests only on the Scout who compiled refs.bib. I spot-checked card2018, anderson2008, abadie2020 and burlig2018 against sources/notes.md, and they hold (see F6 for two that do not). (b) The equivalence margin was first fixed at $1,000 and was replaced by 10% of enrolees' re75 after question-r2 F9. This happened before any data were fetched, but a pre-specified paper should say the margin was revised once and why. (c) The paper (l.716-717) and ai-use.tex present as fact that the PI gave the F4 ruling before missing-counts ran. The only record is the PI's own retroactive log entry, and the brief is not archived, so the paper should attribute this to the PI. (d) The PI deleted a hand-written Scout entry from the append-only log.jsonl (log-repair, 12:06:21Z; question-r1 F8). This is not disclosed. (e) ai-use.tex says the four code-review findings were 'all answered'. reviews/code-r1/review.json still lists all four as open, and no code-r2 record exists. They were judged answered only in the results-r2 round.",
+      "evidence": "paper/ai-use.tex items 'Review', 'Retroactive ruling', 'Evidence'; paper/main.tex l.712-718; reviews/ (no literature-r*); crew/PI.md 'Stages / 2. Design'; log.jsonl line 2 and line 19 (12:50:12Z); reviews/question-r2 F9; reviews/code-r1/review.json. Resolve by adding one sentence for each item.",
+      "response": "Writer: all five process gaps disclosed in Section 9 and ai-use.tex.",
+      "ruling": "Fixed. All five items are disclosed in Section 9 and ai-use.tex. (a) l.777-779; (b) l.207-211 and l.784-785; (c) l.764-768 attributes the timing to the PI; (d) l.780-783; (e) l.775-776. Item (d) misattributes the removal to the Reviewer's request; that is raised as new F10."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "ai-use.tex says 'Every reported number is a macro generated from the metrics of a logged run, and none was typed by hand.' Many table cells are not macros. Some are literals that the table scripts write: the SE, p and p_TOST columns of the robustness rows in tab_main.tex, every mean, SMD and overlap figure in tab_balance.tex (122 controls below 0.1, Kish ESS 1,062, largest weight 10.8), and n = 4,000 in Panel B. I checked a sample against the runs, and all match. The trim SE is 171.09 and the table shows 171; p_TOST 0.0044 shows as 0.004; the linear p 0.4971 as 0.497; the OLS SE 156.88 as 157; the diff74 SE 208.68 as 209. They come from logged runs, so the content is right, but the sentence is inaccurate, and validate checks none of these cells.",
+      "evidence": "paper/ai-use.tex item 'Evidence'; paper/tables/tab_main.tex, tab_balance.tex; runs/rob-*/metrics.json. Resolve by saying that every number is either a claims macro or written by a logged table script from run metrics.",
+      "response": "Writer: ai-use.tex now says text numbers are macros and table cells are macros or written by logged table scripts from run metrics.",
+      "ruling": "Fixed for result numbers. ai-use 'Evidence' now separates text macros from table-script cells and exempts design facts. The typed proxies in l.216-224 (173, 2.8, 253, 416, 67) are the plan's own numbers (design.threats[8]) and match data/derived/margin_metrics.json (172.59, 2.80) and runs/timing-synthetic/timing.json (253.21). A residual inaccuracy about typed process numbers is folded into new F9."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Two citations claim more than the source record supports, contrary to ai-use.tex: 'Where only the abstract could be read, the paper says no more than the abstract does.' (a) imbens2003 was checked from its opening text only (sources.json note: 'Only the paper's aim is cited'). Yet l.537-545 cite it for the model's specification: 'Following Imbens (2003) ... we posit a binary confounder U ~ Bernoulli(0.5) ... fitted by EM'. (b) hirano2003 was checked from its abstract only, which concerns the efficiency of weighting by a nonparametrically estimated propensity. l.477-478 cite it for 'the normalized (Hajek) IPW estimator', whose propensity is a parametric L2 logit.",
+      "evidence": "paper/main.tex l.477-478, 537-545; sources/sources.json imbens2003, hirano2003; claims.jsonl c-sensitivity, c-ipw-efficient. Resolve by reading the full texts and upgrading the records, or by narrowing the attributions.",
+      "response": "Writer: imbens2003 and hirano2003 cited only for what was verified (opening text / abstract), with that stated.",
+      "ruling": "Fixed. l.564-568 cites imbens2003 for its aim only and says so. l.502-505 cites hirano2003 for the nonparametric-propensity efficiency result, says it was verified from the abstract, and says it does not apply directly. The c-sensitivity and c-ipw-efficient claim texts match the sources.json notes."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "l.86-87 claim that 'Two features make the design informative about a small effect rather than merely non-significant.' The paper's own results contradict this without a qualifier. The design is informative about a small effect only under unconfoundedness. The paper itself says that assumption cannot be tested and fails the earnings74 and earnings75 benchmarks. The conclusion (l.743) gets this right ('an interval and a conditional statement'). The intro should not promise more.",
+      "evidence": "paper/main.tex l.86-87 vs l.104-116 and l.743. Resolve by adding 'under the identifying assumption' or rephrasing.",
+      "response": "Writer: 'Under the identifying assumption' added.",
+      "ruling": "Fixed. l.87 now reads 'Under the identifying assumption'."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The plan put a precision proxy on the record 'so the reader can see in advance whether H1b is testable' (hypotheses H1b; threats[8]: difference-in-means proxy SE 173, weighted proxy SE 253, so H1b could pass only if |ATT| < about 67). The paper never reports it. It is the outcome-blind evidence of the margin's power, and it shows that H1b's passing (realized SE 178) depended on the covariates explaining much of re78's variance. That matters for judging how foreordained the equivalence result was.",
+      "evidence": "plan.json hypotheses[1], design.threats[8]; data/derived/margin_metrics.json (precision proxy, run margin); runs/timing-synthetic; paper/main.tex section 2 'Equivalence margin'. Resolve by adding one sentence that reports both proxies and the runs they come from.",
+      "response": "Writer: pre-gate precision proxies reported as design facts, with the realized SE.",
+      "ruling": "Fixed. l.214-224 reports both pre-gate proxies with their runs, and the realized SE as a macro (\\PrimarySE)."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "open",
+      "text": "ai-use.tex contradicts itself after the replication update, and two sentences elsewhere are now false. (a) 'Roles and models' (l.13-15, PDF p.17) still says 'The Replicator role ... had not run when this draft was written', and it lists the subagents without the Replicator. The 'Replication' item (l.62-81) says the Replicator's rerun passed. (b) 'Evidence' (l.50-53) says 'no number was typed by hand, apart from design facts fixed in the plan'. The same file types process numbers that are neither macros nor design facts: 23 runs, 183 seconds, 10 of 23, 22 of 23, the review-round counts, and 9/14 citations. They are correct (they match replication.json, REPLICATION.md and sources.json), but the sentence is not. (c) main.tex l.489 says 'Every robustness specification fixed in the plan was run, once'. rob-learners was re-recorded on 2026-11-19 (runs/rob-learners/run.json started 01:21:22Z), which l.723-728 itself discloses.",
+      "evidence": "paper/ai-use.tex l.10-15, 50-53, 62-81; paper/main.tex l.489 vs l.723-728; runs/rob-learners/run.json; replication.json. Wording fixes only, no new run. Delete or update the 'had not run' sentence and add the Replicator to the role list. Say 'apart from design facts fixed in the plan and process facts about the review and replication'. Add '(one re-recorded without a change of specification; Section 9)' at l.489.",
+      "response": "Writer: ai-use.tex lists the Replicator among the subagents and drops 'had not run'; 'Evidence' now names the hand-typed numbers (design facts, dates, review/citation/run counts and 183 s) and their sources; main.tex Section 6 says one specification was re-recorded without a change of specification (Section 9).",
+      "ruling": ""
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "open",
+      "text": "Two process disclosures are inaccurate in a direction that flatters the record. (a) Brief archiving. main.tex l.750-751 says 'the crew archived briefs from the paper stage on', and ai-use.tex l.22-23 says 'up to and including the results stage were not archived ... later briefs are in briefs/'. The earliest archived brief is 20261118T151121Z-writer.md, the paper-r1 revision brief. The paper-stage briefs sent before it are not in briefs/. They are the Figures RA's brief (runs from 14:50:51Z), the Writer's drafting brief (paper drafted 15:02:08Z; RECONSTRUCTION.md lists its 'required content') and the paper-r1 Reviewer brief. Archiving began at 15:11:21Z, after paper-r1, not at the paper stage. (b) Log deletion. main.tex l.781-782 and ai-use.tex l.47-49 say the PI removed the Scout's entry 'at the Reviewer's request'. question-r1 F8 asked that 'the PI or Scout corrects the entry or explains it'. Removing an entry from the append-only log was the PI's choice (PI response: 'the hand-written entry was removed').",
+      "evidence": "briefs/ (earliest 20261118T151121Z-writer.md); log.jsonl 14:50:51Z-15:11:21Z (figures-ra runs, writer paper-drafted, briefs-reconstructed, first brief-archived); reviews/question-r1/review.json F8 text and response; paper/main.tex l.750-751, 780-783; paper/ai-use.tex l.22-23, 47-49. Wording fix: say briefs were archived from the paper-r1 revision on (15:11Z, 2026-11-18), and that the PI chose to remove the entry in response to question-r1 F8, which asked for a correction or explanation.",
+      "response": "Writer: main.tex and ai-use.tex say briefs were archived only from the paper-r1 revision brief on (2026-11-18 15:11 UTC) and name the unarchived Figures RA, Writer drafting and paper-r1 Reviewer briefs; the log deletion is described as the PI's own choice, question-r1 F8 having asked only for a correction or explanation.",
+      "ruling": ""
+    }
+  ]
+}
