@@ -55,3 +55,4 @@
 {"time": "2026-11-19T07:40:32Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261119T074032Z"}
 {"time": "2026-11-19T07:41:18Z", "role": "scout", "action": "notes-corrected", "detail": "results-r1 F1: notes sec 1 no longer calls the row-3 2.75 vs 2.76 gap rounding; unrounded replicated values rule it out, source unidentified"}
 {"time": "2026-11-19T07:41:42Z", "role": "econometrician", "action": "results-r1-responded", "detail": "F1: NOTES + H1(a) claim texts say row 3 reproduced within tolerance but not at published precision, gap not rounding, source unidentified; F2: DiD SE direction corrected (1.336 with NJ 0.54), whole row-3 SE column not identified, placebo SE 0.98 vs 1.14; no new runs, numbers.tex unchanged"}
+{"time": "2026-11-19T07:42:03Z", "role": "pi", "action": "brief-archived", "detail": "reviewer results-r2 20261119T074203Z"}
