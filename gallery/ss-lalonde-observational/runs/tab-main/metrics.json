@@ -1,0 +1,8 @@
+{
+  "n_macro_cells": 36,
+  "n_rows": 11,
+  "n_rows_can_trigger": 5,
+  "n_rows_robustness": 8,
+  "n_rows_triggered": 3,
+  "placebo_verdict": "fail"
+}

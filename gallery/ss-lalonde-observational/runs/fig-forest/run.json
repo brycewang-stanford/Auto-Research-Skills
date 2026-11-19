@@ -1,0 +1,93 @@
+{
+  "id": "fig-forest",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    ".venv/bin/python",
+    "-I",
+    "code/fig_forest.py",
+    "--out",
+    "paper/figures/fig_forest.pdf",
+    "--metrics",
+    "runs/fig-forest/metrics.json"
+  ],
+  "started": "2026-11-19T13:15:42Z",
+  "finished": "2026-11-19T13:15:43Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_forest.py",
+      "sha256": "775e7c8610ef8f8d38a2b0e4f5d8522a64041512a267a30fb053ea9ce385ffa9"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "b1d641527408b4f00158d2249d8a1b42a612bf13a08b619245d5c3c15da7d63c"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "fd8ba72636658dfb5716b8f0eef8ba93ec7754db6a3aebf4380a08264115169f"
+    },
+    {
+      "path": "runs/rob-trim/metrics.json",
+      "sha256": "823396ef540e84968a0f9d548fe167c10447e812fd53022c181fd1f8307112c5"
+    },
+    {
+      "path": "runs/rob-learners/metrics.json",
+      "sha256": "6439d5167639ad76d33edf5285209b00af42f148c96ab06dd92570d2d7489974"
+    },
+    {
+      "path": "runs/rob-covsets/metrics.json",
+      "sha256": "72e14b8b0464b1822634adab0c863947fe4b13a0dbab680cf5d7119d3bcf228d"
+    },
+    {
+      "path": "runs/rob-estimators/metrics.json",
+      "sha256": "75a7b10a919c08ea28b927eff10462f0a903935b9d345887b362e6535782853e"
+    },
+    {
+      "path": "runs/rob-diff74/metrics.json",
+      "sha256": "970e41c0a015484946073e1f4cc8db8bb83783da2fd879b732c0657d1a4f08db"
+    },
+    {
+      "path": "runs/placebo-re75/metrics.json",
+      "sha256": "9b4be2b356f8906af600f79bbaacc440a588e8b603f83846927f61cb8aa04e68"
+    },
+    {
+      "path": "runs/h2-benchmark/metrics.json",
+      "sha256": "d96068c8051a487af55876bbe44faac0a4c094372e7b22691fbf28b85031db00"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_forest.pdf",
+      "sha256": "5d100e792ab1688c58709ce9e0d86040ca95954cbff2feaef5d8b0ddeac6a392"
+    },
+    {
+      "path": "runs/fig-forest/metrics.json",
+      "sha256": "ef2d63f9d9467727171704e5fef57cb9c619625db15a8aad222d727326adebef"
+    }
+  ],
+  "metrics": {
+    "benchmark_line": 1794.0,
+    "checksum_plotted": 36914.1975725795,
+    "n_rows_can_trigger": 5,
+    "n_rows_placebo": 1,
+    "n_rows_re78": 9,
+    "n_rows_triggered": 3,
+    "placebo_bound": 900.0,
+    "placebo_verdict": "fail",
+    "rows": "main-aipw:main,rob-trim:main,rob-learners:linear_,rob-learners:rf_,rob-covsets:covset_a_,rob-covsets:covset_b_,rob-estimators:ols_,rob-estimators:ipw_,rob-diff74:main",
+    "triggered_rows": "rob-trim:main,rob-learners:linear_,rob-covsets:covset_a_",
+    "xlim_high": 4612.892780830008,
+    "xlim_low": -3046.8748435920074
+  },
+  "metrics_file": "runs/fig-forest/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "env"
+  }
+}

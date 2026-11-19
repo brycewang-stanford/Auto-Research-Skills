@@ -1,0 +1,65 @@
+{
+  "id": "fig-sensitivity",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    ".venv/bin/python",
+    "-I",
+    "code/fig_sensitivity.py",
+    "--out",
+    "paper/figures/fig_sensitivity.pdf",
+    "--metrics",
+    "runs/fig-sensitivity/metrics.json"
+  ],
+  "started": "2026-11-19T13:15:43Z",
+  "finished": "2026-11-19T13:15:43Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_sensitivity.py",
+      "sha256": "7bb1ad6e3631328688ada7723ae35257f28738a3a0babf92648bcba41bc5cd7b"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "b1d641527408b4f00158d2249d8a1b42a612bf13a08b619245d5c3c15da7d63c"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/sens-imbens/metrics.json",
+      "sha256": "6a6b739d157059a412fa841dd57fedf180893571d4724d3d7a27e2a4ad8efae8"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_sensitivity.pdf",
+      "sha256": "d60bbc6cb6ee40d4fad6e56bdab1309559756f0bb2d9535e18e1ad962614a4f9"
+    },
+    {
+      "path": "runs/fig-sensitivity/metrics.json",
+      "sha256": "3528d21f9a8a0f780a73da5e8c036ab20522f7102c0a2460ec645e6e255877ec"
+    }
+  ],
+  "metrics": {
+    "checksum_plotted": 46665.50999082326,
+    "contour_estimate": 1572.764316543202,
+    "floored_groups": "black,married,nodegree",
+    "max_abs_bias_grid": 2934.879582692881,
+    "n_benchmarks_floored": 3,
+    "n_benchmarks_outside_grid": 2,
+    "n_benchmarks_plotted": 8,
+    "n_grid_points": 64,
+    "r2star_zero": 0.001088977749388813,
+    "target_zero": 9.60806603853689,
+    "x_max": 0.6,
+    "y_max": 0.3
+  },
+  "metrics_file": "runs/fig-sensitivity/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "env"
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "id": "fig-overlap",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    ".venv/bin/python",
+    "-I",
+    "code/fig_overlap.py",
+    "--out",
+    "paper/figures/fig_overlap.pdf",
+    "--metrics",
+    "runs/fig-overlap/metrics.json"
+  ],
+  "started": "2026-11-19T13:15:41Z",
+  "finished": "2026-11-19T13:15:42Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_overlap.py",
+      "sha256": "50adc8fd7a0bca144adfa91b8d58933744548597e4821c941e67a2ea9af36d66"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "b1d641527408b4f00158d2249d8a1b42a612bf13a08b619245d5c3c15da7d63c"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/diag-overlap/propensity.csv",
+      "sha256": "f705a34212ec568811e5c4c07097d16b8e8b411ab4d9a4721149a4e35d0d1eef"
+    },
+    {
+      "path": "runs/diag-overlap/metrics.json",
+      "sha256": "0f3a156de0198a2144914e5e8d2e684a6fed46846213aa93c2bf1bfa16e613a8"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_overlap.pdf",
+      "sha256": "17b1b3f8d8f9ce67fb7e85925c1d5dc0ce243111e7b45040eedd2bcf81748201"
+    },
+    {
+      "path": "runs/fig-overlap/metrics.json",
+      "sha256": "40f802a84169dfcf5cafd07d19c13232c6f68057a79901a34cfcf5f1295ec89d"
+    }
+  ],
+  "metrics": {
+    "bin_width_log10": 0.25,
+    "log10_cutoff_high": -0.05379021365368121,
+    "log10_cutoff_low": -3.986400866883615,
+    "max_pct_control_bin": 6.547023511755878,
+    "max_pct_treated_bin": 29.72972972972973,
+    "n_bins": 39,
+    "n_control_in_trimming_region": 8125,
+    "n_control_kept": 7867,
+    "n_control_plotted": 15992,
+    "n_treated_plotted": 185
+  },
+  "metrics_file": "runs/fig-overlap/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "env"
+  }
+}

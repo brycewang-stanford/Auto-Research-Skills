@@ -75,3 +75,9 @@
 {"time": "2026-11-19T13:06:31Z", "role": "econometrician", "action": "run", "detail": "post-results-derived exit=0"}
 {"time": "2026-11-19T13:06:38Z", "role": "econometrician", "action": "run", "detail": "h2-benchmark exit=0"}
 {"time": "2026-11-19T13:07:48Z", "role": "econometrician", "action": "h2-and-traceability", "detail": "results-r2 F6/F7: ,.1f formats for primary-ci-low and sens-target-zero; post-results-derived run (logged arithmetic only) backs per-repetition bounds, include-zero count, trim shift/range, dropped weight share; sens-reading mechanism removed; NOTES row 8 and Surprises fixed. h2-benchmark: diff -221, combined SE 1,018, band [-2,217, 1,774] (descriptive). a-h2 done"}
+{"time": "2026-11-19T13:08:16Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261119T130816Z"}
+{"time": "2026-11-19T13:15:42Z", "role": "figures-ra", "action": "run", "detail": "fig-overlap exit=0"}
+{"time": "2026-11-19T13:15:43Z", "role": "figures-ra", "action": "run", "detail": "fig-forest exit=0"}
+{"time": "2026-11-19T13:15:43Z", "role": "figures-ra", "action": "run", "detail": "fig-sensitivity exit=0"}
+{"time": "2026-11-19T13:15:43Z", "role": "figures-ra", "action": "run", "detail": "tab-main exit=0"}
+{"time": "2026-11-19T13:17:01Z", "role": "figures-ra", "action": "figures", "detail": "Runs fig-overlap, fig-forest, fig-sensitivity, tab-main (analysis; inputs are logged run outputs only, no claims.jsonl or data/raw): paper/figures/fig_overlap.pdf, fig_forest.pdf, fig_sensitivity.pdf, paper/tables/tab_main.tex (36 claim macros, checked against claims.jsonl outside the run), paper/figures/CAPTIONS.md; task f-figures done"}

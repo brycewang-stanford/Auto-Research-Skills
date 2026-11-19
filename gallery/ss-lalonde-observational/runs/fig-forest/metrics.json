@@ -1,0 +1,14 @@
+{
+  "benchmark_line": 1794.0,
+  "checksum_plotted": 36914.1975725795,
+  "n_rows_can_trigger": 5,
+  "n_rows_placebo": 1,
+  "n_rows_re78": 9,
+  "n_rows_triggered": 3,
+  "placebo_bound": 900.0,
+  "placebo_verdict": "fail",
+  "rows": "main-aipw:main,rob-trim:main,rob-learners:linear_,rob-learners:rf_,rob-covsets:covset_a_,rob-covsets:covset_b_,rob-estimators:ols_,rob-estimators:ipw_,rob-diff74:main",
+  "triggered_rows": "rob-trim:main,rob-learners:linear_,rob-covsets:covset_a_",
+  "xlim_high": 4612.892780830008,
+  "xlim_low": -3046.8748435920074
+}

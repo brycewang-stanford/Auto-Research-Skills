@@ -1,0 +1,14 @@
+{
+  "checksum_plotted": 46665.50999082326,
+  "contour_estimate": 1572.764316543202,
+  "floored_groups": "black,married,nodegree",
+  "max_abs_bias_grid": 2934.879582692881,
+  "n_benchmarks_floored": 3,
+  "n_benchmarks_outside_grid": 2,
+  "n_benchmarks_plotted": 8,
+  "n_grid_points": 64,
+  "r2star_zero": 0.001088977749388813,
+  "target_zero": 9.60806603853689,
+  "x_max": 0.6,
+  "y_max": 0.3
+}

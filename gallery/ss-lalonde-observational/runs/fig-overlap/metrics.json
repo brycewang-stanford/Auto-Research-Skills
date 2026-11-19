@@ -1,0 +1,12 @@
+{
+  "bin_width_log10": 0.25,
+  "log10_cutoff_high": -0.05379021365368121,
+  "log10_cutoff_low": -3.986400866883615,
+  "max_pct_control_bin": 6.547023511755878,
+  "max_pct_treated_bin": 29.72972972972973,
+  "n_bins": 39,
+  "n_control_in_trimming_region": 8125,
+  "n_control_kept": 7867,
+  "n_control_plotted": 15992,
+  "n_treated_plotted": 185
+}
