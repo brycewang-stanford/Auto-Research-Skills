@@ -153,7 +153,7 @@
       "id": "r-design",
       "title": "Review the design (target design) before the gate",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-code",
@@ -165,67 +165,67 @@
       "id": "r-code",
       "title": "Code review (target code) of every analysis script before any analysis run",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-main",
       "title": "Run main-aipw: primary ATT on re78 (H1)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-placebo",
       "title": "Run placebo-re75: H3 placebo, outcome re75 given X without re75 and u75",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-trim",
       "title": "Run rob-trim: control-only treated-range trimming",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-learners",
       "title": "Run rob-learners: parametric and random-forest nuisances",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-covsets",
       "title": "Run rob-covsets: covariate sets (a) and (b) (DEV-13)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-estimators",
       "title": "Run rob-estimators: OLS (HC2) and Hajek IPW (bootstrap 999) (DEV-14)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-diff74",
       "title": "Run rob-diff74: conditional-DiD ATT on re78 - re74, time-invariant covariates (DEV-15)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-ipow",
-      "title": "Run rob-ipow only if the missing-outcome trigger fires on main-aipw's counts (DEV-17)",
+      "title": "Run rob-ipow only if the missing-outcome trigger fires on main-aipw's counts (DEV-17) — not triggered (no missing or invalid re78 on main-aipw's counts), so not run",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-sens",
       "title": "Run sens-imbens exactly as method.sensitivity (DEV-16)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-claims",
       "title": "Write result claims with the ids in design.claim_ids, including primary-effect, primary-ci-low, primary-ci-high",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "a-h2",
@@ -270,5 +270,8 @@
     "RE78 is set aside before any data-prep run: data-prep writes a working file without RE78, and RE78 is joined back only by the first analysis run after the design gate.",
     "Benchmark: $1,794 (SE 633), Dehejia and Wahba (1999), Table 3, row NSW, column (1).",
     "No diagnostic is computed under the placebo's conditioning set (the covariates without RE75 and u75) before the design gate; RE75 is used before the gate only as a covariate."
+  ],
+  "disclosures": [
+    "2026-11-19 (results stage, PI): The code review code-r1 passed with four minor findings (F1-F4). The PI's brief told the Econometrician to fix them and then run the analysis directly, without a second code review. The plan's rule is that code is reviewed before any analysis run, so the fixed scripts ran without a re-review. The Reviewer later checked the diff in results-r1 (F4) and found that the changes are only the four fixes; no estimate is affected. This is a deviation from the plan, made at the PI's instruction."
   ]
 }

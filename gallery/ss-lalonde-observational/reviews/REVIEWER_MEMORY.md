@@ -182,3 +182,30 @@ diag-overlap's; F4 h2-benchmark has no gate guard.
 - h2-benchmark run time after the results gate approval time; no benchmark in claims before it.
 - Claims: wording follows the placebo verdict (contrast unless pass); every robustness run reported; the
   covset-a sentence names race/ethnicity/degree if it triggers; sens earn75 sentence present.
+
+## results-r1 (2026-11-19T12:52Z), verdict: revise
+
+Held: claim values = run metrics (validate and --strict OK); code diff 866903c..1d4682e = code-r1 F1-F4 only
+(code-r1 F1-F4 fixed in files); unit-tests rerun before main-aipw; each analysis run once, in order, OMP=1 in
+command; m_bar diff 5e-13, trim count 8,125; rob-ipow correctly not run (0 unobserved); no benchmark in
+claims/numbers/runs; h2-benchmark not run; lalonde-econ scratch has only synthetic copies + logs matching ledger.
+Wording follows H3 FAIL (-1,543 [-2,699, -387]) and the disagreement rule (trim, covset-a, linear trigger).
+Open:
+- F1 (major): H1 lower bound 9.6; per-rep lower bounds +55, +57, -20, -26, -3 (3/5 include 0); between-rep SD 52,
+  MC SD of bound ~23. threats[9] promised per-rep estimates; no claim has them. Rel CI [-5.1, 71.0] includes 0.
+  Remedy: theta_rep/se_rep claims + sentence in h1-decision. No change of aggregation (median would give 48;
+  do NOT let anyone switch).
+- F2 (major): sens R2_D floor. My covariate-only check (lalonde-reviewer4/vcheck.py): V 13.0 (controls 12.3,
+  treated 4.2); V-V_-G black -1.45, nodegree -0.83, married -0.04; but dLL black 179.3 (McFadden 0.30) vs age 51,
+  earn74 22, married 20, earn75 19, educ 13, hisp 7, nodegree 3. "Strongest robust group is black" inverts.
+- F3 (minor): disagree-trim needs the design's meaning (0.09% weight; trim reps 1,265-1,624); placebo claim needs
+  the CPS re75 top-code (3,007) sentence.
+- F4 (minor): no re-review after code-r1 fixes (PI brief skipped it); diff checked here; disclose as deviation.
+- F5 (minor): plan.json tasks stale.
+
+## Check next round / at paper
+- h1-decision text has the 3-of-5 sentence; theta_rep/se_rep claims exist; paper never says "significant" bare.
+- sens-reading no longer reads "robust to race"; any V/V_-G number comes from a logged, labelled diagnostic run.
+- Aggregation, seeds, rules unchanged (no new main-aipw run; runs/.superseded holds only unit-tests).
+- h2-benchmark run time after results gate approval; no estimator chosen or ranked by closeness to 1,794.
+- Paper: deviations list includes F4; abstract carries the three non-robust statements + earn75 sentence.

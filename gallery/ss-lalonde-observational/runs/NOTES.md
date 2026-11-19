@@ -187,6 +187,30 @@ EM points converged (max 8 EM iterations).
 - **Sensitivity:** the conclusion is not robust to a confounder as strong as earnings75. The
   paper must say the result could be produced by unobserved selection of that strength.
 
+### results-r1 (revise): claim revisions, no new run
+
+There was no new estimation run, and no aggregation or decision rule changed.
+- F1: new claims `primary-theta-rep0`-`4` and `primary-se-rep0`-`4` (main-aipw's logged
+  metrics; macros `\PrimaryThetaRepZero` ... `\PrimarySeRepFour`). Taken alone, the
+  repetitions give lower bounds of about +55, +57, -20, -26 and -3 dollars, so 3 of the 5
+  include zero. `h1-decision` now says that H1 holds by the fixed rule, with a lower bound of
+  $9.6, but the decision lies within cross-fitting noise. It also says the relative-contrast
+  interval [-5.1%, 71.0%] includes zero, and that the contrast is never called 'significant'
+  without this sentence.
+- F2: `sens-reading` and the `sens-bench-{black,married,nodegree}-bias` texts say these
+  'robust' verdicts come from flooring R2_D at zero and carry no information about those
+  confounders. No claim says 'robust to a confounder as strong as race'. V and V_-G are not
+  cited, because no logged run contains them.
+- F3: `disagree-trim` states what rob-trim tests: a refit of the nuisance models, with the
+  dropped men carrying 0.09% of the control weight (the design's outcome-free figure). The
+  estimate moves by 59 dollars, and the trimmed repetitions run from 1,265 to 1,624 (new claims
+  `trim-theta-rep0`-`4`). `placebo-effect` and `placebo-verdict` state the CPS re75 top-code;
+  new claim `placebo-cps-re75-topcoded` = 3,007 (placebo-re75 `cps_re75_at_max`).
+- F4 and F5 belong to the PI. The responses for code-r1 F1-F4 now point to results-r1 F4.
+- Macro change: `sens-sigma0` is now `\SensSigmaZero` (it was `\SensSigma`). Digits in claim
+  ids now map to words, so the per-repetition macros are distinct. No paper text used the old
+  name. Claims: 109 result claims, 100 macros.
+
 ### Surprises (for the Reviewer and the Writer)
 
 - **Benchmarks with R2_D = 0.** The black, married and nodegree benchmarks have R2_D exactly 0,
