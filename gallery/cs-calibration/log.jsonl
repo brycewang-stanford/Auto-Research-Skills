@@ -41,3 +41,6 @@
 {"time": "2026-11-19T07:05:01Z", "role": "pi", "action": "gate-request", "detail": "design"}
 {"time": "2026-11-19T07:15:19Z", "role": "pi", "action": "gate-approve", "detail": "design Bryce Wang"}
 {"time": "2026-11-19T07:15:56Z", "role": "pi", "action": "brief-archived", "detail": "experimenter 20261119T071555Z"}
+{"time": "2026-11-19T07:28:27Z", "role": "experimenter", "action": "run", "detail": "unit-tests exit=0"}
+{"time": "2026-11-19T07:29:16Z", "role": "experimenter", "action": "code-written", "detail": "experiment.py, analyze.py, describe.py, sens_ncal.py, sens_elec_time.py, test_metrics.py per design.method; runs/NOTES.md lists exact commands; no analysis run (code review pending)"}
+{"time": "2026-11-19T07:29:16Z", "role": "experimenter", "action": "unit-tests-passed", "detail": "unit-tests (data-prep, synthetic only): 32/32 passed; notes: isotonic logit-vs-prob interpolation differs off-threshold (max 0.001); Kumar G.3 removes ~41% of l1 floor on calibrated bins (ratio 2-sqrt2), see runs/NOTES.md"}

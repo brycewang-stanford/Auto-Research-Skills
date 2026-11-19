@@ -80,13 +80,13 @@
       "id": "e-code",
       "title": "Write code/experiment.py, analyze.py, describe.py, sens_ncal.py, sens_elec_time.py and test_metrics.py exactly as in design.method",
       "owner": "experimenter",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-unit",
       "title": "Run unit-tests (data-prep): test_metrics.py on hand-made and synthetic inputs only",
       "owner": "experimenter",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-code",
