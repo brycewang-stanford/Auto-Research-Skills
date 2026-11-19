@@ -321,3 +321,28 @@ Disclosures:
 - the session restart and the removed, incomplete main-lasso record (above);
 - the pre-gate measured port deviation of the forest (-$216, port check FAIL), which is
   unchanged and already priced into H2.
+
+## 2026-11-18: response to results-r1 (no new estimation run; verdict not re-run)
+
+Claims-only changes, with the responses written in reviews/results-r1 F1-F4. claims.jsonl now
+has 343 result claims; numbers.tex has 321 macros.
+
+- **F1.** Every H2 cell claim and h2-decision now uses the decision rule's meaning of a pass:
+  'no shift larger than the cell's 80%-power detectable shift was detected', never 'identical'.
+  The decision rule (design.decision_rules.H2) governs the verdict. hypotheses[1] instead says
+  'no shift larger than the stated per-cell tolerance'. Both apply the same test,
+  |diff| <= tolerance; they differ only in which shift they name (the tolerance is detected
+  about half the time, the MDS80 80% of the time). The forest 5-fold claim now carries the -$206
+  vs -$216 port-shift observation and the $373 detectable shift.
+- **F2.**
+  - The 30 published numbers are now claims and macros (`\PubTheta*`, `\PubSeMed*`,
+    `\PubSeAdj*`), backed by the verdict metrics.
+  - The ~33% H2 false-failure rate and the per-cell p_outside are not in any run metric; they
+    exist only in plan.json, so they have no claim, pending the PI's decision.
+  - Wall time (92 min against the 60-min budget) is in no metric by design and stays in this
+    file.
+- **F3.** New claim lasso-spread-discrepancy (adjusted-SE ratios 0.79/0.84; split spread 4.7x and
+  6.7x narrower than published; cause untested; the lasso match is weak evidence and is read
+  only as not testable).
+- **F4.** The port-shift claims are labelled synthetic-outcome dollars.
+- **F5** went to the Scout.

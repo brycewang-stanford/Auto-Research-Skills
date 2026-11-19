@@ -287,3 +287,37 @@ Suspicions:
 Check at results:
 - S unchanged and the overrun disclosed. Claim values come from main-* only. Port metrics are
   cited through verdict macros, not typed.
+
+## results-r1 (2026-11-19): revise, 0 critical / 2 major / 3 minor open
+
+Rulings: H1 supported. H2 supported as pre-registered (0 of 10 outside, 8 of 8 testable inside, lasso
+inside but not testable). H3 supported (margins $1,066 and $761, both against the tree). sens-lasso-c11
+is descriptive only, as required.
+
+Findings:
+- F1 (major): the H2 claims say "pass" without the pre-registered scope ("no shift > MDS80 detected").
+  hypotheses[1] (tolerance) and decision_rules.H2 (MDS80) also disagree on what a pass means. The
+  forest K=5 diff of -$206 is about the measured -$216 port shift, yet it passes because MDS80 is $373.
+- F2 (major): no claims back the 30 published numbers of the side-by-side table (the pub_* verdict
+  metrics are unclaimed), the 33% / per-cell p_outside, or the wall-time overrun.
+- F3 (minor): the lasso adjusted SEs are not reproduced (0.79/0.84), and the split spread is 4.7-6.7x
+  smaller than published. No claim states this.
+- F4 (minor): the port-shift claims are labelled "1991 US dollars" but are synthetic dollars.
+- F5 (minor): the c-hdm-c citation still says hdm 0.1.0 means c = 0.5 (it is about 0.62; design-r3 F12
+  was fixed in the plan only).
+
+Verified myself:
+- Recomputed all 12 (run, K) aggregates, tolerances, MDS80, testability, tol_obs and the H3 margins
+  from splits.csv.
+- Re-executed 16 (split, K) cells over all six runs (relative difference 1e-11).
+- validate and validate --strict pass. The run order and gate timing are correct.
+- The NOTES numbers match the ledger.
+- The interrupted first main-lasso attempt produced no outputs, and its seeds were fixed.
+
+Check at round 2 / paper:
+- F1: the forest h2 claims carry the port-FAIL and MDS80 caveat, and one pass definition is used.
+- F2: claims exist for pub_theta and pub_se_*, the 33% figure and the wall time.
+- The paper must not say "reproduced" or "replicates" for H2 without "no shift > MDS80 detected".
+- The paper must not use the lasso's $16/$14 as proof that the port matches.
+- The K = 5 port caveat must appear.
+- The crew.json title still says "raise" (paper stage). The estimand is the PLR coefficient, not the ATE.

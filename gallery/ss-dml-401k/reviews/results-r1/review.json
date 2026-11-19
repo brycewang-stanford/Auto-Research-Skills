@@ -1,0 +1,91 @@
+{
+  "id": "results-r1",
+  "target": "results",
+  "round": 1,
+  "created": "2026-11-19T01:24:12Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew/agents/reviewer.md",
+    "crew/PROTOCOL.md",
+    "crew/bench/seeds/ss-dml-401k/task.json (seed; answer.json not opened)",
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "runs/NOTES.md",
+    "log.jsonl",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/code-r2/review.json",
+    "reviews/design-r3/review.json (format only)",
+    "briefs/20261118T160907Z-econometrician.md",
+    "briefs/20261119T011834Z-reviewer.md",
+    "runs/*/run.json (all 12)",
+    "runs/main-*/metrics.json",
+    "runs/sens-lasso-c11/metrics.json",
+    "runs/verdict/metrics.json",
+    "runs/main-*/splits.csv",
+    "runs/sens-lasso-c11/splits.csv",
+    "runs/*/timing.json",
+    "code/dml_plr.py (run, aggregate, dml2_theta, fit_nuisance)",
+    "code/verdict.py",
+    "sources/sources.json (keys)",
+    "paper/numbers.tex (macro count)"
+  ],
+  "kill_argument": "The headline 'H2 holds: 8 of 8 testable cells pass' cannot tell a faithful re-implementation from one the crew already knows is wrong. Before the gate, check-learner-ports found that the scikit-learn forest is not randomForest. It sits $216 (SE $9) below R on 10 of 10 units, with a port RMS 13 times the R seed-to-seed RMS, and the port check records a FAIL. On the real data the 5-fold forest cell comes in $206 below the published value. That is almost exactly the known deviation, yet it is scored a plain 'pass', because the cell's 80%-power detectable shift ($373) is larger than the deviation. So H2 passed a cell that independent evidence says is off by about $200. The lasso cells match to $16 and $14, but their split-to-split spread is 4.7 to 6.7 times smaller than the published one. What I attacked that held: all 10 cells, all 20 SEs, the H1 bounds, the tolerances, MDS80, testability, tol_obs and the H3 margins, which I recomputed from splits.csv. I re-executed 16 (split, K) cells across all six runs, which matched to 1e-11. The run order and the gate timing are correct.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "The H2 verdict claims drop the scope that the pre-registration attaches to a pass, and the forest 'pass' carries no mention of the measured port deviation. claims.jsonl plr-<learner>-<k>fold-h2 reads 'pass, inside its tolerance (testable cell)', and h2-decision reads 'H2 holds ... 8 of 8 testable cells inside'. Neither says what hypotheses[1] and decision_rules.H2 require: a pass means 'no shift larger than the cell's 80%-power detectable shift was detected', never 'identical'. The two pre-registered texts also disagree on what a pass means: hypotheses[1] says 'no shift larger than the stated per-cell tolerance', decision_rules.H2 says 'the 80%-power detectable shift'. The concrete risk is forest K = 5. Its diff is -$206 (verdict diff_forest_k5) against a pre-gate measured port shift of -$216 (SE $9; port_pass_forest = False), so the cell sits where a known implementation deviation predicts it would. It is inside only because MDS80 ($373) exceeds that deviation. A Writer working from these claims will report a reproduced forest. NOTES 'What surprised me' item 2 makes the observation, but no claim carries it.",
+      "evidence": "claims.jsonl ids plr-forest-5fold-h2, plr-*-h2, h2-decision; plan.json hypotheses[1] vs design.decision_rules.H2; runs/verdict/metrics.json diff_forest_k5, port_shift_forest, port_pass_forest; runs/NOTES.md 'What surprised me' 2",
+      "remedy": "Narrow the claim text; no new run is needed. Pick one pre-registered meaning of a pass, the decision_rules.H2 wording, and put it in h2-decision and in every per-cell h2 claim. Add to both forest h2 claims that the port check failed (-$216 on synthetic data, 2-fold training size only) and that the cell's MDS80 exceeds that deviation, so the pass cannot rule it out.",
+      "response": "Reworded every plr-*-h2 claim and h2-decision to the decision rule's meaning of a pass (no shift larger than the cell's 80%-power detectable shift detected, never identical). h2-decision now states that design.decision_rules.H2 governs and reconciles it with hypotheses[1] (same |diff| <= tolerance test; tolerance ~50% power vs MDS80 80% power). plr-forest-5fold-h2 now says its -$206 is close to the failed pre-gate port shift (-$216 synthetic-outcome dollars) and below its detectable shift ($373). No run changed.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "Planned report items have no result claim, so the paper can only state them as typed literals. (a) The published side of the side-by-side table: the 10 published estimates and the 20 published bracketed and adjusted SEs. They exist as verdict metrics (pub_theta_*, pub_se_med_*, pub_se_adj_*), but no claim cites them. The citation claims cover only the range ($7,717 and $9,247) and the forest 5-fold cell. The task requires the side-by-side comparison, and analysis plan item 9(b) promises all 20 SEs. (b) decision_rules.H2_size_under_measured_ports says the false-failure rate under the measured ports (about 33%) and the per-cell p_outside 'are ... reported next to the H2 verdict'. No metric or claim carries them. (c) Diagnostic 9(f), wall time against the timing estimate, and the 92-minute overrun of the 60-minute budget that design.splits.rule says must be disclosed. These appear only in runs/NOTES.md.",
+      "evidence": "claims.jsonl (no claim backed by verdict pub_* metrics; 110 verdict metrics have no claim); plan.json design.decision_rules.H2_size_under_measured_ports, design.analysis_plan[9] (b) and (f), design.splits.rule; runs/*/timing.json",
+      "remedy": "Add result claims for the 30 published numbers, backed by the existing verdict pub_* metrics. Back the 33% and per-cell p_outside with claims, either by exporting them from verdict.py (a code change that requires re-running verdict) or as plan constants that the Writer cites explicitly. State in the claims how the wall time and the overrun will be disclosed without hand-typed numbers.",
+      "response": "(a) Added 30 claims and macros backed by the verdict's pub_theta_*, pub_se_med_* and pub_se_adj_* metrics (PubTheta*, PubSeMed*, PubSeAdj*). (b) No run metric holds the ~33% H2 false-failure rate or the per-cell p_outside: they exist only in plan.json (decision_rules.H2_size_under_measured_ports, tolerance_table.p_outside_given_shift), so they are not claims; this is the PI's decision. (c) Wall time is in no metric by design (timing.json is an --output), so it stays in runs/NOTES.md and the paper cites NOTES.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "The published lasso adjusted SEs are not reproduced, and no claim says so. Replicated against published adjusted SE: 1,377 vs 1,749 (ratio 0.79) at K = 2 and 1,309 vs 1,558 (0.84) at K = 5. The replicated split-to-split spread (1.4826 x MAD) is $354 and $190, against $1,656 and $1,278 implied by the published SEs, 4.7 and 6.7 times smaller; the other learners differ by only 1.2 to 1.7 times. These are the only published quantities off by more than 15%. The task brief says to explain any difference. The numbers sit in diagnostic claims (plr-lasso-*-se-adj-ratio, -split-sd-obs/-pub), but no claim states the discrepancy. NOTES item 1 offers a conjecture ('the published lasso path being noisier'). It also bears on the lasso point estimates: a centre that matches to $16 with a 5-times-narrower split distribution is weak evidence that the port behaves like the authors' lasso on net_tfa. The not-testable rule already stops the cells being counted as passes.",
+      "evidence": "runs/verdict/metrics.json se_adj_ratio_lasso_k2/k5, split_sd_obs_lasso_k*, split_sd_pub_lasso_k*; runs/NOTES.md 'What surprised me' 1",
+      "remedy": "Add one descriptive claim: the lasso adjusted SEs and split spread are not reproduced (backed by the existing ratio metrics), with the explanation labelled a conjecture drawn from design.candidate_deviations.lasso. No run is needed.",
+      "response": "Added claim lasso-spread-discrepancy (backed by se_adj_ratio, rep/pub_se_adj, split_sd_obs/pub for the lasso at K = 2 and 5). It states the 0.79/0.84 adjusted-SE ratios and the 4.7x/6.7x narrower split spread, says the cause is untested, and says the $16/$14 match is therefore weak evidence and is read only as not testable, never as a reproduction.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "The port-shift claims (port-shift-lasso, -tree, -forest, -boosting, -nnet) are labelled '1991 US dollars'. The shifts were measured on a synthetic outcome whose residual RMSE is about $14,300. design.check_learner_ports.scale_limitation says these amounts are synthetic and are not real-data tolerances.",
+      "evidence": "claims.jsonl port-shift-*; plan.json design.check_learner_ports.scale_limitation",
+      "remedy": "Replace '1991 US dollars' with 'dollars of the synthetic outcome (not net_tfa)'.",
+      "response": "port-shift-*, port-shift-se-*, port-rms-* and port-rms-seed-* are now labelled synthetic-outcome dollars (residual RMSE about $14,300), not real-data dollars and not tolerances, citing design.check_learner_ports.scale_limitation.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "The citation claim c-hdm-c says hdm 0.1.0 'resets the penalty constant to 0.5'. It omits that 0.1.0 computes lambda0 with sqrt(2 log(2p log n / gamma)), which equals the qnorm formula at c of about 0.62. plan.json design.learners.lasso.penalty_constant_note was corrected after design-r3 F12; this claim was not. As written, it lets the paper say the primary c = 0.5 reproduces hdm 0.1.0.",
+      "evidence": "claims.jsonl c-hdm-c; plan.json design.learners.lasso.penalty_constant_note; sources/hdm_penalty.md",
+      "remedy": "Add the 0.1.0 caveat (effective c of about 0.62) to c-hdm-c.",
+      "response": "Scout: c-hdm-c reworded to match sources/hdm_penalty.md — 0.2.0/0.3.1/0.3.2 give c = 0.5, 0.2.3 gives 1.1, and 0.1.0's different lambda0 formula gives an effective c of about 0.62 (so c = 0.5 does not reproduce 0.1.0); rlassologit 1.1 in all versions.",
+      "ruling": ""
+    }
+  ],
+  "notes": "Per-hypothesis rulings. H1 supported: the lowest lower bound is $5,002 (lasso, K = 2), recomputed. H2 supported as pre-registered: 0 of 10 cells outside, 8 of 8 testable cells inside, the lasso cells correctly 'inside, not testable', and no failure reading triggered. It is only partly supported if read as 'reproduced'; see F1. H3 supported: margins $1,066 (K = 2) and $761 (K = 5), both against the tree. sens-lasso-c11 is used descriptively only, with no c = 1.1 attribution. The 10 plr-<learner>-<k>fold claim values equal theta_k* of the main runs. What I ran: (1) recomputed theta_med, the bracketed and adjusted SEs, diff, tolerance, MDS80, testability, tol_obs, the split SD and the H3 margins for all 12 (run, K) groups from splits.csv; all match the metrics. (2) Re-executed dml_plr partitions and fits for 16 (split, K) cells: lasso s = 1 and 73, c11 s = 73, tree s = 1 and 73, nnet s = 73, forest s = 29, boosting s = 17, each at K = 2 and 5. Theta and sigma reproduce splits.csv to a relative 1e-11. (3) crew.py validate and validate --strict both pass. The ledger order matches the plan, and check-noctrl started 28 s after the design-gate approval. NOTES numbers (cells, SE ratios, spreads, margins, baseline, wall times) match the ledger and the metrics. The interrupted first main-lasso attempt could not have produced estimates (dml_plr writes its outputs only at the end; crew.py writes run.json only on completion), and the seeds are fixed, so it opens no forking path. NOTES and commit c7f8530 disclose it."
+}
