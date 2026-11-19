@@ -779,6 +779,30 @@ def cmd_gate(args: argparse.Namespace) -> int:
     return 0
 
 
+def command_env(ws: Path, command: list[str]) -> dict:
+    """Describe the environment a run's command used, not the one crew.py runs in."""
+    env = {"crew_python": platform.python_version(), "platform": platform.platform()}
+    if not command:
+        return env
+    exe = command[0]
+    resolved = shutil.which(exe, path=str(ws)) if not Path(exe).is_absolute() else exe
+    candidate = ws / exe if not Path(exe).is_absolute() else Path(exe)
+    if candidate.exists():
+        resolved = str(candidate)
+    env["command_executable"] = exe
+    if Path(exe).name.startswith("python") and resolved:
+        try:
+            out = subprocess.run([resolved, "-c", "import platform,sys;print(platform.python_version());print(sys.prefix)"],
+                                 capture_output=True, text=True, timeout=30, check=False)
+            if out.returncode == 0:
+                version, prefix = (out.stdout.strip().splitlines() + ["", ""])[:2]
+                env["python"] = version
+                env["python_prefix"] = prefix
+        except (OSError, subprocess.TimeoutExpired):
+            pass
+    return env
+
+
 def hash_entries(ws: Path, values: list[str], must_exist: bool) -> list[dict]:
     entries = []
     for value in values:
@@ -839,7 +863,7 @@ def cmd_run(args: argparse.Namespace) -> int:
         "outputs": outputs,
         "metrics": metrics,
         "metrics_file": args.metrics or None,
-        "env": {"python": platform.python_version(), "platform": platform.platform()},
+        "env": command_env(ws, command),
     })
     append_log(ws, args.role, "run", f"{args.id} exit={completed.returncode}")
     print(f"Run {args.id}: exit code {completed.returncode}, {len(metrics)} metric(s) recorded")

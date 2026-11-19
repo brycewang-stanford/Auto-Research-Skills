@@ -180,6 +180,15 @@ class CrewWorkspaceTest(unittest.TestCase):
         self.assertEqual(record["code"][0]["path"], "code/main.py")
         self.assertEqual(self.errors(), [])
 
+    def test_run_records_the_commands_python(self) -> None:
+        self.to_design()
+        self.run_main()
+        env = json.loads((self.ws / "runs" / "main" / "run.json").read_text())["env"]
+        import platform as _p
+        self.assertEqual(env["python"], _p.python_version())  # the test runs the command with this interpreter
+        self.assertIn("crew_python", env)
+        self.assertEqual(env["command_executable"], sys.executable)
+
     def test_failed_run_cannot_support_a_claim(self) -> None:
         self.to_design()
         (self.ws / "code" / "bad.py").write_text("raise SystemExit(3)\n")

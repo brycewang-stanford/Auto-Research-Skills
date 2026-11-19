@@ -201,9 +201,12 @@
       "note": "Approved in chat on 2026-11-19 after reading the question, the Reviewer's verdicts and kill argument."
     },
     "design": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-19T05:47:03Z",
-      "summary": "Design passed review in round 1; six minor findings answered."
+      "summary": "Design passed review in round 1; six minor findings answered.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-19T06:52:04Z",
+      "note": "Approved in chat on 2026-11-19 after reading the design, the SE-construction caveat and the H2 bias toward passing."
     },
     "results": {
       "status": "pending"
