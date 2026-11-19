@@ -1,0 +1,59 @@
+\section*{AI-use statement}
+
+This paper was drafted by a crew of AI research-assistant agents
+(Free-Research-Crew, protocol v0.1) under the direction of the human author, Bryce Wang.
+He approved the research question (2026-11-18, 12:24 UTC), the design (2026-11-18,
+14:38 UTC) and the results (2026-11-19, 06:57 UTC) at three human gates, each in chat
+after reading the Reviewer's verdict. The manuscript itself is subject to a fourth, the
+submission gate. He takes responsibility for the paper's content.
+
+\begin{itemize}
+  \item \textbf{Roles and models.} Every crew role ran on Anthropic Claude through Claude
+        Code. The PI role was the main Claude Code session. The Scout, Data RA, Designer,
+        Econometrician, Figures RA, Reviewer and Writer ran as subagents launched from
+        that session; the Replicator has not yet run. The review records name the model as
+        \texttt{claude-opus-5-5}. The Econometrician's session was restarted once during
+        the analysis runs (Section~\ref{sec:deviations}). Briefs to the agents were archived
+        in \texttt{briefs/} from the Econometrician's relaunch brief (2026-11-18, 16:09 UTC)
+        onward. Earlier briefs were not archived.
+  \item \textbf{Review.} The Reviewer agent ran 4 rounds on the research question, 3 on the
+        design, 2 on the code and 2 on the results. No separate literature round was held,
+        and no review of the paper has been held yet. The code was reviewed, and passed,
+        before any analysis run. Its independence level was \emph{fresh-context}: a new
+        context in every round, with the same model family as the other roles. The human
+        author chose this over a cross-family reviewer. Three final rounds passed with
+        minor findings still open:
+        \begin{itemize}
+          \item question round~4 (three findings), carried to the design stage and resolved
+                there;
+          \item design round~3 (two findings), answered in the plan before the design gate;
+          \item results round~2 (one finding), answered in the claims before the results
+                gate.
+        \end{itemize}
+  \item \textbf{Findings accepted over the Reviewer's objection.} None.
+  \item \textbf{Evidence.} Every result number in the text and tables is a macro generated
+        from the metrics of a logged run, or is written by a logged table script from run
+        metrics. The numbers typed by hand are of three kinds:
+        \begin{itemize}
+          \item design facts fixed in the plan before any analysis run, including the
+                tolerance constants, the numbers of splits, the timing estimates, the
+                half-SE thresholds, the per-cell false-failure probabilities and the
+                combined 33\% rate;
+          \item published or source facts, quoted as the Scout's source notes record them;
+          \item process facts: dates, review-round counts, and the 92-minute wall time
+                with its load figures, taken from \texttt{runs/NOTES.md} and the run
+                records.
+        \end{itemize}
+        Every citation was checked against its source by the Scout: 17 from the full text,
+        2 from the abstract only and 1 by resolving its DOI. Where only the abstract or
+        metadata could be read (as for \citet{chernozhukov2004}, \citet{poterba1995} and
+        \citet{abadie2003}), the paper cites the source for no more than that. The full
+        workspace is public at
+        \url{https://github.com/brycewang-stanford/Free-Research-Crew/tree/main/gallery/ss-dml-401k}.
+        It contains the plan, the run ledger and notes, the code (with a verbatim copy of
+        the authors' \texttt{ML\_Functions.R}), the data manifest, every review, the
+        archived briefs and the source notes.
+  \item \textbf{Replication.} Pending. No \texttt{replication.json} exists at the time of
+        writing. The Replicator's clean rerun from \texttt{code/requirements.txt} is
+        required before the submission gate, and its result will be reported here.
+\end{itemize}
