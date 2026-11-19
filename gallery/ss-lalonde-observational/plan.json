@@ -231,7 +231,7 @@
       "id": "a-h2",
       "title": "After the results gate only: run h2-benchmark (H2, descriptive) and add its claims",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "f-figures",

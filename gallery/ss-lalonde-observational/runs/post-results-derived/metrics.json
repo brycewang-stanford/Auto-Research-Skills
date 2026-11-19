@@ -1,0 +1,21 @@
+{
+  "label": "post-results diagnostic: arithmetic on logged run outputs; no model fitted",
+  "main_rep0_ci_low": 55.244173779311495,
+  "main_rep0_ci_high": 3138.2467622457534,
+  "main_rep1_ci_low": 56.511919385923875,
+  "main_rep1_ci_high": 3168.4690700883484,
+  "main_rep2_ci_low": -20.12025045119026,
+  "main_rep2_ci_high": 3064.2563134576917,
+  "main_rep3_ci_low": -25.976931019984022,
+  "main_rep3_ci_high": 3048.9376306364056,
+  "main_rep4_ci_low": -2.6463461163007196,
+  "main_rep4_ci_high": 3244.7208234260606,
+  "main_n_reps_ci_include_zero": 3,
+  "main_n_reps": 5,
+  "trim_minus_main": -59.13102641547607,
+  "trim_rep_min": 1265.478073962487,
+  "trim_rep_max": 1623.8492114854607,
+  "trim_dropped_weight": 0.16889482972576939,
+  "control_weight_total": 188.89948151920154,
+  "trim_dropped_weight_share_pct": 0.08940989587025484
+}

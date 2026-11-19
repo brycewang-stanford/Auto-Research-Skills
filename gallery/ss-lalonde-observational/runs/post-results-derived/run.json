@@ -1,0 +1,68 @@
+{
+  "id": "post-results-derived",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    ".venv/bin/python",
+    "-I",
+    "code/post_results_derived.py"
+  ],
+  "started": "2026-11-19T13:06:29Z",
+  "finished": "2026-11-19T13:06:31Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/post_results_derived.py",
+      "sha256": "95c82de17b2c4ed8c6635e56e65f7fa5c20ac9d5977c210b8524be05696e135f"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "fd8ba72636658dfb5716b8f0eef8ba93ec7754db6a3aebf4380a08264115169f"
+    },
+    {
+      "path": "runs/rob-trim/metrics.json",
+      "sha256": "823396ef540e84968a0f9d548fe167c10447e812fd53022c181fd1f8307112c5"
+    },
+    {
+      "path": "runs/diag-overlap/propensity.csv",
+      "sha256": "f705a34212ec568811e5c4c07097d16b8e8b411ab4d9a4721149a4e35d0d1eef"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/post-results-derived/metrics.json",
+      "sha256": "d55b47f17eb5498e5a2e25359d983b2117dec4e722b92b34e544c4444926d532"
+    }
+  ],
+  "metrics": {
+    "label": "post-results diagnostic: arithmetic on logged run outputs; no model fitted",
+    "main_rep0_ci_low": 55.244173779311495,
+    "main_rep0_ci_high": 3138.2467622457534,
+    "main_rep1_ci_low": 56.511919385923875,
+    "main_rep1_ci_high": 3168.4690700883484,
+    "main_rep2_ci_low": -20.12025045119026,
+    "main_rep2_ci_high": 3064.2563134576917,
+    "main_rep3_ci_low": -25.976931019984022,
+    "main_rep3_ci_high": 3048.9376306364056,
+    "main_rep4_ci_low": -2.6463461163007196,
+    "main_rep4_ci_high": 3244.7208234260606,
+    "main_n_reps_ci_include_zero": 3,
+    "main_n_reps": 5,
+    "trim_minus_main": -59.13102641547607,
+    "trim_rep_min": 1265.478073962487,
+    "trim_rep_max": 1623.8492114854607,
+    "trim_dropped_weight": 0.16889482972576939,
+    "control_weight_total": 188.89948151920154,
+    "trim_dropped_weight_share_pct": 0.08940989587025484
+  },
+  "metrics_file": "runs/post-results-derived/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "env"
+  }
+}

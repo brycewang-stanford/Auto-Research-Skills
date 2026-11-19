@@ -71,3 +71,7 @@
 {"time": "2026-11-19T12:55:17Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261119T125517Z (results-r2)"}
 {"time": "2026-11-19T12:59:46Z", "role": "pi", "action": "gate-request", "detail": "results"}
 {"time": "2026-11-19T13:05:27Z", "role": "pi", "action": "gate-approve", "detail": "results Bryce Wang"}
+{"time": "2026-11-19T13:05:49Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261119T130549Z (results-r2 F6/F7, h2-benchmark)"}
+{"time": "2026-11-19T13:06:31Z", "role": "econometrician", "action": "run", "detail": "post-results-derived exit=0"}
+{"time": "2026-11-19T13:06:38Z", "role": "econometrician", "action": "run", "detail": "h2-benchmark exit=0"}
+{"time": "2026-11-19T13:07:48Z", "role": "econometrician", "action": "h2-and-traceability", "detail": "results-r2 F6/F7: ,.1f formats for primary-ci-low and sens-target-zero; post-results-derived run (logged arithmetic only) backs per-repetition bounds, include-zero count, trim shift/range, dropped weight share; sens-reading mechanism removed; NOTES row 8 and Surprises fixed. h2-benchmark: diff -221, combined SE 1,018, band [-2,217, 1,774] (descriptive). a-h2 done"}

@@ -167,8 +167,9 @@ was seen. Dollars are 1982 dollars; CIs are 95%.
 | 6 | rob-estimators | (a) OLS coefficient 1,199 [-28, 2,426] (HC2; never triggers); (b) Hajek IPW 1,453 [26, 2,879] (bootstrap SE 728), inside main's CI, so it does not trigger |
 | 7 | rob-diff74 | 2,798 [1,331, 4,265] (different assumption and estimand; never triggers) |
 | - | rob-ipow | not run: trigger did not fire (0 unobserved re78 in both arms), as fixed in the design |
-| 8 | sens-imbens | t_0 = 9.6; R2*_0 = 0.0011; robust only to black, married, nodegree; not robust to age, educ, hisp, earn74, earn75 (earn75: R2_D 0.53, R2_Y 0.087, max bias 1,876); tau(0,0) = 1,199 = OLS (diff 5e-5); 0 EM or logit non-convergence |
-| - | h2-benchmark | not run: waits for the results gate |
+| 8 | sens-imbens | t_0 = 9.6; R2*_0 = 0.0011; not robust to age, educ, hisp, earn74, earn75. The rule's 'robust' verdicts for black, married and nodegree are artifacts of the R2_D floor (R2_D = 0) and say nothing about those confounders (see claim sens-reading) (earn75: R2_D 0.53, R2_Y 0.087, max bias 1,876); tau(0,0) = 1,199 = OLS (diff 5e-5); 0 EM or logit non-convergence |
+| 9 | post-results-derived (after the results gate) | arithmetic on logged outputs only (no model fitted): single-repetition 95% lower bounds of main-aipw 55.2, 56.5, -20.1, -26.0, -2.6, so 3 of 5 include zero; rob-trim minus main -59; rob-trim repetitions 1,265 to 1,624; dropped CPS men carry 0.089% of the control weight m_bar/(1-m_bar) (0.169 of 188.9) |
+| 10 | h2-benchmark (after the results gate) | H2, descriptive: estimate minus benchmark **-221**, combined SE 1,018 (overstated: shared treated men ignored), band [-2,217, 1,774] |
 
 Convergence: 0 ConvergenceWarnings in every run that counts them; all sens-imbens logits and
 EM points converged (max 8 EM iterations).
@@ -211,14 +212,56 @@ There was no new estimation run, and no aggregation or decision rule changed.
   ids now map to words, so the per-repetition macros are distinct. No paper text used the old
   name. Claims: 109 result claims, 100 macros.
 
+### After the results gate (approved 2026-11-19T13:05:27Z): results-r2 F6/F7 and H2
+
+- **F6 (traceability).** primary-ci-low and sens-target-zero now use the ",.1f" format, so the
+  macros print 9.6. One logged post-results derived run, `post-results-derived`
+  (`code/post_results_derived.py`, kind analysis), reads only `runs/main-aipw/metrics.json`,
+  `runs/rob-trim/metrics.json` and `runs/diag-overlap/propensity.csv`. It fits nothing and
+  writes:
+  - the single-repetition bounds and the count that includes zero (claims
+    primary-rep0-ci-low ... primary-rep4-ci-low, primary-n-reps-ci-include-zero);
+  - rob-trim minus main and the range of rob-trim's repetitions (trim-minus-main,
+    trim-rep-min, trim-rep-max);
+  - the dropped CPS men's share of the control weight (trim-dropped-weight-share). This
+    reproduces the design's 0.169 of 188.9.
+
+  h1-decision and disagree-trim now cite those claims instead of typed numbers. The
+  sens-reading mechanism clause ('dominated by CPS men far outside the treated range') is
+  replaced by what the logged R2_D = 0 implies (V_-G >= V). V and V_-G are not computed, since
+  that would mean refitting models after the gate. The derived script is simple arithmetic and
+  was not code-reviewed or unit-tested; it checks itself against logged values (the mean of the
+  repetitions equals the effect; the dropped count equals rob-trim's).
+- **F7.** Row 8 of the runs table and the 'Surprises' bullet now match sens-reading.
+- **H2 (task a-h2).** `h2-benchmark` ran exactly as planned: command
+  `env OMP_NUM_THREADS=1 .venv/bin/python -I code/h2_benchmark.py`, input
+  `runs/main-aipw/metrics.json`. Its guard read plan.json's results gate as approved. The
+  difference is -221 dollars, with combined SE 1,018 and descriptive band [-2,217, 1,774]. The
+  SE ignores the positive covariance from the 185 shared treated men, so it overstates the
+  uncertainty. This is descriptive: no test and no ranking. Claims h2-diff, h2-se-combined,
+  h2-ci-low and h2-ci-high, plus h2-benchmark-value and h2-benchmark-se.
+- Claims: 125 result claims, 116 macros.
+
+Command for the derived run:
+
+```bash
+python3 $CREW run $WS --id post-results-derived --role econometrician --kind analysis \
+  --code code/post_results_derived.py --input runs/main-aipw/metrics.json \
+  --input runs/rob-trim/metrics.json --input runs/diag-overlap/propensity.csv \
+  --metrics runs/post-results-derived/metrics.json \
+  -- env OMP_NUM_THREADS=1 .venv/bin/python -I code/post_results_derived.py
+```
+
 ### Surprises (for the Reviewer and the Writer)
 
-- **Benchmarks with R2_D = 0.** The black, married and nodegree benchmarks have R2_D exactly 0,
-  because V - V_-G was negative and the design floors it at 0. black has the largest raw
-  imbalance (nd 1.72). So the unpenalized logit's index variance did not fall when black was
-  dropped, and the other coefficients absorbed it. "Robust to black" is therefore a mechanical
-  result of the fixed floor, not evidence that race is a weak confounder. I report it as the
-  rule gives it. V and V_-G are not in the metrics; I did not compute them outside a run.
+- **Benchmarks with R2_D = 0.** The black, married and nodegree benchmarks have R2_D exactly 0.
+  By the benchmark formula, this means that dropping the group did not lower the variance of
+  the fitted logit index (V_-G >= V), and the design floors R2_D at 0. The rule's 'robust'
+  verdicts for these three groups are therefore artifacts of the floor. They carry no
+  information about how strong race, marital status or degree are as confounders. black has
+  the largest raw imbalance (nd 1.72). Never write 'robust to a confounder as strong as race'.
+  V and V_-G are not in any logged run, so the paper gives no number or mechanism for them
+  (results-r2 F6, F7).
 - **Sensitivity target.** t_0 is tiny (9.6 dollars) because the lower bound sits just above
   zero. Almost any confounder flips H1, as R2*_0 = 0.0011 shows.
 - **rob-diff74** is larger than the primary (2,798). The design predicted an upward bias if

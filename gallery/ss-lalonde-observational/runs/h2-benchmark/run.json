@@ -1,0 +1,50 @@
+{
+  "id": "h2-benchmark",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "env",
+    "OMP_NUM_THREADS=1",
+    ".venv/bin/python",
+    "-I",
+    "code/h2_benchmark.py"
+  ],
+  "started": "2026-11-19T13:06:38Z",
+  "finished": "2026-11-19T13:06:38Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h2_benchmark.py",
+      "sha256": "6f257cf29b140e6c52060e6d18951dbb35b0163567d37ba273283c7760259e38"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/main-aipw/metrics.json",
+      "sha256": "fd8ba72636658dfb5716b8f0eef8ba93ec7754db6a3aebf4380a08264115169f"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h2-benchmark/metrics.json",
+      "sha256": "d96068c8051a487af55876bbe44faac0a4c094372e7b22691fbf28b85031db00"
+    }
+  ],
+  "metrics": {
+    "benchmark": 1794.0,
+    "benchmark_se": 633.0,
+    "main_effect": 1572.764316543202,
+    "main_se": 797.5433542833656,
+    "h2_diff": -221.23568345679791,
+    "h2_se_combined": 1018.21628447082,
+    "h2_ci_low": -2216.9029294917955,
+    "h2_ci_high": 1774.4315625781996,
+    "note": "descriptive; se_combined ignores the shared treated men and overstates the uncertainty"
+  },
+  "metrics_file": "runs/h2-benchmark/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "env"
+  }
+}
