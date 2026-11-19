@@ -74,3 +74,6 @@
 {"time": "2026-11-19T12:27:59Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261119T122759Z"}
 {"time": "2026-11-19T12:28:00Z", "role": "pi", "action": "brief-archived", "detail": "replicator 20261119T122759Z"}
 {"time": "2026-11-19T12:28:00Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261119T122759Z"}
+{"time": "2026-11-19T12:28:26Z", "role": "scout", "action": "bib-fixed", "detail": "card_njmin_readme: added year (access year 2026; page undated, Last-Modified 2007 noted)"}
+{"time": "2026-11-19T12:29:25Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
+{"time": "2026-11-19T12:30:42Z", "role": "replicator", "action": "replication-written", "detail": "REPLICATION.md: clean rerun passed 15/15 in 46 s from a fresh uv env (py 3.12.11, requirements.txt only), no --reuse-data"}

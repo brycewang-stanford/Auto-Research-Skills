@@ -1,0 +1,103 @@
+{
+  "created": "2026-11-19T12:29:25Z",
+  "passed": true,
+  "rtol": 1e-06,
+  "atol": 1e-09,
+  "reuse_data": false,
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "runs": [
+    {
+      "run": "fetch-data",
+      "record_sha256": "277e168b13f4b738e071bfec311be56d42ba34644f6ff5bd744e439a78bcb37b",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "prepare-data",
+      "record_sha256": "de08859267e480a78211d586d7f3cf99fa957ce8e80c7680b42bcd0841fd2344",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "check-synthetic",
+      "record_sha256": "41d57d15f5cdb18f6b3dea0fdbc85b386bc202f107774ed9e94adf0f095bf430",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "main-t3",
+      "record_sha256": "6663a798c7f2e8affb2aab757e9444d558473cad1f7d359a31ddd7ee0fedb4e2",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "main-t4",
+      "record_sha256": "4c8b464e002ae6932f15b6fa54636f8a786bc2497a0f5ba325d2dd4cd3dc236e",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "se-alt",
+      "record_sha256": "6ae806d47c0c05431f40b116e2f03a6dffbf0455429b67266070afda53058de2",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "placebo-hiwage",
+      "record_sha256": "9e604bacd084b8412ca32677c059c36c28f2050635eb84f8901d070c64b719e3",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "h2-winsor",
+      "record_sha256": "7171ce5952434a878443837cbfd58a0a941851f8ba8ea0f07a523bf37e0af249",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "h2-closures-excl",
+      "record_sha256": "e0c85e94695150d2e12f4b8c3e441c9f46338abd5eaab78481535f3c4d615f8e",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "h2-nw-rule",
+      "record_sha256": "61ad5456265151d525b8dc61d53ffeeedcadeca04d5baab46b334754dab318bb",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "verdict",
+      "record_sha256": "8b08f25a0c53874c3aec7878dcc9bf99d7c5d2f6a5f3da527ac791a848772181",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "pub-values",
+      "record_sha256": "b402780cbb3b4d36e8f76da178e80aeae33a89aa3fa6a8a17f402297c93ce481",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-h2",
+      "record_sha256": "3070556da50776b86edf1fea09e73e589300a0d4c693ae65f7cca840092c208c",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-replication",
+      "record_sha256": "9a0f403f1b1641febdbe699a9ec5dbd8e0d73eb40e21e7d5e85601cb6d17c3f9",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-dfte-dist",
+      "record_sha256": "2d4ba110d7a06fa9cebdb8cc2573e48a1389ba2d00b1affd4d478ee1afdb725e",
+      "exit_code": 0,
+      "status": "match"
+    }
+  ]
+}
