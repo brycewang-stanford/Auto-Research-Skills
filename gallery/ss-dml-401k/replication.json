@@ -1,0 +1,109 @@
+{
+  "created": "2026-11-19T09:16:58Z",
+  "passed": true,
+  "rtol": 1e-06,
+  "atol": 1e-09,
+  "reuse_data": false,
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "runs": [
+    {
+      "run": "fetch-sipp",
+      "record_sha256": "be5b0c4e1f134fb016d31e0c61ca6bb3f538c3ff2a6769004e7ff305e229dbb8",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "prepare-sipp",
+      "record_sha256": "d6ad45d5515d6a9a01e13fa8368e403695db2a76d3d50f63adf6148feb9ded63",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "timing-synthetic",
+      "record_sha256": "b5e124ae8bef0b88ff16791b87c2d37240db899a5312a2db9fe981fddebec0ab",
+      "exit_code": 0,
+      "status": "ran"
+    },
+    {
+      "run": "check-learner-ports",
+      "record_sha256": "90461b62470aec83cf732cd811433099104a41df4f97426cc1f736e228fd9406",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "check-noctrl",
+      "record_sha256": "1c70bf1822b13e57554cf4cc275053da4c6bc2f5e09aafc1bdb66515a3dac9f3",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "main-lasso",
+      "record_sha256": "0cb0f76630046bfe51cb490f7682b3daf15deba39b96c547b239e8a5c791d555",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "main-tree",
+      "record_sha256": "3bffdf8002b4333cca5f1408d86c3d88972d92177c4eae8a7bf7c3ef733d0736",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "main-nnet",
+      "record_sha256": "8c3838980c244fd876087909e93f08493195542d69ce8d9e7125557908992223",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "main-forest",
+      "record_sha256": "5bff04132b160d6b761975ba1b614a754f94ec781ddce5fe62bf9b6b79a17716",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "main-boosting",
+      "record_sha256": "09f97bf6f56daf008a2fda77cc4501e9b62c5786f671b9d655079a13bb92fc00",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "sens-lasso-c11",
+      "record_sha256": "ebd0f10937e2f6787f29ec6868275cf14757ca4607e9b5b4b83777d4dba2a098",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "verdict",
+      "record_sha256": "00fd2c64622b67323fb745e01c2e031789f644f3ed2d9e8358146e11b250b451",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-h2-diff",
+      "record_sha256": "642e62b73b577959bc1454f6d215530d6142ca1ebc314cc116b4bfdbf230f5f7",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-port-check",
+      "record_sha256": "93b46bdfd5feb916ec67801f4ce962828a9bb1726edb386a65e0e7f72d9d01f5",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "tab-side-by-side",
+      "record_sha256": "7693f9c3459abdd7d56a13b46560eb1acde5183939b90eb75d9f0c643764de8a",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-split-spread",
+      "record_sha256": "74c7d976f6d8497792b66d8ac547a2b9172a388854a13db5074d497f96d24736",
+      "exit_code": 0,
+      "status": "match"
+    }
+  ]
+}

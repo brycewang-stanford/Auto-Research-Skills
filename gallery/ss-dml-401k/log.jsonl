@@ -78,3 +78,5 @@
 {"time": "2026-11-19T08:07:50Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T080749Z"}
 {"time": "2026-11-19T08:08:32Z", "role": "scout", "action": "claims-corrected", "detail": "paper-r2 F9/F10: 5-fold gap range -27, preprint-only reading stated, dmlv4 bib year fix, c-aerpp-rms added"}
 {"time": "2026-11-19T08:10:06Z", "role": "writer", "action": "paper-revised", "detail": "paper-r2 F9/F10 answered in paper/ (corrected -27 range; preprint-only wording; 'two published runs' with unknown code and splits; lasso procedure sentence removed; max-to-max comparison dropped; tolerances read as if anything wide; no RMS of ours); F6(b) left for the final update; compiles clean"}
+{"time": "2026-11-19T09:16:58Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
+{"time": "2026-11-19T09:17:59Z", "role": "replicator", "action": "replication-written", "detail": "REPLICATION.md: clean rerun passed 16/16 in 6087 s from a fresh uv env (py 3.12.11, requirements.txt only; system R 4.5.2 + listed packages); no --reuse-data, no OMP_NUM_THREADS, no mismatches"}
