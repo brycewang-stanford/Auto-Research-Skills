@@ -1,0 +1,62 @@
+{
+  "id": "tab-port-check",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/tab_port_check.py",
+    "--out",
+    "paper/tables/tab_port_check.tex",
+    "--metrics",
+    "runs/tab-port-check/metrics.json"
+  ],
+  "started": "2026-11-19T07:04:31Z",
+  "finished": "2026-11-19T07:04:31Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_port_check.py",
+      "sha256": "ed51b0e5efd3e6e3963d1d8cd4e5a8cb5e21cd156956a0a1f5e7e9ed986d8013"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "e2bb4c2ecc33a5f7068408d83e89c9b736198ebd4d28efa9101be59cac7faa82"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/check-learner-ports/metrics.json",
+      "sha256": "4753ede6c13e3f69f248955e948d7d3753c45eb7dc2a3ed381edfd27a86fccb8"
+    },
+    {
+      "path": "runs/verdict/metrics.json",
+      "sha256": "394d2d1f0fa267080e6e0bf28ae7328e33c57f3dcaf589eaa75e96a2b205893f"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_port_check.tex",
+      "sha256": "950d0a7d2f15fb1b163bb498170d0b40ba8fdf523ffcce5364871f8d41e2b6e9"
+    },
+    {
+      "path": "runs/tab-port-check/metrics.json",
+      "sha256": "4ee1d2ea57f5a58e1f2e155b61a548c109b073bad1acd4d43a752948b21fc7a6"
+    }
+  ],
+  "metrics": {
+    "n_direct_cells": 38,
+    "n_fail": 1,
+    "n_macro_cells": 20,
+    "n_pass": 4,
+    "n_rows": 5
+  },
+  "metrics_file": "runs/tab-port-check/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-dml-401k/.venv"
+  }
+}

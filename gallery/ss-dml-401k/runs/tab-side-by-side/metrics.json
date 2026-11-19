@@ -1,0 +1,9 @@
+{
+  "n_direct_cells": 0,
+  "n_macro_cells": 90,
+  "n_not_testable_inside": 2,
+  "n_outside": 0,
+  "n_pass": 8,
+  "n_port_failed_rows": 2,
+  "n_rows": 10
+}

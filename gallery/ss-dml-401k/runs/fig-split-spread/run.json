@@ -1,0 +1,96 @@
+{
+  "id": "fig-split-spread",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/fig_split_spread.py",
+    "--out",
+    "paper/figures/fig_split_spread.pdf",
+    "--metrics",
+    "runs/fig-split-spread/metrics.json"
+  ],
+  "started": "2026-11-19T07:04:31Z",
+  "finished": "2026-11-19T07:04:32Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_split_spread.py",
+      "sha256": "b2b818a1e3e7841d9006fad76a454ac6d8992b8760204c5026027a32a6d5dc18"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "e2bb4c2ecc33a5f7068408d83e89c9b736198ebd4d28efa9101be59cac7faa82"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/verdict/metrics.json",
+      "sha256": "394d2d1f0fa267080e6e0bf28ae7328e33c57f3dcaf589eaa75e96a2b205893f"
+    },
+    {
+      "path": "runs/main-lasso/metrics.json",
+      "sha256": "9aaf66f442e6fe0272135a0b5976510ae7dc759896db47af564e8a9d1fbf3b61"
+    },
+    {
+      "path": "runs/main-tree/metrics.json",
+      "sha256": "23455a68f5e45012f8f6a44644914237d1fbd87aa934ce63058c37f90c638e1e"
+    },
+    {
+      "path": "runs/main-forest/metrics.json",
+      "sha256": "bdf2953e6146f3d31eea2ac79fd6b285925ad5f6b25a51866cc0d7fa02010b09"
+    },
+    {
+      "path": "runs/main-boosting/metrics.json",
+      "sha256": "c6d781e522e5afff8654f633f8e4b4f2e34fbfdbd6ed980bb0f2f461c1117de2"
+    },
+    {
+      "path": "runs/main-nnet/metrics.json",
+      "sha256": "9c89c98690e417aadfc7801d9a662aae7d7d81d512941e08cb336571492f8376"
+    },
+    {
+      "path": "runs/main-lasso/splits.csv",
+      "sha256": "bd5cc165b1338cefcc146d734d906032bd14edc521ca19a05e35adef285a0745"
+    },
+    {
+      "path": "runs/main-tree/splits.csv",
+      "sha256": "4c5cb5897257aa0f79377333bcae5b50d9c2e4c9cb44cd7987b32359291cc2ac"
+    },
+    {
+      "path": "runs/main-forest/splits.csv",
+      "sha256": "bd5e4aecb598e29044f2d089284ce0839cfdcc518058511af831f6809ec66995"
+    },
+    {
+      "path": "runs/main-boosting/splits.csv",
+      "sha256": "a107e2e47e83cba7250a80033a094efe36f0567aee31bbce8aea7e885a7aa93c"
+    },
+    {
+      "path": "runs/main-nnet/splits.csv",
+      "sha256": "bea7c32bf1ca99791756c20d8303e3d48d66389e74884831a6cc3c161a6249aa"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_split_spread.pdf",
+      "sha256": "82809f92678d15ab623caafa199bcc8a523dbec8ae96f41f86f240db58a8ac3c"
+    },
+    {
+      "path": "runs/fig-split-spread/metrics.json",
+      "sha256": "90ef524cce671a3fd115aa2ebdc403229f6e73c13bb13e74eac5efe8f2f25763"
+    }
+  ],
+  "metrics": {
+    "n_cells": 10,
+    "n_split_points": 740,
+    "x_limit_a": 1817.3177335200005
+  },
+  "metrics_file": "runs/fig-split-spread/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-dml-401k/.venv"
+  }
+}

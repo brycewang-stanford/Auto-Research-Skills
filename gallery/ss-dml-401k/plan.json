@@ -601,7 +601,7 @@
       "id": "f-splits",
       "title": "Figure: per learner and K, distribution of theta_s with the published median and the H2 acceptance interval",
       "owner": "figures-ra",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-results",
@@ -620,6 +620,12 @@
       "title": "Clean rerun from code/requirements.txt (crew.py rerun) and replication.json",
       "owner": "replicator",
       "status": "todo"
+    },
+    {
+      "id": "f-results",
+      "title": "Figures and tables after the results gate: tab_side_by_side, fig_h2_diff, tab_port_check, fig_split_spread (runs of the same names), captions in paper/figures/CAPTIONS.md",
+      "owner": "figures-ra",
+      "status": "done"
     }
   ],
   "gates": {

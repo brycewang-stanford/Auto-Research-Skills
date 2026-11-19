@@ -1,0 +1,80 @@
+{
+  "id": "tab-side-by-side",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/tab_side_by_side.py",
+    "--out",
+    "paper/tables/tab_side_by_side.tex",
+    "--metrics",
+    "runs/tab-side-by-side/metrics.json"
+  ],
+  "started": "2026-11-19T07:04:31Z",
+  "finished": "2026-11-19T07:04:31Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_side_by_side.py",
+      "sha256": "314447e43ed73fe40649fb56d552beae5e77c0a1ca10d93fdc8f10fc6f5cbc1e"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "e2bb4c2ecc33a5f7068408d83e89c9b736198ebd4d28efa9101be59cac7faa82"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/verdict/metrics.json",
+      "sha256": "394d2d1f0fa267080e6e0bf28ae7328e33c57f3dcaf589eaa75e96a2b205893f"
+    },
+    {
+      "path": "runs/main-lasso/metrics.json",
+      "sha256": "9aaf66f442e6fe0272135a0b5976510ae7dc759896db47af564e8a9d1fbf3b61"
+    },
+    {
+      "path": "runs/main-tree/metrics.json",
+      "sha256": "23455a68f5e45012f8f6a44644914237d1fbd87aa934ce63058c37f90c638e1e"
+    },
+    {
+      "path": "runs/main-forest/metrics.json",
+      "sha256": "bdf2953e6146f3d31eea2ac79fd6b285925ad5f6b25a51866cc0d7fa02010b09"
+    },
+    {
+      "path": "runs/main-boosting/metrics.json",
+      "sha256": "c6d781e522e5afff8654f633f8e4b4f2e34fbfdbd6ed980bb0f2f461c1117de2"
+    },
+    {
+      "path": "runs/main-nnet/metrics.json",
+      "sha256": "9c89c98690e417aadfc7801d9a662aae7d7d81d512941e08cb336571492f8376"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_side_by_side.tex",
+      "sha256": "61f15b896f6b6a18a766b0e70d860b6b2e09374e7eedab9356d673f0ef38a4b6"
+    },
+    {
+      "path": "runs/tab-side-by-side/metrics.json",
+      "sha256": "3ad9bcf03d0e47785f2cbae6bacb6784353a1dd92bbbf7f18188c8b19f921acf"
+    }
+  ],
+  "metrics": {
+    "n_direct_cells": 0,
+    "n_macro_cells": 90,
+    "n_not_testable_inside": 2,
+    "n_outside": 0,
+    "n_pass": 8,
+    "n_port_failed_rows": 2,
+    "n_rows": 10
+  },
+  "metrics_file": "runs/tab-side-by-side/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-dml-401k/.venv"
+  }
+}
