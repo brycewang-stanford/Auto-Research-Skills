@@ -1,0 +1,121 @@
+{
+  "id": "results-r2",
+  "target": "results",
+  "round": 2,
+  "created": "2026-11-19T12:58:30Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261119T125517Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/social-science.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/ss-lalonde-observational/task.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "plan.json (question, hypotheses, contribution, design.method incl. deviations, sensitivity, h3_placebo, h2_descriptive; analysis_plan; threats; claim_ids; against_each_hypothesis; tasks; gates; design_constraints; disclosures)",
+    "reviews/code-r1/review.json",
+    "reviews/results-r1/review.json",
+    "git diff 866903c..1d4682e -- code/ (non-test files)",
+    "git diff 1d4682e..HEAD (plan.json, runs/NOTES.md, reviews/code-r1, claims.jsonl, paper/numbers.tex)",
+    "git log -- gallery/ss-lalonde-observational",
+    "log.jsonl",
+    "code/main_aipw.py",
+    "code/aipw_lib.py (aggregation, per_repetition, mbar_check)",
+    "code/sens_imbens.py benchmark_r2",
+    "runs/*/run.json (ids, kinds, start times, exit codes, commands)",
+    "runs/main-aipw/metrics.json",
+    "runs/placebo-re75/metrics.json",
+    "runs/rob-trim/metrics.json",
+    "runs/rob-learners/metrics.json",
+    "runs/rob-covsets/metrics.json",
+    "runs/rob-estimators/metrics.json",
+    "runs/rob-diff74/metrics.json",
+    "runs/sens-imbens/metrics.json",
+    "runs/unit-tests/metrics.json",
+    "runs/.superseded/ (listing)",
+    "runs/NOTES.md",
+    "claims.jsonl",
+    "paper/numbers.tex",
+    "data/manifest.json",
+    "crew.py validate and validate --strict (both OK, 0 warnings)"
+  ],
+  "kill_argument": "The study's one positive result has no evidential weight, and the files now say so. The 95% lower bound is $9.6 (p = 0.049). Three of the five fixed cross-fitting repetitions, taken alone, include zero. Three of the four checks that can trigger the disagreement rule flip the decision. R2*_0 is 0.0011, so a confounder as weak as the hispanic indicator would undo it. The placebo fails at -1,543 [-2,699, -387], as large as the estimate and stable across repetitions. A hostile referee would say these data cannot tell the contrast apart from zero, and the design cannot tell confounding from the pre-program dip. This objects to the result's value, not to the claims' accuracy: each fact is now in the claims, and none uses 'significant', 'robust' or 'effect' unqualified. What I attacked that held: claim values equal their metrics (validate --strict OK). No code changed after 1d4682e and no run after 12:41Z; only unit-tests was superseded. h2-benchmark has not run, and no claim compares with the benchmark. The new per-repetition and trimming statements check out. The R2_D floor cannot hide an R2_D above 1.",
+  "verdict": "pass",
+  "claim_rulings": {
+    "primary-*, overlap-*, primary-theta-rep0-4, primary-se-rep0-4": "supported: values equal runs/main-aipw/metrics.json; contrast wording as the H3 fail requires",
+    "h1-decision": "supported (results-r1 F1 resolved); '$9.6' and 'about +55' are not macro-printable (F6)",
+    "placebo-*, placebo-cps-re75-topcoded, h3-decision": "supported; FAIL code -1; the top-code is stated. Placebo repetitions -1,484 to -1,629 each exclude zero on their own (my arithmetic), so the H3 decision does not depend on the seeds",
+    "trim-*, trim-theta-rep0-4, disagree-trim": "supported (results-r1 F3 resolved); the 0.09% figure has no run metric (F6c)",
+    "covset-*, learner-*, ols-*, ipw-*, diff74-*, disagree-*, agree-*, nontrigger-checks": "supported; unchanged since results-r1",
+    "sens-*": "supported as values; sens-reading supported (results-r1 F2 resolved), but its mechanism clause rests only on reviewer scratch (F6d) and NOTES contradicts it (F7)",
+    "citation claims (c-*)": "not re-examined at this target; none compares a study estimate with the benchmark",
+    "left out / tried and dropped": "None. No new run since results-r1. Unclaimed metrics (the IPW percentile CI, placebo and diff74 per-repetition estimates, Kish ESS and SMDs) neither change nor weaken any claim."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The H1 decision sits inside cross-fitting noise, and the claims do not show it. main-aipw gives 1,573 (SE 798), 95% CI [9.6, 3,136], p = 0.049. The design fixed S = 5 repetitions with mean aggregation, and that rule is applied correctly. But the per-repetition estimates in runs/main-aipw/metrics.json (theta_rep0-4 = 1,597, 1,612, 1,522, 1,511, 1,621; se_rep0-4 = 786, 794, 787, 784, 828) give single-repetition lower bounds of +55, +57, -20, -26 and -3 (my arithmetic from the metrics, nothing re-run). Three of five would not exclude zero. The between-repetition SD is 52, so the averaged lower bound has a Monte Carlo SD of about 23 against a margin of 9.6, and a different seed base would flip H1 with roughly one chance in three. design.threats[9] promised that 'the per-repetition estimates and SEs are reported so split noise is visible', yet no claim carries theta_rep or se_rep. Claim h1-decision says only 'met ... by a margin of about ten dollars'. The macro \\PrimaryCiLow prints '10'. The relative-contrast interval [-5.1%, 71.0%] includes zero, and h1-decision does not say so. Ruling: h1-decision is partly supported. The rule's outcome is right, but the sentence omits that the decision is unstable within the design's own fixed seeds.",
+      "evidence": "runs/main-aipw/metrics.json theta_rep0-4, se_rep0-4, ci_low, rel_ci_low_pct; claims.jsonl h1-decision, primary-ci-low; plan.json design.threats[9] and method.cross_fitting. Cheapest remedy, no new run and no change of rule or aggregation: (1) add result claims for theta_rep0-4 and se_rep0-4 from main-aipw. (2) Extend h1-decision: the lower bound is $9.6; three of the five repetitions taken alone give intervals that include zero, so the decision lies within cross-fitting noise; the relative-contrast interval includes zero. (3) The paper never calls the contrast 'significant' without that sentence. The primary estimate and the H1 rule stay as fixed.",
+      "response": "Fixed without a new run: claims primary-theta-rep0-4 and primary-se-rep0-4 copy main-aipw's logged metrics; h1-decision now says the lower bound is $9.6, three of five repetitions alone give intervals including zero (decision within cross-fitting noise), the relative-contrast interval includes zero, and 'significant' is never used without that sentence.",
+      "ruling": "Fixed in the files. claims.jsonl now has primary-theta-rep0-4 and primary-se-rep0-4, and their values equal runs/main-aipw/metrics.json. I recomputed the single-repetition lower bounds from those values: +55.2, +56.5, -20.1, -26.0 and -2.6, so 'three of five include zero' is correct. h1-decision states the $9.6 lower bound, that the decision lies within cross-fitting noise, that the relative-contrast interval includes zero, and the no-'significant' rule. No new run was made and the aggregation is unchanged: main-aipw run.json still dates from 12:35:36Z, and runs/.superseded holds only unit-tests. The paper-stage check stays: the paper never writes 'significant' without the noise sentence. The '$9.6' and '+55' figures cannot be printed by any macro; see F6."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Claim sens-reading calls black 'the strongest robust group'. The robust verdicts for black, married and nodegree are artifacts of the benchmark measure, not evidence. code/sens_imbens.py benchmark_r2 sets R2_D(G) = max(0, (V - V_-G)/(V - V_-G + pi^2/3)), with V the variance of the fitted logit index over all 16,177 men. I checked this in scratch with treatment and covariates only (lalonde-reviewer4/vcheck.py; no outcome read). V = 13.0, which is 12.3 among CPS men and 4.2 among treated men, and the minimum index is -22. So V is driven by CPS men far below any treated man. Dropping black raises the index variance (V - V_-G = -1.45), and so does dropping nodegree (-0.83) or married (-0.04), so all three are floored at 0. Yet black is by far the strongest predictor of participation: dropping it lowers the log-likelihood by 179.3 (McFadden partial 0.30). The corresponding drops are 51.3 for age, 22.4 for earn74, 19.7 for married, 19.2 for earn75, 12.6 for educ, 7.3 for hisp and 2.7 for nodegree. The measure therefore scores race, the covariate with the largest imbalance (nd 1.72), as the weakest confounder. With t_0 = 9.6, any nonzero R2_D would probably make the black verdict 'not robust'. runs/NOTES.md already calls this 'mechanical'. The claim keeps 'strongest robust group is black' and qualifies it only with 'floored at zero', which a reader will take as 'robust to confounding as strong as race'. Ruling: sens-reading is partly supported.",
+      "evidence": "code/sens_imbens.py benchmark_r2 (R2_D floor); runs/sens-imbens/metrics.json bench_black_r2d = 0, bench_married_r2d = 0, bench_nodegree_r2d = 0, strongest_robust_zero = black; claims.jsonl sens-reading; runs/NOTES.md 'Surprises'. Reviewer scratch check: V, V_-G and log-likelihood drops above. The fixed rule and its output stay. Remedy: the claim and paper say that the three 'robust' verdicts come from the floor (V_-G > V, because the index variance is dominated by CPS men far outside the treated range) and carry no information about race, marital status or degree as confounders. They do not write 'robust to a confounder as strong as race'. If the paper cites V and V_-G, they come from a logged run labelled as a post-results diagnostic (covariates and treatment only), not from my scratch numbers.",
+      "response": "Fixed: sens-reading and the black/married/nodegree bias claims now say these 'robust' verdicts come from flooring R2_D at zero (index variance dominated by CPS men outside the treated range) and carry no information about those confounders; no claim says 'robust to a confounder as strong as race'. V and V_-G are not cited (no logged run has them).",
+      "ruling": "Fixed in the files. sens-reading no longer names black as a robust group. It says the black, married and nodegree verdicts come from the R2_D floor and carry no information about those confounders, and that the conclusion is not described as robust to any of them. The three sens-bench-*-bias texts carry the same qualifier. No claim cites V or V_-G. The 'because' clause (index variance dominated by CPS men outside the treated range) rests only on my results-r1 scratch check, not on a logged run, although that wording was my own r1 remedy; see F6. I also checked code/sens_imbens.py benchmark_r2: R2_D = max(0, x / (x + pi^2/3)) with x = V - V_-G. It would return a value above 1 if x < -pi^2/3. No reported R2_D exceeds 1, so the zeros mean x lies in [-3.29, 0], which is consistent with the claim."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Two claim texts omit qualifiers that the design requires next to the result. (a) disagree-trim says only 'not robust to control-only trimming', which reads as an overlap failure. design.method.control_only_trimming says rob-trim tests sensitivity to the nuisance models' training sample. The 8,125 dropped CPS men carry 0.09% of the control weight, and the cutoff rests on one treated man. rob-trim moves the estimate by 59 dollars, and its own repetitions range from 1,265 to 1,624, so the trigger is consistent with refitting noise. The abstract sentence is fixed and stays, but its meaning should be stated with it. (b) design.method.h3_placebo: 're75 is top-coded for CPS men (3,007 at the maximum) and not for NSW men; this is stated with the result'. placebo-effect and placebo-verdict do not state it, although placebo-re75 records cps_re75_at_max = 3007.",
+      "evidence": "claims.jsonl disagree-trim, placebo-effect, placebo-verdict; runs/rob-trim/metrics.json theta_rep0-4; runs/placebo-re75/metrics.json cps_re75_at_max; plan.json design.method.control_only_trimming and h3_placebo. Remedy: add one sentence to each claim text.",
+      "response": "Fixed: disagree-trim states what rob-trim tests (nuisance refit; dropped men carry 0.09% of control weight per the design's outcome-free computation; estimate moves 59; its repetitions 1,265-1,624, claims trim-theta-rep0-4); placebo-effect and placebo-verdict state the CPS re75 top-code (claim placebo-cps-re75-topcoded = 3,007 from the logged placebo run).",
+      "ruling": "Fixed in the files. disagree-trim states what rob-trim tests, the 0.09% weight share and the trimmed repetitions. I checked the 'noise' reading against runs/rob-trim/metrics.json. The between-repetition SD under trimming is 138, against 52 for main, and repetition 1 is 1,265. With the between-repetition term removed, the trimmed SE would be about 801 rather than 813. The lower bound therefore crosses zero through a point shift of 59 plus split noise, and the claim's reading holds. placebo-effect and placebo-verdict state the top-code, and the new claim placebo-cps-re75-topcoded = 3,007 equals the cps_re75_at_max metric."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The analysis runs used scripts that changed after code-r1 and were not re-reviewed. plan.json design.analysis_plan (code-review item) says 'a script changed after review is re-reviewed'. The PI brief 20261119T122759Z sent the Econometrician straight from the fixes to the runs. I have now read git diff 866903c..1d4682e on code/. The changes are exactly code-r1 F1-F4: the mbar_check tolerance and the stop in main_aipw, rob-trim's count report, convergence counts and the sens-imbens logit flags, the h2 gate guard, and the tests. Nothing touches the score, learners, bases, seeds, folds, clip or decision rules, and the unit-tests rerun (12:31-12:35Z) precedes main-aipw (12:35:36Z). So I find no effect on any number. The deviation from the approved plan is still undisclosed. I also confirm that code-r1 F1-F4 are fixed in the files; their status in reviews/code-r1 is still 'open'.",
+      "evidence": "plan.json design.analysis_plan code-review item; briefs/20261119T122759Z-econometrician.md; git diff 866903c..1d4682e -- code/; runs/unit-tests/run.json and runs/main-aipw/run.json times. Remedy: list it in the paper's deviations and AI-use statement (the post-review diff contained only the four fixes and was checked at results-r1).",
+      "response": "PI: disclosed in plan.json disclosures (fixed scripts ran without a code re-review at the PI's instruction); the Econometrician records responses for code-r1 F1-F4; the Writer lists it under deviations.",
+      "ruling": "Disclosed in the files: plan.json disclosures[0] states that the fixed scripts ran without a code re-review at the PI's instruction. I re-read git diff 866903c..1d4682e on the non-test code. It contains only the mbar_check stop and report, the convergence counts and logit flags, and the h2 guard. No code file changed after 1d4682e, and validate --strict passes, so the hashes match. Two items remain for the paper stage: the Writer's deviations list and the AI-use statement. Bookkeeping, not an author finding: the four code-r1 fixes are in the files, but reviews/code-r1/review.json still lists F1-F4 as 'open'. This brief lets me write only results-r2, so they can be closed only by a code-r2 round, if the PI wants one."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The plan.json task board is stale. r-design, r-code, a-main, a-placebo, a-trim, a-learners, a-covsets, a-estimators, a-diff74, a-sens and a-claims are still 'todo', although log.jsonl records every review and run as done, and a-ipow (not triggered) has no status that says so.",
+      "evidence": "plan.json tasks; log.jsonl entries 2026-11-19T06:57Z-12:44Z. Remedy: the PI updates the statuses.",
+      "response": "PI: task board updated (review, run and claims tasks done; a-ipow marked not triggered, not run).",
+      "ruling": "Fixed in the files. In plan.json tasks, the review, run and claim tasks are now 'done'. a-ipow is marked 'not triggered, so not run'. a-h2 and f-figures are still 'todo', which is correct."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "Several claim texts contain numbers or facts that no logged metric or macro holds, so the Writer, who must not type result numbers, cannot reproduce them in the paper. (a) h1-decision and sens-target-zero use '$9.6', but \\PrimaryCiLow and \\SensTargetZero both print '10' under the ',.0f' format (paper/numbers.tex). Write '$10' next to 'only just' and the margin reads differently. (b) h1-decision uses 'about +55 dollars' and 'three of the five' for the single-repetition lower bounds. No run writes those bounds. My recomputation gives +55.2, +56.5, -20.1, -26.0 and -2.6. The count is right, but repetition 1 is +56.5, not 'about +55'. (c) disagree-trim's '0.09% (0.169 of 188.9)' is a design-stage hand computation quoted in plan.json design.method.control_only_trimming. No run metric holds it. (d) sens-reading's mechanism clause ('dominated by CPS men far outside the treated range') rests only on my results-r1 scratch check (V 13.0; 12.3 among CPS men and 4.2 among treated men). No logged run holds it. That wording was my own r1 remedy, and I correct it here. In each case the claim's value is right and only its traceability is missing.",
+      "evidence": "claims.jsonl h1-decision, sens-target-zero, disagree-trim, sens-reading; paper/numbers.tex \\PrimaryCiLow{10}, \\SensTargetZero{10}; runs/main-aipw/metrics.json (no per-repetition bound metrics); runs/sens-imbens/metrics.json (no V or V_-G). Cheapest remedy, with no change to any estimate or rule: (1) change the format of primary-ci-low and sens-target-zero to ',.1f' and regenerate numbers.tex. (2) Either add one logged post-results derived run that reads only runs/*/metrics.json and runs/diag-overlap/propensity.csv and writes the single-repetition bounds, the count that include zero, the trimmed weight share, V, V_-G and the index variance by arm, all labelled as post-results diagnostics, or have the paper state (b) through (d) in words, without digits and without the mechanism clause.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "runs/NOTES.md, which the Writer reads, still summarises sens-imbens as 'robust only to black, married, nodegree' in the 'Analysis runs' table, row 8. It gives no floor qualifier. sens-reading now says these verdicts are artifacts of the R2_D floor. The 'Surprises' section also gives a different mechanism ('the other coefficients absorbed it') from the claim's. A writer drafting from NOTES could restore the reading that results-r1 F2 removed.",
+      "evidence": "runs/NOTES.md 'Analysis runs (2026-11-19, after code-r1)' table row 8 and 'Surprises' first bullet; claims.jsonl sens-reading. Remedy: qualify row 8 ('robust verdicts for black, married, nodegree are floor artifacts, see sens-reading'), make the Surprises explanation agree with the claim, or drop the mechanism and keep only the fact that V_-G >= V.",
+      "response": "",
+      "ruling": ""
+    }
+  ]
+}

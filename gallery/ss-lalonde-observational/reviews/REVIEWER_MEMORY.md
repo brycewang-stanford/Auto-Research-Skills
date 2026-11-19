@@ -209,3 +209,23 @@ Open:
 - Aggregation, seeds, rules unchanged (no new main-aipw run; runs/.superseded holds only unit-tests).
 - h2-benchmark run time after results gate approval; no estimator chosen or ranked by closeness to 1,794.
 - Paper: deviations list includes F4; abstract carries the three non-robust statements + earn75 sentence.
+
+## results-r2 (2026-11-19T12:58Z), verdict: pass
+
+results-r1 F1-F5 all resolved. Checked: rep lower bounds recomputed (+55.2, +56.5, -20.1, -26.0, -2.6); no code change
+after 1d4682e, no run after 12:41Z, .superseded = unit-tests only; h2-benchmark not run; trim between-rep SD 138 vs main
+52 (trim SE w/o between term ~801 vs 813), so the "noise" reading in disagree-trim holds; placebo reps each exclude 0
+(H3 fail seed-stable); sens benchmark_r2 would give R2_D > 1 if V - V_-G < -pi^2/3, but none > 1, so zeros = x in [-3.29, 0].
+code-r1/review.json F1-F4 still say "open" although fixed. Only a code-r2 round could close them; the PI decides.
+New, open (both minor):
+- F6: claim texts have numbers no macro/metric holds: "$9.6" (\PrimaryCiLow, \SensTargetZero print "10"), "+55"/"three of
+  five" (no rep-bound metric; rep1 is +56.5), "0.09% (0.169 of 188.9)", and sens-reading's "CPS men far outside the treated
+  range" clause (my own r1 scratch, not logged; I corrected my own remedy). Fix: ',.1f' format; logged derived run or words only.
+- F7: runs/NOTES.md table row 8 still says "robust only to black, married, nodegree" unqualified; Surprises mechanism differs.
+
+## Check at paper
+- Abstract: the three fixed non-robust sentences (trim; race, ethnicity and degree; parametric) + earn75 sentence; "contrast" not "effect".
+- "significant" never without the cross-fitting-noise sentence; lower bound shown with a .1f macro, not "$10" as if a clean margin.
+- No hand-typed 55/57/-20/-26/-3, 0.09%, V, V_-G unless from a logged run.
+- No "robust to race/married/degree"; deviations list has the code re-review skip (results-r1 F4) + AI-use statement.
+- h2-benchmark run time after the results gate approval; H2 descriptive only, combined SE 633, no ranking by closeness.
