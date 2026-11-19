@@ -1,7 +1,7 @@
 {
   "crew_version": "0.1.0",
   "protocol": "0.1",
-  "scored_on": "2026-11-19T05:44:46Z",
+  "scored_on": "2026-11-19T07:00:13Z",
   "results": [
     {
       "workspace": "gallery/cs-calibration",
@@ -17,7 +17,7 @@
       "complete": false,
       "validation_errors": 0,
       "rerun_passed": null,
-      "reviews": 3,
+      "reviews": 4,
       "cross_family_reviews": 0,
       "protocol": "in-progress",
       "answer": {
@@ -54,7 +54,7 @@
       "title": "Did New Jersey's 1992 minimum-wage increase reduce fast-food employment? A replication of Card and Krueger (1994)",
       "gates": {
         "question": "approved",
-        "design": "pending",
+        "design": "approved",
         "results": "pending",
         "submission": "pending"
       },
@@ -77,17 +77,51 @@
       "gates": {
         "question": "approved",
         "design": "approved",
-        "results": "pending",
+        "results": "approved",
         "submission": "pending"
       },
       "complete": false,
       "validation_errors": 0,
       "rerun_passed": null,
-      "reviews": 10,
+      "reviews": 11,
       "cross_family_reviews": 0,
       "protocol": "in-progress",
       "answer": {
-        "status": "pending"
+        "status": "pass",
+        "details": {
+          "plr-tree-5fold": {
+            "value": 8934.17488571313,
+            "bounds": [
+              7400,
+              10600
+            ],
+            "inside": true
+          },
+          "plr-forest-5fold": {
+            "value": 9040.812888918188,
+            "bounds": [
+              7400,
+              10600
+            ],
+            "inside": true
+          },
+          "plr-boosting-5fold": {
+            "value": 9020.17517883977,
+            "bounds": [
+              7400,
+              10600
+            ],
+            "inside": true
+          },
+          "plr-nnet-5fold": {
+            "value": 9126.364251868254,
+            "bounds": [
+              7400,
+              10600
+            ],
+            "inside": true
+          }
+        }
       },
       "manual": "Does the paper claim more than the evidence supports? Judged by the Reviewer and the human."
     },
@@ -105,7 +139,7 @@
       "complete": false,
       "validation_errors": 0,
       "rerun_passed": null,
-      "reviews": 4,
+      "reviews": 5,
       "cross_family_reviews": 0,
       "protocol": "in-progress",
       "answer": {
@@ -122,14 +156,14 @@
         "question": "approved",
         "design": "approved",
         "results": "approved",
-        "submission": "pending"
+        "submission": "approved"
       },
-      "complete": false,
+      "complete": true,
       "validation_errors": 0,
       "rerun_passed": true,
-      "reviews": 10,
+      "reviews": 11,
       "cross_family_reviews": 0,
-      "protocol": "in-progress",
+      "protocol": "pass",
       "answer": {
         "status": "pass",
         "details": {

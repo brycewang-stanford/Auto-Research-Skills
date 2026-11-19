@@ -228,9 +228,12 @@
       "note": "Approved in chat on 2026-11-18 after reading the results, the conditional equivalence caveat and the DiD readings."
     },
     "submission": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-19T06:57:53Z",
-      "summary": "Paper passed review in round 2 (minor F9/F10 answered); clean rerun 23/23; answer key pass."
+      "summary": "Paper passed review in round 2 (minor F9/F10 answered); clean rerun 23/23; answer key pass.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-19T07:00:13Z",
+      "note": "Approved in chat on 2026-11-19 after reading the result, the answer-key pass, the clean rerun, the PI-role disclosures and the Reviewer's kill argument. Published in the gallery as a demonstration, not submitted to any venue."
     }
   },
   "outcomes": {

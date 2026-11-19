@@ -27,3 +27,5 @@
 {"time": "2026-11-19T05:48:13Z", "role": "econometrician", "action": "diag-overlap-run", "detail": "data-prep diag-overlap on analysis_noRE78.csv, basis B(X) 14 terms, seeds 20261118+s: B1 pass (max |SMD| 0.059 age_sq), O1 pass (0/185 treated m_bar>0.9), O2 pass (0 clipped); no B+ fallback; Kish ESS 126.4; max control weight 6.41; rob-trim drops 8125 CPS men (keeps 7867)"}
 {"time": "2026-11-19T06:52:38Z", "role": "pi", "action": "diagnostics-recorded", "detail": "B1/O1/O2 pass recorded. plan.json sha256=20b2f5cffda69978b8150edd87bcf4a1714155d238a5afec365f8775f00fbe42"}
 {"time": "2026-11-19T06:52:59Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261119T065259Z"}
+{"time": "2026-11-19T07:00:13Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261119T070013Z"}
+{"time": "2026-11-19T07:00:13Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261119T070013Z"}

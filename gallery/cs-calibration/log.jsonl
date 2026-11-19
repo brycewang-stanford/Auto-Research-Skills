@@ -29,3 +29,5 @@
 {"time": "2026-11-19T06:52:59Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261119T065259Z"}
 {"time": "2026-11-19T06:55:27Z", "role": "designer", "action": "design-revised", "detail": "after design-r1 (revise), PI rulings F1-F4: H1 narrowed to plug-in ECE with bias direction (amendment disclosed); ece_adj replaced by Kumar et al. 2019 Def. G.3 debiased ECE (reported only); sens-ncal purpose narrowed; .python-version 3.12 and requirements header; preds as .npz, results/preds/ git-ignored. plan.json sha256=afd4159896b4f5d683024790b2ead9dfe02ebbbfc8f9214e8111effba2c31b37"}
 {"time": "2026-11-19T06:57:53Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261119T065753Z"}
+{"time": "2026-11-19T06:58:42Z", "role": "scout", "action": "sources-verified", "detail": "kumar2019 re-verified from arXiv v2 full text: Appendix G Def. G.3 debiased l1-ECE (heuristic, no guarantee; guarantees in Sec. 5 are for squared l2 CE); claims c-kumar-debiased-ece, c-kumar-heuristic; notes D1 and Sec. 3 updated"}
+{"time": "2026-11-19T07:00:13Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261119T070013Z"}
