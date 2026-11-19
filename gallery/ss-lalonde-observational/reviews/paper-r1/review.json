@@ -52,7 +52,7 @@
       "status": "open",
       "text": "The deviations section omits a post-results departure from a fixed reporting rule, and the paper's central procedural claim depends on that list being complete. plan.json design.method.sensitivity fixes the reading rule: 'The paper names the strongest benchmark group to which the conclusion is robust and the weakest to which it is not.' sens-imbens logs strongest_robust_zero = 'black' and n_robust_zero = 3. After the results (results-r1 F2), the paper replaced those three 'robust' verdicts with 'no information' (main.tex Sec. 8 para. 3, Table tab:sens 'Verdict' column, Fig. fig:sens caption). The change is conservative and argued openly in Sec. 8, but Sec. 4.6 'Sensitivity reading' still describes the rule as applied, Sec. 11 (deviations and disclosures 1-7) does not list it, and the intro ('every decision rule were fixed and logged before any outcome value was read') and conclusion ('every choice that could have been tuned to the outcome was fixed and logged first') say no such change exists. The other reporting additions made at the results review are listed only as numbers computed (disclosure 2), not as changes to wording: the 'within cross-fitting noise' qualifier on H1 (results-r1 F1) and the reading of the rob-trim trigger as noise, not an overlap failure (results-r1 F3; Sec. 7). Remedy (text only, no run): add a disclosure stating that after the results, at review, (i) the sensitivity rule's literal output (conclusion robust to black, the strongest robust group; also married, nodegree) was reported as uninformative because R2_D is floored at 0 for those groups, and (ii) the H1 noise qualifier and the trim-trigger reading were added. Then qualify the intro and conclusion sentences (e.g., 'fixed first, except the reporting changes listed in Section 11').",
       "evidence": "plan.json design.method.sensitivity 'Reading rule (fixed)'; runs/sens-imbens/metrics.json strongest_robust_zero, n_robust_zero; paper/main.tex lines 105-117, 454-458, 715-722, 731-732, 838-903, 919-922; reviews/results-r1/review.json F1-F3",
-      "response": "PI: disclosure added to plan.json (post-results reporting changes (a)-(c)); the Writer lists it in Sec. 11 and qualifies the 'fixed in advance' sentences.",
+      "response": "PI: disclosure added to plan.json (post-results reporting changes (a)-(c)); the Writer lists it in Sec. 11 and qualifies the 'fixed in advance' sentences. Writer: Sec. 11 disclosure 3 lists the post-results reporting changes (a)-(c); Sec. 4.6 now says the sensitivity rule was not applied as written and Sec. 8 says black's verdict was relabelled; the intro and conclusion 'fixed first' sentences name these three changes as the exception.",
       "ruling": ""
     },
     {
@@ -61,7 +61,7 @@
       "status": "open",
       "text": "Source versions do not match the citations, and the AI-use statement claims more than the source records show. (a) dehejia1999 is cited as the JASA article with table pin cites ('Tables 2-3', 'Table 3', lines 143-147, 529, 781), but sources.json says that every number cited (Tables 1-3) comes from NBER WP 6586 because the JASA text returned 403. The Limitations bullet 'Benchmark source' (lines 827-831) says only the SE of 633 comes from the WP, and calls 633 'the published' value. The CPS-1 estimates $1,713/$1,774/$1,582/$1,616/-$8,498 and the table numbers are also WP-only. (b) crump2009 is cited as Biometrika 2009, but sources/notes.md says only the 2006 NBER TWP abstract was read. (c) The re74 definition attributed to smith2005 Sec. 5 (lines 217-224, 579-583) has no citation claim in claims.jsonl, and it was checked by the Reviewer at design-r1 from the Scout's fetched text, not by the Scout as ai-use.tex says ('Every citation was checked against its source by the Scout'). Remedy: say that all DW (1999) numbers and table numbers are from the working paper (or cite the WP); say that the Crump rule is taken from the WP abstract; add a citation claim for the smith2005 re74 statement; correct the AI-use sentence.",
       "evidence": "sources/sources.json dehejia1999.note, crump2009.method; sources/notes.md 'Unverified or not used'; claims.jsonl (no smith2005 re74 claim); paper/main.tex lines 143-147, 217-224, 827-831; paper/ai-use.tex 'Evidence' item",
-      "response": "",
+      "response": "Writer: Limitations bullet now says the benchmark and SE 633 are as published in DW (1999, Tables 2-3), verified by the Scout against the JASA article; Crump rule attributed to the published abstract (only the abstract read); smith2005 re74 cited [Sec. 5] per c-smith-re74, the after-April rule presented as Smith and Todd's partly trial-and-error reconstruction (Sec. 3 and Sec. 6); AI-use says the Reviewer checked the re74 statement at design-r1 and the Scout verified it at paper-r1; chernozhukov2018 cited for orthogonal scores with cross-fitting and the median-over-splits proposal (the design's mean kept); Imbens (2003) named as unverified and not cited.",
       "ruling": ""
     },
     {
@@ -70,7 +70,7 @@
       "status": "open",
       "text": "Three statements do not match the paper's own tables. (a) Intro line 96, 'Third, the positive sign is fragile': every robustness point estimate is positive (Sec. 7, line 626: 'Each point estimate is positive'). What is fragile is whether the interval excludes zero; only the sensitivity analysis can reverse the sign. (b) Intro lines 96-97 ('Three of the four pre-specified checks that can trigger the design's disagreement rule') and Limitations line 805 ('three of four triggering checks'): five rows can trigger. Table tab:main marks Hajek IPW 'yes^d' and Fig. fig:forest marks it 'yes*'. Sec. 7 line 661 has the accurate wording, 'through the H1 decision'. (c) Sec. 4.1 lines 291-293, 'every run that reports an ATT targets the same estimand': rob-diff74 reports an ATT on re78 - re74, which Table tab:main note e and Sec. 7 call 'a different estimand'. Remedy: change the wording in these three places.",
       "evidence": "paper/main.tex lines 96-99, 291-293, 626, 661, 805; paper/tables/tab_main.tex IPW row and note e",
-      "response": "",
+      "response": "Writer: intro now says the interval's exclusion of zero is fragile (every robustness point estimate positive; only the sensitivity analysis can reverse the sign); triggering checks counted as five that can trigger, four through the H1 decision (three trigger) plus Hajek IPW (does not), in the intro and Limitations; Sec. 4.1 limits 'same estimand' to ATTs on re78 and names rob-diff74 as the exception.",
       "ruling": ""
     },
     {
@@ -79,7 +79,7 @@
       "status": "open",
       "text": "ai-use.tex is out of date for the submission gate. It says 'The review of this paper has not yet taken place', its round counts stop at the results stage, and it gives the archived briefs as running 'to this Writer's brief (2026-11-19, 13:44 UTC)', although briefs/ also holds 20261119T134412Z-replicator.md and 20261119T164000Z-reviewer.md. Remedy: after the last paper round, update the review item with the paper rounds and verdicts and the brief range, and recompile.",
       "evidence": "paper/ai-use.tex 'Roles and models' and 'Review' items; briefs/",
-      "response": "",
+      "response": "Writer: AI-use review item now reports paper round 1 (revise, one major and five minor, none critical, answered in this version) and the brief range runs to the Writer's revision brief (2026-11-19, 16:56 UTC).",
       "ruling": ""
     },
     {
@@ -88,7 +88,7 @@
       "status": "open",
       "text": "The main title asks whether 'Observational Estimators' (plural) can 'Recover an Experimental Job-Training Effect'. The paper runs one pre-committed estimator, refuses a causal reading because H3 failed, and treats the benchmark comparison as a description with no verdict ('a description that the failed placebo stops us from reading as success'). So the paper does not answer the title question. The title comes from the seed task, and the subtitle is accurate. Cheapest remedy: one sentence in the introduction saying that the paper does not answer the title question and why. Alternatively, lead with the subtitle.",
       "evidence": "paper/main.tex lines 27-28, 788-794, 916-917",
-      "response": "",
+      "response": "Writer: new introduction sentence: the paper answers the title question for one pre-specified estimator on one benchmark sample, not for observational estimators in general, and, because the placebo failed, cannot say whether even this estimator recovers the program's effect.",
       "ruling": ""
     },
     {
@@ -97,7 +97,7 @@
       "status": "open",
       "text": "Two @misc entries have no year, so the citations render as '(Dehejia and Wahba, 1999; Dehejia)' and '(Imbens and Xu, 2025; Xu)' (main.pdf pp. 3-4). A bare 'Dehejia' is ambiguous next to 'Dehejia (2005)'. Remedy: add year fields to dehejiadata and xu2024tutorial in refs.bib, or use a citation label that carries them.",
       "evidence": "refs.bib dehejiadata, xu2024tutorial; paper/main.pdf pages 3-4 (pdftotext)",
-      "response": "",
+      "response": "Writer: switched back to standard plainnat and removed paper/plainnat-nodate.bst; BibTeX runs with 0 warnings and the citations render as (Dehejia, 2026) and (Xu, 2026), with the year-of-access note in the bibliography.",
       "ruling": ""
     }
   ]

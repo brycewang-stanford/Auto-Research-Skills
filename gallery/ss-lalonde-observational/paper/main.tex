@@ -93,13 +93,16 @@ the treated men's earnings, and a covariate that is measured over different mont
 two groups, can produce it even if the identifying assumption holds. But it removes the
 licence for a causal reading.
 
-Third, the positive sign is fragile. Three of the four pre-specified checks that can
-trigger the design's disagreement rule reach a different decision on H1, so the conclusion
-is not robust to control-only trimming, to dropping race, ethnicity and degree status, or to
+Third, the interval's exclusion of zero is fragile, although every robustness point
+estimate is positive. Five pre-specified checks can trigger the design's disagreement rule.
+Four of them do so when their H1 decision differs from the primary's, and three of these
+four reach a different decision; the fifth, the Hajek IPW estimate, triggers only if its
+point estimate falls outside the primary's interval, and it does not. The conclusion is
+therefore not robust to control-only trimming, to dropping race, ethnicity and degree status, or to
 parametric nuisance models. In the pre-specified sensitivity analysis, an unobserved
 confounder as strong as 1975 earnings would move the estimate by $\SensBenchEarnSeventyfiveBias$
 dollars, far more than the margin of $\SensTargetZero$ dollars between the lower bound and
-zero. Descriptively, the estimate lies $\absval{\HTwoDiff}$ dollars below the experimental
+zero; only in this analysis could the sign itself be reversed. Descriptively, the estimate lies $\absval{\HTwoDiff}$ dollars below the experimental
 benchmark of $\HTwoBenchmarkValue$ dollars.
 
 None of this is new as a finding, and the paper does not claim otherwise. The crew had read
@@ -108,13 +111,20 @@ land near the benchmark, and it expected both a positive estimate and a failed p
 (Section~\ref{sec:deviations}). What the study adds is procedural. The primary estimator, its
 learners, seeds, folds and propensity clip, the placebo, every robustness check, the
 sensitivity analysis and every decision rule were fixed and logged before any outcome value
-was read, and the estimator itself had been design-gated for a different, synthetic dataset
+was read (three reporting changes made after the results are the exception; see below), and
+the estimator itself had been design-gated for a different, synthetic dataset
 before this study's workspace existed. Pre-commitment of this kind is an existing standard
 for within-study comparisons \citep{cook2008}, and it has been applied in other within-study comparisons
 \citep{weidmann2021,keller2024}; this paper applies it to the NSW--CPS benchmark. The
 commitment rules out outcome search within the study. It cannot rule out choices shaped by
 the literature, and the paper lists each adaptation of the adopted estimator with its
-reason.
+reason. Nor did it cover every reporting choice: after the results were seen, at the
+Reviewer's request, three results were reported more cautiously than the fixed rules alone
+would have reported them, and Section~\ref{sec:deviations} lists these changes.
+
+The paper therefore answers the title question for one pre-specified estimator on one
+benchmark sample, not for observational estimators in general, and because the placebo
+failed it cannot say whether even this estimator recovers the program's effect.
 
 Section~\ref{sec:background} describes the experiment and the literature,
 Section~\ref{sec:data} the data, and Section~\ref{sec:strategy} the estimand, the
@@ -177,9 +187,9 @@ procedures applied to the NSW--CPS data are worse than random at selecting the e
 with the smallest absolute bias, and \citet{athey2024} found, in simulations calibrated to
 these data, that no single ATT estimator outperforms the others in all settings.
 \citet{abadie2011} proposed a bias-corrected nearest-neighbour matching estimator and applied
-it to the NSW data. \citet{crump2009} showed that a good approximation to the optimal
+it to the NSW data. According to the published abstract of \citet{crump2009}, a good approximation to the optimal
 subsample under limited overlap drops units with estimated propensity scores outside
-$[0.1, 0.9]$; that rule drops treated units and so changes the ATT. No data-driven rule is
+$[0.1, 0.9]$ (only the abstract was read); that rule drops treated units and so changes the ATT. No data-driven rule is
 known to pick the right estimator on this benchmark, which is the case for fixing one in
 advance.
 
@@ -217,10 +227,13 @@ are in 1982 dollars. The outcome is re78, earnings in 1978.
 \paragraph{What re74 measures.} For CPS men, re74 is calendar-1974 earnings from Social
 Security records. For NSW men it is not: \citet[Sec.~5]{smith2005} state that the
 Dehejia--Wahba ``Re74'' is real earnings in months 13--24 before the month of random
-assignment, which for men assigned later in the experiment largely overlap 1975, and that
-men assigned after April 1976 were kept only if this ``Re74'' is zero. So re74 and u74 are
-measured over different periods in the two groups, and for the later-assigned treated men
-$\var{u74} = 1$ holds by sample construction. The files carry no assignment date, so these
+assignment, which for men assigned later in the experiment largely overlap 1975. Smith and
+Todd also reconstructed, partly by trial and error, the inclusion rule behind the
+Dehejia--Wahba subsample; their reconstruction accounts for all but one observation. Under
+it, men assigned after April 1976 are included only if their earnings in those months are
+zero. This is their reconstruction, not a rule Dehejia and Wahba state. So re74 and u74 are
+measured over different periods in the two groups, and, if the reconstruction is right, for
+the later-assigned treated men $\var{u74} = 1$ holds by sample construction. The files carry no assignment date, so these
 men cannot be identified.
 
 \paragraph{Top-coding and measurement.} CPS earnings are administrative Social Security
@@ -289,8 +302,11 @@ The estimand is the ATT on 1978 earnings for all $\PrimaryNTreated$ NSW-treated 
 \]
 where $Y = \var{re78}$, $D = 1$ for NSW-treated men and $D = 0$ for CPS-1 men. No treated man
 is ever dropped. The only trimming in the study (the robustness check \run{rob-trim}) removes
-CPS men, so every run that reports an ATT targets the same estimand, the one the
-experimental benchmark measures \citep{dehejia1999,imbens2025}.
+CPS men, so every run that reports an ATT on re78 targets the same estimand, the one the
+experimental benchmark measures \citep{dehejia1999,imbens2025}. The conditional
+difference-in-differences check is the exception: it reports an ATT on $\var{re78} -
+\var{re74}$ under a different assumption, which is a different estimand
+(Section~\ref{sec:robustness}).
 
 \subsection{Identifying assumption and the main threat}
 
@@ -315,7 +331,10 @@ The primary estimator was adopted from the crew's earlier study of a synthetic d
 (\var{gallery/ss-null-effect}), whose design gate was approved on 2026-11-18 at 13:00 UTC,
 before this study's workspace was created at 16:28 UTC. Its code was taken at a fixed
 commit with recorded hashes, and everything in that design that is not listed as a
-deviation below was carried over unchanged.
+deviation below was carried over unchanged. The estimator combines an orthogonal
+(doubly robust) score for the ATT with cross-fitting, which removes the bias that
+regularization and overfitting in machine-learned nuisance functions would otherwise cause
+\citep{chernozhukov2018}.
 
 For each of $S = 5$ repetitions $s$, the sample is split into $K = 5$ folds stratified on
 $D$ (seed $20261118 + s$), which puts 37 treated men in every test fold. The propensity score
@@ -333,7 +352,9 @@ $\hat\psi_{s,i} = [D_i (Y_i - \hat g_0) - (1 - D_i) \hat w_i (Y_i - \hat g_0) - 
 $\hat\pi = \sum_i D_i / n$, and $\widehat{\mathrm{SE}}_s^2 = \overline{\hat\psi_s^2}/n$. The
 estimate is the mean over repetitions, $\hat\theta = \bar{\hat\theta}_s$, with variance
 $\overline{\widehat{\mathrm{SE}}_s^2 + (\hat\theta_s - \hat\theta)^2}$, so the spread between
-repetitions enters the standard error. The 95\% interval is
+repetitions enters the standard error. \citet{chernozhukov2018} propose repeating the
+estimator over several splits and reporting the median; the adopted design fixed the mean,
+and this study keeps it. The 95\% interval is
 $\hat\theta \pm 1.959964\,\widehat{\mathrm{SE}}$. Standard errors are at the person level and
 not clustered, because treatment varies by person and the files carry no site identifier.
 
@@ -453,9 +474,11 @@ All rules below were fixed before any outcome value was read.
         estimate is never replaced.
   \item[Sensitivity reading.] The shift that flips H1 is $t_0$, the distance from the
         nearer 95\% bound to zero. The paper reports the smallest equal-strength confounder
-        that reaches $t_0$, names the benchmark covariate groups to which the conclusion is
-        and is not robust, and always states the result for 1975 earnings
-        (Section~\ref{sec:sensitivity}).
+        that reaches $t_0$, names the strongest benchmark covariate group to which the conclusion is robust
+        and the weakest to which it is not, and always states the result for 1975 earnings.
+        This rule was not applied as written: its literal output names black as the strongest
+        robust group, and after the results that verdict was reported as carrying no
+        information (Sections~\ref{sec:sensitivity} and~\ref{sec:deviations}).
   \item[H2 (descriptive).] After the results gate only: the primary estimate minus
         the benchmark, with an approximate combined standard error. It is not a test, and
         closeness to the benchmark is never used to choose or rank estimators.
@@ -578,7 +601,8 @@ Three features of the data, all stated before the placebo ran, can produce it.
         conditions on re75 and the placebo does not.
   \item \textbf{The re74 caveat.} The placebo conditions on re74 and u74. For treated men
         assigned later in the experiment, ``re74'' covers months that largely overlap 1975,
-        and men assigned after April 1976 were admitted only if it was zero. The conditioning
+        and in Smith and Todd's reconstruction of the sample rule \citep[Sec.~5]{smith2005}
+        men assigned after April 1976 were admitted only if it was zero. The conditioning
         set is thus linked to the outcome for treated men only, by definition and by sample
         selection.
   \item \textbf{Top-coding.} The placebo outcome re75 is top-coded for CPS men
@@ -684,7 +708,9 @@ re78 values, did not fire: no value is missing or inadmissible in either arm.
 \label{sec:sensitivity}
 
 The sensitivity analysis is the parametric model with a binary unobserved confounder
-specified in the adopted design. $U \sim \text{Bernoulli}(0.5)$ is independent of $X$; the
+specified in the adopted design. The design attributes the model to Imbens (2003); the crew
+could not obtain that article, so its source was not verified and it is not cited here, and
+the model is described only as the design specifies it. $U \sim \text{Bernoulli}(0.5)$ is independent of $X$; the
 participation equation is $\operatorname{logit} P(D = 1 \mid X, U) = \gamma' B(X) + \alpha U$
 and the outcome equation is $\var{re78} = \tau D + \beta' B(X) + \delta U + \varepsilon$,
 $\varepsilon \sim N(0, \sigma^2)$, with a constant treatment coefficient. The model is fitted
@@ -712,7 +738,10 @@ as strongly related to participation as the 1975 shock. The conclusion is also n
 to confounders as strong as age, education, hispanic or the 1974 earnings group (the
 last measured over different periods in the two groups).
 
-The rule's ``robust'' verdicts for black, married and nodegree carry no information. For
+The rule's ``robust'' verdicts for black, married and nodegree carry no information. Read
+literally, the fixed rule names black as the strongest group to which the conclusion is
+robust; that verdict was relabelled after the results, at the Reviewer's request, and the
+change is listed in Section~\ref{sec:deviations}. For
 these three groups the treatment-side benchmark $R^2_D$ is floored at zero: by the benchmark
 formula, a zero means that dropping the group did not lower the variance of the fitted logit
 index. Their small $|\text{bias}|$ values reflect the floor, not the strength of race,
@@ -802,8 +831,8 @@ statistical contrast with reweighted CPS men.
         between groups. The data cannot tell whether the failure reflects confounding, the
         pre-program dip, the re74 measurement difference or top-coding.
   \item \textbf{A decision at the edge.} The H1 decision depends on a lower bound of
-        $\PrimaryCiLow$ dollars, within cross-fitting noise; three of four triggering checks
-        and every informative sensitivity benchmark reverse it.
+        $\PrimaryCiLow$ dollars, within cross-fitting noise; three of the four checks that trigger through the H1
+        decision, and every informative sensitivity benchmark, reverse it.
   \item \textbf{Measurement differs by group.} CPS earnings are top-coded administrative
         records and NSW earnings are survey reports, for the outcome and for both pre-program
         years; re74 covers different months for treated and CPS men. Neither can be fixed with
@@ -824,11 +853,11 @@ statistical contrast with reweighted CPS men.
         parametric model with a binary confounder and is transferred additively to the AIPW
         estimate. The benchmark for three covariate groups is uninformative because of the
         $R^2_D$ floor.
-  \item \textbf{Benchmark source.} The \$1,794 benchmark is corroborated by three sources,
-        but the Scout read \citet{dehejia1999} in its working-paper version because the
-        journal version was not accessible, and the standard error of 633 comes from that
-        version only. A robust standard error is also reported in the literature
-        \citep{xu2024tutorial}; the plan fixed the published 633.
+  \item \textbf{Benchmark standard error.} The \$1,794 benchmark and its standard error
+        of 633 are those published in \citet[Tables~2--3]{dehejia1999}, which the Scout
+        verified against the journal article. A robust standard error of the same difference
+        is also reported in the literature \citep{xu2024tutorial}; the plan fixed the published
+        633, and H2's combined standard error depends on that choice.
   \item \textbf{Literature-aware choices.} Every adaptation of the adopted estimator was made
         by people who knew the published results on this sample. Each is listed with a reason
         that does not rest on those results (Section~\ref{sec:devs}), but the reader has to
@@ -870,6 +899,20 @@ not run because its fixed trigger did not fire.
         logged values (the mean of the repetitions equals the estimate, and the dropped count
         equals \run{rob-trim}'s). These numbers were computed after the results were seen, as
         diagnostics, and change no estimate or decision.
+  \item \textbf{Reporting changes after the results.} At the Reviewer's first results
+        review, after the results were seen, three fixed results were reported more
+        cautiously than the fixed rules alone required. (a)~The sensitivity reading rule names
+        the strongest covariate group to which the conclusion is robust, and the sensitivity
+        run records it as black (the rule also returns ``robust'' for married and nodegree).
+        Because these three verdicts come from flooring $R^2_D$ at zero, the paper reports them
+        as carrying no information instead of naming black (Section~\ref{sec:sensitivity}).
+        (b)~The H1 decision is qualified as lying within cross-fitting noise, with the
+        per-repetition intervals reported (Table~\ref{tab:reps}); the H1 rule is unchanged.
+        (c)~The trigger from control-only trimming is read as consistent with refitting
+        noise, not as an overlap failure, because the dropped men carry
+        $\TrimDroppedWeightShare$\% of the control weight (Section~\ref{sec:robustness}).
+        None of these changes an estimate or a decision rule; they change how fixed results
+        are reported, and they were made after the results were seen.
   \item \textbf{What the crew knew.} The crew had read the published estimates on this
         sample, including which estimators land near the benchmark, before it chose anything.
         A published estimate from a closely related estimator was known: AIPW with generalized
@@ -918,15 +961,16 @@ failed placebo stops us from reading as success.
 
 These are the answers the literature predicted, and the paper's value is that they were
 reached without outcome search: every choice that could have been tuned to the outcome was
-fixed and logged first, and every check is reported, including the ones that weaken the
-result. On these data, the pre-committed estimator reproduces the pattern the literature
+fixed and logged first, except the three reporting changes listed in
+Section~\ref{sec:deviations}, each of which made the report more cautious, and every check
+is reported, including the ones that weaken the result. On these data, the pre-committed estimator reproduces the pattern the literature
 reports, a positive estimate with a failed placebo, and the data give no warrant for calling
 the estimate the program's effect.
 
 \FloatBarrier
 \input{ai-use}
 
-\bibliographystyle{plainnat-nodate}
+\bibliographystyle{plainnat}
 \bibliography{../refs}
 
 \end{document}
