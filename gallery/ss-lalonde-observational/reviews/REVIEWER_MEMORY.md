@@ -125,3 +125,30 @@ Findings, all open:
 - At code review: placebo_re75.py must not read re78 and must not use re75/u75 in X-;
   no benchmark in any script but h2_benchmark.py; the "unchanged" learner settings match
   ss-null-effect aipw_lib.py@716b6c3.
+
+## design-r2 (2026-11-19T07:19Z), verdict: pass
+
+F1-F5 all resolved. Checked: restored components vs ss-null-effect@716b6c3 (mechanical changes
+only; 166 sens points vs 168 adopted is right; t_M/t_E dropped for lack of M); the F4 proof
+(reconstructed_320cc2.json hashes to the logged pre-diag hash; key diff vs 95ae728 = diagnostics
++ d-diag status only); question/hypotheses/contribution/constraints byte-identical to the
+question-gate commit bcf8e10; run.json envs 3.12.11 with diag metrics/propensity hashes
+unchanged; timing_synthetic fits X- only with a permuted treatment, covsets timed with real
+treatment but only timings kept; rob-diff74 set (subset of X-) not fitted pre-gate.
+New, open:
+- F6 (minor): DEV-13's literal mapping makes rob-covsets (a), a disagreement-rule trigger, drop
+  black/hisp/nodegree; black has the largest raw imbalance (nd 1.72). The check then measures
+  omitted-race bias (foreseeably downward), and the abstract sentence would call it covariate-set
+  fragility. Asked for: wording in DEV-13/threats[14]; the abstract sentence names the dropped
+  covariates. Mapping unchanged.
+Kill argument: outcome predictable from the notes (H1 likely holds, H3 likely fails or cannot
+pass; SE_p < 459 needed); value procedural; disclosed and accepted at the question gate.
+
+## Check at code review
+- placebo_re75.py: no re78 read; X- excludes re75/u75; propensity re-fitted on B(X-).
+- Learner settings and the score match ss-null-effect aipw_lib.py@716b6c3 (sha 86435b8f...).
+- rob_covsets.py uses exactly the DEV-13 sets; rob_estimators.py C from LogisticRegressionCV with
+  inner seed 20261118, upper clip 0.99 only, bootstrap seed 20261120, 999 draws.
+- sens_imbens.py: 8 groups, 128+22+16 points, t_0 from main-aipw, reading rule as fixed.
+- Only h2_benchmark.py contains 1794 / 633; join_rule checks fields 1-9.
+- F6 wording, if adopted, appears in the claims/abstract logic, not as a changed covariate set.

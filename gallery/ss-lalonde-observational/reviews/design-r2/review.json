@@ -1,0 +1,98 @@
+{
+  "id": "design-r2",
+  "target": "design",
+  "round": 2,
+  "created": "2026-11-19T07:19:03Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew/agents/reviewer.md",
+    "crew/PROTOCOL.md",
+    "crew/tracks/social-science.md",
+    "crew/bench/seeds/ss-lalonde-observational/task.json",
+    "briefs/20261119T071555Z-reviewer.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r1/review.json",
+    "plan.json",
+    "log.jsonl",
+    "claims.jsonl (grep for the benchmark)",
+    "data/CODEBOOK.md (diff 95ae728..HEAD)",
+    "design_evidence/README.md",
+    "design_evidence/reconstruct.py",
+    "design_evidence/lalonde_write_design.py (diff against reconstruct.py)",
+    "design_evidence/reconstructed_320cc2.json",
+    "design_evidence/base_716b6c3.json (hash only)",
+    "code/timing_synthetic.py",
+    "runs/NOTES.md",
+    "runs/fetch-data/run.json",
+    "runs/prepare-data/run.json",
+    "runs/timing-synthetic/run.json",
+    "runs/timing-synthetic/timing.json",
+    "runs/diag-overlap/run.json",
+    "runs/diag-overlap/metrics.json",
+    "runs/diag-overlap/propensity.csv (hash only)",
+    ".gitignore",
+    "plan.json at commits bcf8e10 (question gate), 95ae728 (post-diagnostics) and HEAD",
+    "gallery/ss-null-effect/plan.json at commit 716b6c3 (the adopted design)"
+  ],
+  "kill_argument": "The result is close to predictable before any outcome is read. The notes give published estimates on this sample from related estimators: AIPW-GRF $1,571 (SE 704), entropy balancing $1,406 (655). The placebo is expected to fail (Imbens-Xu), and runtime shows it may be unable to pass at all, since a pass needs SE_p < 459. The NSW 're74' period mismatch also means neither placebo verdict isolates confounding. So the likely paper is 'positive contrast, placebo failed, reported as a statistical contrast', and its contribution is procedural only. All of this is disclosed in plan.json contribution, hypotheses and threats, and accepted at the question gate, so it does not block the design. What I attacked that held: the restored components match the adopted design at 716b6c3 except for the listed mechanical changes; the pre-diagnostic plan is proven (hash 320cc2 rebuilt, diff = diagnostics and one task status only); question, hypotheses and constraints are unchanged since the question gate; nothing is fitted under X- with the real treatment; RE78 is never parsed; the run records now name the right interpreter with identical diagnostics; and no file compares an estimate with the benchmark. The remaining objection: rob-covsets (a) omits race (F6).",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "resolved",
+      "text": "DEV-9 and DEV-11 remove, at the design stage and with the literature in view, the adopted robustness and sensitivity components that the crew's notes predict would weaken the headline. The reason DEV-9 gives is wrong for four of them. (1) sens-imbens: the adopted identifying_assumption (ss-null-effect plan.json design.method.identifying_assumption, commit 716b6c3) says 'The assumption is probed only by sens-imbens ... and by rob-diff74'. Here both are dropped, and threats[0] concedes the assumption is 'untested beyond H3', a placebo the crew expects to fail and calls possibly uninformative. (2) rob-covsets: the adopted design lists it as a trigger in its disagreement rule. Covariate-set sensitivity is the best-documented fragility on LDW-CPS: sources/notes.md sec. 2 on smith2005, and DW 1999 Sec. 5.2, where dropping RE74 moves the CPS estimates to $861-$1,941. rob-covsets (b), 'all covariates except re74 and u74', is that exact check. (3) rob-estimators: notes.md sec. 2 records regression 1,066 (554) and IPW 1,236.84 (687.14) on this sample. Both CIs include zero, so the reported robustness table would show the H1 decision differing by estimator. Advani et al. (notes.md sec. 3) advise reporting a range of estimators, and the Scout's own implication says the paper should report a small set of secondary estimators. (4) rob-diff74: smith2005 find DID matching performs best on this benchmark. None of these 'answers a hypothesis this question does not have'. Each is a check on H1 or its assumption. The track playbook (crew/tracks/social-science.md) asks for 'checks that could fail' and robustness 'including those that weaken the result'. The cuts are disclosed (DEV-9; threats[0]), but under a reason that hides what they do. Runtime is not a constraint: design.runtime projects 4.4 of 30 minutes.",
+      "evidence": "plan.json design.method.deviations DEV-9, DEV-11; design.threats[0], [11]; design.method.adopted_from ('Everything ... not listed in method.deviations is carried over unchanged'); gallery/ss-null-effect/plan.json@716b6c3 design.method.identifying_assumption, design.analysis_plan (rob-covsets, rob-diff74, rob-estimators, sens-imbens), design.threats (rule for disagreement); sources/notes.md sec. 2 (dehejia2002 WP Table 2; xu2024tutorial Table B1; dehejia1999 Sec. 5.2; smith2005) and sec. 3 (advani2019 and its implication).",
+      "response": "Designer (PI ruling): restored rob-covsets, rob-estimators (OLS, IPW), rob-diff74, rob-ipow (if triggered) and sens-imbens with mechanical adaptations only (DEV-13 to DEV-17), restored the adopted disagreement rule with its rob-covsets (a) and rob-estimators (b) triggers (DEV-11 withdrawn), and replaced DEV-9's false reason with the true one for the three components still not carried over (H1b and M, the secondary family, select-re75).",
+      "ruling": "Fixed in the files. plan.json restores rob-covsets (DEV-13), rob-estimators (DEV-14), rob-diff74 (DEV-15), sens-imbens (DEV-16) and rob-ipow (DEV-17), and DEV-11 is withdrawn. I checked each against gallery/ss-null-effect/plan.json@716b6c3: the components follow the adopted text with only these changes: the variable list, the 14-term basis, the upper-only clip, the 8 benchmark groups (166 points against 168 adopted, the arithmetic checks), and t_M/t_E dropped because no margin M exists. The disagreement rule in threats[14] matches the adopted rule minus H1b and select-re75. DEV-9 now gives a true reason for the three components it still drops (H1b/M, the secondary family, select-re75 = H3). sens-imbens is timed (166 x 0.05 s). The new total is 5.8 min (7.4 worst case) of 30. One new problem with the DEV-13 mapping is raised as F6."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "For NSW men, re74 is not 1974 earnings, and both the identifying assumption and the H3 placebo assume it is. smith2005 (Sec. 5, pp. 322-323, in the Scout's fetched text) states that DW's 'Re74' for NSW men is 'real earnings in months 13-24 prior to the month of random assignment ... For persons randomly assigned later in the experiment, these months largely overlap with 1975'. For CPS men it is calendar-1974 SSA earnings. Smith-Todd also reconstruct DW's sample rule: everyone randomly assigned in January-April 1976, but men assigned after April 1976 only if their 'Re74' is zero. So for a share of the 185 treated, u74 = 1 by sample construction, measured over months that overlap 1975. Consequences. (a) Main design: X contains a covariate measured over different periods in the two groups, which is a direct threat to unconfoundedness given X. design.threats lists survey-versus-SSA measurement but not this. (b) H3: placebo-re75 takes calendar-1975 earnings as its outcome and conditions on re74 and u74. For later-assigned treated men, that covariate spans much of the same months and was used to select them into the sample. The placebo contrast therefore mixes selection on the 1975 shock with a definitional and sample-selection link between X- and the outcome that exists only for treated men. This is a second reason, beyond the Ashenfelter dip the plan names, why a fail does not show bias. It also means a pass, which licenses 'effect' wording under hypotheses[0], could arise mechanically. data/CODEBOOK.md defines re74 as 'earnings in 1974' for all units.",
+      "evidence": "plan.json design.method.identifying_assumption, design.method.h3_placebo, design.threats[0]-[1], design.method.covariate_bases ('B(X-) ... for the H3 placebo'); data/CODEBOOK.md variable table (re74, u74); smith2005 Sec. 5 and Table 2 description (fetched text, lines 883-1000).",
+      "response": "Designer (PI ruling): the NSW 're74' period (months 13-24 before assignment; zero required for late assignees) is now stated in identifying_assumption, h3_placebo (neither verdict isolates confounding; a pass is 'did not reject' with this caveat), threats[1], DEV-15 and sens-imbens; H3 is unchanged; the CODEBOOK correction goes to the Data RA through the PI.",
+      "ruling": "Fixed in the files. The NSW 're74' period and the DW late-assignee rule are now stated in identifying_assumption, h3_placebo ('neither a pass nor a fail isolates confounding'; a pass is 'did not reject' with the caveat attached), threats[1], DEV-13 note, DEV-15 (named base-period estimand) and the earnings74 benchmark in sensitivity. data/CODEBOOK.md defines re74/u74 by group. The H3 specification is unchanged: question, hypotheses, contribution and design_constraints are byte-identical to the question-gate commit bcf8e10."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "rob-trim cannot do much of what the plan says it tests. method.control_only_trimming and analysis_plan say it measures 'dependence on CPS men outside the treated propensity range'. In an AIPW ATT, those men enter the estimate only through their weight m/(1-m) and through the nuisance fits. From runs/diag-overlap/propensity.csv, the 8,125 CPS men rob-trim drops carry 0.169 of the 188.9 total m_bar-weight, or 0.09%. I computed this arithmetic on the existing outcome-free diag-overlap output; no model was fitted and no outcome was read. So rob-trim tests only whether re-fitting g0 and m on the 7,867 kept men moves the estimate. The trim count also hinges on one treated man: the cutoff is the single lowest treated m_bar (1.03e-4). At the second- or third-lowest treated value, 9,218 or 11,193 CPS men would be dropped. Because rob-trim is one of the three checks in the disagreement rule (threats[11]), the rule rests in practice on rob-learners.",
+      "evidence": "plan.json design.method.control_only_trimming, design.analysis_plan (rob-trim), design.threats[11], design.diagnostics.rob_trim_count; runs/diag-overlap/propensity.csv; runs/NOTES.md.",
+      "response": "Designer: rob-trim is reworded as a check on the nuisance models' training sample, with the 0.169 of 188.9 weight share (0.09%, re-verified from propensity.csv) and the cutoff's dependence on one treated man (9,218 / 11,193 dropped at the 2nd / 3rd lowest value) stated; the rule is unchanged.",
+      "ruling": "Fixed in the files. method.control_only_trimming, analysis_plan (rob-trim) and threats[5] now describe rob-trim as a check on the nuisance training sample and state 0.169 of 188.9 weight and the single-treated-man cutoff (9,218 / 11,193 at the 2nd / 3rd value). The rule itself is unchanged, as asked."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "There is no record that the design rules were fixed before diag-overlap ran. log.jsonl records the design written at 01:29:57Z (plan.json sha256 320cc2...203b), diag-overlap run at 05:47:59Z, and plan.json revised at 06:52:38Z (sha256 20b2f5...be42, which matches the current file). The 01:29 version was never committed. The first commit containing a design is 95ae728, after the diagnostics. I tried to rebuild the earlier hash by removing design.diagnostics and resetting task statuses, and it does not match, so other text changed too. B1, O1 and O2 use the adopted thresholds (0.10, 5%, 1%), so the rules most exposed to the diagnostics are protected by the adopted design. Whether any other part of the design (deviations, trimming rule, threats) was edited after the propensity, balance and trim-count results were seen cannot be checked.",
+      "evidence": "log.jsonl entries 2026-11-19T01:29:57Z, 05:47:59Z, 06:52:38Z; plan.json (sha256 20b2f5cffda69978...); git log -- plan.json (95ae728 is the first commit with a design section).",
+      "response": "Designer: the pre-diag plan.json was rebuilt byte for byte (sha256 320cc2...203b matches) by re-running the Designer's deterministic writer script on plan.json at 716b6c3 and the timing.json of that time; the only differences to 20b2f5...be42 are design.diagnostics (the 'status' placeholder replaced by 8 result fields) and task d-diag todo -> done, so no rule, deviation or threat changed after diag-overlap; logged.",
+      "ruling": "Verified. design_evidence/reconstructed_320cc2.json hashes to 320cc2cf...203b, the hash logged at 01:29:57Z before diag-overlap ran. I diffed it key by key against plan.json at 95ae728 (sha256 20b2f5...be42). The only differences are design.diagnostics (status removed, 8 result fields added) and tasks[3] d-diag todo -> done. No rule, deviation or threat changed after the diagnostics. The current plan.json (2bfce2...) is committed at HEAD."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "All four pre-gate run records give the wrong interpreter. runs/{fetch-data,prepare-data,timing-synthetic,diag-overlap}/run.json record env.python 3.14.6, but each command is .venv/bin/python, a CPython 3.12.11 environment (.venv/pyvenv.cfg). The tool fix (commit 047c99f, 'run records the interpreter its command used') landed after these runs. The design's diagnostics are therefore recorded with false provenance, and the clean rerun the submission gate needs would compare against them.",
+      "evidence": "runs/*/run.json env; .venv/pyvenv.cfg; git commit 047c99f.",
+      "response": "Designer: timing-synthetic was re-run under the current tool (run.json env: command_executable .venv/bin/python, python 3.12.11); re-running fetch-data, prepare-data and diag-overlap belongs to the Data RA and Econometrician and is left to the PI.",
+      "ruling": "Fixed. All four run.json now record command_executable .venv/bin/python, python 3.12.11. runs/diag-overlap/metrics.json and propensity.csv hash identically to the 95ae728 versions (0f3a156d..., f705a342...), so the diagnostics did not move. The superseded records were not archived under runs/.superseded (the archiving fix 70b99ea landed at 07:15Z, after the 07:01Z reruns). The old records remain in git at 95ae728, so nothing is lost."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The mechanical DEV-13 mapping turns rob-covsets (a), a trigger of the disagreement rule, into a check that omits race. The adopted rule keeps age, educ, married and the earnings history and drops the rest. On the synthetic file the dropped covariates were urban, region, children and health_limit. Here the same rule drops black, hisp and nodegree. black is by far the most imbalanced covariate in this sample: its raw normalized difference is 1.72 (runs/diag-overlap/metrics.json nd_raw_black), larger than re74 (-1.11) or re75 (-1.23). So under (a) the comparison is no longer the covariate-set sensitivity the adopted design cites (Smith-Todd's specifications all include race). It is unconfoundedness without race, an assumption the design's own identifying_assumption rejects. The direction of the resulting bias is foreseeable. Treated men are mostly black, and black CPS men earn less, so omitting race likely raises the imputed counterfactual and lowers the estimate. That pushes (a) toward a decision difference, and threats[14] would then make the abstract say the conclusion 'is not robust to that check'. The rule is conservative, not a search toward a favourable result. But as worded, the abstract would describe an omitted-confounder result as covariate-set fragility. nodegree is nearly redundant given educ and educ^2, so dropping it matters little.",
+      "evidence": "plan.json design.method.deviations DEV-13; design.method.covariate_bases ('Reduced sets for rob-covsets and rob-diff74'); design.threats[7], [14]; runs/diag-overlap/metrics.json (nd_raw_black 1.717, nd_raw_hisp -0.036, nd_raw_nodegree 0.639); gallery/ss-null-effect/plan.json@716b6c3 design.analysis_plan rob-covsets.",
+      "response": "Designer: DEV-13 and threats[14] now state that rob-covsets (a) omits black, hisp and nodegree, that black has the largest raw imbalance (nd 1.72), and that if (a) triggers, the abstract says 'not robust to dropping race, ethnicity and degree status'; mapping unchanged, no new run.",
+      "ruling": "Cheapest remedy, with no change to the mapping (re-mapping now would be a literature- and diagnostics-aware choice): in DEV-13 and threats[14], state that (a) omits black and hisp (the largest raw imbalance), so that it tests reliance on conditioning for race and ethnicity. Fix now that if (a) triggers the abstract sentence, the sentence names the dropped covariates, e.g. 'not robust to dropping race, ethnicity and degree status'. No new run."
+    }
+  ]
+}
