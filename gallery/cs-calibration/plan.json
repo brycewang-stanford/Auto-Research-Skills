@@ -167,7 +167,9 @@
       "note": "Approved in chat on 2026-11-19 after reading the design, the ECE noise-floor caveat and the disclosed amendments."
     },
     "results": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-19T08:18:53Z",
+      "summary": "Results passed review in round 2; minor F6-F8 answered."
     },
     "submission": {
       "status": "pending"
