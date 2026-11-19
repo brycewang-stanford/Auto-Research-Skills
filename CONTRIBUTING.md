@@ -1,6 +1,23 @@
 # Contributing to Free-Research-Crew (免费助研团)
 
-Thanks for helping grow the toolbox! Two ways to contribute:
+Thanks for helping! You can improve the crew itself (section 0) or grow the
+toolbox it draws on (sections 1–2).
+
+## 0. Improve the crew
+
+- **Add a seed task.** A seed is a research question with public data and a
+  published or checkable answer, small enough to run on a laptop. Seeds are how
+  the crew is scored, and the most useful contribution right now. See
+  [`crew/bench/README.md`](crew/bench/README.md#adding-a-seed).
+- **Improve a role or a track.** Roles live in [`crew/agents/`](crew/agents/),
+  track playbooks in [`crew/tracks/`](crew/tracks/). The handoff rules are in
+  [`crew/PROTOCOL.md`](crew/PROTOCOL.md). A change to a role should say which
+  failure in a [`gallery/`](gallery/) workspace it would have prevented.
+- **Report a crew failure.** Open an issue with the workspace path and the step
+  (gate, review round, run) where it went wrong. Failures are published next to
+  successes, so a reproducible failure is as valuable as a fix.
+
+Run `python3 -m unittest tests.test_crew` before opening a PR that touches `crew/`.
 
 ## 1. Add a tool to the list
 
