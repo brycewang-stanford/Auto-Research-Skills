@@ -1,7 +1,7 @@
 {
   "crew_version": "0.1.0",
   "protocol": "0.1",
-  "scored_on": "2026-11-19T12:48:54Z",
+  "scored_on": "2026-11-19T13:05:27Z",
   "results": [
     {
       "workspace": "gallery/cs-calibration",
@@ -16,8 +16,8 @@
       },
       "complete": false,
       "validation_errors": 0,
-      "rerun_passed": null,
-      "reviews": 8,
+      "rerun_passed": true,
+      "reviews": 9,
       "cross_family_reviews": 0,
       "protocol": "in-progress",
       "answer": {
@@ -151,17 +151,24 @@
       "gates": {
         "question": "approved",
         "design": "approved",
-        "results": "pending",
+        "results": "approved",
         "submission": "pending"
       },
       "complete": false,
       "validation_errors": 0,
       "rerun_passed": null,
-      "reviews": 7,
+      "reviews": 9,
       "cross_family_reviews": 0,
       "protocol": "in-progress",
       "answer": {
-        "status": "pending"
+        "status": "pass",
+        "details": {
+          "interval": [
+            9.60806603853689,
+            3135.9205670478673
+          ],
+          "target": 1794
+        }
       },
       "manual": "Does the paper claim more than the evidence supports? Judged by the Reviewer and the human."
     },

@@ -70,3 +70,4 @@
 {"time": "2026-11-19T12:54:53Z", "role": "econometrician", "action": "claims-revised", "detail": "results-r1 F1-F3: per-repetition claims (main-aipw, rob-trim), h1-decision within cross-fitting noise, sens-reading floor artifacts, disagree-trim meaning, placebo top-code; responses written; no new run"}
 {"time": "2026-11-19T12:55:17Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261119T125517Z (results-r2)"}
 {"time": "2026-11-19T12:59:46Z", "role": "pi", "action": "gate-request", "detail": "results"}
+{"time": "2026-11-19T13:05:27Z", "role": "pi", "action": "gate-approve", "detail": "results Bryce Wang"}

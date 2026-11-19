@@ -258,9 +258,12 @@
       "note": "Approved in chat on 2026-11-19 after reading the restored design, the placebo limits and the Reviewer's kill argument."
     },
     "results": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-19T12:59:46Z",
-      "summary": "results-r2 pass (F1-F5 resolved; minor F6 claim-text precision, F7 NOTES wording open); h2-benchmark waits for this gate"
+      "summary": "results-r2 pass (F1-F5 resolved; minor F6 claim-text precision, F7 NOTES wording open); h2-benchmark waits for this gate",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-19T13:05:27Z",
+      "note": "Approve (in chat, after results-r2 pass; H1 within cross-fitting noise, H3 placebo failed, contrast not an effect; minor F6/F7 open for the Econometrician)"
     },
     "submission": {
       "status": "pending"
