@@ -167,9 +167,12 @@
       "note": "Approved in chat on 2026-11-19 after reading the design, the ECE noise-floor caveat and the disclosed amendments."
     },
     "results": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-19T08:18:53Z",
-      "summary": "Results passed review in round 2; minor F6-F8 answered."
+      "summary": "Results passed review in round 2; minor F6-F8 answered.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-19T12:27:59Z",
+      "note": "Approved in chat on 2026-11-19 after reading H1/H2a/H2b, the electricity dependence and the disclosed narrowing."
     },
     "submission": {
       "status": "pending"

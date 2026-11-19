@@ -67,3 +67,5 @@
 {"time": "2026-11-19T08:17:59Z", "role": "pi", "action": "brief-archived", "detail": "experimenter 20261119T081759Z"}
 {"time": "2026-11-19T08:18:36Z", "role": "experimenter", "action": "results-r2-claims-revised", "detail": "no runs; F6 H2a/H2b electricity dependence stated; F7 NOTES claim count 600; F8 ece_bins claims for every cell with isotonic resolution caveat; numbers.tex regenerated"}
 {"time": "2026-11-19T08:18:53Z", "role": "pi", "action": "gate-request", "detail": "results"}
+{"time": "2026-11-19T12:27:59Z", "role": "pi", "action": "gate-approve", "detail": "results Bryce Wang"}
+{"time": "2026-11-19T12:28:00Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261119T122759Z"}
