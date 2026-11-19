@@ -640,7 +640,9 @@
       "note": "Approved in chat on 2026-11-18 after reading the design and code verdicts, the forest deviation and the two disclosed H2 amendments."
     },
     "results": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-19T06:53:55Z",
+      "summary": "Results passed review in round 2; minor F6 answered."
     },
     "submission": {
       "status": "pending"
