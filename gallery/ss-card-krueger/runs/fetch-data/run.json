@@ -1,0 +1,77 @@
+{
+  "id": "fetch-data",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/fetch_data.py"
+  ],
+  "started": "2026-11-19T01:21:41Z",
+  "finished": "2026-11-19T01:21:42Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fetch_data.py",
+      "sha256": "b4e7483c8086f0e11bf55222514c60117b63d52bf8b76be933e8e2da935b4c63"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "data/raw/njmin.zip",
+      "sha256": "41a29aec6b489658b20030d044a2b20a5f5a04b871cde41df057afd6013ba587"
+    },
+    {
+      "path": "data/raw/njmin/public.dat",
+      "sha256": "04bde0cad5540980f32ce099c6dad369e2f05494698071d8a65b3e1cbe9ca53a"
+    },
+    {
+      "path": "data/raw/njmin/codebook",
+      "sha256": "1d801d7bdfa77ad2138d79ead54eef830913a2bdf4861a50ee013b3474e4b52f"
+    },
+    {
+      "path": "data/raw/njmin/check.sas",
+      "sha256": "b1861774bfefd527ccdae08122327c802071c1e3de332365c61fe3be1f506fe3"
+    },
+    {
+      "path": "data/raw/njmin/read.me",
+      "sha256": "3bf4c370d368f11bd86ae20a49af1a874ad21ac6ab8c679f82a2f57789fd4f76"
+    },
+    {
+      "path": "data/raw/njmin/survey1.nj",
+      "sha256": "076743c2d981764171ad4ab8fed12c1c23855f1be59a66ac985c716503a199bc"
+    },
+    {
+      "path": "data/raw/njmin/survey2.nj",
+      "sha256": "ffa7c81804561f6641841e27122ba7140046773747efa71535a866a753173f86"
+    },
+    {
+      "path": "data/fetch_metrics.json",
+      "sha256": "c51d0be8803894c5d8ed5655e565f3ada707216c86ef7d7d54b832726c6ae8a6"
+    }
+  ],
+  "metrics": {
+    "zip_size_bytes": 23017,
+    "zip_sha256": "41a29aec6b489658b20030d044a2b20a5f5a04b871cde41df057afd6013ba587",
+    "zip_sha256_matches_pinned": true,
+    "n_members": 6,
+    "check_sas_size_bytes": 13770,
+    "check_sas_sha256": "b1861774bfefd527ccdae08122327c802071c1e3de332365c61fe3be1f506fe3",
+    "codebook_size_bytes": 3822,
+    "codebook_sha256": "1d801d7bdfa77ad2138d79ead54eef830913a2bdf4861a50ee013b3474e4b52f",
+    "public_dat_size_bytes": 82410,
+    "public_dat_sha256": "04bde0cad5540980f32ce099c6dad369e2f05494698071d8a65b3e1cbe9ca53a",
+    "read_me_size_bytes": 1254,
+    "read_me_sha256": "3bf4c370d368f11bd86ae20a49af1a874ad21ac6ab8c679f82a2f57789fd4f76",
+    "survey1_nj_size_bytes": 5803,
+    "survey1_nj_sha256": "076743c2d981764171ad4ab8fed12c1c23855f1be59a66ac985c716503a199bc",
+    "survey2_nj_size_bytes": 5480,
+    "survey2_nj_sha256": "ffa7c81804561f6641841e27122ba7140046773747efa71535a866a753173f86"
+  },
+  "metrics_file": "data/fetch_metrics.json",
+  "env": {
+    "python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  }
+}

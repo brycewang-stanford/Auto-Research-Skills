@@ -15,3 +15,13 @@
 {"time": "2026-11-18T16:53:46Z", "role": "scout", "action": "claims-revised", "detail": "question-r3 F12: c-ropponen-cic and notes secs 5-7 reworded; Ropponen 2.72 is on 376-store CIC support sample, not the 384 balanced sample"}
 {"time": "2026-11-18T16:54:00Z", "role": "pi", "action": "gate-request", "detail": "question"}
 {"time": "2026-11-19T01:17:54Z", "role": "pi", "action": "gate-approve", "detail": "question Bryce Wang"}
+{"time": "2026-11-19T01:19:35Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261119T011935Z"}
+{"time": "2026-11-19T01:19:35Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261119T011935Z"}
+{"time": "2026-11-19T01:21:42Z", "role": "data-ra", "action": "run", "detail": "fetch-data exit=0"}
+{"time": "2026-11-19T01:23:01Z", "role": "data-ra", "action": "run", "detail": "prepare-data exit=0"}
+{"time": "2026-11-19T01:23:14Z", "role": "data-ra", "action": "run", "detail": "prepare-data exit=0"}
+{"time": "2026-11-19T01:24:18Z", "role": "designer", "action": "design-written", "detail": "plan.json design (FTE/closure/T4 sample from check.sas; SE method S1; Table 4 conventional OLS SE; H2 pooled 5/95 linear winsorization on balanced sample; secondaries s1, s2; deviation D1; claims plan) and 20 tasks incl. code review before analysis"}
+{"time": "2026-11-19T01:24:24Z", "role": "data-ra", "action": "data-fetched", "detail": "njmin.zip sha256 41a29aec...ba587 (23017 B, pinned); 6 members in data/raw/njmin; run fetch-data"}
+{"time": "2026-11-19T01:24:24Z", "role": "data-ra", "action": "data-prepared", "detail": "stores.csv 410 rows (331 NJ/79 PA), FTE/FTE2 per CK p.775; Table 1 status counts, Table 4 n=357, NJ wage-group Ns all match; SHEET 407 duplicated -> ROW_ID key; run prepare-data"}
+{"time": "2026-11-19T01:24:24Z", "role": "data-ra", "action": "codebook-written", "detail": "data/CODEBOOK.md, data/manifest.json (5 entries)"}
+{"time": "2026-11-19T01:24:48Z", "role": "pi", "action": "brief-archived", "detail": "reviewer design-r1 20261119T012448Z"}

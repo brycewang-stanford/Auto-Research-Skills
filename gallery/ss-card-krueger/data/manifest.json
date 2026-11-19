@@ -1,3 +1,64 @@
 {
-  "datasets": []
+  "datasets": [
+    {
+      "id": "njmin-zip",
+      "origin": "https://davidcard.berkeley.edu/data_sets/njmin.zip",
+      "license": "No license or terms of use are stated. The archive is posted for public download on David Card's Berkeley faculty page (davidcard.berkeley.edu/data_sets.html, 'Available data sets', listed as the data set associated with Card and Krueger 1994, AER), whose footer reads '(c)2014 The Regents of the University of California'. The bundled read.me states only that the files 'pertain to the New Jersey - Pennsylvania surveys used in Myth and Measurement, chapter 2' and gives no conditions of use. Used here for non-commercial research replication, the purpose for which the authors distribute it; raw and derived files are git-ignored and rebuilt by the logged runs, not redistributed.",
+      "path": "data/raw/njmin.zip",
+      "sha256": "41a29aec6b489658b20030d044a2b20a5f5a04b871cde41df057afd6013ba587",
+      "retrieved_on": "2026-11-19",
+      "size_bytes": 23017,
+      "integrity_check": "No checksum is published. code/fetch_data.py pins the size and SHA-256 observed on the first retrieval (server Last-Modified 27 Jul 2007, ETag \"46aa0c0d-59e9\") and fails on any difference.",
+      "fetched_by": "code/fetch_data.py (run fetch-data)",
+      "members": [
+        "public.dat",
+        "codebook",
+        "check.sas",
+        "read.me",
+        "survey1.nj",
+        "survey2.nj"
+      ],
+      "readme": "https://davidcard.berkeley.edu/readme/njmin-readme.txt (refs.bib key card_njmin_readme)"
+    },
+    {
+      "id": "njmin-public-dat",
+      "origin": "Member public.dat of njmin.zip (dataset njmin-zip), extracted by code/fetch_data.py.",
+      "license": "Same as njmin-zip.",
+      "path": "data/raw/njmin/public.dat",
+      "sha256": "04bde0cad5540980f32ce099c6dad369e2f05494698071d8a65b3e1cbe9ca53a",
+      "retrieved_on": "2026-11-19",
+      "size_bytes": 82410,
+      "rows": 410,
+      "columns": 46,
+      "format": "ASCII fixed-width (codebook column positions; also whitespace-delimited), '.' = missing"
+    },
+    {
+      "id": "njmin-codebook",
+      "origin": "Member codebook of njmin.zip (dataset njmin-zip), extracted by code/fetch_data.py.",
+      "license": "Same as njmin-zip.",
+      "path": "data/raw/njmin/codebook",
+      "sha256": "1d801d7bdfa77ad2138d79ead54eef830913a2bdf4861a50ee013b3474e4b52f",
+      "retrieved_on": "2026-11-19",
+      "size_bytes": 3822
+    },
+    {
+      "id": "njmin-check-sas",
+      "origin": "Member check.sas of njmin.zip (dataset njmin-zip): the authors' SAS program that reads public.dat and makes key tabulations.",
+      "license": "Same as njmin-zip.",
+      "path": "data/raw/njmin/check.sas",
+      "sha256": "b1861774bfefd527ccdae08122327c802071c1e3de332365c61fe3be1f506fe3",
+      "retrieved_on": "2026-11-19",
+      "size_bytes": 13770
+    },
+    {
+      "id": "stores",
+      "origin": "Derived from njmin-public-dat by code/prepare_data.py (run prepare-data): all 410 rows, the 46 codebook variables under their codebook names, plus ROW_ID, FTE, FTE2, CLOSED_PERM, CLOSED_TEMP, REFUSED2. No rows dropped. See data/CODEBOOK.md.",
+      "license": "Same as njmin-zip (derived).",
+      "path": "data/derived/stores.csv",
+      "sha256": "79b110fcf268a47b5a35ab6b46705fa0c8c9a4b0ef3a4daba93af5404cdddfd9",
+      "retrieved_on": "2026-11-19",
+      "rows": 410,
+      "columns": 52
+    }
+  ]
 }
