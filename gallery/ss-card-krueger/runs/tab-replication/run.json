@@ -1,0 +1,74 @@
+{
+  "id": "tab-replication",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/tab_replication.py",
+    "--metrics",
+    "runs/tab-replication/metrics.json"
+  ],
+  "started": "2026-11-19T08:10:10Z",
+  "finished": "2026-11-19T08:10:10Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_replication.py",
+      "sha256": "83ef63e9a90823a6faad3dd45b9e6d0d224a5d58ca86804c433dc33401f1f1c5"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "58eba61d7ad714c57bb8004af1d2863ee010b03e34efc7fc6c33bccb01c069cc"
+    },
+    {
+      "path": "code/verdict.py",
+      "sha256": "65599671fb46d8580abfaa4ed43850f4d8a4ec70c188130da05a2d66f89d53bd"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/main-t3/metrics.json",
+      "sha256": "802bee9d43adc0deea9433e496641821372bc5e6d316ee014a7ca93146d00605"
+    },
+    {
+      "path": "runs/main-t4/metrics.json",
+      "sha256": "5531dc037af8cb3cb329c3fc596f524f51ca39ede1cc5fbeee880d776f4595f8"
+    },
+    {
+      "path": "runs/verdict/metrics.json",
+      "sha256": "ab9d537c411ad889ddbbbc5753acd0c241f5c15214905e749b1fcdadc7d06983"
+    },
+    {
+      "path": "runs/pub-values/metrics.json",
+      "sha256": "020f456d2140170915aa7d2417238340db9dd0342086d380df85686715f34872"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_replication.tex",
+      "sha256": "338d690543be8d6f536859ddb0783d5a82f13848ec987fb1783f25a343db762b"
+    },
+    {
+      "path": "runs/tab-replication/metrics.json",
+      "sha256": "4e3d63f2cfb017b62ad258b415138447207816696067a7e0d4d9d04eb9c96856"
+    }
+  ],
+  "metrics": {
+    "n_cells_report_only": 21,
+    "n_cells_target": 15,
+    "n_cells_target_met": 14,
+    "n_direct_cells": 26,
+    "n_lines": 20,
+    "n_macro_cells": 46,
+    "tolerance": 0.05
+  },
+  "metrics_file": "runs/tab-replication/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}

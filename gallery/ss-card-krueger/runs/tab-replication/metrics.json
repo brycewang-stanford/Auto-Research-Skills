@@ -1,0 +1,9 @@
+{
+  "n_cells_report_only": 21,
+  "n_cells_target": 15,
+  "n_cells_target_met": 14,
+  "n_direct_cells": 26,
+  "n_lines": 20,
+  "n_macro_cells": 46,
+  "tolerance": 0.05
+}

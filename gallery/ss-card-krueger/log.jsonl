@@ -63,3 +63,8 @@
 {"time": "2026-11-19T07:47:20Z", "role": "pi", "action": "gate-request", "detail": "results"}
 {"time": "2026-11-19T08:01:43Z", "role": "pi", "action": "gate-approve", "detail": "results Bryce Wang"}
 {"time": "2026-11-19T08:01:44Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261119T080143Z"}
+{"time": "2026-11-19T08:10:10Z", "role": "figures-ra", "action": "run", "detail": "pub-values exit=0"}
+{"time": "2026-11-19T08:10:10Z", "role": "figures-ra", "action": "run", "detail": "tab-replication exit=0"}
+{"time": "2026-11-19T08:10:10Z", "role": "figures-ra", "action": "run", "detail": "tab-h2 exit=0"}
+{"time": "2026-11-19T08:10:18Z", "role": "figures-ra", "action": "run", "detail": "fig-dfte-dist exit=0"}
+{"time": "2026-11-19T08:11:50Z", "role": "figures-ra", "action": "figures", "detail": "Built tab_replication (T3 rows 1-5 + T4 col i, published vs replicated, |diff|, 0.05 tol, verdict status; row-3 points 'within tolerance, not at published precision', row-3 SEs 'SE construction not identified'), tab_h2 (unwinsorized vs winsorized, cutoffs, capped by state/tail, s1, s2), fig_dfte_dist (store-level change by state, pooled 5/95 cutoffs) via runs pub-values, tab-replication, tab-h2, fig-dfte-dist; published values parsed from sources/notes.md and checked against verdict *_pub (15/15); 79 table macros checked against claims.jsonl (0 failures); outputs byte-identical on a scratch rerun; captions in paper/figures/CAPTIONS.md"}

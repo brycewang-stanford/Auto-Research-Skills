@@ -1,0 +1,77 @@
+{
+  "id": "fig-dfte-dist",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/fig_dfte_dist.py",
+    "--metrics",
+    "runs/fig-dfte-dist/metrics.json"
+  ],
+  "started": "2026-11-19T08:10:10Z",
+  "finished": "2026-11-19T08:10:17Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_dfte_dist.py",
+      "sha256": "f7310e13ccdb56020422dfc55fe7b51c33d5ea1ed95739b2c3d3351057a349b0"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "58eba61d7ad714c57bb8004af1d2863ee010b03e34efc7fc6c33bccb01c069cc"
+    },
+    {
+      "path": "code/ck_analysis.py",
+      "sha256": "632d22031ff807d4cac23bbe985ac5023de6ec872641087391b233b3b8b9ff9a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/stores.csv",
+      "sha256": "79b110fcf268a47b5a35ab6b46705fa0c8c9a4b0ef3a4daba93af5404cdddfd9"
+    },
+    {
+      "path": "runs/h2-winsor/metrics.json",
+      "sha256": "b581f6f2498e10d49683f74b455b2f2f4bcbeb9696f83dcba4ce2c34f0cc972c"
+    },
+    {
+      "path": "runs/h2-winsor/capped.csv",
+      "sha256": "7f19a2a4b1061bcb3b4ab40235e2d05dcdb39cd80629761778c9447d040d36ef"
+    },
+    {
+      "path": "runs/main-t3/metrics.json",
+      "sha256": "802bee9d43adc0deea9433e496641821372bc5e6d316ee014a7ca93146d00605"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_dfte_dist.pdf",
+      "sha256": "96270a833457cc81d5455be5e8a166c732be2a16ae05938753ba1784e3f963e3"
+    },
+    {
+      "path": "runs/fig-dfte-dist/metrics.json",
+      "sha256": "8b9389048fa8d7cfadd15cee12c75fce7e115ea7ff9af44e9e598e16c8166d86"
+    }
+  ],
+  "metrics": {
+    "bin_width": 2.5,
+    "max_bin_nj": 52,
+    "max_bin_pa": 12,
+    "n": 384,
+    "n_bins": 32,
+    "n_capped_checked": 40,
+    "n_nj": 309,
+    "n_pa": 75,
+    "x_max_edge": 36.375,
+    "x_min_edge": -43.625
+  },
+  "metrics_file": "runs/fig-dfte-dist/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}

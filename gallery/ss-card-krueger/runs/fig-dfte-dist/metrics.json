@@ -1,0 +1,12 @@
+{
+  "bin_width": 2.5,
+  "max_bin_nj": 52,
+  "max_bin_pa": 12,
+  "n": 384,
+  "n_bins": 32,
+  "n_capped_checked": 40,
+  "n_nj": 309,
+  "n_pa": 75,
+  "x_max_edge": 36.375,
+  "x_min_edge": -43.625
+}

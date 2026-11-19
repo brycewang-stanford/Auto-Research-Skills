@@ -1,0 +1,76 @@
+{
+  "id": "tab-h2",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/tab_h2.py",
+    "--metrics",
+    "runs/tab-h2/metrics.json"
+  ],
+  "started": "2026-11-19T08:10:10Z",
+  "finished": "2026-11-19T08:10:10Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_h2.py",
+      "sha256": "e7ba8fc23946484981e291eadc010fd865613532e35b9b88dccc2d3cd744ef88"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "58eba61d7ad714c57bb8004af1d2863ee010b03e34efc7fc6c33bccb01c069cc"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/h2-winsor/metrics.json",
+      "sha256": "b581f6f2498e10d49683f74b455b2f2f4bcbeb9696f83dcba4ce2c34f0cc972c"
+    },
+    {
+      "path": "runs/h2-winsor/capped.csv",
+      "sha256": "7f19a2a4b1061bcb3b4ab40235e2d05dcdb39cd80629761778c9447d040d36ef"
+    },
+    {
+      "path": "runs/h2-closures-excl/metrics.json",
+      "sha256": "829ee09bfc650dbaff878ad3ebdce8057ade5fb58d1776c4c744b3044d951e01"
+    },
+    {
+      "path": "runs/h2-nw-rule/metrics.json",
+      "sha256": "8ccd833cde7427c60839e9fb9fb575a824683847635aeee2278cc9e34101ea75"
+    },
+    {
+      "path": "runs/main-t3/metrics.json",
+      "sha256": "802bee9d43adc0deea9433e496641821372bc5e6d316ee014a7ca93146d00605"
+    },
+    {
+      "path": "runs/verdict/metrics.json",
+      "sha256": "ab9d537c411ad889ddbbbc5753acd0c241f5c15214905e749b1fcdadc7d06983"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_h2.tex",
+      "sha256": "a36d7d401661c93cedaac58b37b1a380be561bf6ddddec4e4d2b549f537465a8"
+    },
+    {
+      "path": "runs/tab-h2/metrics.json",
+      "sha256": "83b80345d3edd8d49c35c93dfedd364f2cb5fec5001b760bd92187cde5d7733e"
+    }
+  ],
+  "metrics": {
+    "h2_holds_shown": 1,
+    "n_capped_listed": 40,
+    "n_direct_cells": 4,
+    "n_macro_cells": 33,
+    "n_rows": 20
+  },
+  "metrics_file": "runs/tab-h2/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "id": "pub-values",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-I",
+    "code/pub_values.py",
+    "--metrics",
+    "runs/pub-values/metrics.json"
+  ],
+  "started": "2026-11-19T08:10:09Z",
+  "finished": "2026-11-19T08:10:10Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/pub_values.py",
+      "sha256": "b3f0f42d04dbe9f4cdaf63af08ed0cae2ee3cef2e62df657afc9af85c356ba0a"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "58eba61d7ad714c57bb8004af1d2863ee010b03e34efc7fc6c33bccb01c069cc"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "sources/notes.md",
+      "sha256": "8a5715b837db9295f0a95b38eab320fd855bb9db1aff2d5fdc74aa982e640372"
+    },
+    {
+      "path": "runs/verdict/metrics.json",
+      "sha256": "ab9d537c411ad889ddbbbc5753acd0c241f5c15214905e749b1fcdadc7d06983"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/pub-values/metrics.json",
+      "sha256": "020f456d2140170915aa7d2417238340db9dd0342086d380df85686715f34872"
+    }
+  ],
+  "metrics": {
+    "n_checked_against_verdict": 15,
+    "pub_r1_did": -2.89,
+    "pub_r1_did_dp": 2,
+    "pub_r1_did_se": 1.44,
+    "pub_r1_did_se_dp": 2,
+    "pub_r1_nj": 20.44,
+    "pub_r1_nj_dp": 2,
+    "pub_r1_nj_se": 0.51,
+    "pub_r1_nj_se_dp": 2,
+    "pub_r1_pa": 23.33,
+    "pub_r1_pa_dp": 2,
+    "pub_r1_pa_se": 1.35,
+    "pub_r1_pa_se_dp": 2,
+    "pub_r2_did": -0.14,
+    "pub_r2_did_dp": 2,
+    "pub_r2_did_se": 1.07,
+    "pub_r2_did_se_dp": 2,
+    "pub_r2_nj": 21.03,
+    "pub_r2_nj_dp": 2,
+    "pub_r2_nj_se": 0.52,
+    "pub_r2_nj_se_dp": 2,
+    "pub_r2_pa": 21.17,
+    "pub_r2_pa_dp": 2,
+    "pub_r2_pa_se": 0.94,
+    "pub_r2_pa_se_dp": 2,
+    "pub_r3_did": 2.76,
+    "pub_r3_did_dp": 2,
+    "pub_r3_did_se": 1.36,
+    "pub_r3_did_se_dp": 2,
+    "pub_r3_nj": 0.59,
+    "pub_r3_nj_dp": 2,
+    "pub_r3_nj_se": 0.54,
+    "pub_r3_nj_se_dp": 2,
+    "pub_r3_pa": -2.16,
+    "pub_r3_pa_dp": 2,
+    "pub_r3_pa_se": 1.25,
+    "pub_r3_pa_se_dp": 2,
+    "pub_r4_did": 2.75,
+    "pub_r4_did_dp": 2,
+    "pub_r4_did_se": 1.34,
+    "pub_r4_did_se_dp": 2,
+    "pub_r4_nj": 0.47,
+    "pub_r4_nj_dp": 2,
+    "pub_r4_nj_se": 0.48,
+    "pub_r4_nj_se_dp": 2,
+    "pub_r4_pa": -2.28,
+    "pub_r4_pa_dp": 2,
+    "pub_r4_pa_se": 1.25,
+    "pub_r4_pa_se_dp": 2,
+    "pub_r5_did": 2.51,
+    "pub_r5_did_dp": 2,
+    "pub_r5_did_se": 1.35,
+    "pub_r5_did_se_dp": 2,
+    "pub_r5_nj": 0.23,
+    "pub_r5_nj_dp": 2,
+    "pub_r5_nj_se": 0.49,
+    "pub_r5_nj_se_dp": 2,
+    "pub_r5_pa": -2.28,
+    "pub_r5_pa_dp": 2,
+    "pub_r5_pa_se": 1.25,
+    "pub_r5_pa_se_dp": 2,
+    "pub_t4_b_nj": 2.33,
+    "pub_t4_b_nj_dp": 2,
+    "pub_t4_dep_mean": -0.237,
+    "pub_t4_dep_mean_dp": 3,
+    "pub_t4_dep_sd": 8.825,
+    "pub_t4_dep_sd_dp": 3,
+    "pub_t4_n": 357,
+    "pub_t4_n_dp": 0,
+    "pub_t4_root_mse": 8.79,
+    "pub_t4_root_mse_dp": 2,
+    "pub_t4_se_nj": 1.19,
+    "pub_t4_se_nj_dp": 2
+  },
+  "metrics_file": "runs/pub-values/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-krueger/.venv"
+  }
+}
