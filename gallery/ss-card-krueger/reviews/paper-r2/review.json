@@ -1,0 +1,142 @@
+{
+  "id": "paper-r2",
+  "target": "paper",
+  "round": 2,
+  "created": "2026-11-19T12:41:01Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261119T123741Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/social-science.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/ss-card-krueger/task.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/paper-r1/review.json",
+    "reviews/results-r1/review.json",
+    "reviews/results-r2/review.json",
+    "reviews/code-r1/review.json",
+    "paper/main.tex",
+    "paper/ai-use.tex",
+    "paper/main.pdf",
+    "paper/numbers.tex",
+    "paper/tables/tab_replication.tex",
+    "paper/tables/tab_h2.tex",
+    "plan.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "runs/NOTES.md",
+    "runs/h2-winsor/metrics.json",
+    "runs/h2-winsor/capped.csv",
+    "runs/placebo-hiwage/metrics.json",
+    "replication.json",
+    "log.jsonl"
+  ],
+  "kill_argument": "The process account is now accurate, so the remaining case against the paper is about what it yields. Its clean reproductions are the cheap ones. Row 4 is reproduced, but on a balanced sample S1 is sd/sqrt(n), so matching its SEs identifies nothing. Table 4's N = 357 was seen at data prep, and once the SAS filter is used its coefficient follows. The estimate the literature argues about, row 3, is 'not reproduced as a whole'. Its points miss published precision for an unidentified reason, and its SE construction is unknown. H2 sets a half-magnitude bar that 5/95 winsorization rarely breaches, and the 0.85 it keeps reflects mostly capping eight large Pennsylvania declines, which says nothing about New Jersey. A referee could fairly say this is a careful ledger around a replication that Mamula had largely done. What I tried, and it held: `crew.py validate --strict` OK; every macro and table cell against claims and metrics; every paper-r1 response against the files; the gate, run and review times against log.jsonl; the source counts against sources.json; the replication claims against replication.json; the PDF's age against the sources; my decomposition of the H2 shrinkage from capped.csv.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The title asks a causal question that the paper explicitly declines to answer. 'Did New Jersey's 1992 Minimum-Wage Increase Reduce Fast-Food Employment?' promises a verdict on the employment effect. But the text says the paper 'does not take a side in that dispute' (l.65). It draws 'no design-based inference' from any SE (abstract; Sec. 5, l.596-602). It maintains parallel trends without validating it (l.627-628). And it says 'nothing about which of those sources is right' (l.631-634). The reviewer role's paper check asks whether the title promises more than the result; this one does. The seed task's title is not a requirement in task.json. Resolve: Narrow the title to what was tested, for example 'Reproducing Card and Krueger (1994) from the Public Data: A Logged Replication with a Tail-Winsorization Check'.",
+      "evidence": "paper/main.tex l.21-22 (\\title), set against l.65, l.596-602, l.627-634; paper/main.pdf p.1",
+      "response": "Writer (9b0e297): title narrowed to 'Reproducing Card and Krueger (1994) from the Public Data: A Logged Replication with a Tail-Winsorization Check'.",
+      "ruling": "Resolved. The title is now 'Reproducing Card and Krueger (1994) from the Public Data: A Logged Replication with a Tail-Winsorization Check' (main.tex l.21-22; main.pdf p.1). It names the activity, not a verdict on the employment effect. task.json gives its title only as a seed label, so the change breaks no requirement."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The paper's account of its own verification sequence is wrong, in a paper whose stated value is procedural. (a) main.tex l.337 says 'Before the design gate, a test script ran every estimator on a synthetic file'. log.jsonl shows the design gate approved at 2026-11-19T06:52:04Z. The econometrician brief (06:52:59Z) says the gate was already approved and asks for the code to be written. check-synthetic first ran at 07:01:20Z and again at 07:18:15Z. code-r1 is dated 07:06:34Z. So the code was written, tested and reviewed after the design gate. (b) plan.json task pi-design-gate reads 'Request and decide the design gate after design and code reviews' and is marked done, but the gate came before the code review. Neither the Deviations section nor the AI-use statement discloses this. Plan step 0d's binding condition (gate approved and code review clean before any analysis run) was met, so no estimate is affected. (c) l.110-112 says 'every analysis run was listed, with its metrics and decision rule, in a plan approved ... before any run; the code was reviewed before any run'. Four analysis-kind runs, pub-values, tab-replication, tab-h2 and fig-dfte-dist (runs/*/run.json kind=analysis, role figures-ra, 08:10Z), are not in the plan, and check-synthetic ran before the code review. The Presentation paragraph (l.668-675) discloses the table runs, which contradicts the introduction. Resolve: Rewrite l.337 to 'After the design gate and before any analysis run, ...'. Disclose in Deviations and disclosures that the design gate was approved before the code existed and before the code review, which departs from the plan's task description. Qualify l.110-112 as 'every planned analysis run' and 'before any analysis run', and point to the post-gate presentation runs.",
+      "evidence": "paper/main.tex l.110-112, l.335-347, l.653-658; log.jsonl 06:52:04Z gate-approve design, 07:01:20Z run check-synthetic, 07:18:15Z rerun; reviews/code-r1/review.json created 07:06:34Z; briefs/20261119T065259Z-econometrician.md; plan.json tasks pi-design-gate; runs/{pub-values,tab-replication,tab-h2,fig-dfte-dist}/run.json",
+      "response": "Writer (9b0e297): verification section states the code was written, synthetic-tested and reviewed after the design gate and before any analysis run; intro says 'every planned analysis run'; Deviations adds the gate/code-review order and the four unplanned presentation runs; 'no analysis outside the plan' -> 'no estimate outside the plan'.",
+      "ruling": "Resolved. (a) l.344 now reads 'After the design gate and before any analysis run, the code was written...'. (b) The Deviations paragraph 'Order of the design gate and the code review' (l.672-679) and plan.json disclosures[0] both state the order. They match log.jsonl: gate-approve design 06:52:04Z, econometrician brief 06:52:59Z, check-synthetic 07:01:20Z, code-r1 07:06:34Z, first analysis run 07:18:22Z. (c) l.111-117 now say 'every planned analysis run' and 'before any analysis run', and they point to the four presentation runs, which ran at 08:10Z, after the results gate at 08:01:43Z. The plan task e-check-synthetic still says 'before the design gate'. The disclosure's text covers this, because it says check-synthetic ran after the gate."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The AI-use statement is out of date and overcounts what was read. (a) It says 'the Replicator has not yet run' and 'Replication. Pending ... No replication.json exists'. replication.json now exists (created 2026-11-19T12:29:25Z, passed=true), and log.jsonl records 'replicator rerun passed=True'. It also says the paper review has not yet run; this is that review. (b) It says '7 were read in full text'. sources.json records that card1998reanalysis was read only in its abstract, introduction and Section I.A, and that neumark1995payroll was read closely only on pp. 1-10, with the rest keyword-searched. The Limitations item 'Sources read only in part' (l.635-638) omits both. Resolve: Update the Replication and Review items from replication.json and this review. Say that CK 1998 and NW 1995 were read in part, or count them separately. Then recompile.",
+      "evidence": "paper/ai-use.tex l.14, l.18-20, l.47-49, l.54-57; replication.json; log.jsonl 12:29:25Z; sources/sources.json card1998reanalysis.note, neumark1995payroll.note; paper/main.tex l.635-638",
+      "response": "Writer (9b0e297): ai-use.tex states the clean rerun passed 15/15 (replication.json), lists the Replicator, records paper round 1 (revise), counts sources as 5 read in full and 2 in part (NW 1995, CK 1998; also named in Limitations).",
+      "ruling": "Resolved. ai-use.tex now records the clean rerun: 15/15, no data reuse, 12:29 UTC. This matches replication.json (passed=true, runs=15, reuse_data=false) and the log. The Replicator is listed. The 12 cited sources are counted as 5 read in full, 2 in part, 3 from the abstract and 2 by DOI, which matches the sources.json method and note fields. Limitations l.644-650 name NW 1995 and CK 1998 as read in part. The 'so far, 1 on the paper' placeholder that remains is new finding F11."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "main.pdf is stale against refs.bib, and the bibliography mangles proper nouns. The Scout added a year to card_njmin_readme at 12:28:26Z, after main.pdf was compiled (about 08:20Z). The PDF still cites the readme as '(Card)' with no year (Data section, p.2) and lists it without a year. plainnat lowercases unprotected titles: 'new jersey', 'pennsylvania', 'card and krueger's', 'in r'. Resolve: Brace-protect the proper nouns in the refs.bib titles and recompile main.pdf after the final ai-use.tex update.",
+      "evidence": "paper/main.pdf p.2 'questionnaires (Card)' and References; refs.bib card1994minimum, card1998reanalysis, card2000reply, neumark1995payroll, neumark2000comment, mamula2021replicating, ropponen2010cic titles; log.jsonl 12:28:26Z scout bib-fixed",
+      "response": "Scout fixed the refs.bib year; Writer recompiled (readme cites as Card 2026) and added paper/plainnat-keepcase.bst so title case is kept as written in refs.bib.",
+      "ruling": "Resolved. main.pdf (CreationDate 12:35:56Z) was compiled after refs.bib (12:28:26Z), main.tex (12:35:20Z) and ai-use.tex (12:35:56Z), and its text matches the current sources. The References keep 'New Jersey', 'Pennsylvania', 'Card and Krueger's' and 'in R' as written, through plainnat-keepcase.bst. The readme cites as '(Card, 2026)'. The year is the access year for a page whose server reports Last-Modified 2007. The reference entry discloses this, so I do not raise it, but 'n.d.' would mislead less."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The paper calls Morshed (2025) a replication 'from the public file' that misses 'the 357-store sample'. sources/notes.md section 5 says the preprint does not state where its .dta file came from, that its wave-1 FTE means (7.72 NJ, 10.21 PA, against 20.44 and 23.33) point to a different measure or file, and that it reports no Table 4 N. Resolve: Reword: Morshed (2025), whose data source is not stated, reports point estimates far from the published ones and no Table 4 sample size; neither replication reproduces the published standard errors.",
+      "evidence": "paper/main.tex l.180-182; sources/notes.md section 5, Morshed bullets",
+      "response": "Writer (9b0e297): Morshed described as not stating the data source and not reporting the Table 4 N; the claims that it used the public file or missed the 357-store sample are removed.",
+      "ruling": "Resolved. l.72-74 and l.186-189 now describe Morshed (2025) as not stating its data source and reporting no Table 4 N. This matches sources/notes.md section 5: the .dta origin is unstated, there is no Table 4 N, and the SE is about 1.68 against 1.36."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "Parts of the H2 interpretation do not trace to claims. (a) l.535 'only one closure is capped, a Pennsylvania store' writes a result as a typed word, and no claim carries the closure's state (it comes from capped.csv). (b) l.539-543: 'Winsorization therefore mostly reshapes the changes of large stores at the bottom of the distribution, the size class for which Ropponen reports negative effects.' No logged metric splits the shrinkage. My own arithmetic on the logged runs/h2-winsor/capped.csv (no new estimation) splits the -0.41 change in the DiD as follows: PA low tail -0.61 (8 stores, mean FTE1 45.7), NJ low +0.19, NJ high -0.28, PA high +0.29. The net shrinkage comes from capping declines at eight large control-state stores, which says nothing about Ropponen's heterogeneity of New Jersey treatment effects, so placing the two side by side misleads. (c) l.549-551 says the estimate 'is not produced by the few stores beyond the 5th and 95th percentiles'. Winsorization caps those stores and does not remove them, so what it shows concerns the part of their changes beyond the cutoffs. Resolve: Use \\HTwoCappedLowClosed. Drop the Ropponen size-class sentence, or state, from a logged metric, that the shrinkage comes mainly from capping eight large Pennsylvania low-tail stores (which fits limitation T7). Reword (c) to 'not produced by the parts of the changes beyond the cutoffs'.",
+      "evidence": "paper/main.tex l.533-556; runs/h2-winsor/capped.csv; claims.jsonl h2-capped-low-closed",
+      "response": "Writer: '(in Pennsylvania)' removed; the 'mainly the Pennsylvania low tail' attribution dropped and replaced by 'no logged run splits the narrowing by state and tail, so we do not attribute it'; Ropponen sentence now rests only on capped changes not being effect estimates and coming from both states.",
+      "ruling": "Partly fixed. (a) The count is now \\HTwoCappedLowClosed. (c) l.557-560 now say winsorization caps rather than removes. The Ropponen juxtaposition is replaced by the correct statement that the narrowing says nothing about New Jersey heterogeneity. Two traceability gaps remain. First, l.532 still types '(in Pennsylvania)' for the capped closure; no claim carries it, and the fact comes only from capped.csv via runs/NOTES.md l.259. Second, l.549-551 says the shrinkage 'comes mainly from capping the declines of the Pennsylvania stores in the low tail', and the next words point to Table 2 for 'the capped counts by state and tail'. Those counts (NJ 12/16, PA 8/4) cannot show that. My arithmetic on the logged capped.csv (no estimation) confirms the statement is true: PA low -0.608, NJ high -0.279, NJ low +0.185, PA high +0.292, net -0.4105 = did_w - did_u. But the paper's reader cannot check it, and the paper rests its value on traceability. Severity stays minor."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Two wordings conflict with numbers elsewhere in the paper. (a) l.578 'The 71 New Jersey stores that already paid $5.00 or more' sits against l.203-204, which gives 73 such stores. The 71 are the stores with wave-1 FTE (claim placebo-hiwage-n), and the paper does not explain the difference. (b) The Conclusion (l.690) says the row-3 standard errors 'are not reproduced'. That departs from the pre-fixed wording 'point reproduced; SE construction not identified' and from Table 1, where the PA and DiD SEs are within tolerance and only the NJ SE misses. Resolve: Write 'the 71 of these 73 stores with first-wave employment data'. Use the pre-fixed SE wording in the Conclusion.",
+      "evidence": "paper/main.tex l.203-204, l.578-581, l.688-690; claims.jsonl placebo-hiwage-n; paper/tables/tab_replication.tex row 3",
+      "response": "Writer (9b0e297): placebo reads 'Of the 73 ... the 71 with first-wave employment data'; Conclusion uses 'point reproduced; SE construction not identified'.",
+      "ruling": "Resolved. l.587-590 reads 'Of the 73 ... the \\PlaceboHiwageN with first-wave employment data changed by ... under the row-3 rules'. l.716-717 uses the pre-fixed wording. One imprecision remains: under the row-3 rules the wave-2 mean covers 69 stores (placebo-hiwage n_nj_hi_w2), so 'the 71 ... changed by' describes a wave-1 count only. 'Under the row-3 rules' defines the estimate, so I do not reopen this."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Several plan.json task statuses are stale. rv-results is 'todo', although results-r1 and results-r2 exist and the results gate is approved. rp-rerun is 'todo', although replication.json exists. pi-design-gate is 'done', but its title's condition ('after design and code reviews') was not met (see F2). Resolve: Update the statuses, or annotate the pi-design-gate task with the actual order.",
+      "evidence": "plan.json tasks rv-results, rp-rerun, pi-design-gate",
+      "response": "PI: rv-results and rp-rerun set to done; the unmet pi-design-gate ordering and the four unplanned presentation runs are disclosed in plan.json (last disclosure).",
+      "ruling": "Resolved. rv-results and rp-rerun are now 'done'. The unmet pi-design-gate order and the four unplanned presentation runs are in plan.json disclosures[0], and its times match log.jsonl and reviews/code-r1 created 07:06:34Z."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "open",
+      "text": "The 'Corrections to the record' paragraph gives the results reviews the wrong findings. It says the first results review found that the notes 'set rows 1-2 against row 3 as if they could disagree', and that the second found only the Table 4 'every digit' claim. That contrast was results-r2 F4 (created 07:45:08Z). results-r1 (07:38:57Z) had F1 rounding, F2 the SE direction and the placebo SE, and F3 the task board. The log agrees: scout notes-corrected 'results-r2 F4' at 07:46:27Z. This is a small error, but it sits in the section that documents the process, which is the paper's stated value. Resolve: Attribute the rows 1-2 contrast and the Table 4 dependent mean to the second results review.",
+      "evidence": "paper/main.tex l.687-693; reviews/results-r1/review.json F1-F3; reviews/results-r2/review.json F4-F5; log.jsonl 07:46:27Z, 07:47:01Z",
+      "response": "Writer: 'Corrections to the record' now gives results-r1 the rounding and SE-direction findings and results-r2 the rows 1-2 vs row 3 contrast and the Table 4 dependent mean.",
+      "ruling": ""
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "open",
+      "text": "The 'One judge' paragraph says that 'every number in this paper is generated from the logged runs'. That is false as written. The paper types the published targets (2.76, 1.36, 0.54, ...), source figures (4.6 percent, 9.6 vs 3.2, 0.90 (0.44)), arithmetic on published entries (1.64), data-prep counts (73, 331/79) and process facts. The AI-use statement correctly says 'every result number' and lists the three typed kinds. Resolve: Write 'every result number in this paper'.",
+      "evidence": "paper/main.tex l.337-340; paper/ai-use.tex l.36-48",
+      "response": "Writer: 'One judge' now says 'every result number in this paper is generated from the logged runs'.",
+      "ruling": ""
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "open",
+      "text": "The AI-use Review item is still provisional. It reads 'so far, 1 on the paper (verdict: revise; this version answers its findings). This item is to be updated after the final paper round, before the submission gate.' Its list of each stage's final round with open minor findings has no paper entry. The PDF that goes to the submission gate must record the final paper round, its verdict and the findings left open. Resolve: After this round, state '2 on the paper' with this round's verdict, list the paper-r2 minor findings and how each was answered (or that it was left open), remove the 'to be updated' sentence, and recompile main.pdf.",
+      "evidence": "paper/ai-use.tex l.18-34; paper/main.pdf AI-use statement",
+      "response": "Writer: AI-use Review item now records 2 paper rounds (r1 revise, r2 pass with minor findings open), lists paper-r2's four minor findings and how this version answers them, and drops the 'to be updated' sentence; main.pdf recompiled.",
+      "ruling": ""
+    }
+  ]
+}

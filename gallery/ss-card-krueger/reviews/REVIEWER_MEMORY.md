@@ -223,3 +223,28 @@ At paper-r2, check:
   The Reference titles are brace-protected.
 - No new typed result numbers. If the PA low-tail decomposition is quoted, it needs a logged metric.
 - Whether REPLICATION.md / replication.json are newer than every run, and whether the paper reports the rerun accurately.
+
+## Round paper-r2 (2026-11-19): verdict pass
+
+What I checked, and it held:
+- `validate --strict` is OK. main.pdf (12:35:56Z) is newer than main.tex, ai-use.tex and refs.bib, and its text matches
+  them. replication.json passed with 15 runs and reuse_data=false, and it is newer than every run (the last run was 08:10Z).
+- Every paper-r1 response matches the files. The gate, run and review times in the Deviations section and in
+  plan.json disclosures[0] match log.jsonl. The presentation runs ran after the results gate (08:10Z vs 08:01:43Z). The
+  source counts (5/2/3/2) match sources.json. The Morshed wording matches notes.md section 5.
+- I recomputed the H2 shrinkage from capped.csv: PA low -0.608, NJ high -0.279, NJ low +0.185, PA high +0.292,
+  net -0.4105. "Mainly the PA low tail" is true, but no claim carries it.
+
+Ruled: F1-F5, F7 and F8 resolved. F6 stays open as minor: the typed "(in Pennsylvania)", and the "mainly" claim, which
+points to a count table that cannot show it. New, all minor and open:
+- F9: the Corrections paragraph credits the rows 1-2 contrast to results-r1. It was results-r2 F4.
+- F10: "every number in this paper is generated from the logged runs" should say "every result number".
+- F11: the ai-use Review item is still a placeholder ("so far, 1 on the paper ... to be updated"). It must record
+  paper-r2 and be recompiled before submission.
+
+Still minor, not raised: the readme cites as "Card, 2026" (access year; Last-Modified 2007, disclosed in the entry).
+The placebo text says "the 71 ... changed by", but the wave-2 count is 69. The e-check-synthetic task title still says
+"before the design gate".
+
+If a paper-r3 is run, check: the F9-F11 edits; ai-use updated from this round; the PDF recompiled afterwards; no new typed
+result numbers.
