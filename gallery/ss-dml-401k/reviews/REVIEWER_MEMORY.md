@@ -390,3 +390,41 @@ Check at round 2:
   SE type was confirmed before it is used.
 - F2-F8 wording. The AI-use now names paper-r1 and the replication.json result. The Replicator's
   verdict: BLAS-dependent lasso/nnet reruns may differ.
+
+## paper-r2 (2026-11-19): revise, 0 critical / 1 major / 2 minor open
+
+Status: F1-F5, F7 and F8 are resolved. F6(b) stays open: the AI-use replication and review
+items are stale and can only be closed after replication.json and the final paper round exist.
+New: F9 (minor) and F10 (major).
+
+- F9: "$5 to $33 at 5 folds" is wrong; the largest of the five in-scope gaps is $27, and $33
+  is probably the Ensemble column. The error started in notes.md and in MY paper-r1 F1 text.
+  The paper says the AER P&P appendix, but only the arXiv preprint was read. The dmlv4 bib
+  entry prints the year twice.
+- F10: the earlier run is misread. On independent splits, under the published-implied spread,
+  the gaps are jointly too small: sum z^2 = 2.95 on 10 df (p about 0.02). The lasso gaps of
+  -10/+15 against a run-to-run SD of $293/$227 have joint p of about 0.0014. Under our observed
+  spreads, sum z^2 = 5.8 (p about 0.17). So "wide lasso spread is a feature of the authors'
+  procedure" is backwards, or else it is mechanical if the splits were shared. The max-vs-max
+  comparison (+157 vs +154) hides that ours is larger in 7 of 10 cells (RMS about $99 vs $61).
+  My paper-r1 F1 ruling ("out-of-sample check that the tolerances are not too tight") partly
+  invited this. Question-r2 memory had warned against it.
+
+Verified myself (no model run; published-table arithmetic and file reads only):
+- The ten 2017-vs-2018 gaps match the notes.md rows.
+- A scratch compile of paper/ gives 19 pp with the same text as the committed main.pdf, and
+  no undefined refs or BibTeX warnings. validate is OK.
+- sources.json counts 16 + 3 + 2 + 1 = 22, matching ai-use. The abadie2000 record exists.
+- DMLonGitHub history starts with a8ef8ef on 2017-06-01, after the v4 run (Dec 2016). 401K.R
+  uses set.seed(1211), then foreach %dopar% on makeCluster(12) PSOCK, with no doRNG or
+  clusterSetRNGStream. So even the public code's splits are not fixed by the seed.
+
+Check at round 3:
+- F10: the lasso "feature of the procedure" sentence is deleted or neutralised; "run-to-run" /
+  "original code" is replaced; the max-vs-max sentence is dropped or made cell by cell (abstract,
+  Sec. 6, conclusion). Any new z/p/RMS figure needs a claim, not a typed literal.
+- F9: $27 in main.tex, c-aerpp-rerun and notes.md; "preprint" wording; bib year.
+- F6: ai-use review count, replication item, "Replicator has not yet run", and the Limitations
+  replication line, all against the Replicator's replication.json and REPLICATION.md.
+- Check that the Replicator's result, if it fails on lasso/nnet BLAS, is reported per run with
+  its magnitude, not just "differs".

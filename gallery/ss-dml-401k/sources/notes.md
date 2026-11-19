@@ -138,9 +138,15 @@ read on 2026-11-18. The repository was last pushed 2018-05-07. `[dmlongithub]`
   Table 2 (median over splits). Its Table 2, Panel B (PLR, median), 5-fold row is
   8202 (1581), 8894 (1440), 9252 (1400), 9089 (1378), 9065 (1393), 9199 (1379) and 9232
   (1359). Its 2-fold row is 7707, 8770, 9204, 8746, 9104, 9061 and 9129. Compared with the 2018
-  Table 2, Panel B, the gaps are at most $33 in the 5-fold row (Forest: 9252 vs 9247) and
-  at most $154 in the 2-fold row (Neural Net: 9104 vs 8950). This suggests how much the
-  published numbers move between two runs of the authors' own procedure.
+  Table 2, Panel B, the gaps for the five in-scope learners are $5-27 in the 5-fold row
+  (lasso +15, tree +23, forest +5, boosting −21, nnet +27) and $10-154 in the 2-fold row
+  (lasso −10, tree +61, forest +88, boosting −13, nnet +154). Their RMS over the ten cells
+  is $61.15. *Corrected 2026-11-19 (paper-r2 F9):* earlier versions of these notes said
+  "at most $33" for 5 folds. $33 is the out-of-scope Ensemble column (9199 vs 9166). The
+  earlier run's code and splits are not public; the repository history starts on
+  2017-06-01. So whether these gaps are split noise, code or version changes, or both is
+  unknown. Only the preprint arXiv:1701.08687v1 was read, not the appendix of the
+  published AER P&P article.
 - **Ahrens, Hansen, Schaffer & Wiemann (2024)**, Stata Journal 24(1):3-45, ddml.
   `[ahrens2024ddml]` Text from arXiv:2301.09397v3. In Sec. 6.1 the 401(k) PLR on
   `sipp1991.dta` has n = 9915, 4 folds and 1 resample, with robust SEs. The short-stacked
@@ -204,7 +210,7 @@ read on 2026-11-18. The repository was last pushed 2018-05-07. `[dmlongithub]`
    DoubleML docs and the seed brief agree.
 5. **PLR score and Lasso dictionary** are only in the code, not the paper (see above).
 6. **Version drift.** The published numbers match arXiv v7 exactly. The 2017 AER P&P run
-   differs by up to $33 (5-fold) and $154 (2-fold). The CausalML book reprint has a column error.
+   differs by $5-27 (5-fold) and $10-154 (2-fold) on the five in-scope learners. The CausalML book reprint has a column error.
 
 ## 4. Unverified / not added
 
@@ -274,7 +280,8 @@ and hypotheses.
   incremental, not new knowledge about 401(k) plans.
 - **Closest prior work:**
   - Chernozhukov et al. (2017, AER P&P), a second run by the same authors. Compared with
-    2018, its PLR median estimates differ by $5-33 at 5 folds and by up to $154 at 2 folds.
+    2018, its PLR median estimates differ by $5-27 at 5 folds and by $10-154 at 2 folds
+    (five in-scope learners; read from the preprint arXiv:1701.08687v1 only).
   - Ahrens et al. (2024, ddml): same data and model, but not the published protocol.
 - **Implications for the current hypotheses:**
   - **H2** (re-done 2026-11-18 for review question-r3, F14). This follows `plan.json`

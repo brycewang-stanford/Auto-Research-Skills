@@ -55,9 +55,9 @@ detected. Smaller shifts are not ruled out. The two lasso cells lie inside their
 tolerance but cannot be tested at this resolution, and the replicated lasso estimates
 vary several times less across splits than the published standard errors imply (the
 published split spread is not observed; it is inferred from the two standard-error
-rows). The authors' own earlier run of the procedure differs from the published table by
-up to \$154 in a cell, inside every tolerance; our largest testable difference is of that
-size. The lasso estimate is
+rows). Two published runs by the same authors, whose code and splits are not known,
+differ by \$5 to \$154 per cell, all inside our tolerances, which suggests that the
+tolerances are, if anything, wide. The lasso estimate is
 below every flexible learner's at both fold counts (H3).
 \end{abstract}
 
@@ -196,21 +196,28 @@ $c = 1.1$, although, as Section~\ref{sec:impl} explains, what \var{hdm} applies 
 on its version. The configurations of the tree, forest, boosting and neural-network
 learners are also in the code, and we copy them (Table~\ref{tab:learners}).
 
-\paragraph{Two runs by the same authors.} The Table~2 estimates published in 2018 first
-appear in arXiv:1608.00060v5 (21 June 2017); version~4 (30 December 2016) reports an
-earlier run \citep{chernozhukov2018dml,chernozhukov2016dmlv4}. The same earlier numbers
-appear in the appendix of the authors' \emph{AER Papers and Proceedings} article
-\citep{chernozhukov2017aerpp,chernozhukov2016dmlv4}. That earlier run is the same
-exercise, also aggregated by the median over splits. Taking the earlier value minus the
-2018 value, its PLR cells differ from the published ones by \$5 to \$33 at 5 folds
+\paragraph{Two published runs by the same authors.} The Table~2 estimates published in
+2018 first appear in arXiv:1608.00060v5 (21 June 2017); version~4 (30 December 2016)
+reports an earlier run \citep{chernozhukov2018dml,chernozhukov2016dmlv4}. The same
+earlier numbers appear in the appendix of arXiv preprint 1701.08687v1 of the authors'
+\emph{AER Papers and Proceedings} article; we read that preprint, not the published
+appendix \citep{chernozhukov2017aerpp,chernozhukov2016dmlv4}. The earlier run is the same
+exercise, also aggregated by the median over splits, but its code and splits are not
+known. The authors' public repository begins on 1 June 2017, after that run
+\citep{dmlongithub}, and the review of this paper found that even the public script does
+not fix the splits it draws on parallel workers. The two runs may therefore differ in
+splits, code or package versions, and their gaps cannot be read as run-to-run split noise
+of one fixed procedure. Taking the earlier value minus the 2018 value, the earlier PLR
+cells differ from the published ones by \$5 to \$27 at 5 folds
 (lasso $+15$, tree $+23$, forest $+5$, boosting $-21$, neural network $+27$) and by \$10
 to \$154 at 2 folds (lasso $-10$, tree $+61$, forest $+88$, boosting $-13$, neural network
-$+154$). All ten gaps are smaller than our pre-registered tolerances
+$+154$); their root mean square over the ten cells is \$61. All ten gaps are smaller
+than our pre-registered tolerances
 \citep{chernozhukov2017aerpp,chernozhukov2016dmlv4,chernozhukov2018dml}. The earlier
 run's parenthesized standard errors are the same split-adjusted SE as the 2018 row (no
 bracketed row is reported). For the lasso they are 1,785 at 2 folds and 1,581 at 5
 folds, against 1,749 and 1,558 in 2018 \citep{chernozhukov2017aerpp,chernozhukov2016dmlv4}.
-We use this earlier run as a yardstick in Section~\ref{sec:results}.
+Section~\ref{sec:results} sets these gaps beside ours.
 
 % ---------------------------------------------------------------------------------------
 \section{Data}
@@ -607,25 +614,26 @@ standard errors imply \$$\SplitSdPubLassoTwo$ and \$$\SplitSdPubLassoFive$, seve
 times more. The published spread is not observed: it is inferred from the two
 published SE rows through the $1.4826\,(\text{adj}^2 - \text{med}^2)^{1/2}$
 approximation. For the other learners our spread is also narrower than the published
-SEs imply, but by much less (Figure~\ref{fig:spread}). The large published lasso adjusted
-SEs recur in the authors' earlier run (1,785 and 1,581; Section~\ref{sec:original}). This
-suggests that the wide lasso spread is a feature of the authors' procedure rather than of
-one run of it. Of all the replicated estimates and standard
+SEs imply, but by much less (Figure~\ref{fig:spread}). The authors' earlier published run
+reports similar lasso adjusted SEs (1,785 and 1,581; Section~\ref{sec:original}). Because
+its splits and code are not known, this says nothing about why our spread is narrower.
+Of all the replicated estimates and standard
 errors, these two lasso adjusted SEs are the only ones that miss the published values by
 more than 15\%. No run tests why our lasso varies so much less across splits. A lasso
 median that matches the published one closely while its split distribution is several
 times narrower is weak evidence that our port behaves like the authors' lasso on
 \var{net\_tfa}. We read the lasso cells only as ``inside, not testable''.
 
-\paragraph{A yardstick: the authors' own earlier run.} Two runs of the authors' own
-procedure differ by \$5 to \$154 per cell, and all ten of those gaps lie inside our
-tolerances (Section~\ref{sec:original}). So the tolerances are not narrower than the
-authors' own run-to-run variation. Our differences are of the same order. Our largest
-testable difference, $+\$\DiffNnetTwo$ in the 2-fold neural-network cell, is close to the
-authors' own gap in that cell ($+\$154$). This comparison is descriptive. The earlier
-run is a single draw from the authors' procedure, and our differences mix split noise
-with the port deviations. It shows only that differences of the size we find also arise
-between two runs of the original code.
+\paragraph{The two published runs as a comparison.} The gaps between the authors' two
+published runs (\$5 to \$154 per cell; Section~\ref{sec:original}) all lie inside our
+tolerances, most of them well inside. As a calibration they suggest that the tolerances are, if anything, wide, which
+fits the factor 1.4826 being an upper bound. They do not show that the tolerances are
+adequate. Cell by cell, our differences (Table~\ref{tab:side}) are larger than the
+published-run gaps in most cells, notably the 5-fold forest, boosting and neural-network
+cells. Some of this is expected from our smaller $S$ for the forest and boosting and from
+the port deviations. Because the earlier run's code and splits are not known, its gaps
+are not a measure of the run-to-run variation of the original code, and we do not read
+our differences against them as a test.
 
 \subsection{H3}
 
@@ -930,8 +938,8 @@ expected, that every estimate is positive and significant and that the lasso giv
 smallest estimate. For readers who use this application as a benchmark, the main lessons
 concern precision, not the sign or size of the effect. Even with 100 splits, a
 cell-by-cell check of these estimates cannot see shifts of a few hundred dollars. The
-authors' own two runs differ by up to \$154 per cell, and our largest testable difference
-is of that size. In our implementation, the treatment forest and the lasso's
+authors' two published runs differ by up to \$154 per cell, inside every tolerance, which
+suggests the tolerances are, if anything, wide. In our implementation, the treatment forest and the lasso's
 split-to-split variability are where the estimates depart, or may depart, from the
 original. Whether another independent implementation would depart in the same places is
 not something one implementation can show.
