@@ -278,9 +278,12 @@
       "note": "Approve (in chat, after results-r2 pass; H1 within cross-fitting noise, H3 placebo failed, contrast not an effect; minor F6/F7 open for the Econometrician)"
     },
     "submission": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-19T17:05:21Z",
-      "summary": "Paper after paper-r2 pass (F4, F7, F8 answered in text); validate --strict OK; clean rerun passed 19/19"
+      "summary": "Paper after paper-r2 pass (F4, F7, F8 answered in text); validate --strict OK; clean rerun passed 19/19",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-19T17:07:34Z",
+      "note": "Approve (批准, in chat, after paper-r2 pass; F4/F7/F8 fixed in text after round 2, not re-reviewed)"
     }
   },
   "design_constraints": [
