@@ -90,3 +90,4 @@
 {"time": "2026-11-19T12:40:19Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T124019Z (paper-r4 F6b, F14)"}
 {"time": "2026-11-19T12:40:55Z", "role": "writer", "action": "paper-revised", "detail": "paper-r4 F6(b) (four paper rounds, round 4 pass, listed among final rounds with minor findings open) and F14 (conclusion wording matches the introduction) answered in paper/; compiles clean"}
 {"time": "2026-11-19T12:41:15Z", "role": "pi", "action": "gate-request", "detail": "submission"}
+{"time": "2026-11-19T12:47:17Z", "role": "pi", "action": "gate-approve", "detail": "submission Bryce Wang"}

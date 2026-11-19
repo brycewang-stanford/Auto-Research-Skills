@@ -1,7 +1,7 @@
 {
   "crew_version": "0.1.0",
   "protocol": "0.1",
-  "scored_on": "2026-11-19T12:38:28Z",
+  "scored_on": "2026-11-19T12:47:18Z",
   "results": [
     {
       "workspace": "gallery/cs-calibration",
@@ -15,7 +15,7 @@
         "submission": "pending"
       },
       "complete": false,
-      "validation_errors": 1,
+      "validation_errors": 0,
       "rerun_passed": null,
       "reviews": 8,
       "cross_family_reviews": 0,
@@ -61,7 +61,7 @@
       "complete": false,
       "validation_errors": 0,
       "rerun_passed": true,
-      "reviews": 8,
+      "reviews": 9,
       "cross_family_reviews": 0,
       "protocol": "in-progress",
       "answer": {
@@ -96,14 +96,14 @@
         "question": "approved",
         "design": "approved",
         "results": "approved",
-        "submission": "pending"
+        "submission": "approved"
       },
-      "complete": false,
+      "complete": true,
       "validation_errors": 0,
       "rerun_passed": true,
-      "reviews": 14,
+      "reviews": 15,
       "cross_family_reviews": 0,
-      "protocol": "in-progress",
+      "protocol": "pass",
       "answer": {
         "status": "pass",
         "details": {
@@ -155,7 +155,7 @@
         "submission": "pending"
       },
       "complete": false,
-      "validation_errors": 1,
+      "validation_errors": 0,
       "rerun_passed": null,
       "reviews": 7,
       "cross_family_reviews": 0,

@@ -654,9 +654,12 @@
       "note": "Approved in chat on 2026-11-19 after reading the cells, the hypotheses, the honest reading of H2 and the disclosed overrun."
     },
     "submission": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-19T12:41:15Z",
-      "summary": "Paper after paper-r4 pass (F6b, F14 answered; F15 done); validate --strict OK; clean rerun passed (replication.json)"
+      "summary": "Paper after paper-r4 pass (F6b, F14 answered; F15 done); validate --strict OK; clean rerun passed (replication.json)",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-19T12:47:17Z",
+      "note": "Approve (in chat, after paper-r4 pass; F6b/F14 fixed in text after round 4, not re-reviewed)"
     }
   },
   "disclosures": [
