@@ -209,7 +209,9 @@
       "note": "Approved in chat on 2026-11-19 after reading the design, the SE-construction caveat and the H2 bias toward passing."
     },
     "results": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-19T07:47:20Z",
+      "summary": "Results passed review in round 2; minor F4/F5 answered."
     },
     "submission": {
       "status": "pending"

@@ -60,3 +60,4 @@
 {"time": "2026-11-19T07:46:12Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261119T074612Z"}
 {"time": "2026-11-19T07:46:27Z", "role": "scout", "action": "notes-corrected", "detail": "results-r2 F4: notes sec 1 places the row-3 gap in the unbalanced wave means (rows 1-3), rows 1-2 match only at printed precision, row 4 matches"}
 {"time": "2026-11-19T07:47:01Z", "role": "econometrician", "action": "results-r2-responded", "detail": "F4: gap located in unbalanced wave means (row 3 = row 2 - row 1 on shared wave samples; rows 1-2 match only at printed precision; single-wave-store cause a conjecture); F5: Table 4 dep mean -0.2375 vs -0.237 just outside rounding, exact match limited to coef/SE/N/RMSE/SD; wording only, RegDepMean now .4f"}
+{"time": "2026-11-19T07:47:20Z", "role": "pi", "action": "gate-request", "detail": "results"}
