@@ -33,3 +33,9 @@
 {"time": "2026-11-19T07:00:13Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261119T070013Z"}
 {"time": "2026-11-19T07:00:49Z", "role": "designer", "action": "design-revised", "detail": "PI rulings on ece_db: M=1,000 with fixed seeds (debias.spawn(12); sens-elec-time SeedSequence([20261119,2,s,1])); negative ece_db reported unfloored, with reason; presented as heuristic without guarantee for unsquared ECE; timing note clarified. plan.json sha256=a697fbf63835bddbabc617c5e1f4c596cbb189d71f4a6e77ab073e124ddc3ced"}
 {"time": "2026-11-19T07:01:02Z", "role": "pi", "action": "brief-archived", "detail": "reviewer design-r2 20261119T070102Z"}
+{"time": "2026-11-19T07:03:54Z", "role": "pi", "action": "plan-revised", "detail": "design-r2 F5 wording; disclosed. plan.json sha256=c1d030970a148f8ccc5cc7573c6ed85dde212dc5eb2f1d9a90ab2f49c85966e3"}
+{"time": "2026-11-19T07:03:54Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261119T070354Z"}
+{"time": "2026-11-19T07:04:10Z", "role": "data-ra", "action": "run", "detail": "fetch-data exit=0"}
+{"time": "2026-11-19T07:04:20Z", "role": "designer", "action": "run", "detail": "timing-synthetic exit=0"}
+{"time": "2026-11-19T07:04:33Z", "role": "data-ra", "action": "runs-replaced", "detail": "fetch-data and timing-synthetic rerun with --replace under .venv python 3.12.11 (env now recorded); all 32+19 metrics and all data/output hashes unchanged; timing.json differs only in wall-clock seconds"}
+{"time": "2026-11-19T07:05:01Z", "role": "pi", "action": "gate-request", "detail": "design"}

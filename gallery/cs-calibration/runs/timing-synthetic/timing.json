@@ -4,7 +4,7 @@
     "n_jobs": 8
   },
   "timed_cells": 8,
-  "timing_wall_seconds": 11.123645209008828,
+  "timing_wall_seconds": 8.256471291999333,
   "per_cell": [
     {
       "dataset": "adult",
@@ -14,13 +14,13 @@
       "n_test": 5000,
       "n_columns": 108,
       "lr_n_iter": 60,
-      "cell_seconds": 7.1886727919918485,
-      "fit_lr": 0.1044950420036912,
-      "cal_score_lr": 0.7571752500371076,
-      "fit_rf": 2.0697587500326335,
-      "cal_score_rf": 1.5454330000211485,
-      "fit_hgb": 1.6695186250144616,
-      "cal_score_hgb": 0.7066841250052676
+      "cell_seconds": 5.311277374974452,
+      "fit_lr": 0.13623316603479907,
+      "cal_score_lr": 0.7158652919461019,
+      "fit_rf": 1.4939038330339827,
+      "cal_score_rf": 0.8607175829820335,
+      "fit_hgb": 1.1955507909879088,
+      "cal_score_hgb": 0.5269410000182688
     },
     {
       "dataset": "adult",
@@ -30,13 +30,13 @@
       "n_test": 5000,
       "n_columns": 108,
       "lr_n_iter": 51,
-      "cell_seconds": 6.90880625002319,
-      "fit_lr": 0.07582691701827571,
-      "cal_score_lr": 0.8094899589777924,
-      "fit_rf": 1.8540964580024593,
-      "cal_score_rf": 1.2864590829703957,
-      "fit_hgb": 1.7315387499984354,
-      "cal_score_hgb": 0.8148618339910172
+      "cell_seconds": 5.118584416981321,
+      "fit_lr": 0.10507966700242832,
+      "cal_score_lr": 0.7389044999727048,
+      "fit_rf": 1.3141565410187468,
+      "cal_score_rf": 0.802524667000398,
+      "fit_hgb": 1.2765333330025896,
+      "cal_score_hgb": 0.4851732910028659
     },
     {
       "dataset": "bank_marketing",
@@ -46,13 +46,13 @@
       "n_test": 5000,
       "n_columns": 51,
       "lr_n_iter": 46,
-      "cell_seconds": 6.109969749988522,
-      "fit_lr": 0.019862209039274603,
-      "cal_score_lr": 0.7638913749833591,
-      "fit_rf": 2.040589959011413,
-      "cal_score_rf": 1.1364145000115968,
-      "fit_hgb": 0.9754753750166856,
-      "cal_score_hgb": 0.8297309579793364
+      "cell_seconds": 4.646649083995726,
+      "fit_lr": 0.04876637499546632,
+      "cal_score_lr": 0.7344430419616401,
+      "fit_rf": 1.4412262080004439,
+      "cal_score_rf": 0.7294469170155935,
+      "fit_hgb": 0.6434509580140002,
+      "cal_score_hgb": 0.6823313750210218
     },
     {
       "dataset": "bank_marketing",
@@ -62,13 +62,13 @@
       "n_test": 5000,
       "n_columns": 51,
       "lr_n_iter": 41,
-      "cell_seconds": 5.984703499998432,
-      "fit_lr": 0.04852929204935208,
-      "cal_score_lr": 0.6788016670034267,
-      "fit_rf": 1.8825014170142822,
-      "cal_score_rf": 1.1948256250470877,
-      "fit_hgb": 0.9546357079525478,
-      "cal_score_hgb": 0.8741513330023736
+      "cell_seconds": 4.590399042004719,
+      "fit_lr": 0.03369675000431016,
+      "cal_score_lr": 0.7442462500184774,
+      "fit_rf": 1.3877164999721572,
+      "cal_score_rf": 0.722384124994278,
+      "fit_hgb": 0.6285833329893649,
+      "cal_score_hgb": 0.6957967079943046
     },
     {
       "dataset": "electricity",
@@ -78,14 +78,14 @@
       "n_test": 5000,
       "n_columns": 14,
       "lr_n_iter": 20,
-      "cell_seconds": 8.5328142499784,
-      "fit_lr": 0.021994417009409517,
-      "cal_score_lr": 0.7528815420228057,
-      "fit_rf": 1.905684957979247,
-      "cal_score_rf": 1.2703807500074618,
-      "fit_hgb": 0.33933275000890717,
-      "cal_score_hgb": 0.9867752910358831,
-      "elec_chrono": 3.1191087079932913
+      "cell_seconds": 6.290847750031389,
+      "fit_lr": 0.0495328750112094,
+      "cal_score_lr": 0.8137661670334637,
+      "fit_rf": 1.335485624964349,
+      "cal_score_rf": 0.783907457953319,
+      "fit_hgb": 0.2221188330440782,
+      "cal_score_hgb": 0.6288847920368426,
+      "elec_chrono": 2.327499374980107
     },
     {
       "dataset": "electricity",
@@ -95,14 +95,14 @@
       "n_test": 5000,
       "n_columns": 14,
       "lr_n_iter": 32,
-      "cell_seconds": 8.568641791993286,
-      "fit_lr": 0.018482375016901642,
-      "cal_score_lr": 0.7885049160104245,
-      "fit_rf": 1.9579233329859562,
-      "cal_score_rf": 1.2427545840037055,
-      "fit_hgb": 0.320555999991484,
-      "cal_score_hgb": 1.013476833992172,
-      "elec_chrono": 3.117056416987907
+      "cell_seconds": 6.144048082991503,
+      "fit_lr": 0.04231912497198209,
+      "cal_score_lr": 0.8064048750093207,
+      "fit_rf": 1.3146162920165807,
+      "cal_score_rf": 0.7206037500291131,
+      "fit_hgb": 0.22089024999877438,
+      "cal_score_hgb": 0.6206815830082633,
+      "elec_chrono": 2.277681915962603
     },
     {
       "dataset": "phoneme",
@@ -112,13 +112,13 @@
       "n_test": 1351,
       "n_columns": 5,
       "lr_n_iter": 8,
-      "cell_seconds": 1.3961005000164732,
-      "fit_lr": 0.0017495420179329813,
-      "cal_score_lr": 0.16637091600568965,
-      "fit_rf": 0.4669062920147553,
-      "cal_score_rf": 0.2905655420036055,
-      "fit_hgb": 0.21778512501623482,
-      "cal_score_hgb": 0.23047754098661244
+      "cell_seconds": 1.1529300419497304,
+      "fit_lr": 0.011155333020724356,
+      "cal_score_lr": 0.15249420801410452,
+      "fit_rf": 0.5323210830101743,
+      "cal_score_rf": 0.17537841602461413,
+      "fit_hgb": 0.11572191602317616,
+      "cal_score_hgb": 0.11973295797361061
     },
     {
       "dataset": "phoneme",
@@ -128,27 +128,27 @@
       "n_test": 1351,
       "n_columns": 5,
       "lr_n_iter": 8,
-      "cell_seconds": 1.426558416977059,
-      "fit_lr": 0.003229708003345877,
-      "cal_score_lr": 0.14877887500915676,
-      "fit_rf": 0.4804288750165142,
-      "cal_score_rf": 0.32108995801536366,
-      "fit_hgb": 0.20422412501648068,
-      "cal_score_hgb": 0.25192808301653713
+      "cell_seconds": 1.2408028750214726,
+      "fit_lr": 0.03702741704182699,
+      "cal_score_lr": 0.14266229199711233,
+      "fit_rf": 0.5867549999966286,
+      "cal_score_rf": 0.18540754198329523,
+      "fit_hgb": 0.12306308298138902,
+      "cal_score_hgb": 0.1305721250246279
     }
   ],
   "mean_cell_seconds_by_dataset": {
-    "adult": 7.048739521007519,
-    "bank_marketing": 6.047336624993477,
-    "electricity": 8.550728020985844,
-    "phoneme": 1.4113294584967662
+    "adult": 5.214930895977886,
+    "bank_marketing": 4.618524063000223,
+    "electricity": 6.217447916511446,
+    "phoneme": 1.1968664584856015
   },
   "estimate": {
     "study_cells": 40,
-    "cpu_seconds": 230.58133625483606,
-    "wall_seconds_8_workers": 28.822667031854508,
-    "wall_minutes_8_workers": 0.4803777838642418,
-    "cpu_minutes": 3.8430222709139343,
+    "cpu_seconds": 172.47769333975157,
+    "wall_seconds_8_workers": 21.559711667468946,
+    "wall_minutes_8_workers": 0.3593285277911491,
+    "cpu_minutes": 2.874628222329193,
     "note": "includes ECE null floor (B=200), the n_cal=1,351 isotonic sensitivity and the electricity chronological split; analysis scripts on 360 rows add seconds"
   }
 }

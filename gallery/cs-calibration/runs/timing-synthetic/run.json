@@ -6,8 +6,8 @@
     ".venv/bin/python",
     "code/timing_synthetic.py"
   ],
-  "started": "2026-11-19T01:25:02Z",
-  "finished": "2026-11-19T01:25:15Z",
+  "started": "2026-11-19T07:04:10Z",
+  "finished": "2026-11-19T07:04:20Z",
   "exit_code": 0,
   "code": [
     {
@@ -19,7 +19,7 @@
   "outputs": [
     {
       "path": "runs/timing-synthetic/timing.json",
-      "sha256": "29fb4d9381d2ee6f749ef38f17f3fefcfe369511c910dfcc6a5dc7f8d9c777f1"
+      "sha256": "1db360c251c44e17654093969c8d2b72845c00b32cfe068e48a2b6c520c88c27"
     },
     {
       "path": "runs/timing-synthetic/metrics.json",
@@ -49,7 +49,10 @@
   },
   "metrics_file": "runs/timing-synthetic/metrics.json",
   "env": {
-    "python": "3.14.6",
-    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/cs-calibration/.venv"
   }
 }

@@ -1,0 +1,83 @@
+{
+  "id": "design-r2",
+  "target": "design",
+  "round": 2,
+  "created": "2026-11-19T07:02:43Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/tracks/cs.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/bench/seeds/cs-calibration/task.json",
+    "/Users/brycewang/Auto-Research-Skills/crew/scripts/crew.py (rerun comparison, grep)",
+    "briefs/20261119T070102Z-reviewer.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r1/review.json",
+    "plan.json",
+    "claims.jsonl",
+    "log.jsonl (tail)",
+    "refs.bib (kumar2019)",
+    "sources/sources.json (kumar2019)",
+    "sources/notes.md (grep D1)",
+    ".gitignore",
+    ".python-version",
+    "code/requirements.txt",
+    "runs/fetch-data/run.json",
+    "runs/timing-synthetic/run.json",
+    "runs/timing-synthetic/metrics.json",
+    "arXiv:1909.10155v2 PDF, Appendix G Definition G.3 and following paragraph (fetched to reviewer scratch)"
+  ],
+  "kill_argument": "H1 is still a confirmatory test with a 0.005 margin on an instrument whose noise floor is two to eight times that margin; the design-r1 fix makes the claim honest rather than informative. Scoped to 'the plug-in 15-bin estimator on these samples', H1 can come out supported or contradicted purely from how RF and LR spread predictions across equal-mass bins (a sharper, well-calibrated RF has a lower floor and reads as better calibrated), yet the contribution still sells it as 'a replication of a known calibration result'. A referee would say the verdict either replicates Niculescu-Mizil and Caruana or measures an estimator artefact, and the paper cannot tell which without a heuristic sensitivity it has promised never to let decide. What held: plan.json sha256 a697fbf6... matches the last designer log line; method step 8's ece_db matches Kumar et al. arXiv v2 Def. G.3 and its 'heuristic' caveat; draw seeds are fixed; the amendment is disclosed before any run; runs/ holds only data-prep runs; validate is OK. Because the claim is now scoped and the disagreement rule pre-stated, this is minor, not major.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "conceded",
+      "text": "H1 margin (0.005 ECE) lies below the resolution of its estimator, and the pre-declared correction (ece_adj = ece - floor) is biased against H1.",
+      "evidence": "plan.json hypotheses[0]; design.method steps 8, 11, 12(a); design.threats[0]; disclosures[0]",
+      "response": "Designer: H1 text narrowed to the plug-in 15-bin equal-mass estimator with its bias direction stated (amendment disclosed in plan.json disclosures); ece_floor/ece_adj replaced by Kumar et al. (2019) Def. G.3 debiased l1 ECE (M=1,000 normal draws), reported only (method steps 8 and 12a, threats[0]).",
+      "ruling": "Conceded by narrowing. hypotheses[0] now scopes the H1 verdict to the plug-in estimator on these samples and states both bias directions correctly; ece_adj is gone. Method step 8's ece_db matches Kumar et al. arXiv v2 Def. G.3 (checked against the PDF), with fixed seeds (step 2, debias.spawn(12)), no flooring, and the heuristic status stated. The amendment is logged (plan.json sha256 afd41598..., then a697fbf6...) before any analysis run and disclosed in plan.json disclosures. The residual weakness (the margin is still below the floor) is now a scope statement, not a hidden bias; see F5 for the wording that still overstates it."
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "sens-ncal equalises only calibration n; phoneme also differs in training n and test n.",
+      "evidence": "plan.json design.analysis_plan (sens-ncal); design.threats[2]; design.method step 12(b)",
+      "response": "Designer: sens-ncal's purpose narrowed to equalising calibration n only; training n and test n differences on phoneme stated (method step 12b, analysis_plan, threats[2]).",
+      "ruling": "Fixed in the files: step 12(b), the sens-ncal analysis_plan entry and threats[2] all say calibration n only and that nothing is attributed to the dataset itself."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Python interpreter not pinned; run.json env.python records 3.14.6 while .venv is 3.12.11.",
+      "evidence": "runs/fetch-data/run.json env; runs/timing-synthetic/run.json env; code/requirements.txt; .python-version",
+      "response": "Designer: .python-version (3.12) added and '# python 3.12.11' header line added to code/requirements.txt.",
+      "ruling": "Pin fixed: .python-version reads 3.12 and requirements.txt line 1 is '# python 3.12.11'. The ledger still records env.python 3.14.6 for both runs because crew.py writes its own interpreter, not the command's; the designer cannot edit tool-written records. The Replicator and the paper must take the interpreter from .python-version/requirements.txt, not from run.json env. Recorded in reviewer memory for the replication check."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Format and git status of results/preds/ unspecified.",
+      "evidence": "plan.json design.method step 8 (last paragraph); .gitignore",
+      "response": "Designer: predictions stored as numpy.savez_compressed .npz under results/preds/<run>/ (method step 8); results/preds/ added to the workspace .gitignore.",
+      "ruling": "Fixed in the files: step 8 fixes .npz per (dataset, seed, run) with named float64 arrays, and the workspace .gitignore lists results/preds/."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "The contribution and H1's label still call H1 'a replication of a known calibration result' (Niculescu-Mizil and Caruana 2005), but after the F1 amendment the H1 verdict is explicitly a statement about the plug-in 15-bin equal-mass estimator on these samples, which can be decided by the difference of noise floors (H1 text: 'if both are well calibrated, it equals the difference of their floors, whose sign depends on how each model spreads its predictions'). A 'supported' or 'contradicted' H1 therefore does not by itself replicate or fail to replicate a claim about calibration. The wording invites exactly the overreach the amendment was meant to prevent, and it will propagate into the abstract. Resolving evidence (no experiment needed): reword the contribution and the H1 label to say H1 tests, on the plug-in estimator, the direction Niculescu-Mizil and Caruana reported, and commit that the paper will call H1 a replication only where the ece_db sensitivity agrees in direction.",
+      "evidence": "plan.json contribution ('a replication of a known calibration result (H1)'); plan.json hypotheses[0] opening '(replication; Niculescu-Mizil and Caruana 2005)' versus the same entry's scope sentence; design.threats[0] last sentence",
+      "response": "PI: H1 label and contribution reworded to a test of the published direction on the plug-in estimator, 'replication' only where the debiased ECE agrees; disclosed as a post-question-gate amendment.",
+      "ruling": ""
+    }
+  ],
+  "ran": "No model, estimate or label-dependent statistic on study data. Ran crew.py validate (OK, 0 warnings), sha256 of plan.json, and fetched arXiv:1909.10155v2 to check Def. G.3 against method step 8 and claim c-kumar-debiased-ece."
+}

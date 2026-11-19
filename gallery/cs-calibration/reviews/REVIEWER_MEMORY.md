@@ -177,3 +177,40 @@ Check next time (design-r2 / code-r1):
 Things I ran: no model and no estimate on study data. I counted duplicate feature
 vectors on data/raw CSVs with the target dropped (adult 57 excess, phoneme 9, others
 0; negligible), read the sklearn 1.9.1 source, and ran crew.py validate (OK).
+
+## design-r2 (2026-11-19 UTC), verdict: pass (0 critical, 0 major, 1 minor open)
+
+Status of r1 findings: F1 conceded (H1 narrowed to the plug-in estimator, bias
+directions stated, ece_adj replaced by Kumar Def. G.3 ece_db, amendment disclosed and
+logged before any run; plan.json sha256 a697fbf6... matches the last designer log line).
+F2, F3, F4 resolved. I checked Def. G.3 against the arXiv v2 PDF myself: the formula,
+variance y_k(1-y_k)/(n p_k), and 'a heuristic approach' all match step 8 and claim
+c-kumar-debiased-ece.
+
+New:
+- F5 (minor): contribution and H1 label still say "replication" of Niculescu-Mizil and
+  Caruana, while the verdict is now about an estimator whose floor difference can decide
+  it. Cheap fix: reword; call it a replication only where ece_db agrees in direction.
+
+Suspicions carried forward:
+- Results: if H1 is "supported" or "contradicted" where |dbar| is below the mean floor
+  (about 0.01-0.02; phoneme 0.03-0.04), or where ece_db disagrees, check that the
+  abstract states both (step 11) and does not say "replicates".
+- Confirmatory ECE must not be swapped for ece_db after results.
+- Ledger env.python records crew.py's interpreter (3.14.6), not .venv 3.12.11. At
+  replication, check the clean environment uses .python-version / requirements header,
+  and that the paper does not quote env.python.
+- fit seconds must stay out of every runs/*/metrics.json (crew.py rerun compares every
+  key at rtol 1e-6); step 8 says "not compared on rerun", which holds only if they live
+  in cells.csv.
+
+Check next time (code-r1):
+- Everything listed under design-r1 "Check next time" for code.
+- ece_db: one rng.normal(size=(1000, K)) call per cell, children 0..8 in (lr, rf, hgb) x
+  (none, platt, isotonic) order, 9..11 for sens-ncal; no flooring; bins with y_k in
+  {0,1} give zero correction; same bins/tie rule as ece.
+- sens-elec-time uses SeedSequence([20261119, 2, s, 1]) and sorts by original row index.
+- runs/ must contain only data-prep runs until the design gate is approved.
+
+Things I ran: no model and no estimate on study data. crew.py validate (OK), sha256 of
+plan.json, and fetched arXiv:1909.10155v2 into reviewer scratch to read Def. G.3.
