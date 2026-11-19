@@ -59,7 +59,7 @@
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "url": "https://davidcard.berkeley.edu/readme/njmin-readme.txt",
-    "note": "Plain-text readme linked from davidcard.berkeley.edu/data_sets.html next to njmin.zip. Lists the five files in the archive. The data archive itself was not downloaded (Scout instructions)."
+    "note": "Plain-text readme linked from davidcard.berkeley.edu/data_sets.html next to njmin.zip. Lists the five files in the archive. The data archive itself was not downloaded (Scout instructions). The readme text carries no date; refs.bib uses the access year (2026). Server Last-Modified header (checked 2026-11-19): Fri, 27 Jul 2007."
   },
   "mamula2021replicating": {
     "verified_on": "2026-11-19",

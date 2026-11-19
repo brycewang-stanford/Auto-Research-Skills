@@ -176,7 +176,7 @@
       "id": "rv-results",
       "title": "Review results (reviews/results-r1)",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "w-paper",
@@ -188,7 +188,7 @@
       "id": "rp-rerun",
       "title": "Clean rerun (crew.py rerun) from code/requirements.txt",
       "owner": "replicator",
-      "status": "todo"
+      "status": "done"
     }
   ],
   "gates": {
@@ -219,5 +219,8 @@
     "submission": {
       "status": "pending"
     }
-  }
+  },
+  "disclosures": [
+    "2026-11-19: The plan task pi-design-gate said the design gate would come after the design and code reviews. The PI requested it after the design review only; the human approved it at 06:52:04Z, and the code was then written, tested on synthetic data (check-synthetic) and reviewed (code-r1 07:06:34Z) before any analysis run. The protocol's binding rule (design gate and a clean code review before any analysis run) was met; the task's stated order was not. Four presentation runs (pub-values, tab-replication, tab-h2, fig-dfte-dist) were analysis runs not listed in the plan; they compute no new estimate."
+  ]
 }

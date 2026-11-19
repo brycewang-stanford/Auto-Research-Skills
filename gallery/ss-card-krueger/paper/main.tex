@@ -18,8 +18,8 @@
 \renewcommand{\floatpagefraction}{0.8}
 \newcommand{\var}[1]{\texttt{#1}}
 
-\title{Did New Jersey's 1992 Minimum-Wage Increase Reduce Fast-Food Employment?\\
-A Logged Replication of Card and Krueger (1994)}
+\title{Reproducing Card and Krueger (1994) from the Public Data:\\
+A Logged Replication with a Tail-Winsorization Check}
 \author{Bryce Wang (human PI) \\ \small Drafted with Free-Research-Crew; see the AI-use statement.}
 \date{\today}
 
@@ -69,8 +69,9 @@ The first is whether the published estimates can be reproduced from the authors'
 file, including the parts that earlier replications missed. An informal replication from
 the same file reproduces the Table~3 means and a difference-in-differences of 2.75, but not
 the published standard errors or the 357-store regression sample of Table~4
-\citep{mamula2021replicating}. A 2025 preprint reports 3.36 and 3.44 where the paper has
-2.76 and 2.75 \citep{morshed2025replication}. Our hypothesis H1 sets numeric targets for
+\citep{mamula2021replicating}. A 2025 preprint, whose data source is not stated, reports 3.36
+and 3.44 where the paper has 2.76 and 2.75, and no Table~4 sample size
+\citep{morshed2025replication}. Our hypothesis H1 sets numeric targets for
 Table~3 rows~3 and~4 and Table~4 column~(i), points and standard errors alike, with a
 tolerance of $0.05$ fixed before any estimate was computed.
 
@@ -107,9 +108,13 @@ The answers are as follows.
 Under Neumark and Wascher's own sample rule we obtain $\NwRuleDid$, the value they report;
 their sample size is not recorded in our sources, so we do not claim the samples coincide.
 
-Two features of the process matter for reading these results. First, every analysis run was
+Two features of the process matter for reading these results. First, every planned analysis run was
 listed, with its metrics and decision rule, in a plan approved by the human author before
-any run; the code was reviewed before any run; and each analysis run executed once. What
+any analysis run; the code was reviewed before any analysis run; and each executed once.
+Four presentation runs that build the tables and the figure from the logged metrics were
+added after the results gate and compute no new estimate
+(Section~\ref{sec:deviations}), which also discloses that the design gate preceded the code
+review. What
 this rules out is specification search within this study. It does not make the study
 blind: the crew had read the published results of Card and Krueger's and Neumark and
 Wascher's robustness checks and of the earlier replications before choosing the
@@ -177,9 +182,11 @@ the 2.72 is on 376 stores, not on the 384-store balanced sample, it is not a rep
 the published 2.75. Applying the same estimator to both the Card--Krueger and the
 Neumark--Wascher data, \citet{ropponen2011reconciling} concludes that the positive result
 holds only for small restaurants; with Abadie's semiparametric difference-in-differences,
-\citet{ropponen2014note} finds the overall effects fairly robust. Of the two replications
-from the public file mentioned in the introduction, neither reproduces the published
-standard errors or the 357-store sample \citep{mamula2021replicating,morshed2025replication}.
+\citet{ropponen2014note} finds the overall effects fairly robust. The informal replication from the public file does not reproduce the published standard
+errors or the 357-store sample \citep{mamula2021replicating}. The 2025 preprint, whose data
+source is not stated, reports point estimates far from the published ones and no Table~4
+sample size \citep{morshed2025replication}; neither replication reproduces the published
+standard errors.
 
 \section{Data}
 \label{sec:data}
@@ -334,7 +341,8 @@ logged runs.
 
 \subsection{Verification before and after the runs}
 
-Before the design gate, a test script ran every estimator on a synthetic file shaped like
+After the design gate and before any analysis run, the code was written and a test script
+ran every estimator on a synthetic file shaped like
 the public one (closures, item non-response, a duplicated \var{SHEET}) and checked, among
 other things, that S1 equals HC2 on a balanced sample, that the stacked regression
 reproduces the difference of state mean changes, that winsorization caps exactly the stores
@@ -532,23 +540,24 @@ half the magnitude is kept, so \textbf{H2 holds}.
 
 The design anticipated that the permanent closures, whose change is minus their whole
 first-wave workforce, might sit in the low tail and lift the New Jersey mean when capped.
-On these data that is not what drives the result: only one closure is capped, a Pennsylvania
-store, and with the closures left out of winsorization (secondary s1, column~3) the
+On these data that is not what drives the result: $\HTwoCappedLowClosed$ closure is capped
+(Table~\ref{tab:h2}), and with the closures left out of winsorization (secondary s1, column~3) the
 difference is $\HTwoClosuresExcl$, a ratio of $\HTwoClosuresExclRatio$.
 
 The stores capped in the low tail were large in the first wave: their mean FTE$_1$ is
 $\HTwoFteOneCappedLow$, against $\HTwoFteOneBal$ on the balanced sample; the stores capped in
-the high tail averaged $\HTwoFteOneCappedHigh$. Winsorization therefore mostly reshapes the
-changes of large stores at the bottom of the distribution, the size class for which
-\citet{ropponen2010cic} reports negative effects. A capped change is not an effect estimate,
-so this neither tests nor confirms his store-size pattern. Beside his changes-in-changes
-average (0.90 against a difference-in-differences of 2.72 on his 376 stores), winsorization
-moves the estimate much less; the two methods ask different questions, and neither result
-settles the other.
+the high tail averaged $\HTwoFteOneCappedHigh$. The shrinkage comes mainly from capping the
+declines of the Pennsylvania stores in the low tail (Table~\ref{tab:h2} gives the capped
+counts by state and tail), which raises the Pennsylvania mean change. With few Pennsylvania
+stores, a handful of them can move that mean (Section~\ref{sec:limitations}). Because the
+narrowing comes from capping control-state stores, it says nothing about the heterogeneity
+of New Jersey effects by store size that \citet{ropponen2010cic} reports, and his
+changes-in-changes estimate answers a different question from this check.
 
 \paragraph{What H2 does and does not show.} H2 shows that the balanced-sample estimate is
-not produced by the few stores beyond the 5th and 95th percentiles: with them capped, the
-difference keeps $\HTwoRatio$ of its size. It does not answer the measurement-error critique of
+not produced by the parts of the store-level changes beyond the 5th and 95th percentiles:
+winsorization caps those stores at the cutoffs rather than removing them, and with their
+changes capped the difference keeps $\HTwoRatio$ of its size. It does not answer the measurement-error critique of
 \citet{neumark1995payroll}, who state that the greater variability of the survey's
 employment changes is not driven by one or two outliers. Winsorizing the tails leaves the
 variability in the middle of the distribution untouched, and with it any error it
@@ -575,8 +584,8 @@ tested, and no planned run could contradict it. Before the rise, New Jersey stor
 smaller: the first-wave level difference is $\LevelGapWOne$ ($\LevelGapWOneSe$) FTE, and the
 second-wave difference is $\LevelGapWTwo$ ($\LevelGapWTwoSe$).
 
-The plan includes one descriptive comparison. The $\PlaceboHiwageN$ New Jersey stores that
-already paid \$5.00 or more in the first wave changed by $\PlaceboHiwageNj$ under the row-3
+The plan includes one descriptive comparison. Of the 73 New Jersey stores that already paid \$5.00 or more in the first wave, the
+$\PlaceboHiwageN$ with first-wave employment data changed by $\PlaceboHiwageNj$ under the row-3
 rules, against $\DidFtePa$ in Pennsylvania, a difference of $\PlaceboHiwage$
 ($\PlaceboHiwageSe$); on the balanced sample it is $\PlaceboHiwageRFour$
 ($\PlaceboHiwageRFourSe$). We report this as a description only and do not cite it as
@@ -635,7 +644,10 @@ observation of a store across waves (deviation D2).
   \item \textbf{Sources read only in part.} The full texts of \citet{neumark2000comment},
         \citet{card2000reply}, \citet{ropponen2011reconciling} and \citet{ropponen2014note}
         were not available to us, and \citet{conley2011inference} was read from its
-        abstract. We cite these for no more than what we could read.
+        abstract. Of \citet{neumark1995payroll} the abstract and pages~1--10 were read
+        and the rest only keyword-searched; of \citet{card1998reanalysis} the abstract,
+        introduction and Section~I.A were read. We cite these for no more than what we
+        could read.
 \end{itemize}
 
 \section{Deviations and disclosures}
@@ -657,6 +669,21 @@ any result was seen. The fixes that followed the code review (Section~\ref{sec:i
 made before any analysis run. The synthetic-data test, a data-preparation run, was rerun
 once after the test script was extended; its first record is archived.
 
+\paragraph{Order of the design gate and the code review.} The plan's task for the design
+gate said it would be requested after the design and code reviews. It was requested after
+the design review only and approved by the human author on 2026-11-19 at 06:52 UTC, before
+the analysis code existed. The code was then written, tested on synthetic data and reviewed
+(the code review is dated 07:06 UTC), all before any analysis run. The protocol's binding
+rule, that the design gate be approved and the latest code review be free of critical and
+major findings before any analysis run, was met; the order stated in the task was not. No
+estimate is affected.
+
+\paragraph{Unplanned runs.} Four analysis-kind runs that are not in the plan built the
+tables and the figure after the results gate: \texttt{pub-values}, \texttt{tab-replication},
+\texttt{tab-h2} and \texttt{fig-dfte-dist}. They read only logged metrics, the logged
+store file and the crew's transcription of the published tables, and compute no new
+estimate.
+
 \paragraph{Corrections to the record after the results review.} The Reviewer's first results
 review found that the crew's notes called the row-3 gap a rounding difference, explained the
 passing difference-SE target backwards (as following from the low New Jersey error), and set
@@ -665,8 +692,7 @@ Table~4 matched at every digit although its dependent mean does not. The notes a
 texts were corrected before the results gate. No estimate changed; the corrected wording is
 the one used here.
 
-\paragraph{Presentation.} The tables and the figure were built after the results gate by
-logged scripts that read only the logged metrics. The published values in
+\paragraph{Presentation.} The published values in
 Table~\ref{tab:replication} are parsed from the crew's transcription of the original tables,
 and the script checks the fifteen H1 targets against the values the verdict used. The
 absolute differences shown for report-only cells are a comparison added at this stage; no
@@ -677,8 +703,8 @@ here because it has no logged claim.
 \paragraph{Framing.} The plan first described H2 as an implementation of Neumark and
 Wascher's measurement-error critique. The Reviewer pointed out, before the design gate, that
 their own text rules out reading a tail-only check that way; the hypothesis was relabelled as
-a tail-only check, and that is the reading used here. No analysis outside the plan was run,
-so the paper has no exploratory section.
+a tail-only check, and that is the reading used here. No estimate outside the plan was
+computed, so the paper has no exploratory section.
 
 \section{Conclusion}
 
@@ -687,15 +713,17 @@ difference-in-differences of \citet{card1994minimum}, its within-state changes a
 errors, and the Table~4 column~(i) regression on 357 stores are reproduced. The headline
 row~3 estimate is within our pre-registered tolerance but not at published precision; the
 gap sits in the unbalanced wave means, is not rounding, and has no source we could identify.
-Its standard errors are not reproduced, and we could not identify how they were computed.
-Capping the most extreme store-level changes at the pooled 5th and 95th percentiles shrinks
-the balanced-sample estimate to $\HTwoRatio$ of its size, so the estimate is not driven by
-the tails; that leaves Neumark and Wascher's broader concern about measurement error, and
+For its standard errors the verdict is ``point reproduced; SE construction not
+identified'': we could not identify how they were computed. Capping the most extreme
+store-level changes at the pooled 5th and 95th percentiles leaves the balanced-sample
+estimate at $\HTwoRatio$ of its size, so the estimate is not driven by the parts of the
+changes beyond the cutoffs; that leaves Neumark and Wascher's broader concern about measurement error, and
 the question of what one treated and one control state can establish, where they were.
 
 \input{ai-use}
 
-\bibliographystyle{plainnat}
+% A copy of plainnat.bst that keeps the case of titles as written in refs.bib.
+\bibliographystyle{plainnat-keepcase}
 \bibliography{../refs}
 
 \end{document}

@@ -186,3 +186,40 @@ At the paper stage, check:
 - The H2 wording covers tails only, with no "survives NW". The Ropponen comparison is not overstated (low-tail capped mean FTE1 46 vs 21).
 - The headline is "within the 0.05 tolerance", never a bare "reproduced". The DiD SE is "within tolerance by 0.00003; SE construction not identified".
 - code-r1 F1-F3 are still marked open in the code-r1 file, although they are fixed. Rule them resolved if a code round reopens.
+
+## Round paper-r1 (2026-11-19): verdict revise
+
+What I checked, and it held:
+- `crew.py validate` is OK. Every macro in main.tex and in both table fragments resolves to a claim whose
+  value equals its run metric. The table scripts take every number from the metrics, including row 5 and the
+  384/378/304/74 counts. The figure matches its caption.
+- The results-stage wording rulings hold in the paper. No "rounding" and no "rows 1-2 match exactly" contrast.
+  The DiD SE is "within tolerance by 0.00003" and the column is "SE construction not identified". The dep mean
+  is qualified. The NW rule is "not claim the samples coincide". There is no "survives NW". The placebo is
+  never support for parallel trends. Ropponen's 2.72 is placed on 376 stores.
+- Citations in the text match sources/notes.md: NW 4.6% / -0.24, SD 9.6 vs 3.2, CK1998 franchisee and
+  intervals, Ropponen 0.90 (0.44), the CT abstract. Gate times in ai-use match log.jsonl. No finding was overridden.
+
+Open:
+- F1 (major): the title asks the causal question that the paper explicitly declines to answer.
+- F2 (major): main.tex l.337 says the synthetic test ran "before the design gate". It ran after: the gate was
+  approved at 06:52Z, check-synthetic ran at 07:01Z and 07:18Z, and code-r1 is dated 07:06Z. The pi-design-gate
+  task says the gate comes "after design and code reviews", and that order was not followed and is not disclosed.
+  The intro says "every analysis run was listed" and "code reviewed before any run", but 4 figures-ra analysis
+  runs are not in the plan.
+- F3: ai-use placeholders (Replicator, paper review; replication.json now passed at 12:29Z). "7 full text"
+  overcounts: CK1998 and NW1995 were read only in part.
+- F4: main.pdf is stale against refs.bib (readme year added 12:28Z; the PDF prints "(Card)"). plainnat lowercases titles.
+- F5: Morshed is called "from the public file" and said to miss "357"; its source is unstated and it gives no N.
+- F6: H2 text. The typed "one closure". "Mostly large stores at the bottom ... Ropponen": my capped.csv arithmetic
+  splits the -0.41 into PA low -0.61, NJ low +0.19, NJ high -0.28, PA high +0.29, so 8 large PA stores drive it.
+  "Not produced by the stores" overstates what capping shows.
+- F7: placebo 71 vs 73 unexplained. The Conclusion's "SEs are not reproduced" departs from the pre-fixed wording.
+- F8: stale plan.json task statuses (rv-results, rp-rerun todo).
+
+At paper-r2, check:
+- The new title. The l.337 and l.110-112 rewrites, and a disclosure of the design-gate/code-review order.
+- ai-use updated from replication.json and this review. The PDF recompiled after the final ai-use and refs.bib.
+  The Reference titles are brace-protected.
+- No new typed result numbers. If the PA low-tail decomposition is quoted, it needs a logged metric.
+- Whether REPLICATION.md / replication.json are newer than every run, and whether the paper reports the rerun accurately.
