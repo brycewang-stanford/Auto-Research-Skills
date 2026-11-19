@@ -16,19 +16,22 @@ for the paper's content.
         on the same laptop. Every recorded metric reproduced to a relative tolerance of
         $10^{-6}$ (\texttt{replication.json}, 2026-11-18).
   \item \textbf{Review.} The Reviewer agent ran 4 rounds on the research question, 3 on the
-        design, 1 on the code, 2 on the results and, so far, 1 on the paper. This version
-        answers that paper review, which comes before the submission gate. Its independence level was \emph{fresh-context}: a new context in
+        design, 1 on the code, 2 on the results and 2 on the paper. The paper reviews come
+        before the submission gate. Its independence level was \emph{fresh-context}: a new context in
         every round, with the same model family as the other roles. The human author chose
         this over a cross-family reviewer. In the last question round the Reviewer still
-        recommended revision, with two findings open. The human approved the question gate
-        with those findings open, and the design then addressed both; the first design
-        review recorded them as handled. In two cases the authors narrowed a claim instead
+        recommended revision, with two findings open. After that last round the PI revised
+        the hypotheses to answer both findings, without a further review round, and the
+        human approved the question gate on that unreviewed revision. The first design
+        review found both findings handled. In two cases the authors narrowed a claim instead
         of changing the analysis, and the Reviewer recorded the finding as conceded: a
         dropped ranking-reversal hypothesis at the question stage, and the A2 wording at
         the results stage.
   \item \textbf{Findings accepted over the Reviewer's objection.} None.
   \item \textbf{Evidence.} Every reported number is a macro generated from the metrics of
-        a logged run, and none was typed by hand. Every citation was checked against its
+        a logged run, with one exception: the ablation counts (21 tests, one attributed) are
+        typed numerals. They are backed by a text claim, \texttt{c-abl-count}, that has no
+        macro (see the footnote in Section~\ref{sec:ablations}). Every citation was checked against its
         source. Where only the abstract could be read, the paper says no more than the
         abstract does. The full workspace is public at
         \url{https://github.com/brycewang-stanford/Free-Research-Crew/tree/main/gallery/cs-label-noise}.

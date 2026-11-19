@@ -1,0 +1,149 @@
+{
+ "id": "paper-r2",
+ "target": "paper",
+ "round": 2,
+ "created": "2026-11-19T01:25:13Z",
+ "reviewer": {
+  "model": "claude-opus-5-5",
+  "independence": "fresh-context"
+ },
+ "files_read": [
+  "reviews/REVIEWER_MEMORY.md",
+  "reviews/paper-r1/review.json",
+  "reviews/question-r1/review.json",
+  "reviews/question-r4/review.json",
+  "reviews/design-r1/review.json",
+  "paper/main.tex",
+  "paper/ai-use.tex",
+  "paper/main.pdf",
+  "paper/numbers.tex",
+  "paper/tables/tab_h1h2.tex",
+  "paper/tables/tab_ablations.tex",
+  "paper/figures/CAPTIONS.md",
+  "claims.jsonl",
+  "plan.json",
+  "refs.bib",
+  "sources/sources.json",
+  "sources/notes.md",
+  "REPLICATION.md",
+  "replication.json",
+  "runs/NOTES.md",
+  "runs/*/run.json",
+  "log.jsonl",
+  "briefs/20261119T012057Z-reviewer.md"
+ ],
+ "kill_argument": "The paper decides nothing. Both hypotheses are inconclusive, and the ablations attribute nothing interpretable. Its only positive outcome, covtype, has D = 0.073 with a lower interval end of 0.022, below the paper's own 0.05 threshold of a meaningful difference. It rests on 5,000-row subsamples of one dataset with an uncorrected interval. So the paper must stand on its process: pre-specification, complete disclosure and a reproducible ledger. A referee may judge three small or subsampled datasets plus an in-house protocol too thin to publish. That is a scope judgement, not a defect, and the title and abstract already say 'inconclusive'. What I attacked and found to hold: the corrected pilot disclosure matches question-r1 F1, and the plan.json correction is appended with the originals unedited. replication.json passes 20/20 at rtol 1e-6, is newer than every run, and each record hash matches the current run.json. The Le Baher setup sentences match the arXiv v5 full text. The C and credit-g headroom sentences match the macros. The PDF was compiled after the last tex edit, and validate is OK. The remaining problems are wording and record-keeping.",
+ "verdict": "pass",
+ "findings": [
+  {
+   "id": "F1",
+   "severity": "major",
+   "status": "resolved",
+   "text": "The disclosure of the Reviewer's pre-gate pilot is false. It says the pilot ran on iris, wine and digits and that 'None of those three datasets is in the study'. The question-r1 review records pilot results on breast_cancer as well: RF-minus-GBDT drop -0.05 at 40% flips, and clean RF 0.970 against GBDT 0.965. So a study dataset was piloted, with a result in H1's direction, before the hypotheses were fixed. The dataset-choice disclosure ('the first three were used in the Reviewer's pilot ... so only breast_cancer remains') implies that piloted sets were excluded, and then keeps a piloted set. Setup's opening sentence ('fixed at the design gate, before any run on study data') is also untrue: the pilot, fetch-data and prepare-data all touched study data before the gate. Section 6 says 'We list all of them', and the AI-use statement presents the disclosures as complete. The same error is in plan.json disclosures[0] and [1], so the Writer copied it rather than introduced it. No outcome changes: breast_cancer was forced by the brief, and its H1 outcome is inconclusive.",
+   "evidence": "paper/main.tex Sec. 6 items 1-2 (lines ~588-598) and Sec. 3 first sentence (line 160); plan.json disclosures[0], disclosures[1]; reviews/question-r1/review.json findings F1 and F3 (breast_cancer pilot numbers); reviews/REVIEWER_MEMORY.md question-r1 pilot table",
+   "remedy": "Name all four pilot datasets, including breast_cancer. State the breast_cancer pilot direction: untuned, 5 seeds, 80/20 split, GBDT dropped about 5 points more than RF. Say that breast_cancer was kept because the brief required a bundled dataset, not by a pilot-blind rule. Change line 160 to 'before any analysis run'. The PI should append a correcting entry to plan.json disclosures and leave the original entries unedited.",
+   "response": "",
+   "ruling": "Fixed. Sec. 7 item 1 now names all four pilot datasets including breast_cancer, states the H1-direction result (GBDT lost about 5 points more than RF), and the reason it was kept; item 2 says the selection was not pilot-blind. These match reviews/question-r1/review.json F1 (RF-minus-GBDT drop -0.05 on breast_cancer; untuned, 5 seeds, 80/20, 40% flips). plan.json disclosures[6] is an appended correction, and git diff 36396f9..HEAD shows disclosures[0] and [1] unedited. Setup now says 'before any analysis run'. Note: the author also appended a correction to the response field of question-r1 F1; that field is the author's, so this is acceptable."
+  },
+  {
+   "id": "F2",
+   "severity": "major",
+   "status": "resolved",
+   "text": "The paper's contribution is framed as 'a fully logged, rerunnable comparison' (What this paper adds; Conclusion). Yet its Limitations and AI-use statement say that the clean rerun 'had not been performed when this draft was written', and replication.json does not exist yet. The submission gate needs a passing replication.json newer than every run. As written, the paper cannot be released, and both sentences will be false or stale once the Replicator finishes. If any metric fails to reproduce at rtol 1e-6, the interpretive A2-adult text that code/make_claims.py hardcodes must also be rechecked.",
+   "evidence": "paper/main.tex Limitations bullet 'Replication pending' (lines ~573-575), lines 99-101 and 632-633; paper/ai-use.tex 'Roles and models' bullet; workspace root (no replication.json)",
+   "remedy": "After replication.json is written, replace both statements with the outcome: runs re-executed, metrics compared, tolerance, and pass or fail. Then regenerate numbers.tex if anything changed and recompile. If the rerun fails, narrow the 'rerunnable' claim.",
+   "response": "Done: Limitations ('Replication: passed, on the same machine') and ai-use.tex now report the passed clean rerun from replication.json (all 20 logged runs, fresh env from requirements.txt, data re-downloaded, every metric at rtol 1e-6, no mismatch), note it was the same laptop, and the intro and conclusion tie 'rerunnable' to it.",
+   "ruling": "Fixed. replication.json (created 2026-11-18T17:11:29Z, passed, rtol 1e-6, atol 1e-9, reuse_data false) lists 20 runs, all 'match'. It is newer than every run (latest finished 15:02:35Z), and every record_sha256 equals the sha256 of the current runs/<id>/run.json. The Limitations bullet and the AI-use statement report this accurately, including the same-machine caveat. REPLICATION.md says the environment was a reused scratch env whose freeze equals code/requirements.txt line for line; 'built from code/requirements.txt alone' is a fair summary."
+  },
+  {
+   "id": "F3",
+   "severity": "minor",
+   "status": "resolved",
+   "text": "'Pre-Registered' appears in the title, the abstract and the H1/H2 introduction, but the paper never says what the registration is. Readers will assume a third-party, time-stamped registry. Here it is plan.json, frozen at a human gate in the authors' own git repository. The decision interval named in the question-gate hypotheses was also replaced afterwards (disclosed in Sec. 6 item 6).",
+   "evidence": "paper/main.tex title (lines 19-21), abstract, Sec. 1 line 80; git commit 274c4d6 (design gate approved 2026-11-18T13:00:13Z) precedes main-rho0 (13:18:31Z) in runs/NOTES.md",
+   "remedy": "Add one sentence defining the pre-registration: the plan.json design approved at the design gate, commit 274c4d6 with its timestamp, before the first analysis run. Or say 'pre-specified' instead.",
+   "response": "",
+   "ruling": "Fixed. 'Pre-Specified' throughout. Sec. 1 defines it as the plan.json approved at the design gate, 2026-11-18T13:00:13Z (log.jsonl line 18), git commit 274c4d6 (2026-11-18T21:00:13+08:00), before main-rho0 at 13:18:31Z, says it is not a third-party registry, and points to the interval change."
+  },
+  {
+   "id": "F4",
+   "severity": "minor",
+   "status": "open",
+   "text": "Several result-derived numbers are typed rather than macros. (a) 'one of 21' and '(A1 3, A2 9, A3 9)' in the abstract, line 462, the Fig. 3 caption and line 504: claim c-abl-count has no value or macro. (b) 'with a 5-point headroom' on credit-g (line 445) is typed and inaccurate: the headroom is 0.035 for GBDT and 0.049 for RF (HeadCgGb, HeadCgRf). (c) 'about 5 test rows per seed' (line 571) and 'about 6% and 0.5%' overlap (lines 235, 561) are design arithmetic, not run outputs.",
+   "evidence": "paper/main.tex lines 47, 445, 462, 475-476, 504, 235, 561, 571; claims.jsonl c-abl-count (no 'value'/'macro')",
+   "remedy": "Give c-abl-count count metrics and macros, or add a claim for n_tests = 21 and n_attributed = 1. Replace '5-point headroom' with the headroom macros, or with 'a headroom at or below about 5 points'. Label the overlap and test-row figures as design arithmetic.",
+   "response": "Footnote in Sec. 5 now says the counts are typed numerals backed by c-abl-count (no macro) and lists where they appear; the AI-use Evidence bullet names this as the one exception to 'every number is a macro'.",
+   "ruling": "Parts (b) and (c) are fixed: credit-g headroom now uses HeadCgLr/HeadCgRf/HeadCgGb (0.051/0.049/0.035), and the overlap and rare-class figures are labelled design arithmetic. Part (a) is not fixed. c-abl-count still has no value or macro, so 'one of 21' (abstract, Sec. 1, Table 3 caption, Fig. 3 caption, Sec. 5) and '(A1 3, A2 9, A3 9)' remain typed. The new footnote in Sec. 5 discloses this, but it says the counts are 'written in words' when they are numerals. The AI-use statement's Evidence bullet ('Every reported number is a macro ... and none was typed by hand') now contradicts the paper's own footnote. Cheapest remedy: narrow the AI-use sentence to name this exception and fix the footnote wording. Alternatively, add count metrics to an analysis run and give c-abl-count a macro."
+  },
+  {
+   "id": "F5",
+   "severity": "minor",
+   "status": "conceded",
+   "text": "The compute section reports only the design estimate ('about 20 wall-minutes') and refers to NOTES for the rest. The CS track requires compute in the paper. The measured analysis wall time was 24.4 min, with about 182 CPU-min of fits (37.7 + 88.6 + 19.8 + 35.6). The hardware disclosure's 'fewer than about 3 cores' comes from the 134 CPU-min design estimate. At the measured 182 CPU-min, 3 cores fit the hour only with perfect scaling.",
+   "evidence": "paper/main.tex Compute paragraph (lines 284-289) and Sec. 6 item 5 (lines 609-611); runs/NOTES.md run table and total",
+   "remedy": "Report the measured wall time and CPU-minutes, from runs/*/timing.json, in the Compute paragraph, and revise the minimum core count from the measured figure.",
+   "response": "",
+   "ruling": "Narrowed rather than reported. The Compute paragraph and Sec. 7 item 5 now label 134 CPU-min / 20 wall-min and the 3-core bound as design estimates, not measurements, and point to runs/NOTES.md (24.4 analysis wall-min) for the measured times. The track asks for compute in the paper, but no false compute claim remains, and the contingency sentence tells the reader that the projected time was within budget."
+  },
+  {
+   "id": "F6",
+   "severity": "minor",
+   "status": "resolved",
+   "text": "Related-work statements of fact about cited papers have no citation claim in claims.jsonl. They are: Le Baher et al.'s setup (hinge or squared-error XGBoost losses, fixed hyperparameters, binary tasks, minority-scaled rho, AUC/balanced accuracy/kappa); Dietterich's noise injected before cross-validation, so his test labels were noisy; and Nawaz et al. including no logistic regression. sources/notes.md supports them: full text for lebaher2020 and dietterich2000, and for nawaz2025 I confirmed that the ICML abstract lists seven comparison classifiers without LR. But they are not traceable through the claims ledger.",
+   "evidence": "paper/main.tex lines 126-127, 131-135, 138-139; claims.jsonl citation claims (only c-lebaher-rf, c-dietterich-noise, c-nawaz cover these sources)",
+   "remedy": "Add citation claims with locators (Le Baher Sections 2.3 and 3.5 and Table 1; Dietterich preprint pp. 9-10; Nawaz abstract).",
+   "response": "Done: the Dietterich test-noise, Le Baher setup and Nawaz no-LR sentences in Related work now follow claims c-dietterich-testnoise, c-lebaher-setup and c-nawaz-nolr (cited, with claim-id comments in main.tex).",
+   "ruling": "Fixed. The new claims c-lebaher-setup, c-dietterich-testnoise and c-nawaz-nolr have locators, and the Related-work sentences follow them. I checked Le Baher et al. arXiv:2010.13570v5 full text myself. Sec. 3.1 step 4 has the minority-scaled rho (0.5 x 0.25 = 12.5% example). Sec. 3.3.2 has LR lbfgs with L2, C = 1.0. Sec. 3.3.5 has XGBoost eta 0.3, min_child_weight 0, lambda 1 and 100 estimators, with hinge, squared, unhinged and ramp losses. Table 1 lists 14 datasets. Nawaz's seven classifiers match sources/notes.md."
+  },
+  {
+   "id": "F7",
+   "severity": "minor",
+   "status": "resolved",
+   "text": "The LR C sentence is inaccurate. It says the median C 'falls' on breast_cancer, credit-g and adult, but 'does not fall consistently' on covtype. On covtype the endpoints fall by a factor of about 3.6 (2.25 to 0.62). breast_cancer (0.0492 to 0.051) and adult (0.0195 to 0.0202) are not monotone either. What differs is the level: C stays near 1 on covtype, against 0.04 or less elsewhere at rho = 0.4.",
+   "evidence": "paper/main.tex lines 348-351; numbers.tex CBc*/CAd*/CCt* macros",
+   "remedy": "Rephrase in terms of level, or 'falls between the endpoints on all four; on covtype it stays an order of magnitude weaker'.",
+   "response": "",
+   "ruling": "Fixed. The endpoints match the macros: bc 0.276 -> 0.0428, cg 0.272 -> 0.00698, ad 0.38 -> 0.00584, ct 2.25 -> 0.62. Non-monotone paths are stated. 'Around an order of magnitude larger' understates it slightly: at rho=0.4 covtype's C is 14x to 106x the others. The direction is right."
+  },
+  {
+   "id": "F8",
+   "severity": "minor",
+   "status": "resolved",
+   "text": "'We add a protocol and an honest negative' calls an inconclusive result a negative one. 'Negative' reads as evidence of no difference, which the paper elsewhere says an inconclusive outcome is not.",
+   "evidence": "paper/main.tex lines 99-100",
+   "remedy": "Write 'an honestly reported inconclusive result'.",
+   "response": "",
+   "ruling": "Fixed: 'an honestly reported inconclusive result'."
+  },
+  {
+   "id": "F9",
+   "severity": "minor",
+   "status": "open",
+   "text": "plan.json disclosures[2] still says the interval change was made '(design stage, before any run on study data)'. That is false for the same reason as paper-r1 F1: fetch-data (12:31-12:33Z) and prepare-data (12:34Z) ran on study data before the design revisions that made the change (12:45:41Z and 12:50:44Z, log.jsonl lines 13-14). disclosures[1] likewise says the pins were made 'before any run', but the fetch-data run produced them. The paper silently uses the corrected wording 'before any analysis run' (Sec. 7 items 2 and 6). The appended correction, disclosures[6], covers only [0] and [1], so the plan record and the paper disagree.",
+   "evidence": "plan.json disclosures[1] (last sentence) and disclosures[2] (opening parenthesis); log.jsonl lines 5-14; runs/fetch-data/run.json, runs/prepare-data/run.json; paper/main.tex lines 639 and 656-657",
+   "remedy": "The PI appends one more correction entry, or extends the existing one in a new entry, saying 'before any analysis run' for [1] and [2]. Originals stay unedited. No paper change is needed.",
+   "response": "PI: correction appended to plan.json disclosures (original entries left unedited).",
+   "ruling": ""
+  },
+  {
+   "id": "F10",
+   "severity": "minor",
+   "status": "open",
+   "text": "The AI-use 'Review' bullet misdescribes the question gate: 'The human approved the question gate with those findings open, and the design then addressed both'. The record differs. After the final question round (question-r4, 12:09:46Z) the PI revised the question and hypotheses at 12:10:56Z, recorded as 'Not re-reviewed' (log.jsonl line 2). The question-r4 F16/F17 responses say 'after the final round, not re-reviewed'. The human approved that unreviewed revision at 12:24:10Z. The hypotheses revision, not the design, addressed F16/F17, and design-r1 later found it adequate. Separately, 'so far, 1 on the paper' will be stale once paper-r2 exists.",
+   "evidence": "paper/ai-use.tex lines 18-28; log.jsonl line 2; reviews/question-r4/review.json F16, F17 response fields; reviews/design-r1/review.json kill_argument ('question-r4 F16 is fixed by a ratio of seed means')",
+   "remedy": "Reword: 'After the last question round the PI revised the hypotheses to answer the two open findings without a further review round, and the human approved the gate on that revision; the first design review found both handled.' Update the paper-review count at submission.",
+   "response": "AI-use Review bullet now says the PI revised the hypotheses after question-r4 without a further review, the human approved the gate on that revision, and design-r1 found F16/F17 handled; paper-review count is now 2.",
+   "ruling": ""
+  },
+  {
+   "id": "F11",
+   "severity": "minor",
+   "status": "open",
+   "text": "On covtype the paper says that 'the smallest meaningful difference is met'. Under the pre-specified rule this refers to the point estimate (|D| = 0.073 >= 0.05, drop difference >= 0.01), and the outcome 'supported' is correctly applied. But the interval [0.022, 0.124] reaches below the paper's own 0.05 threshold of a meaningful difference. The data therefore do not rule out a difference the paper itself would call not meaningful. The text never says so, and covtype is the only positive outcome in the paper.",
+   "evidence": "paper/main.tex lines 413-419 (covtype bullet) and 550-552 (What the evidence supports); numbers.tex HOneDCt 0.073, HOneDCtLo 0.022, HOneDCtHi 0.124",
+   "remedy": "Add one clause: the point estimate meets the 0.05 threshold, but the interval's lower end (\\HOneDCtLo) does not, so a difference smaller than 0.05 is not excluded.",
+   "response": "Covtype bullet and 'What the evidence supports' now say only the point estimate meets 0.05; the interval's lower end (\\HOneDCtLo) is below it, so a smaller difference is not excluded.",
+   "ruling": ""
+  }
+ ]
+}

@@ -288,3 +288,27 @@ Next round:
 - F2: replication.json exists, passes, and is newer than every run. Check that the paper's replication sentence matches it. If any metric
   changed, recheck the hardcoded A2-adult text in make_claims.py and the numbers.tex diff.
 - Recheck that the PDF was recompiled after the edits and that no new typed result numbers appeared.
+
+## paper-r2 (2026-11-19): verdict pass. No critical or major open. F4, F9-F11 minor open; F1-F3, F6-F8 resolved; F5 conceded.
+
+State at review: main.tex/ai-use.tex edited 09:19:57+08 and main.pdf compiled 09:20:16+08 (19 pp, no ??). validate OK. The 7 fig/tab runs were rerun
+at 15:02Z (claims gained 3 citation claims); replication.json 17:11:29Z passed 20/20, rtol 1e-6, newer than every run, and every record_sha256
+equals the current run.json hash. I ran no models. I downloaded Le Baher arXiv v5 to the scratchpad and confirmed c-lebaher-setup (C=1.0 lbfgs,
+eta .3, mcw 0, lambda 1, 100 est., hinge/sq/unhinged/ramp, minority-scaled rho).
+
+Checked and held: the pilot correction matches question-r1 F1 (bc -0.05); plan.json disclosures[6] is appended and [0]/[1] are unedited; design gate
+13:00:13Z / 274c4d6; C endpoints; HeadCg macros; c-abl-count support lists 21 status metrics.
+
+Open (all minor):
+- F4a: 'one of 21' and '(A1 3, A2 9, A3 9)' are typed. The footnote says 'written in words' (they are numerals). AI-use says 'none was typed by hand',
+  which contradicts the footnote.
+- F9: plan.json disclosures[2] 'before any run on study data' and [1] 'pinned before any run' are false (fetch-data and prepare-data ran
+  first). The paper's wording is right; it needs a PI correction entry.
+- F10: AI-use says the 'design then addressed' question-r4 F16/F17. In fact the PI revised the hypotheses without re-review at 12:10:56Z and the gate was approved on that.
+  The 'so far, 1 on the paper' count will be stale.
+- F11: covtype lower end 0.022 < 0.05. The paper says 'smallest meaningful difference is met' without saying that the interval reaches below it.
+Also noticed (not a finding, not in the PDF): paper/figures/CAPTIONS.md line 38 still says 'Pre-registered'.
+
+If there is a round 3: diff main.tex/ai-use.tex against eb6a693; check that the PDF is recompiled, that plan.json has a new appended correction with the
+originals unedited, that no run is newer than replication.json (if any claim or table run changes, the rerun must be repeated), and that the
+AI-use review count includes paper-r2.

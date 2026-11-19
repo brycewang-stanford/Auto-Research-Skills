@@ -67,3 +67,7 @@
 {"time": "2026-11-18T17:12:20Z", "role": "replicator", "action": "replication-written", "detail": "rerun passed 20/20 at rtol 1e-6 in a fresh env from code/requirements.txt (61 min, fresh downloads, no --reuse-data); REPLICATION.md written; r-rerun done"}
 {"time": "2026-11-19T01:18:34Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261119T011834Z"}
 {"time": "2026-11-19T01:20:25Z", "role": "writer", "action": "paper-revised", "detail": "paper-r1 F2 (clean-rerun outcome in Limitations, ai-use, intro, conclusion; review rounds updated) and F6 (related work uses c-lebaher-setup, c-dietterich-testnoise, c-nawaz-nolr); recompiled 19 pages, no undefined refs"}
+{"time": "2026-11-19T01:20:57Z", "role": "pi", "action": "brief-archived", "detail": "reviewer paper-r2 20261119T012057Z"}
+{"time": "2026-11-19T01:25:51Z", "role": "pi", "action": "disclosure-corrected", "detail": "paper-r2 F9. plan.json sha256=d323555567a93c7f2f5fa2a2a78856c3b715f71e369900779827d7e1650b3999"}
+{"time": "2026-11-19T01:25:51Z", "role": "pi", "action": "brief-archived", "detail": "writer paper-r2 20261119T012551Z"}
+{"time": "2026-11-19T01:26:39Z", "role": "writer", "action": "paper-revised", "detail": "paper-r2 F4 (c-abl-count numerals named in footnote and AI-use), F10 (question-gate history, paper reviews 2), F11 (covtype interval below 0.05); 'before any analysis run' per plan.json 2026-11-19 correction; 19 pages, clean"}

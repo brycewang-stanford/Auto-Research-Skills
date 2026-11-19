@@ -413,8 +413,10 @@ in the appendix gives the components ($A(0)$, $A(0.4)$, drop, $h$, $r$) for each
   \item \textbf{\ct: supported.} GBDT loses $r = \RCtGb$ of its headroom and RF loses
   $\RCtRf$. The difference is $D = \HOneDCt$ [$\HOneDCtLo$, $\HOneDCtHi$], with
   $S = \HOneDCtS$ and half-width $\HOneDCtHalf$. The absolute drops are $\DropCtGb$ for GBDT
-  and $\DropCtRf$ for RF, a difference of $\HOneDdropCt$, so the smallest meaningful
-  difference is met. This is one dataset. Each seed is a 5,000-row stratified subsample of a
+  and $\DropCtRf$ for RF, a difference of $\HOneDdropCt$, so the point estimate meets the
+  smallest meaningful difference. The interval's lower end, $\HOneDCtLo$, lies below the
+  0.05 threshold, so the data do not exclude a difference smaller than the one we call
+  meaningful. This is one dataset. Each seed is a 5,000-row stratified subsample of a
   581,012-row dataset. Accuracy is dominated by the two largest of the seven classes, and the
   interval is the plain one.
   \item \textbf{\bc: no detectable difference (inconclusive).} $D = \HOneDBc$
@@ -522,8 +524,10 @@ among candidates, and it changes the labels GBDT's early stopping monitors, so t
 candidates under A2 are different fits. The ablation does not separate the two. It is
 \textbf{one of the 21} ablation tests on informative datasets (A1 3, A2 9, A3 9)\footnote{The
 counts in this sentence (21 tests, one attributed) are taken from the workspace's claim
-\texttt{c-abl-count}, a text claim tied to the 21 status metrics. It has no generated macro,
-so these counts are written in words.} and the only
+\texttt{c-abl-count}, a text claim tied to the 21 status metrics. That claim has no
+generated macro, so these counts, here and in the abstract, Section~\ref{sec:intro} and the
+captions of Table~\ref{tab:ablations} and Figure~\ref{fig:ablations}, are typed numerals
+backed by the claim rather than macros.} and the only
 one whose interval excludes 0. About one such interval is expected by chance at 95\% across
 this many tests, and no multiplicity correction was planned. Its upper end, $\ATwoDeltaAdHi$,
 lies on \ad's plain interval, which the design calls slightly narrow. The direction is that
@@ -552,7 +556,8 @@ rows, scikit-learn's log-loss GBDT with early stopping loses a larger share of i
 than a tuned random forest between $\rho=0$ and $\rho=0.4$. On \ct{} the forest is also the
 more accurate method at every nonzero flip rate. That points the same way as the evidence
 that boosting degrades more than forests or bagging \citep{dietterich2000,breiman2001,
-nawaz2025}, but it is one dataset. The pre-specified count rule asks for more than that,
+nawaz2025}, but it is one dataset, and its interval does not exclude a difference below
+the 0.05 threshold. The pre-specified count rule asks for more than that,
 and the overall verdict is inconclusive. We make no claim that GBDT degrades more than RF in
 general, or on \bc{} or \ad. Nor do we claim the reverse, as \citet{lebaher2020} found for
 their untuned forests: no dataset contradicted H1. For H2, LR loses less than GBDT on \ct, but
@@ -564,7 +569,7 @@ noise-robust of the three.
 design can deliver. They do not show that the methods behave alike. No contrast on an
 informative dataset reached ``no meaningful difference''. On \bc{} the re-splitting
 correction gives a half-width of $\HOneDBcHalf$ for $D$, several times the 0.05 threshold.
-This limit was stated before any run. A study that wants to decide H1 on small datasets
+This limit was stated before any analysis run. A study that wants to decide H1 on small datasets
 needs many more rows or a different design, not more seeds alone. On re-split data the
 correction factor keeps the half-width from shrinking below about $1.13\,S$ however many
 seeds are run.
@@ -613,9 +618,12 @@ During execution we made no deviation from the design approved at the design gat
 compute contingency was evaluated as written and did not trigger. The fixes from the code
 review were exact threshold comparisons and input/output hashing. They were made before the
 first analysis run and change no rule. The following departures and decisions are recorded
-in \texttt{plan.json}. Items 1 and 2 include a correction that the PI appended at the paper
-stage, after the paper review found the original entries wrong; the original entries are
-left unedited in \texttt{plan.json}. We list all of them.
+in \texttt{plan.json}. Items 1 and 2 include corrections that the PI appended at the paper
+stage (2026-11-18 and 2026-11-19), after the paper reviews found the original entries
+wrong; the original entries are left unedited in \texttt{plan.json}. The second correction
+replaces ``before any run'' and ``before any run on study data'' with ``before any analysis
+run'', because the data-preparation runs (\texttt{fetch-data}, \texttt{prepare-data})
+touched the study datasets first. We list all of them.
 \begin{enumerate}
   \item \textbf{The Reviewer's pre-gate pilot, which included a study dataset.} During the
   first review of the research question, before the hypotheses were fixed, the Reviewer
