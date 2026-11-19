@@ -128,13 +128,13 @@
       "id": "f-figs",
       "title": "Reliability diagrams, interval forest plot and main table from the run outputs",
       "owner": "figures-ra",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-results",
-      "title": "Review the results (target 'results') before the results gate",
+      "title": "Review the results (target 'results') before the results gate (results-r1 revise, results-r2 pass)",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "w-paper",

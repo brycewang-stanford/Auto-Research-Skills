@@ -1,0 +1,62 @@
+{
+  "id": "fig-intervals",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/fig_intervals.py",
+    "--out",
+    "paper/figures/fig_intervals.pdf",
+    "--metrics",
+    "runs/fig-intervals/metrics.json"
+  ],
+  "started": "2026-11-19T12:39:10Z",
+  "finished": "2026-11-19T12:39:14Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_intervals.py",
+      "sha256": "629bf8eabdaf68708124981b2ce90b04f389a65efdb277241c501058d68584db"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "a6c7da965f4eee83650b3936c11e3e784678119fe3282087c0b813ef625ad2ac"
+    },
+    {
+      "path": "code/analyze.py",
+      "sha256": "cf98c82dd5d72bc653c945fd57d49da9f539f69796a55d0a3b9f5742b2f1d393"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/h-tests/metrics.json",
+      "sha256": "537d3b05096d660e64407a5b9b42b6d93b6e14522512bc3adafded1302a3f3fc"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_intervals.pdf",
+      "sha256": "418dd0146fd9517f8e0471f1fb0b4d3c3df4f4625f79ed63ff6bc503957a3b2c"
+    },
+    {
+      "path": "runs/fig-intervals/metrics.json",
+      "sha256": "c4e89d146f1926debcd75c1a1ed42b5070933fb0e75f31103309540e6c2865c3"
+    }
+  ],
+  "metrics": {
+    "checksum_plotted": 19.95861760508256,
+    "h1_elec_pivotal": 0,
+    "h2a_elec_pivotal": 1,
+    "h2b_elec_pivotal": 1,
+    "n_panels": 3,
+    "n_rows": 12
+  },
+  "metrics_file": "runs/fig-intervals/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/cs-calibration/.venv"
+  }
+}

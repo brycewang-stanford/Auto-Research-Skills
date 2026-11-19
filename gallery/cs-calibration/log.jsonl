@@ -75,3 +75,7 @@
 {"time": "2026-11-19T12:35:01Z", "role": "figures-ra", "action": "run", "detail": "tab-sensitivity exit=0"}
 {"time": "2026-11-19T12:35:06Z", "role": "figures-ra", "action": "run", "detail": "fig-reliability exit=0"}
 {"time": "2026-11-19T12:37:00Z", "role": "figures-ra", "action": "figures-done", "detail": "f-figs: 1 figure (fig_reliability) and 4 table fragments (tab_decision, tab_levels, tab_sensitivity, tab_elec_time) from runs fig-reliability, tab-decision, tab-levels, tab-sensitivity; 438 table cells as claim macros, 61 plain (unquoted) numbers, 0 typed; unlogged macro check against claims.jsonl 0 failures; captions in paper/figures/CAPTIONS.md with electricity-dependence and bin-count caveats; validate OK"}
+{"time": "2026-11-19T12:38:02Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261119T123802Z (forest plot)"}
+{"time": "2026-11-19T12:38:02Z", "role": "pi", "action": "plan-updated", "detail": "rv-results marked done (stale); f-figs in-progress"}
+{"time": "2026-11-19T12:39:15Z", "role": "figures-ra", "action": "run", "detail": "fig-intervals exit=0"}
+{"time": "2026-11-19T12:39:30Z", "role": "figures-ra", "action": "figures-done", "detail": "f-figs follow-up: fig_intervals.pdf (forest plot of H1/H2a/H2b per-dataset paired t(9) intervals with margins, zero, categories, electricity dagger) from run fig-intervals reading runs/h-tests/metrics.json only; caption added to paper/figures/CAPTIONS.md; f-figs set to done in plan.json"}

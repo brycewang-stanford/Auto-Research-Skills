@@ -61,6 +61,33 @@ H1's *contradicted* does not depend on electricity.
 
 Sources: `runs/h-tests/metrics.json` only. 36 macro cells, 12 plain counts.
 
+## Figure `fig_intervals.pdf`: run `fig-intervals`, script `code/fig_intervals.py`
+
+**Caption.** The pre-registered intervals of Table `tab_decision` as a forest plot, one panel per
+hypothesis: H1 (plug-in ECE, uncalibrated RF minus uncalibrated LR, predicted > 0), H2a (Brier,
+RF isotonic minus RF none, predicted < 0) and H2b (Brier, HGB isotonic minus HGB none, predicted
+< 0). Each row is one dataset: the marker is the mean of the 10 paired per-seed differences
+(\HOneAdultMean, \HTwoAAdultMean, ... in the text) and the line its 95% plain paired t(9) interval
+(\HOneAdultLo to \HOneAdultHi, and so on). The solid vertical line is zero; the dashed lines and the
+gray band mark plus or minus the margin (0.005 ECE for H1, 0.001 Brier for H2a and H2b). The
+label above each row and the marker give the category under the rule fixed at the question gate:
+filled circle *holds*, cross *contradicted*, open diamond *no difference*, open gray circle
+*inconclusive* (no detectable difference). Each panel's title gives the overall k-of-4 verdict.
+x-axes differ between panels (ECE for H1, Brier for H2a and H2b) and span the intervals and
+margins with equal padding; none is cut. Intervals measure variability over resplits of these
+samples, not population sampling variance, and are not adjusted for three hypotheses on four
+datasets. **Electricity dependence** (dagger on electricity's category label): electricity's random
+splits may leak across neighbouring half-hours, a question the chronological sensitivity could not
+settle (Table `tab_elec_time`). The dagger marks the hypotheses whose overall verdict would change
+if electricity's category were any other category, computed by the script with the k-of-4 rule of
+`analyze.py`: H2a (inconclusive overall; electricity's *holds* is its only one) and H2b (*no
+difference* overall, which needs electricity as one of its three). H1's *contradicted* does not
+depend on electricity. As in Table `tab_decision`, H1 is a statement about the plug-in estimator,
+whose noise floor (about 0.01 to 0.04) exceeds its 0.005 margin.
+
+Sources: `runs/h-tests/metrics.json` only; margins, signs, category words and the k-of-4 rule from
+`code/analyze.py`.
+
 ## Figure `fig_reliability.pdf`: run `fig-reliability`, script `code/fig_reliability.py`
 
 **Caption.** Reliability diagrams of LR, RF and HGB (columns) on each dataset (rows), without
