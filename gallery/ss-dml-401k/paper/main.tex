@@ -27,8 +27,8 @@
 \newcommand{\var}[1]{\texttt{#1}}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
-\title{A Cell-by-Cell Check of the Double Machine Learning\\
-401(k) Estimates of Chernozhukov et al.\ (2018)}
+\title{Re-estimating Chernozhukov et al.\ (2018), Table~2, Panel~B:\\
+An Independent Double Machine Learning Check\\ of the 401(k) Eligibility Estimates}
 \author{Bryce Wang (human PI) \\ \small Drafted with Free-Research-Crew; see the AI-use statement.}
 \date{\today}
 
@@ -46,14 +46,18 @@ learners, on all $\NoctrlN$ households of the authors' 1991 SIPP file. Before an
 analysis we fixed, for each cell, a tolerance derived from the split-to-split variation
 implied by the published standard errors, the shift that tolerance detects with 80\%
 power, and the false-failure rate implied by port deviations measured beforehand on
-synthetic data. That rate was about 33\%, mostly because the random-forest port failed
+synthetic data. That rate was about 33\% (treating the ten cells as independent), mostly because the random-forest port failed
 its check against R. All ten estimates are positive with 95\% intervals that exclude zero
 (H1). No cell lies outside its tolerance and all $\HTwoNTestable$ testable cells lie
 inside, so H2 holds in its pre-registered meaning: in no testable cell was a shift larger
 than the cell's 80\%-power detectable shift (\$$\MdsBoostingFive$ to \$$\MdsForestTwo$)
 detected. Smaller shifts are not ruled out. The two lasso cells lie inside their
 tolerance but cannot be tested at this resolution, and the replicated lasso estimates
-vary several times less across splits than the published ones. The lasso estimate is
+vary several times less across splits than the published standard errors imply (the
+published split spread is not observed; it is inferred from the two standard-error
+rows). The authors' own earlier run of the procedure differs from the published table by
+up to \$154 in a cell, inside every tolerance; our largest testable difference is of that
+size. The lasso estimate is
 below every flexible learner's at both fold counts (H3).
 \end{abstract}
 
@@ -111,10 +115,13 @@ qualifications sit next to the cells they concern:
         shift from the measured one.
   \item The two lasso cells (differences \negusd{\DiffLassoTwo} and \negusd{\DiffLassoFive})
         are inside their tolerance but not testable, and so are not counted as passes.
-        Their split-to-split spread is several times narrower than the published
-        one, so the published lasso adjusted standard errors are not matched. We cannot
+        Their split-to-split spread is several times narrower than the one the
+        published standard errors imply, so the published lasso adjusted standard errors
+        are not matched. We cannot
         say why, and we read the close lasso medians as weak evidence about the port.
-  \item The analysis took 92 minutes against a 60-minute budget.
+  \item The completed analysis runs took 92 minutes against a 60-minute budget. This
+        excludes an interrupted first attempt at the lasso run, whose duration was not
+        recorded.
 \end{enumerate}
 All ten estimates are positive with 95\% intervals that exclude zero (H1), and the lasso
 estimate is below every flexible learner's at both fold counts (H3).
@@ -191,9 +198,19 @@ learners are also in the code, and we copy them (Table~\ref{tab:learners}).
 
 \paragraph{Two runs by the same authors.} The Table~2 estimates published in 2018 first
 appear in arXiv:1608.00060v5 (21 June 2017); version~4 (30 December 2016) reports an
-earlier run \citep{chernozhukov2018dml}. An earlier run of the same exercise by the same
-authors gave a median 5-fold random-forest PLR estimate of \$9,252 (SE 1,400), within
-\$5 of the 2018 value \citep{chernozhukov2017aerpp,chernozhukov2018dml}.
+earlier run \citep{chernozhukov2018dml,chernozhukov2016dmlv4}. The same earlier numbers
+appear in the appendix of the authors' \emph{AER Papers and Proceedings} article
+\citep{chernozhukov2017aerpp,chernozhukov2016dmlv4}. That earlier run is the same
+exercise, also aggregated by the median over splits. Taking the earlier value minus the
+2018 value, its PLR cells differ from the published ones by \$5 to \$33 at 5 folds
+(lasso $+15$, tree $+23$, forest $+5$, boosting $-21$, neural network $+27$) and by \$10
+to \$154 at 2 folds (lasso $-10$, tree $+61$, forest $+88$, boosting $-13$, neural network
+$+154$). All ten gaps are smaller than our pre-registered tolerances
+\citep{chernozhukov2017aerpp,chernozhukov2016dmlv4,chernozhukov2018dml}. The earlier
+run's parenthesized standard errors are the same split-adjusted SE as the 2018 row (no
+bracketed row is reported). For the lasso they are 1,785 at 2 folds and 1,581 at 5
+folds, against 1,749 and 1,558 in 2018 \citep{chernozhukov2017aerpp,chernozhukov2016dmlv4}.
+We use this earlier run as a yardstick in Section~\ref{sec:results}.
 
 % ---------------------------------------------------------------------------------------
 \section{Data}
@@ -214,8 +231,10 @@ treatment \var{e401} (0/1 eligibility), and the controls \var{age}, \var{inc},
 \var{hown}, used raw by the tree, forest, boosting and neural-network learners and
 through the 275-column dictionary by the lasso. No value is missing. The study sample is
 all $\NoctrlN$ rows. The authors' code does not subset the file, and the design forbade
-switching samples. In particular, Abadie's \$10,000--\$200,000 income band
-($\NoctrlBandN$ households) is not applied; it appears below only as a descriptive check.
+switching samples. In particular, Abadie's 401(k) sample restricts family income to
+\$10,000--\$200,000, because eligibility is rare outside that interval, and has 9,275
+observations from the 1991 SIPP \citep{abadie2000}. That income band ($\NoctrlBandN$
+households in our file) is not applied; it appears below only as a descriptive check.
 All amounts are in 1991 US dollars. Variable definitions and per-variable summaries are
 in the workspace codebook (\var{data/CODEBOOK.md}).
 
@@ -498,7 +517,8 @@ Tolerance is the pre-registered H2 half-width $2.81\sqrt{\text{se}_{\text{rep}}^
 \text{se}_{\text{pub}}^2}$; MDS$_{80}$ is the shift a cell detects with 80\% power.
 (a)~Inside the tolerance but not testable at this resolution (MDS$_{80}$ exceeds half the
 published bracketed SE), so not counted as a pass. The replicated lasso split-to-split
-spread is several times narrower than the published one (Figure~\ref{fig:spread}).
+spread is several times narrower than the one the published SEs imply
+(Figure~\ref{fig:spread}).
 (b)~Pass: $|\text{difference}| \le$ tolerance in a testable cell, meaning no shift larger
 than MDS$_{80}$ was detected; smaller shifts are not ruled out. (c)~The forest port failed
 the pre-analysis port check (Table~\ref{tab:port}): $\PortShiftForest$ (SE
@@ -584,13 +604,28 @@ versus $\PubSeMedLassoTwo$; $\SeMedLassoFive$ versus $\PubSeMedLassoFive$). The 
 from the split-to-split spread. Our $1.4826 \times \text{MAD}$ of the split estimates is
 \$$\SplitSdObsLassoTwo$ at $K = 2$ and \$$\SplitSdObsLassoFive$ at $K = 5$. The published
 standard errors imply \$$\SplitSdPubLassoTwo$ and \$$\SplitSdPubLassoFive$, several
-times more. For the other learners our spread is also narrower than the published one,
-but by much less (Figure~\ref{fig:spread}). Of all the replicated estimates and standard
+times more. The published spread is not observed: it is inferred from the two
+published SE rows through the $1.4826\,(\text{adj}^2 - \text{med}^2)^{1/2}$
+approximation. For the other learners our spread is also narrower than the published
+SEs imply, but by much less (Figure~\ref{fig:spread}). The large published lasso adjusted
+SEs recur in the authors' earlier run (1,785 and 1,581; Section~\ref{sec:original}). This
+suggests that the wide lasso spread is a feature of the authors' procedure rather than of
+one run of it. Of all the replicated estimates and standard
 errors, these two lasso adjusted SEs are the only ones that miss the published values by
 more than 15\%. No run tests why our lasso varies so much less across splits. A lasso
 median that matches the published one closely while its split distribution is several
 times narrower is weak evidence that our port behaves like the authors' lasso on
 \var{net\_tfa}. We read the lasso cells only as ``inside, not testable''.
+
+\paragraph{A yardstick: the authors' own earlier run.} Two runs of the authors' own
+procedure differ by \$5 to \$154 per cell, and all ten of those gaps lie inside our
+tolerances (Section~\ref{sec:original}). So the tolerances are not narrower than the
+authors' own run-to-run variation. Our differences are of the same order. Our largest
+testable difference, $+\$\DiffNnetTwo$ in the 2-fold neural-network cell, is close to the
+authors' own gap in that cell ($+\$154$). This comparison is descriptive. The earlier
+run is a single draw from the authors' procedure, and our differences mix split noise
+with the port deviations. It shows only that differences of the size we find also arise
+between two runs of the original code.
 
 \subsection{H3}
 
@@ -660,7 +695,8 @@ inside tolerances that cannot test the lasso cells, so the data do not show whic
 \var{hdm} version the authors ran. That the authors' outcome lasso used $c = 0.5$ is a
 \emph{conjecture}. It rests on the version timeline, not on our estimates. The published
 Table~2 numbers first appear in the arXiv version of 21 June 2017, after a version of 30
-December 2016 that reports an earlier run \citep{chernozhukov2018dml}. Throughout that
+December 2016 that reports an earlier run
+\citep{chernozhukov2018dml,chernozhukov2016dmlv4}. Throughout that
 window the CRAN release of \var{hdm} was 0.2.0, which applies $c = 0.5$. Version 0.2.3,
 the only one that keeps $c = 1.1$, was released on 23 January 2018 \citep{hdm_cran}. An
 unreleased development build or a stale 0.1.0 installation (effective $c$ of about 0.62)
@@ -705,9 +741,9 @@ cell, and every difference lies inside it as well.
 \paragraph{Nuisance fit and overlap.} The median out-of-fold RMSE of $\hat\ell$ is between
 \$$\RmseLBoostingFive$ (boosting, 5-fold) and \$$\RmseLTreeTwo$ (tree, 2-fold); that of
 $\hat m$ is between $\RmseMBoostingFive$ and $\RmseMForestFive$. The random forest has the
-highest $\hat m$ RMSE of the five learners at both fold counts. This is the direction the
-port check found on synthetic data (a noisier Python treatment forest), but no run
-compares our forest with \var{randomForest} on the real data. The share of out-of-fold
+highest $\hat m$ RMSE of the five learners at both fold counts. This ranking across
+learners says nothing about how our forest compares with \var{randomForest}, and no run
+compares the two on the real data. The share of out-of-fold
 $\hat m$ outside $[0.01, 0.99]$ is zero for the lasso, tree and boosting. It is
 $\MOutForestTwo$ and $\MOutForestFive$ for the forest and $\MOutNnetTwo$ and $\MOutNnetFive$
 for the neural network (2- and 5-fold). No trimming is applied, as in the authors' PLR
@@ -755,8 +791,10 @@ Neural network & 2 & $\SplitSdObsNnetTwo$ & $\SplitSdPubNnetTwo$ & $\ImpliedMadO
 \end{table}
 
 \paragraph{Wall time.} The design estimated 34--43 minutes of wall time for the main
-analysis and warned that 70--100 minutes was possible. The analysis runs took 92 minutes
-in all (runs/NOTES.md), against a 60-minute budget. The machine was shared with other
+analysis and warned that 70--100 minutes was possible. The completed analysis runs took
+92 minutes in all (runs/NOTES.md), against a 60-minute budget. This excludes the
+interrupted first attempt at the lasso main run (Section~\ref{sec:deviations}), whose
+duration was not recorded, so the total compute was larger by an unknown amount. The machine was shared with other
 heavy jobs during the outcome-lasso run: the load average was 46--90 on 8 cores, and the
 lasso main run took 52 minutes, while the $c = 1.1$ lasso run, with the same code under
 lighter load, took 11. Under the rule fixed at the design gate, the overrun is disclosed
@@ -788,8 +826,10 @@ are unknown.
 
 \paragraph{Tolerance assumptions.} The tolerances assume roughly normal split noise; the
 factor 1.4826 is an upper bound when within-split variance differs across splits, which
-makes them conservative. The familywise rate treats the ten cells as independent,
-although learners share splits within a fold count.
+makes them conservative. The published split spread they use is inferred from the two
+published SE rows, not observed. The Bonferroni bound on the familywise rate needs no
+independence. The combined 33\% false-failure figure, however, treats the ten cells as
+independent, although learners share splits within a fold count.
 
 \paragraph{Identification and inference.} The PLR coefficient is causal only under
 conditional exogeneity of eligibility, which this study does not test, and it is not the
@@ -815,8 +855,9 @@ the command, number of splits and specification written before the design gate, 
 planned order, and every run exited without error (runs/NOTES.md). Two events are
 disclosed:
 \begin{enumerate}
-  \item \emph{Budget overrun.} The runs took 92 minutes against the 60-minute budget
-        (Section~\ref{sec:diagnostics}). Under the design's rule the overrun is disclosed,
+  \item \emph{Budget overrun.} The completed runs took 92 minutes against the 60-minute
+        budget, not counting the interrupted first lasso attempt, whose duration was not
+        recorded (Section~\ref{sec:diagnostics}). Under the design's rule the overrun is disclosed,
         and $S$ was not reduced.
   \item \emph{Run restart.} The first attempt at the outcome-lasso main run was interrupted
         by a restart of the Econometrician's session. It had written an incomplete run
@@ -889,8 +930,11 @@ expected, that every estimate is positive and significant and that the lasso giv
 smallest estimate. For readers who use this application as a benchmark, the main lessons
 concern precision, not the sign or size of the effect. Even with 100 splits, a
 cell-by-cell check of these estimates cannot see shifts of a few hundred dollars. The
-treatment forest and the lasso's split-to-split variability are where an independent
-implementation is most likely to depart from the original.
+authors' own two runs differ by up to \$154 per cell, and our largest testable difference
+is of that size. In our implementation, the treatment forest and the lasso's
+split-to-split variability are where the estimates depart, or may depart, from the
+original. Whether another independent implementation would depart in the same places is
+not something one implementation can show.
 
 \input{ai-use}
 

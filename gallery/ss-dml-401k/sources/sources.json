@@ -5,7 +5,7 @@
     "method": "fetched-fulltext",
     "doi": "10.1111/ectj.12097",
     "url": "https://arxiv.org/abs/1608.00060",
-    "note": "Full text arXiv:1608.00060v7 (PDF, pdftotext). Metadata from Crossref. Table 2 values cross-checked against the journal HTML at https://academic.oup.com/ectj/article/21/1/C1/5056401: identical."
+    "note": "Full text arXiv:1608.00060v7 (PDF, pdftotext). Metadata from Crossref. Table 2 values cross-checked against the journal HTML at https://academic.oup.com/ectj/article/21/1/C1/5056401: identical. arXiv v5 (2017-06-21) and v6 (2017-12-12) also read: Table 2 Panel B identical to the journal table, including both SE rows."
   },
   "chernozhukov2004": {
     "verified_on": "2026-11-18",
@@ -94,7 +94,8 @@
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "url": "https://docs.doubleml.org/stable/examples/py_double_ml_pension.html",
-    "note": "Web page read via fetch tool (summarized extraction). fetch_401K source read directly from GitHub DoubleML/doubleml-for-py main."
+    "note": "Web page read via fetch tool (summarized extraction). fetch_401K source read directly from GitHub DoubleML/doubleml-for-py main. Year 2023 from the page footer (re-fetched 2026-11-19).",
+    "fulltext_via": "summarising fetch tool (WebFetch): the page was read through a model summary, not as raw text; numbers transcribed from that summary"
   },
   "belloni2017": {
     "verified_on": "2026-11-18",
@@ -132,14 +133,16 @@
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "url": "https://docs.doubleml.org/stable/examples/R_double_ml_pension.html",
-    "note": "Web page read via fetch tool (summarized extraction)."
+    "note": "Web page read via fetch tool (summarized extraction). Year 2023 from the page footer (re-fetched 2026-11-19).",
+    "fulltext_via": "summarising fetch tool (WebFetch): the page was read through a model summary, not as raw text; numbers transcribed from that summary"
   },
   "mendez2026": {
     "verified_on": "2026-11-18",
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "url": "https://carlos-mendez.rbind.io/post/python_doubleml_pension/",
-    "note": "Web page read via fetch tool (summarized extraction). Informal tutorial, not peer reviewed."
+    "note": "Web page read via fetch tool (summarized extraction). Informal tutorial, not peer reviewed.",
+    "fulltext_via": "summarising fetch tool (WebFetch): the page was read through a model summary, not as raw text; numbers transcribed from that summary"
   },
   "hdm_cran": {
     "url": "https://cran.r-project.org/src/contrib/Archive/hdm/",
@@ -147,5 +150,20 @@
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "note": "Source tarballs 0.1.0, 0.2.0, 0.2.3, 0.3.1 (Archive) and 0.3.2 (src/contrib) downloaded; R/rlasso.R and R/rlassologit.R read; sha256 and line references in sources/hdm_penalty.md."
+  },
+  "abadie2000": {
+    "doi": "10.3386/t0260",
+    "url": "https://www.nber.org/papers/t0260",
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "note": "NBER PDF (42 pp.) text-extracted; Crossref: report, NBER, 2000-09. Section 6 (401(k) application) and Table I note: 9,275 observations, SIPP 1991, family income in the $10,000-$200,000 interval. Working-paper version of abadie2003 (different title). Also read by the Data RA (data/CODEBOOK.md source [A])."
+  },
+  "chernozhukov2016dmlv4": {
+    "url": "https://arxiv.org/abs/1608.00060v4",
+    "verified_on": "2026-11-19",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "note": "arXiv:1608.00060v4 PDF read; Table 2 (median ATE, 401(k)) on PDF page 28 carries the same numbers as the AER P&P preprint arXiv:1701.08687v1 appendix Table 2."
   }
 }

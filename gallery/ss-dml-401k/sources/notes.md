@@ -165,6 +165,29 @@ read on 2026-11-18. The repository was last pushed 2018-05-07. `[dmlongithub]`
   the 2018 Table 2. These values come from a summarizing fetch, so the Econometrician
   should not treat them as authoritative.
 
+### Added 2026-11-19 (review paper-r1)
+
+- **Earlier run's SEs.** In arXiv:1701.08687v1 (appendix Table 2, PDF p. 17) and
+  arXiv:1608.00060v4 (Table 2, PDF p. 28), the numbers are the same. The parenthesized
+  SE is σ̂_Median, the median over splits of sqrt(σ̂_s² + (θ̂_s − θ̂_median)²). This is the
+  **split-adjusted** SE, the same concept as the 2018 parenthesized row (eq. 3.14). No
+  bracketed per-split median SE is reported, so the 2017 split spread cannot be backed
+  out on its own.
+  - Lasso 5-fold: 8,202 (1,581) in 2017 vs 8,187 (1,558) in 2018.
+  - Lasso 2-fold: 7,707 (1,785) vs 7,717 (1,749).
+- **Which source to cite for the earlier run.** Cite `[chernozhukov2017aerpp]` (whose
+  appendix table was read) and/or the new `[chernozhukov2016dmlv4]` (arXiv v4), not
+  `[chernozhukov2018dml]`. The 2018 article does not contain those numbers; cite it only
+  for the 2018 values. The statement that the Table 2 numbers first appear in v5 rests on
+  `[chernozhukov2018dml]` (arXiv versions read), and the v4 contents on
+  `[chernozhukov2016dmlv4]`.
+- **Abadie's income band.** It is sourced to `[abadie2000]`, NBER Technical Working Paper
+  260, which I read in full. Section 6 and the Table I note give 9,275 SIPP 1991
+  observations with family income in $10,000-$200,000.
+- **Pages read through a summarising fetch tool.** `doubleml401kdocs`,
+  `doubleml401krdocs` and `mendez2026` are marked in `sources.json` (`fulltext_via`). They
+  were read through a model summary, not as raw text.
+
 ## 3. Discrepancies to carry forward
 
 1. **SIPP year of Poterba et al.** The 2018 paper says Poterba et al. (1994a, 1994b) "use

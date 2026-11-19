@@ -1,0 +1,119 @@
+{
+  "id": "paper-r1",
+  "target": "paper",
+  "round": 1,
+  "created": "2026-11-19T07:41:00Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261119T073442Z-reviewer.md",
+    "briefs/20261118T160907Z-econometrician.md",
+    "briefs/20261119T071555Z-writer.md",
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "log.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "sources/hdm_penalty.md",
+    "data/CODEBOOK.md",
+    "code/prepare_sipp.py",
+    "runs/NOTES.md",
+    "runs/check-learner-ports/metrics.json",
+    "paper/main.tex",
+    "paper/ai-use.tex",
+    "paper/numbers.tex",
+    "paper/main.pdf",
+    "paper/tables/tab_side_by_side.tex",
+    "paper/tables/tab_port_check.tex",
+    "paper/figures/fig_h2_diff.pdf",
+    "paper/figures/fig_split_spread.pdf",
+    "paper/figures/CAPTIONS.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r4/review.json",
+    "reviews/design-r2/review.json",
+    "reviews/design-r3/review.json",
+    "reviews/code-r2/review.json",
+    "reviews/results-r1/review.json",
+    "reviews/results-r2/review.json"
+  ],
+  "kill_argument": "The paper's only substantive output is a non-rejection by a test that, on its own pre-analysis numbers, cannot see shifts below $272-569, cannot test the lasso at all, and let through the one learner (forest) known to deviate. What would make such a non-rejection informative is an external yardstick, and the workspace has one that the paper suppresses: the authors' own earlier run of the identical protocol (AER P&P 2017; S = 100, K = 2 and 5, median). Against the 2018 table it moves by $5-33 at 5-fold and up to $154 at 2-fold (neural net, 9,104 vs 8,950), and sources/notes.md shows every one of the ten gaps inside the tolerances. That both validates the tolerance framework and calibrates the replication's own differences: the largest testable gap here (+$157, neural net 2-fold) equals the authors' run-to-run gap, and the earlier run lands on 9,104 against our 9,107. The paper instead quotes only the single closest cell ('within $5'), which overstates the authors' run-to-run stability and makes the comparison look sharper than it is. I attacked every macro, table, figure, design-fact literal, disclosure and timeline; those held.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "Selective use of the authors' second run. Section 2 ('Two runs by the same authors') and claim c-aerpp-rerun report only the closest cell of the AER P&P 2017 run (forest 5-fold, $9,252, 'within $5'). sources/notes.md (section 2, item 6 of section 3, and the section 5 table) records all ten cells: gaps of $5-33 at 5-fold and up to $154 at 2-fold (nnet 9,104 vs 8,950), all inside the pre-registered tolerances. This is the most relevant evidence the paper has for its task ('compare ... and explain any difference'). (a) It is an out-of-sample check that the tolerances are not too tight. (b) It calibrates the replication's differences: our largest testable gap (+$157, nnet 2-fold) is the size of the authors' own run-to-run gap. (c) The earlier run's lasso 5-fold SE (1,581 vs 2018's 1,558) suggests that the large published lasso spread recurs across the authors' runs. That bears directly on the lasso spread discrepancy the paper says it cannot explain. Whether the earlier run's parenthesised SE is the adjusted one must be checked. Quoting only the $5 cell overstates the stability of the authors' procedure. The paragraph also cites the 2018 journal article for the arXiv v4 contents and does not say that v4 and the AER P&P preprint carry the same earlier numbers (sources/hdm_penalty.md section 5).",
+      "evidence": "paper/main.tex lines 192-196 (Two runs by the same authors); claims.jsonl c-aerpp-rerun and c-table2-timing; sources/notes.md section 2 (Chernozhukov et al. 2017 entry), section 3 item 6, section 5 '2017 vs 2018 runs by the authors' table; sources/hdm_penalty.md section 5",
+      "response": "Scout: c-aerpp-rerun now gives all ten 2017-vs-2018 gaps ($5-33 at 5-fold, $10-154 at 2-fold) with locators (1701.08687v1 App. Table 2 p.17; 1608.00060v4 Table 2 p.28; 2018 Table 2) and states all lie inside the pre-registered tolerances ($209-825) and the S=100 ones ($142-825); the 2017 (1,581) is the split-adjusted median-method SE (no bracketed row in 2017), recorded in c-aerpp-lasso-se; the paragraph should cite chernozhukov2017aerpp / new chernozhukov2016dmlv4 for the earlier run, not chernozhukov2018dml. Writer: Sec. 2 now reports all ten earlier-vs-2018 gaps ($5-33 at 5-fold, $10-154 at 2-fold), all inside our tolerances, and the earlier lasso adjusted SEs (1,785/1,581), citing chernozhukov2017aerpp/chernozhukov2016dmlv4; Sec. 6 adds a yardstick paragraph comparing our +$157 (nnet 2-fold) with their +$154; abstract and conclusion mention it.",
+      "ruling": "Cheapest remedy: no new run. Replace the 'within $5' sentence with the range ($5-33 at 5-fold, up to $154 at 2-fold) and state that all ten gaps lie inside the tolerances. Back this with a citation claim on chernozhukov2017aerpp, or add a small appendix table from sources/notes.md section 5. Mention the earlier run's lasso SE in the lasso-spread paragraph only after the Scout confirms which SE it is. Do not use it as an explanation."
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "open",
+      "text": "The diagnostics paragraph says the forest has the highest m-hat RMSE of the five learners on the real data and that 'this is the direction the port check found on synthetic data (a noisier Python treatment forest)'. But a cross-learner ranking says nothing about Python versus R. In the port check, R's own treatment forest also had the highest m-hat RMSE of the R learners: 0.4715 against 0.4598-0.4646 (runs/check-learner-ports/metrics.json rmse_m_ra_*). So the forest would rank last even with a perfect port. The sentence implies corroboration that the data do not give.",
+      "evidence": "paper/main.tex lines 706-710 (Nuisance fit and overlap); runs/check-learner-ports/metrics.json rmse_m_ra_forest 0.4715 vs rmse_m_ra_lasso 0.4600, _tree 0.4646, _boosting 0.4598, _nnet 0.4643",
+      "response": "Writer: the sentence is reworded: the cross-learner ranking says nothing about our forest versus randomForest, and no run compares them on real data.",
+      "ruling": "Delete the 'this is the direction' sentence, or add that R's forest also ranks last on synthetic data, so the ranking is not evidence about the port."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "The 92-minute wall time (abstract item 3, Section 7 Wall time, Section 9 Budget overrun) counts only the completed runs, 16:10:03-17:41:56 UTC. The interrupted first main-lasso attempt ran at some point between check-noctrl (14:38:52) and the relaunch brief (16:09:08), and its duration is recorded nowhere. Total analysis compute was therefore larger than 92 minutes by an unknown amount. The paper presents 92 minutes as 'the analysis took'.",
+      "evidence": "paper/main.tex lines 117, 757-764, 818-826; runs/NOTES.md 'Session restart' and 'Main runs' sections; log.jsonl (no entry for the first attempt; check-noctrl 14:38:52, brief-archived 16:09:08)",
+      "response": "Writer: intro, Sec. 7 and Sec. 9 now say the 92 minutes counts completed runs only and excludes the interrupted first lasso attempt, whose duration was not recorded.",
+      "ruling": "Say that 92 minutes covers the completed runs only and that the interrupted first lasso attempt (duration not recorded) is excluded."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "The abstract says the replicated lasso estimates 'vary several times less across splits than the published ones'. The published split estimates are not observed. Their spread is inferred from the two SE rows through the 1.4826 x (adj^2 - med^2)^{1/2} approximation. On our own lasso runs that approximation overstates the measured spread: the implied MAD is 295 against a measured MAD of 239 at K = 2. The body is careful ('the published SEs imply'); the abstract is not. Separately, Limitations says 'the familywise rate treats the ten cells as independent'. The Bonferroni bound needs no independence; only the combined 33% false-failure figure treats the cells as independent (decision_rules.H2_size_under_measured_ports).",
+      "evidence": "paper/main.tex lines 55-56 (abstract), 791-792 (Tolerance assumptions); paper/numbers.tex ImpliedMadObsLassoTwo 295, SplitSdObsLassoTwo 354 (MAD 239); plan.json design.decision_rules.H2_size_under_measured_ports",
+      "response": "Writer: abstract, intro, Table 3 note, lasso paragraph and Limitations now say the published spread is inferred from the two SE rows; independence is attached to the combined 33% figure (abstract, Limitations), not the Bonferroni bound.",
+      "ruling": "Abstract: 'several times less than the spread the published SEs imply'. Limitations: attach the independence caveat to the 33% figure, not to the familywise rate."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "Section 3 attributes the $10,000-$200,000 income band (9,275 households) to Abadie. sources/sources.json records abadie2003 as 'doi-resolved' (Crossref metadata only), and the AI-use statement says the paper cites abadie2003 'for no more than that'. The band actually comes from Abadie's NBER Technical Working Paper 260, read in full by the Data RA (data/CODEBOOK.md source [A]). That paper is not in refs.bib and has no source record. The attribution is right but unsourced in the paper's own terms.",
+      "evidence": "paper/main.tex lines 216-218; paper/ai-use.tex 'Where only the abstract or metadata could be read'; sources/sources.json abadie2003; data/CODEBOOK.md lines 25-30 and 92-103",
+      "response": "Scout: Abadie (2000) NBER TWP 260 (doi 10.3386/t0260) read in full and verified; added as abadie2000 with claim c-abadie-band (Sec. 6 and Table I note: 9,275 obs, SIPP 1991, $10,000-$200,000 family income). Writer: the $10,000-$200,000 band and 9,275 observations are now attributed to abadie2000 (claim c-abadie-band).",
+      "ruling": "Add the NBER TWP 260 to refs.bib with a sources.json record (the Data RA read it) and cite it for the band, or drop the attribution and point to data/CODEBOOK.md."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "AI-use statement accuracy. (a) '17 from the full text': three of the 17 'fetched-fulltext' records are web pages read through a summarising fetch tool, by their own notes (doubleml401kdocs, doubleml401krdocs, mendez2026: 'summarized extraction'). These three support the novelty claim (c-no-cellwise). (b) 'No review of the paper has been held yet' and 'Replication. Pending' must be updated with this review and with replication.json before the submission gate.",
+      "evidence": "paper/ai-use.tex Evidence and Review items; sources/sources.json notes for doubleml401kdocs, doubleml401krdocs, mendez2026",
+      "response": "Scout: sources.json now marks doubleml401kdocs, doubleml401krdocs and mendez2026 with fulltext_via = summarising fetch tool. Writer: ai-use.tex now says 16 full text, 3 web pages via a summarising fetch tool, 2 abstract, 1 DOI; review and replication items record paper-r1 and are marked to be updated before the submission gate.",
+      "ruling": "Say '17 fetched in full (three web pages through a summarising fetch)'. Update the review and replication items once they exist."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "The conclusion's last sentence ('The treatment forest and the lasso's split-to-split variability are where an independent implementation is most likely to depart from the original') generalises from one implementation. The forest cause is an untested conjecture and the lasso spread is unexplained. The evidence supports 'where ours departs', not 'where an independent implementation is most likely to'. Related carried item: crew.json's title is still 'Does 401(k) eligibility raise household net financial assets?'. It promises a causal answer the paper says it does not give, and it differs from the paper title.",
+      "evidence": "paper/main.tex lines 892-893; crew.json title",
+      "response": "Writer: the last sentence is narrowed to our implementation; the paper title now follows crew.json and does not say 'raise'.",
+      "ruling": "Narrow the sentence to this implementation. Align crew.json's title with the paper (PI)."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "open",
+      "text": "Bibliography hygiene. The chernozhukov2017aerpp title prints as 'Double/debiased/neyman' (brace the capital N). doubleml401kdocs and doubleml401krdocs have no year (BibTeX warns 'empty year'), so the entries render as 'DoubleML Developers, a/b'.",
+      "evidence": "refs.bib chernozhukov2017aerpp, doubleml401kdocs, doubleml401krdocs; paper/main.pdf references p. 17-18; bibtex log in a scratch compile",
+      "response": "Scout: Neyman braced ({Double/Debiased/Neyman}); both DoubleML documentation entries now carry year 2023 from the pages' footers (re-fetched 2026-11-19). Writer: recompiled with the Scout's bib fixes; Neyman braced and both DoubleML entries print as 2023a/b, no BibTeX warnings.",
+      "ruling": "Brace {N}eyman. Add a year (or urldate with year = n.d.) to the two DoubleML entries."
+    }
+  ]
+}

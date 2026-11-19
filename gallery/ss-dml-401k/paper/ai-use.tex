@@ -17,8 +17,10 @@ submission gate. He takes responsibility for the paper's content.
         in \texttt{briefs/} from the Econometrician's relaunch brief (2026-11-18, 16:09 UTC)
         onward. Earlier briefs were not archived.
   \item \textbf{Review.} The Reviewer agent ran 4 rounds on the research question, 3 on the
-        design, 2 on the code and 2 on the results. No separate literature round was held,
-        and no review of the paper has been held yet. The code was reviewed, and passed,
+        design, 2 on the code, 2 on the results and, so far, 1 on the paper (verdict:
+        revise; this version answers its findings). No separate literature round was held.
+        This item is to be updated after the final paper round, before the submission
+        gate. The code was reviewed, and passed,
         before any analysis run. Its independence level was \emph{fresh-context}: a new
         context in every round, with the same model family as the other roles. The human
         author chose this over a cross-family reviewer. Three final rounds passed with
@@ -44,8 +46,11 @@ submission gate. He takes responsibility for the paper's content.
                 with its load figures, taken from \texttt{runs/NOTES.md} and the run
                 records.
         \end{itemize}
-        Every citation was checked against its source by the Scout: 17 from the full text,
-        2 from the abstract only and 1 by resolving its DOI. Where only the abstract or
+        Every citation was checked against its source by the Scout. Of the 22 sources, 16
+        were read in full text and 3 are web pages (the two DoubleML documentation
+        examples and the Mendez tutorial) read through a summarising fetch tool, so their
+        numbers were transcribed from a model's summary rather than from the raw page. Two
+        were read from the abstract only, and one was checked by resolving its DOI. Where only the abstract or
         metadata could be read (as for \citet{chernozhukov2004}, \citet{poterba1995} and
         \citet{abadie2003}), the paper cites the source for no more than that. The full
         workspace is public at
@@ -53,7 +58,8 @@ submission gate. He takes responsibility for the paper's content.
         It contains the plan, the run ledger and notes, the code (with a verbatim copy of
         the authors' \texttt{ML\_Functions.R}), the data manifest, every review, the
         archived briefs and the source notes.
-  \item \textbf{Replication.} Pending. No \texttt{replication.json} exists at the time of
-        writing. The Replicator's clean rerun from \texttt{code/requirements.txt} is
-        required before the submission gate, and its result will be reported here.
+  \item \textbf{Replication.} Pending; to be updated before the submission gate. No
+        \texttt{replication.json} exists at the time of writing. The Replicator's clean
+        rerun from \texttt{code/requirements.txt} is required before that gate, and its
+        result will be reported here.
 \end{itemize}

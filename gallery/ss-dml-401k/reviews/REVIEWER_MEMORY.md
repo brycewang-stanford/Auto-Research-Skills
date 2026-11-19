@@ -345,3 +345,48 @@ Check at paper:
 - Forest: both cells need the port-FAIL caveat; K = 5 needs the "2-fold only" caveat (F6).
 - The lasso $16/$14 must not be called a reproduction (lasso-spread-discrepancy).
 - crew.json title still says "raise". The estimand is the PLR coefficient, not the ATE.
+
+## paper-r1 (2026-11-19): revise, 0 critical / 1 major / 7 minor open
+
+Findings:
+- F1 (major): Section 2 quotes only the $5 forest-5 gap from the authors' AER P&P 2017 run (c-aerpp-rerun).
+  The other gaps are omitted: $5-33 at 5-fold and up to $154 at 2-fold (nnet 9,104 vs 8,950), all inside
+  the tolerances (notes.md section 5). This run validates the tolerances and calibrates our +$157 nnet-2
+  gap. Its lasso-5 SE of 1,581 bears on the lasso spread discrepancy, but the Scout must say which SE
+  type it is.
+- F2: the "forest has the highest m-hat RMSE, the direction the port check found" sentence. R's own
+  forest is also last on synthetic data (0.4715 vs 0.4598-0.4646).
+- F3: the 92 min excludes the interrupted first main-lasso attempt (duration unrecorded, 14:39-16:09).
+- F4: the abstract calls the published split spread observed (it is inferred). Limitations ties the
+  independence assumption to Bonferroni instead of the 33% figure.
+- F5: the Abadie income band comes from NBER TWP 260 (CODEBOOK [A]), which is not in refs.bib.
+  abadie2003 is DOI-only.
+- F6: AI-use says "17 full text", but 3 of those are summarized web fetches. The review and
+  replication items are stale.
+- F7: the conclusion generalises "an independent implementation"; the crew.json title still says "raise".
+- F8: bib casing ({N}eyman) and the DoubleML entries have no year.
+
+Verified myself (no model run; arithmetic and file reads only):
+- validate OK. A scratch compile of paper/ gives 18 pp, no undefined refs, and bibtex warns only on
+  the 2 empty years.
+- Every typed design-fact literal matches plan.json: 0.24 (0.19-0.31), 0.08, 0.005-0.006, 33%,
+  x4.5, $673/$649, 2.262/1.75/$25/0.999, 7e-5, 34-43 and 70-100 min, -$87 (SE $16), $14,300.
+- Source literals match notes.md: $19,559 (1,413), $9,252 (1,400), and the $7,717-$9,247 range over
+  7 learners.
+- Process literals match NOTES and run.json: 92 min, load 46-90, lasso 52 min, c11 11 min.
+- Writer-derived statements are true: all adj-SE ratios outside 15% are lasso only; bracketed SE ratios
+  0.95-1.05; tol_obs < tol everywhere with all diffs inside; nnet-2 is the largest of six; RMSE
+  ranges; m-hat out zero for lasso/tree/boosting; H3 margins vs tree; CI low; pct/SD units.
+- Every memory checklist item holds: MDS80 next to each pass; no "reproduced"; the forest caveat
+  on both cells plus "2-fold only"; lasso "inside, not testable"; estimand PLR not ATE; c = 1.1 a
+  conjecture citing the timeline; both H2 amendments and the restart disclosed.
+- AI-use: the gate times and review counts match the log and reviews. No --accept-findings anywhere.
+  The repo is PUBLIC.
+- Oddity (not filed): design-r3 created 14:33:00Z, but the designer logged its F12/F13 answer at
+  14:32:20Z.
+
+Check at round 2:
+- F1: the full gap range and the "all inside tolerance" statement, with a claim; whether the lasso
+  SE type was confirmed before it is used.
+- F2-F8 wording. The AI-use now names paper-r1 and the replication.json result. The Replicator's
+  verdict: BLAS-dependent lasso/nnet reruns may differ.

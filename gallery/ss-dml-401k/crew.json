@@ -1,7 +1,7 @@
 {
   "protocol": "0.1",
   "track": "social-science",
-  "title": "Does 401(k) eligibility raise household net financial assets? A double machine learning replication",
+  "title": "Re-estimating Chernozhukov et al. (2018), Table 2 Panel B: an independent double machine learning check of the 401(k) eligibility estimates",
   "created": "2026-11-18T11:45:47Z",
   "seed": "ss-dml-401k"
 }
