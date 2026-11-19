@@ -22,9 +22,12 @@
   ],
   "gates": {
     "question": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-18T16:54:00Z",
-      "summary": "Question passed review in round 3; minor F10-F12 answered afterwards."
+      "summary": "Question passed review in round 3; minor F10-F12 answered afterwards.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-19T01:17:54Z",
+      "note": "Approved in chat on 2026-11-19 after reading the question, the Reviewer's verdicts and kill argument."
     },
     "design": {
       "status": "pending"

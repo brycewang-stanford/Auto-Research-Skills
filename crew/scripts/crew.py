@@ -853,6 +853,41 @@ def same_value(old: object, new: object, rtol: float, atol: float) -> bool:
     return old == new
 
 
+def rerun_order(runs: dict[str, dict]) -> list[dict]:
+    """Order runs so that a run comes after every run that produced one of its inputs.
+
+    Ties (and runs with no data dependency) keep the order in which they first ran:
+    start time, then finish time, then id. Start times only have one-second
+    resolution, so they alone cannot order runs started in the same second.
+    """
+    def first_ran(run: dict) -> tuple:
+        return (str(run.get("started")), str(run.get("finished")), str(run.get("id")))
+
+    producers: dict[str, set[str]] = {}
+    for run_id, run in runs.items():
+        for item in run.get("outputs") or []:
+            if isinstance(item, dict) and item.get("path"):
+                producers.setdefault(item["path"], set()).add(run_id)
+    needs: dict[str, set[str]] = {}
+    for run_id, run in runs.items():
+        deps = set()
+        for item in run.get("inputs") or []:
+            if isinstance(item, dict) and item.get("path"):
+                deps |= producers.get(item["path"], set()) - {run_id}
+        needs[run_id] = deps
+    ordered, done = [], set()
+    pending = sorted(runs, key=lambda r: first_ran(runs[r]))
+    while pending:
+        ready = [r for r in pending if needs[r] <= done]
+        if not ready:  # a cycle: fall back to the order in which they first ran
+            ready = pending[:1]
+        nxt = ready[0]
+        ordered.append(runs[nxt])
+        done.add(nxt)
+        pending.remove(nxt)
+    return ordered
+
+
 def cmd_rerun(args: argparse.Namespace) -> int:
     """Re-execute every run in a fresh copy of the workspace and compare metrics."""
     ws = require_workspace(args.workspace).resolve()
@@ -864,7 +899,7 @@ def cmd_rerun(args: argparse.Namespace) -> int:
     if not runs:
         print("ERROR: there are no runs to reproduce", file=sys.stderr)
         return 1
-    ordered = sorted(runs.values(), key=lambda r: (str(r.get("started")), str(r.get("id"))))
+    ordered = rerun_order(runs)
     keep_data = set()
     if args.reuse_data:
         manifest = ws / "data" / "manifest.json"

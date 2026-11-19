@@ -265,6 +265,20 @@ class CrewWorkspaceTest(unittest.TestCase):
         problems = crew.check_replication(self.ws, crew.read_runs(self.ws)[0], required=True)
         self.assertTrue(any("replaced after the rerun" in p for p in problems))
 
+    def test_rerun_order_follows_data_dependencies(self) -> None:
+        same = "2026-01-01T00:00:00Z"
+        runs = {
+            "a-consumer": {"id": "a-consumer", "started": same, "finished": "2026-01-01T00:00:05Z",
+                           "inputs": [{"path": "data/x.csv"}], "outputs": []},
+            "b-producer": {"id": "b-producer", "started": same, "finished": "2026-01-01T00:00:02Z",
+                           "inputs": [], "outputs": [{"path": "data/x.csv"}]},
+            "c-later": {"id": "c-later", "started": "2026-01-01T00:01:00Z", "finished": "2026-01-01T00:01:01Z",
+                        "inputs": [], "outputs": []},
+        }
+        order = [r["id"] for r in crew.rerun_order(runs)]
+        self.assertLess(order.index("b-producer"), order.index("a-consumer"))
+        self.assertEqual(order[-1], "c-later")
+
     def test_citations_need_verified_sources(self) -> None:
         (self.ws / "refs.bib").write_text("@article{known2020,\n  title={A},\n}\n")
         self.assertTrue(any("no verification record" in e for e in self.errors()))
