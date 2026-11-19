@@ -217,7 +217,9 @@
       "note": "Approved in chat on 2026-11-19 after reading H1(a)-(c), H2, and the Reviewer's kill argument."
     },
     "submission": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-19T12:48:34Z",
+      "summary": "Paper after paper-r2 pass (F6, F9-F11 answered in text); validate --strict OK; clean rerun passed 15/15"
     }
   },
   "disclosures": [
