@@ -15,7 +15,7 @@
   "use strict";
 
   const DATA_URL = "../catalog/collisions.json";
-  const RENDER_CAP = 120;
+  const PAGE_SIZE = 120;
 
   const els = {
     summary: document.getElementById("summary"),
@@ -23,10 +23,13 @@
     resultCount: document.getElementById("resultCount"),
     status: document.getElementById("status"),
     results: document.getElementById("results"),
+    loadMore: document.getElementById("loadMore"),
   };
   const fmt = new Intl.NumberFormat("en-US");
 
   let groups = [];
+  let matched = [];
+  let shown = 0;
 
   fetch(DATA_URL)
     .then((res) => {
@@ -48,7 +51,10 @@
     groups = Array.isArray(data.collisions) ? data.collisions : [];
     renderSummary(data);
     els.status.classList.add("hidden");
+    // The catalog's "Compare colliding versions" link arrives as ?q=<name>.
+    els.query.value = new URLSearchParams(window.location.search).get("q") || "";
     els.query.addEventListener("input", debounce(apply, 110));
+    els.loadMore.addEventListener("click", () => renderMore());
     apply();
   }
 
@@ -73,16 +79,10 @@
 
   function apply() {
     const q = els.query.value.trim().toLowerCase();
-    const matched = q ? groups.filter((g) => g.name.toLowerCase().includes(q)) : groups;
-
-    els.resultCount.textContent =
-      matched.length > RENDER_CAP
-        ? `showing ${RENDER_CAP} of ${fmt.format(matched.length)} — refine to narrow`
-        : `${fmt.format(matched.length)} name${matched.length === 1 ? "" : "s"}`;
-
-    const frag = document.createDocumentFragment();
-    for (const g of matched.slice(0, RENDER_CAP)) frag.appendChild(card(g));
-    els.results.replaceChildren(frag);
+    matched = q ? groups.filter((g) => g.name.toLowerCase().includes(q)) : groups;
+    shown = 0;
+    els.results.replaceChildren();
+    renderMore();
 
     if (matched.length === 0) {
       els.status.classList.remove("hidden");
@@ -90,6 +90,18 @@
     } else {
       els.status.classList.add("hidden");
     }
+  }
+
+  function renderMore() {
+    const frag = document.createDocumentFragment();
+    for (const g of matched.slice(shown, shown + PAGE_SIZE)) frag.appendChild(card(g));
+    els.results.appendChild(frag);
+    shown = Math.min(matched.length, shown + PAGE_SIZE);
+    els.resultCount.textContent =
+      shown < matched.length
+        ? `showing ${fmt.format(shown)} of ${fmt.format(matched.length)} names`
+        : `${fmt.format(matched.length)} name${matched.length === 1 ? "" : "s"}`;
+    els.loadMore.classList.toggle("hidden", shown >= matched.length);
   }
 
   function card(g) {

@@ -5,7 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Crew Scoreboard · Free-Research-Crew (免费助研团)</title>
     <meta name="description" content="Bench results for the Free-Research-Crew research agents: protocol checks, answer keys and cross-family reviews for every seed paper.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
+    <script>
+      // Follow the light/dark choice saved by the catalog page (app.js THEME_KEY).
+      try {
+        const saved = localStorage.getItem("ars-theme");
+        if (saved === "dark" || saved === "light") document.documentElement.setAttribute("data-theme", saved);
+      } catch (e) { /* storage blocked: follow the OS setting */ }
+    </script>
     <style>
       .back { color: var(--teal); font-weight: 700; text-decoration: none; }
       .back:hover { text-decoration: underline; }
@@ -14,7 +22,10 @@
       .board th, .board td { text-align: left; padding: 10px 8px; border-top: 1px solid var(--line); vertical-align: top; }
       .board th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
       .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; border: 1px solid var(--line); }
-      .pass { color: #1d7a46; border-color: #1d7a46; }
+      .pass { color: var(--pass); border-color: var(--pass); }
+      :root { --pass: #1d7a46; }
+      @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --pass: #5fd08f; } }
+      :root[data-theme="dark"] { --pass: #5fd08f; }
       .fail { color: var(--coral); border-color: var(--coral); }
       .wait { color: var(--muted); }
       .wrap { overflow-x: auto; }
@@ -62,6 +73,14 @@
           if (content instanceof Node) td.appendChild(content); else td.textContent = content;
           return td;
         }
+        function message(text) {
+          const tr = document.createElement("tr");
+          const td = cell(text);
+          td.colSpan = 7;
+          td.className = "note";
+          tr.appendChild(td);
+          return tr;
+        }
         fetch("../gallery/scoreboard.json")
           .then((response) => { if (!response.ok) throw new Error(response.status); return response.json(); })
           .then((data) => {
@@ -73,18 +92,19 @@
               link.textContent = r.title || r.seed;
               tr.appendChild(cell(link));
               tr.appendChild(cell(r.track));
-              const approved = Object.values(r.gates || {}).filter((s) => s === "approved").length;
-              tr.appendChild(cell(approved + "/4"));
+              const gates = Object.values(r.gates || {});
+              const approved = gates.filter((s) => s === "approved").length;
+              tr.appendChild(cell(approved + "/" + (gates.length || 4)));
               tr.appendChild(cell(tag(r.protocol)));
               tr.appendChild(cell(tag(r.answer && r.answer.status)));
               tr.appendChild(cell(tag(r.rerun_passed === null ? "not run" : r.rerun_passed)));
               tr.appendChild(cell(r.reviews + " (" + r.cross_family_reviews + " cross-family)"));
               rows.appendChild(tr);
             });
-            if (!rows.children.length) rows.appendChild(cell("No scored papers yet."));
+            if (!rows.children.length) rows.appendChild(message("No scored papers yet."));
             meta.textContent = "Scored " + data.scored_on + " · protocol v" + data.protocol + " · crew " + data.crew_version;
           })
-          .catch(() => { rows.textContent = ""; rows.appendChild(cell("Could not load gallery/scoreboard.json.")); });
+          .catch(() => { rows.textContent = ""; rows.appendChild(message("Could not load gallery/scoreboard.json. Serve the repository root (make serve-site) and open /site/scoreboard.html.")); });
       })();
     </script>
   </body>

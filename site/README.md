@@ -72,9 +72,12 @@ make catalog         # rebuilds catalog/skills.json + search-index.json + collis
 
 ## Deploy
 
-`.github/workflows/pages.yml` publishes this directory to GitHub Pages on every
-push to `main` that touches `site/**` or the catalog JSON (or on manual
-dispatch). It bundles only `site/*` and the two generated catalog JSON files —
-no submodules, no large images — and serves the catalog at the Pages root via a
-redirect to `/site/`. Enable it once under **Settings → Pages → Source: GitHub
-Actions**.
+**GitHub Pages is not enabled for this repository yet**, so today the site is
+viewed locally with `make serve-site`; the deploy workflow fails until it is.
+
+`.github/workflows/pages.yml` is ready to publish this directory on every push to
+`main` that touches `site/**` or the catalog JSON (or on manual dispatch). It
+bundles only `site/*`, the two generated catalog JSON files and
+`gallery/scoreboard.json` — no submodules, no large images — and serves the
+catalog at the Pages root via a redirect to `/site/`. Enable it once under
+**Settings → Pages → Source: GitHub Actions**.

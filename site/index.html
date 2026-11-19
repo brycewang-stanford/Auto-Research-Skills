@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Search, filter, and explore 3,000+ autonomous-research skills bundled in Free-Research-Crew.">
+    <meta name="description" content="Search, filter, and explore 6,000+ autonomous-research skills bundled in Free-Research-Crew.">
     <meta name="color-scheme" content="light dark">
     <meta property="og:title" content="Free-Research-Crew (免费助研团) · Skill Catalog">
     <meta property="og:description" content="Search and filter every research skill bundled in the Free-Research-Crew hub.">
@@ -104,14 +104,14 @@
         <section class="panel results-panel">
           <div class="panel-header">
             <h2>Skills</h2>
-            <span id="resultCount" class="muted">Loading</span>
+            <span id="resultCount" class="muted" aria-live="polite">Loading</span>
           </div>
           <div id="activeFilters" class="active-filters hidden" aria-label="Active filters"></div>
           <div id="status" class="status" role="status">Loading catalog/search-index.json…</div>
           <noscript>
             <p class="status">JavaScript is required to load catalog/search-index.json in this browser view.</p>
           </noscript>
-          <div id="results" class="results" aria-live="polite"></div>
+          <div id="results" class="results"></div>
           <div class="load-more-wrap">
             <button id="loadMore" class="secondary load-more hidden" type="button">Load more</button>
           </div>

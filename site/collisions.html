@@ -4,20 +4,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Name Collisions · Free-Research-Crew (免费助研团)</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
+    <script>
+      // Follow the light/dark choice saved by the catalog page (app.js THEME_KEY).
+      try {
+        const saved = localStorage.getItem("ars-theme");
+        if (saved === "dark" || saved === "light") document.documentElement.setAttribute("data-theme", saved);
+      } catch (e) { /* storage blocked: follow the OS setting */ }
+    </script>
     <style>
       /* Resolver-specific layout; everything else reuses styles.css. */
       .topbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; }
       .back { color: var(--teal); font-weight: 700; text-decoration: none; }
       .back:hover { text-decoration: underline; }
       .lead { max-width: 70ch; color: var(--muted); line-height: 1.5; }
-      .collision-card { padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: #fbfcfa; margin-bottom: 12px; }
+      .collision-card { padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--card-bg); margin-bottom: 12px; }
       .collision-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
       .collision-name { margin: 0; font-size: 17px; overflow-wrap: anywhere; }
       .badge { color: var(--coral); font-size: 12px; font-weight: 800; white-space: nowrap; }
       .variant { display: grid; grid-template-columns: minmax(150px, 220px) 1fr; gap: 6px 14px; padding: 10px 0; border-top: 1px dashed var(--line); }
       .variant-head { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-      .variant-trigger { color: #3d453e; line-height: 1.45; font-size: 14px; }
+      .variant-trigger { color: var(--ink-2); line-height: 1.45; font-size: 14px; }
       .variant .path { margin-top: 6px; }
       @media (max-width: 620px) { .variant { grid-template-columns: 1fr; } }
     </style>
@@ -57,10 +65,13 @@
         <section class="panel">
           <div class="panel-header">
             <h2>Colliding skill names</h2>
-            <span id="resultCount" class="muted">Loading</span>
+            <span id="resultCount" class="muted" aria-live="polite">Loading</span>
           </div>
           <div id="status" class="status">Loading catalog/collisions.json</div>
-          <div id="results" aria-live="polite"></div>
+          <div id="results"></div>
+          <div class="load-more-wrap">
+            <button id="loadMore" class="secondary load-more hidden" type="button">Load more</button>
+          </div>
         </section>
       </section>
     </main>

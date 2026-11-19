@@ -325,6 +325,8 @@
     const open = () => openDrawer(skill);
     card.addEventListener("click", open);
     card.addEventListener("keydown", (event) => {
+      // Keys pressed on the buttons and links inside the card belong to them.
+      if (event.target !== card) return;
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
         open();
@@ -681,7 +683,7 @@
     readStateFromUrl();
     attachEvents();
     try {
-      const response = await fetch(DATA_URL, { cache: "no-store" });
+      const response = await fetch(DATA_URL, { cache: "no-cache" });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       state.data = await response.json();
       state.collectionsByName = new Map((state.data.collections || []).map((c) => [c.name, c]));
@@ -701,8 +703,9 @@
       );
       renderBars(state.data.collections || []);
       syncControlsFromState();
-      apply();
+      // Read ?skill= before apply(): apply() rewrites the URL from state and drops it.
       const skillParam = new URLSearchParams(window.location.search).get("skill");
+      apply();
       if (skillParam) {
         const match = state.data.skills.find((skill) => skill.path === skillParam);
         if (match) openDrawer(match);
