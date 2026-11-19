@@ -313,3 +313,46 @@ Things I ran: crew.py validate (OK, also --strict) and status. I recomputed the 
 rule from results/cells.csv. I re-executed all five analysis scripts in reviewer
 scratch, a copy of code/ plus data/raw CSVs and the manifest; the workspace was not
 touched. I ran a post hoc analytic-floor check on results/preds/main (calib-reviewer3/floor.py).
+
+## results-r2 (2026-11-19 UTC), verdict: pass (0 critical, 0 major, 3 minor open)
+
+Status of results-r1 findings: F1-F5 are all resolved, with no new run. runs/, results/ and code/
+are unchanged since e0b9816; only NOTES, claims texts, new claims and numbers.tex changed. plan.json
+c3ebd78c is logged and differs from cff3831b only in tasks. All 222 new claims (156 SD, 54
+chronological levels, 12 bins) match their metric keys and values. The 21 changed claims changed
+only their text.
+
+My own error: in results-r1 (F1 text and kill argument) I wrote that the overall verdicts do not
+depend on electricity. That is wrong for H2b and incomplete for H2a, and the PI's experimenter brief
+repeated it. The experimenter got H2b right.
+
+New (all minor):
+- F6: H2a's 'inconclusive' becomes 'no difference' if electricity is 'no difference'. The claim
+  and NOTES say only 'not supported without electricity'. So two of the three overall verdicts
+  (H2a, H2b) depend on electricity.
+- F7: NOTES says both 576 and 354 result claims (stale paragraph at line 64).
+- F8: isotonic cells are scored on 10-14 ECE bins; only the 'none' ece_bins are claimed.
+  Descriptive isotonic ECE reductions partly reflect bin count.
+
+Suspicions carried forward (paper stage):
+- The abstract or results must say that the H2a and H2b overall verdicts depend on electricity
+  and that its leakage question is open. Watch for 'H2a inconclusive regardless'.
+- Watch that sens (c)'s HGB -0.078 is not used as evidence that isotonic helps under drift, and
+  that the paper does not say 'RF is well calibrated' or 'isotonic has no effect on HGB'.
+- Watch that 'isotonic lowers ECE on all four datasets' is not stated without the bin caveat (F8).
+- The floor-adjusted H1 numbers from calib-reviewer3 must not enter the paper.
+- Watch that ece_db is never a replication licence; no claim says 'replicat' now.
+- The sens-ncal overall must be quoted only with its UNPLANNED AGGREGATION label.
+
+Check next time (paper-r1):
+- Every abstract and intro statement traces to a claim macro; no typed numbers, including the
+  0.063, 0.81 and 0.95 that appear inside claim texts.
+- The limitations section covers electricity's time ordering and its open leakage question, the
+  ECE estimator bias and bins, the defaults-only scope, and the sample-scoped intervals.
+- The ai-use statement discloses the plan amendments (disclosures[]).
+
+Things I ran: crew.py validate (OK, also --strict) and status. I recomputed the decision rule and
+the electricity-dependency counterfactuals from results/cells.csv and sens_elec_time_cells.csv
+(calib-reviewer4/recompute.py, 0 mismatches). I checked claim text against metric key for the new
+claims (calib-reviewer4/check_claims.py). No model was refitted; the workspace was not modified
+except for my review and this memory.

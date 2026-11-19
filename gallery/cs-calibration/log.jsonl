@@ -63,3 +63,6 @@
 {"time": "2026-11-19T08:12:02Z", "role": "pi", "action": "brief-archived", "detail": "experimenter 20261119T081202Z"}
 {"time": "2026-11-19T08:13:27Z", "role": "experimenter", "action": "plan-tasks-updated", "detail": "results-r1 F5: task statuses/titles only (e-main..e-sens-elec done earlier; rv-design, g-design, rv-code done; e-tests title ece_adj->ece_db); design text unchanged. plan.json sha256=c3ebd78c37db160a32bdfb9b2887d55e580a5c4a0444d76a31ea8e594aff7bfb"}
 {"time": "2026-11-19T08:13:27Z", "role": "experimenter", "action": "results-r1-claims-revised", "detail": "no new runs; +chronological per-model levels (mean/SD), seed SDs for every describe mean, ece_bins per model; sens-ncal overall labelled unplanned aggregation; H1/H2b overall texts narrowed; 576 result claims; numbers.tex regenerated"}
+{"time": "2026-11-19T08:13:53Z", "role": "pi", "action": "brief-archived", "detail": "reviewer results-r2 20261119T081353Z"}
+{"time": "2026-11-19T08:17:59Z", "role": "pi", "action": "brief-archived", "detail": "experimenter 20261119T081759Z"}
+{"time": "2026-11-19T08:18:36Z", "role": "experimenter", "action": "results-r2-claims-revised", "detail": "no runs; F6 H2a/H2b electricity dependence stated; F7 NOTES claim count 600; F8 ece_bins claims for every cell with isotonic resolution caveat; numbers.tex regenerated"}

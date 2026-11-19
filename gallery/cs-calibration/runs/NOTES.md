@@ -44,10 +44,13 @@ How to read the rows above (results-r1):
   calibration quarter to the test quarter, mixed with the Victoria fill regime (every fill row is in
   train) and with test-quarter normalised dates lying beyond most of the training range. It does not show whether
   random-split leakage drives main's electricity results. **That question remains open.**
-- **What depends on electricity.** H1's 'contradicted' does not: it is contradicted whatever
-  electricity's category, because bank-marketing and phoneme are contradicted. H2a is not supported
-  without electricity, because electricity is its only 'holds'. H2b's 'no difference' does depend on
-  electricity, which is one of the three 'no difference' datasets that verdict needs.
+- **What depends on electricity.** The H2a and H2b overall verdicts depend on electricity, and
+  H1's does not. H1 is contradicted whatever electricity's category, because bank-marketing and
+  phoneme are contradicted. For H2a, electricity's 'holds' (its only one) is what keeps the overall
+  verdict from 'no difference'. Had electricity been 'no difference', H2a would be 'no difference'
+  (3 of 4). If it were contradicted, inconclusive or dropped, H2a would stay 'inconclusive'. H2b's
+  'no difference' needs electricity as one of its three 'no difference' datasets. Since
+  electricity's leakage question is open, so is the basis of these two verdicts.
 - **H1 'contradicted'.** It reflects default LR's own miscalibration on bank-marketing (ECE 0.031)
   and phoneme (ECE 0.063, not reduced by Platt; AUC 0.81 against RF's 0.95). It does not show that
   RF is well calibrated. Uncalibrated RF also scores ECE on fewer non-empty bins: 13 on adult and
@@ -58,15 +61,16 @@ How to read the rows above (results-r1):
 
 Claims now also cover the seed SD of every reported mean, the ece_bins of each uncalibrated model,
 and the chronological per-model levels (mean and SD of ECE, Brier and AUC for none, Platt and
-isotonic). That makes 576 result claims.
+isotonic). The total is in the paragraph above.
 
 Every number above is a claim in `claims.jsonl` with a macro in `paper/numbers.tex`. There are
-354 result claims: every per-dataset mean, lo, hi and category, the overall codes, both
-sensitivities, seed means of ece, ece_db and Brier for every cell, log-loss and AUC for none and
-isotonic, the RF − LR and Platt − none descriptive intervals, the isotonic AUC control, clip counts
-and the procedure checks. Values are copied from the run metrics by a generator script, not typed.
-Overall verdicts and categories are numeric codes (validation requires numbers), and each claim's
-text gives the word.
+600 result claims (crew.py status). The inventory is complete, with values copied from the run
+metrics by a generator script, not typed: every per-dataset mean, lo, hi and category; the overall
+codes; both sensitivities; seed means and SDs of ece, ece_db and Brier for every cell; log-loss and
+AUC for none and isotonic; the RF − LR and Platt − none descriptive intervals; the isotonic AUC
+control; ece_bins for every model and calibrator; the chronological per-model levels; clip counts;
+and the procedure checks. Overall verdicts and categories are numeric codes (validation requires
+numbers), and each claim's text gives the word.
 
 ## Code (all under `code/`)
 
