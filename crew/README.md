@@ -84,8 +84,10 @@ argument for rejection, and review rounds are bounded.
 
 ## Limits of v0.1
 
-- Not yet run end to end on the seeds; the gallery is empty.
+- No seed has passed the submission gate yet; six are in progress in
+  [`gallery/`](../gallery/).
 - Cross-family review needs the Codex CLI and your consent to send the workspace to
   OpenAI; without it the Reviewer runs on the same model family in a fresh context.
 - Gate approval by a human is a rule the agents follow, not a technical lock.
-- Claude Code only. Codex support is planned.
+- Claude Code is the primary runtime; the Codex adapter ([`adapters/codex/`](adapters/codex/))
+  is newer and less tested.

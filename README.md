@@ -22,7 +22,7 @@
 
 <p align="center">
   <a href="#-研究技能与插件合集"><img src="https://img.shields.io/badge/🧩_skills-6%2C089-ff4e88?style=flat-square" alt="6,089 skills"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
+  <a href="#-助研团的工具箱"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Free-Research-Crew?style=flat-square&color=ffd23f" alt="stars">
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-7ee0a8?style=flat-square" alt="PRs welcome"></a>
@@ -72,7 +72,7 @@
 
 - **免费使用** —— 不用订阅、不用服务器、没有额外的 API 账单。团队就是一组角色文件和技能，跑在你已有的智能体 CLI 里、你自己的笔记本上。
 - **自由修改** —— 全部是 CC0 的 Markdown 和 Python。fork、改角色、加上你自己领域的赛道都可以。
-- **不被锁定** —— 先支持 Claude Code，接下来支持 Codex。团队用的是下方收录的 6,000+ 个开源技能，而不是某个封闭平台。
+- **不被锁定** —— 首选 Claude Code；Codex 可通过 [`crew/adapters/codex`](crew/adapters/codex/) 安装。团队用的是下方收录的 6,000+ 个开源技能，而不是某个封闭平台。
 
 ### 为什么是「助研团」？
 
@@ -90,7 +90,20 @@ claude plugin install crew@free-research-crew
 # 然后在 Claude Code 中：  /crew:start ss-dml-401k
 ```
 
-> **当前状态：** v0.1 已搭好、工具已测试，但尚未在种子任务上完整跑通。完整计划、阶段与指标见 [**ROADMAP.md**](ROADMAP.md)；团队如何运作见 [`crew/README.md`](crew/README.md)。
+之后在 Claude Code 里：
+
+```text
+/crew:start ss-dml-401k                      运行六个基准种子任务之一
+/crew:start "X 是否影响 Y？" — track: social-science
+/crew:status                                 查看项目进度；中断后继续
+/crew:gate <workspace> design approve        只有你能输入：批准某一关
+```
+
+每个项目的工作区在 `./crew-workspace/<slug>`。团队每到一关都会停下，等你输入 `/crew:gate`；智能体不能替你批准。
+
+**运行需要：** 支持插件的 Claude Code、Python 3.9+，编译论文需要 LaTeX。种子任务另需各自的科学计算 Python 包，团队会把它们固定在每个工作区的 `code/requirements.txt` 中。六个种子任务（2 个 CS、4 个社科）见 [`crew/bench/`](crew/bench/README.md)。
+
+> **当前状态：** 六篇种子论文正在 [**gallery/**](gallery/) 中进行，每篇都附完整工作区、审稿人的批评与关卡决定；目前还没有一篇通过投稿关。完整计划、阶段与指标见 [**ROADMAP.md**](ROADMAP.md)；团队如何运作见 [`crew/README.md`](crew/README.md)。
 
 ---
 
@@ -102,11 +115,11 @@ claude plugin install crew@free-research-crew
 
 ### ⭐ 重点技能
 
-> **[Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills)** &nbsp;·&nbsp; ~52.7k ⭐ &nbsp;·&nbsp; 🧩 已收录
+> **[Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills)** &nbsp;·&nbsp; ~57.1k ⭐ &nbsp;·&nbsp; 🧩 已收录
 > 面向 Claude Code 的学术研究技能集 —— 完整的 **research → write → review → revise → finalize** 流水线，覆盖文献综述与同行评审。收录于 [`skills/academic-research-skills`](skills/academic-research-skills)。
 
-> 🏆 **社会科学第一** &nbsp;·&nbsp; **[brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills)** &nbsp;·&nbsp; ~4.7k ⭐ &nbsp;·&nbsp; 🧩 已收录
-> **社科实证研究**首选技能库：覆盖 **8 大社会科学学科**的 23,000+ 个 agent 技能，从识别策略、数据清洗到回归表格与可复现论文全流程。搭配 [`skills/stata-code`](skills/stata-code)，可直接让智能体在 Stata 中跑 DiD / IV / RDD。收录于 [`skills/empirical-research-skills`](skills/empirical-research-skills)。
+> 🏆 **社会科学第一** &nbsp;·&nbsp; **[brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills)** &nbsp;·&nbsp; ~5.0k ⭐ &nbsp;·&nbsp; 🧩 已收录
+> **社科实证研究**首选技能库：覆盖 **8 大社会科学学科**：自带 1,100+ 个经过基准测试与安全审计的实证研究技能，外加一张涵盖 119 个仓库、23,000+ 个技能的精选地图；从识别策略、数据清洗到回归表格与可复现论文全流程。搭配 [`skills/stata-code`](skills/stata-code)，可直接让智能体在 Stata 中跑 DiD / IV / RDD。收录于 [`skills/empirical-research-skills`](skills/empirical-research-skills)。
 
 ---
 
@@ -167,6 +180,8 @@ cd Free-Research-Crew
 
 ## 目录
 
+- [👥 认识你的免费助研团](#-认识你的免费助研团)
+- [🧰 助研团的工具箱](#-助研团的工具箱)
 - [🏆 Star 排行榜 Top 20](#-star-排行榜-top-20)
 - [🧠 端到端自主研究系统](#-端到端自主研究系统)
 - [🔎 深度研究与文献综合](#-深度研究与文献综合)
@@ -176,6 +191,7 @@ cd Free-Research-Crew
 - [📊 评测基准](#-评测基准)
 - [📚 精选清单与综述](#-精选清单与综述)
 - [🗂️ 已收录仓库（子模块）](#️-已收录仓库子模块)
+- [🏛️ 背后的团队](#️-背后的团队)
 - [🤝 贡献](#-贡献)
 - [📄 协议](#-协议)
 
@@ -268,14 +284,14 @@ cd Free-Research-Crew
 
 | 项目 | ⭐ | 技术栈 | 说明 |
 |---|---|---|---|
-| [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) 🧩 ⭐ | ~52.7k | Claude Code · Python | **重点。** 学术研究 → 写作 → 评审 → 修订 → 定稿流水线。 |
+| [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) 🧩 ⭐ | ~57.1k | Claude Code · Python | **重点。** 学术研究 → 写作 → 评审 → 修订 → 定稿流水线。 |
 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) 🧩 | ~49.1k | Claude Code · Python | Nature 级学术表达 + 科研绘图，Claude 与 Codex 双支持。 |
 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) 🧩 | ~17.7k | Markdown skills | ARIS —— 跨模型互审循环、想法发现、实验自动化，无框架锁定。 |
 | [companion-inc/feynman](https://github.com/companion-inc/feynman) 🧩 | ~10.0k | CLI · Codex · Claude Code | 开源 AI 研究 agent（CLI，基于 Pi + alphaXiv）：文献综述、深度研究、复现、同行评审等 20 个研究 skill，可装进 Codex/Claude。 |
 | [uditgoenka/autoresearch](https://github.com/uditgoenka/autoresearch) 🧩 | ~6.6k | Claude Code · Shell | Claude 自主研究 skill：受 Karpathy autoresearch 启发的自主目标迭代，内置命令安全护栏（拒绝 mkfs/dd/nc 等危险命令）。 |
 | [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) 🧩 | ~5.8k | Claude Code · MCP | 半自动科研助手；集成 Zotero + Obsidian + MCP。 |
 | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) 🧩 | ~5.5k | MCP · Python | 把 Zotero 文献库接入任意 MCP 智能体：讨论论文、生成摘要、分析引用。 |
-| [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) 🧩 | ~4.7k | Claude Code · Codex | **🏆 社会科学第一。** 覆盖 8 大社科学科的 23,000+ 个实证研究 agent 技能。 |
+| [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) 🧩 | ~5.0k | Claude Code · Codex | **🏆 社会科学第一。** 1,100+ 个实证研究技能，外加 23,000+ 个技能的生态地图，覆盖 8 大社科学科。 |
 | [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill) 🧩 | ~3.5k | Claude Code · Python | 中文社区热门科研写作助手：论文结构、润色、图表文字与投稿准备。 |
 | [Adkid-Zephyr/anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill) | ~3.5k | Agent Skills | 极致轻量的“反防御性写作”学术写作原则（中英）。偏提示词形态，仅列出。 |
 | [google-deepmind/science-skills](https://github.com/google-deepmind/science-skills) 🧩 | ~3.3k | Agent Skills · Python | Google DeepMind 官方科学技能包——40 个接地气、省 token 的技能，接入 AlphaGenome、AFDB、UniProt 等 30+ 数据库与工具。 |
@@ -383,7 +399,7 @@ cd Free-Research-Crew
 
 ## 🤝 贡献
 
-欢迎 PR！把项目加到合适的分类，或作为子模块收录。详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+欢迎 PR！可以为助研团添加种子任务（见 [crew/bench](crew/bench/README.md)）、角色或赛道，也可以把项目加到合适的分类，或作为子模块收录。详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 📄 协议
 

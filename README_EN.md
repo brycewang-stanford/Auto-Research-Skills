@@ -22,7 +22,7 @@
 
 <p align="center">
   <a href="#research-skills--plugin-collections"><img src="https://img.shields.io/badge/skills-6%2C089-ff4e88?style=flat-square" alt="6,089 skills"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
+  <a href="#-the-crews-toolbox"><img src="https://img.shields.io/badge/Awesome-Auto%20Research-ff7aa2?style=flat-square" alt="awesome"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC0%201.0-4aa6ff?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/github/stars/brycewang-stanford/Free-Research-Crew?style=flat-square&color=ffd23f" alt="stars">
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-7ee0a8?style=flat-square" alt="PRs welcome"></a>
@@ -72,7 +72,7 @@ A good research assistant is expensive and hard to find. **Free-Research-Crew** 
 
 - **Free to use** — no subscription, no server, no extra API bill. The crew is plain role files and skills that run on the agent CLI you already have, on your laptop.
 - **Free to change** — everything is CC0 Markdown and Python. Fork it, rename the roles, add your own field's track.
-- **Free of lock-in** — Claude Code today, Codex next. The crew draws on the 6,000+ open skills collected below rather than a closed platform.
+- **Free of lock-in** — Claude Code first; Codex through [`crew/adapters/codex`](crew/adapters/codex/). The crew draws on the 6,000+ open skills collected below rather than a closed platform.
 
 ### Why a "crew"?
 
@@ -90,7 +90,20 @@ claude plugin install crew@free-research-crew
 # then, in Claude Code:  /crew:start ss-dml-401k
 ```
 
-> **Status:** v0.1 is built and its tooling is tested, but it has not yet been run end to end on its seed tasks. The full plan, phases and metrics are in [**ROADMAP.md**](ROADMAP.md); how the crew works is in [`crew/README.md`](crew/README.md).
+Then, inside Claude Code:
+
+```text
+/crew:start ss-dml-401k                      run one of the six bench seeds
+/crew:start "does X affect Y?" — track: social-science
+/crew:status                                 where the project stands; resume it
+/crew:gate <workspace> design approve        only you can type this: approve a gate
+```
+
+Each project gets a workspace in `./crew-workspace/<slug>`. The crew stops at every gate and waits for your `/crew:gate`; agents cannot approve a gate on your behalf.
+
+**Requires** Claude Code with plugin support, Python 3.9+, and LaTeX to compile the paper. Seed tasks need their own scientific Python packages, which the crew pins in each workspace's `code/requirements.txt`. The six seeds (two CS, four social science) are described in [`crew/bench/`](crew/bench/README.md).
+
+> **Status:** six seed papers are in progress in [**gallery/**](gallery/), each with its full workspace, the Reviewer's critiques and the gate decisions; none has passed the submission gate yet. The full plan, phases and metrics are in [**ROADMAP.md**](ROADMAP.md); how the crew works is in [`crew/README.md`](crew/README.md).
 
 ---
 
@@ -102,11 +115,11 @@ Every crew member is only as good as its tools. The rest of this page is the ski
 
 ### Featured Skills
 
-> **[Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills)** &nbsp;·&nbsp; ~52.7k stars &nbsp;·&nbsp; 🧩 bundled
+> **[Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills)** &nbsp;·&nbsp; ~57.1k stars &nbsp;·&nbsp; 🧩 bundled
 > Academic Research Skills for Claude Code — a full **research → write → review → revise → finalize** pipeline, covering literature review and peer review. Vendored here at [`skills/academic-research-skills`](skills/academic-research-skills).
 
-> 🏆 **#1 for social science** &nbsp;·&nbsp; **[brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills)** &nbsp;·&nbsp; ~4.7k stars &nbsp;·&nbsp; 🧩 bundled
-> The go-to skill library for **empirical social science**: 23,000+ agent skills across **8 social-science disciplines**, from identification strategy and data cleaning to regression tables and a reproducible paper. Pair it with [`skills/stata-code`](skills/stata-code) to run DiD / IV / RDD in Stata straight from your agent. Vendored here at [`skills/empirical-research-skills`](skills/empirical-research-skills).
+> 🏆 **#1 for social science** &nbsp;·&nbsp; **[brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills)** &nbsp;·&nbsp; ~5.0k stars &nbsp;·&nbsp; 🧩 bundled
+> The go-to skill library for **empirical social science**: **8 social-science disciplines**: 1,100+ benchmarked, security-audited skills of its own plus a curated map of 23,000+ skills across 119 repos, from identification strategy and data cleaning to regression tables and a reproducible paper. Pair it with [`skills/stata-code`](skills/stata-code) to run DiD / IV / RDD in Stata straight from your agent. Vendored here at [`skills/empirical-research-skills`](skills/empirical-research-skills).
 
 ---
 
@@ -160,6 +173,8 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
 
 ## Table of Contents
 
+- [👥 Meet your free research crew](#-meet-your-free-research-crew)
+- [🧰 The crew's toolbox](#-the-crews-toolbox)
 - [🏆 Top 20 by Stars](#-top-20-by-stars)
 - [End-to-End Autonomous Research Systems](#end-to-end-autonomous-research-systems)
 - [Deep Research & Literature Synthesis](#deep-research--literature-synthesis)
@@ -173,6 +188,7 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
   - [Systems & Agents](#systems--agents-systems)
   - [Benchmarks & Evaluation](#benchmarks--evaluation-benchmarks)
   - [Lists & Surveys](#lists--surveys-lists)
+- [🏛️ The team behind the crew](#️-the-team-behind-the-crew)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -263,13 +279,13 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
 
 | Project | Stars | Stack | Notes |
 |---|---|---|---|
-| [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) 🧩 | ~52.7k | Claude Code · Python | **Featured.** Academic research → write → review → revise → finalize pipeline. |
+| [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) 🧩 | ~57.1k | Claude Code · Python | **Featured.** Academic research → write → review → revise → finalize pipeline. |
 | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) 🧩 | ~49.1k | Claude Code · Python | Nature-grade academic phrasing + scientific figure plotting; Claude & Codex. |
 | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) 🧩 | ~17.7k | Markdown skills | ARIS — cross-model review loops, idea discovery, experiment automation. No framework lock-in. |
 | [companion-inc/feynman](https://github.com/companion-inc/feynman) 🧩 | ~10.0k | CLI · Codex · Claude Code | Open-source AI research agent (CLI) on Pi + alphaXiv; 20 research skills — lit review, deep research, replication, peer review — installable into Codex/Claude. |
 | [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) 🧩 | ~5.8k | Claude Code · MCP | Semi-automated research assistant; Zotero + Obsidian + MCP integration. |
 | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) 🧩 | ~5.5k | MCP · Python | Connect your Zotero library to any MCP agent — discuss papers, summarize, analyze citations. |
-| [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) 🧩 | ~4.7k | Claude Code · Codex | **🏆 #1 for social science.** 23,000+ agent skills for empirical research across 8 social-science disciplines. |
+| [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) 🧩 | ~5.0k | Claude Code · Codex | **🏆 #1 for social science.** 1,100+ empirical-research skills of its own plus a map of 23,000+ across the ecosystem, spanning 8 social-science disciplines. |
 | [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill) 🧩 | ~3.5k | Claude Code · Python | Popular Chinese-community research-writing assistant (科研写作助手): structure, polishing, figure/table text, submission prep. |
 | [Adkid-Zephyr/anti-defensive-writing-Skill](https://github.com/Adkid-Zephyr/anti-defensive-writing-Skill) | ~3.5k | Agent Skills | Lightweight anti-defensive / anti-hedging academic-writing principles (CN/EN). Prompt-style; list-only. |
 | [google-deepmind/science-skills](https://github.com/google-deepmind/science-skills) 🧩 | ~3.3k | Agent Skills · Python | Google DeepMind's science skill pack — 40 grounded, token-efficient skills over AlphaGenome, AFDB, UniProt and 30+ databases/tools. |
@@ -370,7 +386,7 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
 | Path | Source | Stars | What it gives you |
 |---|---|---|---|
 | `skills/last30days` | [mvanhorn/last30days-skill](https://github.com/mvanhorn/last30days-skill) | ~64.6k | Research any topic across Reddit, X, YouTube, HN, Polymarket. |
-| `skills/academic-research-skills` | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | ~52.7k | **Featured.** research → write → review → revise → finalize. |
+| `skills/academic-research-skills` | [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) | ~57.1k | **Featured.** research → write → review → revise → finalize. |
 | `skills/scientific-agent-skills` | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) | ~52.6k | Ready-to-use agent skills for research, science, engineering, analysis, finance. |
 | `skills/nature-skills` | [Yuan1z0825/nature-skills](https://github.com/Yuan1z0825/nature-skills) | ~49.1k | Nature-grade academic phrasing + scientific figure plotting (Claude & Codex). |
 | `skills/aris` | [wanshuiyin/Auto-claude-code-research-in-sleep](https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep) | ~17.7k | Markdown-only autonomous-ML-research skills. |
@@ -383,7 +399,7 @@ python3 tools/build_starter_kits.py --install literature --dest ~/.claude/skills
 | `skills/claude-scholar` | [Galaxy-Dawn/claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) | ~5.8k | Semi-automated research assistant; Zotero + Obsidian + MCP. |
 | `skills/zotero-mcp` | [54yyyu/zotero-mcp](https://github.com/54yyyu/zotero-mcp) | ~5.5k | MCP server connecting your Zotero library to any agent — discuss papers, summarize, analyze citations. |
 | `skills/codex-academic-skills` | [zLanqing/codex-claude-academic-skills](https://github.com/zLanqing/codex-claude-academic-skills) | ~5.0k | Three academic skills: reading, writing, scientific computing. |
-| `skills/empirical-research-skills` | [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) | ~4.7k | **🏆 #1 for social science.** 23k+ agent skills for empirical research across 8 social-science disciplines. |
+| `skills/empirical-research-skills` | [brycewang-stanford/Auto-Empirical-Research-Skills](https://github.com/brycewang-stanford/Auto-Empirical-Research-Skills) | ~5.0k | **🏆 #1 for social science.** 1,100+ empirical-research skills plus a 23k+ ecosystem map, across 8 social-science disciplines. |
 | `skills/research-writing-skill` | [Norman-bury/research-writing-skill](https://github.com/Norman-bury/research-writing-skill) | ~3.5k | Popular Chinese-community research-writing assistant (科研写作助手): structure, polishing, figure/table text, submission prep. |
 | `skills/deepmind-science-skills` | [google-deepmind/science-skills](https://github.com/google-deepmind/science-skills) | ~3.3k | Google DeepMind's science skill pack — 40 grounded, token-efficient skills over AlphaGenome, AFDB, UniProt and 30+ databases/tools. |
 | `skills/arxiv-mcp-server` | [blazickjp/arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) | ~3.2k | MCP server to search & fetch arXiv papers from any agent. |
@@ -515,7 +531,7 @@ Free-Research-Crew is built and maintained by the same team (**Stanford REAP**) 
 
 ## Contributing
 
-PRs welcome! Add a tool to the right category, or vendor a skill as a submodule. See [CONTRIBUTING.md](CONTRIBUTING.md).
+PRs welcome! Add a seed task to the crew's bench ([crew/bench](crew/bench/README.md)), a role or a track; or add a tool to the right category, or vendor a skill as a submodule. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
