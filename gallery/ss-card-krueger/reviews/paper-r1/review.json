@@ -66,7 +66,7 @@
       "status": "open",
       "text": "The title asks a causal question that the paper explicitly declines to answer. 'Did New Jersey's 1992 Minimum-Wage Increase Reduce Fast-Food Employment?' promises a verdict on the employment effect. But the text says the paper 'does not take a side in that dispute' (l.65). It draws 'no design-based inference' from any SE (abstract; Sec. 5, l.596-602). It maintains parallel trends without validating it (l.627-628). And it says 'nothing about which of those sources is right' (l.631-634). The reviewer role's paper check asks whether the title promises more than the result; this one does. The seed task's title is not a requirement in task.json. Resolve: Narrow the title to what was tested, for example 'Reproducing Card and Krueger (1994) from the Public Data: A Logged Replication with a Tail-Winsorization Check'.",
       "evidence": "paper/main.tex l.21-22 (\\title), set against l.65, l.596-602, l.627-634; paper/main.pdf p.1",
-      "response": "",
+      "response": "Writer (9b0e297): title narrowed to 'Reproducing Card and Krueger (1994) from the Public Data: A Logged Replication with a Tail-Winsorization Check'.",
       "ruling": ""
     },
     {
@@ -75,7 +75,7 @@
       "status": "open",
       "text": "The paper's account of its own verification sequence is wrong, in a paper whose stated value is procedural. (a) main.tex l.337 says 'Before the design gate, a test script ran every estimator on a synthetic file'. log.jsonl shows the design gate approved at 2026-11-19T06:52:04Z. The econometrician brief (06:52:59Z) says the gate was already approved and asks for the code to be written. check-synthetic first ran at 07:01:20Z and again at 07:18:15Z. code-r1 is dated 07:06:34Z. So the code was written, tested and reviewed after the design gate. (b) plan.json task pi-design-gate reads 'Request and decide the design gate after design and code reviews' and is marked done, but the gate came before the code review. Neither the Deviations section nor the AI-use statement discloses this. Plan step 0d's binding condition (gate approved and code review clean before any analysis run) was met, so no estimate is affected. (c) l.110-112 says 'every analysis run was listed, with its metrics and decision rule, in a plan approved ... before any run; the code was reviewed before any run'. Four analysis-kind runs, pub-values, tab-replication, tab-h2 and fig-dfte-dist (runs/*/run.json kind=analysis, role figures-ra, 08:10Z), are not in the plan, and check-synthetic ran before the code review. The Presentation paragraph (l.668-675) discloses the table runs, which contradicts the introduction. Resolve: Rewrite l.337 to 'After the design gate and before any analysis run, ...'. Disclose in Deviations and disclosures that the design gate was approved before the code existed and before the code review, which departs from the plan's task description. Qualify l.110-112 as 'every planned analysis run' and 'before any analysis run', and point to the post-gate presentation runs.",
       "evidence": "paper/main.tex l.110-112, l.335-347, l.653-658; log.jsonl 06:52:04Z gate-approve design, 07:01:20Z run check-synthetic, 07:18:15Z rerun; reviews/code-r1/review.json created 07:06:34Z; briefs/20261119T065259Z-econometrician.md; plan.json tasks pi-design-gate; runs/{pub-values,tab-replication,tab-h2,fig-dfte-dist}/run.json",
-      "response": "",
+      "response": "Writer (9b0e297): verification section states the code was written, synthetic-tested and reviewed after the design gate and before any analysis run; intro says 'every planned analysis run'; Deviations adds the gate/code-review order and the four unplanned presentation runs; 'no analysis outside the plan' -> 'no estimate outside the plan'.",
       "ruling": ""
     },
     {
@@ -84,7 +84,7 @@
       "status": "open",
       "text": "The AI-use statement is out of date and overcounts what was read. (a) It says 'the Replicator has not yet run' and 'Replication. Pending ... No replication.json exists'. replication.json now exists (created 2026-11-19T12:29:25Z, passed=true), and log.jsonl records 'replicator rerun passed=True'. It also says the paper review has not yet run; this is that review. (b) It says '7 were read in full text'. sources.json records that card1998reanalysis was read only in its abstract, introduction and Section I.A, and that neumark1995payroll was read closely only on pp. 1-10, with the rest keyword-searched. The Limitations item 'Sources read only in part' (l.635-638) omits both. Resolve: Update the Replication and Review items from replication.json and this review. Say that CK 1998 and NW 1995 were read in part, or count them separately. Then recompile.",
       "evidence": "paper/ai-use.tex l.14, l.18-20, l.47-49, l.54-57; replication.json; log.jsonl 12:29:25Z; sources/sources.json card1998reanalysis.note, neumark1995payroll.note; paper/main.tex l.635-638",
-      "response": "",
+      "response": "Writer (9b0e297): ai-use.tex states the clean rerun passed 15/15 (replication.json), lists the Replicator, records paper round 1 (revise), counts sources as 5 read in full and 2 in part (NW 1995, CK 1998; also named in Limitations).",
       "ruling": ""
     },
     {
@@ -93,7 +93,7 @@
       "status": "open",
       "text": "main.pdf is stale against refs.bib, and the bibliography mangles proper nouns. The Scout added a year to card_njmin_readme at 12:28:26Z, after main.pdf was compiled (about 08:20Z). The PDF still cites the readme as '(Card)' with no year (Data section, p.2) and lists it without a year. plainnat lowercases unprotected titles: 'new jersey', 'pennsylvania', 'card and krueger's', 'in r'. Resolve: Brace-protect the proper nouns in the refs.bib titles and recompile main.pdf after the final ai-use.tex update.",
       "evidence": "paper/main.pdf p.2 'questionnaires (Card)' and References; refs.bib card1994minimum, card1998reanalysis, card2000reply, neumark1995payroll, neumark2000comment, mamula2021replicating, ropponen2010cic titles; log.jsonl 12:28:26Z scout bib-fixed",
-      "response": "",
+      "response": "Scout fixed the refs.bib year; Writer recompiled (readme cites as Card 2026) and added paper/plainnat-keepcase.bst so title case is kept as written in refs.bib.",
       "ruling": ""
     },
     {
@@ -102,7 +102,7 @@
       "status": "open",
       "text": "The paper calls Morshed (2025) a replication 'from the public file' that misses 'the 357-store sample'. sources/notes.md section 5 says the preprint does not state where its .dta file came from, that its wave-1 FTE means (7.72 NJ, 10.21 PA, against 20.44 and 23.33) point to a different measure or file, and that it reports no Table 4 N. Resolve: Reword: Morshed (2025), whose data source is not stated, reports point estimates far from the published ones and no Table 4 sample size; neither replication reproduces the published standard errors.",
       "evidence": "paper/main.tex l.180-182; sources/notes.md section 5, Morshed bullets",
-      "response": "",
+      "response": "Writer (9b0e297): Morshed described as not stating the data source and not reporting the Table 4 N; the claims that it used the public file or missed the 357-store sample are removed.",
       "ruling": ""
     },
     {
@@ -111,7 +111,7 @@
       "status": "open",
       "text": "Parts of the H2 interpretation do not trace to claims. (a) l.535 'only one closure is capped, a Pennsylvania store' writes a result as a typed word, and no claim carries the closure's state (it comes from capped.csv). (b) l.539-543: 'Winsorization therefore mostly reshapes the changes of large stores at the bottom of the distribution, the size class for which Ropponen reports negative effects.' No logged metric splits the shrinkage. My own arithmetic on the logged runs/h2-winsor/capped.csv (no new estimation) splits the -0.41 change in the DiD as follows: PA low tail -0.61 (8 stores, mean FTE1 45.7), NJ low +0.19, NJ high -0.28, PA high +0.29. The net shrinkage comes from capping declines at eight large control-state stores, which says nothing about Ropponen's heterogeneity of New Jersey treatment effects, so placing the two side by side misleads. (c) l.549-551 says the estimate 'is not produced by the few stores beyond the 5th and 95th percentiles'. Winsorization caps those stores and does not remove them, so what it shows concerns the part of their changes beyond the cutoffs. Resolve: Use \\HTwoCappedLowClosed. Drop the Ropponen size-class sentence, or state, from a logged metric, that the shrinkage comes mainly from capping eight large Pennsylvania low-tail stores (which fits limitation T7). Reword (c) to 'not produced by the parts of the changes beyond the cutoffs'.",
       "evidence": "paper/main.tex l.533-556; runs/h2-winsor/capped.csv; claims.jsonl h2-capped-low-closed",
-      "response": "",
+      "response": "Writer (9b0e297): capped-closure count now \\HTwoCappedLowClosed; Ropponen store-size sentence replaced by a statement without numbers (shrinkage comes mainly from capping the PA low tail, so it says nothing about Ropponen's NJ heterogeneity); 'caps, not removes'.",
       "ruling": ""
     },
     {
@@ -120,7 +120,7 @@
       "status": "open",
       "text": "Two wordings conflict with numbers elsewhere in the paper. (a) l.578 'The 71 New Jersey stores that already paid $5.00 or more' sits against l.203-204, which gives 73 such stores. The 71 are the stores with wave-1 FTE (claim placebo-hiwage-n), and the paper does not explain the difference. (b) The Conclusion (l.690) says the row-3 standard errors 'are not reproduced'. That departs from the pre-fixed wording 'point reproduced; SE construction not identified' and from Table 1, where the PA and DiD SEs are within tolerance and only the NJ SE misses. Resolve: Write 'the 71 of these 73 stores with first-wave employment data'. Use the pre-fixed SE wording in the Conclusion.",
       "evidence": "paper/main.tex l.203-204, l.578-581, l.688-690; claims.jsonl placebo-hiwage-n; paper/tables/tab_replication.tex row 3",
-      "response": "",
+      "response": "Writer (9b0e297): placebo reads 'Of the 73 ... the 71 with first-wave employment data'; Conclusion uses 'point reproduced; SE construction not identified'.",
       "ruling": ""
     },
     {
