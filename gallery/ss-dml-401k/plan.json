@@ -654,7 +654,9 @@
       "note": "Approved in chat on 2026-11-19 after reading the cells, the hypotheses, the honest reading of H2 and the disclosed overrun."
     },
     "submission": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-19T12:41:15Z",
+      "summary": "Paper after paper-r4 pass (F6b, F14 answered; F15 done); validate --strict OK; clean rerun passed (replication.json)"
     }
   },
   "disclosures": [
