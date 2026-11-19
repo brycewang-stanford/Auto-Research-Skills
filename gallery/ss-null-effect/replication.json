@@ -1,6 +1,6 @@
 {
-  "created": "2026-11-18T17:27:41Z",
-  "passed": false,
+  "created": "2026-11-19T01:26:40Z",
+  "passed": true,
   "rtol": 1e-06,
   "atol": 1e-09,
   "reuse_data": false,
@@ -16,15 +16,14 @@
       "status": "match"
     },
     {
-      "run": "margin",
-      "record_sha256": "f319cb8c3497dafa861168e7e84efa80f280bc40ab330f57aa8f8457094bccb6",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/margin.py\", line 56, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/margin.py\", line 32, in main\n    df = pd.read_csv(IN, usecols=[\"treat\", \"re75\"])\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/.venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py\", line 1866, in read_csv\n    return _read(filepath_or_buffer, kwds)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/.venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py\", line 423, in _read\n    parser = TextFileReader(filepath_or_buffer, **kwds)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/.venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py\", line 2721, in __init__\n    self._engine = self._make_engine(f, self.engine)\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/.venv/lib/python3.12/site-packages/pandas/io/parsers/readers.py\", line 2988, in _make_engine\n    self.handles = get_handle(\n                   ^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/.venv/lib/python3.12/site-packages/pandas/io/common.py\", line 954, in get_handle\n    handle = open(handle, ioargs.mode)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'data/derived/covariates.csv'\n"
-    },
-    {
       "run": "prepare-covariates",
       "record_sha256": "f7e54115d42229dd0eaf208779f43bb404730c82228dd1ded6abb3cb2802c634",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "margin",
+      "record_sha256": "f319cb8c3497dafa861168e7e84efa80f280bc40ab330f57aa8f8457094bccb6",
       "exit_code": 0,
       "status": "match"
     },
@@ -55,9 +54,8 @@
     {
       "run": "main-aipw",
       "record_sha256": "4a19a5ccc287f51986d5d7d75ff87c271e8db46f1564540d9e9130de9d90436c",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/main_aipw.py\", line 99, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/main_aipw.py\", line 37, in main\n    M = float(L.read_json(L.MARGIN_FILE)[\"margin_M\"])\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/aipw_lib.py\", line 103, in read_json\n    return json.loads(Path(path).read_text())\n                      ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'data/derived/margin_metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "secondary-family",
@@ -68,51 +66,38 @@
     {
       "run": "select-re75",
       "record_sha256": "7579f2ce2b32531979b3942e01bf1029d3ed178221a1858f0b1e7093d480d893",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/select_re75.py\", line 45, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/select_re75.py\", line 24, in main\n    M = float(L.read_json(L.MARGIN_FILE)[\"margin_M\"])\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/aipw_lib.py\", line 103, in read_json\n    return json.loads(Path(path).read_text())\n                      ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'data/derived/margin_metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "rob-trim",
       "record_sha256": "0677446dded5aeab3626b78c49a8c47ca349615aa483f4e13fc6e4deca1a2527",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/rob_trim.py\", line 58, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/rob_trim.py\", line 29, in main\n    M = float(L.read_json(L.MARGIN_FILE)[\"margin_M\"])\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/aipw_lib.py\", line 103, in read_json\n    return json.loads(Path(path).read_text())\n                      ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'data/derived/margin_metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "rob-covsets",
       "record_sha256": "1256b7fcaeab3f051496884d76a4c71d700bca40bf1a70b19e445da06adc38bb",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/rob_covsets.py\", line 51, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/rob_covsets.py\", line 27, in main\n    M = float(L.read_json(L.MARGIN_FILE)[\"margin_M\"])\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/aipw_lib.py\", line 103, in read_json\n    return json.loads(Path(path).read_text())\n                      ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'data/derived/margin_metrics.json'\n"
-    },
-    {
-      "run": "rob-learners",
-      "record_sha256": "1649b778ccc9b6d073b0bc4049c634a9e758d19da8cf70dfd41b1a9b0de08a5c",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/rob_learners.py\", line 73, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/rob_learners.py\", line 45, in main\n    M = float(L.read_json(L.MARGIN_FILE)[\"margin_M\"])\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/aipw_lib.py\", line 103, in read_json\n    return json.loads(Path(path).read_text())\n                      ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'data/derived/margin_metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "rob-diff74",
       "record_sha256": "420810f0532597c989ac2bdf2fb02d29b0cf796e3616bed235eaf14b37b228be",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/rob_diff74.py\", line 43, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/rob_diff74.py\", line 24, in main\n    M = float(L.read_json(L.MARGIN_FILE)[\"margin_M\"])\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/aipw_lib.py\", line 103, in read_json\n    return json.loads(Path(path).read_text())\n                      ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'data/derived/margin_metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "rob-estimators",
       "record_sha256": "b953b14dda5ee9b1c5c2e6b92d564153755ca43b93fd2892fc578c4b4a00342c",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/rob_estimators.py\", line 96, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/rob_estimators.py\", line 48, in main\n    M = float(L.read_json(L.MARGIN_FILE)[\"margin_M\"])\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/aipw_lib.py\", line 103, in read_json\n    return json.loads(Path(path).read_text())\n                      ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'data/derived/margin_metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "sens-imbens",
       "record_sha256": "5b22e01c103a172eca331d74730a2eb61be29e9d9eca8a2e070a4b5553f33f65",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/sens_imbens.py\", line 223, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/sens_imbens.py\", line 126, in main\n    M = float(L.read_json(L.MARGIN_FILE)[\"margin_M\"])\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/aipw_lib.py\", line 103, in read_json\n    return json.loads(Path(path).read_text())\n                      ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'data/derived/margin_metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "fig-propensity",
@@ -121,44 +106,46 @@
       "status": "match"
     },
     {
-      "run": "fig-forest",
-      "record_sha256": "cd3337a89857a26625896b9bd395a0aff95ef9099d531d91a041db394523a632",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/fig_forest.py\", line 23, in <module>\n    main = load_metrics(\"main-aipw\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/figlib.py\", line 31, in load_metrics\n    return load_json(f\"runs/{run_id}/metrics.json\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/figlib.py\", line 26, in load_json\n    return json.loads(Path(path).read_text(encoding=\"utf-8\"))\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'runs/main-aipw/metrics.json'\n"
-    },
-    {
       "run": "fig-sensitivity",
       "record_sha256": "93b43e91c62451f10b1e6943d52a05f345f9b4d581de0feb6628636f6cd3e041",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/fig_sensitivity.py\", line 27, in <module>\n    S = load_metrics(\"sens-imbens\")\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/figlib.py\", line 31, in load_metrics\n    return load_json(f\"runs/{run_id}/metrics.json\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/figlib.py\", line 26, in load_json\n    return json.loads(Path(path).read_text(encoding=\"utf-8\"))\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'runs/sens-imbens/metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "rob-learners",
+      "record_sha256": "8296aee3ec9f4e77563e32087165e49c1802b6a7cfe3f23ee6e2e338bd4db380",
+      "exit_code": 0,
+      "status": "match"
+    },
+    {
+      "run": "fig-forest",
+      "record_sha256": "ad2a35033ed79a244bf8f7a0518a6f5391f12adec937ac212a711c08f4b7e025",
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "tab-balance",
-      "record_sha256": "300f9bc3d3d3896dfd9471deb5440120ce65e153b454b13f80f8a671103cb4ae",
+      "record_sha256": "1b4c6cafe6357962edf932b4394831f8fb77dc196b8f97d8aaba638aa0452272",
       "exit_code": 0,
       "status": "match"
     },
     {
       "run": "tab-main",
-      "record_sha256": "0629691c61401fbbf3568325f7a0c07038be650bcbe9825a57a85c7704788a34",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/tab_main.py\", line 22, in <module>\n    M = load_metrics(\"main-aipw\")[\"margin_M\"]\n        ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/figlib.py\", line 31, in load_metrics\n    return load_json(f\"runs/{run_id}/metrics.json\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/figlib.py\", line 26, in load_json\n    return json.loads(Path(path).read_text(encoding=\"utf-8\"))\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'runs/main-aipw/metrics.json'\n"
+      "record_sha256": "ad248bd581b58fa80b350afae81884f970e936b8be2d8e9060befc08f0e936c0",
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "tab-secondary",
-      "record_sha256": "ae0bf66c241f2756cd7969ef09cad74c719f68b69e16d40a5c274437ac7124ea",
+      "record_sha256": "d8f764ebcea6d3ab4c28ca1bf82b5f4e7222c52179e61cdb974c6a6e95575fde",
       "exit_code": 0,
       "status": "match"
     },
     {
       "run": "tab-sensitivity",
-      "record_sha256": "b6b0a5e899a25f02a188bacecbe4bcf5715a36486a09b931ee5a116abf84a0bc",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/tab_sensitivity.py\", line 23, in <module>\n    S = load_metrics(R)\n        ^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/figlib.py\", line 31, in load_metrics\n    return load_json(f\"runs/{run_id}/metrics.json\")\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-7b9ji9_g/ws/code/figlib.py\", line 26, in load_json\n    return json.loads(Path(path).read_text(encoding=\"utf-8\"))\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/brycewang/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'runs/sens-imbens/metrics.json'\n"
+      "record_sha256": "f08174e00f944c7f8c9f671f2270c5bdcb3cbf0ca69ab7c681aa5ab5eb858c55",
+      "exit_code": 0,
+      "status": "match"
     }
   ]
 }

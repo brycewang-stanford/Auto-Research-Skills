@@ -68,3 +68,7 @@
 {"time": "2026-11-19T01:22:19Z", "role": "econometrician", "action": "run", "detail": "tab-secondary exit=0"}
 {"time": "2026-11-19T01:22:19Z", "role": "econometrician", "action": "run", "detail": "tab-sensitivity exit=0"}
 {"time": "2026-11-19T01:22:37Z", "role": "econometrician", "action": "implementation-fix", "detail": "rob-learners RF predict single-threaded (fit n_jobs=-1 kept); rerun rob-learners, learner-rf-effect value refreshed (-10.006344405782134 -> -10.00634440578213), numbers.tex unchanged; fig-forest, tab-main, tab-balance, tab-secondary, tab-sensitivity rerun; two scratch runs bit-identical"}
+{"time": "2026-11-19T01:23:04Z", "role": "pi", "action": "brief-archived", "detail": "replicator 20261119T012304Z"}
+{"time": "2026-11-19T01:26:40Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
+{"time": "2026-11-19T01:27:55Z", "role": "replicator", "action": "rerun", "detail": "clean rerun PASSED 23/23 (fresh env from requirements.txt, CREW_SEED_DIR set, OMP_NUM_THREADS=1 for a shared machine, no --reuse-data, rtol 1e-6 atol 1e-9); 183 s; causes A (run order) and B (rob-learners RF bits) confirmed fixed"}
+{"time": "2026-11-19T01:27:55Z", "role": "replicator", "action": "replication-report", "detail": "REPLICATION.md updated: 2026-11-19 pass in 5.1, 2026-11-18 failure kept in 5.2, run order and timing updated"}

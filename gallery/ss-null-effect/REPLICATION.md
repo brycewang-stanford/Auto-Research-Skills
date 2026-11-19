@@ -1,12 +1,15 @@
 # Replication: ss-null-effect
 
 How to reproduce every number in `paper/main.pdf` from this workspace, and what happened
-when the Replicator did so on 2026-11-18. Written by the Replicator; the outcome section
-reports `replication.json`.
+when the Replicator did so. The current result is the clean rerun of 2026-11-19
+(**passed, 23 of 23 runs**); the failed rerun of 2026-11-18 is kept below (section 5.2).
+Written by the Replicator; the outcome section reports `replication.json`.
 
 ## 1. Environment
 
-- Python 3.12 (the rerun used CPython 3.12.11, macOS 26.6 arm64, 8 cores).
+- Python 3.12 (both reruns used CPython 3.12.11 for the runs, macOS 26.6 arm64, 8 cores;
+  `replication.json` records `python 3.14.6`, which is the interpreter that ran `crew.py`
+  itself, not the runs' `.venv`).
 - Packages: `code/requirements.txt` only (25 pinned packages: numpy 2.5.5, pandas 3.1.1,
   scikit-learn 1.9.1, scipy 1.18.1, statsmodels 0.15.0, matplotlib 3.11.2, ...).
 - The runs call `.venv/bin/python -I ...` from the workspace root, so the environment must
@@ -54,14 +57,16 @@ python3 <repo>/crew/scripts/crew.py rerun gallery/ss-null-effect
 python3 <repo>/crew/scripts/crew.py validate gallery/ss-null-effect --strict
 ```
 
-By hand, from the workspace root, in this order (the order the runs were first made;
-each writes the metrics file recorded in `runs/<id>/run.json`):
+By hand, from the workspace root, in this order (the order `crew.py rerun` used on
+2026-11-19: a run comes after every run that produced one of its inputs, otherwise the
+order the runs were recorded; each writes the metrics file recorded in
+`runs/<id>/run.json`):
 
 | # | Run | Command (`.venv/bin/python -I ...`) |
 |---|---|---|
 | 1 | fetch-data | `code/fetch_data.py` |
 | 2 | prepare-covariates | `code/prepare_covariates.py` |
-| 3 | margin | `code/margin.py` (needs `data/derived/covariates.csv` from step 2; `crew.py rerun` currently runs it before step 2, see cause A) |
+| 3 | margin | `code/margin.py` (needs `data/derived/covariates.csv` from step 2) |
 | 4 | timing-synthetic | `code/timing_synthetic.py` |
 | 5 | diag-overlap | `code/diag_overlap.py` |
 | 6 | missing-counts | `code/missing_counts.py` |
@@ -71,11 +76,12 @@ each writes the metrics file recorded in `runs/<id>/run.json`):
 | 10 | select-re75 | `code/select_re75.py` |
 | 11 | rob-trim | `code/rob_trim.py` |
 | 12 | rob-covsets | `code/rob_covsets.py` |
-| 13 | rob-learners | `code/rob_learners.py` |
-| 14 | rob-diff74 | `code/rob_diff74.py` |
-| 15 | rob-estimators | `code/rob_estimators.py` |
-| 16 | sens-imbens | `code/sens_imbens.py` |
-| 17-19 | fig-propensity, fig-forest, fig-sensitivity | `code/fig_<name>.py --out paper/figures/fig_<name>.pdf --metrics runs/fig-<name>/metrics.json` |
+| 13 | rob-diff74 | `code/rob_diff74.py` |
+| 14 | rob-estimators | `code/rob_estimators.py` |
+| 15 | sens-imbens | `code/sens_imbens.py` |
+| 16-17 | fig-propensity, fig-sensitivity | `code/fig_<name>.py --out paper/figures/fig_<name>.pdf --metrics runs/fig-<name>/metrics.json` |
+| 18 | rob-learners | `code/rob_learners.py` (re-recorded 2026-11-19, runs/NOTES.md; any position after step 7 works) |
+| 19 | fig-forest | as steps 16-17 (reads rob-learners) |
 | 20-23 | tab-balance, tab-main, tab-secondary, tab-sensitivity | `code/tab_<name>.py --out paper/tables/tab_<name>.tex --metrics runs/tab-<name>/metrics.json` |
 
 Then `crew.py numbers gallery/ss-null-effect` regenerates `paper/numbers.tex` from
@@ -83,9 +89,9 @@ Then `crew.py numbers gallery/ss-null-effect` regenerates `paper/numbers.tex` fr
 
 ## 4. Expected time
 
-- **About 3 minutes** on an 8-core laptop with `OMP_NUM_THREADS=1`: the recorded rerun
-  took 160 s and a diagnostic rerun 137 s, both on a shared machine with load average
-  20-30.
+- **About 3 minutes** on an 8-core laptop with `OMP_NUM_THREADS=1`: the passing rerun of
+  2026-11-19 took 183 s (load average 14-22 from other sessions); the 2026-11-18 rerun
+  took 160 s and a diagnostic rerun 137 s, at load average 20-30.
 - With the default OpenMP thread count on an idle machine, the ledger's own timings
   suggest roughly 6-8 minutes. secondary-family's recorded 30.5 minutes was measured while
   another job loaded the machine (runs/NOTES.md); the plan expects about 2.
@@ -96,12 +102,60 @@ Then `crew.py numbers gallery/ss-null-effect` regenerates `paper/numbers.tex` fr
   74 minutes without finishing; a stack sample showed all of its OpenMP threads in
   `__kmp_barrier` / `cthread_yield`. The thread count did not change any result: with
   `OMP_NUM_THREADS=1`, every metric except the random-forest ones below is bit-identical
-  to the ledger, which was produced with default threads.
+  to the ledger, which was produced with default threads (2026-11-18; the random-forest
+  metrics were made thread-stable on 2026-11-19, section 5.1).
 
 ## 5. Outcome of the rerun
 
-**`replication.json`: FAILED, 10 of 23 runs reproduced** (2026-11-18T17:27:41Z; fresh
-environment; `OMP_NUM_THREADS=1`; data re-fetched; rtol 1e-6, atol 1e-9). Every run that
+### 5.1 Current: 2026-11-19, PASSED (23 of 23)
+
+**`replication.json`: PASSED, 23 of 23 runs reproduced** (created 2026-11-19T01:26:40Z;
+`crew.py rerun` started 01:23:37Z, wall time 183 s). Same method as the 2026-11-18 rerun:
+
+- Fresh environment built outside the workspace from `code/requirements.txt` alone
+  (CPython 3.12.11; `uv pip freeze` equal to the requirements file, 25 packages, nothing
+  extra; `uv pip check` clean), symlinked at `.venv`; the authors' `.venv` was parked at
+  `gallery/.ss-null-effect-venv-orig` and restored by an exit trap (restored 01:26:40Z,
+  a real directory again).
+- `CREW_SEED_DIR=<repo>/crew/bench/seeds/ss-null-effect`; data re-copied and re-verified,
+  not reused (`reuse_data: false`).
+- **`OMP_NUM_THREADS=1`** set as an environment setting, because the machine was shared
+  (load average 17.7 at start, 13.8 at the end, on 8 cores). No code, data or tolerance
+  was changed (rtol 1e-6, atol 1e-9, the protocol defaults).
+- Run detached with `nohup` so a session restart could not kill it.
+
+| Run (in rerun order) | Status |
+|---|---|
+| fetch-data, prepare-covariates, margin, timing-synthetic, diag-overlap, missing-counts, range-counts | match |
+| main-aipw, secondary-family, select-re75, rob-trim, rob-covsets, rob-diff74, rob-estimators, sens-imbens | match |
+| fig-propensity, fig-sensitivity, rob-learners, fig-forest | match |
+| tab-balance, tab-main, tab-secondary, tab-sensitivity | match |
+
+Both causes of the 2026-11-18 failure (section 5.2) were fixed by their owners before this
+rerun, and the rerun confirms both fixes:
+
+- **Cause A fixed in the tooling** (commit `716b6c3`): `crew.py rerun` now orders runs so
+  that a run comes after every run that produced one of its inputs, with ties broken by
+  start time, finish time, then id. margin ran third, after prepare-covariates, and
+  matched; so did all eight analysis runs that read its `margin_metrics.json`.
+- **Cause B fixed by the Econometrician** (runs/NOTES.md, "Implementation fix:
+  rob-learners made bit-stable"; commit `9f3133a`): the random forests are still fitted
+  with `n_jobs=-1` but predict with `n_jobs=1`, so the per-tree sum has a fixed order.
+  rob-learners and the downstream figure/table runs were re-recorded with `--replace`
+  (which is why rob-learners now runs after fig-sensitivity). tab-main, whose
+  `figlib.Macros.cell` requires each claimed value to equal the recomputed metric
+  *exactly*, passed: the claimed rob-learners metrics it prints (random-forest and linear
+  effect, SE, 95% and 90% bounds, p, p_TOST, n) were therefore bit-identical to the
+  record. `replication.json` itself records match at tolerance, not exact equality.
+
+No mismatch to explain. The rerun is newer than every run record (latest re-record
+2026-11-19T01:22:19Z).
+
+### 5.2 Earlier: 2026-11-18, FAILED (10 of 23), kept for the record
+
+**`replication.json` (since overwritten): FAILED, 10 of 23 runs reproduced**
+(2026-11-18T17:27:41Z; fresh environment; `OMP_NUM_THREADS=1`; data re-fetched; rtol 1e-6,
+atol 1e-9). Every run that
 executed matched its recorded metrics; the 13 failures are crashes with two causes. Neither
 cause is a wrong number in the paper.
 
@@ -112,7 +166,7 @@ cause is a wrong number in the paper.
 | main-aipw, select-re75, rob-trim, rob-covsets, rob-learners, rob-diff74, rob-estimators, sens-imbens | failed | A (cascade: data/derived/margin_metrics.json missing) |
 | fig-forest, tab-main, fig-sensitivity, tab-sensitivity | failed | A (cascade: runs/main-aipw or runs/sens-imbens metrics missing) |
 
-### Cause A: two runs share a start time and the rerun orders them wrongly
+#### Cause A: two runs share a start time and the rerun orders them wrongly
 
 `margin` reads `data/derived/covariates.csv`, which `prepare-covariates` writes. In the
 ledger both runs have `started = 2026-11-18T12:28:10Z`; prepare-covariates finished within
@@ -132,7 +186,7 @@ Who can fix it: either the owner of `margin` (Data RA) re-records it with
 output), or the crew tooling breaks start-time ties by `finished` or by declared inputs and
 outputs. The Replicator changed neither.
 
-### Cause B: tab-main needs bit-identical random-forest results, which rob-learners does not give
+#### Cause B: tab-main needs bit-identical random-forest results, which rob-learners does not give
 
 A diagnostic rerun with the same procedure, environment and tolerance, but with ties broken
 by `finished` (script and output kept outside the workspace, so `replication.json` is the
@@ -167,12 +221,13 @@ with its claims refreshed, or the table check compares at a stated tolerance. No
 number would change at the precision printed (the claims are formatted to whole dollars: -10 and
 [-358, 338]).
 
-### What reproduces
+#### What reproduced on 2026-11-18
 
 Every number the analysis runs produce reproduces at the protocol tolerance from a fresh
 environment and re-fetched data, and all but the eight random-forest metrics reproduce bit
 for bit. The crew's submission check still fails: `replication.json` reports
 `passed: false` until causes A and B are fixed by their owners and the Replicator reruns.
+(Both were fixed on 2026-11-19; see section 5.1.)
 
 ## 6. Attempts and workarounds
 
@@ -186,11 +241,15 @@ for bit. The crew's submission check still fails: `replication.json` reports
    threads. Other sessions' jobs (16 joblib workers) pushed the load average to 60-160 on
    8 cores, and timing-synthetic stalled in libomp barriers (section 4). Stopped at
    17:24:48Z after 74 minutes; nothing was written to the workspace.
-3. **Recorded rerun.** 17:25:01Z to 17:27:41Z (160 s) with `OMP_NUM_THREADS=1` and
-   `CREW_SEED_DIR` set; result above.
+3. **Recorded rerun (failed).** 17:25:01Z to 17:27:41Z (160 s) with `OMP_NUM_THREADS=1` and
+   `CREW_SEED_DIR` set; result in section 5.2.
 4. **Diagnostic reruns (not recorded).** Two runs of the same procedure with ties broken by
    `finished` (about 2-3 minutes each with `OMP_NUM_THREADS=1`; 137 s for the second), plus repeated `rob_learners.py`
    runs, all in scratch copies with the fresh environment.
+5. **Clean rerun after the fixes (passed).** 2026-11-19T01:23:37Z to 01:26:40Z (183 s),
+   detached with `nohup`, same fresh environment and settings (`OMP_NUM_THREADS=1`,
+   `CREW_SEED_DIR`, no `--reuse-data`); result in section 5.1. Nothing had to be worked
+   around beyond the settings listed below.
 
 Workarounds, all environmental, none in the analysis: the fresh environment was
 symlinked at `.venv` and the original restored after each attempt; `CREW_SEED_DIR` was set
