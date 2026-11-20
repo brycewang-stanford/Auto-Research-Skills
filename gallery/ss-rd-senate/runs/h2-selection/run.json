@@ -1,0 +1,56 @@
+{
+  "id": "h2-selection",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/h2_selection.py",
+    "runs/h2-selection/metrics.json"
+  ],
+  "started": "2026-11-20T05:44:42Z",
+  "finished": "2026-11-20T05:44:43Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h2_selection.py",
+      "sha256": "0080e611abe1b3fe51aa3adfeed7f694dfd45fa998f0d18c752622a6ea583e6e"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/rdrobust_senate.csv",
+      "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h2-selection/metrics.json",
+      "sha256": "48e98a69f3a7a7d71c33059442bc1e6d5661ab3b1b3b085987735666f8508adb"
+    }
+  ],
+  "metrics": {
+    "n_observed_share": 0.9330935251798561,
+    "coef": -0.06180206131560073,
+    "se_conv": 0.03446958552270143,
+    "se_robust": 0.041454664283666016,
+    "ci_low": -0.14478440795947264,
+    "ci_high": 0.017714890014895984,
+    "p_robust": 0.12536646943945334,
+    "N": 1390,
+    "N_h_left": 398,
+    "N_h_right": 363,
+    "h_left": 19.02419509675888,
+    "h_right": 19.02419509675888,
+    "b_left": 30.134925125123562,
+    "b_right": 30.134925125123562,
+    "mde_pp": 11.613877467895435
+  },
+  "metrics_file": "runs/h2-selection/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}

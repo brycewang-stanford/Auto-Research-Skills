@@ -1,0 +1,101 @@
+{
+  "id": "h3-sensitivity",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/h3_sensitivity.py",
+    "runs/h3-sensitivity/metrics.json"
+  ],
+  "started": "2026-11-20T05:44:43Z",
+  "finished": "2026-11-20T05:44:44Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h3_sensitivity.py",
+      "sha256": "da0bd6b3f3a408f913a0c038097a3dc9fc7506f9afd82bd183749d41b04da72e"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/rdrobust_senate.csv",
+      "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h3-sensitivity/metrics.json",
+      "sha256": "8ff7805206a650514ac71cf31c0bc6267ff8b5d9c895c4926ca664d88a1231dc"
+    }
+  ],
+  "metrics": {
+    "i_2014_bw_conv_coef": 7.425304341122285,
+    "i_2014_bw_conv_se": 1.4953562933902953,
+    "i_2014_bw_ci_low": 4.069746039260206,
+    "i_2014_bw_ci_high": 10.983319343366947,
+    "i_2014_bw_p_robust": 1.9770243251215915e-05,
+    "i_2014_bw_h_left": 16.79369,
+    "i_2014_bw_h_right": 16.79369,
+    "i_2014_bw_b_left": 27.43745,
+    "i_2014_bw_b_right": 27.43745,
+    "i_2014_bw_N": 1297,
+    "i_2014_bw_N_h_left": 343,
+    "i_2014_bw_N_h_right": 310,
+    "ii_half_bw_conv_coef": 8.372565688755401,
+    "ii_half_bw_conv_se": 1.948698570649021,
+    "ii_half_bw_ci_low": 4.755732904016993,
+    "ii_half_bw_ci_high": 14.030541764549769,
+    "ii_half_bw_p_robust": 7.189115374692848e-05,
+    "ii_half_bw_h_left": 8.854,
+    "ii_half_bw_h_right": 8.854,
+    "ii_half_bw_b_left": 13.992,
+    "ii_half_bw_b_right": 13.992,
+    "ii_half_bw_N": 1297,
+    "ii_half_bw_N_h_left": 222,
+    "ii_half_bw_N_h_right": 182,
+    "iii_double_bw_conv_coef": 7.167535837270535,
+    "iii_double_bw_conv_se": 1.1027994804642482,
+    "iii_double_bw_ci_low": 5.35776736738746,
+    "iii_double_bw_ci_high": 10.645632370233848,
+    "iii_double_bw_p_robust": 2.997939342497162e-09,
+    "iii_double_bw_h_left": 35.416,
+    "iii_double_bw_h_right": 35.416,
+    "iii_double_bw_b_left": 55.968,
+    "iii_double_bw_b_right": 55.968,
+    "iii_double_bw_N": 1297,
+    "iii_double_bw_N_h_left": 514,
+    "iii_double_bw_N_h_right": 499,
+    "iv_p2_conv_coef": 8.045675490728676,
+    "iv_p2_conv_se": 1.8892364332402996,
+    "iv_p2_ci_low": 4.213442756736503,
+    "iv_p2_ci_high": 12.422756778102931,
+    "iv_p2_p_robust": 7.130976457923967e-05,
+    "iv_p2_h_left": 22.20992522498232,
+    "iv_p2_h_right": 22.20992522498232,
+    "iv_p2_b_left": 33.24549700677394,
+    "iv_p2_b_right": 33.24549700677394,
+    "iv_p2_N": 1297,
+    "iv_p2_N_h_left": 409,
+    "iv_p2_N_h_right": 370,
+    "v_adjust_conv_coef": 7.414130749110633,
+    "v_adjust_conv_se": 1.4587159889060957,
+    "v_adjust_ci_low": 4.093698661454098,
+    "v_adjust_ci_high": 10.919306068279084,
+    "v_adjust_p_robust": 1.6254428763581382e-05,
+    "v_adjust_h_left": 17.754398192687773,
+    "v_adjust_h_right": 17.754398192687773,
+    "v_adjust_b_left": 28.02808858770358,
+    "v_adjust_b_right": 28.02808858770358,
+    "v_adjust_N": 1297,
+    "v_adjust_N_h_left": 360,
+    "v_adjust_N_h_right": 323
+  },
+  "metrics_file": "runs/h3-sensitivity/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}

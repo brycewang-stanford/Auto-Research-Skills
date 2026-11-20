@@ -1,0 +1,59 @@
+{
+  "id": "h2-density",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/h2_density.py",
+    "runs/h2-density/metrics.json"
+  ],
+  "started": "2026-11-20T05:44:32Z",
+  "finished": "2026-11-20T05:44:33Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h2_density.py",
+      "sha256": "3d170ebcf7df9f5ddd40b9a1aa4e57c566891442425ba8d4ed727c566f78c54d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/rdrobust_senate.csv",
+      "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h2-density/metrics.json",
+      "sha256": "1f8885123d443c085caa3b53ad19bf6409ddafecc242e34ebfc20be796df5bf2"
+    }
+  ],
+  "metrics": {
+    "N": 1390,
+    "n_left": 640,
+    "n_right": 750,
+    "hat_left": 0.02168591465328345,
+    "hat_right": 0.018137707252817218,
+    "hat_diff": -0.0035482074004662308,
+    "sd_jk_diff": 0.004053829311990917,
+    "bw_left": 19.841108436410984,
+    "bw_right": 27.118786663704757,
+    "T_Q": -0.8752730140785417,
+    "p_Q": 0.3814253737593818,
+    "T_Q_asy": NaN,
+    "p_Q_asy": NaN,
+    "T_conv": -1.650594828274115,
+    "p_conv": 0.09882133562045992,
+    "p_Q_useall": 0.3814253737593818,
+    "p_Q_nomass": 0.3814253737593818,
+    "p_Q_minus_design_mde": 0.0
+  },
+  "metrics_file": "runs/h2-density/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}

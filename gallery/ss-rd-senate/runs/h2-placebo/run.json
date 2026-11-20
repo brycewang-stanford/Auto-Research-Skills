@@ -1,0 +1,85 @@
+{
+  "id": "h2-placebo",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/h2_placebo.py",
+    "runs/h2-placebo/metrics.json"
+  ],
+  "started": "2026-11-20T05:44:41Z",
+  "finished": "2026-11-20T05:44:42Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h2_placebo.py",
+      "sha256": "b884999909d57daff2b6782e557bccbf7b26835dd727bbb7fcaea33dffef47d0"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/rdrobust_senate.csv",
+      "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h2-placebo/metrics.json",
+      "sha256": "a3db2ea6b680659d4d8e8cc32c868e548abf66ec396e276686683079ddcd5e7b"
+    }
+  ],
+  "metrics": {
+    "c_L": -14.344935,
+    "c_R": 20.439946,
+    "left_c": -14.344935,
+    "left_n_side": 595,
+    "left_coef": -0.02862512079113344,
+    "left_se_conv": 5.742814265044217,
+    "left_se_robust": 6.711665776647708,
+    "left_ci_low": -12.168367392332598,
+    "left_ci_high": 14.140879004666516,
+    "left_ci_width": 26.309246396999114,
+    "left_p_robust": 0.8831742472756975,
+    "left_N": 595,
+    "left_N_left": 285,
+    "left_N_right": 310,
+    "left_N_h_left": 72,
+    "left_N_h_right": 72,
+    "left_h_left": 4.813846011110291,
+    "left_h_right": 4.813846011110291,
+    "left_b_left": 8.197054202553177,
+    "left_b_right": 8.197054202553177,
+    "left_bw_max": 85.65506500000001,
+    "left_bw_capped": 0,
+    "left_sd_vote_side": 12.170787138966933,
+    "right_c": 20.439946,
+    "right_n_side": 702,
+    "right_coef": -1.0677989888410337,
+    "right_se_conv": 4.953107987209368,
+    "right_se_robust": 5.755403926531534,
+    "right_ci_low": -11.286903898627918,
+    "right_ci_high": 11.27386492633652,
+    "right_ci_width": 22.560768824964438,
+    "right_p_robust": 0.9990961891999274,
+    "right_N": 702,
+    "right_N_left": 350,
+    "right_N_right": 352,
+    "right_N_h_left": 65,
+    "right_N_h_right": 68,
+    "right_h_left": 5.691673431701116,
+    "right_h_right": 5.691673431701116,
+    "right_b_left": 8.895164218667375,
+    "right_b_right": 8.895164218667375,
+    "right_bw_max": 79.56005400000001,
+    "right_bw_capped": 0,
+    "right_sd_vote_side": 16.28793179294491
+  },
+  "metrics_file": "runs/h2-placebo/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}

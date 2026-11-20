@@ -56,3 +56,14 @@
 {"time": "2026-11-20T05:39:13Z", "role": "econometrician", "action": "run-superseded", "detail": "unit-tests archived to runs/.superseded/unit-tests-20261120T053325Z"}
 {"time": "2026-11-20T05:39:22Z", "role": "econometrician", "action": "run", "detail": "unit-tests exit=0"}
 {"time": "2026-11-20T05:39:28Z", "role": "econometrician", "action": "code-r2-fixes", "detail": "F1 printed comparison under off (primary) and adjust (secondary) with match flags; F6 NOTES sha256 attribution corrected; F7 forced bw_capped=1 test via capped_flag on rdrobust fit with h=b=bw_max; unit-tests rerun with --replace: 49/49 synthetic. No real-data analysis run."}
+{"time": "2026-11-20T05:39:41Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T053941Z (code-r3)"}
+{"time": "2026-11-20T05:44:14Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T054414Z (phase 2: analysis runs)"}
+{"time": "2026-11-20T05:44:27Z", "role": "econometrician", "action": "run", "detail": "h1-rdrobust exit=0"}
+{"time": "2026-11-20T05:44:33Z", "role": "econometrician", "action": "run", "detail": "h2-density exit=0"}
+{"time": "2026-11-20T05:44:34Z", "role": "econometrician", "action": "run", "detail": "h2-covariates exit=0"}
+{"time": "2026-11-20T05:44:42Z", "role": "econometrician", "action": "run", "detail": "h2-placebo exit=0"}
+{"time": "2026-11-20T05:44:43Z", "role": "econometrician", "action": "run", "detail": "h2-selection exit=0"}
+{"time": "2026-11-20T05:44:44Z", "role": "econometrician", "action": "run", "detail": "h3-sensitivity exit=0"}
+{"time": "2026-11-20T05:46:33Z", "role": "econometrician", "action": "code-r3-responses", "detail": "F7 NOTES rewritten; F8 H1 off b recorded next to printed 27.984; F9 open"}
+{"time": "2026-11-20T05:46:33Z", "role": "econometrician", "action": "claims-written", "detail": "95 result claims from run metrics; crew.py numbers wrote paper/numbers.tex (95 macros)"}
+{"time": "2026-11-20T05:46:33Z", "role": "econometrician", "action": "phase2-analysis", "detail": "h1-rdrobust, h2-density, h2-covariates, h2-placebo, h2-selection, h3-sensitivity run in plan order; no failures; H1 off passes all five tolerance flags"}

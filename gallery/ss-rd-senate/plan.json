@@ -63,37 +63,37 @@
       "id": "t-h1",
       "title": "Run h1-rdrobust (code/h1_replication.py): main rdrobust specification, pinned 2.1.1, masspoints off; check tolerances; rd-effect, rd-ci-low, rd-ci-high, rd-n, rd-bw",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "t-h2a",
       "title": "Run h2-density (code/h2_density.py): rddensity on margin, N = 1,390; robust p-value and MDE from design-mde",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "t-h2b",
       "title": "Run h2-covariates (code/h2_covariates.py): four covariate rdrobust tests with H1 options, N = 1,390 or 1,108, Holm, MDE per test",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "t-h2c",
       "title": "Run h2-placebo (code/h2_placebo.py): one-sided placebo cutoffs c_L and c_R on vote, report-only (estimate, CI, N, bandwidth, bw_capped)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "t-h3",
       "title": "Run h3-sensitivity (code/h3_sensitivity.py): five descriptive specifications next to H1; no decision rule",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "t-claims",
       "title": "Write claims.jsonl entries for every reported number, each linked to its run (rd-effect, rd-ci-low, rd-ci-high and the rest of the design list)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "t-rerun",
@@ -105,7 +105,7 @@
       "id": "t-h2d",
       "title": "Run h2-selection (code/h2_selection.py) after the design gate: rdrobust on vote_observed with H1 options; MDE computed here, not before the gate",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     }
   ],
   "gates": {

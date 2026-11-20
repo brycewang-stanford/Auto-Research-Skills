@@ -1,0 +1,98 @@
+{
+  "id": "h1-rdrobust",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/h1_replication.py",
+    "runs/h1-rdrobust/metrics.json"
+  ],
+  "started": "2026-11-20T05:44:25Z",
+  "finished": "2026-11-20T05:44:27Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h1_replication.py",
+      "sha256": "1f9092b0599baab1a88c2d54d2b51aeee4f66126fa8026e82099aeaa332ad98a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/rdrobust_senate.csv",
+      "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h1-rdrobust/metrics.json",
+      "sha256": "ac0a193464572939ac7569a3bfc8c6424f675faecd16e492f7510f7f592c6fa3"
+    }
+  ],
+  "metrics": {
+    "n_rows_file": 1390,
+    "n_estimation": 1297,
+    "n_missing_vote": 93,
+    "side_n_left": 595,
+    "side_n_right": 702,
+    "distinct_left": 595,
+    "distinct_right": 665,
+    "distinct_total": 1260,
+    "mass_share_left": 0.0,
+    "mass_share_right": 0.05270655270655267,
+    "obs_at_shared_left": 0,
+    "obs_at_shared_right": 38,
+    "off_conv_coef": 7.416037727923715,
+    "off_conv_se": 1.4603614006659504,
+    "off_ci_low": 4.094414586062043,
+    "off_ci_high": 10.925464678576844,
+    "off_robust_se": 1.7426468410637272,
+    "off_p_robust": 1.636227549785973e-05,
+    "off_h_left": 17.708029731350788,
+    "off_h_right": 17.708029731350788,
+    "off_b_left": 27.984123476352,
+    "off_b_right": 27.984123476352,
+    "off_N_left": 595,
+    "off_N_right": 702,
+    "off_N": 1297,
+    "off_N_h_left": 359,
+    "off_N_h_right": 322,
+    "off_M_left": 595,
+    "off_M_right": 702,
+    "adj_conv_coef": 7.414130749110633,
+    "adj_conv_se": 1.4587159889060957,
+    "adj_ci_low": 4.093698661454098,
+    "adj_ci_high": 10.919306068279084,
+    "adj_robust_se": 1.7412583753233493,
+    "adj_p_robust": 1.6254428763581382e-05,
+    "adj_h_left": 17.754398192687773,
+    "adj_h_right": 17.754398192687773,
+    "adj_b_left": 28.02808858770358,
+    "adj_b_right": 28.02808858770358,
+    "adj_N_left": 595,
+    "adj_N_right": 702,
+    "adj_N": 1297,
+    "adj_N_h_left": 360,
+    "adj_N_h_right": 323,
+    "adj_M_left": 595,
+    "adj_M_right": 665,
+    "diff_conv": 3.772792371492528e-05,
+    "diff_ci_low": 4.586062043010486e-06,
+    "diff_ci_high": -3.532142315521014e-05,
+    "diff_N": 0,
+    "diff_h": 2.9731350789319322e-05,
+    "tol_conv_ok": 1,
+    "tol_ci_low_ok": 1,
+    "tol_ci_high_ok": 1,
+    "tol_N_ok": 1,
+    "tol_h_ok": 1,
+    "h1_pass_off": 1
+  },
+  "metrics_file": "runs/h1-rdrobust/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}

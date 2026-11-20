@@ -94,3 +94,17 @@ Suspicions and checks for the results stage:
 - H2(d): check that h2-selection ran after the gate and that vote_observed was the only input.
 - Paper: the pre-gate design-mde computations (density p = 0.381, covariate SEs) must be disclosed in the text; the local-estimand and no-state-clustering caveats must appear.
 - I ran no analysis script on the study data and computed no statistic of vote. I ran code/test_analysis.py on synthetic data in the scratch directory (43 of 43). I did not open the seed task or any answer key. I read the raw CSV only for its sha256.
+
+## code-r3 (2026-11-20, verdict pass)
+
+Status of code-r2 findings: F1 resolved (code records 'off' as primary and 'adjust' as secondary; paper must name the setting in any match statement; plan step 4 still names no setting); F2 withdrawn; F3 resolved; F4 resolved (49 of 49 on synthetic data); F5 withdrawn (bwcheck trigger re-derived from rdrobust.py 609-615: about 0.002 left, 0.053 right, below 0.20); F6 resolved (NOTES corrected); F7 open, minor (the positive cap branch is tested only on forced inputs; NOTES overstates it).
+
+New in round 3: F8 (minor, H3 rows ii and iii use the printed b = 27.984 as baseline; H1 'off' b is not checked); F9 (minor, the static no-vote guard is a substring match on the double-quoted token in three files).
+
+Checks run this round, none on study outcome data: read all code/*.py against plan.json design.method and analysis_plan; read rddensity useall branches, rdbwselect.py mserd cap (final h and b capped at bw_max, so the flag logic is right in principle), rdrobust.py masspoints and bwcheck trigger; confirmed the installed rdrobust 2.1.1 and rddensity 3.0 match code/requirements.txt; reran code/test_analysis.py on synthetic data in the scratch directory (49 of 49); searched for a cap-binding synthetic sample (240 + 40 fits, none capped). crew.py validate passed. I did not run any analysis script on the real data, computed no statistic of vote, and did not open the seed task or any answer key.
+
+Suspicions and checks for the results stage:
+- H1: judge the pass or fail on 'off' only; check that 'adjust' was not run after a failure; check the H3 b baseline against off_b_left (F8).
+- H2(c): check that bw_capped is reported only as recorded (F7) and that no non-rejection wording appears.
+- H2(d): check that h2-selection ran after the gate and used vote_observed as its only input.
+- Paper: the pre-gate design-mde disclosure, the local-estimand and no-state-clustering caveats, and the H2(b) setting statement must appear in the text.

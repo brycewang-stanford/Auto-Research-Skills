@@ -1,0 +1,127 @@
+{
+  "id": "code-r3",
+  "target": "code",
+  "round": 3,
+  "created": "2026-11-20T05:43:30Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261120T053941Z-reviewer.md",
+    "crew/agents/reviewer.md",
+    "crew/PROTOCOL.md",
+    "plan.json",
+    "runs/NOTES.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/code-r2/review.json",
+    "reviews/design-r3/review.json",
+    "sources/notes.md",
+    "log.jsonl (tail)",
+    "code/h1_replication.py",
+    "code/h2_density.py",
+    "code/h2_covariates.py",
+    "code/design_mde.py",
+    "code/h2_placebo.py",
+    "code/h2_selection.py",
+    "code/h3_sensitivity.py",
+    "code/test_analysis.py",
+    "code/prepare_data.py (lines 25-60)",
+    "code/prepare_checks.py (lines 60-80; grep for vote)",
+    "code/fetch_data.py (grep and lines 10-25)",
+    "code/requirements.txt",
+    "runs/unit-tests/metrics.json",
+    "runs/dr-checks/run.json",
+    "runs/dr-checks/metrics.json (keys)",
+    "runs/design-mde/metrics.json",
+    ".venv/lib/python3.12/site-packages/rddensity/rddensity.py (lines 300-425)",
+    ".venv/lib/python3.12/site-packages/rdrobust/rdbwselect.py (lines 600-800)",
+    ".venv/lib/python3.12/site-packages/rdrobust/rdrobust.py (lines 600-620, 712-730)",
+    "data/raw/rdrobust_senate.csv (not opened; no vote statistic read)"
+  ],
+  "kill_argument": "The scripts implement the approved plan, and the H1 test that decides the stage is a reproduction of one printed number. Its pass or fail rests on masspoints = 'off', which the plan itself calls an unverified assumption about the 2016 release. The 'adjust' reading, which is the rdrobust 2.1.1 default, is computed but cannot change the verdict, so the check cannot tell the two settings apart. The falsification battery is nulls with minimum detectable differences of 0.011 density units, 0.40 to 2.09 covariate units and about 2.2 million persons, plus report-only placebos, so none of it can show balance or continuity. The unit tests run only on synthetic data, and the bandwidth-cap flag's positive branch is tested only on forced inputs. I attacked the rddensity useall and conventional statistics, the side convention, the Holm step-down, the one-sided placebo samples, the mserd cap and bwcheck trigger in the installed rdrobust source, the pinned versions, and the vote reads in the design-stage scripts. These held. What remains is code that is consistent with the plan and untested on the study data, and the paper can say no more than that.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The H2(b) printed-value comparison was tied to masspoints = 'adjust' (code-r2 F1).",
+      "evidence": "code/h2_covariates.py PRINTED_P_CCFT2017 loop; plan.json disclosures (code-r2 F1 entry).",
+      "response": "",
+      "ruling": "Checked. h2_covariates.py now records the printed comparison under 'off' (primary: off_minus_printed, off_printed_match) and 'adjust' (secondary). The PI disclosure names 'off' as primary. Resolved in code. Residual for the paper, not the code: plan.json analysis_plan step 4 still names no setting, so the paper must name 'off' for any match statement."
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "withdrawn",
+      "text": "Literal metric fields (outcome_loaded = 0, sha256_matches_seed = 1).",
+      "evidence": "code/design_mde.py; code/fetch_data.py; runs/NOTES.md (Literal metric fields).",
+      "response": "",
+      "ruling": "Withdrawn on the code-r2 ruling. The paper must not cite either field as a check."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "h2_covariates.py did not compare its SEs and MDEs with the design-stage values.",
+      "evidence": "code/h2_covariates.py design_match block; test_analysis.py F3 checks.",
+      "response": "",
+      "ruling": "Resolved (code-r2 ruling stands). Re-read: the comparison is exact to rel_tol 1e-6 and the mismatch test passes."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Unit tests did not exercise the H1 tolerance flags.",
+      "evidence": "code/test_analysis.py tolerance checks; code/h1_replication.py tolerance_flags().",
+      "response": "",
+      "ruling": "Resolved. Re-ran code/test_analysis.py on synthetic data in the scratch directory: 49 of 49 passed (the workspace's runs/unit-tests metrics also show 49 of 49)."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "withdrawn",
+      "text": "Full-file counts quoted in plan.json design.method for the 'adjust' and bwcheck discussion.",
+      "evidence": "plan.json design.method; code/h1_replication.py side counts.",
+      "response": "",
+      "ruling": "Withdrawn on the code-r2 ruling. I rechecked the trigger: rdrobust.py lines 609-615 use mass = 1 - M/N on the estimation sample, giving about 0.002 left and 0.053 right, below 0.20, so bwcheck is not set. The paper cites the run's 1,297-row counts."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "runs/NOTES.md said the Reviewer verified the raw file's hash against the seed task.",
+      "evidence": "runs/NOTES.md, Literal metric fields paragraph.",
+      "response": "",
+      "ruling": "Resolved. The NOTES now say the sha256 matches data/manifest.json and the constant in fetch_data.py and has not been checked against the seed task by any reviewer."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "The bw_capped positive branch is not exercised by any estimator run. The unit test forces h = b = bw_max as inputs and checks that capped_flag() returns 1, which tests an equality, not that the cap binds. runs/NOTES.md (bw_capped flag section) says the flag is 'shown to fire on a real rdrobust output'; that is not what the test shows. In this round I searched for a cap that binds with the installed rdrobust 2.1.1 on synthetic one-sided and two-sided samples: 240 fits across four data-generating processes (linear, quadratic, cubic, near-zero curvature) and 40 further fits, none with a final h or b equal to bw_max. So the positive branch has not been observed end to end, and NOTES's 'cannot be forced' is an unproven claim.",
+      "evidence": "code/test_analysis.py (forced bw_capped block); code/h2_placebo.py capped_flag(); runs/NOTES.md (bw_capped flag section); .venv/lib/python3.12/site-packages/rdrobust/rdbwselect.py lines 651-653 and 760-800 (mserd cap applied to the final h and b, so the flag logic is correct in principle).",
+      "response": "Fixed in runs/NOTES.md: the positive bw_capped branch is tested only on forced inputs; it was not observed on real rdrobust output or in the code-r3 synthetic search; the paper reports bw_capped only as recorded (all 0 on the real runs).",
+      "ruling": "Stays open, minor. The flag logic matches the rdbwselect.py cap, so the risk is that a binding cap is reported as 0, not that a 0 is wrong. Cheapest remedy: rewrite the NOTES sentence to say the positive branch is tested only on forced inputs and was not observed in any synthetic search; the paper may report bw_capped only as recorded. A stronger remedy is a synthetic sample built to bind the cap, but none was found in this round."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "open",
+      "text": "H3 rows (ii) and (iii) are described as half and double 'the H1 bandwidth', but their b values (13.992 and 55.968) are half and double the printed 2016 b = 27.984, not the b that H1 under masspoints = 'off' produces. The H1 tolerance flags check h, CI endpoints, conventional estimate and N, but not b, so nothing forces the H1 'off' b to equal 27.984.",
+      "evidence": "code/h3_sensitivity.py SPECS (ii) and (iii); code/h1_replication.py tolerance_flags() (no b term); plan.json design.method H3 paragraph ('Baseline for (ii) and (iii) is h = 17.708, b = 27.984'); runs/NOTES.md Sources (b = 27.984 on p. 392).",
+      "response": "Fixed in runs/NOTES.md and claims: the H1 off b is 27.98412 (claim rd-b), within 0.0001 of the printed 27.984; (ii) and (iii) are half and double the printed b, which equals H1 b.",
+      "ruling": "Stays open, minor. Cheapest remedy: say in the H3 table and the paper that the b baseline is the printed 27.984 and that (ii) and (iii) are half and double the printed b. Better, record the H1 'off' b (already in h1-rdrobust metrics as off_b_left) next to the H3 rows and state its difference from 27.984."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "open",
+      "text": "The 'no vote reference' guard in test_analysis.py is a substring match for the double-quoted token \"vote\" in three files. A single-quoted read, a different column variable, or a read that uses a variable named from the CSV header would pass it. The guard does not check usecols, and it does not cover the other scripts that correctly read vote (h2_placebo, h2_selection, h3), so it cannot show that the no-outcome stages never read vote.",
+      "evidence": "code/test_analysis.py static check loop (for name in design_mde.py, h2_density.py, h2_covariates.py); code/design_mde.py and code/h2_density.py usecols lines.",
+      "response": "Open, not changed this round (scripts frozen; the guard is in test_analysis.py, not an analysis script). Scripts read vote only in h2_placebo, h2_selection and h3 by design; the guard will be tightened in a later round.",
+      "ruling": "Stays open, minor. Current scripts pass by inspection: grep finds 'vote' only in docstrings of h2_density.py and h2_covariates.py and no read path. Cheapest fix: assert that the pd.read_csv call in those three files uses usecols without 'vote', or check with an AST scan."
+    }
+  ]
+}
