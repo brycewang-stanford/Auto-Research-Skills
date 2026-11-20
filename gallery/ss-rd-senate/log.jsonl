@@ -110,3 +110,5 @@
 {"time": "2026-11-20T07:15:09Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261120T071509Z (paper-r1)"}
 {"time": "2026-11-20T07:16:07Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
 {"time": "2026-11-20T07:16:14Z", "role": "replicator", "action": "rerun-passed", "detail": "third run 15/15 on crew.py 87890ae; per-run python 3.12.11"}
+{"time": "2026-11-20T07:16:58Z", "role": "writer", "action": "paper-r1-revised", "detail": "paper-r1 revise addressed: F1-F5, F7-F10 (responses in reviews/paper-r1/review.json); F6 is the tool's record, explained in Sec. 6 item 9; recompiled clean, 11 pages"}
+{"time": "2026-11-20T07:17:17Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T071717Z (paper-r2)"}

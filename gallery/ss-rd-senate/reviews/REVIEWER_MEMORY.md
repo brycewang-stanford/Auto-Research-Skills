@@ -162,3 +162,18 @@ Paper-stage conditions (must appear in the text, not just in the files):
 - Every number through a macro; no typed results.
 
 Open for the human after round 4 (results target has one round left): F12, F13, F14 (minor), and the paper conditions above. Also outstanding: t-rerun (crew.py rerun) is still todo; the submission gate needs replication.json newer than every run.
+
+## paper-r1 (2026-11-20, verdict revise)
+
+Open findings: F1 (major, Section 6 item 1 and ai-use say the Reviewer kept design-r1 F4 open at design-r2 and design-r3; the records show it withdrawn on the PI's ruling at both rounds); F2 (major, Section 3 'fixed at the design gate' and the abstract's 'fixed in advance' omit that the H2(a) statistic and the H2(b) SEs/MDEs were computed in design-mde before the gate at 05:23Z); F3 (major, 'the choice of primary setting was not made by reference to the printed numbers' is unverifiable and sits against the paper's own use of the printed h as evidence for 'off'; under 'adjust' H1 fails); F4 (major, the H2(d) 'cannot rule out a selection shift large enough to produce the whole H1 effect' compares a share change with a vote-share effect with no bound; the -6.2 pp point estimate is not discussed; Section 6 item 7 says the text converts units explicitly, which it does not); F5 (major, title 'Replicating the Senate Incumbency Advantage' names a broader estimand than the local Democratic-win effect within 17.7 points); F6 (major, replication.json env python 3.14.6 contradicts the 3.12.11 stated in the paper and REPLICATION.md); F7 (minor, the rerun-tool fix was made by the PI session after the 7/15 failure, per log.jsonl 07:08:12Z; the paper does not say who changed the tool); F8 (minor, post-gate edits in commit 48f9767 and results-r3 F12-F14 were never re-reviewed; Section 6 item 10 does not list them); F9 (minor, abstract non-rejection sentence covers the report-only H2(c)); F10 (minor, typed 1,390 and 1,297 in Section 6 item 3 where macros exist).
+
+Checks that held: all 122 result claims equal their run metrics (script over runs/*/metrics.json, zero mismatches); the H1 numbers match the printed values to within the stated tolerance; all analysis runs are after the 05:23Z design gate; the PDF is newer than main.tex and numbers.tex and has no undefined references; the four full-text sources and the Eggers abstract-only record match the claims in sources/notes.md (CCFT p. 392, 393, 397, 398; CFT footnote 13; Caughey and Sekhon's House findings; Eggers et al. abstract); the design-mde SEs and MDEs in the paper match plan.json.
+
+Suspicions and checks for round 2 (after the Writer responds):
+- F1: confirm the disclosure states the withdrawal at design-r2 and does not say 'kept open'.
+- F2: check that Section 3 and the abstract name the pre-gate computations, not only Section 6.
+- F3: check that the 'not made by reference to the printed numbers' sentence is gone or qualified, and that the 'adjust' H1 failure is stated where the pass is reported.
+- F4: check for pp values in the text, the -6.2 point estimate, and whether the 'whole H1 effect' sentence survives without a bound.
+- F6: check whether replication.json's env field was corrected by the tool, not edited by hand.
+- Paper-stage claim count: AI-use says 11 review rounds; with this review it is 12, and the statement must be updated.
+- I ran no model or estimate on the study data and did not open the seed task or any answer key. I ran only scripts that read the run metrics and the claims file.

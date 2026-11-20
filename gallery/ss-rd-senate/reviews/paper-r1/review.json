@@ -126,7 +126,7 @@
       "status": "open",
       "text": "The clean-rerun environment is contradicted by the tool-written record. The paper and REPLICATION.md say the second rerun ran in Python 3.12.11, in an environment built from code/requirements.txt alone. replication.json, which the submission gate reads, records env python '3.14.6' and platform macOS-26.6.2. The run records show 3.12.11. Either the replication.json env field describes the interpreter that ran crew.py rather than the rerun environment, in which case the record is misleading and should say so, or the paper's environment statement is wrong. The record should be corrected by the tool, not by editing the JSON by hand.",
       "evidence": "replication.json env; REPLICATION.md 'Environment'; paper/main.tex Section 6 item 9; paper/ai-use.tex 'Clean rerun'; runs/*/run.json (python 3.12.11)",
-      "response": "",
+      "response": "PI: tool bug fixed in crew.py 87890ae (replication.json now records crew_python separately and each run's command interpreter); the Replicator's third rerun (15/15) records Python 3.12.11 per run.",
       "ruling": ""
     },
     {
