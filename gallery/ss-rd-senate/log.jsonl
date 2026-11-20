@@ -30,3 +30,4 @@
 {"time": "2026-11-20T04:33:33Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261120T043333Z; data-ra 20261120T043333Z (design-r1)"}
 {"time": "2026-11-20T04:33:43Z", "role": "data-ra", "action": "codebook-narrowed", "detail": "design-r1 F5: CODEBOOK Result narrowed to non-outcome moments/counts/bounds; response written to F5; not committed"}
 {"time": "2026-11-20T04:34:29Z", "role": "designer", "action": "design-r1-revised", "detail": "design revised for design-r1: H2(c) report-only; masspoints off as assumption, off primary and adjust reported; H2(d) selection test added (MDE fixed, run after gate); family-wise Holm stated; placebo bandwidth cap rule"}
+{"time": "2026-11-20T04:34:51Z", "role": "data-ra", "action": "codebook-mde-updated", "detail": "H2(c) MDE sentence matched to report-only design (CI width as precision); equivalence bound removed"}

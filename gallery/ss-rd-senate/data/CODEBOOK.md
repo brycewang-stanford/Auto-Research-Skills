@@ -156,5 +156,5 @@ Multiplier (z_0.975 + z_0.80) = 2.8016.
 
 - H2(a) density test (rddensity, N = 1,390): MDE 0.01136 in density-difference units, about 0.52 of the left-side density (0.02169).
 - H2(b) covariate tests: class MDE 0.401 (N 1,390); termshouse 1.400 (N 1,108); termssenate 2.091 (N 1,108); population 2,185,253 persons (N 1,390).
-- H2(c) placebo: no computed MDE; the 0.25 SD equivalence bound is a chosen constant (see plan.json design.threats).
+- H2(c) placebo: report-only, with no equivalence bound and no MDE; its precision is the CI width (estimate and CI reported for each one-sided placebo cutoff).
 - Disclosure: the run also records the margin-only rddensity robust test (T_Q -0.875, p 0.381), computed before the design gate.
