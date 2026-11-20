@@ -15,17 +15,14 @@ gates and takes responsibility for its content.
         same model family as the authoring agents, so the independence level is
         fresh-context, not cross-family. The paper stage has not yet been reviewed. The
         reviews and the Reviewer's memory are in \texttt{reviews/}.
-  \item \textbf{Findings accepted over the Reviewer's objection.} One: design-r1 F4 (major),
-        on the pre-gate computations in \texttt{design-mde}. The Reviewer kept it open at
-        design-r2 and design-r3 and recorded that the PI's ruling stands. The PI accepted it
-        with the disclosure given in Section 6 of the paper. No other finding was accepted
-        over the Reviewer's objection.
+  \item \textbf{Findings accepted over the Reviewer's objection.} None. One major finding (design-r1 F4, on the pre-gate computations in \texttt{design-mde}) was withdrawn by the Reviewer after the PI's ruling: the Reviewer raised it at design-r1, kept it open at design-r2, and withdrew it at design-r2 and design-r3, stating that it was withdrawn on the PI's ruling and that the Reviewer does not override that ruling. The PI's ruling is disclosed in Section 6 of the paper.
   \item \textbf{Clean rerun.} Passed: 15 of 15 runs reproduced in a fresh environment built from
-        \texttt{code/requirements.txt} alone (\texttt{replication.json}, written by the Replicator). The first
-        attempt reproduced 7 of 15. Its failures came from the rerun tool (the copy omitted \texttt{runs/}, and
-        a NaN in both runs was counted as a mismatch). The tool was fixed (commit \texttt{0a72b72}) before the
-        second attempt. No analysis code, data or tolerance was changed. The submission gate requires this
-        passing rerun to be newer than every run.
+        \texttt{code/requirements.txt} alone. Each run record gives Python 3.12.11. The \texttt{env} field of
+        \texttt{replication.json} records Python 3.14.6, the interpreter that ran \texttt{crew.py}, and does not describe
+        the rerun environment. The first attempt reproduced 7 of 15. The PI session then fixed the rerun tool (commit
+        \texttt{0a72b72}, which creates run folders and treats a NaN in both runs as equal); the NaN rule widens the
+        comparator only for such metrics. No analysis code, data or tolerance was changed. The first attempt's record is
+        in git history at commit \texttt{2dce826}. The submission gate requires this passing rerun to be newer than every run.
   \item \textbf{Briefs.} The role briefs are archived in \texttt{briefs/}.
   \item \textbf{Evidence.} Every reported number is generated from a logged run through
         the macro file \texttt{numbers.tex}. Every citation was checked against its source: four from
