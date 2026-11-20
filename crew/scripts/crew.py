@@ -1076,7 +1076,8 @@ def review_files(ws: Path, listed: list, unmatched: list | None = None) -> dict[
                 files.append(match)
             elif match.is_dir():
                 files += [p for p in sorted(match.rglob("*")) if p.is_file()]
-        files = [p for p in files if not skip & set(p.relative_to(ws).parts)]
+        named = skip & set(Path(spec).parts)  # an entry that names e.g. runs/.superseded/... opts in
+        files = [p for p in files if not (skip - named) & set(p.relative_to(ws).parts)]
         if not files and unmatched is not None:
             unmatched.append(str(value))
         for path in files:

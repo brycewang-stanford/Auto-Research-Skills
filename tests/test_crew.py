@@ -492,6 +492,20 @@ class ProtocolTwoTest(unittest.TestCase):
         self.assertEqual(json.loads((self.ws / "runs" / "main" / "run.json").read_text())["code"][0]["path"],
                          "code/main.py")
 
+    def test_review_hashes_superseded_files_only_when_named(self) -> None:
+        old = self.ws / "runs" / ".superseded" / "x-1" / "metrics.json"
+        old.parent.mkdir(parents=True)
+        old.write_text("{}")
+        (self.ws / "runs" / "x").mkdir()
+        (self.ws / "runs" / "x" / "metrics.json").write_text("{}")
+        unmatched: list = []
+        hashes = crew.review_files(self.ws, ["runs", "runs/.superseded/x-1/metrics.json"], unmatched)
+        self.assertIn("runs/x/metrics.json", hashes)
+        self.assertIn("runs/.superseded/x-1/metrics.json", hashes)
+        self.assertEqual(len([k for k in hashes if ".superseded" in k]), 1)
+        self.assertEqual(unmatched, [])
+        self.assertNotIn("runs/.superseded/x-1/metrics.json", crew.review_files(self.ws, ["runs"]))
+
     def test_review_command_refuses_an_invalid_review(self) -> None:
         path = write_review(self.ws, "question")
         edit_json(path, lambda r: r.update(kill_argument=""))
