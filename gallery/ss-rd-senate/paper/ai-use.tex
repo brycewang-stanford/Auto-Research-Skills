@@ -17,18 +17,18 @@ gates and takes responsibility for its content.
         been reviewed three times, and none of the three rounds passed. The reviews and the
         Reviewer's memory are in \texttt{reviews/}.
   \item \textbf{Findings accepted over the Reviewer: one.} design-r1 F4 (pre-gate computations in \texttt{design-mde}), kept by the PI's ruling with a disclosure, withdrawn by the Reviewer at design-r2 and design-r3, and shown to the human at the design gate.
-  \item \textbf{Clean reruns.} Three clean reruns, each from an environment built from
+  \item \textbf{Clean reruns.} Four clean reruns, each from an environment built from
         \texttt{code/}\allowbreak\texttt{requirements.txt} alone. The first reproduced 7 of 15 runs; its
-        failures came from the rerun tool (it omitted \texttt{runs/} and counted a NaN in
-        both runs as a mismatch), and the PI session fixed the tool (commit \texttt{0a72b72}).
-        The second reproduced 15 of 15 (commit \texttt{c1c9549}), but its
-        \texttt{replication.json} recorded the interpreter that ran \texttt{crew.py}
-        (Python 3.14.6) at the top level. The PI session then changed the tool (commit
-        \texttt{87890ae}) to record each run's interpreter and label the top-level value
-        \texttt{crew\_python}. The third reproduced 15 of 15, and every run entry records
-        Python 3.12.11. The third run's \texttt{replication.json} is the record the
-        submission gate reads. No analysis code, data or tolerance changed. The earlier
-        records are in git history, and \texttt{REPLICATION.md} describes all three runs.
+        failures came from the rerun tool (it omitted \texttt{runs/} and counted a NaN in both runs as a
+        mismatch), and the PI session fixed the tool (commit \texttt{0a72b72}). The second reproduced 15 of 15
+        (commit \texttt{c1c9549}), but its \texttt{replication.json} recorded the tool's interpreter at the top
+        level. The PI session then changed the tool (commit \texttt{87890ae}) to record each run's interpreter
+        and label the top-level value \texttt{crew\_python}. The third reproduced 15 of 15 with Python 3.12.11
+        recorded for every run. The fourth (commit \texttt{a6d7c45}) also reproduced 15 of 15. It was rerun
+        because two claim texts were reworded (values unchanged) and two tables were regenerated, which made
+        the third record older than its inputs. The fourth run's \texttt{replication.json} is the record the
+        submission gate reads. No analysis code, data or tolerance changed. \texttt{REPLICATION.md} describes
+        all four runs.
   \item \textbf{Briefs.} The role briefs are archived in \texttt{briefs/}.
   \item \textbf{Evidence.} Every reported number is generated from a logged run through
         the macro file \texttt{numbers.tex}. Every citation was checked against its source:
