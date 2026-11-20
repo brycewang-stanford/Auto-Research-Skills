@@ -44,6 +44,14 @@ disclosed the fix in `plan.json`.
 on the fixed tool. The result above is attempt 2. `replication.json` was overwritten by it;
 attempt 1's record is preserved in git history at commit `2dce826`.
 
+**Third run (passed, 15 of 15), same procedure.** Repeated after crew.py commit 87890ae,
+which records each run's command interpreter in its `replication.json` entry and labels the
+top-level `env.crew_python` as the tool's own interpreter. Attempt 2's record put Python 3.14
+(the tool's interpreter) at the top level with no per-run version, so it did not show which
+interpreter ran the analysis. In the third run, every run entry records `python: 3.12.11` and
+`command_executable: .venv/bin/python`; the top-level `crew_python: 3.14.6` is the tool only.
+Pass/fail is unchanged: 15 of 15 match.
+
 ## Environment
 
 - Python 3.12.11 (uv-managed), built outside the workspace from `code/requirements.txt` alone:

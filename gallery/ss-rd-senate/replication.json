@@ -1,11 +1,11 @@
 {
-  "created": "2026-11-20T07:06:42Z",
+  "created": "2026-11-20T07:16:07Z",
   "passed": true,
   "rtol": 1e-06,
   "atol": 1e-09,
   "reuse_data": false,
   "env": {
-    "python": "3.14.6",
+    "crew_python": "3.14.6",
     "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
   },
   "runs": [
@@ -13,90 +13,195 @@
       "run": "fetch-data",
       "record_sha256": "86aa2bfef2a4b0d28d1bd9b89abf3376b11491ec36b584b70be06f58e1b6dc0c",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "prepare-data",
       "record_sha256": "58242aa27291a0b757b9c2f14213acdcb05a5a72fedfa1a30ebed30f3e5e562a",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "dr-checks",
       "record_sha256": "3dadd87cd4f1f90af420fcd55f3c6579046494c5cf9d850e537a11be5c560b62",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "design-mde",
       "record_sha256": "b9e518ea60b29acf5799690f21ab236bb7c5b91d0210d7a6939faa1f756693ba",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "h1-rdrobust",
       "record_sha256": "b6d9e32f15d2812474acc1b5db0d8c22312438e7776d7f659a4345d42ac87784",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "h2-covariates",
       "record_sha256": "72ca33506307d120dc57f010a1026fc214c5f2fdf3dc3323754c50d4e1bf024d",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "h2-placebo",
       "record_sha256": "fe96f3239211314b98d2d65472cf9fafc7539f922e045744dee9264509a833a7",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "h2-selection",
       "record_sha256": "30c196aced71e63550c50e8283c952776d6c86bcd59a62de8651d09667611319",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "h3-sensitivity",
       "record_sha256": "38f36e8390a1bd6f928f29ca0828cfea4e5b4387c26620a339b386a0c7b037de",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "h2-density",
       "record_sha256": "b7af044eff15f101a790752d21c047bb0e5b3f26282204e505d34c8d7eb55b7a",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "unit-tests",
       "record_sha256": "4ad8e2cdbdef171b81497114a4dbf4360b51049aaefcaf4c142b96c33ded1e83",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "fig-rd",
       "record_sha256": "d8c479f3f6786b2a2bde9f829b8a78abb184ad6a41d7b82d7d63fa600a9c7af1",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "fig-density",
       "record_sha256": "d20d9cb72499ec6bf58865ed185cfb15e6184ab44ce91c1b8fa1b4992bcc571b",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "tab-falsification",
       "record_sha256": "8ea13c93d75ebdbc2cdc4e19d5353192b66f404c86f3217e9e36392aca913be6",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     },
     {
       "run": "tab-main",
       "record_sha256": "01061f9fb8fa821498207a6470bc729478287dfbe239e66112de96fcf25070fe",
       "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.12.11",
+        "python_prefix": "/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-2h_jroz1/ws/.venv"
+      },
       "status": "match"
     }
   ]
