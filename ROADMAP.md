@@ -109,9 +109,9 @@ human PI at four gates, so the papers move at the speed of those approvals.
 | 3 | Fri 11-20 | Data and analysis runs; results reviews; results gates | done (11-19): all three results gates approved; 401(k) main estimates within tolerance |
 | 4 | Sat 11-21 | Figures, papers, clean reruns, submission gates → first two gallery papers with token cost and wall time | done early (11-19): cs-label-noise, ss-null-effect and ss-dml-401k final, each with a passing clean rerun |
 | 5 | Sun 11-22 | Null-effect seed run; three more seeds (six in total) with sourced answer keys; bench scorer; scoreboard page on the site | done (11-19/20): six seeds with answer keys, scorer and scoreboard built; all six papers final (Card–Krueger, calibration and LaLonde added); per-paper token cost and time measured by `crew/scripts/usage.py` ([`gallery/usage.json`](gallery/usage.json)); gate approval enforced by a hook (`crew/hooks/guard.py`); answer keys moved out of the plugin to `answer-keys/` |
-| 6 | Mon 11-23 | Run further seeds as gates allow; role kits (skills picked per role from the hub) | |
-| 7 | Tue 11-24 | Launch kit: demo video, bilingual posts (Zhihu, Xiaohongshu, WeChat, X), Show HN draft, technical-report draft, new cover images | |
-| 8 | Wed 11-25 | Release v0.5; GitHub Discussions; tracking issues; the human posts the launch | |
+| 6 | Mon 11-23 | Run further seeds as gates allow; role kits (skills picked per role from the hub) | in progress (11-20): role kits built; ss-rd-senate started as a low-cost trial with every role subagent on Claude Haiku 5.5 |
+| 7 | Tue 11-24 | Launch kit: demo video, bilingual posts (Zhihu, Xiaohongshu, WeChat, X), Show HN draft, technical-report draft, new cover images | done early (11-20): 76 s demo video, final posts in [`docs/launch/`](docs/launch/), report draft with results, new cover posters |
+| 8 | Wed 11-25 | Release v0.5; GitHub Discussions; tracking issues; the human posts the launch | v0.5 released 11-20; Discussions and issue #9 open; posting is the human's |
 
 ### Moved out of the week
 
