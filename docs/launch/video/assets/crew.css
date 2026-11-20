@@ -40,3 +40,4 @@
   white-space: nowrap;
 }
 .acc { color: #9c6a1c; }
+* { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }

@@ -193,7 +193,7 @@
         const q = (s) => document.querySelector(s);
 
         // Folder lands, files tick in.
-        tl.fromTo("#crew-folder", { opacity: 0, scale: 0.9, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0.1);
+        tl.fromTo("#crew-folder", { opacity: 0, scale: 0.9, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0);
         tl.fromTo("#crew-ws", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.45);
         for (let i = 1; i <= 5; i++) {
           tl.fromTo("#crew-f" + i, { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.3, ease: "power4.out" }, 0.6 + i * 0.13);

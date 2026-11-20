@@ -1,4 +1,8 @@
 # HyperFrames render cache, snapshots and local state
 .hyperframes/
 node_modules/
+renders/
+*.log
+# Only the delivered film is kept in git
 *.mp4
+!demo.mp4

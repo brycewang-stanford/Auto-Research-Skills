@@ -216,6 +216,34 @@
         #rv-desk .acc {
           color: #f0b14f;
         }
+        .fx {
+          margin-top: 26px;
+        }
+        .fxl {
+          font-family: var(--sans);
+          font-weight: 700;
+          font-size: 28px;
+          color: var(--brown);
+        }
+        .code {
+          margin-top: 10px;
+          display: inline-block;
+          padding: 10px 18px;
+          border-radius: 10px;
+          background: var(--ink-d);
+          color: #efe4c8;
+          font-family: var(--mono);
+          font-weight: 700;
+          font-size: 30px;
+          white-space: nowrap;
+        }
+        .f1 {
+          font-family: var(--sans);
+          font-weight: 700;
+          font-size: 32px;
+          line-height: 1.3;
+          color: var(--ink);
+        }
         #rv-iris {
           position: absolute;
           inset: 0;
@@ -288,6 +316,7 @@
                 <svg id="rv-arrow" viewBox="0 0 90 60" data-layout-ignore><path d="M8 30 H74 M58 14 L76 30 L58 46" fill="none" stroke="#3a2a1a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" /></svg>
                 <div id="rv-036">$0.36</div>
               </div>
+              <div class="fx" id="rv-code"><div class="fxl">hdm's LassoShooting.fit ends with</div><div class="code">w[abs(w) &lt; control$zeroThreshold] &lt;- 0</div></div>
             </div>
 
             <!-- Catch 3: null-effect, design-r1 -->
@@ -300,6 +329,7 @@
               <div class="ka">kill_argument</div>
               <div class="quote">“Selection on the 1975 shock, already visible in covariate means, makes a nonzero placebo expected even if the assumption holds.”</div>
               <div class="sev">critical</div>
+              <div class="fx" id="rv-f1"><div class="f1">F1 · “The re75 placebo is pre-registered with the wrong reading and no consequence.”</div></div>
               <div class="stamp block" id="rv-st3">BLOCK</div>
             </div>
           </div>
@@ -346,12 +376,14 @@
         tl.fromTo("#rv-strike", { opacity: 1, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.inOut" }, 13.7);
         tl.fromTo("#rv-arrow", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power4.out" }, 14.0);
         tl.fromTo("#rv-036", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 14.2);
+        blurIn("#rv-code", 12.6);
         stamp("#rv-st2", 15.0, 6);
         out("#rv-col2", 16.1);
 
         // Catch 3: the placebo that fails either way.
         deal("#rv-s3", 16.2, -0.6);
         blurIn("#rv-i3a", 16.6);
+        blurIn("#rv-f1", 17.3);
         blurIn("#rv-i3b", 18.4);
         stamp("#rv-st3", 18.5, -5);
 
