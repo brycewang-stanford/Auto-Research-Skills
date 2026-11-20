@@ -48,8 +48,10 @@ CHECKS (the script fails rather than draw a picture that disagrees with the ledg
   point; the robust piece count equals b6_ar_rob_npieces when that key exists.
 
 PICTURE
-(a) For A6 and A5: AR-based union bounds against delta (solid, markers at the logged deltas;
-    the lines only connect them), Wald-based union (dashed), delta* (dotted vertical line).
+(a) For A6 and A5: AR-based union bounds against delta (solid line through every logged
+    delta, markers only at the five planned deltas), Wald-based union (dashed), delta* (dotted
+    vertical line). The two specs are drawn at their own deltas, with no horizontal offset,
+    and are told apart by colour and marker shape.
 (b) m(b0) on the plotted window with the chi2(3) 95% line; beneath it, the accepted pieces
     of the four H3(b) sets on the logged point list. A piece that leaves the window ends in an
     arrow labelled with its logged bound (or infinity); a piece wholly outside the window is
@@ -305,12 +307,12 @@ finite_vals = np.concatenate([np.concatenate([u[c][np.isfinite(u[c])] for c in
 ylo, yhi = min(finite_vals.min(), 0.0), max(finite_vals.max(), 0.0)
 YA = (ylo - 0.06 * (yhi - ylo), yhi + 0.14 * (yhi - ylo))   # head room for the delta* labels
 dmax = max(u["delta"].max() for u in union.values())
-off = 0.012 * dmax
 axA.axhline(0, color=MUTED, lw=0.6, zorder=1)
 n_clipped_a = 0
-for idx, (s, _) in enumerate(SPECS):
+for s, _ in SPECS:
     u, st = union[s], SPEC_STYLE[s]
-    x = u["delta"] + (idx - 0.5) * off           # small offset so the two specs do not overlap
+    x = u["delta"]                               # no offset: specs differ by colour and marker
+    at_planned = [int(np.argmin(np.abs(x - pd_))) for pd_ in PLANNED_DELTAS]   # marker positions
     for kind, ls, lw, mk in (("ar", "-", 1.1, True), ("wald", (0, (4, 2)), 0.8, False)):
         for c, sgn in ((f"{kind}_lo", -1), (f"{kind}_hi", 1)):
             y = u[c].copy()
@@ -318,7 +320,8 @@ for idx, (s, _) in enumerate(SPECS):
             n_clipped_a += int(inf.sum())
             y[inf] = np.nan                       # an unbounded side is not joined to the line
             axA.plot(x, y, color=st["color"], ls=ls, lw=lw, zorder=3,
-                     marker=st["marker"] if mk else None, ms=3.0, mfc="white", mew=0.8)
+                     marker=st["marker"] if mk else None, markevery=at_planned, ms=3.0,
+                     mfc="white", mew=0.8)
             if inf.any():                         # arrowhead at the axis edge
                 axA.plot(x[inf], np.full(inf.sum(), YA[0] if sgn < 0 else YA[1]), ls="none",
                          color=st["color"], marker="v" if sgn < 0 else "^", ms=4, zorder=4,

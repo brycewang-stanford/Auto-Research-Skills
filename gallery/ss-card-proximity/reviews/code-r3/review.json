@@ -1,0 +1,123 @@
+{
+  "id": "code-r3",
+  "target": "code",
+  "round": 3,
+  "created": "2026-11-20T19:10:29Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261120T190603Z-reviewer.md",
+    "briefs/20261120T185711Z-figures-ra.md",
+    "briefs/20261120T185856Z-figures-ra.md",
+    "briefs/20261120T190243Z-econometrician.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/code-r2/review.json",
+    "plan.json (design.summary, method, data, analysis_plan, claims_plan, threats, deviations; tasks)",
+    "log.jsonl",
+    "runs/NOTES.md",
+    "code/check_sas_listing.py",
+    "code/fig_chr.py",
+    "code/ivlib.py (require, write_metrics, run_dir; hash unchanged since code-r1)",
+    "data/raw/proximity/read1.sas",
+    "runs/h1-a5/metrics.json (a5_n, a5_ols, a5_ols_se)",
+    "runs/h1-b6/metrics.json (n_sample, ols_beta, ols_se)",
+    "runs/fig-chr/run.json",
+    "runs/diag-panelb/run.json",
+    "runs/diag-panelb/metrics.json",
+    "claims.jsonl (diag-* and sas lines)",
+    "paper/figures/CAPTIONS.md (first 30 lines)"
+  ],
+  "kill_argument": "check_sas_listing.py was written blind to a listing nobody has seen, so its most likely outcome is not a wrong number but a crash, and the plan has no rule for a crash: design.data prescribes what to do after a mismatch (deviation, new code round, --replace), not after a parse failure, and after this round only one code round (r4) remains. A 1993 listing with ASA carriage-control characters in column 1, or a PROC REG step that did not run, makes the script stop with 'found 1 LWAGE76 models'; fixing that means looking at the outcome listing the design keeps closed. And even a clean 6/6 match proves less than the docstring says: it covers only the two OLS log-wage regressions of read1.sas, not nearc4, age76/age762 or anything in Panel B or the 2SLS SE formula. I attacked the code and it held: model identification by dependent variable plus parameter count (16/30 from read1.sas), N as Observations Used or C Total df + 1 cross-checked against the error df, the H1 rounding rule at printed decimals, in-memory read with no text printed, continuation pages, SAS 6 and SAS 9 layouts, and loud failure when blocks merge or rows are missed (my own synthetic listings). The fig_chr.py edit changes only the plotting, and the figure metrics are identical to those already recorded.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The script's failure paths (CheckFailed when the listing does not hold exactly two LWAGE76 models with 16 and 30 parsed parameters, no ED76 row, no N, or error df != N - k) are all loud, which is right, but no rule says what happens after a non-zero exit. design.data plans only the mismatch path. A parse failure is plausible for a listing nobody has opened: in my synthetic test, a single ASA carriage-control character in column 1 ('0' or '1', common in mainframe-era .lst files) makes the parser find 1 LWAGE76 model and stop; a 'proc reg s' that SAS rejected would leave no PROC REG output at all. A fix would need someone to look at the listing's layout, and after code-r3 only code round 4 remains. Remedy (no code change now): before the run, the PI records in runs/NOTES.md or design.deviations that a failed run stays in the ledger; that the Econometrician may then look at the listing's line layout only (all claims are already frozen, so this cannot tune a claim); that the parser fix is a recorded deviation reviewed in code-r4; and that if the code-r4 version also fails, the check is reported as not completed rather than run with --unreviewed.",
+      "evidence": "code/check_sas_listing.py lines 51-57 (regexes anchored at ^\\s*, no column-1 control handling), 131-147 (CheckFailed paths); plan.json design.data (mismatch path only); data/raw/proximity/read1.sas ('proc reg s;'); protocol: rounds stop at 4",
+      "response": "Fixed by the PI before the run: deviation D5 fixes the failure rule (failed run kept, layout-only inspection, code-r4, report 'not completed', no --unreviewed).",
+      "ruling": ""
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "The docstring (and threat T3) overstate what a match can show. The two read1.sas log-wage models contain ed76, exp76, exp762, black, smsa76r, reg76r, smsa66r, reg662-reg669 and the family-background block. A 6/6 match therefore confirms the OLS of Table 2 columns 2 and 5 on this file, including the sample, but not nearc4, age76/age762, the Panel A/B 2SLS columns, or the B1-B4 misses. read1.sas also reads 'nls.flt', so T3's 'Card's own program on this file' is what the check tests, not a premise. A mismatch cannot by itself separate the file vintage from a code error. Remedy (narrow the claim): the sas-ols-match claim text names only the two OLS log-wage regressions of read1.sas (Table 2 cols 2 and 5) and N; it does not generalise to 'data reading and variable construction' or to any IV result. All 6 items are counted, with the diffs reported, and no tolerance is loosened after the run.",
+      "evidence": "code/check_sas_listing.py lines 27-29 (docstring 'confirms the data reading and variable construction'); data/raw/proximity/read1.sas (infile nls.flt; four models under proc reg s); plan.json design.threats T3",
+      "response": "Fixed in the brief and D5: the claim is narrowed to the two OLS regressions and N, all six comparisons reported with differences, tolerance fixed.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(code-r2) The ratio check in diag_panelb.py is an algebraic identity and validates the code, not deviation D4; claims must rest only on diag_b*_reproduced / diag_b*_se_reproduced, and must be narrowed to 'point estimates match' if the SEs miss, with no further variants.",
+      "evidence": "code/diag_panelb.py lines 19-23, 71-80; plan.json design.deviations D4",
+      "response": "Claims written per F5: they rest on the match flags only; the ratio identities are described as a code check; the conventional SEs matched, so no narrowing was needed; no variant was run (runs/NOTES.md D4 section).",
+      "ruling": "claims.jsonl lines 162-170: each diag claim cites a diag_b* value with its _reproduced flag in the text; diag-targets-reproduced says 'consistent with ... does not prove it', keeps B1-B4 as misses and calls the ratio an algebraic identity checked as a code test. No claim cites a *_over_*_minus_* metric. runs/diag-panelb/metrics.json: 8/8 flags 1, conventional SEs match; run.json code = diag_panelb.py + ivlib.py at code-r2 hashes, code_review code-r2. Only one diag-panelb run exists."
+    },
+    {
+      "id": "F1",
+      "severity": "minor",
+      "status": "withdrawn",
+      "text": "(code-r1) h3b-subvector checks no real-data minimisation of the profile statistic.",
+      "evidence": "code/h3b_subvector.py lines 79-86; code/ivlib.py PanelB.profile",
+      "response": "Accepted as residual risk; to be checked at results.",
+      "ruling": "Withdrawn in code-r2 after my brute-force check on the recorded real-data profile (agreement to 4e-15). No change since."
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(code-r1) Two h3b in-run check departures were recorded only in runs/NOTES.md.",
+      "evidence": "code/h3b_subvector.py; plan.json design.deviations",
+      "response": "Recorded as D3 before any analysis run.",
+      "ruling": "Resolved in code-r2 (D3 logged 18:46:53Z, before the runs)."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(code-r1) h1-a5 and verdict runs must name their imported modules with --code.",
+      "evidence": "code/h1_a5.py line 24; code/verdict.py line 25",
+      "response": "Fixed in the run commands.",
+      "ruling": "Resolved in code-r2. The planned check-sas-listing command (runs/NOTES.md) also names code/ivlib.py, its only local import, and declares data/raw/proximity.zip and both metrics files as inputs."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "withdrawn",
+      "text": "(code-r1) Bounds of non-convex sets were written only as strings.",
+      "evidence": "code/h2h3_weakiv.py lines 50-53; code/h3b_subvector.py lines 114-120; code/fig_chr.py",
+      "response": "Deferred; applies only if a set is not one bounded interval.",
+      "ruling": "Withdrawn in code-r2: every realised set is one bounded interval. The fig_chr.py re-execution in this round again draws 1/1 pieces for every set."
+    }
+  ],
+  "reviewer_checks_run": "(1) check_sas_listing.parse_listing/compare on synthetic listings I wrote in my scratch directory (never on read1.lst, which I did not open; I listed only the zip's member names): a SAS 6 layout with form feeds, a 'proc reg s' statistics block before the first model, a partial MODEL1, MODEL2 (ED76), and MODEL3/MODEL4 (LWAGE76, 16/30 parameters, MODEL4 split across pages with a repeated header) gives 6/6 with N from C Total + 1. A 1e-8 change in the printed SE or a 1e-6 change in the printed estimate gives 5/6. A SAS 9 layout gives 6/6 with N from 'Observations Used'. Renaming MODEL3/MODEL4 to MODEL1 (block merge) fails loudly, and so does a '0' column-1 ASA prefix (found 1 LWAGE76 model). The h1-a5/h1-b6 metrics used were the logged ones, at full precision. (2) code/fig_chr.py (current hash 383f5feb...) executed on the logged h4-chr and h3b-subvector outputs, writing the PDF and metrics to my scratch directory only: exit 0, metrics JSON identical to runs/fig-chr/metrics.json, and the rendered panel (a) shows markers only at delta = 0, .005, .010, .015, .020 and no offset. markevery indices are exact because lines 171-172 assert that each planned delta is present to 1e-12. No new estimate was produced.",
+  "files_sha256": {
+    "briefs/20261120T190603Z-reviewer.md": "7ebb85459bd3c5171dd7266c95f08577bab3e09fe8f2944a625a0c8483aac0df",
+    "briefs/20261120T185711Z-figures-ra.md": "6ef17afed4cf91de9907261f4b5eae3df6dda1b95258920afbe1eb59c2a010fb",
+    "briefs/20261120T185856Z-figures-ra.md": "6a1139936ad9c0a910ed2cb07ce0e23e2c02d7df6f9bf97ddb1d7d1c7feb1d30",
+    "briefs/20261120T190243Z-econometrician.md": "9a2e140ed336dad533203d527a2e83524752070cc7cb93a3b729cf4869869a7a",
+    "reviews/REVIEWER_MEMORY.md": "2a03da0d7349f84e56f2071516f0c522a4c1ced902ce0ee9922d19c6e0b72754",
+    "reviews/code-r2/review.json": "754c3e2fcd5728da98864a97b3b7ec519951805c656b21aff8ebf62a93feba35",
+    "plan.json": "df0a45842b66f6e8ce0929951a053ceed36ab80d6fdd1a22a9694ddff584be93",
+    "log.jsonl": "73fa7992abae4e60683050343f3d700a3a84391da45782f49902ccf286e93981",
+    "runs/NOTES.md": "54f2a563dc321aa47bca16ea90cea39736aad881440ad5bbae6c6f05b6015095",
+    "code/check_sas_listing.py": "cd602aef288c1890f8e00069760bd75e77d07796cadab47801ae56675879d1f0",
+    "code/fig_chr.py": "383f5febaf3c8de6c34c3d72501795f0783e1a5705672a6fdf26229c9495a4ab",
+    "code/ivlib.py": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6",
+    "data/raw/proximity/read1.sas": "60a9aadfeaf0db6b5e9cb3cf933051094973637e8f298c075920d94f54d7ed51",
+    "runs/h1-a5/metrics.json": "95514f5604bc883e8b5d678763fea67c82614584467088775fa8c115426cab12",
+    "runs/h1-b6/metrics.json": "99b9d6a65513ad098053b44e7e2b3896fc229e65681e651406d753caf95ac14a",
+    "runs/fig-chr/run.json": "44df747c9c64f3e12feb508cd65e97c86eb478a26316710e8d718fb9f5bcb009",
+    "runs/diag-panelb/run.json": "c569cdfe7f092e46700f5de98aa5f8116bc815a4ef38b3a0067d344ffb546f89",
+    "runs/diag-panelb/metrics.json": "aefa11857d7e1851b12ba1f635d124f238165fdf9c8a9a8d7315f45cf126b25b",
+    "claims.jsonl": "8755da626ae71c730d0acde31d2685ebf0d45377d753edb7d2aa0ad6f9b54bc6",
+    "paper/figures/CAPTIONS.md": "ab04a34f51dc2e607ddfec2637b7840c40eb7336b3397c0a7cd41cf81ca13856"
+  },
+  "recorded": "2026-11-20T19:11:15Z"
+}

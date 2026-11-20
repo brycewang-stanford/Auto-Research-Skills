@@ -1,0 +1,86 @@
+{
+  "id": "diag-panelb",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/diag_panelb.py"
+  ],
+  "started": "2026-11-20T19:02:52Z",
+  "finished": "2026-11-20T19:02:54Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/diag_panelb.py",
+      "sha256": "23acf964846d6c8ed997e0fb1b6ae4f3ce76e32ff81f9e842a72001892098aec"
+    },
+    {
+      "path": "code/ivlib.py",
+      "sha256": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/card_analysis.csv",
+      "sha256": "0862cd54862ed1c06543abb9fb7c0fb5307bf3c0afb231c6432cdea39fb7d8a6"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/diag-panelb/metrics.json",
+      "sha256": "aefa11857d7e1851b12ba1f635d124f238165fdf9c8a9a8d7315f45cf126b25b"
+    }
+  ],
+  "metrics": {
+    "n_sample": 3010,
+    "diag_b1": 0.3815070690417528,
+    "diag_b1_se": 0.11380211770378977,
+    "diag_b1_se_hc1": 0.11386591160521514,
+    "diag_b1_k": 16,
+    "diag_b1_pub": 0.382,
+    "diag_b1_se_pub": 0.114,
+    "diag_b1_reproduced": 1,
+    "diag_b1_se_reproduced": 1,
+    "diag_b2": 0.3654370187633731,
+    "diag_b2_se": 0.10526452359062195,
+    "diag_b2_se_hc1": 0.10405789820106949,
+    "diag_b2_k": 30,
+    "diag_b2_pub": 0.365,
+    "diag_b2_se_pub": 0.105,
+    "diag_b2_reproduced": 1,
+    "diag_b2_se_reproduced": 1,
+    "diag_b3": 0.04669252080918085,
+    "diag_b3_se": 0.018851690548945824,
+    "diag_b3_se_hc1": 0.01848695147092659,
+    "diag_b3_k": 16,
+    "diag_b3_pub": 0.047,
+    "diag_b3_se_pub": 0.019,
+    "diag_b3_reproduced": 1,
+    "diag_b3_se_reproduced": 1,
+    "diag_b4": 0.04839985391013002,
+    "diag_b4_se": 0.018512201723345587,
+    "diag_b4_se_hc1": 0.017904849401203512,
+    "diag_b4_k": 30,
+    "diag_b4_pub": 0.048,
+    "diag_b4_se_pub": 0.019,
+    "diag_b4_reproduced": 1,
+    "diag_b4_se_reproduced": 1,
+    "diag_b4_over_b2": 0.13244376301534405,
+    "diag_b6_2sls": 0.1324437630310058,
+    "diag_b4_over_b2_minus_b6": -1.566174967493339e-11,
+    "diag_b3_over_b1": 0.12238966089530241,
+    "diag_b5_2sls": 0.12238966088716552,
+    "diag_b3_over_b1_minus_b5": 8.136893936416811e-12,
+    "diag_targets_reproduced": 8,
+    "diag_targets": 8
+  },
+  "metrics_file": "runs/diag-panelb/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-proximity/.venv"
+  },
+  "code_review": "code-r2"
+}

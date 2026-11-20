@@ -233,3 +233,94 @@ metric and a letters-only macro; `crew.py numbers` wrote paper/numbers.tex. No H
 H4/H5 claim is worded as a statement about the return to schooling; only
 h3b-b6-return-positive is. check-sas-listing (e-sas-code) has not been started, and
 read1.lst has not been opened.
+
+## D4 (post hoc): diag-panelb
+
+Written for task e-diag-panelb after the PI recorded deviation D4. It re-estimates
+Panel B columns 1-4 as just-identified 2SLS regressions with exp76 and exp762 endogenous
+(instrumented by age76, age762) and nearc4 and the controls exogenous. It reports the
+nearc4 coefficient with conventional and HC1 SEs and the H1 rounding-rule match against
+Card's printed values. It fails the run unless B4*/B2* equals the B6 2SLS coefficient
+and B3*/B1* equals the B5 2SLS coefficient to 1e-10. It imports only ivlib.py, and no
+reviewed script was edited. The script was tested outside the ledger in the scratch
+directory on runs/check-synthetic/synthetic_card.csv, where both identities held to 2e-12.
+It waits for code-r2 before its run (`--code code/diag_panelb.py --code code/ivlib.py
+--input data/derived/card_analysis.csv --metrics runs/diag-panelb/metrics.json`).
+
+### Run diag-panelb (2026-11-20T19:02Z, analysis, covered by code-r2, exit 0)
+
+`crew.py run . --id diag-panelb --role econometrician --kind analysis --code
+code/diag_panelb.py --code code/ivlib.py --input data/derived/card_analysis.csv --metrics
+runs/diag-panelb/metrics.json -- .venv/bin/python code/diag_panelb.py`
+
+With exp76 and exp762 kept as endogenous regressors instrumented by age76 and age762, all
+8 printed Panel B column 1-4 numbers round to Card's values:
+
+| Column | Re-estimate (conv. SE) | Card |
+|---|---|---|
+| B1 | 0.3815 (0.1138) | 0.382 (0.114) |
+| B2 | 0.3654 (0.1053) | 0.365 (0.105) |
+| B3 | 0.0467 (0.0189) | 0.047 (0.019) |
+| B4 | 0.0484 (0.0185) | 0.048 (0.019) |
+
+Following code-r2 F5, the 9 post hoc claims (diag-b1 ... diag-b4-se,
+diag-targets-reproduced) rest only on the diag_b*_reproduced and diag_b*_se_reproduced
+flags. They say the match is consistent with Card having estimated the columns this way,
+not that it proves it. The approved B1-B4 targets stay counted as misses in the verdict.
+The ratio metrics (B4*/B2* - B6 = -1.6e-11, B3*/B1* - B5 = 8e-12) are an algebraic
+identity, used as a code check and not claimed as evidence. Since the conventional SEs
+match too, the narrowing F5 prescribes for coefficient-only matches was not needed. No
+variant was run. HC1 SEs are in the metrics, not claimed.
+
+## e-sas-code: code/check_sas_listing.py (written 2026-11-20, not yet run; awaits code-r3)
+
+Written after every planned claim was in claims.jsonl. It reads read1.lst from
+data/raw/proximity.zip in memory and never extracts, writes or prints it. Nobody on the
+crew has opened it: the parser was written from the PROC REG output format, using
+read1.sas (four models under `proc reg s`; the two LWAGE76 models are Table 2 columns 2
+and 5) to know what to expect.
+
+The parser finds the two LWAGE76 model blocks and identifies them by parameter count
+(16 and 30; anything else fails the run). N comes from "Number of Observations Used",
+or, in SAS 6 listings, which print no N, from the corrected-total df + 1; it is
+cross-checked against the error df. The ED76 estimate and SE are compared with h1-a5
+(a5_ols, a5_ols_se, a5_n) and h1-b6 (ols_beta, ols_se, n_sample) at the printed precision
+with the H1 rule. The run writes sas_ols_match (all 6 items) for the planned claim
+sas-ols-match.
+
+The parser was tested outside the ledger on two synthetic listings written in the scratch
+directory, 15 checks in all:
+- a SAS 6 layout with form feeds, page headers, the `s` descriptive-statistics block, two
+  ED76 models first, and a parameter table continued on a new page with a repeated model
+  header. This case led to the one change made during testing: a repeated header now
+  continues the current block.
+- a SAS 9 layout.
+- detection of coefficient, SE and N mismatches.
+- failure when a LWAGE76 model is missing.
+
+Planned command (after code-r3): `crew.py run . --id check-sas-listing --role econometrician
+--kind analysis --code code/check_sas_listing.py --code code/ivlib.py --input
+data/raw/proximity.zip --input runs/h1-a5/metrics.json --input runs/h1-b6/metrics.json
+--metrics runs/check-sas-listing/metrics.json -- .venv/bin/python code/check_sas_listing.py`
+
+### Run check-sas-listing (2026-11-20, analysis, covered by code-r3, exit 0)
+
+The run used the planned command above. It parsed four PROC REG models and identified the
+two LWAGE76 models as MODEL3 (16 parameters, Table 2 col 2) and MODEL4 (30, Table 2
+col 5). The listing is in the SAS 6 layout: it prints no N, so N is the corrected-total
+df + 1. All 6 items match at the printed precision:
+
+| Item | Listing | Ours | Difference |
+|---|---|---|---|
+| T2 col 2 N | 3010 | 3010 | 0 |
+| T2 col 2 ED76 | 0.074693 | 0.074693259 | +2.6e-7 |
+| T2 col 2 SE | 0.00349835 | 0.00349834572 | -4.3e-9 |
+| T2 col 5 N | 3010 | 3010 | 0 |
+| T2 col 5 ED76 | 0.072634 | 0.072634472 | +4.7e-7 |
+| T2 col 5 SE | 0.00369843 | 0.00369843054 | +5.4e-10 |
+
+D5's failure path was not needed. As code-r3 F7 and D5 require, the claim sas-ols-match
+speaks only of these two OLS regressions and N. It says nothing about the instrument, the
+age variables, any IV estimate or the B1-B4 misses. No tolerance was changed. The
+listing's text was not printed, and nothing was extracted to disk. Every planned run and
+claim is now complete.

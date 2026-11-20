@@ -108,3 +108,30 @@ Check next time (results):
 - ivmodels *_outer differences recorded; (3Q) vs ivmodels gkm passed (ivmodels root search uses max_value 1e3 x boundary gap in the unbounded case).
 - check_sas_listing.py does not exist yet: it needs its own code round before it runs, and only after e-claims.
 - Carried: H3(a) flags say 'Panel A coefficient'; H4/H5 wording (F13 of design-r3); OLS SE four decimals (.003/.004); conventional SE for H1; no switch of the H3(b) primary after results.
+
+## code-r2 (2026-11-20, verdict pass)
+
+Scope: code/diag_panelb.py (D4, post hoc) plus carried F1-F4. Other code hashes unchanged since code-r1.
+
+Held under attack: k 16/30, n, published B1-B4 values/SEs = notes sec. 1 line 148; rounding rule = verdict.reproduced; my numpy 2SLS = diag to 1e-11 (coef, conv SE, HC1) on synthetic_card.csv; identities 2e-12. Did not run diag on real data.
+Carried: F1 withdrawn (my real-data brute force = BFGS to 4e-15 at 10 b0 around [-0.0068, 0.4983]; m(0) = 7.300 < 7.815, h3b_b6_return_positive = 0); F2, F3 resolved (D3; run.json code lists); F4 withdrawn (every set npieces 1, bounded, incl. 402 chr_grid rows).
+New: F5 (minor) the ratio identity is algebraic, not evidence for D4; coefficient matches cannot separate 2SLS from plug-in OLS on fitted exp (same coefficients, different SEs).
+
+Check next time (results):
+- diag-panelb run.json --code lists diag_panelb.py + ivlib.py; claims labelled post hoc; no diag claim cites the *_over_*_minus_* metrics as support; if SEs miss, claim narrowed and no further variants without a new deviation + code round.
+- H1 verdict counts unchanged by D4 (5/9 primary, 19/22 secondary as logged).
+- Robust H3(b) set includes 0 (lo -0.0068): paper must not say the robust Panel B col 6 set shows a positive return; GKMC/GKM19 sets [0.040, 0.281] are homoskedastic.
+- check_sas_listing.py now code-r3; needs its own round, after e-claims.
+- Carried: H3(a) 'Panel A coefficient'; H4/H5 wording (F13 design-r3); OLS SE four decimals (.003/.004); conventional SE for H1; no switch of the H3(b) primary after results.
+
+## code-r3 (2026-11-20, verdict pass)
+
+Scope: code/check_sas_listing.py (new) and the code/fig_chr.py panel (a) edit; carried F1-F5. ivlib.py hash unchanged since code-r1.
+
+Held under attack: models identified by dependent variable + parameter count (read1.sas: one `proc reg s`, MODEL3 16 params, MODEL4 30); N = Observations Used, or C Total df + 1, cross-checked against the error df; rounding rule at printed decimals; in-memory read, no text printed; SAS 6/9 layouts; continuation pages. My synthetic listings: 6/6 on a clean listing, 5/6 for a 1e-8 SE change, loud failure on block merges and on an ASA '0' prefix. fig_chr edit is plotting only. Re-executed on the logged inputs into scratch: metrics identical to runs/fig-chr, markers at the 5 planned deltas.
+F5 resolved (diag claims rest on the flags; the ratio is called a code check). New minors: F6 (no rule for a parse-failure exit; one code round left), F7 (a match covers only the OLS Table 2 cols 2/5 of read1.sas; read1.sas reads nls.flt).
+
+Check next time (results):
+- fig-chr rerun with --replace; the old record is under runs/.superseded; CAPTIONS.md matches the new PDF.
+- check-sas-listing: exactly one run, with code-r3 hashes; if it failed, F6's rule was recorded before the run and any fix went through code-r4. sas-ols-match claim is narrow (F7). All 6 items are reported with their diffs; no tolerance loosened; claims not edited after the listing was read (compare claims.jsonl hash/log times against the check-sas-listing run).
+- Carried: H3(a) 'Panel A coefficient'; H4/H5 wording (F13 design-r3); OLS SE to four decimals (.003/.004); conventional SE for H1; robust H3(b) set includes 0 (lo -0.0068); GKMC/GKM19 sets homoskedastic; H1 counts 5/9 and 19/22 unchanged by D4; no switch of the H3(b) primary.

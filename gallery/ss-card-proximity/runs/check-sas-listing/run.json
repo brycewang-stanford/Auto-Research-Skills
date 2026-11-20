@@ -1,0 +1,90 @@
+{
+  "id": "check-sas-listing",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/check_sas_listing.py"
+  ],
+  "started": "2026-11-20T19:11:57Z",
+  "finished": "2026-11-20T19:11:59Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/check_sas_listing.py",
+      "sha256": "cd602aef288c1890f8e00069760bd75e77d07796cadab47801ae56675879d1f0"
+    },
+    {
+      "path": "code/ivlib.py",
+      "sha256": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/proximity.zip",
+      "sha256": "0e9b2ad4182ea631ca3dd8a5fff6c1b0ab86b56c6a3fa868870f716e8d82691f"
+    },
+    {
+      "path": "runs/h1-a5/metrics.json",
+      "sha256": "95514f5604bc883e8b5d678763fea67c82614584467088775fa8c115426cab12"
+    },
+    {
+      "path": "runs/h1-b6/metrics.json",
+      "sha256": "99b9d6a65513ad098053b44e7e2b3896fc229e65681e651406d753caf95ac14a"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/check-sas-listing/metrics.json",
+      "sha256": "e37c50e85c10cc2472dca926e71c46102ee422f684070eb8f6408652f994dfa2"
+    }
+  ],
+  "metrics": {
+    "sas_models_found": 4,
+    "sas_lwage_models": 2,
+    "sas_t2c2_model": "MODEL3",
+    "sas_t2c2_k": 16,
+    "sas_t2c2_n": 3010,
+    "sas_t2c2_n_source": "total-df-plus-1",
+    "sas_t2c2_n_ours": 3010,
+    "sas_t2c2_n_match": 1,
+    "sas_t2c2_ed76": 0.074693,
+    "sas_t2c2_ed76_decimals": 6,
+    "sas_t2c2_ed76_ours": 0.07469325940204746,
+    "sas_t2c2_ed76_diff": 2.594020474672165e-07,
+    "sas_t2c2_ed76_match": 1,
+    "sas_t2c2_ed76_se": 0.00349835,
+    "sas_t2c2_ed76_se_decimals": 8,
+    "sas_t2c2_ed76_se_ours": 0.00349834572316933,
+    "sas_t2c2_ed76_se_diff": -4.276830669995568e-09,
+    "sas_t2c2_ed76_se_match": 1,
+    "sas_t2c5_model": "MODEL4",
+    "sas_t2c5_k": 30,
+    "sas_t2c5_n": 3010,
+    "sas_t2c5_n_source": "total-df-plus-1",
+    "sas_t2c5_n_ours": 3010,
+    "sas_t2c5_n_match": 1,
+    "sas_t2c5_ed76": 0.072634,
+    "sas_t2c5_ed76_decimals": 6,
+    "sas_t2c5_ed76_ours": 0.07263447192277506,
+    "sas_t2c5_ed76_diff": 4.719227750527022e-07,
+    "sas_t2c5_ed76_match": 1,
+    "sas_t2c5_ed76_se": 0.00369843,
+    "sas_t2c5_ed76_se_decimals": 8,
+    "sas_t2c5_ed76_se_ours": 0.0036984305367586535,
+    "sas_t2c5_ed76_se_diff": 5.367586535832969e-10,
+    "sas_t2c5_ed76_se_match": 1,
+    "sas_items_matched": 6,
+    "sas_items": 6,
+    "sas_ols_match": 1
+  },
+  "metrics_file": "runs/check-sas-listing/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-proximity/.venv"
+  },
+  "code_review": "code-r3"
+}

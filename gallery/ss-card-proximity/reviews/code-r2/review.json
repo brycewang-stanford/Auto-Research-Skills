@@ -1,0 +1,107 @@
+{
+  "id": "code-r2",
+  "target": "code",
+  "round": 2,
+  "created": "2026-11-20T19:01:29Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261120T185805Z-reviewer.md",
+    "briefs/20261120T185655Z-econometrician.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/code-r1/review.json",
+    "plan.json",
+    "log.jsonl",
+    "runs/NOTES.md",
+    "code/diag_panelb.py",
+    "code/ivlib.py",
+    "code/verdict.py (reproduced() rule, lines 1-10 and 55-95)",
+    "sources/notes.md (sec. 1 Table 3 Panel B row, lines 148-174)",
+    "runs/h1-b6/run.json",
+    "runs/h1-b6/metrics.json",
+    "runs/h1-a5/run.json",
+    "runs/verdict/run.json",
+    "runs/h3b-subvector/run.json",
+    "runs/h3b-subvector/metrics.json",
+    "runs/h2h3-weakiv/metrics.json",
+    "runs/h4-chr/chr_grid.csv",
+    "runs/fig-chr/run.json",
+    "runs/check-synthetic/synthetic_card.csv"
+  ],
+  "kill_argument": "diag_panelb.py is a post hoc diagnostic chosen after the H1 runs missed B1-B4, and the only test built into it cannot fail on any data: with the same regressors (nearc4, exp76, exp762, X) and the same instruments (nearc4, age76, age762, X) in both just-identified equations, B4*/B2* = B6 2SLS and B3*/B1* = B5 2SLS are algebraic identities, so diag_b4_over_b2_minus_b6 near 1e-12 says the code is right, not that Card ran these regressions. Worse, the coefficient matches cannot tell this 2SLS apart from any other procedure with the same point estimates (for example OLS on fitted experience), which differs only in the SEs; the hypothesis is supported only by diag_*_reproduced, and only fully if the SEs match too. This concerns how the run is read, not the code. I attacked the code and it held: k = 16/30 and n for all four columns; the four published values and SEs equal sources/notes.md sec. 1; the rounding rule equals verdict.reproduced; an independent numpy 2SLS (conventional s2 = e'e/(n-k) and HC1 n/(n-k)) reproduces diag coefficients and both SEs to 1e-11 on runs/check-synthetic/synthetic_card.csv, where both identities hold to 2e-12. Other code is unchanged since code-r1.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "minor",
+      "status": "withdrawn",
+      "text": "The primary H3(b) decision depends on PanelB.profile reaching the global minimum over g, but h3b-subvector checks only the stacked HAR against a direct regression (an algebra check), not the minimisation. The 401x401 brute-force comparison runs only in check-synthetic (designs S and WN, around bhat +- 4 SE), whose data lack the exp76 + ed76 = age76 - 6 identity and the exp76/exp762 scale gap of the real data. Under-minimisation biases m(b0) upward and so can only make the set too narrow (anti-conservative), exactly in the direction of a spurious 'return positive'. My own check on the Card-structured synthetic file held (BFGS = alternative minimiser to 1e-8 at 17 b0 values), so this is a residual risk, not a demonstrated error.",
+      "evidence": "code/h3b_subvector.py lines 79-86 (only check of the robust statistic); code/ivlib.py PanelB.profile lines 780-789; code/test_ivlib.py panel_b_check lines 339-352 (brute force on synthetic designs only)",
+      "response": "Accepted as residual risk; the results review is asked to check the h3b minimisation against a brute-force grid on the real profile (no code change before the runs).",
+      "ruling": "Withdrawn after my own check on the recorded real-data run (design gate approved; recorded under reviewer_checks_run). With ivlib.panel_b_from_frame on data/derived/card_analysis.csv, PanelB.profile (BFGS) equals a brute-force minimum (8 nested 301x301 grids from +-50 HC1 SE around the 2SLS g, then 43 Nelder-Mead starts) to 4e-15 at b0 = lo-0.002, lo-0.0005, lo, 0, 0.1324, hi, hi+0.002, hi+0.01, 1, -0.5 (lo = -0.006799, hi = 0.498349 from runs/h3b-subvector/metrics.json). Accept/reject agree at every point, so the recorded robust set [-0.0068, 0.4983] and h3b_b6_return_positive = 0 are not artefacts of under-minimisation. m(0) = 7.3004 < 7.8147 also means the flag errs in the safe direction."
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Two in-run checks depart from the approved design.method and the departures are recorded only in runs/NOTES.md (items 2 and 10), not in plan.json design.deviations: (a) the ivmodels pointwise agreement fails the run only at |b0| <= 1; (b) the 20 'random' (b0, g) HAR check points use evenly spaced b0. Remedy: add a D3 entry to design.deviations before the h3b-subvector run.",
+      "evidence": "code/h3b_subvector.py lines 79-84 and 146-181; plan.json design.method; plan.json design.deviations",
+      "response": "Fixed by the PI: recorded as deviation D3 in plan.json design.deviations before any analysis run.",
+      "ruling": "plan.json design.deviations D3 states both departures; log.jsonl records it at 18:46:53Z, before h1-b6 (18:47:14Z) and h3b-subvector (18:52:57Z)."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "h1_a5.py imports panel_a from h1_a6.py and verdict.py imports ivlib.py, but analysis_plan names neither as their code, so the ledger would not hash them for those runs. Remedy: pass --code code/h1_a6.py to h1-a5 and --code code/ivlib.py to verdict.",
+      "evidence": "code/h1_a5.py line 24; code/verdict.py line 25; plan.json design.analysis_plan steps 3 and 11",
+      "response": "Fixed in the run commands: h1-a5 names code/h1_a6.py and verdict names code/ivlib.py with --code.",
+      "ruling": "runs/h1-a5/run.json code lists h1_a5.py, h1_a6.py, ivlib.py; runs/verdict/run.json lists verdict.py, ivlib.py; hashes equal code-r1's stamps. The planned diag-panelb command (runs/NOTES.md D4 section) also names ivlib.py, its only local import."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "withdrawn",
+      "text": "Finite bounds of non-convex sets are written only as strings, so the paper could not quote them through macros and fig_chr would label interior piece ends at grid points. Harmless if every realised set is one bounded interval.",
+      "evidence": "code/h2h3_weakiv.py lines 50-53; code/h3b_subvector.py lines 114-120; code/fig_chr.py lines 250-255 and 385-394",
+      "response": "Deferred as the finding allows: applies only if a set is not a single bounded interval; checked at the results review before the results gate.",
+      "ruling": "The condition did not occur: every realised set is one bounded interval (runs/h2h3-weakiv/metrics.json a6/a5_ar_npieces = 1; runs/h3b-subvector/metrics.json b6_ar_{rob,gkmc,gkm19,gkm19q}_npieces = 1, shape bounded; runs/h4-chr/chr_grid.csv ar_npieces = 1 in all 402 rows). The numeric _lo/_hi metrics are therefore the complete bounds and fig_chr has no interior ends to mislabel."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "The only check in diag_panelb.py (B4*/B2* = B6 2SLS, B3*/B1* = B5 2SLS to 1e-10) is an algebraic identity of the two just-identified systems, which share regressors and instruments; it holds on any data (2e-12 on the synthetic file) and so validates the code, not deviation D4. D4's own wording ('so that the printed reduced form divided by the printed first stage equals the printed 2SLS, as it does in Card's table') invites reading the ratio metrics as support. Moreover the printed ratio property, and matching point estimates, are shared by any procedure with the same nearc4 coefficients (e.g. OLS of ed76/lwage76 on nearc4, X and first-stage fitted exp76, exp762), which differs only in the SEs. Remedy (no code change): the post hoc claims built from diag-panelb rest only on diag_b*_reproduced and diag_b*_se_reproduced; the diag_*_over_*_minus_* metrics are described as a code check, never as evidence; if the coefficients match but the conventional SEs do not, the claim is narrowed to 'point estimates consistent with' and no further variant (plug-in SEs, other SE scalings) is run without a new recorded deviation and code round.",
+      "evidence": "code/diag_panelb.py lines 19-23 and 71-77 (identity check and metrics); code/diag_panelb.py lines 78-80 (diag_targets_reproduced counts coefficients and SEs together); plan.json design.deviations D4 (parenthetical on the ratio property)",
+      "response": "",
+      "ruling": ""
+    }
+  ],
+  "reviewer_checks_run": "(1) Synthetic only for the new script: diag_panelb.compute on runs/check-synthetic/synthetic_card.csv (load_analysis with n_expected=None) against my own numpy 2SLS (b = (Z'X)^-1 Z'y; conventional s2 (Z'X)^-1 Z'Z (X'Z)^-1 with s2 = e'e/(n-k); HC1 n/(n-k)); max relative difference 1e-11 for all four coefficients and both SEs; identities 1.9e-12 and 5.9e-13. I did not run diag_panelb on the real data. (2) Real data, after the design gate, on an already recorded result (F1): BFGS profile vs brute-force grid + Nelder-Mead at 10 values of b0 around the recorded h3b robust bounds; agreement to 4e-15, accept/reject identical. No new estimate was produced.",
+  "files_sha256": {
+    "briefs/20261120T185805Z-reviewer.md": "bceec0ac0b9fc0598e1ff889d588a41a62fc5caaf7766ba77c13aa312596c5ff",
+    "briefs/20261120T185655Z-econometrician.md": "5b666872671d815c78ecbea61a1445dfd4f825863b772c7a05eb2062eccdc587",
+    "reviews/REVIEWER_MEMORY.md": "63fa5f465d9b2d86f2ac9ec9b3c7cd1ff3d057df99ca40c17a3f35781a9617d7",
+    "reviews/code-r1/review.json": "43f2db0750f37aed34334b7fde4a7737ed102a74dd1bba329414d8fba82199d8",
+    "plan.json": "8bf5a7910c7598445147099fb805af9278d84f2acf35d2be8d1b6156877b62d5",
+    "log.jsonl": "7c20e2f459da8c9675c7a8af0e3498ea5e08143cd722a52182091355b8c60c3b",
+    "runs/NOTES.md": "7a0c9567c65f216ac7b9ac843fbea697c1ec9b2e3122225e4d07e6561712b8b0",
+    "code/diag_panelb.py": "23acf964846d6c8ed997e0fb1b6ae4f3ce76e32ff81f9e842a72001892098aec",
+    "code/ivlib.py": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6",
+    "code/verdict.py": "fa03bdf579dcbb748761c432b518166808ce0a01ef37b8f946ca8678e2983c66",
+    "sources/notes.md": "61ea5cfa91ecbcfb584caf228fd6ce4031e77d96bb22bef5a55376eb431f37bd",
+    "runs/h1-b6/run.json": "c4e56ffe6dd496c6a8307fcc2da342095e1971ea8e643caa5d84d8a8e7a78f24",
+    "runs/h1-b6/metrics.json": "99b9d6a65513ad098053b44e7e2b3896fc229e65681e651406d753caf95ac14a",
+    "runs/h1-a5/run.json": "513947addd70bff117576c1addd04fb8184936e186ade5bb0bd7b65944e0402b",
+    "runs/verdict/run.json": "313e657231d7c23525648b8cb6c0248db26dd672f7adc6871e62865eac5e758f",
+    "runs/h3b-subvector/run.json": "3fc2cfd74d691830ee5c5f0f6d55186560b7cc694e99ade51ee840c8748f32be",
+    "runs/h3b-subvector/metrics.json": "08eb48ba59101825dece51b2f8fddb65243c1088505bed32893db406dd71f520",
+    "runs/h2h3-weakiv/metrics.json": "2fe14643e9599499ee6693a9d2c0ab58f7c49661c743c409ead621b90f76f8f4",
+    "runs/h4-chr/chr_grid.csv": "a40bcbd368768a7f78b27ae5fa6d747d42dcb733bd7a1f96fbaaec251ac8e482",
+    "runs/fig-chr/run.json": "44df747c9c64f3e12feb508cd65e97c86eb478a26316710e8d718fb9f5bcb009",
+    "runs/check-synthetic/synthetic_card.csv": "96856de03545583f0cc964399792ab45e0319c731c28847d1411c90ba48eef40"
+  },
+  "recorded": "2026-11-20T19:02:16Z"
+}

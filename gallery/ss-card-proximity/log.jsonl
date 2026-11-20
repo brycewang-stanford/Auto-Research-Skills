@@ -90,3 +90,25 @@
 {"time": "2026-11-20T18:55:56Z", "role": "econometrician", "action": "claims-written", "detail": "115 result claims per design.claims_plan; crew.py numbers; runs/NOTES.md updated"}
 {"time": "2026-11-20T18:56:55Z", "role": "pi", "action": "deviation-recorded", "detail": "D4 post-hoc diagnostic diag-panelb for the B1-B4 misses; report-only; SAS-listing review renumbered code-r3"}
 {"time": "2026-11-20T18:56:55Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T185655Z (e-diag-panelb (D4))"}
+{"time": "2026-11-20T18:57:11Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261120T185711Z (f-fig-chr)"}
+{"time": "2026-11-20T18:57:35Z", "role": "figures-ra", "action": "run", "detail": "fig-chr exit=0"}
+{"time": "2026-11-20T18:57:49Z", "role": "econometrician", "action": "code-written", "detail": "D4: code/diag_panelb.py (Panel B cols 1-4 with exp76, exp762 endogenous; ratio identities checked); tested on synthetic file outside the ledger; awaiting code-r2"}
+{"time": "2026-11-20T18:58:05Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T185805Z (code-r2 (diag_panelb.py, D4))"}
+{"time": "2026-11-20T18:58:29Z", "role": "figures-ra", "action": "ran-figure", "detail": "fig-chr: paper/figures/chr.pdf from h4-chr and h3b-subvector outputs (all fig_chr.py checks passed: pieces drawn 1/1 for each set, window [-0.057, 0.549]); paper/figures/CAPTIONS.md caption with claim macros only; note: dense delta grid (201 per spec) makes panel (a) markers merge into a band"}
+{"time": "2026-11-20T18:58:56Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261120T185856Z (fig_chr.py readability fix (to code-r3))"}
+{"time": "2026-11-20T18:59:40Z", "role": "figures-ra", "action": "edited-code", "detail": "code/fig_chr.py panel (a) readability per PI: markers only at the five planned deltas (markevery), lines through the full delta grid, horizontal offset between A6 and A5 removed; no statistic, check or input changed; tested on synthetic inputs in scratch (5-delta, dense 1e-4 grid, stress); fig-chr not rerun, awaits code-r3. CAPTIONS.md wording updated to match"}
+{"time": "2026-11-20T19:02:16Z", "role": "reviewer", "action": "review-recorded", "detail": "code-r2 verdict=pass files=21"}
+{"time": "2026-11-20T19:02:43Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T190243Z (run diag-panelb; then e-sas-code)"}
+{"time": "2026-11-20T19:02:54Z", "role": "econometrician", "action": "run", "detail": "diag-panelb exit=0"}
+{"time": "2026-11-20T19:03:26Z", "role": "econometrician", "action": "claims-written", "detail": "D4 post hoc: 9 report-only claims from diag-panelb (8/8 printed Panel B col 1-4 numbers reproduced; claims rest on match flags only, per code-r2 F5); e-diag-panelb done"}
+{"time": "2026-11-20T19:05:45Z", "role": "econometrician", "action": "code-written", "detail": "e-sas-code: code/check_sas_listing.py (reads read1.lst in memory; SAS 6/9 PROC REG parser; tested on synthetic listings in scratch, 15 checks); not run; awaits code-r3; read1.lst not opened"}
+{"time": "2026-11-20T19:06:03Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T190603Z (code-r3 (check_sas_listing.py, fig_chr.py edit))"}
+{"time": "2026-11-20T19:11:15Z", "role": "reviewer", "action": "review-recorded", "detail": "code-r3 verdict=pass files=20"}
+{"time": "2026-11-20T19:11:47Z", "role": "pi", "action": "deviation-recorded", "detail": "D5 failure rule for check-sas-listing (code-r3 F6, F7) before its run"}
+{"time": "2026-11-20T19:11:47Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T191147Z (e-sas-listing)"}
+{"time": "2026-11-20T19:11:47Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261120T191147Z (fig-chr rerun after code-r3)"}
+{"time": "2026-11-20T19:11:57Z", "role": "figures-ra", "action": "run-superseded", "detail": "fig-chr archived to runs/.superseded/fig-chr-20261120T185734Z"}
+{"time": "2026-11-20T19:11:58Z", "role": "figures-ra", "action": "run", "detail": "fig-chr exit=0"}
+{"time": "2026-11-20T19:11:59Z", "role": "econometrician", "action": "run", "detail": "check-sas-listing exit=0"}
+{"time": "2026-11-20T19:12:07Z", "role": "figures-ra", "action": "ran-figure", "detail": "fig-chr rerun with --replace after code-r3: markers at the five planned deltas, no offset; same window and pieces as before; CAPTIONS.md matches"}
+{"time": "2026-11-20T19:12:20Z", "role": "econometrician", "action": "claims-written", "detail": "check-sas-listing 6/6 match (T2 cols 2 and 5 OLS: N, ED76 estimate, SE); sas-ols-match claim narrowed per code-r3 F7 / D5; e-sas-listing done"}
