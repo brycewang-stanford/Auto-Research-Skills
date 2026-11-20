@@ -1,0 +1,223 @@
+{
+  "id": "paper-r2",
+  "target": "paper",
+  "round": 2,
+  "created": "2026-11-20T07:21:49Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "reviews/paper-r2/review.json",
+    "crew/agents/reviewer.md",
+    "crew/PROTOCOL.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/paper-r1/review.json",
+    "reviews/design-r1/review.json",
+    "reviews/design-r2/review.json",
+    "reviews/design-r3/review.json",
+    "reviews/results-r1/review.json",
+    "reviews/results-r2/review.json",
+    "reviews/results-r3/review.json",
+    "reviews/code-r1/review.json",
+    "reviews/code-r2/review.json",
+    "reviews/code-r3/review.json",
+    "reviews/question-r1/review.json",
+    "reviews/question-r2/review.json",
+    "paper/main.tex",
+    "paper/ai-use.tex",
+    "paper/numbers.tex",
+    "paper/main.pdf",
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "runs/NOTES.md",
+    "REPLICATION.md",
+    "replication.json",
+    "log.jsonl",
+    "data/CODEBOOK.md",
+    "code/design_mde.py",
+    "code/h2_placebo.py",
+    "code/h2_selection.py",
+    "runs/design-mde/metrics.json",
+    "runs/design-mde/stdout.log",
+    "runs/h1-rdrobust/metrics.json",
+    "runs/h2-selection/metrics.json",
+    "runs/h2-placebo/metrics.json",
+    "runs/fetch-data/run.json",
+    "runs/prepare-data/run.json",
+    "runs/dr-checks/run.json",
+    "runs/design-mde/run.json",
+    "runs/h1-rdrobust/run.json",
+    "runs/h2-density/run.json",
+    "runs/h2-covariates/run.json",
+    "runs/h2-placebo/run.json",
+    "runs/h2-selection/run.json",
+    "runs/h3-sensitivity/run.json",
+    "runs/unit-tests/run.json",
+    "runs/fig-rd/run.json",
+    "runs/fig-density/run.json",
+    "runs/tab-main/run.json",
+    "runs/tab-falsification/run.json"
+  ],
+  "kill_argument": "This is a reproduction of one printed Stata output by a Python port, and the pass rests on a setting the Designer chose knowing the target. Under rdrobust 2.1.1's default (adjust) the bandwidth misses the printed 17.708 by 0.046, so H1 passes only under masspoints='off', which the paper concedes rests on an unverified assumption about a 2016 release. The falsification battery cannot change that. Each test is reported at an MDE that dwarfs its estimate: population 2,185,253 persons against -318,455; density 0.01136 against -0.0035; selection 11.6 pp against -6.2 pp. Every non-rejection is what low power would produce. The placebos carry no test and intervals of about 12 points either side. The selection interval, [-14.5, 1.8] pp, comes with no bound linking missing outcomes to the vote estimate. The disclosures are the last problem. The ai-use statement still misstates the Reviewer's record for design-r2, and the rerun section describes a replication record that a third run has since overwritten. I checked the arithmetic, the macros, the sign convention, the placebo medians, the bandwidth caps and the claim-to-run links, and they hold. The attack therefore lands on framing and disclosure, not on the computations.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "The ai-use statement still says the Reviewer 'kept it open at design-r2' and then 'withdrew it at design-r2 and design-r3'. The same bullet is self-contradictory, and the record shows F4 withdrawn at design-r2 (not open). The paper-r1 response says the bullet now reads 'None; one major finding ... was withdrawn', which the file does not show.",
+      "evidence": "paper/ai-use.tex, 'Findings accepted over the Reviewer's objection' bullet; reviews/design-r2/review.json F4 (withdrawn, ruling on the PI's decision); reviews/design-r3/review.json F4 (withdrawn)",
+      "response": "(paper-r1 response, not reflected in the file) Done. ai-use reads 'None; one major finding (design-r1 F4) was withdrawn by the Reviewer after the PI's ruling'.",
+      "ruling": "Open. The response describes a text the file does not contain. Fix: delete 'kept it open at design-r2, and'. Section 6 item 1 already states the record correctly."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Carried from paper-r1. The abstract and Section 3.4 now state that the H2(a) density statistic and the H2(b) covariate SEs and MDEs were computed before the design gate, from margin and covariates only.",
+      "evidence": "paper/main.tex abstract; Section 3.4 'Two computations came before the design gate'; runs/design-mde/metrics.json (outcome_loaded 0; log design-mde 04:29Z, gate 05:23Z)",
+      "response": "Done. The abstract and Sec. 3 name the pre-gate computations.",
+      "ruling": "Resolved. Checked against design-mde metrics: the H2(b) coefficients are not in that run, so only the SEs and MDEs and the density statistic were seen, as the text says."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Carried from paper-r1. The sentence 'not made by reference to the printed numbers' has been removed. Sections 3.3 and 4.1 say the Designer chose 'off' knowing the printed targets, that the agreement is consistent with the assumption but not independent evidence for it, and that the H1 pass is conditional on that choice.",
+      "evidence": "paper/main.tex Sections 3.3, 4.1",
+      "response": "Done. Sec. 3.3 states the choice was made knowing the targets; the pass is conditional.",
+      "ruling": "Resolved. Grep finds no 'not made by reference'. The adjust failure (17.754 against 17.708) is stated in Section 4.1 where the pass is reported."
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Carried from paper-r1. 'The whole H1 effect' is gone from Section 4.2 and the Conclusion. The H2(d) interval is in pp in the text, the point estimate's size against H1 is given (about 84 percent) as a size comparison only, and the text states there is no mapping from observed-outcome share to vote bias. Section 6 item 7 now describes the conversion correctly.",
+      "evidence": "paper/main.tex Section 4.2 (H2(d) paragraph), Conclusion, Section 6 item 7; runs/h2-selection/metrics.json (coef -0.0618, CI -0.1448 to 0.0177, mde_pp 11.61)",
+      "response": "Done. Sec. 4.2 states H2(d) on its own scale with pp conversion, the size comparison, and no bias mapping.",
+      "ruling": "Resolved. I recomputed the pp values from the metrics: -6.2, [-14.5, 1.8], MDE 11.6, and 84 percent. All agree."
+    },
+    {
+      "id": "F5",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Carried from paper-r1. The title now names the local effect of a Democratic Senate win in close races, and the introduction defines 'incumbency advantage' once as the literature's label used only in that sense.",
+      "evidence": "paper/main.tex title; Introduction paragraph 2",
+      "response": "Done. Title names the local effect; the term is defined in the introduction.",
+      "ruling": "Resolved."
+    },
+    {
+      "id": "F6",
+      "severity": "major",
+      "status": "open",
+      "text": "Carried from paper-r1 and not resolved in the text. Section 6 item 9 and the ai-use 'Clean rerun' bullet describe the second rerun and say replication.json's env field records Python 3.14.6 and 'does not describe the rerun environment'. The replication.json the submission gate reads is now a third run (created 07:16:07Z; log 07:16:14Z 'third run 15/15 on crew.py 87890ae'). Its top-level env is labelled crew_python, and each run entry records python 3.12.11 and command_executable .venv/bin/python. The paper mentions neither the third run nor commit 87890ae, and it does not say the passing record was overwritten after the second pass. The paper-r1 response says item 9 explains this; it does not.",
+      "evidence": "paper/main.tex Section 6 item 9; paper/ai-use.tex 'Clean rerun' bullet; replication.json (env.crew_python, per-run python 3.12.11, created 07:16:07Z); REPLICATION.md 'Third run'; git commit 87890ae; log.jsonl 07:16:07Z and 07:16:14Z",
+      "response": "(paper-r1 response, not reflected in the file) PI: tool bug fixed in crew.py 87890ae; the third rerun records Python 3.12.11 per run. Sec. 6 item 9 explains it.",
+      "ruling": "Open. The tool fix is real, but the paper describes the superseded record. Fix: list the three attempts (7/15 at 2dce826; 15/15 at 0a72b72; 15/15 at 87890ae, the record the gate reads), say what the env field now means, and make ai-use match."
+    },
+    {
+      "id": "F7",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Carried from paper-r1. Section 6 item 9 says the PI session made the tool fix (0a72b72) after the first attempt failed, describes the NaN rule as widening the comparator only for metrics NaN in both runs, and points to the 7/15 record at 2dce826.",
+      "evidence": "paper/main.tex Section 6 item 9; log.jsonl 07:08:12Z note; git 2dce826",
+      "response": "Done. Sec. 6 item 9 names the PI session, the commit and the 7/15 record.",
+      "ruling": "Resolved for the 0a72b72 change. The later 87890ae change is carried as F6."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r1. Section 6 item 10 lists the post-gate edits (commit 48f9767, claim and NOTES edits, no new estimation), states they were not reviewed before this round, and lists the open minor code findings. The results gate was approved at 06:54:01Z, before the 06:54:29Z edits.",
+      "evidence": "paper/main.tex Section 6 item 10; log.jsonl 06:54:01Z and 06:54:29Z; claims.jsonl (adjust counts, H2(d) N, placebo N_h)",
+      "response": "Done. Sec. 6 item 10 lists the post-gate edits and open items.",
+      "ruling": "Resolved. The disclosure matches the log."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r1. The abstract names the density, covariate and selection tests (the ones with p-values) as not rejecting, and says the placebo cutoffs are reported without a test.",
+      "evidence": "paper/main.tex abstract",
+      "response": "Done. Abstract names the tests with p-values and says the placebos carry no test.",
+      "ruling": "Resolved."
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r1. Section 6 item 3 uses the macros \\RdDensityN and \\RdN for 1,390 and 1,297.",
+      "evidence": "paper/main.tex Section 6 item 3; paper/numbers.tex RdDensityN, RdN",
+      "response": "Done.",
+      "ruling": "Resolved."
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "open",
+      "text": "Section 2 says 'The last two of these are missing on the same rows, so their balance tests use 1,108 elections'. The last two covariates listed are termssenate and population. Population and class are complete (N 1,390). The two covariates missing on 282 rows each are termshouse and termssenate, as Table 2 and the codebook show.",
+      "evidence": "paper/main.tex Section 2, paragraph 2; paper/main.pdf Table 2 (H2(b) N column); data/CODEBOOK.md 'Missingness'; runs/design-mde/metrics.json (h2b_termshouse_N and h2b_termssenate_N 1108)",
+      "response": "",
+      "ruling": "Open. Fix: name termshouse and termssenate."
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "open",
+      "text": "Two counts and one rounding are misstated. (a) Section 2 says the repeated values at +100 'make up a share 0.053 of right-side observations'. The metric 0.0527 is 37/702, the repeats beyond the first at each tied value. There are 38 observations at +100, which is 0.054 of 702. (b) Section 6 item 8 says the H1 off bias bandwidth 'agrees with the printed value to 0.0001'. The difference is 0.00012 (RdBOff 27.98412 against 27.984). (c) Section 3.3 prints the adjust bias bandwidth as 28.02809 while other values use three decimals.",
+      "evidence": "paper/main.tex Section 2 paragraph 2, Section 3.3, Section 6 item 8; runs/h1-rdrobust/metrics.json (obs_at_shared_right 38; mass_share_right 0.05271; off_b_left 27.984123); claims.jsonl rd-h1-b-off text (difference 0.00012)",
+      "response": "",
+      "ruling": "Open. Fix: state 38 observations (0.054) and 37 repeats; say the difference is 0.00012; use the macro precision consistently."
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "open",
+      "text": "The H2(c) cutoffs are described as 'the medians of margin on each side of 0' with no sample given. code/h2_placebo.py computes them on the full margin column, all 1,390 rows including the 93 without an outcome. The placebo estimates use the observed-outcome subsample (595 left, 702 right). The choice is outcome-free and reasonable, but the paper does not say it.",
+      "evidence": "paper/main.tex Section 3.4 (H2(c)) and Section 4.2 (placebo paragraph); code/h2_placebo.py (c_L, c_R from df, not est); runs/h2-placebo/metrics.json (left_n_side 595, right_n_side 702)",
+      "response": "",
+      "ruling": "Open. Fix: state that the medians use all 1,390 margins and the estimates use the observed-outcome subsample."
+    },
+    {
+      "id": "F14",
+      "severity": "minor",
+      "status": "open",
+      "text": "The sentence 'So a flag of 0 does not show that the cap did not bind' sits beside the reported one-sided bandwidths (left h 4.814, right h 5.692; bias b 8.197 and 8.895) and caps (85.655 and 79.560). By the code's own definition, the flag is 1 only when a final h or b equals bw_max. The reported values are far below the caps, so the output shows the cap did not bind. The untested positive branch matters only if the code's cap formula differs from rdrobust's internal one, and that is a code-disclosure point. The paper should say the reported bandwidths lie well below the caps and move the untested-branch caveat there.",
+      "evidence": "paper/main.tex Section 4.2 (H2(c) paragraph); code/h2_placebo.py capped_flag and bwm; runs/h2-placebo/metrics.json (left_h_left 4.8138, left_bw_max 85.655, right_h_left 5.6917, right_bw_max 79.560)",
+      "response": "",
+      "ruling": "Open. Wording. The caveat is accurate, but as placed it tells the reader the flag is uninformative when the table already answers the question."
+    },
+    {
+      "id": "F15",
+      "severity": "minor",
+      "status": "open",
+      "text": "Section 4.2 (H2(b)) says 'The printed p-values are default-option output'. In rdrobust 2.1.1 the default masspoints setting is adjust, which Section 3.3 says. Read literally, the printed values come from the default, which the paper's own description puts at adjust, yet 'off' is the primary comparator. Elsewhere the paper says the 2016 setting is unknown. The sentence should say the setting is unknown, and it should not call the printed values default-option output.",
+      "evidence": "paper/main.tex Section 3.3 (default adjust) and Section 4.2 (H2(b) paragraph); plan.json disclosures (code stage, PI at code-r2 F1)",
+      "response": "",
+      "ruling": "Open. Wording. The primary-comparator decision is disclosed; this sentence reads as if it were settled."
+    },
+    {
+      "id": "F16",
+      "severity": "minor",
+      "status": "open",
+      "text": "ai-use.tex says the Reviewer ran '11 rounds' and that 'The paper stage has not yet been reviewed'. With paper-r1 and this round, the count is 12 and the paper stage has been reviewed. The statement should be updated when this review is recorded.",
+      "evidence": "paper/ai-use.tex 'Review' bullet; reviews/paper-r1/review.json; reviews/paper-r2/review.json",
+      "response": "",
+      "ruling": "Open. Fix when recording paper-r2: 12 rounds, with paper round 1 (revise) and round 2 (this round)."
+    },
+    {
+      "id": "F17",
+      "severity": "minor",
+      "status": "open",
+      "text": "Two literature-wording and provenance points. (a) Section 5 says Eggers et al. (2015) 'argue ... that the RD assumptions hold in many electoral settings'. sources/notes.md, from the abstract only, records that they argue the assumptions are 'likely to hold' in many settings. Use the abstract's word. (b) The Cattaneo, Frandsen and Titiunik (2015) full text was read from a third-party GitHub mirror (nbviewer), while sources/sources.json records the DOI as its URL. The 'four from the full text' claim is accurate, but the provenance should be stated in the record or the paper.",
+      "evidence": "paper/main.tex Section 5 (literature paragraph); sources/notes.md (Eggers entry; CFT entry 'Full text was taken from a third-party mirror'); sources/sources.json",
+      "response": "",
+      "ruling": "Open. Minor. Fix the verb to match the abstract and record the mirror in sources/notes.md."
+    }
+  ]
+}

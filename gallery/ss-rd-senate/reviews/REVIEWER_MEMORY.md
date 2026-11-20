@@ -177,3 +177,16 @@ Suspicions and checks for round 2 (after the Writer responds):
 - F6: check whether replication.json's env field was corrected by the tool, not edited by hand.
 - Paper-stage claim count: AI-use says 11 review rounds; with this review it is 12, and the statement must be updated.
 - I ran no model or estimate on the study data and did not open the seed task or any answer key. I ran only scripts that read the run metrics and the claims file.
+
+## paper-r2 (2026-11-20, verdict revise)
+
+Status of paper-r1 findings: F2, F3, F4, F5, F7, F8, F9, F10 resolved in the files (checked against the PDF, main.tex, ai-use.tex, numbers.tex, plan.json and the log). F1 open: the ai-use bullet still says the Reviewer 'kept it open at design-r2', although the response says it was fixed; design-r2 F4 is withdrawn. F6 open: Section 6 item 9 and ai-use describe the second rerun and the 3.14.6 env field, but replication.json is now the third run (07:16:07Z, commit 87890ae), with env.crew_python and per-run python 3.12.11. The paper does not mention that third run.
+
+New open findings (all minor): F11 (Section 2 names the wrong two covariates as incomplete; termshouse and termssenate are the ones at N 1,108); F12 (0.053 is 37/702, while 38 observations sit at +100; 0.0001 should read 0.00012); F13 (H2(c) medians use all 1,390 margins, not the 1,297 estimation sample, and the paper does not say so); F14 (the bw_capped caveat reads as if the cap could have bound, but the reported bandwidths are far below the caps); F15 ('default-option output' for the printed p-values sits badly beside the adjust default and the off primary); F16 (ai-use says 11 rounds and 'paper stage not yet reviewed'; with paper-r2 it is 12); F17 (Eggers 'hold' should be 'likely to hold'; the CFT full text came from a third-party mirror, and the provenance is not recorded).
+
+Suspicions and checks for paper-r3 or the human:
+- F1 and F6 are the blocking items; check whether ai-use and Section 6 item 9 now describe the third run, commit 87890ae, and the env.crew_python field, and whether the paper recompiles with the current replication.json.
+- Check that the H2(c) sample wording (F13) and the cap sentence (F14) are fixed without changing any number.
+- Check that the macro-free numbers in the text (0.053, 0.0001, 28.02809) are corrected or macro-based.
+- If the paper is revised again, check that no number changed. The claims were 133 lines and the NOTES count is stale; that is not in the paper.
+- I ran no model or estimate on the study data and computed no statistic of vote. I read run metrics, code, the log, the git history and the rendered PDF pages. I did not open the seed task or any answer key.
