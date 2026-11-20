@@ -1,34 +1,50 @@
 \section*{AI-use statement}
 
 This paper was drafted by a crew of AI research-assistant agents
-(Free-Research-Crew, protocol v0.1) under the direction of the human author, Bryce Wang,
-who approved the research question, the design, the results and this manuscript at four
-gates and takes responsibility for its content.
+(Free-Research-Crew, protocol v0.1) under the direction of the human author, Bryce Wang.
+The human approved the research question, the design and the results at three gates.
+The submission gate is pending at the time of writing. The human author takes
+responsibility for the content.
 
 \begin{itemize}
   \item \textbf{Roles and models.} Every role subagent ran on Claude Haiku 5.5
         (\texttt{claude-haiku-5-5}): Scout, Data RA, Designer, Econometrician, Figures RA,
         Writer and Replicator, and the Reviewer. The PI session ran on Claude Opus 5.5.
-  \item \textbf{Review.} The Reviewer agent ran 14 rounds: question (2 rounds, block then
+  \item \textbf{Review.} The Reviewer agent ran 15 rounds: question (2 rounds, block then
         revise), design (3: revise, revise, pass), code (3: pass, revise, pass), results
-        (3: revise, revise, pass) and paper (3: revise, revise, revise). Every round was
-        fresh-context. The Reviewer ran on the same model family as the authoring agents,
-        so the independence level is fresh-context, not cross-family. The paper stage has
-        been reviewed three times, and none of the three rounds passed. The reviews and the
+        (3: revise, revise, pass) and paper (4: revise, revise, revise, revise). Every round
+        was fresh-context. The Reviewer ran on the same model family as the authoring agents,
+        so the independence level is fresh-context, not cross-family. The paper stage has been
+        reviewed four times, and none of the four rounds passed. The reviews and the
         Reviewer's memory are in \texttt{reviews/}.
-  \item \textbf{Findings accepted over the Reviewer: one.} design-r1 F4 (pre-gate computations in \texttt{design-mde}), kept by the PI's ruling with a disclosure, withdrawn by the Reviewer at design-r2 and design-r3, and shown to the human at the design gate.
+  \item \textbf{Findings accepted over the Reviewer: one.} design-r1 F4 (pre-gate
+        computations in \texttt{design-mde}), kept by the PI's ruling with a disclosure,
+        withdrawn by the Reviewer at design-r2 and design-r3, and shown to the human at the
+        design gate.
+  \item \textbf{Open findings at the question gate.} The human approved the question gate at
+        04:22:30Z, with question-r2 F4, F7 and F8 deferred to the design stage, and question-r2
+        F9 answered by the PI. The question stage was not re-reviewed after that, so those four
+        records still read open. The design stage addressed their substance: the MDEs and the
+        non-rejection wording (F4), the data checks (F7), a data check (F8), and the one-sided
+        placebo cutoffs (F9). F8 is only partly met. The CSV's non-outcome moments match
+        CCFT's printed values, but the CSV is not the \texttt{.dta} file CCFT used, and the
+        moments of \texttt{vote} were not compared before the H1 run.
   \item \textbf{Clean reruns.} Four clean reruns, each from an environment built from
-        \texttt{code/}\allowbreak\texttt{requirements.txt} alone. The first reproduced 7 of 15 runs; its
-        failures came from the rerun tool (it omitted \texttt{runs/} and counted a NaN in both runs as a
-        mismatch), and the PI session fixed the tool (commit \texttt{0a72b72}). The second reproduced 15 of 15
-        (commit \texttt{c1c9549}), but its \texttt{replication.json} recorded the tool's interpreter at the top
-        level. The PI session then changed the tool (commit \texttt{87890ae}) to record each run's interpreter
-        and label the top-level value \texttt{crew\_python}. The third reproduced 15 of 15 with Python 3.12.11
-        recorded for every run. The fourth (commit \texttt{a6d7c45}) also reproduced 15 of 15. It was rerun
-        because two claim texts were reworded (values unchanged) and two tables were regenerated, which made
-        the third record older than its inputs. The fourth run's \texttt{replication.json} is the record the
-        submission gate reads. No analysis code, data or tolerance changed. \texttt{REPLICATION.md} describes
-        all four runs.
+        \texttt{code/}\allowbreak\texttt{requirements.txt} alone. The first reproduced 7 of 15
+        runs; its failures came from the rerun tool (it omitted \texttt{runs/} and counted a NaN
+        in both runs as a mismatch), and the PI session fixed the tool (commit
+        \texttt{0a72b72}). The second reproduced 15 of 15 (commit \texttt{c1c9549}), but its
+        \texttt{replication.json} recorded the tool's interpreter at the top level. The PI
+        session then changed the tool (commit \texttt{87890ae}) to record each run's interpreter
+        and label the top-level value \texttt{crew\_python}. The third reproduced 15 of 15 with
+        Python 3.12.11 recorded for every run. The fourth reproduced 15 of 15, with
+        \texttt{crew.py} as of its last change (commit \texttt{87890ae}) and the workspace at
+        commit \texttt{a6d7c45}. It was rerun because two claim texts were reworded (values
+        unchanged) and two tables were regenerated, which made the third record older than its
+        inputs. The NaN rule covered two metrics, \texttt{T\_Q\_asy} and \texttt{p\_Q\_asy}, which
+        are NaN in both runs and so are reproduced without being compared. The fourth run's
+        \texttt{replication.json} is the record the submission gate reads. No analysis code,
+        data or tolerance changed. \texttt{REPLICATION.md} describes all four runs.
   \item \textbf{Briefs.} The role briefs are archived in \texttt{briefs/}.
   \item \textbf{Evidence.} Every reported number is generated from a logged run through
         the macro file \texttt{numbers.tex}. Every citation was checked against its source:
