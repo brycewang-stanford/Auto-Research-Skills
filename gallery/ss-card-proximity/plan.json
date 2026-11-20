@@ -94,7 +94,7 @@
       "id": "rv-design",
       "title": "Review the design (reviews/design-r1 done; design-r2 on the revision)",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "s-gkm19-table",
@@ -106,19 +106,19 @@
       "id": "e-code",
       "title": "Write code/ivlib.py, one script per run (h1_b6.py, h1_a6.py, h1_a5.py, h2h3_weakiv.py, h3b_subvector.py, h4_chr.py, h5_cf.py, r_age1419.py, r_balance.py, r_cluster.py, verdict.py) and code/requirements.txt (pip freeze of a fresh venv with the versions in design.method, ivmodels 0.10.0 included), exactly as design.method and analysis_plan specify",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-check-synthetic",
       "title": "Write code/test_ivlib.py and run check-synthetic (data-prep, synthetic data only) before the design gate: heteroskedastic strong- and weak-nuisance H3(b) designs (coverage, brute-force minimisation), ivmodels agreement, GKM19 critical values against Table 3, influence-function bootstrap check",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "f-code",
       "title": "Write code/fig_chr.py (CHR union bounds against delta from runs/h4-chr/chr_grid.csv; H3(b) profile from runs/h3b-subvector/profile.csv) before the code review",
       "owner": "figures-ra",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-code",
@@ -130,7 +130,7 @@
       "id": "pi-design-gate",
       "title": "Request and decide the design gate after the design and code reviews",
       "owner": "pi",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h1-b6",
@@ -272,12 +272,15 @@
       "summary": "Replication of Card (WP 4483) IV return to schooling; H1 reproduction of Panel B col 6 and Panel A cols 6/5; H2-H5 weak-IV-robust and exclusion sensitivity on Panel A col 6 (col 5 alongside). Reviewer question-r2: pass, F7-F8 minor answered.",
       "decided_by": "Bryce Wang",
       "decided_on": "2026-11-20T16:53:24Z",
-      "note": "批准 (AskUserQuestion answer, 2026-11-21)"
+      "note": "\u6279\u51c6 (AskUserQuestion answer, 2026-11-21)"
     },
     "design": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-20T17:40:10Z",
-      "summary": "Design fixed: H1 reproduction (9 primary + 22 secondary targets, conventional n-k SEs); H2-H5 on Panel A col 6 (col 5 alongside) labelled as Panel A coefficients; H3(b) subvector AR on Card's basic Panel B col 6 (robust chi2(3) projection decides; GKM19/GKMC homoskedastic alongside); synthetic-data checks before any analysis; read1.lst read once after claims. Reviews: literature-r2 pass, design-r3 pass, all findings answered."
+      "summary": "Design fixed: H1 reproduction (9 primary + 22 secondary targets, conventional n-k SEs); H2-H5 on Panel A col 6 (col 5 alongside) labelled as Panel A coefficients; H3(b) subvector AR on Card's basic Panel B col 6 (robust chi2(3) projection decides; GKM19/GKMC homoskedastic alongside); synthetic-data checks before any analysis; read1.lst read once after claims. Reviews: literature-r2 pass, design-r3 pass, all findings answered.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-20T17:49:59Z",
+      "note": "\u6279\u51c6 (AskUserQuestion answer)"
     },
     "results": {
       "status": "pending"
