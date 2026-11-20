@@ -141,9 +141,11 @@ The p. 400 minimum and maximum (-100 and 100 on the two sides) also match.
 
 ### Result
 
-No discrepancy found in any compared statistic. The file matches the file used in the printed
-output on every row count, moment and bound that Sec. 7.2 reports for non-outcome variables and
-for the outcome's non-missing count. Printed values agree at their printed precision.
+No discrepancy found in any compared statistic. The file matches CCFT (2017) Sec. 7.2's printed
+non-outcome moments (margin, class, termshouse, termssenate, population), counts (N per side, and
+the non-missing outcome N) and bounds. Vote's moments were not compared, so identity with the
+.dta used by CCFT is supported but not established. H1 (the first outcome check, against the
+printed conventional estimate and CI) is where that identity is tested.
 
 
 ## Design-stage MDE values (run design-mde)

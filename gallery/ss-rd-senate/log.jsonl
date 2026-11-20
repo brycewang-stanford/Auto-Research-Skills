@@ -25,3 +25,8 @@
 {"time": "2026-11-20T04:28:39Z", "role": "designer", "action": "design-written", "detail": "design fixed in plan.json (H1 masspoints off, H2 tests and bounds, H3 table); tasks t-design-mde..t-rerun added; no vote statistic computed"}
 {"time": "2026-11-20T04:29:38Z", "role": "data-ra", "action": "run", "detail": "design-mde exit=0"}
 {"time": "2026-11-20T04:29:52Z", "role": "designer", "action": "mde-logged", "detail": "design-mde run (data-prep, margin and covariates only): H2(a) MDE 0.01136 density units; H2(b) MDE class 0.401, termshouse 1.400, termssenate 2.091, population 2,185,253; placebo bound left as chosen constant; margin-only density p 0.381 disclosed"}
+{"time": "2026-11-20T04:30:04Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T043004Z (design-r1)"}
+{"time": "2026-11-20T04:33:33Z", "role": "pi", "action": "disclosure-added", "detail": "design-r1 F4: design-mde computed falsification statistics before the gate. plan.json sha256=be1fb6ef5f4827cf3a22c4f37fb773160f12c50a08f906418a6051c60f6268dd"}
+{"time": "2026-11-20T04:33:33Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261120T043333Z; data-ra 20261120T043333Z (design-r1)"}
+{"time": "2026-11-20T04:33:43Z", "role": "data-ra", "action": "codebook-narrowed", "detail": "design-r1 F5: CODEBOOK Result narrowed to non-outcome moments/counts/bounds; response written to F5; not committed"}
+{"time": "2026-11-20T04:34:29Z", "role": "designer", "action": "design-r1-revised", "detail": "design revised for design-r1: H2(c) report-only; masspoints off as assumption, off primary and adjust reported; H2(d) selection test added (MDE fixed, run after gate); family-wise Holm stated; placebo bandwidth cap rule"}

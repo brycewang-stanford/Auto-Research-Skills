@@ -24,3 +24,17 @@ Suspicions and checks for later rounds:
 - Data: check whether the CSV's margin, class and population moments match CCFT Sec. 7.2 (margin mean 7.171159, sd 34.32488; class mean 2.023022; population mean 3827919). Do not accept a vote statistic before the design gate.
 - Data: the 'matches seed' claim rests on a constant in code/fetch_data.py; I did not open the seed, so I did not verify that constant.
 - Checks run this round, none on outcome data: sha256 of the raw CSV; printed the header and the first three raw rows to confirm column layout (no statistic computed); read rdrobust 2.1.1 defaults from the installed source; downloaded CCFT 2017 and CFT 2015 full texts to the scratchpad and grepped the printed numbers. I did not run any model or estimate, and I did not open the seed task or any answer key.
+
+## design-r1 (2026-11-20, verdict revise)
+
+Findings open: F1 (major, carried from question-r2 F4: H2(c) equivalence bound is a multiple of vote's SD, not a fixed number); F2 (major, carried from question-r2 F7: masspoints 'off' justified by an unsourced claim that the 2016 release predates the option; 'adjust' changes the selector's N from 1,390 to M = 1,352, so the H1 h check decides the option; bwcheck trigger is 20 percent mass, not reached); F3 (major, no test of selection into the outcome: 93 missing vote; vote_observed RD needs no outcome values); F4 (major, design-mde is data-prep but fits rddensity on margin and four covariate rdrobust models before the gate; PI to accept or rerun as analysis); F5 (minor, codebook overclaims file fidelity, outcome moments unchecked); F6 (minor, no family rule across H2); F7 (minor, placebo windows truncated at 0, bandwidth edge rule not stated).
+
+Carried findings resolved in the design: question-r2 F8 (dr-checks compare printed non-outcome moments; 32 comparisons match), F9 (placebo restricted to one side of 0), F10 (N = 1,108 stated), F11 (H3 uses printed 2014 bandwidths and base h = 17.708, b = 27.984), F12 (contribution no longer lists the trial).
+
+Suspicions and checks for later rounds:
+- H1 option: when the results exist, check whether h1-rdrobust was run with masspoints 'off' only, and whether 'adjust' was tried after a failure (that would be tuning). Check the H3(v) row.
+- H2(c): check whether the placebo fixes a bound in vote units or still uses the SD; check the bandwidth edge rule.
+- H2(d) (if added): check that vote_observed is the only input and that its MDE is fixed.
+- Covariate fits: check whether the h2-covariates SEs reproduce design-mde's SEs exactly; if not, the MDEs fixed in design text are wrong.
+- Claims: check that rd-cov-*-p are compared with CCFT Sec. 7.4 printed p-values (0.897, 0.561, 0.901, 0.634). The printed block uses plain rdrobust z margin (line ~1190 of the fetched text, no cluster option), so the comparison is like-for-like only if the option matches the 2016 algorithm (see F2).
+- I ran no model or estimate on the study data. I read code and run metrics, and read rdrobust/rddensity source and the fetched CCFT text by grep. I did not open the seed task or any answer key. crew.py validate passed.

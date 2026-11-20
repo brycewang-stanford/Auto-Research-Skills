@@ -1,0 +1,98 @@
+{
+  "id": "design-r1",
+  "target": "design",
+  "round": 1,
+  "created": "2026-11-20T04:32:36Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/briefs/20261120T043004Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/plan.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/reviews/REVIEWER_MEMORY.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/reviews/question-r2/review.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/log.jsonl",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/data/CODEBOOK.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/data/manifest.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/code/design_mde.py",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/code/prepare_checks.py",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/code/requirements.txt",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/runs/design-mde/metrics.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/runs/design-mde/run.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/runs/dr-checks/metrics.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/sources/notes.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv/lib/python3.12/site-packages/rdrobust/rdrobust.py (lines 16-24, 155-175, 370-380, 494-500, 596-620, 705-730)",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv/lib/python3.12/site-packages/rddensity/rddensity.py (grep of test and sd_jk output names)",
+    "/private/tmp/claude-501/-Users-brycewang-Auto-Research-Skills/ffa26d1a-3847-4b9f-922a-ae897a37d092/scratchpad/senate-reviewer2/ccft2017.txt (grep and lines 1170-1212 for the printed balance block)"
+  ],
+  "kill_argument": "The design is a careful plan for reproducing a published table, but its only test of that table is a computational check that can pass or fail on an option the design chose by assertion. Setting masspoints to 'off' rests on the claim that the 2016 release predates the option, and no source in the workspace supports it: the article prints only '2016 version'. Under the installed default the bandwidth selector uses 1,352 distinct margin values in place of 1,390 observations, so the h tolerance of 0.0005 in practice decides the option, although the design says the choice does not come from the printed numbers. The falsification battery is report-only. The placebo equivalence bound is defined as a multiple of an outcome SD that has not been computed, so non-rejection there has no fixed content. The MDEs that are fixed are large: 0.011 density units, and 0.40 to 2.19 million persons on covariates. The most direct threat to the estimand, selection into the outcome (93 elections with no vote), is not tested, although the test uses no outcome values. Two statistics were computed before the gate under a data-prep label. What survives is a reproduction whose falsification checks cannot show the absence of a discontinuity at any stated size.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "H2(c) has no fixed equivalence bound. The design states the bound as 0.25 SD of vote in the one-sided sample and says it is 'fixed now' and that the SD is 'not used to choose the bound'. A bound defined as a multiple of the outcome SD has no value until vote is summarised, and the design has not computed it. The H2(a) and H2(b) MDEs are fixed numbers (runs/design-mde/metrics.json); H2(c) is not, so a non-rejection in the placebo tests has no pre-specified content. This is the open part of question-r2 F4. Cheaper remedy: fix a bound in vote percentage points now, or report the placebo estimate with its CI and state that the CI width is the precision.",
+      "evidence": "plan.json design.method (H2(c) and 'Equivalence and power rules'); data/CODEBOOK.md 'Design-stage MDE values' (H2(c) line); runs/design-mde/metrics.json contains no placebo entry.",
+      "response": "Designer: H2(c) changed to report-only, as the PI's F1 option allows: each placebo is reported with estimate, CI, N and bandwidth, with no equivalence bound and no non-rejection claim; the precision is the CI width.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "The masspoints='off' choice for H1 is justified by the claim that the 2016 release predates the option and that 'off' is its algorithm. No source is cited. sources/notes.md records that the article gives no package version (sections 1 and 4, item 3), so the claim is unverified. The choice is not neutral: under masspoints='adjust', the installed default (rdrobust.py line 22), the bandwidth selector uses M = M_l + M_r in place of N (rdrobust.py line 721). M is 1,352 distinct margin values (dr-checks), against N = 1,390, so h will differ from 17.708 by more than the 0.0005 tolerance under the usual scaling. The H1 check on h is therefore in effect a test of the option, which the design says it is not. The design also says 'adjust' adds bwcheck = 10 when mass points are detected; the trigger is 20 percent mass on a side (rdrobust.py line 612), which these margins do not reach, so the only difference is the M term. Cheaper remedy: state 'off' as an assumption; fix now that H1 is reported under both options with 'off' as primary and a failure under 'off' is reported as a failure; correct the bwcheck sentence. This is the open part of question-r2 F7.",
+      "evidence": "plan.json design.method (H1 'Why masspoints = off'); sources/notes.md lines 16, 55, 84; .venv/lib/python3.12/site-packages/rdrobust/rdrobust.py lines 22, 169, 609-615, 721; runs/dr-checks/metrics.json (margin_all_distinct = 1352).",
+      "response": "Designer: masspoints='off' is now labelled an assumption; H1 reports 'off' (primary) and 'adjust' in the same run with identical tolerances; a failure under 'off' is reported as a failure; the bwcheck sentence is corrected (trigger is a 20 percent one-sided mass share, not met: about 0.002 left and 0.05 right).",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "open",
+      "text": "Selection into the outcome is untested. 93 elections (6.7 percent) have no vote. The estimand is the Democratic vote share at t+2, and whether that outcome exists may itself depend on the treatment (a seat not contested, or an incumbent who does not run again). A discontinuity in vote_observed at the cutoff would bias H1, and no falsification check covers it. plan.json says only that this is 'not tested in this design'. The test needs no outcome values: vote_observed is a 0/1 indicator derived from which rows have vote, the same kind of count that dr-checks already reports. Remedy: add H2(d), rdrobust on vote_observed against margin with the H1 options, with its MDE fixed now.",
+      "evidence": "plan.json design.threats ('Missing outcome'); data/CODEBOOK.md 'Missingness' and the vote_observed variable; runs/dr-checks/metrics.json (vote_nonmissing_obs = 1297, n_left_nonmissing = 595, n_right_nonmissing = 702).",
+      "response": "Designer: H2(d) added, rdrobust of vote_observed on margin with the H1 options at masspoints='off' on all 1,390 rows, run after the gate as h2-selection; its MDE formula is fixed now and its value is computed only in that run.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "open",
+      "text": "Pre-gate estimation under the data-prep label. code/design_mde.py is a data-prep run, which the tool allows at any time, but it fits two estimators before the design gate: rddensity on margin (T_Q p = 0.381, written into plan.json) and four rdrobust fits of the covariates on margin with the H1 options, whose robust SEs are then used as the H2(b) MDEs. The docstring says no rdrobust or rddensity result on the outcome is produced. That is literally true, but the protocol allows analysis runs only after the design gate, and the covariate fits are the H2(b) analysis itself. The coefficients were not written to the metrics, which limits leakage, but the density p-value now sits in the design text. The Reviewer ran no estimate. Remedy for the PI: accept this with a disclosure, or rerun the covariate fits as analysis runs after the gate and confirm the SEs and MDEs reproduce. The design text discloses the density statistic and the covariate SEs, but labels neither as pre-gate estimation.",
+      "evidence": "code/design_mde.py (rddensity call and the covariate loop calling rdrobust); runs/design-mde/run.json (kind data-prep); runs/design-mde/metrics.json (h2a_p_Q, h2b_*_se_robust); plan.json design.method ('recorded ... before the design gate'); log.jsonl entry 'design-mde run (data-prep, margin and covariates only)'.",
+      "response": "PI: accepted with a disclosure in plan.json; the H2(a)/H2(b) analysis runs after the gate repeat the computations with the same settings and the paper says these were seen at the design stage.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "The codebook overclaims the fidelity check. Its 'Result' says the file matches the file used in the printed output on every row count, moment and bound. The checks cover margin, class, termshouse, termssenate and population moments and counts. They do not cover the outcome: CCFT Sec. 7.2 (p. 390) prints vote's N, mean and SD, and these were deliberately not compared. Identity of the file with the .dta used by CCFT is therefore not established. Remedy: narrow the codebook statement to the non-outcome moments and counts checked; H1 is the first outcome check and should be named as such.",
+      "evidence": "data/CODEBOOK.md 'Result' under 'Printed descriptive statistics versus the file'; CCFT 2017 Sec. 7.2 p. 390 summary table includes vote.",
+      "response": "Narrowed the codebook Result to the non-outcome moments, counts and bounds checked; vote's moments were not compared, so identity with the CCFT .dta is supported but not established, and H1 is named as the first outcome check.",
+      "ruling": ""
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "No family-level rule for the falsification battery. H2(a) is a single test, H2(b) is Holm over four and H2(c) is Holm over two, so seven tests are reported with separate non-rejection statements. The design should say that each family's correction is the only one applied and that no across-family claim is made.",
+      "evidence": "plan.json design.method (H2 paragraph and analysis_plan item 4 to 5); design.threats 'Multiplicity'.",
+      "response": "Designer: each family is Holm-adjusted on its own (H2(b) over four covariates only; H2(a), H2(c), H2(d) single tests); no cross-family conclusion is drawn.",
+      "ruling": ""
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "The placebo windows are truncated at 0. Each one-sided placebo uses only observations on its own side of 0, so the right-hand window of the left placebo is capped at |c_L| and the bandwidth may reach the edge of the data. The design reports N and bandwidth, but does not say what rdrobust does when the selected bandwidth exceeds the available side, or whether such a case is reported as a limitation. Remedy: state the rule now and report the number of effective observations within the selected bandwidth on each side.",
+      "evidence": "plan.json design.method (H2(c) one-sided tests); data/CODEBOOK.md (640 negative and 750 positive margins; c_L and c_R are not yet computed in any run).",
+      "response": "Designer: rule fixed: rdrobust bwrestrict=True caps h and b at the data range; a placebo that reaches the cap is flagged bw_capped=1 and reported as boundary-limited; effective N within the selected bandwidth on each side is reported in every placebo run.",
+      "ruling": ""
+    }
+  ]
+}
