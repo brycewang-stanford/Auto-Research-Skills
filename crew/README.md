@@ -83,11 +83,26 @@ The Reviewer's design follows
 reviewer reads the artifacts and not a summary, every review commits to one strongest
 argument for rejection, and review rounds are bounded.
 
+## Running on a budget
+
+Model usage is the main cost. Two settings bring it down:
+
+- **Role subagents on Claude Haiku 5.5.** Add `model: haiku` to the frontmatter of the
+  files in [`agents/`](agents/) (or have the PI pass `model: haiku` when it delegates).
+  In the `ss-rd-senate` trial this cut the subagents' cost from roughly $45–80 to about
+  $2 per paper; the Reviewer still blocked, overruled the PI and caught real errors, but
+  needed more rounds. Keeping only the Reviewer on a larger model is a middle option.
+- **The PI session on a smaller model.** Start Claude Code with `/model sonnet` (or
+  `haiku`) before `/crew:start`. In the trial the PI on Opus was about $14 of the $16.
+
+On a Claude subscription the same work counts against the plan instead. Measure any
+configuration with `python3 scripts/usage.py <workspace>`.
+
 ## Limits of v0.1
 
-- All six seed papers have passed all four gates; see
-  [`gallery/`](../gallery/README.md). Each cost about $58–103 of model usage at API list
-  prices; `python3 scripts/usage.py <workspace>` measures a project from the local
+- Seven seed papers have passed all four gates; see
+  [`gallery/`](../gallery/README.md). The six run with Opus-class roles cost about $58–103
+  of model usage each at API list prices, the Haiku trial about $16; `python3 scripts/usage.py <workspace>` measures a project from the local
   Claude Code transcripts.
 - Cross-family review needs the Codex CLI and your consent to send the workspace to
   OpenAI; without it the Reviewer runs on the same model family in a fresh context.

@@ -146,9 +146,12 @@
       "note": "批准 (in chat, after results-r3 pass; minor F8 scale caveat and F12-F14 open for the Econometrician and Writer)"
     },
     "submission": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-20T07:41:40Z",
-      "summary": "paper-r4 (last round) revise, no critical; wording findings F22, F25-F32, F34 fixed in text after round 4 (not re-reviewed); clean rerun 15/15"
+      "summary": "paper-r4 (last round) revise, no critical; wording findings F22, F25-F32, F34 fixed in text after round 4 (not re-reviewed); clean rerun 15/15",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-20T08:23:42Z",
+      "note": "批准 (in chat, after paper-r4 revise with no critical; F25-F27 and minor wording fixed in text after round 4, not re-reviewed; low-cost trial)"
     }
   },
   "disclosures": [

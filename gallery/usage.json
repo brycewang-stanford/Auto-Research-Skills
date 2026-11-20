@@ -1,5 +1,5 @@
 {
-  "measured_on": "2026-11-20T01:07:57+08:00",
+  "measured_on": "2026-11-20T16:24:00+08:00",
   "prices_usd_per_mtok": {
     "claude-opus-5-5": {
       "input": 4.0,
@@ -58,29 +58,29 @@
         },
         "pi": {
           "tokens": {
-            "input": 244,
-            "output": 82812,
-            "cache_read": 38804608,
+            "input": 246,
+            "output": 83377,
+            "cache_read": 39000142,
             "cache_write_5m": 0,
-            "cache_write_1h": 895025
+            "cache_write_1h": 895815
           },
-          "api_usd": 16.7,
+          "api_usd": 16.75,
           "unpriced_models": []
         }
       },
       "tokens": {
-        "input": 1606,
-        "output": 790456,
-        "cache_read": 116288502,
+        "input": 1608,
+        "output": 791022,
+        "cache_read": 116484037,
         "cache_write_5m": 4761180,
-        "cache_write_1h": 895025
+        "cache_write_1h": 895815
       },
       "models": [
         "<synthetic>",
         "claude-fable-5-2",
         "claude-opus-5-5"
       ],
-      "api_usd": 70.16,
+      "api_usd": 70.22,
       "unpriced_models": [
         "<synthetic>"
       ]
@@ -93,42 +93,42 @@
       "elapsed_hours": 19.1,
       "human_gate_wait_hours": 0.4,
       "logged_compute_minutes": 37.4,
-      "subagent_transcripts": 29,
+      "subagent_transcripts": 30,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 1542,
-            "output": 782629,
-            "cache_read": 88035578,
-            "cache_write_5m": 4251852,
+            "input": 1548,
+            "output": 785672,
+            "cache_read": 88261177,
+            "cache_write_5m": 4270100,
             "cache_write_1h": 0
           },
-          "api_usd": 54.53,
+          "api_usd": 54.72,
           "unpriced_models": []
         },
         "pi": {
           "tokens": {
-            "input": 235,
-            "output": 78003,
-            "cache_read": 39982700,
+            "input": 238,
+            "output": 79671,
+            "cache_read": 40388161,
             "cache_write_5m": 0,
-            "cache_write_1h": 147285
+            "cache_write_1h": 148722
           },
-          "api_usd": 10.74,
+          "api_usd": 10.86,
           "unpriced_models": []
         }
       },
       "tokens": {
-        "input": 1777,
-        "output": 860632,
-        "cache_read": 128018279,
-        "cache_write_5m": 4251852,
-        "cache_write_1h": 147285
+        "input": 1786,
+        "output": 865343,
+        "cache_read": 128649337,
+        "cache_write_5m": 4270100,
+        "cache_write_1h": 148722
       },
       "models": [
         "claude-opus-5-5"
       ],
-      "api_usd": 65.26,
+      "api_usd": 65.58,
       "unpriced_models": []
     },
     {
@@ -139,43 +139,43 @@
       "elapsed_hours": 25.0,
       "human_gate_wait_hours": 0.4,
       "logged_compute_minutes": 105.5,
-      "subagent_transcripts": 24,
+      "subagent_transcripts": 25,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 1802,
-            "output": 939702,
-            "cache_read": 115804792,
-            "cache_write_5m": 8672845,
+            "input": 1808,
+            "output": 942746,
+            "cache_read": 116030391,
+            "cache_write_5m": 8691093,
             "cache_write_1h": 0
           },
-          "api_usd": 85.33,
+          "api_usd": 85.52,
           "unpriced_models": []
         },
         "pi": {
           "tokens": {
-            "input": 305,
-            "output": 105616,
-            "cache_read": 56099645,
+            "input": 306,
+            "output": 106402,
+            "cache_read": 56345482,
             "cache_write_5m": 0,
-            "cache_write_1h": 453440
+            "cache_write_1h": 454473
           },
-          "api_usd": 17.2,
+          "api_usd": 17.27,
           "unpriced_models": []
         }
       },
       "tokens": {
-        "input": 2107,
-        "output": 1045318,
-        "cache_read": 171904438,
-        "cache_write_5m": 8672845,
-        "cache_write_1h": 453440
+        "input": 2115,
+        "output": 1049148,
+        "cache_read": 172375873,
+        "cache_write_5m": 8691093,
+        "cache_write_1h": 454473
       },
       "models": [
         "claude-fable-5-2",
         "claude-opus-5-5"
       ],
-      "api_usd": 102.53,
+      "api_usd": 102.8,
       "unpriced_models": []
     },
     {
@@ -186,43 +186,43 @@
       "elapsed_hours": 20.3,
       "human_gate_wait_hours": 9.7,
       "logged_compute_minutes": 0.3,
-      "subagent_transcripts": 17,
+      "subagent_transcripts": 18,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 984,
-            "output": 577092,
-            "cache_read": 57157896,
-            "cache_write_5m": 3447895,
+            "input": 990,
+            "output": 580135,
+            "cache_read": 57383494,
+            "cache_write_5m": 3466143,
             "cache_write_1h": 0
           },
-          "api_usd": 40.07,
+          "api_usd": 40.27,
           "unpriced_models": []
         },
         "pi": {
           "tokens": {
-            "input": 151,
-            "output": 48350,
-            "cache_read": 33525437,
+            "input": 157,
+            "output": 50818,
+            "cache_read": 34386033,
             "cache_write_5m": 0,
-            "cache_write_1h": 1344466
+            "cache_write_1h": 1349333
           },
-          "api_usd": 18.43,
+          "api_usd": 18.69,
           "unpriced_models": []
         }
       },
       "tokens": {
-        "input": 1135,
-        "output": 625442,
-        "cache_read": 90683333,
-        "cache_write_5m": 3447895,
-        "cache_write_1h": 1344466
+        "input": 1147,
+        "output": 630953,
+        "cache_read": 91769528,
+        "cache_write_5m": 3466143,
+        "cache_write_1h": 1349333
       },
       "models": [
         "claude-haiku-5-5",
         "claude-opus-5-5"
       ],
-      "api_usd": 58.5,
+      "api_usd": 58.96,
       "unpriced_models": []
     },
     {
@@ -233,42 +233,42 @@
       "elapsed_hours": 21.3,
       "human_gate_wait_hours": 13.1,
       "logged_compute_minutes": 1.8,
-      "subagent_transcripts": 17,
+      "subagent_transcripts": 18,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 1408,
-            "output": 735431,
-            "cache_read": 94719994,
-            "cache_write_5m": 4639895,
+            "input": 1414,
+            "output": 738474,
+            "cache_read": 94945592,
+            "cache_write_5m": 4658143,
             "cache_write_1h": 0
           },
-          "api_usd": 56.86,
+          "api_usd": 57.05,
           "unpriced_models": []
         },
         "pi": {
           "tokens": {
-            "input": 199,
-            "output": 62053,
-            "cache_read": 35969413,
+            "input": 203,
+            "output": 63868,
+            "cache_read": 36516585,
             "cache_write_5m": 0,
-            "cache_write_1h": 570129
+            "cache_write_1h": 572345
           },
-          "api_usd": 13.0,
+          "api_usd": 13.16,
           "unpriced_models": []
         }
       },
       "tokens": {
-        "input": 1607,
-        "output": 797484,
-        "cache_read": 130689407,
-        "cache_write_5m": 4639895,
-        "cache_write_1h": 570129
+        "input": 1617,
+        "output": 802342,
+        "cache_read": 131462178,
+        "cache_write_5m": 4658143,
+        "cache_write_1h": 572345
       },
       "models": [
         "claude-opus-5-5"
       ],
-      "api_usd": 69.85,
+      "api_usd": 70.22,
       "unpriced_models": []
     },
     {
@@ -279,42 +279,89 @@
       "elapsed_hours": 24.7,
       "human_gate_wait_hours": 8.8,
       "logged_compute_minutes": 14.0,
-      "subagent_transcripts": 20,
+      "subagent_transcripts": 21,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 1554,
-            "output": 747606,
-            "cache_read": 111069618,
-            "cache_write_5m": 4963836,
+            "input": 1560,
+            "output": 750649,
+            "cache_read": 111295216,
+            "cache_write_5m": 4982084,
             "cache_write_1h": 0
           },
-          "api_usd": 61.99,
+          "api_usd": 62.19,
           "unpriced_models": []
         },
         "pi": {
           "tokens": {
-            "input": 236,
-            "output": 62307,
-            "cache_read": 35708467,
+            "input": 239,
+            "output": 63486,
+            "cache_read": 36022147,
             "cache_write_5m": 0,
-            "cache_write_1h": 763084
+            "cache_write_1h": 764228
           },
-          "api_usd": 14.49,
+          "api_usd": 14.59,
           "unpriced_models": []
         }
       },
       "tokens": {
-        "input": 1790,
-        "output": 809913,
-        "cache_read": 146778085,
-        "cache_write_5m": 4963836,
-        "cache_write_1h": 763084
+        "input": 1799,
+        "output": 814135,
+        "cache_read": 147317363,
+        "cache_write_5m": 4982084,
+        "cache_write_1h": 764228
       },
       "models": [
         "claude-opus-5-5"
       ],
-      "api_usd": 76.48,
+      "api_usd": 76.78,
+      "unpriced_models": []
+    },
+    {
+      "workspace": "ss-rd-senate",
+      "started": "2026-11-20T03:50:41+00:00",
+      "finished": "2026-11-20T08:23:42+00:00",
+      "complete": true,
+      "elapsed_hours": 4.6,
+      "human_gate_wait_hours": 2.6,
+      "logged_compute_minutes": 0.4,
+      "subagent_transcripts": 23,
+      "by_source": {
+        "subagents": {
+          "tokens": {
+            "input": 1556,
+            "output": 1203528,
+            "cache_read": 91613037,
+            "cache_write_5m": 4908058,
+            "cache_write_1h": 0
+          },
+          "api_usd": 2.13,
+          "unpriced_models": []
+        },
+        "pi": {
+          "tokens": {
+            "input": 374,
+            "output": 78933,
+            "cache_read": 56884305,
+            "cache_write_5m": 0,
+            "cache_write_1h": 171877
+          },
+          "api_usd": 14.33,
+          "unpriced_models": []
+        }
+      },
+      "tokens": {
+        "input": 1930,
+        "output": 1282461,
+        "cache_read": 148497342,
+        "cache_write_5m": 4908058,
+        "cache_write_1h": 171877
+      },
+      "models": [
+        "claude-haiku-5-5",
+        "claude-opus-5-5"
+      ],
+      "api_usd": 16.46,
       "unpriced_models": []
     }
   ]

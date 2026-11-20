@@ -1,7 +1,7 @@
 {
   "crew_version": "0.1.0",
   "protocol": "0.1",
-  "scored_on": "2026-11-19T17:08:31Z",
+  "scored_on": "2026-11-20T08:23:43Z",
   "results": [
     {
       "workspace": "gallery/cs-calibration",
@@ -196,6 +196,54 @@
             -357.9747042263273,
             338.38603829192607
           ]
+        }
+      },
+      "manual": "Does the paper claim more than the evidence supports? Judged by the Reviewer and the human."
+    },
+    {
+      "workspace": "gallery/ss-rd-senate",
+      "seed": "ss-rd-senate",
+      "track": "social-science",
+      "title": "Does winning a US Senate seat help the party win it again? A regression-discontinuity replication of the incumbency advantage",
+      "gates": {
+        "question": "approved",
+        "design": "approved",
+        "results": "approved",
+        "submission": "approved"
+      },
+      "complete": true,
+      "validation_errors": 0,
+      "rerun_passed": true,
+      "reviews": 15,
+      "cross_family_reviews": 0,
+      "protocol": "pass",
+      "answer": {
+        "status": "pass",
+        "details": {
+          "rd-effect": {
+            "value": 7.416037727923715,
+            "bounds": [
+              7.216,
+              7.616
+            ],
+            "inside": true
+          },
+          "rd-ci-low": {
+            "value": 4.094414586062043,
+            "bounds": [
+              3.894,
+              4.294
+            ],
+            "inside": true
+          },
+          "rd-ci-high": {
+            "value": 10.925464678576844,
+            "bounds": [
+              10.726,
+              11.126
+            ],
+            "inside": true
+          }
         }
       },
       "manual": "Does the paper claim more than the evidence supports? Judged by the Reviewer and the human."

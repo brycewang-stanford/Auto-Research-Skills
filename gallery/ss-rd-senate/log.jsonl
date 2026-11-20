@@ -131,3 +131,4 @@
 {"time": "2026-11-20T07:40:12Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261120T074012Z (paper-r4 wording)"}
 {"time": "2026-11-20T07:41:25Z", "role": "writer", "action": "paper-r4-revised", "detail": "paper-r4 (last round) addressed: F22, F25-F34 (one-line responses in reviews/paper-r4/review.json); F25 wording in abstract, intro and conclusion; ai-use counts 15 rounds, four paper rounds, three gates decided; recompiled, 12 pages"}
 {"time": "2026-11-20T07:41:40Z", "role": "pi", "action": "gate-request", "detail": "submission"}
+{"time": "2026-11-20T08:23:42Z", "role": "pi", "action": "gate-approve", "detail": "submission Bryce Wang"}
