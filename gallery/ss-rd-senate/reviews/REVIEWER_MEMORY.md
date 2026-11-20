@@ -190,3 +190,19 @@ Suspicions and checks for paper-r3 or the human:
 - Check that the macro-free numbers in the text (0.053, 0.0001, 28.02809) are corrected or macro-based.
 - If the paper is revised again, check that no number changed. The claims were 133 lines and the NOTES count is stale; that is not in the paper.
 - I ran no model or estimate on the study data and computed no statistic of vote. I read run metrics, code, the log, the git history and the rendered PDF pages. I did not open the seed task or any answer key.
+
+## paper-r3 (2026-11-20, verdict revise)
+
+Status of paper-r2 findings: F1 resolved for the phrase cited ('kept it open' is gone), but the bullet heading now reads 'None', which is new F18; F6 resolved (three runs, commits 2dce826, c1c9549, 0a72b72, 87890ae all exist; replication.json fields match); F11 to F15 and F17 resolved; F12 resolved (text counts repeats beyond the first, 0.053; the response's '0.0527' is not what the paper prints, which is fine at three decimals); F16 resolved as of paper-r2 (13 rounds). After this round the ai-use count must become 14 rounds, with paper 3; the Writer must update it.
+
+New open in round 3: F18 (major, ai-use heading 'None' contradicts the PI's design-r1 F4 ruling and the writer's log at 07:07:10Z); F19 (minor, 'within tolerance' applied to b, which the tolerance rule does not test); F20 (minor, H2(a) called primary and also 'equal weight'); F21 (minor, massPoints=False p-value identical to all 16 digits, reported as 'same to three decimals' with no reason); F22 (minor, the pre-gate design-mde also produced the density-difference MDE 0.01136 and the density difference and SE, and Section 6 item 1 does not name the MDE); F23 (minor, Section 6 item 2 omits the code-stage comparator rulings at 05:31Z and 05:37Z, both before the first analysis run at 05:44Z); F24 (minor, REPLICATION.md says 'the result above is attempt 2' while its table is the third run).
+
+Checks run this round, none on outcome data: crew.py validate (passes); all 122 result claims equal their first supporting run's metric (script over claims.jsonl and runs/*/metrics.json, zero mismatches); Holm values recomputed (all 1.000 is correct for those p-values); pp conversions (-6.2, [-14.5, 1.8], 84 percent) recomputed; run timestamps against the log (all analysis runs after the 05:23:23Z design gate; design-mde before it); commit hashes; margin tie counts on data/derived/senate_rd.csv (margin column only: -100 has 2 rows, +100 has 38; no outcome read). I did not run any model or estimate on the study data, computed no statistic of vote, and did not open the seed task or any answer key.
+
+Suspicions and checks for round 4 (the last round):
+- F18: the heading must say one finding was accepted over the Reviewer's objection; check that the bullet and the log agree.
+- F21: check whether the writer gives a reason for the identical massPoints p-value, and whether the reason was checked in the rddensity path, not asserted.
+- F22: check that the MDE (0.01136) and the density-difference SE are disclosed as pre-gate values.
+- F23: check the two comparator rulings and their times in Section 6 item 2.
+- Carried from code and design targets, still minor and open: code-r3 F7 (bw_capped positive branch tested only on forced inputs), F8 (H3 b baseline is the printed 27.984), F9 (static no-vote guard is a substring match). Design-r3 F12/F13 resolved by PI ruling or disclosure.
+- Round 4 is the last. Open after it, for the human: any of F18 to F24 the Writer does not fix; the paper's core limits stay: H1 pass conditional on 'off', the 2016 masspoints setting unverified, falsification tests report-only or underpowered, no state clustering.

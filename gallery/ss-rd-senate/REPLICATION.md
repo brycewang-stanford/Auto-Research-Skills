@@ -2,6 +2,8 @@
 
 ## Outcome of the clean rerun (2026-11-20)
 
+Table below: the third run (crew.py commit 87890ae, `replication.json` created 07:16:07Z).
+
 `crew.py rerun` **PASSED**: 15 of 15 runs reproduced, in a fresh environment built from
 `code/requirements.txt` alone (27 pinned packages, Python 3.12.11). `replication.json` has
 `passed: true` and is newer than every run. The run record is in `replication.json`.
@@ -41,7 +43,7 @@ and a metric that is NaN in both runs counts as reproduced. A test was added. Th
 disclosed the fix in `plan.json`.
 
 **Attempt 2 (passed, 15 of 15).** The same procedure, unchanged analysis code and tolerances,
-on the fixed tool. The result above is attempt 2. `replication.json` was overwritten by it;
+on the fixed tool. The table in the outcome section is the third run (see the third-run paragraph below, commit 87890ae; `replication.json` created 07:16:07Z). Attempt 2's `replication.json` was overwritten by the third run;
 attempt 1's record is preserved in git history at commit `2dce826`.
 
 **Third run (passed, 15 of 15), same procedure.** Repeated after crew.py commit 87890ae,

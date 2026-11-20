@@ -9,18 +9,14 @@ gates and takes responsibility for its content.
   \item \textbf{Roles and models.} Every role subagent ran on Claude Haiku 5.5
         (\texttt{claude-haiku-5-5}): Scout, Data RA, Designer, Econometrician, Figures RA,
         Writer and Replicator, and the Reviewer. The PI session ran on Claude Opus 5.5.
-  \item \textbf{Review.} The Reviewer agent ran 13 rounds: question (2 rounds, block then
+  \item \textbf{Review.} The Reviewer agent ran 14 rounds: question (2 rounds, block then
         revise), design (3: revise, revise, pass), code (3: pass, revise, pass), results
-        (3: revise, revise, pass) and paper (2: revise, revise). Every round was
+        (3: revise, revise, pass) and paper (3: revise, revise, revise). Every round was
         fresh-context. The Reviewer ran on the same model family as the authoring agents,
         so the independence level is fresh-context, not cross-family. The paper stage has
-        been reviewed twice, and neither round passed. The reviews and the Reviewer's memory
-        are in \texttt{reviews/}.
-  \item \textbf{Findings accepted over the Reviewer's objection.} None. One major finding
-        (design-r1 F4, on the pre-gate computations in \texttt{design-mde}) was raised at
-        design-r1. The PI ruled that it stands with the disclosure in Section 6 of the
-        paper. The Reviewer withdrew it at design-r2 and again at design-r3, stating that it
-        was withdrawn on the PI's ruling and that the Reviewer does not override that ruling.
+        been reviewed three times, and none of the three rounds passed. The reviews and the
+        Reviewer's memory are in \texttt{reviews/}.
+  \item \textbf{Findings accepted over the Reviewer: one.} design-r1 F4 (pre-gate computations in \texttt{design-mde}), kept by the PI's ruling with a disclosure, withdrawn by the Reviewer at design-r2 and design-r3, and shown to the human at the design gate.
   \item \textbf{Clean reruns.} Three clean reruns, each from an environment built from
         \texttt{code/}\allowbreak\texttt{requirements.txt} alone. The first reproduced 7 of 15 runs; its
         failures came from the rerun tool (it omitted \texttt{runs/} and counted a NaN in
