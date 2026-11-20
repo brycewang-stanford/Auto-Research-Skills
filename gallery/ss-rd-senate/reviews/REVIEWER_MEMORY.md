@@ -108,3 +108,18 @@ Suspicions and checks for the results stage:
 - H2(c): check that bw_capped is reported only as recorded (F7) and that no non-rejection wording appears.
 - H2(d): check that h2-selection ran after the gate and used vote_observed as its only input.
 - Paper: the pre-gate design-mde disclosure, the local-estimand and no-state-clustering caveats, and the H2(b) setting statement must appear in the text.
+
+## results-r1 (2026-11-20, verdict revise)
+
+Open findings: F1 (major, rd-density-diff labelled 'left minus right' but the value is right minus left; rddensity diff = b[3]-b[2]; hat_right minus hat_left = -0.00355); F2 (major, H2(a) density MDE 0.01136 is in a data-prep run only and in no claim; N and side counts unclaimed); F3 (major, H2(d) robust interval -14.5 to 1.8 pp not claimed and not linked to H1; point estimate about 53 percent of its 11.6 pp MDE); F4 (minor, H2(c) bandwidths, bw_max and CI widths not claimed); F5 (minor, density robust p 0.381 vs conventional 0.099, both to be reported with equal weight); F6 (minor, the 0.0005 printed-match rule is in code, not in the plan; 'adjust' fails for class and termssenate); F7 (minor, bw_capped claims rest on a flag whose positive branch is untested; code-r3 F7 still open).
+
+Checks run this round, none that estimate anything new: crew.py validate (passed); read claims.jsonl, paper/numbers.tex, all run metrics and run records, the analysis scripts, and the rddensity diff construction in the installed source; confirmed the h2-selection run (05:44:42Z) came after the design gate (05:23:23Z); confirmed the claim values equal their runs. Pre-gate design-mde computations are disclosed in plan.json and are not counted as results. I did not run any model or estimate, and I did not open the seed task or any answer key.
+
+Suspicions and checks for round 2 (after the author responds):
+- F1: the claim text and paper/numbers.tex must say right minus left; check that the H2(a) sentence in the paper matches the sign.
+- F2: check whether an analysis run records the density MDE (or a claim carries it); a value typed in the paper is not acceptable.
+- F3: check that the H1 discussion carries the H2(d) interval and does not call H1 selection-free; check whether the interval is claimed.
+- F5: check that the paper gives robust and conventional density p-values together.
+- F6: check that the paper states the printed-match rule and the two 'adjust' mismatches.
+- F7: check that the paper says bw_capped reads 0 and that the positive branch was not observed.
+- Paper stage (later): the pre-gate disclosure, the local-estimand caveat and the no-state-clustering caveat must appear in the text.

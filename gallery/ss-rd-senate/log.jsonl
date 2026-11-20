@@ -67,3 +67,7 @@
 {"time": "2026-11-20T05:46:33Z", "role": "econometrician", "action": "code-r3-responses", "detail": "F7 NOTES rewritten; F8 H1 off b recorded next to printed 27.984; F9 open"}
 {"time": "2026-11-20T05:46:33Z", "role": "econometrician", "action": "claims-written", "detail": "95 result claims from run metrics; crew.py numbers wrote paper/numbers.tex (95 macros)"}
 {"time": "2026-11-20T05:46:33Z", "role": "econometrician", "action": "phase2-analysis", "detail": "h1-rdrobust, h2-density, h2-covariates, h2-placebo, h2-selection, h3-sensitivity run in plan order; no failures; H1 off passes all five tolerance flags"}
+{"time": "2026-11-20T05:46:44Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T054644Z (results-r1)"}
+{"time": "2026-11-20T05:50:20Z", "role": "pi", "action": "disclosure-added", "detail": "results-r1 F2, F6. plan.json sha256=726f33964ecd5b21968b161a4e207bd8ecbdf5d1176214fb176911ebf54f91fc"}
+{"time": "2026-11-20T05:50:20Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T055020Z (results-r1)"}
+{"time": "2026-11-20T05:51:05Z", "role": "econometrician", "action": "results-r1-fixes", "detail": "density diff sign corrected; N and side counts, selection CI, placebo bw/bw_max/CI width claims added; both density p-values with equal weight; adjust mismatches and bw_capped wording in NOTES; no estimation run"}
