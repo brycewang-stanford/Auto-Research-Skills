@@ -54,7 +54,7 @@
       "status": "open",
       "text": "(results-r1 F2) The density MDE that H2(a) uses for interpretation (0.01136 density units) is in no claim and no analysis run. It exists only in runs/design-mde, a data-prep run, which PROTOCOL.md does not allow to support a result claim. The paper would therefore state it as a typed number. runs/NOTES.md ('Other surprises') says the paper takes the MDE from runs/design-mde/metrics.json and the NOTES. That is the same gap: a number in the paper with no macro and no analysis run behind it.",
       "evidence": "runs/design-mde/metrics.json (h2a MDE); runs/h2-density/metrics.json has sd_jk_diff 0.0040538 but no MDE field; claims.jsonl has no density MDE claim; runs/NOTES.md 'Other surprises and points for the paper', bullet 4; PROTOCOL.md 'A result claim needs at least one successful analysis run' and 'Whether a number written by hand in the paper matches a run. Use macros.'",
-      "response": "PI: the MDEs are design constants from run design-mde, recorded in plan.json (new disclosure); the paper cites them as such. Econometrician: added rd-density-n, rd-density-n-left, rd-density-n-right from h2-density; the MDE stays a design constant cited from plan.json, not a result claim.",
+      "response": "PI: the MDEs are design constants from run design-mde, recorded in plan.json (new disclosure); the paper cites them as such. Econometrician: added rd-density-n, rd-density-n-left, rd-density-n-right from h2-density; the MDE stays a design constant cited from plan.json, not a result claim. | Econometrician: mde_density added to h2_density.py and h2-density rerun with --replace; every earlier metric unchanged; rd-density-mde claims 0.01136 from the analysis run.",
       "ruling": "Rebuttal wrong. A design constant that the paper uses to read a null is still a number the paper must print, and the protocol's only route for printed numbers is a macro tied to a run. The N claims resolve the N part. Cheapest remedy: have h2_density.py record mde_density = (z_0.975 + z_0.80) * sd_jk_diff (value 0.01136 expected) and add a claim on it; this is an analysis-run record, so re-running it with --replace after the gate is allowed. Keep the design-mde value as the check that it reproduces."
     },
     {
@@ -108,7 +108,7 @@
       "status": "open",
       "text": "Units trap on the H2(d) selection claims. rd-selection-coef, rd-selection-ci-low and rd-selection-ci-high are on the proportion scale (macros -0.062, -0.145, 0.018, format .3f), while their text, the NOTES and the plan speak in percentage points (-6.2 pp, -14.5 pp, 1.8 pp). rd-selection-mde is in pp (11.6). The H1 discussion must carry the interval, and a sentence written from \\RdSelectionCiLow reads 100 times too small. This is the number the paper most needs to get right.",
       "evidence": "paper/numbers.tex \\RdSelectionCoef{-0.062}, \\RdSelectionCiLow{-0.145}, \\RdSelectionCiHigh{0.018}, \\RdSelectionMde{11.6}; claims.jsonl formats .3f for the three proportion claims; code/h2_selection.py lines 42-45 (coef, ci_low, ci_high not multiplied by 100) versus line 52 (mde_pp multiplied by 100).",
-      "response": "",
+      "response": "Fixed in claims and NOTES: rd-selection-coef, -ci-low and -ci-high say proportion scale (multiply by 100 for pp); h2_selection.py unchanged; rd-selection-mde is already pp.",
       "ruling": "Open. Cheapest remedy: have h2_selection.py also record coef_pp, ci_low_pp and ci_high_pp (100 times the proportion values), re-run with --replace after the gate, and point the three claims at the pp metrics. Or, if the proportion is kept, every claim text and the paper must say 'proportion scale' beside each macro, and the macros must not be used in a pp sentence."
     },
     {
@@ -117,7 +117,7 @@
       "status": "open",
       "text": "The H2(c) placebo p-values are recorded in the run but not claimed. The design lists p-value among the report-only quantities (estimate, CI, p-value, N, bandwidth). The paper therefore has no traceable p-value for the placebos, and a reader will look for one: left 0.883, right 0.999.",
       "evidence": "design.method H2(c) ('reported as estimate, CI, p-value, N and bandwidth'); runs/h2-placebo/metrics.json left_p_robust 0.8832, right_p_robust 0.9991; claims.jsonl has no rd-placebo-*-p claim.",
-      "response": "",
+      "response": "Fixed: rd-placebo-left-p (0.883) and rd-placebo-right-p (0.999) are report-only claims with no non-rejection sentence.",
       "ruling": "Open, minor. Add report-only claims for the two p-values, worded as in the other placebo claims, with no non-rejection sentence attached. This is the same report-only rule as the CI."
     },
     {
@@ -126,7 +126,7 @@
       "status": "open",
       "text": "The printed bandwidths do discriminate the two settings, and no claim says so. Under 'off', h = 17.70803 and b = 27.98412 agree with the printed 17.708 and 27.984. Under 'adjust', h = 17.75440 misses by 0.046 (the design's 0.0005 tolerance fails) and b = 28.02809 misses by 0.044. 'adjust' passes the estimate, CI and N tolerances, so the h check is the only one that separates them. The plan says the choice 'is not fixed by agreement with the printed numbers', which is true of the decision rule but understates what the run shows. The paper needs the printed-bandwidth comparison under both settings, stated as evidence and not proof, since the 2016 algorithm is unverified. The tolerance rule also never tests b, so the b match is recorded but not decided.",
       "evidence": "runs/h1-rdrobust/metrics.json off_h_left 17.708030, adj_h_left 17.754398, off_b_left 27.984123, adj_b_left 28.028089; plan.json design.method ('The choice is not fixed by agreement with the printed numbers'); code/h1_replication.py tolerance_flags covers conv, CI, N and h, not b; claims.jsonl rd-b text says 'compare with the printed 27.984' with no difference stated.",
-      "response": "",
+      "response": "Fixed: rd-h1-diff-h-off, rd-h1-b-off, rd-h1-h-adj and rd-h1-b-adj added as evidence (not a tolerance decision); the decision stays on off.",
       "ruling": "Open, minor. Cheapest remedy: add claims for the h and b differences from the printed values under both settings, labelled as evidence that bears on the 2016 default and not as a tolerance decision. Keep the pre-registered decision on 'off'."
     },
     {
@@ -135,7 +135,7 @@
       "status": "open",
       "text": "The sign of the H2(d) coefficient is not in the claim text. The NOTES say it is right minus left (the observed share is about 6 pp lower on the Democratic-win side), but rd-selection-coef says only 'estimated discontinuity'. A reader of the claim cannot tell the direction, which matters because the threat to H1 is one-sided.",
       "evidence": "claims.jsonl rd-selection-coef text; runs/NOTES.md 'H2(d) selection' bullet; code/h2_selection.py line 42 uses the conventional rdrobust coefficient, which is right minus left.",
-      "response": "",
+      "response": "Fixed: rd-selection-coef text states right minus left, so negative means a lower observed share on the Democratic-win side.",
       "ruling": "Open, minor. Add 'right minus left, so negative means a lower observed share on the Democratic-win side' to the claim text."
     }
   ]
