@@ -5,11 +5,13 @@ maintainer posts by hand. See the schedule in [`ROADMAP.md`](../../ROADMAP.md#3-
 
 | File | For | Status |
 |---|---|---|
-| [`post-zh.md`](post-zh.md) | Zhihu and WeChat long-form | draft |
-| [`post-x.md`](post-x.md) | X thread | draft |
-| [`show-hn.md`](show-hn.md) | Show HN title and first comment | draft |
-| `post-xhs.md` | Xiaohongshu note and video script | planned |
-| [`report/`](report/) | technical-report draft | sections 1–4 written; results pending |
+| [`post-zh.md`](post-zh.md) | Zhihu and WeChat long-form | final |
+| [`post-x.md`](post-x.md) | X thread | final |
+| [`show-hn.md`](show-hn.md) | Show HN title and first comment | final |
+| [`post-xhs.md`](post-xhs.md) | Xiaohongshu note and video script | final |
+| [`release-v0.5.md`](release-v0.5.md) | GitHub release notes | published |
+| `video/` | demo video | in progress |
+| [`report/`](report/) | technical-report draft | results written; related work pending |
 
-Post only after the gallery papers pass their submission gates, and check every number
-against `gallery/scoreboard.json`.
+All six gallery papers have passed their submission gates. Check every number against
+`gallery/scoreboard.json` and `gallery/usage.json` before posting.

@@ -1,6 +1,6 @@
 # Show HN draft
 
-> Status: draft, ready to post: all six gallery papers have passed their submission gates. Check numbers against `gallery/scoreboard.json`.
+> Status: final, ready to post: all six gallery papers have passed their submission gates. Check numbers against `gallery/scoreboard.json`.
 
 **Title:** Show HN: Free-Research-Crew – AI research assistants with a reviewer that never lets up
 
