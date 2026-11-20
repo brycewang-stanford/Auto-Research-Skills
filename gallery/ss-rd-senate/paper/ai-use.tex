@@ -9,24 +9,37 @@ gates and takes responsibility for its content.
   \item \textbf{Roles and models.} Every role subagent ran on Claude Haiku 5.5
         (\texttt{claude-haiku-5-5}): Scout, Data RA, Designer, Econometrician, Figures RA,
         Writer and Replicator, and the Reviewer. The PI session ran on Claude Opus 5.5.
-  \item \textbf{Review.} The Reviewer agent ran 11 rounds: question (2 rounds, block then
-        revise), design (3: revise, revise, pass), code (3: pass, revise, pass) and results
-        (3: revise, revise, pass). Every round was fresh-context. The Reviewer ran on the
-        same model family as the authoring agents, so the independence level is
-        fresh-context, not cross-family. The paper stage has not yet been reviewed. The
-        reviews and the Reviewer's memory are in \texttt{reviews/}.
-  \item \textbf{Findings accepted over the Reviewer's objection.} None. One major finding (design-r1 F4, on the pre-gate computations in \texttt{design-mde}) was withdrawn by the Reviewer after the PI's ruling: the Reviewer raised it at design-r1, kept it open at design-r2, and withdrew it at design-r2 and design-r3, stating that it was withdrawn on the PI's ruling and that the Reviewer does not override that ruling. The PI's ruling is disclosed in Section 6 of the paper.
-  \item \textbf{Clean rerun.} Passed: 15 of 15 runs reproduced in a fresh environment built from
-        \texttt{code/requirements.txt} alone. Each run record gives Python 3.12.11. The \texttt{env} field of
-        \texttt{replication.json} records Python 3.14.6, the interpreter that ran \texttt{crew.py}, and does not describe
-        the rerun environment. The first attempt reproduced 7 of 15. The PI session then fixed the rerun tool (commit
-        \texttt{0a72b72}, which creates run folders and treats a NaN in both runs as equal); the NaN rule widens the
-        comparator only for such metrics. No analysis code, data or tolerance was changed. The first attempt's record is
-        in git history at commit \texttt{2dce826}. The submission gate requires this passing rerun to be newer than every run.
+  \item \textbf{Review.} The Reviewer agent ran 13 rounds: question (2 rounds, block then
+        revise), design (3: revise, revise, pass), code (3: pass, revise, pass), results
+        (3: revise, revise, pass) and paper (2: revise, revise). Every round was
+        fresh-context. The Reviewer ran on the same model family as the authoring agents,
+        so the independence level is fresh-context, not cross-family. The paper stage has
+        been reviewed twice, and neither round passed. The reviews and the Reviewer's memory
+        are in \texttt{reviews/}.
+  \item \textbf{Findings accepted over the Reviewer's objection.} None. One major finding
+        (design-r1 F4, on the pre-gate computations in \texttt{design-mde}) was raised at
+        design-r1. The PI ruled that it stands with the disclosure in Section 6 of the
+        paper. The Reviewer withdrew it at design-r2 and again at design-r3, stating that it
+        was withdrawn on the PI's ruling and that the Reviewer does not override that ruling.
+  \item \textbf{Clean reruns.} Three clean reruns, each from an environment built from
+        \texttt{code/}\allowbreak\texttt{requirements.txt} alone. The first reproduced 7 of 15 runs; its
+        failures came from the rerun tool (it omitted \texttt{runs/} and counted a NaN in
+        both runs as a mismatch), and the PI session fixed the tool (commit \texttt{0a72b72}).
+        The second reproduced 15 of 15 (commit \texttt{c1c9549}), but its
+        \texttt{replication.json} recorded the interpreter that ran \texttt{crew.py}
+        (Python 3.14.6) at the top level. The PI session then changed the tool (commit
+        \texttt{87890ae}) to record each run's interpreter and label the top-level value
+        \texttt{crew\_python}. The third reproduced 15 of 15, and every run entry records
+        Python 3.12.11. The third run's \texttt{replication.json} is the record the
+        submission gate reads. No analysis code, data or tolerance changed. The earlier
+        records are in git history, and \texttt{REPLICATION.md} describes all three runs.
   \item \textbf{Briefs.} The role briefs are archived in \texttt{briefs/}.
   \item \textbf{Evidence.} Every reported number is generated from a logged run through
-        the macro file \texttt{numbers.tex}. Every citation was checked against its source: four from
-        the full text, and Eggers et al. (2015) from its abstract only. The full workspace is
+        the macro file \texttt{numbers.tex}. Every citation was checked against its source:
+        four from the full text, and Eggers et al. (2015) from its abstract only. The full
+        text of Cattaneo, Frandsen and Titiunik (2015) was read from a third-party mirror on
+        GitHub (nbviewer). Its printed title, authors and DOI match the publisher record,
+        and \texttt{sources/sources.json} records the DOI. The full workspace is
         \texttt{gallery/ss-rd-senate} in the Auto-Research-Skills repository; the public URL
         is to be added at release.
 \end{itemize}

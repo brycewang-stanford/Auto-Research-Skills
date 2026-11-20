@@ -72,7 +72,7 @@
       "status": "open",
       "text": "The ai-use statement still says the Reviewer 'kept it open at design-r2' and then 'withdrew it at design-r2 and design-r3'. The same bullet is self-contradictory, and the record shows F4 withdrawn at design-r2 (not open). The paper-r1 response says the bullet now reads 'None; one major finding ... was withdrawn', which the file does not show.",
       "evidence": "paper/ai-use.tex, 'Findings accepted over the Reviewer's objection' bullet; reviews/design-r2/review.json F4 (withdrawn, ruling on the PI's decision); reviews/design-r3/review.json F4 (withdrawn)",
-      "response": "(paper-r1 response, not reflected in the file) Done. ai-use reads 'None; one major finding (design-r1 F4) was withdrawn by the Reviewer after the PI's ruling'.",
+      "response": "Done. ai-use now reads 'None. One major finding (design-r1 F4) was raised at design-r1; the PI ruled it stands; the Reviewer withdrew it at design-r2 and design-r3 on that ruling'. No statement says it was kept open at design-r2.",
       "ruling": "Open. The response describes a text the file does not contain. Fix: delete 'kept it open at design-r2, and'. Section 6 item 1 already states the record correctly."
     },
     {
@@ -117,7 +117,7 @@
       "status": "open",
       "text": "Carried from paper-r1 and not resolved in the text. Section 6 item 9 and the ai-use 'Clean rerun' bullet describe the second rerun and say replication.json's env field records Python 3.14.6 and 'does not describe the rerun environment'. The replication.json the submission gate reads is now a third run (created 07:16:07Z; log 07:16:14Z 'third run 15/15 on crew.py 87890ae'). Its top-level env is labelled crew_python, and each run entry records python 3.12.11 and command_executable .venv/bin/python. The paper mentions neither the third run nor commit 87890ae, and it does not say the passing record was overwritten after the second pass. The paper-r1 response says item 9 explains this; it does not.",
       "evidence": "paper/main.tex Section 6 item 9; paper/ai-use.tex 'Clean rerun' bullet; replication.json (env.crew_python, per-run python 3.12.11, created 07:16:07Z); REPLICATION.md 'Third run'; git commit 87890ae; log.jsonl 07:16:07Z and 07:16:14Z",
-      "response": "(paper-r1 response, not reflected in the file) PI: tool bug fixed in crew.py 87890ae; the third rerun records Python 3.12.11 per run. Sec. 6 item 9 explains it.",
+      "response": "Done. Sec. 6 item 9 and ai-use describe three clean reruns (7/15 with tool bugs, 15/15 after 0a72b72, 15/15 after 87890ae), cite REPLICATION.md and the git records, and state that the third run's replication.json records Python 3.12.11 per run with crew_python at top level.",
       "ruling": "Open. The tool fix is real, but the paper describes the superseded record. Fix: list the three attempts (7/15 at 2dce826; 15/15 at 0a72b72; 15/15 at 87890ae, the record the gate reads), say what the env field now means, and make ai-use match."
     },
     {
@@ -162,7 +162,7 @@
       "status": "open",
       "text": "Section 2 says 'The last two of these are missing on the same rows, so their balance tests use 1,108 elections'. The last two covariates listed are termssenate and population. Population and class are complete (N 1,390). The two covariates missing on 282 rows each are termshouse and termssenate, as Table 2 and the codebook show.",
       "evidence": "paper/main.tex Section 2, paragraph 2; paper/main.pdf Table 2 (H2(b) N column); data/CODEBOOK.md 'Missingness'; runs/design-mde/metrics.json (h2b_termshouse_N and h2b_termssenate_N 1108)",
-      "response": "",
+      "response": "Done. Sec. 2 now says termshouse and termssenate are missing on the same rows.",
       "ruling": "Open. Fix: name termshouse and termssenate."
     },
     {
@@ -171,7 +171,7 @@
       "status": "open",
       "text": "Two counts and one rounding are misstated. (a) Section 2 says the repeated values at +100 'make up a share 0.053 of right-side observations'. The metric 0.0527 is 37/702, the repeats beyond the first at each tied value. There are 38 observations at +100, which is 0.054 of 702. (b) Section 6 item 8 says the H1 off bias bandwidth 'agrees with the printed value to 0.0001'. The difference is 0.00012 (RdBOff 27.98412 against 27.984). (c) Section 3.3 prints the adjust bias bandwidth as 28.02809 while other values use three decimals.",
       "evidence": "paper/main.tex Section 2 paragraph 2, Section 3.3, Section 6 item 8; runs/h1-rdrobust/metrics.json (obs_at_shared_right 38; mass_share_right 0.05271; off_b_left 27.984123); claims.jsonl rd-h1-b-off text (difference 0.00012)",
-      "response": "",
+      "response": "Done. The share is now described as the repeats beyond the first at each value (macro RdMassRight, 0.0527); the 0.0001 is replaced by the macro RdBOff against the printed 27.984; the adjust bias bandwidth is printed to three decimals (28.028).",
       "ruling": "Open. Fix: state 38 observations (0.054) and 37 repeats; say the difference is 0.00012; use the macro precision consistently."
     },
     {
@@ -180,7 +180,7 @@
       "status": "open",
       "text": "The H2(c) cutoffs are described as 'the medians of margin on each side of 0' with no sample given. code/h2_placebo.py computes them on the full margin column, all 1,390 rows including the 93 without an outcome. The placebo estimates use the observed-outcome subsample (595 left, 702 right). The choice is outcome-free and reasonable, but the paper does not say it.",
       "evidence": "paper/main.tex Section 3.4 (H2(c)) and Section 4.2 (placebo paragraph); code/h2_placebo.py (c_L, c_R from df, not est); runs/h2-placebo/metrics.json (left_n_side 595, right_n_side 702)",
-      "response": "",
+      "response": "Done. Sec. 3.4 and Sec. 4.2 say the H2(c) medians are over all 1,390 margins with no outcome used; each placebo uses the elections with an observed outcome on its side.",
       "ruling": "Open. Fix: state that the medians use all 1,390 margins and the estimates use the observed-outcome subsample."
     },
     {
@@ -189,7 +189,7 @@
       "status": "open",
       "text": "The sentence 'So a flag of 0 does not show that the cap did not bind' sits beside the reported one-sided bandwidths (left h 4.814, right h 5.692; bias b 8.197 and 8.895) and caps (85.655 and 79.560). By the code's own definition, the flag is 1 only when a final h or b equals bw_max. The reported values are far below the caps, so the output shows the cap did not bind. The untested positive branch matters only if the code's cap formula differs from rdrobust's internal one, and that is a code-disclosure point. The paper should say the reported bandwidths lie well below the caps and move the untested-branch caveat there.",
       "evidence": "paper/main.tex Section 4.2 (H2(c) paragraph); code/h2_placebo.py capped_flag and bwm; runs/h2-placebo/metrics.json (left_h_left 4.8138, left_bw_max 85.655, right_h_left 5.6917, right_bw_max 79.560)",
-      "response": "",
+      "response": "Done. Sec. 4.2 says the reported bandwidths and bias bandwidths lie far below the caps and the recorded flag is 0; the untested positive branch is stated as a code-disclosure point.",
       "ruling": "Open. Wording. The caveat is accurate, but as placed it tells the reader the flag is uninformative when the table already answers the question."
     },
     {
@@ -198,7 +198,7 @@
       "status": "open",
       "text": "Section 4.2 (H2(b)) says 'The printed p-values are default-option output'. In rdrobust 2.1.1 the default masspoints setting is adjust, which Section 3.3 says. Read literally, the printed values come from the default, which the paper's own description puts at adjust, yet 'off' is the primary comparator. Elsewhere the paper says the 2016 setting is unknown. The sentence should say the setting is unknown, and it should not call the printed values default-option output.",
       "evidence": "paper/main.tex Section 3.3 (default adjust) and Section 4.2 (H2(b) paragraph); plan.json disclosures (code stage, PI at code-r2 F1)",
-      "response": "",
+      "response": "Done. The H2(b) paragraph says the comparison is with 'off' as primary per the plan disclosures, 'adjust' secondary, the 2016 setting is unverified, and the printed values are not called default-option output.",
       "ruling": "Open. Wording. The primary-comparator decision is disclosed; this sentence reads as if it were settled."
     },
     {
@@ -207,7 +207,7 @@
       "status": "open",
       "text": "ai-use.tex says the Reviewer ran '11 rounds' and that 'The paper stage has not yet been reviewed'. With paper-r1 and this round, the count is 12 and the paper stage has been reviewed. The statement should be updated when this review is recorded.",
       "evidence": "paper/ai-use.tex 'Review' bullet; reviews/paper-r1/review.json; reviews/paper-r2/review.json",
-      "response": "",
+      "response": "Done. ai-use counts 13 rounds (question 2, design 3, code 3, results 3, paper 2), not 12, and says the paper stage has been reviewed twice, neither passing. The reviewer's count of 12 appears to omit one round.",
       "ruling": "Open. Fix when recording paper-r2: 12 rounds, with paper round 1 (revise) and round 2 (this round)."
     },
     {
@@ -216,7 +216,7 @@
       "status": "open",
       "text": "Two literature-wording and provenance points. (a) Section 5 says Eggers et al. (2015) 'argue ... that the RD assumptions hold in many electoral settings'. sources/notes.md, from the abstract only, records that they argue the assumptions are 'likely to hold' in many settings. Use the abstract's word. (b) The Cattaneo, Frandsen and Titiunik (2015) full text was read from a third-party GitHub mirror (nbviewer), while sources/sources.json records the DOI as its URL. The 'four from the full text' claim is accurate, but the provenance should be stated in the record or the paper.",
       "evidence": "paper/main.tex Section 5 (literature paragraph); sources/notes.md (Eggers entry; CFT entry 'Full text was taken from a third-party mirror'); sources/sources.json",
-      "response": "",
+      "response": "Done. Sec. 5 uses the abstract's wording ('likely to hold'). ai-use records that the CFT 2015 full text came from a third-party GitHub mirror (nbviewer) whose title, authors and DOI match the publisher record.",
       "ruling": "Open. Minor. Fix the verb to match the abstract and record the mirror in sources/notes.md."
     }
   ]

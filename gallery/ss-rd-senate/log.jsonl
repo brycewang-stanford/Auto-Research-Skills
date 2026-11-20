@@ -112,3 +112,5 @@
 {"time": "2026-11-20T07:16:14Z", "role": "replicator", "action": "rerun-passed", "detail": "third run 15/15 on crew.py 87890ae; per-run python 3.12.11"}
 {"time": "2026-11-20T07:16:58Z", "role": "writer", "action": "paper-r1-revised", "detail": "paper-r1 revise addressed: F1-F5, F7-F10 (responses in reviews/paper-r1/review.json); F6 is the tool's record, explained in Sec. 6 item 9; recompiled clean, 11 pages"}
 {"time": "2026-11-20T07:17:17Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T071717Z (paper-r2)"}
+{"time": "2026-11-20T07:22:45Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261120T072245Z (paper-r2)"}
+{"time": "2026-11-20T07:24:46Z", "role": "writer", "action": "paper-r2-revised", "detail": "paper-r2 revise addressed: F1, F6, F11-F17 (one-line responses in reviews/paper-r2/review.json); clean-rerun history and review count updated; recompiled, 11 pages"}
