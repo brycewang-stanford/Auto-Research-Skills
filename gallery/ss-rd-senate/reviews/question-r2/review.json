@@ -1,0 +1,147 @@
+{
+  "id": "question-r2",
+  "target": "question",
+  "round": 2,
+  "created": "2026-11-20T04:02:12Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "plan.json",
+    "crew.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "data/CODEBOOK.md",
+    "log.jsonl",
+    ".gitignore",
+    "code/requirements.txt",
+    "code/fetch_data.py",
+    "code/prepare_data.py",
+    "runs/fetch-data/run.json",
+    "runs/fetch-data/metrics.json",
+    "runs/prepare-data/run.json",
+    "runs/prepare-data/metrics.json",
+    "data/raw/rdrobust_senate.csv",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r1/review.json",
+    ".venv/lib/python3.12/site-packages/rdrobust/rdrobust.py",
+    "/private/tmp/claude-501/-Users-brycewang-Auto-Research-Skills/ffa26d1a-3847-4b9f-922a-ae897a37d092/scratchpad/senate-reviewer2/ccft2017.txt",
+    "/private/tmp/claude-501/-Users-brycewang-Auto-Research-Skills/ffa26d1a-3847-4b9f-922a-ae897a37d092/scratchpad/senate-reviewer2/cft2015.txt"
+  ],
+  "kill_argument": "This replicates an estimate that CCFT (2017, Sec. 7.2) already prints with its full specification, on a file CFT (2015) already analysed, using the same authors' software. The crew adds a pinned environment and a sensitivity table, and neither is a finding about Senate incumbency. H1 passes or fails on rdrobust 2.1.1, not on the 2016 release that printed the numbers. The plan asserts that the defaults agree and never checks the one default, mass-point handling in the NN variance, that changes output when the running variable has ties. The data file is hashed and row-counted, but its match to the Stata file CCFT used is not checked against any printed moment. The falsification plan is the weakest part. H2(c) places placebo cutoffs on the full sample, so the true jump at zero sits inside the window and a placebo estimate is partly the real one. H2 reports non-rejection with no equivalence margin or minimum detectable effect, so 'no evidence of a discontinuity' is consistent with a large one. What survives is a logged reproduction whose failure modes are not yet stated. I attacked the printed targets (they match the fetched text), the version pin and the file hash (both hold), and the novelty claim (conceded by the narrowed question).",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "conceded",
+      "text": "The question was already answered in the literature: the headline estimate and the McCrary and covariate-balance checks on the same file are published in CCFT (2017) Sec. 7.2 and CFT (2015).",
+      "evidence": "plan.json question and contribution; sources/notes.md section 5",
+      "response": "PI: claim narrowed to a replication with a pinned version and a descriptive sensitivity (H3); the question says the estimate and checks are already published and no new finding is claimed.",
+      "ruling": "Conceded. The question now says it is a replication and claims no new finding, which is the narrowing round 1 required, so the critical no longer applies. The remaining question of what the paper is for is carried in F12."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H1 named a target the source does not print (a bias-corrected point estimate).",
+      "evidence": "plan.json hypotheses[0]",
+      "response": "PI: H1 targets are now the printed conventional estimate 7.416 and the robust CI [4.094, 10.926], N and h.",
+      "ruling": "Resolved. I checked the fetched CCFT 2017 text (p. 392 output): conventional 7.416, SE 1.4604; robust row shows CI [4.09441, 10.9255] with no bias-corrected point; N = 1,297; h = 17.708. H1 names these exactly."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H1 was true by construction, the rdrobust release was unpinned, and the tolerance rule was missing.",
+      "evidence": "plan.json hypotheses[0]; code/requirements.txt",
+      "response": "PI: H1 restated as a computational reproduction with the version pinned and the tolerance fixed now (0.01 pp; N exact); a pass is reported as a computational check.",
+      "ruling": "Resolved for the pin, the tolerance and the reclassification. code/requirements.txt pins rdrobust==2.1.1 and the installed package matches. The residual question of whether 2.1.1 defaults equal the 2016 defaults is a new finding, F7."
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "open",
+      "text": "H2 still gives non-rejection no content. It says non-rejection is 'no evidence of a discontinuity at the stated precision', but no precision is stated: there is no equivalence margin and no minimum detectable effect. The density test's sample is not stated either (margin has no missing values, so N = 1,390 is implied, not written). The density statistic is called a 'robust p-value' without naming it.",
+      "evidence": "plan.json hypotheses[1] (a) and closing clause",
+      "response": "PI: deferred to the design stage by an explicit requirement now in H2: MDE or equivalence bound per test, and the density test's sample and statistic, fixed before any outcome analysis.",
+      "ruling": "Stays open. The response names the tests and disclaims proof, which fixes the naming issue, but it does not supply the equivalence margin or the minimum detectable effect that gives non-rejection content, which was the request. The phrase 'the stated precision' refers to nothing. Required before the design gate: a stated MDE or equivalence bound for each test, the density statistic named, and N stated."
+    },
+    {
+      "id": "F5",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The data file was not in the manifest, with no origin, licence, retrieval date or hash.",
+      "evidence": "data/manifest.json; data/CODEBOOK.md",
+      "response": "PI: Data RA task dr-fetch added and launched (data-prep only, no outcome statistic by side).",
+      "ruling": "Resolved as to the manifest. The entry has origin, a licence note ('no explicit licence stated'), retrieval date and sha256. I recomputed the hash of data/raw/rdrobust_senate.csv and it matches def1fc6b...2ad44; 1,390 rows. The CSV's fidelity to the .dta that CCFT used is a new finding, F8."
+    },
+    {
+      "id": "F6",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The falsification covariate set (four covariates in the seed file) differs from the eight-covariate balance test in CFT (2015), so the balance results were not comparable.",
+      "evidence": "plan.json hypotheses[1] (b)",
+      "response": "PI: H2(b) uses the four seed covariates explicitly and says they are not compared one-to-one with CFT (2015).",
+      "ruling": "Resolved. H2(b) names the four covariates and disclaims the one-to-one comparison. The four balance p-values (0.897, 0.561, 0.901, 0.634) are printed in CCFT 2017 Sec. 7.4 (lines 1204 to 1207 of the fetched text), so H2(b) largely repeats a published output. The question already says so."
+    },
+    {
+      "id": "F7",
+      "severity": "major",
+      "status": "open",
+      "text": "The H1 target is a property of rdrobust 2.1.1, not of the 2016 release that printed the numbers, and the plan asserts the two agree on 'published defaults' without checking. The installed 2.1.1 defaults include masspoints='adjust' and covs_drop=True; CCFT (2017) Sec. 6 says the NN variance is identical to the earlier version only in the absence of ties in the running variable. The codebook does not count ties in margin, which is recorded to 7 decimals but may tie at the +/-100 extremes. If ties occur near the cutoff, H1 can fail for a reason the design did not name, or pass for one it did not check.",
+      "evidence": "plan.json hypotheses[0] ('published defaults'); code/requirements.txt (rdrobust==2.1.1); .venv/lib/python3.12/site-packages/rdrobust/rdrobust.py lines 18-22 and 160-169; CCFT 2017 Sec. 6 backward-compatibility text (fetched); data/CODEBOOK.md (no tie count)",
+      "response": "PI: task dr-checks (ties/mass points in margin) added for the design stage; the design must state the masspoints and covs_drop settings and why they match the printed output.",
+      "ruling": ""
+    },
+    {
+      "id": "F8",
+      "severity": "major",
+      "status": "open",
+      "text": "The data fidelity check is incomplete. The CSV was downloaded from the rdrobust R package repository, but CCFT used rdrobust_senate.dta. The codebook checks only row count, N for the outcome and the year range. CCFT Sec. 7.2 (p. 390) prints summary statistics for margin, class and population that the codebook does not compare, and these can be checked without touching the outcome. The codebook's 'matches seed task' claim rests on a constant in fetch_data.py, which the reviewer did not check against the seed. Supporting check that passes: CCFT prints 1,108 non-missing for termshouse and termssenate, which matches the codebook's 282 missing.",
+      "evidence": "data/CODEBOOK.md 'Checks against the source'; code/fetch_data.py EXPECTED_SHA256 and sha256_matches_seed metric; CCFT 2017 Sec. 7.2 summary table (fetched text lines 840-850: margin mean 7.171159 sd 34.32488; class mean 2.023022; population mean 3827919)",
+      "response": "PI: task dr-checks compares the CSV's printed moments (margin, class, population) with CCFT 2017 before the design gate.",
+      "ruling": ""
+    },
+    {
+      "id": "F9",
+      "severity": "major",
+      "status": "open",
+      "text": "H2(c) placebo cutoffs are not restricted to one side of zero. A placebo cutoff at the median of the negative margins, estimated on the full sample with a bandwidth near 17.7, uses observations on both sides of zero, so the true jump at 0 enters the placebo estimate. The placebo is then partly the real discontinuity. The test must use only the observations on one side of 0 (margin < 0 for the left placebo, margin > 0 for the right) and report N and bandwidth for each.",
+      "evidence": "plan.json hypotheses[1] (c); data/CODEBOOK.md counts (640 negative and 750 positive margins)",
+      "response": "PI: H2(c) placebo cutoffs now use only observations on their own side of 0, with N and bandwidth reported.",
+      "ruling": ""
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "open",
+      "text": "H2(b) does not state the sample for each covariate test. termshouse and termssenate have 282 missing rows, so their balance tests run on 1,108 observations (as CCFT prints), not on 1,390 or 1,297. H2 must state this, because the comparison with the published p-values depends on it.",
+      "evidence": "plan.json hypotheses[1] (b); data/CODEBOOK.md missingness; CCFT 2017 Sec. 7.2 summary table",
+      "response": "PI: H2(b) states N = 1,108 for termshouse and termssenate.",
+      "ruling": ""
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "open",
+      "text": "H3 names a comparison that the sources do not contain: '2014 default bandwidth selector (mserd vs the earlier default reported by the Scout)'. The scout's notes report no earlier default selector. The 2014 comparison in the sources is the manual bandwidths h = 16.79369 and b = 27.43745 (CCFT 2017 p. 393), which reproduce the CCT (2014) numbers. The 'half and double' rule needs a stated base (h = 17.708 and b = 27.984 in the default output).",
+      "evidence": "plan.json hypotheses[2] (H3); sources/notes.md section 1 (p. 393 entry) and section 4 item 3",
+      "response": "PI: H3 now uses the printed 2014 bandwidths (h = 16.79369, b = 27.43745) and states the half/double baseline (h = 17.708).",
+      "ruling": ""
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "open",
+      "text": "The contribution paragraph lists the crew's low-cost Haiku trial (a cost and quality comparison with other gallery papers) as a contribution. That is a fact about how the crew was run, which belongs in disclosures, not a research contribution of the replication. Once the replication is labelled a replication, the paper's contribution is a pinned, logged reproduction and a sensitivity table, and the paper should say so.",
+      "evidence": "plan.json contribution; plan.json disclosures",
+      "response": "PI: the low-cost trial removed from the contribution; it stays in disclosures.",
+      "ruling": ""
+    }
+  ]
+}

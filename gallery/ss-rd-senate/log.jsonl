@@ -11,3 +11,6 @@
 {"time": "2026-11-20T03:59:30Z", "role": "data-ra", "action": "data-fetched", "detail": "fetch-data run: rdrobust_senate.csv, 1390 rows, sha256 matches seed; manifest senate-rd written"}
 {"time": "2026-11-20T03:59:30Z", "role": "data-ra", "action": "data-prepared", "detail": "prepare-data run: 1390 rows kept, 0 dropped; vote observed 1297, missing 93; data/CODEBOOK.md written; no statistic of vote by side of cutoff"}
 {"time": "2026-11-20T03:59:30Z", "role": "data-ra", "action": "task-done", "detail": "dr-fetch done"}
+{"time": "2026-11-20T04:00:07Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T040007Z (question-r2)"}
+{"time": "2026-11-20T04:02:58Z", "role": "pi", "action": "question-revised", "detail": "question-r2 F4, F7-F12 answered or assigned to design stage. plan.json sha256=800b0d517291a4bed4f2b17bedffd9742060c3869239866d6c53b59ffe967d21"}
+{"time": "2026-11-20T04:02:58Z", "role": "pi", "action": "gate-request", "detail": "question"}
