@@ -91,3 +91,8 @@
 {"time": "2026-11-20T07:00:32Z", "role": "figures-ra", "action": "run", "detail": "tab-falsification exit=0"}
 {"time": "2026-11-20T07:00:47Z", "role": "figures-ra", "action": "figures-built", "detail": "fig_rd, fig_density, tab_main, tab_falsification from runs fig-rd, fig-density, tab-main, tab-falsification; captions in paper/figures/CAPTIONS.md; validate --strict OK"}
 {"time": "2026-11-20T07:00:47Z", "role": "figures-ra", "action": "figures-ra-done", "detail": "brief 20261120T065445Z done; figures task t-figures set to done"}
+{"time": "2026-11-20T07:01:20Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261120T070120Z; replicator 20261120T070120Z"}
+{"time": "2026-11-20T07:02:40Z", "role": "replicator", "action": "rerun", "detail": "passed=False"}
+{"time": "2026-11-20T07:03:14Z", "role": "replicator", "action": "rerun-failed", "detail": "7/15 reproduced; 7 missing runs/ dirs in copy, h2-density NaN compare"}
+{"time": "2026-11-20T07:03:14Z", "role": "replicator", "action": "report-written", "detail": "REPLICATION.md; rerun failed, PI to fix"}
+{"time": "2026-11-20T07:03:18Z", "role": "replicator", "action": "fresh-env-built", "detail": "uv py3.12 from code/requirements.txt only"}
