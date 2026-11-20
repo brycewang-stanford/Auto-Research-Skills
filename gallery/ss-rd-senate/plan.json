@@ -1,10 +1,11 @@
 {
-  "question": "Does a fully logged replication from the public rdrobust_senate data reproduce the headline sharp regression-discontinuity estimate of the US Senate incumbency advantage reported by Calonico, Cattaneo, Farrell and Titiunik (2017) (point estimate and robust bias-corrected 95% confidence interval), and does the estimate survive pre-specified falsification checks (a density test of the running variable and a test on a predetermined covariate or placebo cutoffs)?",
+  "question": "Can a fully logged, rerunnable pipeline with a pinned software version reproduce, from the public rdrobust_senate file, the printed default output of Calonico, Cattaneo, Farrell and Titiunik (2017, Sec. 7.2) for the US Senate incumbency advantage (conventional local-linear estimate and robust bias-corrected 95% CI), and how far do the estimate and its falsification checks move across the bandwidth and software choices that the published output leaves open? This is a replication: the estimate and the standard falsification checks on these data are already published (CCFT 2017; Cattaneo, Frandsen and Titiunik 2015), and the paper claims no new finding about the incumbency advantage.",
   "hypotheses": [
-    "H1 (replication): the replicated point estimate and robust bias-corrected 95% CI match the published values (verified by the Scout from the source, not recalled) within a tolerance fixed at the design gate from the published rounding and software differences. Reported per target (point, CI low, CI high) as reproduced or not.",
-    "H2 (falsification; pre-specified, judged on the fixed tests): the density test of the margin of victory at zero does not reject continuity at the 5% level, and the pre-specified predetermined-covariate or placebo-cutoff tests show no discontinuity at the 5% level (with the multiplicity of the placebo tests stated in advance). A rejection is reported as such and qualifies the replication; it is not explained away."
+    "H1 (computational reproduction; targets are the printed values verified by the Scout: conventional estimate 7.416, robust bias-corrected 95% CI [4.094, 10.926], N = 1,297 with h = 17.708): with the rdrobust version pinned in code/requirements.txt and the published defaults (p = 1, triangular kernel, mserd bandwidth, NN variance), each target is reproduced if |replicated - published| <= 0.01 percentage points; N must match exactly. Because H1 holds by construction if the software is deterministic and the version matches, a pass is reported as a computational check, not as evidence about the incumbency advantage. A failure is diagnosed (version, platform), not tuned away.",
+    "H2 (falsification, report-only tests fixed now): (a) density test of the margin at 0 with rddensity (default options), robust p-value; (b) each of the four predetermined covariates in the seed file (class, termshouse, termssenate, population) as the outcome of the same rdrobust specification, Holm-adjusted over the four at the 5% level; (c) placebo cutoffs at the median of the margin on each side of 0 (one per side), Holm-adjusted over the two. Each test is reported with its estimate and CI; non-rejection is reported as no evidence of a discontinuity at the stated precision, not as proof of continuity. These four covariates are a subset of the eight in Cattaneo, Frandsen and Titiunik (2015); their p-values are not compared one-to-one with that paper's.",
+    "H3 (descriptive sensitivity, no decision rule): the estimate and robust CI under the 2014 default bandwidth selector (mserd vs the earlier default reported by the Scout), under half and double the selected bandwidth, and with p = 2. Reported as a table; not used to change the H1 targets."
   ],
-  "contribution": "A logged, rerunnable replication of a standard regression-discontinuity estimate with its falsification checks fixed before any outcome analysis. This workspace is also the crew's low-cost trial: every role subagent, including the Reviewer, runs on Claude Haiku 5.5, so its cost and quality can be compared with the other gallery papers.",
+  "contribution": "A logged, rerunnable replication of a standard regression-discontinuity estimate with the software version pinned and its falsification checks fixed before any outcome analysis, plus a descriptive account of how much the printed output depends on bandwidth and software defaults. No new claim about the incumbency advantage. This workspace is also the crew's low-cost trial: every role subagent, including the Reviewer, runs on Claude Haiku 5.5, so its cost and quality can be compared with the other gallery papers.",
   "design": {
     "summary": "",
     "method": "",
@@ -17,6 +18,12 @@
       "id": "q-novelty",
       "title": "The published estimate (CCFT 2017, Stata Journal 17(2); data of Cattaneo, Frandsen and Titiunik 2015), its exact specification and software version; prior replications and the falsification checks used in that literature",
       "owner": "scout",
+      "status": "done"
+    },
+    {
+      "id": "dr-fetch",
+      "title": "Run fetch-data (data-prep): download rdrobust_senate.csv from the seed URL, verify sha256, record in data/manifest.json with source, licence note, date and hash; prepare-data: data/CODEBOOK.md with variables, N, missingness and ranges of margin and covariates; no statistic of vote by side of the cutoff",
+      "owner": "data-ra",
       "status": "done"
     }
   ],

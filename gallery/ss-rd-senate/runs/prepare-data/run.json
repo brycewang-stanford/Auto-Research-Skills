@@ -1,0 +1,73 @@
+{
+  "id": "prepare-data",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/prepare_data.py",
+    "runs/prepare-data/metrics.json"
+  ],
+  "started": "2026-11-20T03:59:08Z",
+  "finished": "2026-11-20T03:59:08Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/prepare_data.py",
+      "sha256": "6049cbbd47209061801a54741fdec13ad91231a3037ee6654344bfa0cf979aa3"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/rdrobust_senate.csv",
+      "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/derived/senate_rd.csv",
+      "sha256": "d6685540d1808791ddc3c7906992e70abe74d53462397ce05c0967193140f331"
+    },
+    {
+      "path": "runs/prepare-data/metrics.json",
+      "sha256": "f3f0de5992c819a7700a18125c1302e47fa34359653441a8d5109c73c1280f15"
+    }
+  ],
+  "metrics": {
+    "rows_raw": 1390,
+    "rows_kept": 1390,
+    "rows_dropped": 0,
+    "n_vote_observed": 1297,
+    "missing_vote": 93,
+    "missing_margin": 0,
+    "missing_year": 0,
+    "missing_state": 0,
+    "margin_min": -100.0,
+    "margin_max": 100.0,
+    "margin_rows_negative": 640,
+    "margin_rows_zero": 0,
+    "margin_rows_positive": 750,
+    "year_min": 1914.0,
+    "year_max": 2010.0,
+    "n_states": 50,
+    "missing_class": 0,
+    "class_min": 1.0,
+    "class_max": 3.0,
+    "missing_termshouse": 282,
+    "termshouse_min": 0.0,
+    "termshouse_max": 16.0,
+    "missing_termssenate": 282,
+    "termssenate_min": 1.0,
+    "termssenate_max": 20.0,
+    "missing_population": 0,
+    "population_min": 78000.0,
+    "population_max": 37253956.0
+  },
+  "metrics_file": "runs/prepare-data/metrics.json",
+  "env": {
+    "crew_python": "3.12.11",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}

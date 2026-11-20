@@ -1,0 +1,79 @@
+{
+  "id": "question-r1",
+  "target": "question",
+  "round": 1,
+  "created": "2026-11-20T03:56:18Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "plan.json",
+    "crew.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "data/manifest.json",
+    "log.jsonl",
+    ".gitignore"
+  ],
+  "kill_argument": "This is a re-run of a published estimate on a published file, with the same authors' software, and the scout's own notes return the verdict ALREADY ANSWERED. CCFT (2017) Section 7.2 prints the default output that H1 asks the crew to reproduce (conventional 7.416, robust CI [4.09441, 10.9255]). CFT (2015) already ran the McCrary density test (p = 0.39) and predetermined-covariate balance tests on the same 1,390 Senate elections, which is what H2 proposes to test again. Once the software release is pinned, H1 is a check that a deterministic package reproduces its own printed output, which holds by construction rather than as a finding. H2 names no specific density test, no sample, no covariate set and no placebo cutoffs, and it treats failure to reject as support for continuity without any power or equivalence bound, so a passing result would validate nothing. What remains is a logged process, which the protocol provides for any replication, and the contribution written in plan.json is the low-cost trial, which is not a result about Senate incumbency. I found no source, data or bandwidth issue that would support a new empirical claim from this question as written.",
+  "verdict": "block",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "open",
+      "text": "The question is already answered in the literature. The headline estimate (7.416 conventional, robust CI [4.09441, 10.9255]) is printed with its full specification in CCFT (2017) Section 7.2, and the McCrary density test (p = 0.39) and balance tests on the same 1,390-election Senate file were run in CFT (2015). The scout's verdict in notes.md is ALREADY ANSWERED. The contribution field names only the process (a logged, rerunnable replication) and the low-cost trial, not a scientific finding. Question-stage criterion: 'Is it already answered in the literature?' is answered yes for the point estimate and for the falsification checks as posed.",
+      "evidence": "plan.json question, hypotheses H2, contribution; sources/notes.md sections 1, 2, 3 and 5 (novelty verdict); claims.jsonl c-cck17-default-estimate, c-cft15-density",
+      "response": "PI: claim narrowed to a replication with a pinned version and a descriptive sensitivity (H3); the question says the estimate and checks are already published and no new finding is claimed.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "H1 names a target the source does not print. H1 requires the replicated robust bias-corrected point estimate to match the published value, but the article prints no bias-corrected point estimate (the robust row shows a dash). The printed point target is the conventional estimate 7.416, and the printed target interval is [4.09441, 10.9255]. The hypothesis must name these targets exactly before it can be judged.",
+      "evidence": "plan.json hypotheses[0] (H1); sources/notes.md section 1 and section 4 item 1; claims.jsonl c-cck17-robust-ci (the article does not print the bias-corrected point estimate)",
+      "response": "PI: H1 targets are now the printed conventional estimate 7.416 and the robust CI [4.094, 10.926], N and h.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "open",
+      "text": "H1 is true by construction once the software version is fixed. Re-running the printed command (rdrobust vote margin, mserd, NN variance, default bandwidth) on the same file with the same release reproduces the printed numbers. The question does not pin the rdrobust release: the article says only '2016 version', and notes.md records that no package version number is printed. As written, H1 cannot fail for a reason that would matter to the paper, and the tolerance is deferred to the design gate with no rule for setting it. Cheaper remedy: reclassify H1 as a computational and version check, pin the release, and fix the tolerance rule now. Note also that the 2014 bandwidths give 7.425 and an upper robust limit of 10.983, so bandwidth choice alone moves the third decimal.",
+      "evidence": "plan.json hypotheses[0] (H1, tolerance deferred to design gate); sources/notes.md section 1 (Software paragraph) and section 4 items 2 and 3; claims.jsonl c-cck17-bandwidth-2014",
+      "response": "PI: H1 restated as a computational reproduction with the version pinned and the tolerance fixed now (0.01 pp; N exact); a pass is reported as a computational check.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "open",
+      "text": "H2 is not specified well enough to be judged on fixed tests. It says 'the density test' without naming it (McCrary, rddensity, or another), and CFT (2015) does not state the sample on which its McCrary p = 0.39 was computed. It also says 'the predetermined-covariate or placebo-cutoff tests', which leaves the choice open, and it says the number of placebo tests will be stated in advance without stating it. The decision rule (fail to reject at 5%) is one-sided: a non-rejection is read as evidence of continuity without any power calculation, minimum detectable discontinuity, or equivalence bound. Required before design approval: the exact test, sample, covariates, placebo cutoffs and multiplicity correction, and an equivalence margin or minimum detectable effect that gives a non-rejection content.",
+      "evidence": "plan.json hypotheses[1] (H2); sources/notes.md section 2 (density footnote, 'does not say which sample') and section 4 items 4 and 5",
+      "response": "PI: H2 names the tests (rddensity; four covariates with Holm; two median placebo cutoffs with Holm) and says non-rejection is not proof of continuity.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "major",
+      "status": "open",
+      "text": "Feasibility is not established. The question depends on the public rdrobust_senate file, but data/manifest.json lists no datasets, and notes.md states that the data file was not downloaded. No origin, license, retrieval date or hash is recorded for the file the replication would run on. A data-prep run (allowed before the design gate) must fetch the file, record its hash and license in the manifest, and confirm that it contains the variables H2 needs (running variable, outcome, the four covariates and the state and year identifiers).",
+      "evidence": "data/manifest.json (empty datasets list); sources/notes.md section 2 (data file not downloaded) and section 1 (data description on p. 390 of CCFT 2017)",
+      "response": "PI: Data RA task dr-fetch added and launched (data-prep only, no outcome statistic by side).",
+      "ruling": ""
+    },
+    {
+      "id": "F6",
+      "severity": "major",
+      "status": "open",
+      "text": "The falsification covariate set differs from the published balance test. H2 relies on predetermined-covariate tests, but the scout notes say the seed data carry four covariates (class, termshouse, termssenate, population), while CFT (2015) uses eight covariates in its randomization windows and the Design II placebo outcome is not in the seed file. The question must say that the four-covariate robust bias-corrected tests are the replication target, and must not present the balance results as a check on CFT (2015). Otherwise the falsification result will be compared with p-values from a different test.",
+      "evidence": "plan.json hypotheses[1] (H2, 'predetermined covariate'); sources/notes.md section 4 item 4; claims.jsonl c-cck17-balance and c-cft15-window-estimate",
+      "response": "PI: H2(b) uses the four seed covariates explicitly and says they are not compared one-to-one with CFT (2015).",
+      "ruling": ""
+    }
+  ]
+}

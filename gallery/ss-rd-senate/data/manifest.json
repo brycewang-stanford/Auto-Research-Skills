@@ -1,3 +1,17 @@
 {
-  "datasets": []
+  "datasets": [
+    {
+      "id": "senate-rd",
+      "origin": "https://raw.githubusercontent.com/rdpackages/rdrobust/2589686d980af0eb2c0edd945d4a43e8bc081872/R/rdrobust_senate.csv",
+      "license": "No explicit licence stated for the data file. Distributed publicly in the rdrobust package repository (commit 2589686d) for replication use; the file is not committed to this repository.",
+      "path": "data/raw/rdrobust_senate.csv",
+      "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44",
+      "retrieved_on": "2026-11-20",
+      "rows_in_file": 1390,
+      "used_in": [
+        "Calonico, Cattaneo, Farrell and Titiunik (2017), Sec. 7.2",
+        "Cattaneo, Frandsen and Titiunik (2015), Sec. 5"
+      ]
+    }
+  ]
 }

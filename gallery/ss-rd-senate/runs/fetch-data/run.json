@@ -1,0 +1,47 @@
+{
+  "id": "fetch-data",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/fetch_data.py",
+    "runs/fetch-data/metrics.json"
+  ],
+  "started": "2026-11-20T03:58:27Z",
+  "finished": "2026-11-20T03:58:28Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fetch_data.py",
+      "sha256": "a82ba6f20c7994f0fced9c5c9543f803d176fee88dabf5e93cde9c63c97c1737"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "data/raw/rdrobust_senate.csv",
+      "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44"
+    },
+    {
+      "path": "data/manifest.json",
+      "sha256": "0b56d2710415bb5c4af7c5f6a0bc5a9b16b7b7542963ef77026da06e08faa75b"
+    },
+    {
+      "path": "runs/fetch-data/metrics.json",
+      "sha256": "3ccd74513ef2ff3a11198c3d8d4a410e6850c5189fc79773c05c8818090157af"
+    }
+  ],
+  "metrics": {
+    "rows_in_file": 1390,
+    "sha256_matches_seed": 1,
+    "bytes": 56627
+  },
+  "metrics_file": "runs/fetch-data/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}
