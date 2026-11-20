@@ -126,9 +126,12 @@
       "note": "批准 (in chat, after design-r3 pass; minor F11-F13 assigned to the analysis code; analysis plan fixed)"
     },
     "results": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-20T06:00:46Z",
-      "summary": "results-r3 pass (minor F12-F14 and F8 scale caveat open for the Econometrician/Writer)"
+      "summary": "results-r3 pass (minor F12-F14 and F8 scale caveat open for the Econometrician/Writer)",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-20T06:54:01Z",
+      "note": "批准 (in chat, after results-r3 pass; minor F8 scale caveat and F12-F14 open for the Econometrician and Writer)"
     },
     "submission": {
       "status": "pending"

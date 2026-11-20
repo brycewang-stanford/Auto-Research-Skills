@@ -153,7 +153,7 @@
       "status": "open",
       "text": "Claim coverage for the 'adjust' mechanism and the H2(d) sample is incomplete. The H1 'adjust' explanation rests on the number of distinct margin values (M = 595 left and 665 right on the 1,297-row sample, 1,260 in total, against N = 1,297), but claims.jsonl carries only rd-distinct-right (665). The H2(d) sample size (N = 1,390 in h2-selection) and the placebo side sizes N_h (65 to 72) are also unclaimed. The paper cannot print the mechanism or these counts from a macro, and the PI disclosure says the paper cites the 1,297-row counts from this run. This also leaves design-r3 F12 only partly resolved.",
       "evidence": "runs/h1-rdrobust/metrics.json adj_M_left 595, adj_M_right 665, distinct_total 1260, adj_h_left 17.7544; runs/h2-selection/metrics.json N 1390; runs/h2-placebo/metrics.json left_N_h_left 72, right_N_h_left 65; claims.jsonl (no claim on adj_M_* or on distinct_total or H2(d) N).",
-      "response": "",
+      "response": "Fixed: claims added from existing metrics for the adjust M counts (rd-adj-m-left, rd-adj-m-right, rd-distinct-total), H2(d) N (rd-selection-n) and the placebo N_h per side (rd-placebo-*-nh-*). No estimation run.",
       "ruling": "Open, minor. Cheapest remedy: add claims for adj_M_left, adj_M_right, distinct_total, the H2(d) N and the placebo N_h values from runs already recorded. No rerun is needed. Then regenerate numbers.tex."
     },
     {
@@ -162,7 +162,7 @@
       "status": "open",
       "text": "The estimand scope is missing from the H1 claim texts. rd-effect reads 'Conventional local-linear RD estimate of the Democratic vote share effect'. It does not say that the estimate is local to elections within about 17.7 points of the cutoff, nor that the effect is that of a Democratic Senate win. The paper will draw its scope from these texts, and the seed requires that it not be called the incumbency advantage in all elections.",
       "evidence": "claims.jsonl rd-effect, rd-ci-low, rd-ci-high texts; runs/NOTES.md 'Other surprises' bullet 1; plan.json design.method 'Local estimand' threat.",
-      "response": "",
+      "response": "Fixed: rd-effect, rd-ci-low and rd-ci-high texts state the estimate is local to close elections (within about 17.7 points of the cutoff), conditional on the Democratic win at the threshold, and not the incumbency advantage in all elections.",
       "ruling": "Open, minor. Add the locality and the conditioning on a Democratic win to the text of rd-effect, rd-ci-low and rd-ci-high. This changes claim text only, not the run."
     },
     {
@@ -171,7 +171,7 @@
       "status": "open",
       "text": "runs/NOTES.md says 'Claims are in claims.jsonl (95 result claims, all linked to these runs)'. claims.jsonl now holds 113 result claims after the results-r1 and results-r2 additions, and the NOTES claim-id list is out of date.",
       "evidence": "runs/NOTES.md Phase 2 paragraph; claims.jsonl (113 kind=result lines; every one links to an existing metric, zero value mismatches).",
-      "response": "",
+      "response": "Fixed: runs/NOTES.md now gives the count as 122 result claims (133 lines in total) and the claim-id heading is updated.",
       "ruling": "Open, minor. Correct the count in runs/NOTES.md. This is a record-keeping error, not a result error."
     }
   ]

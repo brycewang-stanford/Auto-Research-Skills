@@ -35,7 +35,7 @@ takes the metrics path as its first argument and `--data PATH` (default
 - H3 bandwidths: (ii) and (iii) use the fixed values h = 8.854, b = 13.992 and h = 35.416, b = 55.968, as in the plan. The H1 `off` row is not recomputed in H3.
 - H1 side counts, distinct values and mass shares are recorded on the 1,297-row estimation sample (design-r3 F12).
 
-## Claim ids to fill in after the runs (not yet written to claims.jsonl)
+## Claim ids (written to claims.jsonl; the list below is the design list, and the full set is in claims.jsonl)
 
 - H1: `rd-effect`, `rd-ci-low`, `rd-ci-high`, `rd-n`, `rd-bw`
 - H2(a): `rd-density-p`
@@ -74,7 +74,7 @@ The unit test checks only the equality comparison. It forces h and b to bw_max a
 
 ## Phase 2: analysis runs (2026-11-20, plan order)
 
-Runs (all `crew.py run --kind analysis`, `.venv`, raw seed file, no re-specification): `h1-rdrobust`, `h2-density`, `h2-covariates` (declares `runs/design-mde/metrics.json` as input), `h2-placebo`, `h2-selection`, `h3-sensitivity`. No run failed; no tolerance check was re-run or changed after seeing a number. Claims are in `claims.jsonl` (95 result claims, all linked to these runs) and `paper/numbers.tex`.
+Runs (all `crew.py run --kind analysis`, `.venv`, raw seed file, no re-specification): `h1-rdrobust`, `h2-density`, `h2-covariates` (declares `runs/design-mde/metrics.json` as input), `h2-placebo`, `h2-selection`, `h3-sensitivity`. No run failed; no tolerance check was re-run or changed after seeing a number. Claims are in `claims.jsonl` (122 result claims, all linked to these runs; 133 lines in total with the citation claims) and `paper/numbers.tex` (122 macros).
 
 ### H1 verdict: pass on 'off' (computational reproduction, not evidence about the incumbency advantage)
 

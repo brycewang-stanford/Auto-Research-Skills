@@ -81,3 +81,6 @@
 {"time": "2026-11-20T05:56:03Z", "role": "econometrician", "action": "results-r2-notes", "detail": "NOTES and review responses F2, F8-F11 for results-r2 (follow-up to the first results-r2 commit, which did not include them)"}
 {"time": "2026-11-20T05:56:15Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T055615Z (results-r3)"}
 {"time": "2026-11-20T06:00:46Z", "role": "pi", "action": "gate-request", "detail": "results"}
+{"time": "2026-11-20T06:54:01Z", "role": "pi", "action": "gate-approve", "detail": "results Bryce Wang"}
+{"time": "2026-11-20T06:54:01Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T065401Z (results-r3 minor)"}
+{"time": "2026-11-20T06:54:29Z", "role": "econometrician", "action": "results-r3-claims", "detail": "F12 claims for adjust M, H2(d) N and placebo N_h; F13 scope wording on rd-effect/ci claims; F14 NOTES count 122; no estimation or code change"}
