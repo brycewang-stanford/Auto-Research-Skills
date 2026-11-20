@@ -2,8 +2,10 @@
 """Build the "Free Research Crew" poster (CN + EN) as SVG, and PNG via headless Chrome.
 
 Same canvas (1774x887) and storybook palette as the README covers readme_cn.png /
-readme.png: a greenhouse library, a parchment title scroll, and framed parchment
-cards — here one card per crew role.
+readme.png: a greenhouse library, a parchment title scroll, framed parchment cards (one
+per crew role) and a gallery shelf with the six finished papers. The PNGs are copied
+over readme_cn.png / readme.png. Every number on the poster comes from gallery/README.md,
+gallery/scoreboard.json, gallery/usage.json and docs/launch/release-v0.5.md.
 
     python3 assets/poster/build_poster.py          # writes SVG + PNG next to this file
     python3 assets/poster/build_poster.py --svg-only
@@ -38,12 +40,20 @@ SLATE = "#3d6a8a"
 TEXT = {
     "cn": {
         "font": "'PingFang SC','Hiragino Sans GB','Noto Sans CJK SC',sans-serif",
-        "title": "免费助研团",
-        "title_size": 104,
+        "title": '<tspan font-size="41" letter-spacing="1">Free-Research-Crew</tspan> 免费助研团',
+        "title_size": 66,
         "subtitle": "一支 AI 助研团队，把你的研究问题做成一篇完整论文",
         "sub_size": 31,
-        "stats": "免费使用 · 自由修改 · 无需新环境 ｜ 10 个角色 · 4 道人工关卡",
+        "stats": "9 位助研 + PI · 4 道人工关卡 · 每篇约 $58–103（API 标价）· v0.5",
         "stats_size": 25,
+        "shelf": "论文画廊：6 篇全部定稿，干净重跑通过 ｜ 68 轮审稿：12 致命 · 210 重大 · 373 次要问题",
+        "shelf_size": 19,
+        "chip_size": 17,
+        "track": {"cs": "计算机", "ss": "社会科学"},
+        "papers": [
+            ("cs", "标签噪声"), ("ss", "零效应检验"), ("ss", "401(k) DML"),
+            ("ss", "最低工资"), ("cs", "概率校准"), ("ss", "LaLonde"),
+        ],
         "paper": "论文",
         "gates": ["① 问题", "② 设计", "③ 结果", "④ 投稿"],
         "gate_size": 22,
@@ -64,12 +74,20 @@ TEXT = {
     },
     "en": {
         "font": "'Avenir Next','Helvetica Neue',Arial,sans-serif",
-        "title": "Free Research Crew",
+        "title": "Free-Research-Crew",
         "title_size": 72,
         "subtitle": "AI research assistants that turn your question into a paper",
         "sub_size": 29,
-        "stats": "Free to use · Free to fork · No new runtime  |  10 roles · 4 human gates",
+        "stats": "9 roles + PI · 4 human gates · ~$58–103 per paper at API list prices · v0.5",
         "stats_size": 23,
+        "shelf": "6 papers, all final, clean rerun passed  |  68 review rounds: 12 critical · 210 major · 373 minor",
+        "shelf_size": 17,
+        "chip_size": 15,
+        "track": {"cs": "CS", "ss": "Social science"},
+        "papers": [
+            ("cs", "Label noise"), ("ss", "Null effect"), ("ss", "401(k) DML"),
+            ("ss", "Card–Krueger"), ("cs", "Calibration"), ("ss", "LaLonde"),
+        ],
         "paper": "Paper",
         "gates": ["1 Question", "2 Design", "3 Results", "4 Submit"],
         "gate_size": 19,
@@ -333,15 +351,6 @@ def greenhouse(rnd: random.Random) -> str:
     return out
 
 
-def lamp(x: float) -> str:
-    return (
-        f'<line x1="{x}" y1="240" x2="{x}" y2="282" stroke="{INK}" stroke-width="3"/>'
-        f'<path d="M{x - 28} 310 Q{x} 270 {x + 28} 310 Z" fill="#3b4a40" stroke="{INK}" stroke-width="3"/>'
-        f'<ellipse cx="{x}" cy="312" rx="12" ry="5" fill="#ffe9a8"/>'
-        f'<path d="M{x - 26} 312 L{x - 70} 420 L{x + 70} 420 L{x + 26} 312 Z" fill="#fff3c4" opacity=".22"/>'
-    )
-
-
 def robot(x: float, y: float, s: float, held: str, look: float = 0) -> str:
     """A friendly crew robot, feet at (x, y)."""
     held_svg = {
@@ -374,12 +383,11 @@ def robot(x: float, y: float, s: float, held: str, look: float = 0) -> str:
 
 
 def scene(t: dict) -> str:
-    out = lamp(560) + lamp(1214)
     # robots behind the desk
-    out += robot(612, 572, 0.86, "lens", -6)
-    out += robot(774, 562, 0.95, "chart", -3)
-    out += robot(1000, 562, 0.95, "flask", 3)
-    out += robot(1162, 572, 0.86, "pen", 6)
+    out = robot(612, 592, 0.86, "lens", -6)
+    out += robot(774, 584, 0.95, "chart", -3)
+    out += robot(1000, 584, 0.95, "flask", 3)
+    out += robot(1162, 592, 0.86, "pen", 6)
     # desk
     out += (
         f'<path d="M420 560 H1354 L1380 600 H394 Z" fill="#a8743f" {S} stroke-width="4"/>'
@@ -442,8 +450,44 @@ def card(x: float, y: float, w: float, h: float, role: str, color: str, t: dict)
     )
 
 
+def paper_chip(x: float, y: float, w: float, h: float, track: str, name: str, t: dict) -> str:
+    """One finished gallery paper: a small paper with a green 'final' seal, name and track."""
+    c = TEAL if track == "cs" else BROWN
+    return (
+        f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="9" fill="url(#parch)" stroke="#6b4423" stroke-width="2.5"/>'
+        f'<rect x="{x}" y="{y}" width="8" height="{h}" rx="4" fill="{c}"/>'
+        f'<g transform="translate({x + 26} {y + h / 2}) scale(.8)">'
+        f'<path d="M-13 -19 H7 L13 -13 V19 H-13 Z" fill="{PAPER}" stroke="{INK}" stroke-width="2"/>'
+        f'<path d="M7 -19 V-13 H13" fill="none" stroke="{INK}" stroke-width="2"/>'
+        + "".join(f'<line x1="-8" y1="{-10 + i * 6}" x2="6" y2="{-10 + i * 6}" stroke="{INK}" stroke-width="1.5" opacity=".5"/>' for i in range(3))
+        + f'<circle cx="7" cy="11" r="9" fill="{GREEN}" stroke="{INK}" stroke-width="2"/>'
+        f'<path d="M3 11 l3 4 l6 -7" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>'
+        "</g>"
+        f'<text x="{x + 42}" y="{y + h / 2 - 2}" font-family="{t["font"]}" font-weight="700" font-size="{t["chip_size"]}" fill="{INK}">{name}</text>'
+        f'<text x="{x + 42}" y="{y + h / 2 + 16}" font-family="{t["font"]}" font-weight="600" font-size="13" fill="{c}">{t["track"][track]}</text>'
+    )
+
+
+def shelf(t: dict) -> str:
+    """The gallery strip under the scroll: six finished papers and the review totals."""
+    x0, x1, y0, y1 = 396, 1378, 254, 352
+    out = (
+        f'<line x1="{x0 + 60}" y1="236" x2="{x0 + 60}" y2="{y0}" stroke="{INK}" stroke-width="3"/>'
+        f'<line x1="{x1 - 60}" y1="236" x2="{x1 - 60}" y2="{y0}" stroke="{INK}" stroke-width="3"/>'
+        f'<rect x="{x0}" y="{y0}" width="{x1 - x0}" height="{y1 - y0}" rx="14" fill="#d9b67a" stroke="#4a2e16" stroke-width="4"/>'
+        f'<rect x="{x0 + 7}" y="{y0 + 7}" width="{x1 - x0 - 14}" height="{y1 - y0 - 14}" rx="10" fill="url(#parch)" stroke="#a87a44" stroke-width="2"/>'
+        f'<text x="{(x0 + x1) / 2}" y="{y0 + 31}" text-anchor="middle" font-family="{t["font"]}" font-weight="700" '
+        f'font-size="{t["shelf_size"]}" fill="#4a2c14">{t["shelf"]}</text>'
+    )
+    n, gap, pad = len(t["papers"]), 8, 14
+    cw = (x1 - x0 - 2 * pad - (n - 1) * gap) / n
+    for i, (track, name) in enumerate(t["papers"]):
+        out += paper_chip(x0 + pad + i * (cw + gap), y0 + 42, cw, 46, track, name, t)
+    return out
+
+
 def scroll(t: dict) -> str:
-    x0, x1, y0, y1 = 470, 1304, 26, 236
+    x0, x1, y0, y1 = 440, 1334, 22, 232
     out = (
         f'<path d="M{x0} {y0 + 10} Q887 {y0 - 8} {x1} {y0 + 10} L{x1} {y1 - 6} Q887 {y1 + 12} {x0} {y1 - 6} Z" '
         f'fill="url(#parch)" stroke="#6b4423" stroke-width="4"/>'
@@ -482,6 +526,7 @@ def build_svg(lang: str) -> str:
     parts.append(vine(rnd, [(1382, 0), (1354, 90), (1376, 200), (1340, 310), (1366, 430)], 40))
     parts.append(vine(rnd, [(392, 14), (600, 40), (887, 20), (1180, 44), (1382, 14)], 45))
     parts.append(scene(t))
+    parts.append(shelf(t))
     parts.append(scroll(t))
 
     side_w, side_h, gap = 330, 268, 13
