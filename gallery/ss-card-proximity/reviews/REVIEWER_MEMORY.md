@@ -135,3 +135,34 @@ Check next time (results):
 - fig-chr rerun with --replace; the old record is under runs/.superseded; CAPTIONS.md matches the new PDF.
 - check-sas-listing: exactly one run, with code-r3 hashes; if it failed, F6's rule was recorded before the run and any fix went through code-r4. sas-ols-match claim is narrow (F7). All 6 items are reported with their diffs; no tolerance loosened; claims not edited after the listing was read (compare claims.jsonl hash/log times against the check-sas-listing run).
 - Carried: H3(a) 'Panel A coefficient'; H4/H5 wording (F13 design-r3); OLS SE to four decimals (.003/.004); conventional SE for H1; robust H3(b) set includes 0 (lo -0.0068); GKMC/GKM19 sets homoskedastic; H1 counts 5/9 and 19/22 unchanged by D4; no switch of the H3(b) primary.
+
+## results-r1 (2026-11-20, verdict revise)
+
+Held under attack: my numpy recomputation (after the gate, on card_analysis.csv) of B6 2SLS 0.13244 (0.04934), A6 robust AR [0.03951, 0.29019], A6 CHR breakdown 0.011434, H5 A6 D 0.06779 (0.05467) = metrics to 1e-9; verdict flags follow from metrics (5/9, 19/22; 7 misses all Panel B cols 1-4); claims.jsonl only appended after check-sas-listing (git diff 46703df..HEAD); figure markers at 5 deltas, superseded fig-chr metrics identical; H3(a)/H4/H5 texts all say 'Panel A coefficient'; h3b flag 0 worded 'not established'.
+
+Open:
+- F1 (major) iv-return text: unqualified complier reading ('return ... for men whose schooling responds to proximity') on a 3-endogenous model.
+- F2 (major) misses unlabelled: first-stage, first-stage-se, reduced-form-se, b3-rf-se; count claims don't list misses or point to diag.
+- F3-F8 minor: Kling .003 belongs to col 5 (Card .004 reproduced, Kling's not); young-ols 0.0745 vs 0.076 unlabelled/undiagnosed; young IV CI and any full-sample CI not macros; r-cluster A5 first-stage CR1 SE 1.11x HC1 unclaimed; b6-kappa1 'identification strength' wording; rv-code-2 still todo.
+
+Check next time (results-r2 / paper):
+- F1/F2 text fixes; no variant search on the young OLS miss without a prior deviation + code round.
+- Paper: headline must not pair conventional B6 CI excluding 0 with silence on h3b flag = 0; H3(b) and the B6 estimate rest on age being excluded (T6) and on independence across men (D1).
+- Paper: Card's printed B1-B4 = D4 regressions, labelled post hoc; 5/9 stays the count.
+- Paper: sas-ols-match listing numbers, if quoted, need % crew:literal; process dates: runs/NOTES.md says code 'written 2026-11-21' but log has 2026-11-20T18:37Z (UTC vs local) — process statements must follow log.jsonl.
+- Carried: no 'Card's preferred' for A6; no 'average return'; GKMC/GKM19 homoskedastic and not deciding.
+
+## results-r2 (2026-11-20, verdict pass)
+
+Checked: claims.jsonl vs HEAD (no value/support/macro changed; 15 texts changed, 13 added); clustered first-stage F A5 11.38 (< 16.38, 23.11, HC1 eff F 14.14), A6 19.01 (between); young interval = estimate +- Z975 x conv SE; miss lists = verdict 0-flags; rv-code-2 done; validate clean. No run after check-sas-listing.
+F1-F8 resolved. New minors: F9 (plan step 8 'both CIs' -> full-sample beta (SE) only; not in design.deviations; ask D6), F10 (iv-return / design.estimand: Tubbicke evidence is binary 'some college', n 2,988; monotonicity doubt (Sloczynski defiers) not mentioned).
+
+Check next time (paper):
+- D6 recorded or full-sample CI present; Tubbicke described as binary-treatment evidence; monotonicity doubt stated.
+- Headline: B6 (published-matching) number never paired with a positive-return statement; h3b flag 0 = 'not established', robust set lo -0.0068; GKMC/GKM19 homoskedastic, not deciding.
+- H1 = 5/9 and 19/22 with misses named; D4 labelled post hoc, report-only; Card's B1-B4 'consistent with', not 'proved'.
+- Clustered first-stage F: if quoted, either via t macros or % crew:literal; never reported as instrument strength; Stock-Yogo is a homoskedastic benchmark.
+- young-ols 'not reproduced; not diagnosed'; no new run on it.
+- sas-ols-match numbers typed only with % crew:literal; scope = Table 2 cols 2/5 OLS and N.
+- Process statements from process.tex macros and log.jsonl (UTC), not NOTES dates.
+- Carried: no 'Card's preferred' for A6; no 'average return'; H3(a)/H4/H5 about the Panel A coefficient.

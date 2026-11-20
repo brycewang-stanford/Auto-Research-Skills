@@ -1,0 +1,146 @@
+{
+  "id": "results-r2",
+  "target": "results",
+  "round": 2,
+  "created": "2026-11-20T19:22:17Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261120T192032Z-reviewer.md",
+    "briefs/20261120T191851Z-econometrician.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/results-r1/review.json",
+    "claims.jsonl",
+    "plan.json",
+    "log.jsonl",
+    "runs/NOTES.md",
+    "runs/verdict/metrics.json",
+    "runs/r-cluster/metrics.json",
+    "runs/r-age1419/metrics.json",
+    "code/r_age1419.py",
+    "paper/process.tex"
+  ],
+  "kill_argument": "The claims are now honest, and that is what makes the case against the stage: they no longer support any positive decision about the return to schooling. H1 reproduced 5 of 9 primary targets; all four misses are in Card's Panel B columns 2 and 4 and are explained only by a post hoc regression (D4) that the approved plan did not contain. The one pre-registered decision about the return in Card's basic specification, H3(b), is 'not established' (robust projection set from about -0.007 to 0.498, statistic 7.30 at zero against 7.815). Everything that does come out positive (H3(a), H4, and H5's non-rejection) concerns the Panel A coefficient, which assumes experience exogenous, and H4's breakdown is the robust reduced-form lower limit restated. A hostile referee would call this a replication with caveats, not a robustness confirmation. The claims now say exactly that, so it limits what the paper may claim; it is not a defect in the claims. I attacked the revision: claim values, supports and macros are unchanged against HEAD (only texts changed and 13 claims were added); the new numbers follow from their metrics; the miss lists equal the verdict flags; validate is clean.",
+  "verdict": "pass",
+  "reviewer_checks_run": "No estimation this round. Compared claims.jsonl with git HEAD: no claim removed, and no value, support, macro, format or kind changed. 15 texts changed and 13 claims added, matching the log entry at 19:20:10Z and runs/NOTES.md. Checked the arithmetic of the new claims from the run metrics: A5 clustered first-stage t^2 = 11.38 (below 16.38, 23.11 and the HC1 effective F 14.14); A6 t^2 = 19.01 (between 16.38 and 23.11); a6/a5 fs_se_cl / fs_se_hc1 = 0.916 / 1.115; young_iv - 1.959964 x young_iv_se = -0.031876 (code/r_age1419.py uses ivlib.Z975 with the conventional SE). The 7 'not reproduced' labels and the miss lists in h1-primary-reproduced and h1-secondary-reproduced equal the 0-flags in runs/verdict/metrics.json (B2 fs and SE, B4 rf and SE; B1 fs, B3 rf and SE; B1 SE reproduced). The rv-code-2 task is done. crew.py validate: OK, 0 warnings. My results-r1 recomputation (B6, A6 AR, CHR, H5 to 1e-9) still applies, because no value or run changed.",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The seed headline claim gave the replicated B6 coefficient the complier-return reading that the approved design rejects (iv-return: 'return ... for men whose schooling responds to proximity').",
+      "evidence": "claims.jsonl id iv-return; plan.json design.estimand",
+      "resolution": "Narrow the text to the design.estimand reading.",
+      "response": "Fixed: iv-return now gives the design.estimand reading (coefficient in this linear model, not the average return; the conditional weighted-average reading needs monotonicity and rich covariates, is not guaranteed here, and with experience instrumented by age the complier results do not define whose return it weights).",
+      "ruling": "Resolved. iv-return now reads 'the coefficient on schooling in this linear model, not the average return for all men'. It gives the conditional weighted-average reading only under monotonicity and rich covariates, says that this is not guaranteed on these data, and adds that, with experience instrumented by age, the complier results do not define whose return the coefficient weights. The text follows design.estimand. A smaller wording issue about Tubbicke remains; it is new finding F10."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H1 misses were labelled inconsistently (first-stage, first-stage-se, reduced-form-se, b3-rf-se read as replications), and the count claims did not name the misses or point to the D4 diagnosis.",
+      "evidence": "claims.jsonl ids first-stage, first-stage-se, reduced-form-se, b3-rf-se, h1-primary-reproduced, h1-secondary-reproduced; runs/verdict/metrics.json",
+      "resolution": "Add 'not reproduced' to the four claims and list the misses in the count claims, with a pointer to the post hoc D4 diagnosis.",
+      "response": "Fixed: first-stage, first-stage-se, reduced-form(-se), b1-fs, b3-rf(-se) all say 'not reproduced' with the D4 pointer; h1-primary-reproduced and h1-secondary-reproduced list the misses and the post hoc D4 diagnosis (diag-targets-reproduced), which does not change the counts.",
+      "ruling": "Resolved. All 7 misses (first-stage, first-stage-se, reduced-form, reduced-form-se, b1-fs, b3-rf, b3-rf-se) say 'Card prints ...; not reproduced', each with the D4 diagnosis labelled post hoc and report-only. b1-fs-se stays a match (0.1138 vs 0.114), as the verdict flag says. h1-primary-reproduced lists the four Panel B column 2/4 misses and the five matches. h1-secondary-reproduced lists the three misses and says that all Panel A numbers, B5, Table 2 column 2 and the AR set are reproduced, which agrees with every flag in runs/verdict/metrics.json. Both count claims say that D4 does not change the count."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Kling's .003 was attached to Table 2 column 2 (a5-ols-se) instead of column 5.",
+      "evidence": "claims.jsonl ids a5-ols-se, ols-return-se",
+      "resolution": "Move the Kling remark to ols-return-se.",
+      "response": "Fixed: a5-ols-se no longer mentions Kling; ols-return-se puts Kling's .003 against Table 2 col 5 and says no formula gives it; new claims ols-return-se-robust and ols-return-se-n (from h1-b6) carry the HC1 and n-denominator SEs.",
+      "ruling": "Resolved. a5-ols-se no longer mentions Kling. ols-return-se says Card's .004 is reproduced and that none of the conventional (0.0036984), HC1 (0.0038682) or n-denominator (0.0036800) SEs gives Kling's .003; all three round to .004. The new claims ols-return-se-robust and ols-return-se-n cite existing h1-b6 metrics, and validate confirms their values."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "young-ols misses Card Table 4 row 7 (0.0745 vs 0.076) without saying so.",
+      "evidence": "claims.jsonl id young-ols",
+      "resolution": "Label it 'not reproduced; not diagnosed'; no variant search.",
+      "response": "Fixed: young-ols now says 'not reproduced; not diagnosed' (no further run), noting that N and the IV estimate of row 7 are reproduced.",
+      "ruling": "Resolved. The label is present. No run was added after results-r1 (the last run in log.jsonl is check-sas-listing at 19:11:59Z), so no variant was searched. N 2037 and the IV estimate 0.0944 (0.0645) do round to the published 2,037 and 0.094 (0.064)."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The fixed reading of r-age1419 ('with both CIs') could not be written from macros: no young-iv-lo/hi claims and no full-sample CI metric.",
+      "evidence": "plan.json design.analysis_plan step 8; runs/r-age1419/metrics.json",
+      "resolution": "Add young-iv-lo/hi; for the full sample present beta (SE) with the H3(b) sets, or add CI metrics through a code round.",
+      "response": "Fixed: new claims young-iv-lo and young-iv-hi (r-age1419); young-iv-lo states that the full-sample comparison uses iv-return and iv-return-se through macros, with no typed interval, since h1-b6 wrote no interval metric.",
+      "ruling": "Resolved for the claims. young-iv-lo (-0.0319) and young-iv-hi (0.2208) equal the metrics. The construction stated in the claim (1.959964 x conventional SE) matches code/r_age1419.py lines 30-31, and the claim says that the interval includes 0. The full sample uses the cheaper option I offered, beta (SE) through macros. That option departs from the plan's 'both CIs' wording; the departure is not recorded, see new finding F9."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "r-cluster first-stage results (A5 clustered SE 1.11 x HC1, clustered F ~11.4) were run and left out of the claims.",
+      "evidence": "runs/r-cluster/metrics.json; claims.jsonl",
+      "resolution": "Add claims with the CR1 caveat, or state the omission with macros.",
+      "response": "Fixed: new claims a6/a5-fs-se-cl, -fs-cl-ratio, -fs-t-cl, a6/a5-rf-cl-ratio and n-clusters-under30 from r-cluster; texts say the A5 clustered first-stage F is below both H2 thresholds and the A6 one between them.",
+      "ruling": "Resolved. All nine new claims cite r-cluster metrics, and validate checks their values. The verbal statements hold: A5 t_cl^2 = 11.38 is below 16.38, 23.11 and the HC1 effective F 14.14; A6 t_cl^2 = 19.01 is between 16.38 and 23.11, with CR1/HC1 = 0.916. Both claims keep the 'CR1 with few, unequal cells can be unreliable' caveat, and a6-fs-t-cl says that the value is not reported as instrument strength. NOTES.md no longer lists these metrics as unplanned."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "b6-kappa1 described the largest root as a measure of how strongly age identifies the experience coefficients.",
+      "evidence": "claims.jsonl ids b6-kappa1, b6-kappa1-min",
+      "resolution": "Reword as the GKM19 conditioning statistic.",
+      "response": "Fixed: b6-kappa1 is now described as the GKM19 conditioning statistic, reflecting only the best-identified direction and varying with b0; b6-kappa1-min says the same.",
+      "ruling": "Resolved. Both texts now call kappa_1 the GKM19 conditioning statistic. They say that it reflects only the best-identified direction, that it varies with b0 because exp76 + ed76 = age76 - 6 lies in the instrument span, and that it is not a measure of separate identification."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "rv-code-2 was still 'todo' after code-r3 passed.",
+      "evidence": "plan.json tasks id rv-code-2",
+      "resolution": "Set rv-code-2 to done (PI).",
+      "response": "Fixed by the PI: rv-code-2 (the SAS-listing code review, held as code-r3) set to done.",
+      "ruling": "Resolved: plan.json rv-code-2 status is 'done'. The tasks still open (rv-results, pi-results-gate, w-paper, rv-paper, rp-rerun, pi-submission-gate) are all legitimately pending."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "open",
+      "text": "The plan's fixed reading for r-age1419 is 'reported next to the full-sample estimate with both CIs' (design.analysis_plan step 8). The revision decides that the paper will compare the young-men interval with the full-sample estimate and its SE and type no full-sample interval (claims.jsonl young-iv-lo), because h1-b6 wrote no interval metric. This is a small presentation departure from the approved plan, but it is recorded only inside a claim text and runs/NOTES.md, not in design.deviations, where the paper's deviations section will draw from. The track requires every deviation from the approved design to be stated.",
+      "evidence": "plan.json design.analysis_plan step 8 ('with both CIs'); plan.json design.deviations (D1-D5, none on this); claims.jsonl id young-iv-lo",
+      "resolution": "Text only, no run: record a one-line D6 in design.deviations ('the full-sample r-age1419 comparison reports beta (SE) and the H3(b) sets instead of a full-sample Wald CI, because h1-b6 writes no interval metric; no estimate or reading changes'). Alternatively, add the interval as a metric through a code round and a --replace rerun of h1-b6, which costs more.",
+      "response": "Fixed by the PI: deviation D6 records the full-sample beta (SE) reporting for step 8.",
+      "ruling": ""
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "open",
+      "text": "iv-return (and design.estimand, from which it is copied) says 'Tubbicke finds 2SLS well above estimators that do not rely on it' as evidence 'on these data' against the weighted-average reading of the per-year coefficient. Tubbicke's comparison uses a binary 'some college' treatment, without family background, n = 2,988, which is a different estimand (claims.jsonl c-tubbicke says so). The same claim also lists monotonicity as a condition, but cites evidence only against the covariate condition, although c-tubbicke reports Sloczynski's defier explanation. The Writer copies claim texts, so the paper's interpretation of its headline number would carry the unqualified version (literature-r2 L5 asked that Tubbicke be described as binary-treatment evidence).",
+      "evidence": "claims.jsonl id iv-return (sentence beginning 'Under monotonicity'); claims.jsonl id c-tubbicke; plan.json design.estimand",
+      "resolution": "Text only: 'Tubbicke, for a binary some-college treatment on the same data, finds 2SLS well above estimators that do not rely on it, and reports evidence (Sloczynski) that monotonicity may fail'. No change to any value.",
+      "response": "Fixed: iv-return now follows the revised design.estimand: both conditions are in doubt (Blandhol et al. on covariates; Tubbicke's evidence labelled as a different, binary some-college estimand without family background, n = 2,988, plus Sloczynski's defier result as Tubbicke reports it); value unchanged.",
+      "ruling": ""
+    }
+  ],
+  "files_sha256": {
+    "briefs/20261120T192032Z-reviewer.md": "93927be714f17283da9af34d4bfb0df9d443761e2829106ba28700855b193ce4",
+    "briefs/20261120T191851Z-econometrician.md": "1b5a2f8e8055204260102fb1d07cb6c24ccf408413de17c2da16102688136790",
+    "reviews/REVIEWER_MEMORY.md": "5de8fc8581f178cb7193eb17197e2311aa9117804b962fdd0a9bf1cce769bf8b",
+    "reviews/results-r1/review.json": "c8d9a54082d3e183c76cfe58af8169c1fa609266cd623ba4b2a1aa5092a4548a",
+    "claims.jsonl": "ee0c2283fb5bc36d61781e3ffca195060aaccd3bee6a6d75209cec0434617107",
+    "plan.json": "337d2f71cae329f187857e4cba975d162161ee93e26d4fc9780f12ceb877bd69",
+    "log.jsonl": "546cb7c608ed9cf5f9d91deb0290af9db310dc3de01e4d3678099834949289cd",
+    "runs/NOTES.md": "38b8589856bb16d8351d5fe9e34a2c4c6500c47368f414635c7f76b6bef83bf5",
+    "runs/verdict/metrics.json": "abd4cf0e4e83aa9978985aa99942c0c7f9147b21a42a1b7bb1e86eaddb9f8c8b",
+    "runs/r-cluster/metrics.json": "6ca22803ddda754d683d2d584dd6aa54b7b20e08c21d012877284e527ddad636",
+    "runs/r-age1419/metrics.json": "f9d0e476f28143fc09657c0ecaa61b372b8daac334047b40dc52fb9095da9a16",
+    "code/r_age1419.py": "be4c99d151528315b23ad05bc442dd7456f09d8dbecd88cfc50e0a2eb5a6e093",
+    "paper/process.tex": "bbf93cdd7a8bbec45050cf49f16aa3540971b209357416ec59f71be7870b59e1"
+  },
+  "recorded": "2026-11-20T19:23:12Z"
+}

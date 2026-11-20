@@ -221,8 +221,10 @@ coefficient and SE) are the evidence that the run is internally consistent, not 
 The h2h3 flags and h3b flag duplicate the verdict flags, which are claimed. The CHR union
 bounds at the five fixed deltas are drawn in the figure from chr_grid.csv and can be
 claimed if the Writer quotes one. HC1 SEs of the H1 first stages and reduced forms, the
-Panel B experience coefficients, r-cluster first-stage SEs and ratios, and the young-men
-HC1 SE and interval are available in the metrics but not planned for the paper.
+Panel B experience coefficients and the young-men HC1 SE are available in the metrics but
+not planned for the paper. After results-r1 (F3, F5, F6), the r-cluster first-stage
+results, the young-men interval and the Table 2 col 5 HC1 and n-denominator SEs became
+claims (see the section below).
 
 ## Claims (task e-claims)
 
@@ -324,3 +326,15 @@ speaks only of these two OLS regressions and N. It says nothing about the instru
 age variables, any IV estimate or the B1-B4 misses. No tolerance was changed. The
 listing's text was not printed, and nothing was extracted to disk. Every planned run and
 claim is now complete.
+
+## Claims revised after results-r1 (2026-11-20; no run, no value changed)
+
+- **Changed texts**: iv-return (F1); first-stage, first-stage-se, reduced-form,
+  reduced-form-se, b1-fs, b3-rf, b3-rf-se, h1-primary-reproduced,
+  h1-secondary-reproduced (F2); a5-ols-se, ols-return-se (F3); young-ols (F4);
+  b6-kappa1, b6-kappa1-min (F7).
+- **New claims**: ols-return-se-robust and ols-return-se-n (F3); young-iv-lo and
+  young-iv-hi (F5); a6-fs-se-cl, a6-fs-cl-ratio, a6-fs-t-cl, a6-rf-cl-ratio,
+  a5-fs-se-cl, a5-fs-cl-ratio, a5-fs-t-cl, a5-rf-cl-ratio and n-clusters-under30 (F6).
+- **Clustered first-stage F (squared clustered t)**: A5 is about 11.4, below both H2
+  thresholds. A6 is about 19.0, above 16.38 but below 23.11.

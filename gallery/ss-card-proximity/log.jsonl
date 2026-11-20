@@ -112,3 +112,13 @@
 {"time": "2026-11-20T19:11:59Z", "role": "econometrician", "action": "run", "detail": "check-sas-listing exit=0"}
 {"time": "2026-11-20T19:12:07Z", "role": "figures-ra", "action": "ran-figure", "detail": "fig-chr rerun with --replace after code-r3: markers at the five planned deltas, no offset; same window and pieces as before; CAPTIONS.md matches"}
 {"time": "2026-11-20T19:12:20Z", "role": "econometrician", "action": "claims-written", "detail": "check-sas-listing 6/6 match (T2 cols 2 and 5 OLS: N, ED76 estimate, SE); sas-ols-match claim narrowed per code-r3 F7 / D5; e-sas-listing done"}
+{"time": "2026-11-20T19:12:38Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T191238Z (results-r1)"}
+{"time": "2026-11-20T19:18:05Z", "role": "reviewer", "action": "review-recorded", "detail": "results-r1 verdict=revise files=26"}
+{"time": "2026-11-20T19:18:51Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T191851Z (results-r1 F1-F7)"}
+{"time": "2026-11-20T19:20:10Z", "role": "econometrician", "action": "claims-revised", "detail": "results-r1 F1-F7: texts of iv-return, first-stage(-se), reduced-form(-se), b1-fs, b3-rf(-se), h1-primary/secondary-reproduced, a5-ols-se, ols-return-se, young-ols, b6-kappa1(-min); new: ols-return-se-robust, ols-return-se-n, young-iv-lo/hi, a6/a5-fs-se-cl, -fs-cl-ratio, -fs-t-cl, a6/a5-rf-cl-ratio, n-clusters-under30; no value changed, no run"}
+{"time": "2026-11-20T19:20:32Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T192032Z (results-r2)"}
+{"time": "2026-11-20T19:23:12Z", "role": "reviewer", "action": "review-recorded", "detail": "results-r2 verdict=pass files=13"}
+{"time": "2026-11-20T19:23:39Z", "role": "pi", "action": "deviation-recorded", "detail": "D6 (results-r2 F9); design.estimand aligned with the contribution's wording on Tubbicke and monotonicity (results-r2 F10)"}
+{"time": "2026-11-20T19:23:39Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T192339Z (results-r2 F10)"}
+{"time": "2026-11-20T19:23:53Z", "role": "econometrician", "action": "claims-revised", "detail": "results-r2 F10: iv-return text aligned with revised design.estimand (Tubbicke as different binary estimand; monotonicity doubt via Sloczynski); value unchanged"}
+{"time": "2026-11-20T19:24:08Z", "role": "pi", "action": "gate-request", "detail": "results"}
