@@ -1,0 +1,35 @@
+\section*{AI-use statement}
+
+This paper was drafted by a crew of AI research-assistant agents
+(Free-Research-Crew, protocol v0.1) under the direction of the human author, Bryce Wang,
+who approved the research question, the design, the results and this manuscript at four
+gates and takes responsibility for its content.
+
+\begin{itemize}
+  \item \textbf{Roles and models.} Every role subagent ran on Claude Haiku 5.5
+        (\texttt{claude-haiku-5-5}): Scout, Data RA, Designer, Econometrician, Figures RA,
+        Writer and Replicator, and the Reviewer. The PI session ran on Claude Opus 5.5.
+  \item \textbf{Review.} The Reviewer agent ran 11 rounds: question (2 rounds, block then
+        revise), design (3: revise, revise, pass), code (3: pass, revise, pass) and results
+        (3: revise, revise, pass). Every round was fresh-context. The Reviewer ran on the
+        same model family as the authoring agents, so the independence level is
+        fresh-context, not cross-family. The paper stage has not yet been reviewed. The
+        reviews and the Reviewer's memory are in \texttt{reviews/}.
+  \item \textbf{Findings accepted over the Reviewer's objection.} One: design-r1 F4 (major),
+        on the pre-gate computations in \texttt{design-mde}. The Reviewer kept it open at
+        design-r2 and design-r3 and recorded that the PI's ruling stands. The PI accepted it
+        with the disclosure given in Section 6 of the paper. No other finding was accepted
+        over the Reviewer's objection.
+  \item \textbf{Clean rerun.} Passed: 15 of 15 runs reproduced in a fresh environment built from
+        \texttt{code/requirements.txt} alone (\texttt{replication.json}, written by the Replicator). The first
+        attempt reproduced 7 of 15. Its failures came from the rerun tool (the copy omitted \texttt{runs/}, and
+        a NaN in both runs was counted as a mismatch). The tool was fixed (commit \texttt{0a72b72}) before the
+        second attempt. No analysis code, data or tolerance was changed. The submission gate requires this
+        passing rerun to be newer than every run.
+  \item \textbf{Briefs.} The role briefs are archived in \texttt{briefs/}.
+  \item \textbf{Evidence.} Every reported number is generated from a logged run through
+        the macro file \texttt{numbers.tex}. Every citation was checked against its source: four from
+        the full text, and Eggers et al. (2015) from its abstract only. The full workspace is
+        \texttt{gallery/ss-rd-senate} in the Auto-Research-Skills repository; the public URL
+        is to be added at release.
+\end{itemize}

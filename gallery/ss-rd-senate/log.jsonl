@@ -100,3 +100,8 @@
 {"time": "2026-11-20T07:06:42Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
 {"time": "2026-11-20T07:06:56Z", "role": "replicator", "action": "rerun-passed", "detail": "15/15 reproduced on crew.py 0a72b72"}
 {"time": "2026-11-20T07:06:56Z", "role": "replicator", "action": "report-updated", "detail": "REPLICATION.md covers both attempts and tool fix; t-rerun done"}
+{"time": "2026-11-20T07:07:10Z", "role": "writer", "action": "paper-drafted", "detail": "paper/main.tex written from plan.json, claims.jsonl macros and refs.bib; tables and figures from paper/tables and paper/figures; no result typed by hand"}
+{"time": "2026-11-20T07:07:10Z", "role": "writer", "action": "paper-compiled", "detail": "latexmk clean in a scratch copy: 10 pages, no undefined refs, overfull boxes or BibTeX warnings; paper/main.pdf copied"}
+{"time": "2026-11-20T07:07:10Z", "role": "writer", "action": "ai-use-filled", "detail": "paper/ai-use.tex filled: roles and models, 11 review rounds, one finding accepted over the Reviewer (design-r1 F4), clean rerun pending (replication.json passed=false at drafting)"}
+{"time": "2026-11-20T07:07:10Z", "role": "writer", "action": "w-paper-done", "detail": "task w-paper set to done"}
+{"time": "2026-11-20T07:07:33Z", "role": "writer", "action": "paper-updated", "detail": "clean rerun status updated in paper/main.tex and paper/ai-use.tex to the passing replication.json (15 of 15; first attempt 7 of 15 with the rerun-tool fix in 0a72b72); recompiled, 10 pages"}

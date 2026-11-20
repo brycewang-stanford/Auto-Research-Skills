@@ -112,6 +112,12 @@
       "title": "Build figures and tables by script from logged runs: fig_rd.pdf and fig_density.pdf (code/fig_rd.py, code/fig_density.py), tab_main.tex and tab_falsification.tex (code/tab_main.py, code/tab_falsification.py) with macros from paper/numbers.tex; captions in paper/figures/CAPTIONS.md",
       "owner": "figures-ra",
       "status": "done"
+    },
+    {
+      "id": "w-paper",
+      "title": "Write paper/main.tex (replication paper from plan.json, claims.jsonl macros, refs.bib), fill paper/ai-use.tex, compile paper/main.pdf (10 pages, no undefined references, overfull boxes or BibTeX warnings)",
+      "owner": "writer",
+      "status": "done"
     }
   ],
   "gates": {
