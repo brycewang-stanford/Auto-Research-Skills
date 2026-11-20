@@ -140,6 +140,16 @@ def main(argv: list[str] | None = None) -> int:
     own = [e for e in errors if f"reviews/{args.target}-r{args.round}" in e]
     for message in own:
         print(f"ERROR: {message}", file=sys.stderr)
+    if not own:  # record it as `crew.py review` does: stamp the files it read, with their hashes
+        review = crew.read_json(record)
+        unmatched: list = []
+        review["files_sha256"] = crew.review_files(ws, review.get("files_read") or [], unmatched)
+        for value in unmatched:
+            print(f"WARN: files_read entry {value!r} matches no file in the workspace")
+        review["recorded"] = crew.now()
+        crew.write_json(record, review)
+        crew.append_log(ws, "reviewer", "review-recorded",
+                        f"{args.target}-r{args.round} verdict={review.get('verdict')} via={args.via}")
     print(f"Verdict: {review.get('verdict')}  ({len(review.get('findings') or [])} finding(s))")
     print(f"Kill argument: {review.get('kill_argument', '').strip()}")
     return 1 if own else 0

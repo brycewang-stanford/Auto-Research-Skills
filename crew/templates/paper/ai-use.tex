@@ -1,15 +1,23 @@
 \section*{AI-use statement}
 
 This paper was drafted by a crew of AI research-assistant agents
-(Free-Research-Crew, protocol v0.1) under the direction of the human author, who approved
+(Free-Research-Crew, protocol v0.2) under the direction of the human author, who approved
 the research question, the design, the results and this manuscript at four gates and
 takes responsibility for its content.
 
-% Fill in before the submission gate:
+% Fill in before the submission gate. Counts are macros from process.tex (`crew.py numbers`);
+% who did what is checked against log.jsonl and reviews/, never written from memory.
 \begin{itemize}
   \item \textbf{Roles and models.} ROLE: MODEL, for each role used.
-  \item \textbf{Review.} The Reviewer agent ran N rounds; its independence level was
-        LEVEL (cross-family or fresh-context).
+  \item \textbf{Review.} The Reviewer ran \CrewReviewRounds{} rounds
+        (\CrewRoundsCode{} of the code, \CrewRoundsPaper{} of the paper) on
+        \CrewReviewerModels{} (\CrewReviewIndependence{}) and raised \CrewFindingsCritical{}
+        critical, \CrewFindingsMajor{} major and \CrewFindingsMinor{} minor findings,
+        summed over rounds.
+  \item \textbf{Runs.} \CrewRuns{} runs in the ledger (\CrewRunsAnalysis{} analysis);
+        \CrewRunsSuperseded{} replaced by a later run and archived; \CrewRunsUnreviewed{}
+        analysis runs not covered by a passing code review. The clean rerun
+        \CrewRerunStatus{}: \CrewRerunReproduced{} of \CrewRerunTotal{} runs reproduced.
   \item \textbf{Findings accepted over the Reviewer's objection.} NONE, or list them.
   \item \textbf{Evidence.} Every reported number is generated from a logged run; every
         citation was checked against its source. The full workspace is available at URL.

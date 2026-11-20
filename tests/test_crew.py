@@ -37,14 +37,14 @@ def edit_json(path: Path, change) -> None:
 
 
 def write_review(ws: Path, target: str, number: int = 1, findings: list | None = None,
-                 verdict: str = "pass") -> Path:
+                 verdict: str = "pass", files_read: list | None = None) -> Path:
     directory = ws / "reviews" / f"{target}-r{number}"
     directory.mkdir(parents=True, exist_ok=True)
     path = directory / "review.json"
     path.write_text(json.dumps({
         "id": directory.name, "target": target, "round": number, "created": crew.now(),
         "reviewer": {"model": "test-model", "independence": "fresh-context"},
-        "files_read": ["plan.json"],
+        "files_read": files_read or ["plan.json"],
         "kill_argument": "The strongest objection that survived.",
         "verdict": verdict,
         "findings": findings or [],
@@ -83,9 +83,17 @@ class CrewWorkspaceTest(unittest.TestCase):
         write_review(self.ws, "design")
         self.assertEqual(self.approve("design")[0], 0)
 
+    def cover_code(self) -> None:
+        """Have a passing code review read the current code/ (the next round), as protocol 0.2 requires."""
+        rounds = [d for d in (self.ws / "reviews").iterdir() if d.name.startswith("code-r")]
+        review_id = write_review(self.ws, "code", number=len(rounds) + 1, files_read=["code/"]).parent.name
+        code, out = call("review", str(self.ws), review_id)
+        self.assertEqual(code, 0, out)
+
     def run_main(self, value: float = 0.5) -> None:
         script = self.ws / "code" / "main.py"
         script.write_text(f"import json\njson.dump({{'acc': {value}}}, open('metrics.json', 'w'))\n")
+        self.cover_code()
         code, out = call("run", str(self.ws), "--id", "main", "--role", "experimenter",
                          "--kind", "analysis", "--code", "code/main.py",
                          "--metrics", "metrics.json", "--", sys.executable, "code/main.py")
@@ -205,6 +213,7 @@ class CrewWorkspaceTest(unittest.TestCase):
     def test_failed_run_cannot_support_a_claim(self) -> None:
         self.to_design()
         (self.ws / "code" / "bad.py").write_text("raise SystemExit(3)\n")
+        self.cover_code()
         code, _ = call("run", str(self.ws), "--id", "main", "--role", "experimenter",
                        "--kind", "analysis", "--code", "code/bad.py", "--", sys.executable, "code/bad.py")
         self.assertEqual(code, 1)
@@ -253,6 +262,7 @@ class CrewWorkspaceTest(unittest.TestCase):
         self.to_design()
         script = self.ws / "code" / "noisy.py"
         script.write_text("import json, random\njson.dump({'acc': random.random()}, open('metrics.json', 'w'))\n")
+        self.cover_code()
         call("run", str(self.ws), "--id", "noisy", "--role", "experimenter", "--kind", "analysis",
              "--code", "code/noisy.py", "--metrics", "metrics.json", "--", sys.executable, "code/noisy.py")
         code, _ = call("rerun", str(self.ws))
@@ -266,6 +276,7 @@ class CrewWorkspaceTest(unittest.TestCase):
         script = self.ws / "code" / "inrun.py"
         script.write_text("import json\njson.dump({'acc': 0.5, 'p_asy': float('nan')}, "
                           "open('runs/inrun/metrics.json', 'w'))\n")
+        self.cover_code()
         code, out = call("run", str(self.ws), "--id", "inrun", "--role", "experimenter", "--kind", "analysis",
                          "--code", "code/inrun.py", "--metrics", "runs/inrun/metrics.json",
                          "--", sys.executable, "code/inrun.py")
@@ -358,17 +369,158 @@ class CrewWorkspaceTest(unittest.TestCase):
         code, out = self.approve("submission")
         self.assertEqual(code, 1)
         self.assertIn("main.pdf", out)
-        (self.ws / "paper" / "main.pdf").write_bytes(b"%PDF-1.4\n")
         (self.ws / "paper" / "ai-use.tex").write_text("AI-use statement.\n")
+        (self.ws / "paper" / "main.pdf").write_bytes(b"%PDF-1.4\n")
         code, out = self.approve("submission")
         self.assertEqual(code, 1)
         self.assertIn("replication.json: missing", out)
         self.assertEqual(call("rerun", str(self.ws))[0], 0)
+        code, out = self.approve("submission")
+        self.assertEqual(code, 1)
+        self.assertIn("still todo", out)
+        self.assertIn("process.tex", out)
+        edit_json(self.ws / "plan.json", lambda plan: plan["tasks"][0].update(status="done"))
+        call("numbers", str(self.ws))
+        self.assertIn("\\newcommand{\\CrewRerunStatus}{passed}", (self.ws / "paper" / "process.tex").read_text())
+        code, out = self.approve("submission")
+        self.assertEqual(code, 1)
+        self.assertIn("recompile", out)
+        (self.ws / "paper" / "main.pdf").write_bytes(b"%PDF-1.4\n")
+        import os, time
+        later = time.time() + 5
+        os.utime(self.ws / "paper" / "main.pdf", (later, later))
         self.assertEqual(self.approve("submission")[0], 0)
         self.assertEqual(self.errors(strict=True), [])
         code, out = call("status", str(self.ws))
         self.assertEqual(code, 0)
         self.assertIn("submission  approved", out)
+
+
+class ProtocolTwoTest(unittest.TestCase):
+    """Rules added in protocol 0.2, from recurring failures in the first seven gallery papers."""
+
+    def setUp(self) -> None:
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.ws = Path(self.tmp.name) / "ws"
+        self.assertEqual(call("init", str(self.ws), "--track", "cs", "--title", "T")[0], 0)
+        helper = CrewWorkspaceTest()
+        helper.ws = self.ws
+        self.h = helper
+
+    def run_script(self, *extra: str) -> tuple[int, str]:
+        return call("run", str(self.ws), "--id", "main", "--role", "experimenter", "--kind", "analysis",
+                    "--code", "code/main.py", "--metrics", "metrics.json", *extra,
+                    "--", sys.executable, "code/main.py")
+
+    def write_script(self, value: float) -> None:
+        (self.ws / "code" / "main.py").write_text(
+            f"import json\njson.dump({{'acc': {value}}}, open('metrics.json', 'w'))\n")
+
+    def test_init_creates_briefs_and_records_protocol(self) -> None:
+        self.assertTrue((self.ws / "briefs").is_dir())
+        self.assertEqual(json.loads((self.ws / "crew.json").read_text())["protocol"], "0.2")
+
+    def test_analysis_needs_a_passing_code_review_of_this_code(self) -> None:
+        self.h.to_design()
+        self.write_script(0.5)
+        code, out = self.run_script()
+        self.assertEqual(code, 1)
+        self.assertIn("no code review exists", out)
+        write_review(self.ws, "code", 1, verdict="revise", files_read=["code/main.py"])
+        self.assertEqual(call("review", str(self.ws), "code-r1")[0], 0)
+        code, out = self.run_script()
+        self.assertIn("verdict 'revise'", out)
+        write_review(self.ws, "code", 2, files_read=["code/main.py"])
+        self.assertEqual(call("review", str(self.ws), "code-r2")[0], 0)
+        code, out = self.run_script()
+        self.assertEqual(code, 0, out)
+        self.assertEqual(json.loads((self.ws / "runs" / "main" / "run.json").read_text())["code_review"], "code-r2")
+        # the fix after the review is the failure seen in five gallery papers
+        self.write_script(0.7)
+        code, out = self.run_script("--replace")
+        self.assertEqual(code, 1)
+        self.assertIn("changed after code review code-r2", out)
+        code, out = self.run_script("--replace", "--unreviewed", "human agreed: one-line fix")
+        self.assertEqual(code, 0, out)
+        self.assertIn("run-unreviewed", (self.ws / "log.jsonl").read_text())
+        call("numbers", str(self.ws))
+        self.assertIn("\\newcommand{\\CrewRunsUnreviewed}{1}", (self.ws / "paper" / "process.tex").read_text())
+
+    def test_a_review_is_stamped_once(self) -> None:
+        self.h.to_design()
+        self.write_script(0.5)
+        write_review(self.ws, "code", 1, files_read=["code/main.py (whole file)"])
+        self.assertEqual(call("review", str(self.ws), "code-r1")[0], 0)
+        self.write_script(0.7)  # changed after the review; restamping must not launder it
+        code, out = call("review", str(self.ws), "code-r1")
+        self.assertEqual(code, 1)
+        self.assertIn("already recorded", out)
+        code, out = self.run_script()
+        self.assertIn("changed after code review code-r1", out)
+
+    def test_code_paths_are_compared_in_one_spelling(self) -> None:
+        self.h.to_design()
+        self.write_script(0.5)
+        write_review(self.ws, "code", 1, files_read=["code/*.py"])
+        self.assertEqual(call("review", str(self.ws), "code-r1")[0], 0)
+        code, out = call("run", str(self.ws), "--id", "main", "--role", "experimenter", "--kind", "analysis",
+                         "--code", "./code/main.py", "--metrics", "metrics.json",
+                         "--", sys.executable, "code/main.py")
+        self.assertEqual(code, 0, out)
+        self.assertEqual(json.loads((self.ws / "runs" / "main" / "run.json").read_text())["code"][0]["path"],
+                         "code/main.py")
+
+    def test_review_command_refuses_an_invalid_review(self) -> None:
+        path = write_review(self.ws, "question")
+        edit_json(path, lambda r: r.update(kill_argument=""))
+        code, out = call("review", str(self.ws), "question-r1")
+        self.assertEqual(code, 1)
+        self.assertIn("kill_argument", out)
+
+    def test_temporary_paths_are_refused(self) -> None:
+        self.h.to_design()
+        self.write_script(0.5)
+        self.h.cover_code()
+        code, out = call("run", str(self.ws), "--id", "x", "--role", "experimenter", "--kind", "data-prep",
+                         "--", sys.executable, "code/main.py", "--cache=/tmp/scratch/x.csv")
+        self.assertEqual(code, 1)
+        self.assertIn("temporary path", out)
+
+    def test_typed_claim_numbers_are_flagged(self) -> None:
+        self.h.to_design()
+        self.write_script(0.1234)
+        self.h.cover_code()
+        self.assertEqual(self.run_script()[0], 0)
+        self.h.add_claim(value=0.1234, format=".3f", text="Accuracy is 0.123.")
+        (self.ws / "paper" / "main.tex").write_text("Accuracy was 0.123 overall.\n"
+                                                    "Published: 0.123. % crew:literal\n")
+        warnings = crew.validate(self.ws)[1]
+        flagged = [w for w in warnings if "use the macro" in w]
+        self.assertEqual(len(flagged), 1)
+        self.assertIn("main.tex:1", flagged[0])
+
+    def test_rerun_with_setup_and_history(self) -> None:
+        self.h.to_design()
+        self.write_script(0.5)
+        self.h.cover_code()
+        self.assertEqual(self.run_script()[0], 0)
+        (self.ws / ".venv").mkdir()
+        (self.ws / ".venv" / "marker").write_text("author env")
+        code, out = call("rerun", str(self.ws), "--setup", "test ! -e .venv && mkdir .venv")
+        self.assertEqual(code, 0, out)
+        self.assertEqual(json.loads((self.ws / "replication.json").read_text())["setup"]["exit_code"], 0)
+        code, _ = call("rerun", str(self.ws), "--setup", "exit 7")
+        self.assertEqual(code, 1)
+        history = [json.loads(l) for l in (self.ws / "replication-history.jsonl").read_text().splitlines()]
+        self.assertEqual([h["passed"] for h in history], [True, False])
+
+    def test_old_workspaces_get_warnings_not_errors(self) -> None:
+        edit_json(self.ws / "crew.json", lambda m: m.update(protocol="0.1"))
+        self.h.to_design()
+        self.write_script(0.5)
+        self.assertEqual(self.run_script()[0], 0)  # 0.1: no code-review check at run time
+        self.assertEqual(self.h.errors(), [])
 
 
 SCORE_SPEC = importlib.util.spec_from_file_location("crew_score", ROOT / "crew" / "bench" / "score.py")

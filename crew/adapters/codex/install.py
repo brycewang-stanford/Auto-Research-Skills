@@ -1,24 +1,39 @@
 #!/usr/bin/env python3
-"""Install the research crew into Codex as skills.
+"""Install the research crew into Codex.
 
-Writes one skill per role into the Codex skills directory (default
-~/.codex/skills): `crew-pi` (start or resume a crew project as the PI) and
-`crew-<role>` for each role. Each skill points at this checkout's crew/ files by
-absolute path, so the workspace tool and playbooks stay in one place.
+Writes, under the Codex home (default $CODEX_HOME or ~/.codex):
+
+- `skills/crew-pi/SKILL.md`: start or resume a crew project as the PI;
+- `agents/crew-<role>.toml`: one Codex custom agent per role (`crew_scout`,
+  `crew_reviewer`, ...), so every role runs as a subagent in its own context, the
+  way the Claude Code plugin runs them;
+- `hooks.json`: the crew guard (`crew/hooks/guard.py`) on PreToolUse and
+  UserPromptSubmit, merged into any hooks already there.
+
+Everything points at this checkout's crew/ directory by absolute path, so keep the
+clone where it is and rerun the installer after moving or updating it.
 
 Usage:
-  python3 crew/adapters/codex/install.py [--dest DIR] [--force] [--dry-run]
+  python3 crew/adapters/codex/install.py [--codex-home DIR] [--no-hooks] [--dry-run]
+  python3 crew/adapters/codex/install.py --uninstall
 """
 
 from __future__ import annotations
 
 import argparse
+import json
+import os
 import re
+import shutil
 import sys
 from pathlib import Path
 
 PLUGIN = Path(__file__).resolve().parents[2]
 FRONTMATTER = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
+MARKER = "## Running in Codex"
+GUARD = PLUGIN / "hooks" / "guard.py"
+HOOK_EVENTS = {"PreToolUse": "Bash|apply_patch", "UserPromptSubmit": None,
+               "SubagentStart": None, "SubagentStop": None}
 
 
 def parse(text: str) -> tuple[dict[str, str], str]:
@@ -32,69 +47,184 @@ def parse(text: str) -> tuple[dict[str, str], str]:
     return meta, text.strip()
 
 
-def codex_notes() -> str:
+def roles() -> list[str]:
+    return [p.stem for p in sorted((PLUGIN / "agents").glob("*.md"))]
+
+
+def agent_name(role: str) -> str:
+    return "crew_" + role.replace("-", "_")
+
+
+def codex_notes(for_pi: bool) -> str:
     crew = PLUGIN / "scripts" / "crew.py"
     review = PLUGIN / "scripts" / "cross_review.py"
-    return f"""## Running in Codex
+    agents = ", ".join(f"`{agent_name(r)}`" for r in roles())
+    common = f"""{MARKER}
 
 - Plugin root: `{PLUGIN}`. Wherever the instructions say `<plugin root>` or
   `${{CLAUDE_PLUGIN_ROOT}}`, use that path.
 - Workspace tool: `python3 {crew}`.
-- Roles are the `crew-<role>` skills (`crew-scout`, `crew-designer`, `crew-data-ra`,
-  `crew-econometrician`, `crew-experimenter`, `crew-figures-ra`, `crew-writer`,
-  `crew-replicator`, `crew-reviewer`). Where the instructions say "delegate to
-  `crew:<role>`", spawn a sub-agent with that skill if your Codex supports it; otherwise
-  finish your current role, then act as the next role yourself, reading only the files
-  that role reads.
-- **The Reviewer must not be you.** Run reviews on Claude:
-  `python3 {review} <workspace> <target> <round> --via claude`.
-  If the Claude CLI is not available, start a fresh Codex session for the review with the
-  `crew-reviewer` skill and nothing else in its context.
+- Gate approvals belong to the human. They approve by typing it in chat (for example
+  "approve the design gate"); the crew guard hook refuses `crew.py gate ... approve`
+  otherwise, and refuses any edit of `plan.json` that approves a gate.
+"""
+    if not for_pi:
+        return common + ("- You are a subagent. Do your role's task from the brief, write your files, and "
+                         "return a short report. Never approve a gate and never delegate.\n")
+    return common + f"""- The roles are Codex custom agents: {agents}. Where the instructions say
+  "delegate with the Agent tool to `crew:<role>`", spawn the custom agent
+  `crew_<role>` (hyphens become underscores, e.g. `crew_data_ra`) with the brief as its
+  task, and wait for it to finish. Run one writing role at a time; never do a role's
+  work yourself.
+- Where the instructions say AskUserQuestion, ask the human in chat and stop until
+  they answer.
+- The Reviewer must not share your context. By default spawn `crew_reviewer`, which
+  records `independence: fresh-context`. For a cross-family review, and only with the
+  human's consent to send the workspace to Anthropic, run
+  `python3 {review} <workspace> <target> <round> --via claude` instead.
+- `python3 {PLUGIN / "scripts" / "usage.py"}` reads Claude Code transcripts only; in
+  Codex, report token use from Codex's own session stats if asked.
 """
 
 
-def render_role(path: Path) -> tuple[str, str]:
-    meta, body = parse(path.read_text(encoding="utf-8"))
-    name = f"crew-{meta.get('name', path.stem)}"
-    description = meta.get("description", "")
-    text = f"---\nname: {name}\ndescription: {description}\n---\n\n{body}\n\n{codex_notes()}"
-    return name, text
+def toml_string(text: str) -> str:
+    if "'''" not in text:
+        return "'''\n" + text + "\n'''"
+    escaped = text.replace("\\", "\\\\").replace('"""', '\\"\\"\\"')
+    return '"""\n' + escaped + '\n"""'
 
 
-def render_pi() -> tuple[str, str]:
+def toml_basic(text: str) -> str:
+    return json.dumps(text, ensure_ascii=False)  # a JSON string is a valid TOML basic string
+
+
+def render_agent(role: str) -> tuple[str, str]:
+    meta, body = parse((PLUGIN / "agents" / f"{role}.md").read_text(encoding="utf-8"))
+    body = body.replace("<plugin root>", str(PLUGIN)).replace("${CLAUDE_PLUGIN_ROOT}", str(PLUGIN))
+    instructions = f"{body}\n\n{codex_notes(for_pi=False)}"
+    text = (f"# Generated by crew/adapters/codex/install.py from crew/agents/{role}.md; rerun it after updates.\n"
+            f"name = {toml_basic(agent_name(role))}\n"
+            f"description = {toml_basic(meta.get('description', f'Research crew role: {role}'))}\n"
+            f"developer_instructions = {toml_string(instructions)}\n")
+    return f"crew-{role}.toml", text
+
+
+def render_pi() -> str:
     _, body = parse((PLUGIN / "PI.md").read_text(encoding="utf-8"))
     start = parse((PLUGIN / "skills" / "start" / "SKILL.md").read_text(encoding="utf-8"))[1]
     start = start.replace("${CLAUDE_PLUGIN_ROOT}", str(PLUGIN)).replace("$ARGUMENTS", "the user's request")
     description = ("Start or resume a research-crew project that produces a computer-science or "
                    "social-science paper with real experiments or data modeling, acting as the PI. "
                    "Use when the user wants the crew to write a paper or names a crew bench seed.")
-    text = (f"---\nname: crew-pi\ndescription: {description}\n---\n\n{start}\n\n---\n\n"
-            f"{body.replace('<plugin root>', str(PLUGIN))}\n\n{codex_notes()}")
-    return "crew-pi", text
+    return (f"---\nname: crew-pi\ndescription: {description}\n---\n\n{codex_notes(for_pi=True)}\n---\n\n"
+            f"{start}\n\n---\n\n{body.replace('<plugin root>', str(PLUGIN))}\n")
+
+
+def guard_command() -> str:
+    return f'python3 "{GUARD}"'
+
+
+def is_crew_hook(handler: object) -> bool:
+    return isinstance(handler, dict) and str(handler.get("command", "")).endswith('hooks/guard.py"') \
+        and "crew" in str(handler.get("command", ""))
+
+
+def without_crew_hooks(config: dict) -> dict:
+    hooks = config.get("hooks") if isinstance(config.get("hooks"), dict) else {}
+    cleaned: dict = {}
+    for event, groups in hooks.items():
+        kept = []
+        for group in groups if isinstance(groups, list) else []:
+            handlers = [h for h in group.get("hooks", []) if not is_crew_hook(h)] if isinstance(group, dict) else []
+            if handlers:
+                kept.append({**group, "hooks": handlers})
+        if kept:
+            cleaned[event] = kept
+    return {**config, "hooks": cleaned}
+
+
+def with_crew_hooks(config: dict) -> dict:
+    config = without_crew_hooks(config)
+    hooks = config["hooks"]
+    for event, matcher in HOOK_EVENTS.items():
+        group: dict = {"hooks": [{"type": "command", "command": guard_command(), "timeout": 10,
+                                  "statusMessage": "Crew guard"}]}
+        if matcher:
+            group = {"matcher": matcher, **group}
+        hooks.setdefault(event, []).append(group)
+    return config
+
+
+def read_hooks(path: Path) -> dict:
+    if not path.exists():
+        return {"hooks": {}}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError(f"{path} is not a JSON object")
+    return data
+
+
+def old_role_skills(skills: Path) -> list[Path]:
+    """Role skills written by the previous adapter (crew-<role>/SKILL.md with the Codex marker)."""
+    found = []
+    for role in roles():
+        target = skills / f"crew-{role}" / "SKILL.md"
+        if target.is_file() and MARKER in target.read_text(encoding="utf-8", errors="replace"):
+            found.append(target.parent)
+    return found
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--dest", default=str(Path.home() / ".codex" / "skills"))
-    parser.add_argument("--force", action="store_true", help="overwrite existing crew-* skills")
+    parser.add_argument("--codex-home", default=os.environ.get("CODEX_HOME") or str(Path.home() / ".codex"))
+    parser.add_argument("--no-hooks", action="store_true", help="do not install the crew guard hook")
+    parser.add_argument("--uninstall", action="store_true", help="remove what this installer wrote")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
 
-    skills = [render_pi()] + [render_role(p) for p in sorted((PLUGIN / "agents").glob("*.md"))]
-    dest = Path(args.dest).expanduser()
-    for name, text in skills:
-        target = dest / name / "SKILL.md"
-        if target.exists() and not args.force:
-            print(f"ERROR: {target} exists (use --force to overwrite)", file=sys.stderr)
-            return 1
-    for name, text in skills:
-        target = dest / name / "SKILL.md"
-        print(f"{'would write' if args.dry_run else 'wrote'} {target}")
+    home = Path(args.codex_home).expanduser()
+    skills, agents, hooks_file = home / "skills", home / "agents", home / "hooks.json"
+    say = (lambda verb, path: print(f"{'would ' + verb if args.dry_run else verb} {path}"))
+
+    try:
+        hooks = read_hooks(hooks_file)
+    except ValueError as exc:
+        print(f"ERROR: {exc}; fix or move it, then rerun", file=sys.stderr)
+        return 1
+
+    removals = [skills / "crew-pi"] + [agents / f"crew-{r}.toml" for r in roles()] + old_role_skills(skills)
+    for path in removals:
+        if path.exists() and (args.uninstall or path in old_role_skills(skills)):
+            say("remove", path)
+            if not args.dry_run:
+                shutil.rmtree(path) if path.is_dir() else path.unlink()
+
+    if args.uninstall:
+        if hooks_file.exists():
+            say("update", hooks_file)
+            if not args.dry_run:
+                hooks_file.write_text(json.dumps(without_crew_hooks(hooks), indent=2) + "\n", encoding="utf-8")
+        print("Uninstalled the crew from Codex.")
+        return 0
+
+    files = [(skills / "crew-pi" / "SKILL.md", render_pi())]
+    files += [(agents / name, text) for name, text in map(render_agent, roles())]
+    for target, text in files:
+        say("write", target)
         if not args.dry_run:
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(text, encoding="utf-8")
+    if not args.no_hooks:
+        say("update", hooks_file)
+        if not args.dry_run:
+            hooks_file.parent.mkdir(parents=True, exist_ok=True)
+            hooks_file.write_text(json.dumps(with_crew_hooks(hooks), indent=2) + "\n", encoding="utf-8")
+
     if not args.dry_run:
-        print(f"Installed {len(skills)} crew skills. In Codex, ask: use crew-pi to start seed ss-dml-401k")
+        print(f"Installed the crew PI skill and {len(roles())} role agents into {home}.")
+        if not args.no_hooks:
+            print("Open /hooks in Codex once and trust the crew guard; Codex skips untrusted hooks.")
+        print("Then ask Codex: use crew-pi to start seed ss-dml-401k")
     return 0
 
 

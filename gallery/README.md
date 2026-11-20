@@ -50,7 +50,7 @@ statement in the run notes, and twice overruled the PI. It also needed more roun
 the Opus-reviewed papers, and the Haiku roles made more slips for it to catch. The clean
 rerun exposed two bugs in `crew.py` itself (fixed, with tests). Running the PI on a
 smaller model too would bring a paper to a few dollars; see
-[`crew/README.md`](../crew/README.md#running-on-a-budget).
+[`crew/README.md`](../crew/README.md#choosing-models).
 
 ## Reading a workspace
 

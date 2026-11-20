@@ -1,4 +1,8 @@
-# Crew protocol v0.1
+# Crew protocol v0.2
+
+Version 0.2 adds the rules marked **(0.2)** below. Each one prevents a failure the
+Reviewer found again and again in the first seven gallery papers. A workspace created
+under 0.1 still validates; for it these rules only produce warnings.
 
 Crew agents do not hand work to each other through chat. They read and write files in
 one **workspace**, and a small tool, [`scripts/crew.py`](scripts/crew.py), checks that
@@ -28,9 +32,11 @@ work good.
   code/                  scripts the runs execute
   runs/<id>/run.json     one record per executed run (written by the tool)
   claims.jsonl           every claim in the paper, linked to a run or a source
-  paper/                 main.tex, numbers.tex (generated), ai-use.tex, figures
+  paper/                 main.tex, numbers.tex and process.tex (generated), ai-use.tex, figures
   reviews/<id>/          review.json and the Reviewer's memory
+  briefs/                every brief the PI gave a role, archived as written
   replication.json       result of the last clean rerun (written by the tool)
+  replication-history.jsonl  one line per clean-rerun attempt (written by the tool)
   log.jsonl              who did what, when (append only with `crew.py log`)
 ```
 
@@ -45,7 +51,7 @@ they never approve them.
 | `question` | Question and hypotheses; a review of `question` | Literature and design work |
 | `design` | Design summary, method, analysis plan; a review of `design` | **Analysis runs.** The tool refuses them before this gate |
 | `results` | Result claims backed by runs; a review of `results` | Writing the paper |
-| `submission` | Compiled `paper/main.pdf`, `paper/ai-use.tex`; a review of `paper`; a passing `replication.json` newer than every run | Release to the gallery |
+| `submission` | Compiled `paper/main.pdf`, newer than every paper source; `paper/ai-use.tex`; an up-to-date `paper/process.tex` **(0.2)**; no task left `todo` or `doing` **(0.2)**; no result number typed by hand **(0.2)**; a review of `paper`; a passing `replication.json` newer than every run | Release to the gallery |
 
 A gate cannot be approved while the Reviewer's latest review of that stage has an open
 **critical** finding. The human may overrule a finding with
@@ -111,13 +117,30 @@ exit code, and the hash of every code, input and output file. `kind` is `data-pr
 changes after the run, validation fails until the run is repeated. Repeating a run with `--replace` archives the old record, logs and metrics under
 `runs/.superseded/` and logs it, so a superseded result always leaves a trace.
 
+**Code is reviewed before it runs (0.2).** An analysis run must name every script it
+executes with `--code`, and the tool refuses it unless the latest `code` review has
+verdict `pass` and read exactly those files (same hashes; see `crew.py review` below). A
+fix made after that review needs another code review round before the run. If the human
+agrees to run unreviewed code (for example after the fourth and last code round),
+`--unreviewed "<reason>"` records the reason in the run and the log, and the run is
+counted in `paper/process.tex`. The record names the review that covered it
+(`code_review`).
+
+**No temporary paths (0.2).** A command that reads or writes `/tmp`, the system temp
+directory or an agent scratchpad is refused: a rerun cannot reproduce it. Copy the file
+into the workspace and declare it with `--input` or `--output`. A download cache the
+command fills is an `--output` too, so the rerun really downloads again.
+
 ### Clean rerun
 
 `crew.py rerun <ws>` copies the workspace to a temporary directory, deletes every output
 the runs recorded, re-executes each run in the order it was first run, and compares each
 run's metrics with the ledger (relative tolerance `1e-6` by default). It writes
-`replication.json`. The Replicator runs it from an environment built only from
-`code/requirements.txt`.
+`replication.json` and appends a line to `replication-history.jsonl`, so failed attempts
+stay on the record. The Replicator builds a fresh environment inside the copy with
+`--setup` **(0.2)**, for example
+`crew.py rerun <ws> --setup "python3 -m venv .venv && .venv/bin/pip install -r code/requirements.txt"`;
+the author's `.venv` is then not copied.
 
 ### `claims.jsonl`
 
@@ -136,6 +159,16 @@ One JSON object per line. Two kinds:
 - A claim with a `macro` becomes a LaTeX command in `paper/numbers.tex`
   (`crew.py numbers <ws>`). **The Writer never types a result number**; it writes
   `\AteMain`. Validation fails if `numbers.tex` is out of date.
+- **(0.2)** Validation flags a claim's value typed out in a `.tex` file (values with a
+  decimal point and three or more significant digits; tables a run generated are
+  skipped). A published number quoted next to its replication may equal it: mark that
+  line `% crew:literal`.
+- **(0.2)** `crew.py numbers` also writes `paper/process.tex`: macros for how the paper
+  was made, computed from the ledger: `\CrewReviewRounds`, `\CrewRoundsPaper` (one per
+  target), `\CrewFindingsCritical`, `\CrewReviewerModels`, `\CrewRuns`,
+  `\CrewRunsSuperseded`, `\CrewRunsUnreviewed`, `\CrewRerunReproduced`,
+  `\CrewRerunTotal`, `\CrewRerunStatus` and others. Every statement in the paper or the
+  AI-use statement about rounds, runs or the rerun uses them.
 
 ### Reviews
 
@@ -153,6 +186,10 @@ The Reviewer writes `reviews/<id>/review.json`:
 }
 ```
 
+- After writing it, the Reviewer records it with `crew.py review <ws> <id>` **(0.2)**:
+  the tool checks the review and stamps `files_sha256` (every file in `files_read`,
+  directories expanded) and `recorded`. The stamp is what lets a run prove which code a
+  code review read.
 - `target` is `question`, `literature`, `design`, `code`, `results` or `paper`.
 - `verdict` is `block`, `revise` or `pass`. `pass` is not allowed with an open critical finding.
 - `severity` is `critical`, `major` or `minor`; `status` is `open`, `resolved`,
@@ -170,10 +207,11 @@ python3 crew.py init <ws> --track cs|social-science --title "…" [--seed <id>]
 python3 crew.py status <ws>
 python3 crew.py validate <ws> [--strict]
 python3 crew.py gate <ws> <gate> request|approve|reject [--by "<human>"] [--note "…"]
-python3 crew.py run <ws> --id … --role … --kind … [--code …] [--input …] [--metrics …] -- <command>
-python3 crew.py numbers <ws>
+python3 crew.py run <ws> --id … --role … --kind … [--code …] [--input …] [--metrics …] [--unreviewed "…"] -- <command>
+python3 crew.py review <ws> <review-id>          # record a review and stamp the files it read
+python3 crew.py numbers <ws>                     # paper/numbers.tex and paper/process.tex
 python3 crew.py log <ws> --role <role> --action <verb> [--detail "…"]
-python3 crew.py rerun <ws> [--rtol 1e-6] [--reuse-data]
+python3 crew.py rerun <ws> [--rtol 1e-6] [--reuse-data] [--setup "<shell command>"]
 python3 cross_review.py <ws> <target> <round> [--model …]   # Reviewer on another provider's model
 ```
 

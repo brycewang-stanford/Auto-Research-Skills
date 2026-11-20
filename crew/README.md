@@ -1,7 +1,8 @@
 # The crew
 
-A Claude Code plugin: nine research-assistant agents that take a question to a compiled
-paper, through four gates a human approves. Version 0.1.
+Nine research-assistant agents that take a question to a compiled paper, through four
+gates a human approves. A Claude Code plugin that also installs into Codex; it runs on
+the plan you already have. Version 0.2.
 
 | Role | Does | Runs as |
 |---|---|---|
@@ -34,7 +35,15 @@ To give a role extra skills from the hub, install its role kit (from a clone, af
 python3 tools/build_starter_kits.py --install-role reviewer --dest ~/.claude/skills
 ```
 
-For Codex, see [`adapters/codex/`](adapters/codex/).
+For **Codex**, install the PI skill, the nine roles as Codex custom agents and the guard
+hook from a clone:
+
+```bash
+python3 crew/adapters/codex/install.py
+```
+
+then open `/hooks` in Codex once to trust the guard, and ask *"use crew-pi to start seed
+ss-dml-401k"*. Details in [`adapters/codex/`](adapters/codex/).
 
 ## Use
 
@@ -53,8 +62,14 @@ Reviewer's verdict and open objections. Nothing proceeds until you approve.
 - **Agents hand off through files**, and [`scripts/crew.py`](scripts/crew.py) checks
   them. See [`PROTOCOL.md`](PROTOCOL.md).
 - **Analysis cannot run before the design is approved.** The tool refuses.
+- **Analysis code is reviewed before it runs.** The tool refuses an analysis run unless
+  the latest code review passed and read exactly the code it executes; a fix after the
+  review needs another round, or the human's recorded consent.
 - **Every number in the paper is a macro generated from a logged run.** If the code
-  changes after the run, validation fails until it is rerun.
+  changes after the run, validation fails until it is rerun. A claim's value typed out by
+  hand is flagged, and so are the paper's statements about its own process: review
+  rounds, findings, runs and the rerun come from `paper/process.tex`, computed from the
+  ledger.
 - **Every reference has a verification record.** A citation recalled from memory fails.
 - **The Reviewer never sees the author's account of the work**, only the files, and can
   run on another provider's model ([`scripts/cross_review.py`](scripts/cross_review.py)).
@@ -83,27 +98,23 @@ The Reviewer's design follows
 reviewer reads the artifacts and not a summary, every review commits to one strongest
 argument for rejection, and review rounds are bounded.
 
-## Running on a budget
+## Choosing models
 
-Model usage is the main cost. Two settings bring it down:
+Every role inherits the model of the Claude Code (or Codex) session that runs the PI, so
+the crew runs on the plan you already have, with no separate bill. Use the strongest
+model your plan offers: the six gallery papers run that way needed the fewest review
+rounds.
 
-- **Role subagents on Claude Haiku 5.5.** Add `model: haiku` to the frontmatter of the
-  files in [`agents/`](agents/) (or have the PI pass `model: haiku` when it delegates).
-  In the `ss-rd-senate` trial this cut the subagents' cost from roughly $45–80 to about
-  $2 per paper; the Reviewer still blocked, overruled the PI and caught real errors, but
-  needed more rounds. Keeping only the Reviewer on a larger model is a middle option.
-- **The PI session on a smaller model.** Start Claude Code with `/model sonnet` (or
-  `haiku`) before `/crew:start`. In the trial the PI on Opus was about $14 of the $16.
-
-On a Claude subscription the same work counts against the plan instead. Measure any
-configuration with `python3 scripts/usage.py <workspace>`.
+A smaller model also works. In the `ss-rd-senate` trial every role, the Reviewer
+included, ran on Claude Haiku 5.5 (`model: haiku` in the frontmatter of the files in
+[`agents/`](agents/)). The protocol held and the paper passed its answer key, but the
+Reviewer needed more rounds and the roles made more slips for it to catch. `python3
+scripts/usage.py <workspace>` reports what a project used.
 
 ## Limits of v0.1
 
 - Seven seed papers have passed all four gates; see
-  [`gallery/`](../gallery/README.md). The six run with Opus-class roles cost about $58–103
-  of model usage each at API list prices, the Haiku trial about $16; `python3 scripts/usage.py <workspace>` measures a project from the local
-  Claude Code transcripts.
+  [`gallery/`](../gallery/README.md).
 - Cross-family review needs the Codex CLI and your consent to send the workspace to
   OpenAI; without it the Reviewer runs on the same model family in a fresh context.
 - Gate approval is guarded by a hook ([`hooks/guard.py`](hooks/guard.py)): an approve
@@ -112,5 +123,9 @@ configuration with `python3 scripts/usage.py <workspace>`.
   approve. The same hook keeps agents out of the bench answer keys. It narrows the
   agents to the honest path; a determined workaround (a script written to disk and run
   later) is still possible, so the rule in `PI.md` stays.
-- Claude Code is the primary runtime; the Codex adapter ([`adapters/codex/`](adapters/codex/))
-  is newer and less tested.
+- All seven gallery papers were written in Claude Code. The Codex adapter
+  ([`adapters/codex/`](adapters/codex/)) installs the same roles as Codex custom agents
+  and the same guard; Codex loads them, but no paper has yet been run end to end in Codex.
+- Protocol 0.2's checks (code review before analysis, process macros, typed numbers)
+  came after the seven gallery papers, which were written under 0.1; for them the new
+  rules are warnings.

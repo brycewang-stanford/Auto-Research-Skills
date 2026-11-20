@@ -8,7 +8,7 @@
 
 **First comment:**
 
-I built a crew of research-assistant agents that takes a question to a compiled paper in empirical ML or empirical social science, inside Claude Code. The part I think is interesting is not the writing; it is keeping the agents from grading their own work.
+I built a crew of research-assistant agents that takes a question to a compiled paper in empirical ML or empirical social science, inside Claude Code (it also installs into Codex). The part I think is interesting is not the writing; it is keeping the agents from grading their own work.
 
 Three kinds of judgment are kept apart:
 
@@ -27,6 +27,6 @@ I ran it on six seed tasks: four social-science (three replications and a null-e
 
 On a synthetic dataset with a true effect of exactly zero, the crew reported −$10 [−358, 338] and did not report a secondary outcome with an uncorrected p = 0.044.
 
-Cost: each paper took 18–25 hours of wall time (much of it waiting for me at gates) and about $58–103 of model usage at Claude API list prices, measured from the transcripts (`gallery/usage.json`); on a Claude subscription it comes out of the plan.
+Cost: it runs on the Claude Code or Codex plan you already have, with no server and no separate API bill. Each paper took 18–25 hours of wall time, much of it waiting for me at gates; time and model usage per paper are measured from the transcripts (`gallery/usage.json`).
 
 Limits: gate approval is guarded by a hook that refuses an approve command unless my latest answer approved that gate, but a determined agent could still work around it; the Reviewer runs on the same model family unless you opt into cross-family review via Codex; the papers are demos and are not submitted anywhere. CC0.

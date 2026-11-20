@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Workspace tool for the Free-Research-Crew protocol (v0.1).
+"""Workspace tool for the Free-Research-Crew protocol (v0.2).
 
 A crew workspace is a directory of plain files that research-assistant agents
 hand off through. This tool creates one, records runs, moves gates, renders
@@ -16,6 +16,7 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import platform
 import re
 import shutil
@@ -25,7 +26,10 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROTOCOL_VERSION = "0.1"
+PROTOCOL_VERSION = "0.2"
+# 0.1 workspaces (the first gallery papers) still validate; rules added in 0.2 are
+# errors for 0.2 workspaces and warnings for 0.1 ones.
+SUPPORTED_PROTOCOLS = ("0.1", "0.2")
 TRACKS = ("cs", "social-science")
 GATES = ("question", "design", "results", "submission")
 GATE_STATUSES = ("pending", "requested", "approved", "rejected")
@@ -48,6 +52,9 @@ MACRO_RE = re.compile(r"^[A-Za-z]+$")
 BIB_KEY_RE = re.compile(r"@\s*(\w+)\s*\{\s*([^,\s]+)\s*,")
 CITE_RE = re.compile(r"\\[A-Za-z]*cite[A-Za-z]*\*?(?:\[[^\]]*\])*\{([^}]*)\}")
 TEX_COMMENT_RE = re.compile(r"(?<!\\)%.*")
+TEMP_PREFIXES = tuple(sorted({"/tmp/", "/private/tmp/", "/var/folders/", "/private/var/folders/",
+                              tempfile.gettempdir().rstrip("/") + "/"}))
+GENERATED_TEX = ("numbers.tex", "process.tex")
 
 
 # ---------------------------------------------------------------- helpers
@@ -234,6 +241,150 @@ def render_numbers(claims: list[dict]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def temp_paths(command: list) -> list[str]:
+    """Arguments of a command that point into a temporary directory outside the workspace."""
+    found = []
+    for token in command[1:]:
+        for part in re.split(r"[\s=:,]", str(token)):
+            if part.startswith(TEMP_PREFIXES) or part in ("/tmp", "/private/tmp"):
+                found.append(part)
+    return found
+
+
+def tex_files(ws: Path, generated: set[str]) -> list[Path]:
+    paper = ws / "paper"
+    if not paper.is_dir():
+        return []
+    return [p for p in sorted(paper.rglob("*.tex"))
+            if p.name not in GENERATED_TEX and rel(ws, p.resolve()) not in generated]
+
+
+def hand_typed_numbers(ws: Path, claims: list[dict], runs: dict[str, dict]) -> list[str]:
+    """Places where the paper types out a claim's number instead of using its macro.
+
+    Only values with a decimal point and at least three significant digits are matched, and
+    files a run produced (generated tables) are skipped, so a hit is almost surely a copy.
+    A line marked `% crew:literal` is skipped: a published value quoted next to its
+    replication can equal the replicated number.
+    """
+    values: dict[str, str] = {}
+    for claim in claims:
+        macro = claim.get("macro")
+        if not macro or claim.get("kind") != "result" or "value" not in claim:
+            continue
+        try:
+            text = format_value(claim["value"], claim.get("format", "")).lstrip("+-")
+        except (TypeError, ValueError):
+            continue
+        if "." in text and len(text.replace(".", "").lstrip("0")) >= 3:
+            values.setdefault(text, macro)
+    if not values:
+        return []
+    generated = set()
+    for run in runs.values():
+        for item in run.get("outputs") or []:
+            target = inside(ws, str(item.get("path", ""))) if isinstance(item, dict) else None
+            if target is not None:
+                generated.add(rel(ws, target))
+    pattern = re.compile(r"(?<![\d.])(" + "|".join(map(re.escape, sorted(values, key=len, reverse=True)))
+                         + r")(?![\d])")
+    found = []
+    for path in tex_files(ws, generated):
+        for number, line in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
+            if "crew:literal" in line:
+                continue
+            line = TEX_COMMENT_RE.sub("", line)
+            if "\\newcommand" in line:
+                continue
+            for match in pattern.finditer(line):
+                found.append(f"{path.relative_to(ws)}:{number}: {match.group(1)} is the value of "
+                             f"\\{values[match.group(1)]}; use the macro, not a typed number")
+    return found
+
+
+def stale_paper_inputs(ws: Path) -> list[str]:
+    """Paper sources newer than paper/main.pdf."""
+    pdf = ws / "paper" / "main.pdf"
+    if not pdf.exists():
+        return []
+    built = pdf.stat().st_mtime
+    inputs = [p for p in (ws / "paper").rglob("*") if p.suffix in (".tex", ".bib", ".pdf", ".png") and p != pdf]
+    inputs += [ws / "refs.bib"]
+    return sorted(str(p.relative_to(ws)) for p in inputs if p.is_file() and p.stat().st_mtime > built)
+
+
+def latex_text(value: object) -> str:
+    text = str(value).replace("\\", "/")
+    for char in ("&", "%", "$", "#", "_", "{", "}"):
+        text = text.replace(char, "\\" + char)
+    return text
+
+
+def process_facts(ws: Path) -> list[tuple[str, object, str]]:
+    """Facts about how the paper was made, taken from the ledger rather than typed by a writer."""
+    reviews, _ = read_reviews(ws)
+    runs, _ = read_runs(ws)
+    claims, _ = read_claims(ws)
+    facts: list[tuple[str, object, str]] = []
+    rounds = {target: 0 for target in REVIEW_TARGETS}
+    severity = {name: 0 for name in SEVERITIES}
+    models, independence = set(), set()
+    for review in reviews.values():
+        target = review.get("target")
+        if target in rounds and isinstance(review.get("round"), int):
+            rounds[target] = max(rounds[target], review["round"])
+        for finding in review.get("findings") or []:
+            if isinstance(finding, dict) and finding.get("severity") in severity:
+                severity[finding["severity"]] += 1
+        reviewer = review.get("reviewer") if isinstance(review.get("reviewer"), dict) else {}
+        if reviewer.get("model"):
+            models.add(str(reviewer["model"]))
+        if reviewer.get("independence"):
+            independence.add(str(reviewer["independence"]))
+    facts.append(("CrewReviewRounds", len(reviews), "review records in reviews/"))
+    for target in REVIEW_TARGETS:
+        facts.append((f"CrewRounds{target.capitalize()}", rounds[target], f"rounds of the {target} review"))
+    for name in SEVERITIES:
+        facts.append((f"CrewFindings{name.capitalize()}", severity[name], f"{name} findings raised, summed over rounds"))
+    facts.append(("CrewReviewerModels", ", ".join(sorted(models)) or "none", "models the Reviewer ran on"))
+    facts.append(("CrewReviewIndependence", ", ".join(sorted(independence)) or "none", "how independent the reviews were"))
+    analysis = [r for r in runs.values() if r.get("kind") == "analysis"]
+    superseded = ws / "runs" / ".superseded"
+    facts.append(("CrewRuns", len(runs), "runs in the ledger"))
+    facts.append(("CrewRunsAnalysis", len(analysis), "analysis runs"))
+    facts.append(("CrewRunsDataPrep", len(runs) - len(analysis), "data-prep runs"))
+    facts.append(("CrewRunsSuperseded", sum(1 for d in superseded.iterdir() if d.is_dir()) if superseded.is_dir() else 0,
+                  "runs replaced by a later run with the same id (archived)"))
+    facts.append(("CrewRunsUnreviewed", sum(1 for r in analysis if r.get("unreviewed")),
+                  "analysis runs not covered by a passing code review"))
+    facts.append(("CrewResultClaims", sum(1 for c in claims if c.get("kind") == "result"), "result claims"))
+    facts.append(("CrewCitationClaims", sum(1 for c in claims if c.get("kind") == "citation"), "citation claims"))
+    report = {}
+    if (ws / "replication.json").exists():
+        try:
+            loaded = read_json(ws / "replication.json")
+            report = loaded if isinstance(loaded, dict) else {}
+        except json.JSONDecodeError:
+            report = {}
+    entries = [e for e in report.get("runs") or [] if isinstance(e, dict)]
+    facts.append(("CrewRerunReproduced", sum(1 for e in entries if e.get("status") in ("match", "ran")),
+                  "runs the clean rerun reproduced"))
+    facts.append(("CrewRerunTotal", len(entries), "runs the clean rerun re-executed"))
+    status = "not run" if not report else ("passed" if report.get("passed") is True else "failed")
+    facts.append(("CrewRerunStatus", status, "outcome of the latest clean rerun"))
+    return facts
+
+
+def render_process(ws: Path) -> str:
+    lines = [
+        "% Generated by `crew.py numbers` from reviews/, runs/ and replication.json. Do not edit by hand.",
+        "% Use these macros for any statement about how the paper was made (rounds, runs, rerun).",
+    ]
+    for macro, value, comment in process_facts(ws):
+        lines.append(f"\\newcommand{{\\{macro}}}{{{latex_text(value)}}}  % {comment}")
+    return "\n".join(lines) + "\n"
+
+
 # ---------------------------------------------------------------- validate
 
 def validate(ws: Path, strict: bool = False) -> tuple[list[str], list[str]]:
@@ -254,12 +405,15 @@ def validate(ws: Path, strict: bool = False) -> tuple[list[str], list[str]]:
     except json.JSONDecodeError as exc:
         errors.append(f"crew.json: not valid JSON ({exc.msg})")
     if meta:
-        if meta.get("protocol") != PROTOCOL_VERSION:
-            errors.append(f"crew.json: protocol must be {PROTOCOL_VERSION!r}")
+        if meta.get("protocol") not in SUPPORTED_PROTOCOLS:
+            errors.append(f"crew.json: protocol must be one of {', '.join(SUPPORTED_PROTOCOLS)}")
         if meta.get("track") not in TRACKS:
             errors.append(f"crew.json: track must be one of {', '.join(TRACKS)}")
         if not meta.get("title"):
             errors.append("crew.json: title is empty")
+
+    # rules added in protocol 0.2: errors for new workspaces, warnings for older ones
+    rule = warnings if meta.get("protocol") == "0.1" else errors
 
     # plan.json
     plan: dict = {}
@@ -403,6 +557,14 @@ def validate(ws: Path, strict: bool = False) -> tuple[list[str], list[str]]:
             errors.append(f"{label}: started/finished must be UTC times like 2026-01-01T00:00:00Z")
         if not isinstance(run.get("metrics", {}), dict):
             errors.append(f"{label}: metrics must be an object")
+        if meta.get("protocol") != "0.1" and run.get("kind") == "analysis" \
+                and not run.get("code_review") and not run.get("unreviewed"):
+            errors.append(f"{label}: analysis run records neither the code review that covered it nor "
+                          "an --unreviewed reason; record runs with `crew.py run`")
+        temp = temp_paths(run.get("command") or [])
+        if temp:
+            rule.append(f"{label}: command uses temporary path(s) outside the workspace ({', '.join(temp)}); "
+                        "a rerun cannot reproduce them")
         if run.get("kind") == "analysis" and started is not None:
             if design_time is None:
                 errors.append(f"{label}: analysis run recorded but the design gate is not approved")
@@ -522,7 +684,10 @@ def validate(ws: Path, strict: bool = False) -> tuple[list[str], list[str]]:
             if number in rounds_seen.setdefault(target, set()):
                 errors.append(f"{label}: duplicate round {number} for target {target!r}")
             rounds_seen[target].add(number)
-        if parse_time(review.get("created")) is None:
+        created_at = parse_time(review.get("created"))
+        if created_at is not None and created_at.timestamp() > datetime.now(timezone.utc).timestamp() + 300:
+            errors.append(f"{label}: created {review.get('created')} is in the future")
+        if created_at is None:
             errors.append(f"{label}: created must be a UTC time like 2026-01-01T00:00:00Z")
         reviewer = review.get("reviewer") if isinstance(review.get("reviewer"), dict) else {}
         if not reviewer.get("model"):
@@ -613,6 +778,27 @@ def validate(ws: Path, strict: bool = False) -> tuple[list[str], list[str]]:
     if "results" in approved_at:
         if not any(c.get("kind") == "result" for c in claims):
             errors.append("claims.jsonl: results gate approved but there are no result claims")
+    process_path = ws / "paper" / "process.tex"
+    process_fresh = process_path.exists() and process_path.read_text(encoding="utf-8") == render_process(ws)
+    if process_path.exists() and not process_fresh:
+        warnings.append("paper/process.tex: out of date; run `crew.py numbers`")
+    typed = hand_typed_numbers(ws, claims, runs)
+    open_tasks = [str(t.get("id")) for t in plan.get("tasks") or []
+                  if isinstance(t, dict) and t.get("status") in ("todo", "doing")]
+    stale_pdf = stale_paper_inputs(ws)
+    submitting = "submission" in approved_at
+    later = rule if submitting else warnings
+    for message in typed:
+        later.append(message)
+    submission_gate = gates.get("submission") if isinstance(gates.get("submission"), dict) else {}
+    if open_tasks and (submitting or submission_gate.get("status") == "requested"):
+        later.append(f"plan.json: task(s) {', '.join(open_tasks)} are still todo/doing; "
+                     "mark them done or blocked before submission")
+    if stale_pdf and not submitting:  # file times are not kept by git, so only checked before approval
+        warnings.append(f"paper/main.pdf: older than {', '.join(stale_pdf[:5])}; recompile the paper")
+    if submitting and not process_fresh:
+        rule.append("paper/process.tex: missing or out of date at submission; run `crew.py numbers` "
+                    "and state process facts (rounds, runs, rerun) through its macros")
     if "submission" in approved_at:
         if not (ws / "paper" / "main.pdf").exists():
             errors.append("paper/main.pdf: submission gate approved but the paper is not compiled")
@@ -674,7 +860,7 @@ def cmd_init(args: argparse.Namespace) -> int:
     if ws.exists() and any(ws.iterdir()):
         print(f"ERROR: {ws} already exists and is not empty", file=sys.stderr)
         return 1
-    for sub in ("sources", "data", "runs", "code", "paper", "reviews"):
+    for sub in ("sources", "data", "runs", "code", "paper", "reviews", "briefs"):
         (ws / sub).mkdir(parents=True, exist_ok=True)
     meta = {"protocol": PROTOCOL_VERSION, "track": args.track, "title": args.title, "created": now()}
     if args.seed:
@@ -767,6 +953,9 @@ def cmd_gate(args: argparse.Namespace) -> int:
     write_json(ws / "plan.json", plan)
     if args.action == "approve":
         errors, _ = validate(ws)
+        stale = stale_paper_inputs(ws) if args.gate == "submission" else []
+        if stale:
+            errors.append(f"paper/main.pdf: older than {', '.join(stale[:5])}; recompile the paper")
         if errors:
             gates[args.gate] = before
             write_json(ws / "plan.json", plan)
@@ -819,6 +1008,11 @@ def archive_run(ws: Path, run_dir: Path) -> str:
     return str(dest.relative_to(ws))
 
 
+def rel(ws: Path, target: Path) -> str:
+    """A workspace path in one canonical spelling (no ./, no symlinked prefixes)."""
+    return target.relative_to(ws.resolve()).as_posix()
+
+
 def hash_entries(ws: Path, values: list[str], must_exist: bool) -> list[dict]:
     entries = []
     for value in values:
@@ -829,8 +1023,93 @@ def hash_entries(ws: Path, values: list[str], must_exist: bool) -> list[dict]:
             if must_exist:
                 sys.exit(f"ERROR: {value} does not exist")
             continue
-        entries.append({"path": value, "sha256": sha256(target)})
+        entries.append({"path": rel(ws, target), "sha256": sha256(target)})
     return entries
+
+
+def code_review_covering(ws: Path, code: list[dict]) -> tuple[str | None, str | None]:
+    """(review id, None) when the latest code review passed and read exactly this code."""
+    reviews, _ = read_reviews(ws)
+    latest = latest_reviews(reviews).get("code")
+    if latest is None:
+        return None, "no code review exists yet; analysis code is reviewed before it runs"
+    review_id = latest.get("id")
+    if latest.get("verdict") != "pass":
+        return None, f"the latest code review ({review_id}) has verdict {latest.get('verdict')!r}, not pass"
+    stamped = latest.get("files_sha256")
+    if not isinstance(stamped, dict):
+        return None, (f"code review {review_id} was not recorded with `crew.py review`, so the code it "
+                      "read is unknown")
+    for item in code:
+        if item["path"] not in stamped:
+            return None, f"{item['path']} was not among the files code review {review_id} read"
+        if stamped[item["path"]] != item["sha256"]:
+            return None, f"{item['path']} changed after code review {review_id}"
+    return str(review_id), None
+
+
+def review_files(ws: Path, listed: list, unmatched: list | None = None) -> dict[str, str]:
+    """Hash every workspace file a review lists in files_read.
+
+    Entries may be files, directories (expanded), globs, or paths followed by a note in
+    parentheses ("code/x.py (docstring)"). Entries that match no file go to `unmatched`.
+    """
+    hashes: dict[str, str] = {}
+    skip = {".venv", "venv", "__pycache__", ".git", ".superseded"}
+    ws = ws.resolve()  # inside() returns resolved paths
+    for value in listed:
+        spec = re.sub(r"\s+\(.*\)\s*$", "", str(value)).strip().rstrip("/")
+        if not spec or Path(spec).is_absolute() or ".." in Path(spec).parts:
+            matches = []
+        elif any(c in spec for c in "*?["):
+            matches = sorted(ws.glob(spec))
+        else:
+            target = inside(ws, spec)
+            matches = [target] if target is not None and target.exists() else []
+        files = []
+        for match in matches:
+            if match.is_file():
+                files.append(match)
+            elif match.is_dir():
+                files += [p for p in sorted(match.rglob("*")) if p.is_file()]
+        files = [p for p in files if not skip & set(p.relative_to(ws).parts)]
+        if not files and unmatched is not None:
+            unmatched.append(str(value))
+        for path in files:
+            if path.stat().st_size <= 50 * 1024 * 1024:
+                hashes[rel(ws, path)] = sha256(path)
+    return hashes
+
+
+def cmd_review(args: argparse.Namespace) -> int:
+    """Check a review the Reviewer wrote and stamp the files it read, with their hashes."""
+    ws = require_workspace(args.workspace)
+    path = ws / "reviews" / args.review / "review.json"
+    if not path.is_file():
+        print(f"ERROR: {path} does not exist; write the review first", file=sys.stderr)
+        return 1
+    prefix = f"reviews/{args.review}/"
+    problems = [e for e in validate(ws)[0] if e.startswith(prefix)]
+    if problems:
+        for message in problems:
+            print(f"ERROR: {message}", file=sys.stderr)
+        return 1
+    review = read_json(path)
+    if review.get("recorded"):
+        print(f"ERROR: review {args.review} was already recorded on {review['recorded']}; a review "
+              "stamps the files it read once. Changed files need the next round.", file=sys.stderr)
+        return 1
+    unmatched: list = []
+    review["files_sha256"] = review_files(ws, review.get("files_read") or [], unmatched)
+    review["recorded"] = now()
+    write_json(path, review)
+    for value in unmatched:
+        print(f"WARN: files_read entry {value!r} matches no file in the workspace")
+    append_log(ws, "reviewer", "review-recorded",
+               f"{args.review} verdict={review.get('verdict')} files={len(review['files_sha256'])}")
+    print(f"Recorded review {args.review}: verdict {review.get('verdict')}, "
+          f"{len(review['files_sha256'])} file(s) stamped")
+    return 0
 
 
 def cmd_run(args: argparse.Namespace) -> int:
@@ -843,11 +1122,30 @@ def cmd_run(args: argparse.Namespace) -> int:
     command = list(args.command)
     if not command:
         sys.exit("ERROR: give the command to run after `--`")
+    protocol = read_json(ws / "crew.json").get("protocol")
     if args.kind == "analysis":
         gate = read_json(ws / "plan.json").get("gates", {}).get("design", {})
         if gate.get("status") != "approved":
             sys.exit("ERROR: analysis runs are blocked until the design gate is approved")
+    temp = temp_paths(command)
+    if temp and protocol != "0.1":
+        sys.exit(f"ERROR: the command uses temporary path(s) outside the workspace ({', '.join(temp)}); "
+                 "copy what it needs into the workspace so a clean rerun can reproduce it")
     code = hash_entries(ws, args.code, must_exist=True)
+    coverage: dict = {}
+    if args.kind == "analysis" and protocol != "0.1":
+        if args.unreviewed:
+            coverage = {"unreviewed": args.unreviewed}
+        else:
+            if not code:
+                sys.exit("ERROR: name every script an analysis run executes with --code, so the code "
+                         "review can be checked against it")
+            reviewed, problem = code_review_covering(ws, code)
+            if problem:
+                sys.exit(f"ERROR: {problem}. Ask the Reviewer for a code review round of the current "
+                         "code, or, if the human agrees, rerun with --unreviewed \"<reason>\" "
+                         "(recorded and counted in paper/process.tex)")
+            coverage = {"code_review": reviewed}
     inputs = hash_entries(ws, args.input, must_exist=True)
     if run_dir.exists() and (run_dir / "run.json").exists():
         archived = archive_run(ws, run_dir)
@@ -883,7 +1181,10 @@ def cmd_run(args: argparse.Namespace) -> int:
         "metrics": metrics,
         "metrics_file": args.metrics or None,
         "env": command_env(ws, command),
+        **coverage,
     })
+    if coverage.get("unreviewed"):
+        append_log(ws, args.role, "run-unreviewed", f"{args.id}: {coverage['unreviewed']}")
     append_log(ws, args.role, "run", f"{args.id} exit={completed.returncode}")
     print(f"Run {args.id}: exit code {completed.returncode}, {len(metrics)} metric(s) recorded")
     return 0 if completed.returncode == 0 else 1
@@ -953,7 +1254,23 @@ def cmd_rerun(args: argparse.Namespace) -> int:
     results, passed = [], True
     with tempfile.TemporaryDirectory(prefix="crew-rerun-") as tmp:
         copy = Path(tmp) / "ws"
-        shutil.copytree(ws, copy, symlinks=True, ignore=shutil.ignore_patterns("runs", "replication.json"))
+        skip = ["runs", "replication.json", "replication-history.jsonl"]
+        if args.setup:  # a fresh environment: do not carry the author's over
+            skip += [".venv", "venv", "__pycache__"]
+        shutil.copytree(ws, copy, symlinks=True, ignore=shutil.ignore_patterns(*skip))
+        setup = None
+        run_env = dict(os.environ)
+        if args.setup:  # the fresh environment comes first on PATH, as if activated
+            run_env["PATH"] = f"{copy / '.venv' / 'bin'}{os.pathsep}{run_env.get('PATH', '')}"
+            run_env["VIRTUAL_ENV"] = str(copy / ".venv")
+        if args.setup:
+            done = subprocess.run(args.setup, shell=True, cwd=copy, check=False,
+                                  stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+            setup = {"command": args.setup, "exit_code": done.returncode, "output_tail": done.stdout[-2000:]}
+            print(f"  setup: exit code {done.returncode}")
+            if done.returncode != 0:
+                passed = False
+                ordered = []
         # remove everything the runs produced, so each run must recreate it
         for run in ordered:
             for item in run.get("outputs") or []:
@@ -968,8 +1285,10 @@ def cmd_rerun(args: argparse.Namespace) -> int:
             metrics_path = run.get("metrics_file")
             # `crew.py run` creates the run's folder before the command starts; do the same
             (copy / "runs" / str(run.get("id"))).mkdir(parents=True, exist_ok=True)
+            # a path into the original workspace (an author's .venv/bin/python, say) points into the copy
+            command = [str(t).replace(str(ws), str(copy)) for t in run.get("command") or ["false"]]
             completed = subprocess.run(
-                run.get("command") or ["false"], cwd=copy, check=False,
+                command, cwd=copy, check=False, env=run_env,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
             )
             entry["exit_code"] = completed.returncode
@@ -1001,11 +1320,18 @@ def cmd_rerun(args: argparse.Namespace) -> int:
     report = {
         "created": now(), "passed": passed, "rtol": args.rtol, "atol": args.atol,
         "reuse_data": bool(args.reuse_data),
+        "setup": setup,
         # crew.py's own interpreter; each run's entry records the interpreter its command used
         "env": {"crew_python": platform.python_version(), "platform": platform.platform()},
         "runs": results,
     }
     write_json(ws / "replication.json", report)
+    with (ws / "replication-history.jsonl").open("a", encoding="utf-8") as handle:  # keep every attempt
+        handle.write(json.dumps({
+            "created": report["created"], "passed": passed, "setup": args.setup,
+            "reproduced": sum(r["status"] in ("match", "ran") for r in results), "total": len(results),
+            "not_reproduced": {r["run"]: r["status"] for r in results if r["status"] not in ("match", "ran")},
+        }) + "\n")
     append_log(ws, "replicator", "rerun", f"passed={passed}")
     print(f"Rerun {'PASSED' if passed else 'FAILED'}: {sum(r['status'] in ('match', 'ran') for r in results)}"
           f"/{len(results)} run(s) reproduced; report in replication.json")
@@ -1031,6 +1357,8 @@ def cmd_numbers(args: argparse.Namespace) -> int:
     target.write_text(render_numbers(claims), encoding="utf-8")
     count = sum(1 for c in claims if c.get("macro") and "value" in c)
     print(f"Wrote {target} with {count} macro(s)")
+    (ws / "paper" / "process.tex").write_text(render_process(ws), encoding="utf-8")
+    print(f"Wrote {ws / 'paper' / 'process.tex'} with {len(process_facts(ws))} process macro(s)")
     return 0
 
 
@@ -1074,6 +1402,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--output", action="append", default=[], help="output file (repeatable)")
     p.add_argument("--metrics", help="JSON file of metrics the command writes")
     p.add_argument("--replace", action="store_true", help="overwrite an existing run with this id")
+    p.add_argument("--unreviewed", metavar="REASON",
+                   help="run analysis code no passing code review covers (the human agreed; recorded)")
     p.set_defaults(func=cmd_run, command=[])
 
     p = sub.add_parser("rerun", help="re-execute every run in a fresh copy and compare metrics")
@@ -1082,7 +1412,15 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--atol", type=float, default=1e-9, help="absolute tolerance for numeric metrics")
     p.add_argument("--reuse-data", action="store_true",
                    help="keep files listed in data/manifest.json instead of re-downloading them")
+    p.add_argument("--setup", metavar="SHELL_COMMAND",
+                   help="build a fresh environment in the copy first (e.g. 'python3 -m venv .venv && "
+                        ".venv/bin/pip install -r requirements.txt'); .venv is then not copied")
     p.set_defaults(func=cmd_rerun)
+
+    p = sub.add_parser("review", help="check a review the Reviewer wrote and stamp the files it read")
+    p.add_argument("workspace")
+    p.add_argument("review", help="review id, e.g. code-r2")
+    p.set_defaults(func=cmd_review)
 
     p = sub.add_parser("log", help="append an entry to log.jsonl with the current time")
     p.add_argument("workspace")

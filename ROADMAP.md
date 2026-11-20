@@ -109,7 +109,7 @@ human PI at four gates, so the papers move at the speed of those approvals.
 | 3 | Fri 11-20 | Data and analysis runs; results reviews; results gates | done (11-19): all three results gates approved; 401(k) main estimates within tolerance |
 | 4 | Sat 11-21 | Figures, papers, clean reruns, submission gates → first two gallery papers with token cost and wall time | done early (11-19): cs-label-noise, ss-null-effect and ss-dml-401k final, each with a passing clean rerun |
 | 5 | Sun 11-22 | Null-effect seed run; three more seeds (six in total) with sourced answer keys; bench scorer; scoreboard page on the site | done (11-19/20): six seeds with answer keys, scorer and scoreboard built; all six papers final (Card–Krueger, calibration and LaLonde added); per-paper token cost and time measured by `crew/scripts/usage.py` ([`gallery/usage.json`](gallery/usage.json)); gate approval enforced by a hook (`crew/hooks/guard.py`); answer keys moved out of the plugin to `answer-keys/` |
-| 6 | Mon 11-23 | Run further seeds as gates allow; role kits (skills picked per role from the hub) | in progress (11-20): role kits built; ss-rd-senate final as a low-cost trial (every role subagent on Claude Haiku 5.5; about $16 in all, $2 for the subagents; answer key pass) |
+| 6 | Mon 11-23 | Run further seeds as gates allow; role kits (skills picked per role from the hub) | in progress (11-20): role kits built; ss-rd-senate final as a low-cost trial (every role subagent on Claude Haiku 5.5; answer key pass); protocol 0.2 from the Reviewer's recurring findings across the seven papers (code reviewed before it runs, process facts as macros, typed numbers flagged, fresh-environment reruns); Codex adapter rebuilt on Codex custom agents and hooks |
 | 7 | Tue 11-24 | Launch kit: demo video, bilingual posts (Zhihu, Xiaohongshu, WeChat, X), Show HN draft, technical-report draft, new cover images | done early (11-20): 76 s demo video, final posts in [`docs/launch/`](docs/launch/), report draft with results, new cover posters |
 | 8 | Wed 11-25 | Release v0.5; GitHub Discussions; tracking issues; the human posts the launch | v0.5 released 11-20; Discussions and issue #9 open; posting is the human's |
 
@@ -172,7 +172,7 @@ target: 15 people with a merged seed task, role or adapter within three months.
 
 ## 7. Open decisions
 
-1. **First runtime:** Claude Code plugin first, Codex second (assumed above).
+1. **First runtime:** Claude Code plugin first, Codex second (assumed above). Since 2026-11-20 the Codex adapter installs the roles as Codex custom agents with the same guard hook.
 2. **Seed papers:** decided 2026-11-18 — both seeds use machine learning (see Phase 1).
 3. **Compute for the CS track:** laptop-only seeds (assumed), or a GPU budget for larger ones.
 4. **Venue submissions:** decided 2026-11-18 — gallery papers stay as demonstrations and

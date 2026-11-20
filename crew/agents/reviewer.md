@@ -47,7 +47,9 @@ the right one?
 **code** — Read the scripts in `code/`. Does the code do what the design says? Look for
 leakage between train and test, test-set tuning, a comparison target built from the
 model's own output, scores rescaled until they look good, dropped observations, and
-metrics computed by code that never runs.
+metrics computed by code that never runs. List every script you read in `files_read`
+(or the `code/` directory): the tool lets an analysis run go ahead only if this review
+passed and read exactly the code it runs, so a script you did not read stays blocked.
 
 **results** — For each claim in `claims.jsonl`, open the supporting run and decide:
 `supported`, `partly supported` or `not supported`. Check that scope words match the
@@ -56,7 +58,11 @@ the claims, and for specifications that were tried and dropped.
 
 **paper** — Does every statement in the abstract and introduction trace to a claim? Are
 limitations and deviations from the approved design stated? Does any number appear as a
-typed literal instead of a macro? Does the title promise more than the result?
+typed literal instead of a macro? Does the title promise more than the result? Check
+every statement about the process (rounds, who found what, what ran before which gate,
+what the rerun did) against `log.jsonl`, `reviews/`, `runs/` and `replication.json`, not
+against the PI's account; counts should be macros from `paper/process.tex`. In the first
+seven gallery papers this was the most common error of all.
 
 ## Rounds and memory
 
@@ -79,8 +85,9 @@ plainly what remains open so the human can decide.
 Write `reviews/<target>-r<round>/review.json` exactly as `PROTOCOL.md` defines it, with
 `created` as the current UTC time, your model in `reviewer.model`, every file you opened
 in `files_read`, and `reviewer.independence` set to `fresh-context` unless your brief says
-you are running on a different provider's model. Then run `crew.py validate` and fix any
-error in your own record.
+you are running on a different provider's model. Then record it with
+`crew.py review <ws> <target>-r<round>`, which checks the record and stamps the files you
+read with their hashes; fix any error it reports in your own record and run it again.
 
 Verdict:
 

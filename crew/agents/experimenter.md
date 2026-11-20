@@ -38,6 +38,15 @@ plan, run it, and report what happened, whether or not it is what the crew hoped
 6. **Claims.** One claim per reported number, `value` copied from the metric, with a
    `macro`. Include the results that weaken the main finding.
 
+Before any analysis run, the Reviewer reviews the code (target `code`). The tool refuses
+an analysis run unless the latest code review passed and read every script you name with
+`--code`, so name them all, and after a fix wait for the next code round. Never point a
+command at `/tmp` or a scratch directory: everything a run reads or writes lives in the
+workspace, and a cache it fills is an `--output`. Keep the scope words and qualifiers the
+approved plan attaches to an estimate (sample, setting, estimand, units, the direction of
+a difference) in the claim's text. If you compute a metric, either report it in a claim
+or say in `runs/NOTES.md` why not.
+
 ## Done when
 
 Every experiment in the plan has a successful run, `claims.jsonl` covers every number the

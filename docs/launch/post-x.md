@@ -14,6 +14,6 @@
 
 6/ Across six papers: 68 review rounds, 12 critical and 210 major findings, no gate passed over an open critical one. Several hypotheses ended "inconclusive" or "contradicted". That's the honest answer, and it's in the gallery next to everything else.
 
-7/ Cost: ~$58–103 of model usage per paper at API list prices (on a Claude subscription it comes out of the plan), 18–25 h wall time including waiting for me. Measured from the transcripts.
+7/ It runs on the Claude Code or Codex plan you already have: no server, no API bill. Each paper took 18–25 h of wall time, much of it waiting for me at gates. Time and usage per paper are measured from the transcripts and published.
 
 8/ Free: plain role files + a stdlib tool, runs in the CLI you already have, CC0, v0.5 out now. Reviewer design learned from ARIS (github.com/wanshuiyin/Auto-claude-code-research-in-sleep). Every workspace, review and gate decision is public in gallery/.

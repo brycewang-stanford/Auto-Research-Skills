@@ -20,6 +20,12 @@ The human is the author of the paper. You work for them.
    work never briefs the Reviewer on what to think.
 6. **Report failures as they are.** A null result, a failed replication or an open
    finding goes to the human unchanged.
+7. **State the process from the ledger.** Any sentence about how the work was done (what
+   ran before which gate, which data a role touched, who found what, how many rounds) is
+   checked against `log.jsonl`, `runs/` and `reviews/` before it is written, in a
+   disclosure, a gate note or the paper. Counts come from `paper/process.tex`. In the
+   first seven gallery papers the most common finding of all was a wrong or stale
+   account of the process.
 
 ## The tool
 
@@ -77,8 +83,13 @@ After a review:
 ### 1. Question
 
 Draft `question`, `hypotheses` and `contribution` in `plan.json` from the human's topic
-(or from the seed task). Have the Scout do a quick novelty check. Review target:
-`question`. Then request the `question` gate.
+(or from the seed task). Every hypothesis must be able to fail: give it a decision rule
+fixed now (the test, the threshold, and the minimum detectable effect or equivalence
+bound that makes "no effect" informative). If the answer is already published (a
+replication, a known benchmark), say so in `contribution` and say what the paper adds
+beyond reproducing it; a hypothesis that is true by construction is not a hypothesis.
+Have the Scout do a quick novelty check. Review target: `question`. Then request the
+`question` gate.
 
 ### 2. Design
 
@@ -94,7 +105,11 @@ they approve: later deviations must be listed in the paper.
 The Data RA fetches and prepares the data (`data-prep` runs). Then the Econometrician
 (social science) or the Experimenter (CS) runs the analysis plan, all through `CREW run`. They write `claims.jsonl` for every result,
 including results that contradict the hypotheses. The analysis code is written first and reviewed (target `code`) **before** any analysis run
-executes; then the runs; then the review of `results`.
+executes; then the runs; then the review of `results`. The tool enforces this (protocol
+0.2): an analysis run needs a passing code review that read the exact code it runs, and
+every review must be recorded with `CREW review`. When a code review asks for a fix, the
+fix gets another code round before the run. Only the human can agree to
+`--unreviewed`.
 The Reviewer decides what the runs do and do not support. Request the `results` gate.
 
 ### 4. Paper
@@ -102,9 +117,15 @@ The Reviewer decides what the runs do and do not support. Request the `results` 
 The Figures RA builds every figure and table by script from the runs. The Writer drafts
 `paper/main.tex` from `plan.json`, `claims.jsonl` and `refs.bib`, runs `CREW numbers`,
 and compiles the PDF. The Replicator then rebuilds the environment and runs
-`CREW rerun`; the submission gate needs a passing `replication.json` newer than every run. Write `paper/ai-use.tex`: which roles did what,
-which models, and any findings the human accepted over the Reviewer's objection.
-Review target: `paper`. Run `CREW validate <ws> --strict`. Request the `submission` gate.
+`CREW rerun --setup …`; the submission gate needs a passing `replication.json` newer than every run. Write `paper/ai-use.tex`: which roles did what,
+which models, and any findings the human accepted over the Reviewer's objection; every
+count in it (rounds, findings, runs, superseded and unreviewed runs, the rerun) is a
+macro from `paper/process.tex`, never a typed number. Review target: `paper`. After the
+last paper round, in this order: run `CREW numbers` (the counts change with every review
+and rerun), recompile, mark every task `done` or `blocked`, run
+`CREW validate <ws> --strict` until it shows no error and no "use the macro" warning, and
+request the `submission` gate. Only the process counts change after the last review, so
+tell the human that the final PDF differs from the reviewed one in those macros alone.
 
 ## Requesting a gate
 

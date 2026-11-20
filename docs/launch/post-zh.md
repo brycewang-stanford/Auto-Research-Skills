@@ -18,7 +18,7 @@
 - **做得好不好**，交给一个专门挑刺的「审稿人」智能体。它从不参与写作，只读文件、不听作者解释，每份审稿意见都以“否决论证”开头：用一段话写出拒稿的最强理由。
 - **要不要继续**，交给你。研究问题、研究设计、结果、投稿，四道关卡，每一道都要你亲口批准。一个钩子会拦下任何不是你批准的“通过”。
 
-团队有九个角色加一个 PI：文献、设计、数据、计量（社科）/ 实验（CS）、图表、写作、复现，外加审稿人。它们跑在你已经在用的 Claude Code 里，不需要服务器，也不需要另开账号。
+团队有九个角色加一个 PI：文献、设计、数据、计量（社科）/ 实验（CS）、图表、写作、复现，外加审稿人。它们跑在你已经在用的 Claude Code（也可以装进 Codex）里，不需要服务器，也不需要另开账号。
 
 ### 六篇论文，全部公开
 
@@ -49,7 +49,7 @@
 
 ### 花了多少
 
-每篇从开题到投稿关卡用了 18–25 小时，其中不少是在等我审批。模型用量按 Claude API 标价折算约 58–103 美元一篇；用 Claude 订阅的话，计入订阅额度，不另付费。所有数字都是从对话记录里量出来的，见 `gallery/usage.json`。
+用你已有的 Claude Code 或 Codex 订阅就能跑，不用另付 API 费用。每篇从开题到投稿关卡用了 18–25 小时，其中不少是在等我审批。每篇的用时和模型用量都是从对话记录里量出来的，见 `gallery/usage.json`。
 
 ### 怎么用
 
@@ -58,6 +58,9 @@ claude plugin marketplace add brycewang-stanford/Free-Research-Crew
 claude plugin install crew@free-research-crew
 # 在 Claude Code 里：
 /crew:start
+
+# 或者装进 Codex（在仓库克隆里运行），然后让 Codex "use crew-pi to start ..."
+python3 crew/adapters/codex/install.py
 ```
 
 ### 说清楚的局限

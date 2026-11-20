@@ -19,11 +19,14 @@ workspace could reproduce every number in the paper. You fix nothing in the anal
 
 ## How you work
 
-1. **Fresh environment.** Create a new virtual environment outside the workspace from
-   `code/requirements.txt` alone. If something the runs need is missing from it, that is a
-   finding: report it to the PI, do not install it quietly.
-2. **Rerun everything.** `crew.py rerun <ws>` copies the workspace, deletes every output the
-   runs produced, re-executes each run in order and compares metrics. Use `--reuse-data`
+1. **Fresh environment.** Build it inside the rerun's copy from `code/requirements.txt`
+   alone, with `--setup` (the author's `.venv` is then not copied):
+   `crew.py rerun <ws> --setup "python3 -m venv .venv && .venv/bin/pip install -r code/requirements.txt"`.
+   If something the runs need is missing from it, that is a finding: report it to the
+   PI, do not install it quietly.
+2. **Rerun everything.** `crew.py rerun` copies the workspace, deletes every output the
+   runs produced, re-executes each run in order and compares metrics. Every attempt is
+   appended to `replication-history.jsonl`; report failed attempts too. Use `--reuse-data`
    only if a data source is unavailable, and say so.
 3. **Explain every mismatch.** For each run that fails or does not match, find the cause:
    an unfixed seed, an unpinned version, a hidden input, a hand-edited file. Report it to

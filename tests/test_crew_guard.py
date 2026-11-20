@@ -109,5 +109,75 @@ class GuardTest(unittest.TestCase):
         self.assertIn("hooks/guard.py", command)
 
 
+class CodexGuardTest(unittest.TestCase):
+    """The same guard under Codex: prompts recorded by UserPromptSubmit, edits via apply_patch."""
+
+    def setUp(self) -> None:
+        self.state = Path(tempfile.mkdtemp())
+
+    def send(self, event: dict) -> str | None:
+        env = {k: v for k, v in os.environ.items() if k not in ("CREW_GUARD", "PLUGIN_DATA")}
+        env["CODEX_HOME"] = str(self.state)
+        out = subprocess.run([sys.executable, str(GUARD)], input=json.dumps(event),
+                             capture_output=True, text=True, env=env, check=True).stdout
+        return json.loads(out)["hookSpecificOutput"]["permissionDecision"] if out.strip() else None
+
+    def prompt(self, text: str, session: str = "s1") -> None:
+        self.assertIsNone(self.send({"hook_event_name": "UserPromptSubmit", "session_id": session,
+                                     "turn_id": "t", "prompt": text}))
+
+    def tool(self, name: str, command: str, session: str = "s1") -> str | None:
+        return self.send({"hook_event_name": "PreToolUse", "session_id": session, "turn_id": "t",
+                          "cwd": str(self.state), "tool_name": name, "tool_input": {"command": command}})
+
+    def workspace(self) -> None:
+        ws = self.state / "ws"
+        ws.mkdir()
+        (ws / "crew.json").write_text("{}")
+        (ws / "plan.json").write_text(json.dumps({"gates": {"design": {"status": "requested"}}}, indent=2))
+
+    def test_approval_needs_the_humans_latest_prompt(self) -> None:
+        self.assertEqual(self.tool("Bash", APPROVE_CMD), "deny")
+        self.prompt("I approve the design gate")
+        self.assertIsNone(self.tool("Bash", APPROVE_CMD))
+        self.assertEqual(self.tool("Bash", APPROVE_CMD, session="other"), "deny")
+        self.prompt("ok continue")
+        self.assertEqual(self.tool("Bash", APPROVE_CMD), "deny")
+
+    def test_apply_patch_cannot_approve_a_gate(self) -> None:
+        self.workspace()
+        self.prompt("approve the design gate")
+        patch = ("*** Begin Patch\n*** Update File: ws/plan.json\n@@\n"
+                 '-      "status": "requested"\n+      "status": "approved"\n*** End Patch\n')
+        self.assertEqual(self.tool("apply_patch", patch), "deny")
+        self.assertIsNone(self.tool("apply_patch", patch.replace("plan.json", "notes.json")))
+        # the value split over two lines, or a file moved onto plan.json, is still an approval
+        split = ("*** Begin Patch\n*** Update File: ws/plan.json\n@@\n"
+                 '-      "status": "requested"\n+      "status":\n+        "approved"\n*** End Patch\n')
+        self.assertEqual(self.tool("apply_patch", split), "deny")
+        moved = ('*** Begin Patch\n*** Add File: ws/x.json\n+{"gates": {"design": {"status": "approved"}}}\n'
+                 "*** Update File: ws/x.json\n*** Move to: ws/plan.json\n@@\n*** End Patch\n")
+        self.assertEqual(self.tool("apply_patch", moved), "deny")
+        # a plan.json outside any crew workspace is not the guard's business
+        other = patch.replace("ws/plan.json", "elsewhere/plan.json")
+        self.assertIsNone(self.tool("apply_patch", other))
+
+    def test_no_approval_while_a_subagent_runs(self) -> None:
+        self.prompt("approve the design gate")
+        start = {"hook_event_name": "SubagentStart", "session_id": "s1", "turn_id": "t", "agent_id": "a1"}
+        self.assertIsNone(self.send(start))
+        self.assertEqual(self.tool("Bash", APPROVE_CMD), "deny")
+        self.assertIsNone(self.send({**start, "hook_event_name": "SubagentStop"}))
+        self.assertIsNone(self.tool("Bash", APPROVE_CMD))
+
+    def test_answer_keys_are_off_limits(self) -> None:
+        keys = "answer" + "-keys"
+        self.assertEqual(self.tool("Bash", f"ls {keys}/"), "deny")
+        self.assertEqual(self.tool("apply_patch", f"*** Begin Patch\n*** Add File: {keys}/x.json\n+{{}}\n"), "deny")
+        # writing text that mentions the directory is not access to it
+        doc = f"*** Begin Patch\n*** Update File: README.md\n@@\n-a\n+keys live in {keys}/\n*** End Patch\n"
+        self.assertIsNone(self.tool("apply_patch", doc))
+
+
 if __name__ == "__main__":
     unittest.main()

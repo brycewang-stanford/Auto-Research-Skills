@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PreToolUse guard for the research crew (Claude Code hook).
+"""PreToolUse guard for the research crew (Claude Code and Codex hook).
 
 Two rules the protocol used to leave to the agents' goodwill:
 
@@ -16,7 +16,12 @@ What it cannot stop: a command that hides its intent (for example a script writt
 to disk and run later) or a human typing an approval without reading. It narrows the
 agent's options to the honest path; it is not a sandbox.
 
-Set CREW_GUARD=off in the environment Claude Code runs in to disable it (for example
+In Codex the human's latest message comes from a UserPromptSubmit hook that runs this
+script too and records the prompt (Codex transcripts are not a stable format), and an
+`apply_patch` that marks a gate approved in plan.json is always refused: approvals go
+through `crew.py gate`.
+
+Set CREW_GUARD=off in the environment Claude Code or Codex runs in to disable it (for example
 while maintaining the bench). Standard library only.
 """
 
@@ -57,6 +62,158 @@ def deny(reason: str) -> None:
 
 
 # ---------------------------------------------------------------- gate approvals
+
+PATCH_HEADER_RE = re.compile(r"^\*\*\* (Add File|Update File|Delete File|Move to): (.+)$", re.MULTILINE)
+
+
+def patch_sections(patch: str) -> list[dict]:
+    """Split a Codex apply_patch into file sections: action, path, destination, body lines."""
+    sections: list[dict] = []
+    for line in patch.splitlines():
+        header = PATCH_HEADER_RE.match(line)
+        if header and header.group(1) == "Move to" and sections:
+            sections[-1]["dest"] = header.group(2).strip()
+        elif header:
+            sections.append({"action": header.group(1), "path": header.group(2).strip(), "dest": None, "lines": []})
+        elif sections and not line.startswith("*** "):
+            sections[-1]["lines"].append(line)
+    return sections
+
+
+def patch_paths(patch: str) -> list[str]:
+    return [p for m in PATCH_HEADER_RE.finditer(patch) for p in [m.group(2).strip()]]
+
+
+def apply_hunks(current: str, lines: list[str]) -> str | None:
+    """Apply an Update section's hunks to the current text; None if a hunk does not fit."""
+    text = current
+    hunks, hunk = [], []
+    for line in lines:
+        if line.startswith("@@"):
+            if hunk:
+                hunks.append(hunk)
+            hunk = []
+        else:
+            hunk.append(line)
+    if hunk:
+        hunks.append(hunk)
+    for hunk in hunks:
+        old = "\n".join(l[1:] for l in hunk if l[:1] in (" ", "-"))
+        new = "\n".join(l[1:] for l in hunk if l[:1] in (" ", "+"))
+        if old and old not in text:
+            return None
+        text = text.replace(old, new, 1) if old else text + new
+    return text
+
+
+def patch_approves_gate(patch: str, cwd: str) -> bool:
+    """True when a Codex apply_patch would turn a gate to approved in a crew workspace's plan.json."""
+    base = Path(cwd or ".")
+    pending: dict[str, str] = {}  # files added or changed earlier in the same patch
+
+    def read(path: str) -> str:
+        if path in pending:
+            return pending[path]
+        try:
+            return (base / path).read_text(encoding="utf-8")
+        except OSError:
+            return ""
+
+    for section in patch_sections(patch):
+        if section["action"] == "Delete File":
+            pending[section["path"]] = ""
+            continue
+        current = read(section["path"])
+        if section["action"] == "Add File":
+            new = "\n".join(l[1:] for l in section["lines"] if l.startswith("+"))
+        else:
+            new = apply_hunks(current, section["lines"])
+        dest = section["dest"] or section["path"]
+        names = {Path(section["path"]).name, Path(dest).name}
+        in_crew = any((base / p).parent.joinpath("crew.json").exists() for p in (section["path"], dest))
+        if "plan.json" in names and in_crew:
+            if new is None:  # cannot tell what the edit does: refuse it if it adds anything "approved"
+                if any(l.startswith("+") and "approved" in l for l in section["lines"]):
+                    return True
+            elif approved_gates(new) - approved_gates(read(dest)):
+                return True
+        pending[dest] = new if new is not None else current
+        if section["dest"]:
+            pending[section["path"]] = ""
+    return False
+
+
+def state_dir() -> Path:
+    data = os.environ.get("PLUGIN_DATA")
+    if data:
+        return Path(data)
+    home = os.environ.get("CODEX_HOME") or str(Path.home() / ".codex")
+    return Path(home) / "crew-guard"
+
+
+def state_file(session: str) -> Path:
+    safe = re.sub(r"[^A-Za-z0-9_.-]", "_", session or "default")
+    return state_dir() / f"{safe}.json"
+
+
+def record_prompt(event: dict) -> None:
+    """UserPromptSubmit (Codex): remember the human's latest message for this session."""
+    target = state_file(str(event.get("session_id", "")))
+    try:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps({"prompt": str(event.get("prompt", ""))}), encoding="utf-8")
+    except OSError:
+        pass
+
+
+SUBAGENT_TTL = 6 * 3600
+
+
+def agents_file(session: str) -> Path:
+    return state_file(session).with_suffix(".agents.json")
+
+
+def track_subagent(event: dict, started: bool) -> None:
+    """SubagentStart/SubagentStop (Codex): keep the set of subagents running in this session."""
+    import time
+    target = agents_file(str(event.get("session_id", "")))
+    try:
+        active = json.loads(target.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        active = {}
+    agent = str(event.get("agent_id") or event.get("agent_type") or "?")
+    if started:
+        active[agent] = time.time()
+    else:
+        active.pop(agent, None)
+    try:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(json.dumps(active), encoding="utf-8")
+    except OSError:
+        pass
+
+
+def subagents_running(event: dict) -> bool:
+    import time
+    try:
+        active = json.loads(agents_file(str(event.get("session_id", ""))).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return False
+    return any(time.time() - float(t) < SUBAGENT_TTL for t in active.values())
+
+
+def recorded_prompt(event: dict):
+    try:
+        data = json.loads(state_file(str(event.get("session_id", ""))).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    prompt = str(data.get("prompt", "")).strip() if isinstance(data, dict) else ""
+    return ("text", prompt) if prompt else None
+
+
+def is_codex(event: dict) -> bool:
+    # Codex adds turn_id to tool hooks; Claude Code does not
+    return "turn_id" in event
 
 def gates_in_command(command: str) -> set[str]:
     return {m.group(1).lower() for m in GATE_CMD_RE.finditer(command)}
@@ -156,7 +313,12 @@ def check_gates(event: dict, gates: set[str]) -> None:
              "Return to the PI with a gate request instead.")
     transcript = event.get("transcript_path")
     evidence = None
-    if transcript and Path(transcript).is_file():
+    if is_codex(event):
+        if subagents_running(event):
+            deny("Refused: a crew subagent is still running in this session, and subagents never "
+                 "approve gates. Wait for it to finish, then approve from the PI.")
+        evidence = recorded_prompt(event)
+    elif transcript and Path(transcript).is_file():
         evidence = last_human_input(Path(transcript))
     missing = sorted(g for g in gates if not human_approved(evidence, g))
     if missing:
@@ -177,7 +339,10 @@ KEY_FIELDS = ("command", "file_path", "notebook_path", "path", "glob")
 def check_keys(tool: str, tool_input: dict) -> None:
     # Only what the tool will touch: a shell command or a target path. Text being written
     # (a document that mentions the directory) is not access to the keys.
-    blob = "\n".join(str(tool_input.get(field, "")) for field in KEY_FIELDS)
+    if tool == "apply_patch":  # the patch body is text being written; only its file paths count
+        blob = "\n".join(patch_paths(str(tool_input.get("command", ""))))
+    else:
+        blob = "\n".join(str(tool_input.get(field, "")) for field in KEY_FIELDS)
     if KEYS_RE.search(blob):
         deny("Refused: answer-keys/ holds the bench's hidden answer keys. Crew agents never read, "
              "search or list them; scoring is done by crew/bench/score.py after the results gate.")
@@ -190,13 +355,25 @@ def main() -> None:
         event = json.load(sys.stdin)
     except ValueError:
         sys.exit(0)
+    if event.get("hook_event_name") == "UserPromptSubmit":
+        record_prompt(event)
+        sys.exit(0)
+    if event.get("hook_event_name") in ("SubagentStart", "SubagentStop"):
+        track_subagent(event, started=event["hook_event_name"] == "SubagentStart")
+        sys.exit(0)
     tool = event.get("tool_name", "")
     tool_input = event.get("tool_input") or {}
     if not isinstance(tool_input, dict):
         sys.exit(0)
+    if isinstance(tool_input.get("command"), list):  # some Codex shells pass argv
+        tool_input = {**tool_input, "command": " ".join(map(str, tool_input["command"]))}
     check_keys(tool, tool_input)
     if tool == "Bash":
         check_gates(event, gates_in_command(str(tool_input.get("command", ""))))
+    elif tool == "apply_patch":
+        if patch_approves_gate(str(tool_input.get("command", "")), str(event.get("cwd", ""))):
+            deny("Refused: never edit plan.json to approve a gate. When the human approves in chat, "
+                 "run `crew.py gate <workspace> <gate> approve --by \"<their name>\"`.")
     elif tool in ("Edit", "Write", "MultiEdit"):
         check_gates(event, gates_in_edit(tool, tool_input))
     sys.exit(0)
