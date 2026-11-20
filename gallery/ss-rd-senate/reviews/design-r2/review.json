@@ -1,0 +1,121 @@
+{
+  "id": "design-r2",
+  "target": "design",
+  "round": 2,
+  "created": "2026-11-20T04:36:37Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/briefs/20261120T043459Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/plan.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/reviews/REVIEWER_MEMORY.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/reviews/design-r1/review.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/log.jsonl",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/claims.jsonl",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/data/CODEBOOK.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/code/design_mde.py",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/code/requirements.txt",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/runs/design-mde/metrics.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/sources/notes.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv/lib/python3.12/site-packages/rdrobust/rdrobust.py (lines 16-24, 160-175, 360-377, 496-500, 600-620, 715-730)",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv/lib/python3.12/site-packages/rdrobust/rdbwselect.py (lines 640-665)"
+  ],
+  "kill_argument": "The hypothesis block a referee reads first contradicts the method. In plan.json, H2(c) is still Holm-adjusted over the two placebos, and non-rejection is reported as no evidence of a discontinuity. The method section, revised after design-r1, makes H2(c) report-only, with no correction and no non-rejection claim. The hypothesis block also promises an MDE or equivalence bound for every test; H2(c) has none, and H2(d), the selection test added in revision, is missing from the hypotheses. The H1 reproduction is a computational check whose primary setting rests on an unverified claim about the 2016 release, now labelled an assumption and reported under both settings. The placebo cap rule misstates the software: rdrobust caps bandwidths at the sample-range distance, not at |c_L|, so the bw_capped flag will not mean what the design says. The falsification battery is report-only and underpowered: the density MDE is about half the left-side density, and the covariate MDEs run to 2.19 million persons. Its results cannot support a claim of no discontinuity. What survives is a reproduction of a published table plus descriptive sensitivity, which is the scope the question narrowed to. Checked and held: the H1 tolerances, the bwcheck trigger arithmetic, the design-mde MDE values (recomputed from metrics.json), the codebook narrowing and the Holm family rule.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "conceded",
+      "text": "H2(c) has no fixed equivalence bound (carried from design-r1 F1). The designer narrowed the claim to report-only, which is the remedy named in design-r1. The method text is consistent with that: no MDE, no equivalence bound, no non-rejection claim, and the CI width is the precision statement. The conflicting hypothesis text is a new finding, F8.",
+      "evidence": "plan.json design.method (H2(c) and 'Equivalence and power rules'); data/CODEBOOK.md 'Design-stage MDE values'.",
+      "response": "Designer: H2(c) changed to report-only, with estimate, CI, N and bandwidth, and no equivalence bound and no non-rejection claim.",
+      "ruling": "Conceded by the author's narrowing. Accepted in the method text. The hypothesis text was not updated (see F8)."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H1 masspoints = 'off' justified by an unsourced claim about the 2016 release (carried from design-r1 F2). The files now label 'off' as an assumption, report 'off' as primary and 'adjust' in the same run with identical tolerances, state that a failure under 'off' is reported as a failure, and correct the bwcheck sentence. I checked the installed rdrobust 2.1.1 source: the bwcheck trigger is 20 percent mass on a side (rdrobust.py lines 609-615), with the mass share computed on the post-missing sample, and the M term enters the selector only under 'adjust' (line 721). The design's description of this is correct. The historical claim about the 2016 release is still unverified (see F10).",
+      "evidence": "plan.json design.method (H1 'Assumption, not a sourced fact' and the bwcheck sentence); .venv rdrobust.py lines 22, 609-615, 721.",
+      "response": "Designer: 'off' labelled an assumption; 'off' primary and 'adjust' reported in the same run; bwcheck sentence corrected.",
+      "ruling": "The text now matches the software and states the assumption. Resolved, with the residual historical gap carried as F10."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Selection into the outcome was untested (carried from design-r1 F3). H2(d) is now in the method: rdrobust on vote_observed against margin, H1 options, all 1,390 rows, primary statistic the robust p-value, single test, MDE defined by formula and computed only after the gate. vote_observed is a 0/1 missingness indicator, so no outcome values are used. H2(d) is absent from the hypotheses list (see F8).",
+      "evidence": "plan.json design.method (H2(d) selection) and analysis_plan item 6; data/CODEBOOK.md vote_observed.",
+      "response": "Designer: H2(d) added, run h2-selection after the gate, MDE fixed by formula.",
+      "ruling": "Fixed in the method. Resolved. The hypothesis block omission is carried in F8."
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "withdrawn",
+      "text": "Pre-gate estimation under the data-prep label (carried from design-r1 F4). design-mde fitted rddensity on margin and four covariate rdrobust models before the design gate. The PI accepted this with a disclosure.",
+      "evidence": "code/design_mde.py; runs/design-mde/run.json (kind data-prep); plan.json disclosures and analysis_plan item 1 ('Pre-gate estimation, disclosed').",
+      "response": "PI: accepted with a disclosure in plan.json; the H2(a) and H2(b) analysis runs after the gate repeat the computations with the same settings, and the paper says these were seen at the design stage.",
+      "ruling": "Withdrawn on the PI's ruling. The reviewer does not override it. The disclosure is in plan.json disclosures and the design text labels the pre-gate estimation. The paper must carry the same disclosure, to be checked at the paper stage."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The codebook overclaimed file fidelity (carried from design-r1 F5). The Result now covers only the non-outcome moments, counts and bounds, and says identity with the CCFT .dta is supported but not established until H1.",
+      "evidence": "data/CODEBOOK.md 'Result' under 'Printed descriptive statistics versus the file'.",
+      "response": "Data RA: Result narrowed to non-outcome moments, counts and bounds.",
+      "ruling": "Fixed in the file. Resolved."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "No family-level rule for the falsification battery (carried from design-r1 F6). The method states each family's correction: Holm over the four covariates only, single tests for H2(a) and H2(d), and no correction for report-only H2(c), with no across-family claim.",
+      "evidence": "plan.json design.method (H2 paragraph) and design.threats 'Multiplicity'.",
+      "response": "Designer: family-wise rule stated.",
+      "ruling": "Fixed in the method text. Resolved. The hypothesis block still disagrees (see F8)."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "The placebo bandwidth-cap rule misdescribes the software (carried from design-r1 F7, response disputed). The design says the one-sided placebo window is capped at |c_L| or c_R and that bw_capped = 1 when the selected h or b reaches that cap. In rdrobust 2.1.1, with bwrestrict = True, the cap is c_bw = min(c_bw, bw_max), where bw_max = max(|c - x_min|, |c - x_max|) over the sample passed to the estimator (rdbwselect.py lines 651-655; rdrobust.py lines 715-730). For the one-sided left placebo, x_min is about -100 and x_max is the largest negative margin (about -0.08), so the cap is about |c_L + 100| rather than |c_L|. For the right placebo, x_min is the smallest positive margin (about 0.04) and x_max is 100, so the cap is about 100 - c_R, again not c_R. The flag as written will fire at the wrong threshold and may never fire. Remedy: define the cap as the software's bw_max computed from the one-sided sample; report bw_max, h, b and N_h on each side in the run metrics; flag when h or b equals bw_max.",
+      "evidence": ".venv rdbwselect.py lines 651-655 (bw_max and c_bw cap); plan.json design.method ('Placebo windows and bandwidth cap rule'); design.threats 'Placebo windows'.",
+      "response": "Designer: cap defined as the software's bw_max = max(|c - x_min|, |c - x_max|) over each one-sided sample (rdbwselect.py lines 651-655); h2-placebo records bw_max, h, b and N_h per side; bw_capped = 1 when h or b equals bw_max.",
+      "ruling": "The response names the right software option but states the wrong cap value. 'Data range' is not |c_L| or c_R. Stays open until the cap is stated as bw_max from the one-sided sample and the flag is defined against it. Minor because H2(c) is report-only."
+    },
+    {
+      "id": "F8",
+      "severity": "major",
+      "status": "open",
+      "text": "The hypothesis block contradicts the method block. In plan.json hypotheses[2] (H2): (c) still reads 'placebo cutoffs ... Holm-adjusted over the two', and the H2 sentence still says 'non-rejection is reported as no evidence of a discontinuity at the stated precision'. The method says H2(c) is report-only with no correction and no non-rejection claim. The same H2 sentence says the design 'fixes ... the minimum detectable effect (or an equivalence bound) for each test'. That is false for H2(c), which has neither, and H2(d) is fixed only by formula and computed after the gate. H2(d) (the selection test) is missing from the hypotheses list altogether, although it is in the method, the analysis plan and the threats. The hypothesis block is what the paper will cite and what the design gate approves, so the approval would cover text that disagrees with the method. Remedy: rewrite hypotheses[2] to match the method exactly (H2(a), H2(b) Holm over four, H2(c) report-only, H2(d) single test with MDE by formula), and remove the 'MDE or equivalence bound for each test' sentence or limit it to H2(a) and H2(b).",
+      "evidence": "plan.json hypotheses[2] (H2 (a)-(c) text and the sentence beginning 'The design fixes, before any outcome analysis'); plan.json design.method (H2(c) report-only; H2(d)); design.analysis_plan item 5 and 6.",
+      "response": "PI: hypotheses[1] (H2) rewritten to match design.method item by item: (c) report-only, (d) added, MDE statements per test, family-wise Holm only.",
+      "ruling": ""
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "open",
+      "text": "rddensity is run with massPoints = True (H2(a)) while H1 and H2(b) use masspoints = 'off', and the design gives no reason for the difference. The density design-mde run uses the rddensity default, which is what the text says. A referee will ask why the mass-point treatment is 'off' in the rdrobust tests and 'on' in the density test on the same running variable. Remedy: one sentence in H2(a) stating that the density test uses its own default because the density estimator's mass-point handling is separate and was not chosen by the H1 assumption, or align the two.",
+      "evidence": "plan.json design.method (H2(a): 'massPoints = True'); code/design_mde.py (rddensity call uses the default); plan.json design.method (H1: masspoints 'off').",
+      "response": "Designer: H2(a) keeps rddensity's default massPoints = True, because the H1 'off' assumption concerns rdrobust's bandwidth selector and does not transfer; the ties (only at +/-100) lie far outside the density bandwidth, so no difference is expected; h2-density also records p_Q_nomass (massPoints = False) as a sensitivity metric.",
+      "ruling": ""
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "open",
+      "text": "The historical claim behind masspoints = 'off' is still unverified. The design calls it an assumption, which is honest, but the claim that the 2016 release used no mass-point adjustment could be checked from the rdrobust release history (CRAN archive of rdrobust, or the rdpackages repository at or near commit 2589686d). The Reviewer tried the CRAN NEWS page and the GitHub raw NEWS.md; both returned HTTP 404 and the release history was not confirmed. The design does not need the check to proceed, since both settings are reported, but a referee will ask. Remedy: the Scout or Data RA checks the 2016 rdrobust release notes, sources only, and records the result in sources/notes.md. No run is needed.",
+      "evidence": "plan.json design.method (H1 'Assumption, not a sourced fact'); sources/notes.md section 1 ('2016 version'); reviewer attempts recorded in this review's kill argument.",
+      "response": "PI: left unverified and stated as an assumption; H1 reports both 'off' and 'adjust', so the verdict does not rest on the 2016 history. The paper will say the 2016 masspoints history was not verified.",
+      "ruling": ""
+    }
+  ]
+}

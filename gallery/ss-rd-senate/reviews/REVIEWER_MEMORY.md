@@ -38,3 +38,16 @@ Suspicions and checks for later rounds:
 - Covariate fits: check whether the h2-covariates SEs reproduce design-mde's SEs exactly; if not, the MDEs fixed in design text are wrong.
 - Claims: check that rd-cov-*-p are compared with CCFT Sec. 7.4 printed p-values (0.897, 0.561, 0.901, 0.634). The printed block uses plain rdrobust z margin (line ~1190 of the fetched text, no cluster option), so the comparison is like-for-like only if the option matches the 2016 algorithm (see F2).
 - I ran no model or estimate on the study data. I read code and run metrics, and read rdrobust/rddensity source and the fetched CCFT text by grep. I did not open the seed task or any answer key. crew.py validate passed.
+
+## design-r2 (2026-11-20, verdict revise)
+
+Status of round-1 findings: F1 conceded (H2(c) report-only in method; hypothesis text not updated, see F8); F2 resolved (assumption labelled, both settings, bwcheck sentence matches rdrobust 2.1.1 lines 609-615 and 721); F3 resolved (H2(d) in method, but missing from hypotheses, see F8); F4 withdrawn on the PI's ruling (disclosure present in plan.json; paper must carry it); F5 resolved (codebook Result narrowed); F6 resolved in method (hypothesis text disagrees, see F8).
+
+Open: F7 (minor, placebo cap is rdrobust bw_max = max distance to sample range, not |c_L| or c_R; response disputed); F8 (major, plan.json hypotheses[2] still says H2(c) Holm over two and non-rejection claims, and omits H2(d)); F9 (minor, massPoints True for density vs 'off' for rdrobust tests, unexplained); F10 (minor, 2016 masspoints history still unverified; CRAN and GitHub NEWS fetch returned 404).
+
+Suspicions and checks for later rounds:
+- Run h2-placebo: check that bw_capped uses the software's bw_max on the one-sided sample, and that the metrics record bw_max, h, b, N_h.
+- Run h1-rdrobust: check that 'off' was the only setting tried before the report, and that the H3(v) row was not used to choose.
+- Paper stage: check that the pre-gate design-mde computations are disclosed in the paper's AI-use statement and text.
+- Scout/Data RA: check the 2016 masspoints history if a source becomes available.
+- I ran no model or estimate on the study data. I read code, run metrics and installed rdrobust source, and ran crew.py validate (passed). I did not open the seed task or any answer key.
