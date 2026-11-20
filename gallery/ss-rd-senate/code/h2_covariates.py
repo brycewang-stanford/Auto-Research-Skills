@@ -15,6 +15,9 @@ over the sample passed to the estimator.
 
 The outcome `vote` is not loaded.
 
+Declared input: runs/design-mde/metrics.json (SE and MDE comparison, F3); tests pass
+their own fixture through --design-mde.
+
 Usage (crew.py run --kind analysis):
     .venv/bin/python code/h2_covariates.py runs/h2-covariates/metrics.json [--data PATH]
 """
@@ -29,6 +32,8 @@ from scipy.stats import norm
 
 WS = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 RAW = os.path.join(WS, "data", "raw", "rdrobust_senate.csv")
+# design-mde (margin-only, masspoints 'off', before the gate): SEs and MDEs fixed in the design.
+DESIGN_MDE = os.path.join(WS, "runs", "design-mde", "metrics.json")
 COVARIATES = ["class", "termshouse", "termssenate", "population"]
 PRINTED_P_CCFT2017 = {"class": 0.897, "termshouse": 0.561,
                       "termssenate": 0.901, "population": 0.634}
@@ -80,6 +85,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("metrics")
     ap.add_argument("--data", default=RAW)
+    ap.add_argument("--design-mde", default=DESIGN_MDE)
     args = ap.parse_args()
 
     df = pd.read_csv(args.data, usecols=["margin"] + COVARIATES)
@@ -99,6 +105,17 @@ def main():
                 m[f"{cov}{tag}_{k}"] = v
             m[f"{cov}{tag}_holm_p"] = hp
             m[f"{cov}{tag}_holm_reject_5pct"] = int(hp < 0.05)
+    # F3: compare the 'off' SEs and MDEs with the values fixed by design-mde.
+    with open(args.design_mde) as f:
+        dm = json.load(f)
+    for cov in COVARIATES:
+        d_se, d_mde = dm[f"h2b_{cov}_se_robust"], dm[f"h2b_{cov}_mde"]
+        m[f"{cov}_design_se_robust"] = d_se
+        m[f"{cov}_design_mde"] = d_mde
+        m[f"{cov}_se_minus_design"] = m[f"{cov}_se_robust"] - d_se
+        m[f"{cov}_mde_minus_design"] = m[f"{cov}_mde"] - d_mde
+        m[f"{cov}_design_match"] = int(math.isclose(m[f"{cov}_se_robust"], d_se, rel_tol=1e-6)
+                                       and math.isclose(m[f"{cov}_mde"], d_mde, rel_tol=1e-6))
     for cov in COVARIATES:
         m[f"{cov}_printed_p_ccft2017"] = PRINTED_P_CCFT2017[cov]
         m[f"{cov}_adj_minus_printed"] = m[f"{cov}_adj_p_robust"] - PRINTED_P_CCFT2017[cov]

@@ -1,0 +1,87 @@
+{
+  "id": "code-r1",
+  "target": "code",
+  "round": 1,
+  "created": "2026-11-20T05:30:21Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261120T052753Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "plan.json",
+    "runs/NOTES.md",
+    "code/h1_replication.py",
+    "code/h2_density.py",
+    "code/h2_covariates.py",
+    "code/h2_placebo.py",
+    "code/h2_selection.py",
+    "code/h3_sensitivity.py",
+    "code/design_mde.py",
+    "code/test_analysis.py",
+    "code/fetch_data.py",
+    "code/prepare_data.py",
+    "code/prepare_checks.py",
+    "code/requirements.txt",
+    "runs/unit-tests/metrics.json",
+    "runs/unit-tests/run.json",
+    "runs/design-mde/metrics.json",
+    "runs/fetch-data/metrics.json",
+    "data/manifest.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r3/review.json",
+    ".venv/lib/python3.12/site-packages/rddensity/rddensity.py (source, lines 255-425)",
+    ".venv/lib/python3.12/site-packages/rdrobust/rdbwselect.py (grep, lines 479-652)"
+  ],
+  "kill_argument": "Reject as a replication whose falsification battery cannot falsify. H2(a), H2(b) and H2(d) are nulls reported with MDEs of 0.011 density units, 0.40 to 2.09 covariate units and about 2.2 million persons, so a non-rejection is weak evidence of balance. H2(c) is report-only: two placebo CIs with no decision attached. H1 is a computational check that reproduces printed numbers from a pinned package; a pass says nothing about the incumbency advantage. The one reading that could change substance, masspoints 'off', rests on an assumption about the 2016 release that no workspace source confirms. The 31 unit tests run only on synthetic data, and the H1 estimate test accepts any value between 0 and 6, so no test bites on the H1 decision rule. I attacked the density useall identity, the side split, the bandwidth cap, the Holm step-down and the no-vote read paths; they held. Strongest remaining objection: the code matches the approved plan, so the paper can only report a replication with nulls.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "minor",
+      "status": "open",
+      "text": "h2_covariates.py computes the printed-value comparison (`*_adj_minus_printed`) against the masspoints='adjust' reading, as ruled on design-r3 F13. The plan was not updated: analysis_plan item 4 names no setting, and the H1 assumption in design.method says the 2016 release used no mass-point adjustment, which is the 'off' setting. The printed values are therefore compared with a reading that the plan's own assumption does not link to the 2016 output. This is a documentation gap, not a coding error, but the rationale must be recorded before the paper cites the comparison.",
+      "evidence": "plan.json design.method (H1 assumption paragraph), design.analysis_plan item 4; code/h2_covariates.py lines 7-10 and 102-104; runs/NOTES.md (H2(b) bullet)",
+      "response": "PI: rationale recorded in plan.json disclosures (printed values are default-option output; decision on 'off'; 2016 default unverified).",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "open",
+      "text": "Two recorded metrics are literals, not measurements. design_mde.py line 39 writes \"outcome_loaded\": 0 as a constant; it is true by construction (usecols, line 36), but nothing in the run measures it. fetch_data.py line 71 writes \"sha256_matches_seed\": 1 after a check against a constant hard-coded in the same file (line 18); the metric shows agreement with that constant, not with the seed task.",
+      "evidence": "code/design_mde.py lines 36 and 39; code/fetch_data.py lines 18, 41 and 71; runs/design-mde/metrics.json; runs/fetch-data/metrics.json",
+      "response": "PI: design_mde.py and fetch_data.py have already run, so they are not edited (that would invalidate their runs); runs/NOTES.md will say these two fields are literals and that the Reviewer verified the hash and the absence of vote reads independently.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "open",
+      "text": "h2_covariates.py does not compare its SEs or MDEs with the values fixed in plan.json design.method (class 0.401, termshouse 1.400, termssenate 2.091, population 2,185,253). h2_density.py does this for p_Q (line 63). I read runs/design-mde/metrics.json: the values agree with the plan to the printed precision, so there is no current discrepancy; the run simply cannot show one.",
+      "evidence": "code/h2_covariates.py lines 75 and 89-104; code/h2_density.py line 63; runs/design-mde/metrics.json; plan.json design.method (H2(b) MDE paragraph)",
+      "response": "Fixed in code: h2_covariates.py reads runs/design-mde/metrics.json (declared input) and records SE and MDE differences and a match flag per covariate; unit test covers match and mismatch cases.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "Unit tests are weak where the decision rule lives. test_analysis.py line 125 accepts any H1 estimate in (0, 6) for a synthetic effect of 3. No test exercises the H1 tolerance flags (tol_*, h1_pass_off in h1_replication.py lines 105-119) on a known input. The static no-vote check (lines 188-191) is a substring search over two scripts and does not cover design_mde.py. The suite passed 31 of 31 on my rerun, on synthetic data in scratch.",
+      "evidence": "code/test_analysis.py lines 124-125, 188-191; code/h1_replication.py lines 105-119",
+      "response": "Fixed in tests: tolerance_flags() is a separate function in h1_replication.py, tested on exact, edge and failing inputs; synthetic true effect is 3 with noise sd 0.5, checked to 0.25; static no-vote check now also covers design_mde.py.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "design-r3 F12 is resolved in code: h1_replication.py (lines 84-97) records side counts, distinct values and mass shares on the 1,297-row estimation sample. The plan text still quotes full-file figures (1,352 distinct values; 640 left and 750 right rows; 1 of 640; 0.05 of 750) in design.method, so the plan and the run will disagree when the paper cites them.",
+      "evidence": "plan.json design.method (H1 'adjust' paragraph); code/h1_replication.py lines 84-97",
+      "response": "PI: plan.json disclosure states the design text's counts are full-file; the paper cites the h1-rdrobust run's 1,297-row counts.",
+      "ruling": ""
+    }
+  ]
+}

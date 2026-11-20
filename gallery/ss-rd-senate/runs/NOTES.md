@@ -15,7 +15,7 @@ takes the metrics path as its first argument and `--data PATH` (default
 | `code/h2_placebo.py` | h2-placebo | written, not run |
 | `code/h2_selection.py` | h2-selection | written, not run; run only after the gate (gate already approved, run when instructed) |
 | `code/h3_sensitivity.py` | h3-sensitivity | written, not run |
-| `code/test_analysis.py` | unit-tests | run on SYNTHETIC data only: 31 of 31 checks passed |
+| `code/test_analysis.py` | unit-tests | run on SYNTHETIC data only: 43 of 43 checks passed |
 
 `unit-tests` lists all six scripts as `--code`, so editing any of them makes the run stale.
 
@@ -47,3 +47,19 @@ takes the metrics path as its first argument and `--data PATH` (default
 ## Open items for the PI
 
 - None blocking. The analysis runs (h1 through h3) wait for the PI's instruction; h2-selection is also post-gate and is not run yet.
+
+## Literal metric fields (code-r1 F2)
+
+Two recorded metrics are literals written by scripts that have already run; those scripts are not edited, because editing them would invalidate their runs:
+
+- `runs/design-mde/metrics.json` field `outcome_loaded` is written as the constant 0 by `code/design_mde.py`. It is true by construction (the script reads only `margin` and the covariates through `usecols`), but nothing in the run measures it.
+- `runs/fetch-data/metrics.json` field `sha256_matches_seed` is written as the constant 1 by `code/fetch_data.py` after a check against a constant hard-coded in that file. The field shows agreement with that constant, not with the seed task.
+
+The Reviewer verified the hash of the raw file against the seed task and the absence of `vote` reads in the design-stage scripts independently, by reading the code and the data files, not from these fields.
+
+## Code-r1 changes (before any analysis run)
+
+- `code/h2_covariates.py` declares `runs/design-mde/metrics.json` as an input and records, per covariate, its SE and MDE differences from the design values and a match flag (F3).
+- `code/h1_replication.py` moves the H1 tolerance rule into `tolerance_flags()` so that the tests can exercise it (F4).
+- `code/test_analysis.py` now has 43 synthetic checks, including H1 tolerance pass and fail cases, a synthetic effect of 3 checked to 0.25, and the design-mde match and mismatch cases (F4). The suite never reads the real raw file; the design-mde comparison uses a fixture file.
+- No analysis script has been run on the real data since code-r1.

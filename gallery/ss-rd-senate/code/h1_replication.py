@@ -68,6 +68,19 @@ def extract(r, prefix, m):
     m[f"{prefix}_M_right"] = int(r.M[1])
 
 
+def tolerance_flags(conv, lo, hi, N, h):
+    """H1 decision rule (design.method): 0/1 flags against the printed targets."""
+    flags = {
+        "tol_conv_ok": int(abs(conv - PUB_CONV) <= TOL_EST),
+        "tol_ci_low_ok": int(abs(lo - PUB_CI_LOW) <= TOL_EST),
+        "tol_ci_high_ok": int(abs(hi - PUB_CI_HIGH) <= TOL_EST),
+        "tol_N_ok": int(N == PUB_N),
+        "tol_h_ok": int(abs(h - PUB_H) <= TOL_H),
+    }
+    flags["h1_pass_off"] = int(all(flags.values()))
+    return flags
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("metrics")
@@ -109,14 +122,7 @@ def main():
     m["diff_ci_high"] = hi - PUB_CI_HIGH
     m["diff_N"] = N - PUB_N
     m["diff_h"] = h - PUB_H
-    m["tol_conv_ok"] = int(abs(conv - PUB_CONV) <= TOL_EST)
-    m["tol_ci_low_ok"] = int(abs(lo - PUB_CI_LOW) <= TOL_EST)
-    m["tol_ci_high_ok"] = int(abs(hi - PUB_CI_HIGH) <= TOL_EST)
-    m["tol_N_ok"] = int(N == PUB_N)
-    m["tol_h_ok"] = int(abs(h - PUB_H) <= TOL_H)
-    m["h1_pass_off"] = int(all(m[k] == 1 for k in
-                               ["tol_conv_ok", "tol_ci_low_ok", "tol_ci_high_ok",
-                                "tol_N_ok", "tol_h_ok"]))
+    m.update(tolerance_flags(conv, lo, hi, N, h))
 
     os.makedirs(os.path.dirname(os.path.abspath(args.metrics)), exist_ok=True)
     with open(args.metrics, "w") as f:

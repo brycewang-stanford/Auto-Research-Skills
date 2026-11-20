@@ -42,3 +42,11 @@
 {"time": "2026-11-20T05:27:20Z", "role": "econometrician", "action": "run", "detail": "unit-tests exit=0"}
 {"time": "2026-11-20T05:27:34Z", "role": "econometrician", "action": "code-written", "detail": "Phase 1 analysis scripts h1, h2 density/covariates/placebo/selection, h3 written; none run on real data"}
 {"time": "2026-11-20T05:27:34Z", "role": "econometrician", "action": "unit-tests-passed", "detail": "unit-tests run (data-prep, synthetic data only): 31/31 checks passed"}
+{"time": "2026-11-20T05:27:53Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T052753Z (code-r1)"}
+{"time": "2026-11-20T05:31:36Z", "role": "pi", "action": "disclosure-added", "detail": "code-r1 F1, F5. plan.json sha256=df73367561585d97806ed02219ddf2b0ef509fe6dc048c1939ff32f359833796"}
+{"time": "2026-11-20T05:31:36Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T053136Z (code-r1 fixes)"}
+{"time": "2026-11-20T05:33:07Z", "role": "econometrician", "action": "run-superseded", "detail": "unit-tests archived to runs/.superseded/unit-tests-20261120T052720Z"}
+{"time": "2026-11-20T05:33:16Z", "role": "econometrician", "action": "run", "detail": "unit-tests exit=0"}
+{"time": "2026-11-20T05:33:16Z", "role": "econometrician", "action": "run-superseded", "detail": "unit-tests archived to runs/.superseded/unit-tests-20261120T053316Z"}
+{"time": "2026-11-20T05:33:25Z", "role": "econometrician", "action": "run", "detail": "unit-tests exit=0"}
+{"time": "2026-11-20T05:33:31Z", "role": "econometrician", "action": "code-r1-fixes", "detail": "F3 design-mde SE/MDE comparison in h2_covariates; F4 tolerance_flags tests and tighter synthetic H1 check; F2 literal-field note in NOTES; unit-tests rerun with --replace: 43/43 synthetic. No real-data analysis run."}

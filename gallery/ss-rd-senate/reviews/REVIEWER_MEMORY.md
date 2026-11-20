@@ -66,3 +66,17 @@ Suspicions and checks for round 4 (the last round):
 - Check that h2-placebo records c_L, c_R, bw_max, h, b and N_h (F11), and that H2(b) is reported at the setting the comparison supports (F13).
 - Check the H1 'adjust' M value on the 1,297-row sample (F12).
 - I ran no model or estimate on the study data and did not open the seed task or any answer key.
+
+## code-r1 (2026-11-20, verdict pass)
+
+Findings open, all minor: F1 (the H2(b) printed-value comparator is the 'adjust' reading, per the PI ruling on design-r3 F13, but plan.json still says 2016 = 'off' and names no setting; record the rationale), F2 (literal metrics: design_mde `outcome_loaded` 0 and fetch_data `sha256_matches_seed` 1), F3 (h2_covariates does not compare SEs/MDEs with the design-mde values fixed in the plan), F4 (unit tests do not exercise the H1 tolerance flags; the H1 estimate check accepts any value in (0, 6)), F5 (plan text still quotes full-file counts for the H1 'adjust' M and bwcheck figures).
+
+Status of design-r3 findings in the code: F11 resolved (h2_placebo.py records c_L and c_R at the top level of its metrics); F12 resolved in code (h1_replication.py records the 1,297-row counts), plan text still open as code-r1 F5; F13 answered by the PI ruling, rationale still open as code-r1 F1.
+
+Checks run this round, none on outcome data: sha256 of data/raw/rdrobust_senate.csv matches data/manifest.json and the constant in fetch_data.py; read runs/design-mde/metrics.json (values match the plan's fixed MDEs and density MDE); read rddensity 3.0 source (the `test` robust statistic is computed from the same fit in the useall and non-useall branches, so p_Q_useall equals p_Q by construction); grepped rdrobust 2.1.1 rdbwselect.py for the bw_max cap; reran code/test_analysis.py on synthetic data in the scratch directory (31 of 31 passed). I ran no analysis script on the study data and did not compute any statistic of vote. I did not open the seed task or any answer key.
+
+Suspicions and checks for next round or the results stage:
+- H1 run: check that masspoints 'off' is the only reading used for the pass or fail decision, and that a failure is reported and diagnosed, not re-run under 'adjust'.
+- H2(c): check that bw_capped and bw_max are reported for each side, and that no result sentence states a non-rejection.
+- H2(d): check that the run happens after the gate and that vote_observed is the only input.
+- Paper: the printed-value comparison must state its setting (F1); the pre-gate design-mde disclosure must appear in the text; the local-estimand and no-state-clustering caveats must appear.

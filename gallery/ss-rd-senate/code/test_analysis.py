@@ -37,7 +37,7 @@ def make_synthetic(path):
     margin[38:40] = -100.0       # mass point at -100 (2 obs)
     margin[40:] = np.where(margin[40:] == 0, 0.5, margin[40:])
     side = np.where(margin >= 0, 1.0, 0.0)
-    vote = 50 + 3 * side + 0.2 * margin + rng.normal(0, 5, n)
+    vote = 50 + 3 * side + 0.2 * margin + rng.normal(0, 0.5, n)  # true effect 3
     vote[rng.choice(n, 93, replace=False)] = np.nan
     miss = rng.choice(n, 282, replace=False)
     termshouse = rng.integers(0, 10, n).astype(float)
@@ -58,8 +58,8 @@ def make_synthetic(path):
     return df
 
 
-def run_script(name, metrics_path, data_path):
-    cmd = [sys.executable, os.path.join(CODE, name), metrics_path, "--data", data_path]
+def run_script(name, metrics_path, data_path, extra=()):
+    cmd = [sys.executable, os.path.join(CODE, name), metrics_path, "--data", data_path, *extra]
     p = subprocess.run(cmd, cwd=WS, capture_output=True, text=True)
     if p.returncode != 0:
         raise RuntimeError(f"{name} exited {p.returncode}: {p.stderr[-800:]}")
@@ -74,11 +74,21 @@ def load_module(name):
     return mod
 
 
+def run_covariates(unit, data, design_values):
+    """Run h2_covariates with a design-mde fixture holding the given SE and MDE values."""
+    fixture = os.path.join(unit, "design_mde_fixture.json")
+    with open(fixture, "w") as f:
+        json.dump(design_values, f)
+    return run_script("h2_covariates.py", os.path.join(unit, "h2_covariates_fixture.json"),
+                      data, extra=["--design-mde", fixture])
+
+
 def close(a, b, tol=1e-9):
     return abs(a - b) <= tol
 
 
 def main():
+    global h1
     metrics_out = sys.argv[1]
     scratch = os.path.abspath(sys.argv[2])
     os.makedirs(scratch, exist_ok=True)
@@ -99,6 +109,7 @@ def main():
     def scr(name):
         return run_script(name, os.path.join(unit, name.replace(".py", ".json")), data)
 
+    h1 = load_module("h1_replication")
     # Holm helper against a hand-computed case.
     h2c = load_module("h2_covariates")
     got = h2c.holm([0.01, 0.04, 0.03, 0.005])
@@ -121,8 +132,31 @@ def main():
     check("h1 obs at shared values (right has +100 mass)",
           m["obs_at_shared_right"] == int((e_right["margin"].value_counts() >= 2)
                                           .astype(int).mul(e_right["margin"].value_counts()).sum()))
-    check("h1 estimate finite and near synthetic effect 3",
-          math.isfinite(m["off_conv_coef"]) and abs(m["off_conv_coef"] - 3.0) < 3.0)
+    check("h1 estimate recovers true effect 3 (within 0.25, CI covers 3)",
+          abs(m["off_conv_coef"] - 3.0) <= 0.25 and m["off_ci_low"] < 3.0 < m["off_ci_high"])
+    check("h1 script flags equal tolerance_flags() on its own output",
+          all(m[k] == v for k, v in h1.tolerance_flags(
+              m["off_conv_coef"], m["off_ci_low"], m["off_ci_high"],
+              m["off_N"], m["off_h_left"]).items()))
+    check("h1 synthetic run fails the published-target rule (expected: not the seed data)",
+          m["h1_pass_off"] == 0 and m["tol_conv_ok"] == 0)
+    # Tolerance decision rule on known inputs: exact pass, each flag failing alone, and tolerance edges.
+    pub = (h1.PUB_CONV, h1.PUB_CI_LOW, h1.PUB_CI_HIGH, h1.PUB_N, h1.PUB_H)
+    ok = h1.tolerance_flags(*pub)
+    check("h1 tolerance: exact published values pass", ok["h1_pass_off"] == 1
+          and all(ok[k] == 1 for k in ok))
+    check("h1 tolerance: conv inside 0.01 passes", h1.tolerance_flags(7.4255, *pub[1:])["h1_pass_off"] == 1)
+    check("h1 tolerance: conv outside 0.01 fails only conv",
+          h1.tolerance_flags(7.4275, *pub[1:])["tol_conv_ok"] == 0
+          and h1.tolerance_flags(7.4275, *pub[1:])["h1_pass_off"] == 0)
+    check("h1 tolerance: CI low outside fails only that flag",
+          h1.tolerance_flags(pub[0], 4.07, pub[2], pub[3], pub[4])["tol_ci_low_ok"] == 0
+          and h1.tolerance_flags(pub[0], 4.07, pub[2], pub[3], pub[4])["tol_ci_high_ok"] == 1)
+    check("h1 tolerance: CI high outside fails only that flag",
+          h1.tolerance_flags(pub[0], pub[1], 10.95, pub[3], pub[4])["tol_ci_high_ok"] == 0)
+    check("h1 tolerance: N off by one fails", h1.tolerance_flags(*pub[:3], 1296, pub[4])["tol_N_ok"] == 0)
+    check("h1 tolerance: h off by 0.001 fails", h1.tolerance_flags(*pub[:3], pub[3], 17.709)["tol_h_ok"] == 0
+          and h1.tolerance_flags(*pub[:3], pub[3], 17.7084)["tol_h_ok"] == 1)
     check("h1 CI ordered", m["off_ci_low"] < m["off_ci_high"] and m["off_h_left"] > 0)
     check("h1 adjust reading present", math.isfinite(m["adj_conv_coef"]) and m["adj_N"] == n_est)
     check("h1 tolerance flags are 0/1",
@@ -150,6 +184,23 @@ def main():
     check("covariate Holm family of four (off)",
           all(0 <= m[f"{c}_holm_p"] <= 1 and m[f"{c}_holm_p"] >= m[f"{c}_p_robust"] - 1e-12
               for c in n_cov))
+    # F3: comparison with design-mde values. Fixture 1 holds the values this run produces (must match);
+    # fixture 2 perturbs class SE by 1% (must not match, and only class must fail).
+    base = run_covariates(unit, data, {f"h2b_{c}_{k}": 0.0 for c in n_cov
+                                       for k in ["se_robust", "mde"]})
+    true_vals = {}
+    for c in n_cov:
+        true_vals[f"h2b_{c}_se_robust"] = base[f"{c}_se_robust"]
+        true_vals[f"h2b_{c}_mde"] = base[f"{c}_mde"]
+    m_ok = run_covariates(unit, data, true_vals)
+    check("covariate design match when values agree",
+          all(m_ok[f"{c}_design_match"] == 1 and close(m_ok[f"{c}_se_minus_design"], 0.0, 1e-12)
+              and close(m_ok[f"{c}_mde_minus_design"], 0.0, 1e-12) for c in n_cov))
+    pert = dict(true_vals, **{"h2b_class_se_robust": true_vals["h2b_class_se_robust"] * 1.01})
+    m_bad = run_covariates(unit, data, pert)
+    check("covariate design mismatch flagged for the perturbed covariate only",
+          m_bad["class_design_match"] == 0 and m_bad["termshouse_design_match"] == 1
+          and close(m_bad["class_se_minus_design"], -0.01 * true_vals["h2b_class_se_robust"], 1e-9))
     check("covariate adjust reading and printed comparison present",
           all(f"{c}_adj_p_robust" in m and f"{c}_adj_minus_printed" in m for c in n_cov))
 
@@ -185,8 +236,8 @@ def main():
                                         ["i_2014_bw", "ii_half_bw", "iii_double_bw", "iv_p2", "v_adjust"]))
     check("h3 adjust N equals full estimation sample", m["v_adjust_N"] == n_est)
 
-    # Static: the density and covariate scripts never name the outcome column.
-    for name in ["h2_density.py", "h2_covariates.py"]:
+    # Static: the density, covariate and design-mde scripts never name the outcome column.
+    for name in ["h2_density.py", "h2_covariates.py", "design_mde.py"]:
         with open(os.path.join(CODE, name)) as f:
             check(f"{name} has no vote reference", '"vote"' not in f.read())
 

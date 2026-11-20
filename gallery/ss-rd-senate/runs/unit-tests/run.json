@@ -8,17 +8,17 @@
     "runs/unit-tests/metrics.json",
     "/private/tmp/claude-501/-Users-brycewang-Auto-Research-Skills/ffa26d1a-3847-4b9f-922a-ae897a37d092/scratchpad/senate-econ"
   ],
-  "started": "2026-11-20T05:27:13Z",
-  "finished": "2026-11-20T05:27:20Z",
+  "started": "2026-11-20T05:33:16Z",
+  "finished": "2026-11-20T05:33:25Z",
   "exit_code": 0,
   "code": [
     {
       "path": "code/test_analysis.py",
-      "sha256": "4d8e0e687a5866a91d6739a11edf6cc9c01f591e2e67e3bf6580143483eee0fe"
+      "sha256": "b745dd5569690061b07a45eb96745628e5ffcd09887ff877c5344f6a186e074f"
     },
     {
       "path": "code/h1_replication.py",
-      "sha256": "3c67d09a409bfb9392b2bcda09dba2d8e50d2813ec8de0ca9d8aaf2c143b58a3"
+      "sha256": "1f9092b0599baab1a88c2d54d2b51aeee4f66126fa8026e82099aeaa332ad98a"
     },
     {
       "path": "code/h2_density.py",
@@ -26,7 +26,7 @@
     },
     {
       "path": "code/h2_covariates.py",
-      "sha256": "ec4f7421c8240ae763bbe85073975eb55d7c782d0e65049cbff3b1d7aa6cb9c9"
+      "sha256": "870148d69044dce73413510f9ee79ce1b7d5ae7effe541b9e22e30dd1d486696"
     },
     {
       "path": "code/h2_placebo.py",
@@ -45,12 +45,12 @@
   "outputs": [
     {
       "path": "runs/unit-tests/metrics.json",
-      "sha256": "17e46880e372600250851dcbb363e861089ce45b09ad7429edef501d1047f496"
+      "sha256": "fd7ac7e606f23ca87936afa17ac7e222507e52dc2e7cf9dd3ffc3fbdfb380214"
     }
   ],
   "metrics": {
-    "tests_total": 31,
-    "tests_passed": 31,
+    "tests_total": 43,
+    "tests_passed": 43,
     "tests_failed": 0,
     "failures": []
   },
