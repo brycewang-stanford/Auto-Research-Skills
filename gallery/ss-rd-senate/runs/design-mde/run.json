@@ -1,0 +1,65 @@
+{
+  "id": "design-mde",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/design_mde.py",
+    "runs/design-mde/metrics.json"
+  ],
+  "started": "2026-11-20T04:29:36Z",
+  "finished": "2026-11-20T04:29:38Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/design_mde.py",
+      "sha256": "858b4bb9f26ad1c09d0f67261863b2c2f5c74352de10dd8d8f5bb2a356d8cb3a"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/rdrobust_senate.csv",
+      "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/design-mde/metrics.json",
+      "sha256": "b5b2b1aec6ca1bec271ab6e52e1595b450a0ffe98142c17a0393df8b2561e908"
+    }
+  ],
+  "metrics": {
+    "z_mde": 2.801585,
+    "outcome_loaded": 0,
+    "h2a_N": 1390,
+    "h2a_n_left": 640,
+    "h2a_n_right": 750,
+    "h2a_diff_hat": -0.0035482074004662308,
+    "h2a_se_jk_null": 0.004053829311990917,
+    "h2a_T_Q": -0.8752730140785417,
+    "h2a_p_Q": 0.3814253737593818,
+    "h2a_mde_density_diff": 0.011357148277226817,
+    "h2a_f_left_hat": 0.02168591465328345,
+    "h2a_mde_relative_to_left": 0.5237108260733305,
+    "h2b_class_N": 1390,
+    "h2b_class_se_robust": 0.14314385184146503,
+    "h2b_class_mde": 0.4010296993828012,
+    "h2b_termshouse_N": 1108,
+    "h2b_termshouse_se_robust": 0.49983344671519414,
+    "h2b_termshouse_mde": 1.400325995835744,
+    "h2b_termssenate_N": 1108,
+    "h2b_termssenate_se_robust": 0.7462466046076325,
+    "h2b_termssenate_mde": 2.090673456535736,
+    "h2b_population_N": 1390,
+    "h2b_population_se_robust": 780005.9501312224,
+    "h2b_population_mde": 2185253.1399277938
+  },
+  "metrics_file": "runs/design-mde/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}

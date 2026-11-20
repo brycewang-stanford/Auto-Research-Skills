@@ -145,3 +145,14 @@ No discrepancy found in any compared statistic. The file matches the file used i
 output on every row count, moment and bound that Sec. 7.2 reports for non-outcome variables and
 for the outcome's non-missing count. Printed values agree at their printed precision.
 
+
+## Design-stage MDE values (run design-mde)
+
+Run `design-mde` (`code/design_mde.py`, metrics in `runs/design-mde/metrics.json`, 2026-11-20).
+It uses only `margin` and the four predetermined covariates; `vote` is never loaded.
+Multiplier (z_0.975 + z_0.80) = 2.8016.
+
+- H2(a) density test (rddensity, N = 1,390): MDE 0.01136 in density-difference units, about 0.52 of the left-side density (0.02169).
+- H2(b) covariate tests: class MDE 0.401 (N 1,390); termshouse 1.400 (N 1,108); termssenate 2.091 (N 1,108); population 2,185,253 persons (N 1,390).
+- H2(c) placebo: no computed MDE; the 0.25 SD equivalence bound is a chosen constant (see plan.json design.threats).
+- Disclosure: the run also records the margin-only rddensity robust test (T_Q -0.875, p 0.381), computed before the design gate.
