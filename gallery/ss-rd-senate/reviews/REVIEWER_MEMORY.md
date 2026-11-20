@@ -140,3 +140,25 @@ Suspicions and checks for the paper stage or the next round:
 - The 2016 masspoints history is still unverified; the paper must say so.
 - t-rerun (crew.py rerun) is still todo; submission needs replication.json newer than every run.
 - Watch for any h1 rerun under 'adjust' after a change: that would be tuning.
+
+## results-r3 (2026-11-20, verdict pass)
+
+Status of round-2 findings: F1 resolved (sign); F2 resolved (mde_density is now an analysis-run metric and claim, value 0.01136; earlier h2-density metrics unchanged); F3 resolved in the files (interval claimed; H1 discussion is a paper condition); F4 to F7 resolved; F8 conceded (claim text now says proportion scale; macros unchanged; paper must not put a \RdSelection macro in a pp sentence; pp metrics would be the cleaner fix and may be rerun after the gate); F9, F10, F11 resolved.
+
+New in round 3: F12 (minor, open: no claims for the 'adjust' M counts (595, 665, total 1,260) or for the H2(d) N and placebo N_h; no rerun needed); F13 (minor, open: H1 claim texts omit the local-estimand scope and the conditioning on a Democratic win); F14 (minor, open: NOTES says 95 result claims; there are 113).
+
+Carried from the code target, still open and not results-blocking: code-r3 F7 (the bw_capped positive branch is tested only on forced inputs; NOTES now says so), F8 (H3 b baseline is the printed 27.984; H1 off b is claimed as 27.98412, a 0.0001 difference), F9 (static no-vote guard is a substring match).
+
+Checks run this round, none on new data: crew.py validate (passes); every result claim checked against its run metric (113 claims, zero mismatches); h2_density.py re-run metrics compared key by key with the superseded run; read code/h1, h2_density, h2_covariates, h2_placebo, h2_selection, h3_sensitivity and design_mde; read rddensity useall (test vs test_p, lines 381-396); confirmed rdrobust 2.1.1 and rddensity 3.0 are installed and match requirements.txt. I did not run any analysis script or compute any statistic of vote, and I did not open the seed task or any answer key.
+
+Paper-stage conditions (must appear in the text, not just in the files):
+- Pre-gate design-mde computations (density p = 0.381, covariate SEs and MDEs) disclosed as pre-gate.
+- Both density p-values in one sentence (robust 0.381 and conventional 0.099), neither read as the McCrary p = 0.39.
+- H2(b) match statement names 'off' and reports the two 'adjust' mismatches (class, termssenate).
+- H1 discussion carries the H2(d) interval (-14.5 to 1.8 pp, proportion scale converted), and says H1 is not free of selection.
+- Local estimand (about 17.7 points, close elections), no state clustering (CCFT 2017 Sec. 7.4 not replicated), and the 'incumbency advantage in all elections' wording removed.
+- 2016 masspoints history unverified; 'off' is an assumption that the printed h supports as evidence only.
+- bw_capped reported as recorded; positive branch never observed.
+- Every number through a macro; no typed results.
+
+Open for the human after round 4 (results target has one round left): F12, F13, F14 (minor), and the paper conditions above. Also outstanding: t-rerun (crew.py rerun) is still todo; the submission gate needs replication.json newer than every run.

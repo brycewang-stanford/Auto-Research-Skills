@@ -1,0 +1,178 @@
+{
+  "id": "results-r3",
+  "target": "results",
+  "round": 3,
+  "created": "2026-11-20T06:00:05Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261120T055615Z-reviewer.md",
+    "crew/agents/reviewer.md",
+    "crew/PROTOCOL.md",
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "paper/numbers.tex",
+    "data/manifest.json",
+    "runs/NOTES.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/results-r1/review.json",
+    "reviews/results-r2/review.json",
+    "reviews/code-r3/review.json",
+    "reviews/design-r3/review.json (findings F4, F10-F13)",
+    "log.jsonl (tail)",
+    "sources/notes.md (grep for CCFT p. 397 and Sec. 7.4 entries)",
+    "runs/h1-rdrobust/metrics.json",
+    "runs/h1-rdrobust/run.json",
+    "runs/h2-density/metrics.json",
+    "runs/.superseded/h2-density-20261120T054433Z/metrics.json",
+    "runs/h2-covariates/metrics.json",
+    "runs/h2-placebo/metrics.json",
+    "runs/h2-selection/metrics.json",
+    "runs/h2-selection/run.json",
+    "runs/h3-sensitivity/metrics.json",
+    "runs/design-mde/metrics.json",
+    "runs/*/run.json (exit codes, code hashes)",
+    "code/h1_replication.py",
+    "code/h2_density.py",
+    "code/h2_covariates.py",
+    "code/h2_placebo.py",
+    "code/h2_selection.py",
+    "code/h3_sensitivity.py",
+    "code/design_mde.py",
+    ".venv/lib/python3.12/site-packages/rddensity/rddensity.py (useall branch, lines 370-400)",
+    "code/requirements.txt"
+  ],
+  "kill_argument": "Reject as a replication. Its one informative line is a rounding match. The pinned rdrobust 2.1.1 reproduces 7.416, [4.094, 10.926] and N = 1,297 to 0.0001 pp, which a deterministic package does by construction. The 'off' setting that decides the match rests on a 2016 algorithm no source confirms; the printed h separates the settings only as evidence. The falsification battery cannot show what it is cited for. The density null has an MDE of 0.0114 against a left density of 0.0217. The covariate MDEs are 0.40 to 2.09 covariate units and 2.2 million persons. The selection test's robust interval runs to -14.5 pp against a 7.4 pp effect, and its macros are on the proportion scale. The placebo CIs are 23 to 26 pp wide, with 65 to 72 observations per side inside the placebo bandwidth. Nothing in the claim texts limits the estimand to close elections, and state-clustered inference (CCFT 2017 Sec. 7.4) was not run. I attacked the claim-to-run values (113 result claims, zero mismatches), the validator, the rddensity useall branch, the H1 tolerance logic and the design-stage ordering. Those held. What survives is a one-line reproduction and nulls too imprecise to show absence of sorting or selection.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "(results-r1 F1) rd-density-diff was labelled 'left minus right' but holds right minus left.",
+      "evidence": "claims.jsonl rd-density-diff text; runs/h2-density/metrics.json hat_diff -0.003548 = hat_right - hat_left; paper/numbers.tex RdDensityDiff.",
+      "response": "Fixed: rd-density-diff text is right minus left; NOTES corrected.",
+      "ruling": "Checked in claim, run and macro. Resolved."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "(results-r1 F2) The density MDE (0.01136) used for H2(a) was in no analysis run and no claim.",
+      "evidence": "runs/h2-density/metrics.json mde_density = 0.0113571 (run 05:55:07Z, --replace); claims.jsonl rd-density-mde = 0.01136; runs/design-mde kept as the reproduction check; earlier h2-density metrics unchanged key by key (only the NaN keys T_Q_asy and p_Q_asy differ, as NaN != NaN).",
+      "response": "Econometrician: mde_density added to h2_density.py and h2-density rerun with --replace; rd-density-mde claims 0.01136 from the analysis run.",
+      "ruling": "Resolved. The MDE is now a run-backed claim, the N and side counts are claimed, and the superseded run is archived with a log entry."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "(results-r1 F3) The H2(d) selection interval (-14.5 to 1.8 pp) was not claimed and not linked to H1.",
+      "evidence": "claims.jsonl rd-selection-ci-low, rd-selection-ci-high, rd-selection-coef text ('H1 is not described as free of selection').",
+      "response": "Fixed: rd-selection-ci-low and rd-selection-ci-high added; claim text and NOTES forbid a selection-free reading.",
+      "ruling": "Resolved in the files. The H1 discussion that carries the interval is a paper-stage condition (see the memory file)."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(results-r1 F4) Placebo bandwidths, bw_max and CI widths were recorded but not claimed.",
+      "evidence": "claims.jsonl rd-placebo-left/right-bw, -bwmax, -ciwidth against runs/h2-placebo/metrics.json.",
+      "response": "Fixed: claims added from h2-placebo.",
+      "ruling": "Checked against the run values. Resolved."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(results-r1 F5) The robust (0.381) and conventional (0.099) density p-values diverge; both must be reported with equal weight and neither may be read as the CFT (2015) McCrary p = 0.39.",
+      "evidence": "claims.jsonl rd-density-p, rd-density-p-conv; runs/h2-density/metrics.json p_Q, p_conv. The conventional p comes from the useall branch's test_p (rddensity.py lines 381-396), which is the non-bias-corrected test.",
+      "response": "Fixed: both claims carry equal weight and say they are not the McCrary p = 0.39.",
+      "ruling": "Resolved. The paper still has to print both p-values in one sentence."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(results-r1 F6) The 0.0005 printed-match rule lived only in code, and the two 'adjust' mismatches were not stated.",
+      "evidence": "plan.json disclosures (results stage, item 2); runs/NOTES.md H2(b) bullet records class difference -0.00058 and termssenate -0.00092 under 'adjust'; runs/h2-covariates/metrics.json *_off_printed_match = 1 for all four.",
+      "response": "PI: rule recorded in plan.json disclosures. Econometrician: NOTES records the two adjust mismatches.",
+      "ruling": "Resolved in the files. Paper condition: the match statement names 'off' and reports the two 'adjust' mismatches."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(results-r1 F7) The bw_capped claims ('cap did not bind') rested on a flag whose positive branch was never observed.",
+      "evidence": "claims.jsonl rd-placebo-left-capped and rd-placebo-right-capped; runs/h2-placebo/metrics.json left_bw_capped = 0, right_bw_capped = 0; runs/NOTES.md bw_capped section.",
+      "response": "Fixed: NOTES and claim text say the flag reads 0 and its positive branch was never observed.",
+      "ruling": "Checked. No claim now says the cap did not bind. The untested positive branch stays with code-r3 F7 at the code target."
+    },
+    {
+      "id": "F8",
+      "severity": "major",
+      "status": "conceded",
+      "text": "(results-r2 F8) Units trap: rd-selection-coef, -ci-low and -ci-high are on the proportion scale (macros -0.062, -0.145, 0.018, format .3f) while the text, NOTES and plan speak in percentage points. A sentence built from \\RdSelectionCiLow reads 100 times too small.",
+      "evidence": "paper/numbers.tex RdSelectionCoef{-0.062}, RdSelectionCiLow{-0.145}, RdSelectionCiHigh{0.018}; claims.jsonl rd-selection-coef, rd-selection-ci-low, rd-selection-ci-high (now say 'proportion scale (multiply by 100 for pp)'); runs/h2-selection/metrics.json has no pp coefficient or interval fields; rd-selection-mde is already in pp.",
+      "response": "Fixed in claims and NOTES: the three claims say proportion scale; h2_selection.py unchanged; rd-selection-mde is already pp.",
+      "ruling": "Conceded. The author took the second remedy in my results-r2 ruling (label the scale and keep the macros off pp sentences). The labelling is now in every claim text. Paper condition: no \\RdSelection macro appears in a pp sentence unless it is written as 100 times the macro. The cleaner fix is pp metrics in h2_selection.py, rerun with --replace after the gate, which is permitted; the paper stage may take it."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(results-r2 F9) The H2(c) placebo p-values were recorded but not claimed.",
+      "evidence": "claims.jsonl rd-placebo-left-p = 0.883 and rd-placebo-right-p = 0.999, each marked report-only with no non-rejection sentence; runs/h2-placebo/metrics.json left_p_robust, right_p_robust.",
+      "response": "Fixed: report-only claims added.",
+      "ruling": "Checked. Resolved."
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(results-r2 F10) The printed bandwidths discriminate the two settings and no claim says so; the tolerance rule does not test b.",
+      "evidence": "claims.jsonl rd-h1-diff-h-off (2.97e-05), rd-h1-b-off (27.98412), rd-h1-h-adj (17.75440, miss 0.046), rd-h1-b-adj (28.02809, miss 0.044); each matches runs/h1-rdrobust/metrics.json.",
+      "response": "Fixed: four evidence claims added; the decision stays on 'off'.",
+      "ruling": "Checked against the run values. Resolved. The claims are labelled evidence, not decision; the 2016 algorithm is still unverified, and the paper must say so."
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(results-r2 F11) The sign of the H2(d) coefficient is not in the claim text.",
+      "evidence": "claims.jsonl rd-selection-coef text now reads 'Right minus left, so negative means a lower observed share on the Democratic-win side'.",
+      "response": "Fixed in claim text.",
+      "ruling": "Checked. Resolved."
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "open",
+      "text": "Claim coverage for the 'adjust' mechanism and the H2(d) sample is incomplete. The H1 'adjust' explanation rests on the number of distinct margin values (M = 595 left and 665 right on the 1,297-row sample, 1,260 in total, against N = 1,297), but claims.jsonl carries only rd-distinct-right (665). The H2(d) sample size (N = 1,390 in h2-selection) and the placebo side sizes N_h (65 to 72) are also unclaimed. The paper cannot print the mechanism or these counts from a macro, and the PI disclosure says the paper cites the 1,297-row counts from this run. This also leaves design-r3 F12 only partly resolved.",
+      "evidence": "runs/h1-rdrobust/metrics.json adj_M_left 595, adj_M_right 665, distinct_total 1260, adj_h_left 17.7544; runs/h2-selection/metrics.json N 1390; runs/h2-placebo/metrics.json left_N_h_left 72, right_N_h_left 65; claims.jsonl (no claim on adj_M_* or on distinct_total or H2(d) N).",
+      "response": "",
+      "ruling": "Open, minor. Cheapest remedy: add claims for adj_M_left, adj_M_right, distinct_total, the H2(d) N and the placebo N_h values from runs already recorded. No rerun is needed. Then regenerate numbers.tex."
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "open",
+      "text": "The estimand scope is missing from the H1 claim texts. rd-effect reads 'Conventional local-linear RD estimate of the Democratic vote share effect'. It does not say that the estimate is local to elections within about 17.7 points of the cutoff, nor that the effect is that of a Democratic Senate win. The paper will draw its scope from these texts, and the seed requires that it not be called the incumbency advantage in all elections.",
+      "evidence": "claims.jsonl rd-effect, rd-ci-low, rd-ci-high texts; runs/NOTES.md 'Other surprises' bullet 1; plan.json design.method 'Local estimand' threat.",
+      "response": "",
+      "ruling": "Open, minor. Add the locality and the conditioning on a Democratic win to the text of rd-effect, rd-ci-low and rd-ci-high. This changes claim text only, not the run."
+    },
+    {
+      "id": "F14",
+      "severity": "minor",
+      "status": "open",
+      "text": "runs/NOTES.md says 'Claims are in claims.jsonl (95 result claims, all linked to these runs)'. claims.jsonl now holds 113 result claims after the results-r1 and results-r2 additions, and the NOTES claim-id list is out of date.",
+      "evidence": "runs/NOTES.md Phase 2 paragraph; claims.jsonl (113 kind=result lines; every one links to an existing metric, zero value mismatches).",
+      "response": "",
+      "ruling": "Open, minor. Correct the count in runs/NOTES.md. This is a record-keeping error, not a result error."
+    }
+  ]
+}
