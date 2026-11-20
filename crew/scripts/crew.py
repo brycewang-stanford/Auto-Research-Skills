@@ -973,6 +973,7 @@ def cmd_rerun(args: argparse.Namespace) -> int:
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
             )
             entry["exit_code"] = completed.returncode
+            entry["env"] = command_env(copy, run.get("command") or [])
             if completed.returncode != 0:
                 entry["status"] = "failed"
                 entry["output_tail"] = completed.stdout[-2000:]
@@ -1000,7 +1001,8 @@ def cmd_rerun(args: argparse.Namespace) -> int:
     report = {
         "created": now(), "passed": passed, "rtol": args.rtol, "atol": args.atol,
         "reuse_data": bool(args.reuse_data),
-        "env": {"python": platform.python_version(), "platform": platform.platform()},
+        # crew.py's own interpreter; each run's entry records the interpreter its command used
+        "env": {"crew_python": platform.python_version(), "platform": platform.platform()},
         "runs": results,
     }
     write_json(ws / "replication.json", report)

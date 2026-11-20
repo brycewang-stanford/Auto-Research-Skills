@@ -274,6 +274,10 @@ class CrewWorkspaceTest(unittest.TestCase):
         self.assertEqual(code, 0, out)
         report = json.loads((self.ws / "replication.json").read_text())
         self.assertEqual(report["runs"][0]["status"], "match")
+        # the report names crew.py's interpreter as such and the command's interpreter per run
+        self.assertIn("crew_python", report["env"])
+        self.assertNotIn("python", report["env"])
+        self.assertEqual(report["runs"][0]["env"]["command_executable"], sys.executable)
 
     def test_rerun_must_be_newer_than_the_runs(self) -> None:
         self.to_design()
