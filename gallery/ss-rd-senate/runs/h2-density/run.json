@@ -7,13 +7,13 @@
     "code/h2_density.py",
     "runs/h2-density/metrics.json"
   ],
-  "started": "2026-11-20T05:44:32Z",
-  "finished": "2026-11-20T05:44:33Z",
+  "started": "2026-11-20T05:55:05Z",
+  "finished": "2026-11-20T05:55:07Z",
   "exit_code": 0,
   "code": [
     {
       "path": "code/h2_density.py",
-      "sha256": "3d170ebcf7df9f5ddd40b9a1aa4e57c566891442425ba8d4ed727c566f78c54d"
+      "sha256": "8237bb6f7df7b62f14f0a8f968b50bd66721da561c08cfaf28b4cd25b4790968"
     }
   ],
   "inputs": [
@@ -25,7 +25,7 @@
   "outputs": [
     {
       "path": "runs/h2-density/metrics.json",
-      "sha256": "1f8885123d443c085caa3b53ad19bf6409ddafecc242e34ebfc20be796df5bf2"
+      "sha256": "1686e26575a664e93add5b5e7de47b5cd26fa2037382295f34874c41b6d58e31"
     }
   ],
   "metrics": {
@@ -36,6 +36,7 @@
     "hat_right": 0.018137707252817218,
     "hat_diff": -0.0035482074004662308,
     "sd_jk_diff": 0.004053829311990917,
+    "mde_density": 0.011357148277226817,
     "bw_left": 19.841108436410984,
     "bw_right": 27.118786663704757,
     "T_Q": -0.8752730140785417,

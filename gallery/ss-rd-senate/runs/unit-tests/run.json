@@ -8,8 +8,8 @@
     "runs/unit-tests/metrics.json",
     "/private/tmp/claude-501/-Users-brycewang-Auto-Research-Skills/ffa26d1a-3847-4b9f-922a-ae897a37d092/scratchpad/senate-econ"
   ],
-  "started": "2026-11-20T05:39:13Z",
-  "finished": "2026-11-20T05:39:22Z",
+  "started": "2026-11-20T05:55:22Z",
+  "finished": "2026-11-20T05:55:31Z",
   "exit_code": 0,
   "code": [
     {
@@ -22,7 +22,7 @@
     },
     {
       "path": "code/h2_density.py",
-      "sha256": "3d170ebcf7df9f5ddd40b9a1aa4e57c566891442425ba8d4ed727c566f78c54d"
+      "sha256": "8237bb6f7df7b62f14f0a8f968b50bd66721da561c08cfaf28b4cd25b4790968"
     },
     {
       "path": "code/h2_covariates.py",

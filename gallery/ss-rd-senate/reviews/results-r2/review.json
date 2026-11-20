@@ -1,0 +1,142 @@
+{
+  "id": "results-r2",
+  "target": "results",
+  "round": 2,
+  "created": "2026-11-20T05:54:12Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261120T055116Z-reviewer.md",
+    "crew/agents/reviewer.md",
+    "crew/PROTOCOL.md",
+    "plan.json",
+    "claims.jsonl",
+    "paper/numbers.tex",
+    "data/manifest.json",
+    "runs/NOTES.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/code-r1/review.json",
+    "reviews/code-r2/review.json",
+    "reviews/code-r3/review.json",
+    "reviews/design-r3/review.json",
+    "reviews/results-r1/review.json",
+    "log.jsonl (tail)",
+    "runs/h1-rdrobust/metrics.json",
+    "runs/h2-density/metrics.json",
+    "runs/h2-covariates/metrics.json",
+    "runs/h2-placebo/metrics.json",
+    "runs/h2-selection/metrics.json",
+    "runs/h3-sensitivity/metrics.json",
+    "code/h1_replication.py (lines 20-60 and 100-125)",
+    "code/h2_covariates.py (grep of masspoints, printed comparison lines)",
+    "code/h2_density.py (lines 25-73)",
+    "code/h2_placebo.py (full)",
+    "code/h2_selection.py (lines 25-62)",
+    "code/h3_sensitivity.py (grep of run specifications)"
+  ],
+  "kill_argument": "Reject as a reproduction whose one informative check passes under a setting nobody has verified, and whose nulls cannot show what they are cited for. The H1 match holds only under masspoints 'off', chosen on an assumption about a 2016 release that no workspace source confirms. 'adjust' misses the printed bandwidth h by 0.046, so it fails the design's own tolerance, yet no claim sets either setting against the printed h and b. The density null is read against an MDE of 0.01136 that sits in no analysis run; the NOTES say the paper will take it from a data-prep run. The covariate nulls carry MDEs of 0.40 to 2.09 covariate units. The selection test's robust interval reaches -14.5 pp against a 7.4 pp effect, and the macros that would carry it are on the proportion scale, so a sentence built from them reads 100 times too small. The placebos are report-only, with CIs 23 to 26 pp wide. I checked claim-to-run values, the validator, the h2-selection timing and the rddensity sign; those hold. What survives is a one-line computational reproduction and nulls too imprecise to show absence of sorting or selection.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "(results-r1 F1) rd-density-diff was labelled 'left minus right' but holds right minus left.",
+      "evidence": "claims.jsonl rd-density-diff text now reads 'right minus left (hat_right 0.018138 - hat_left 0.021686)'; runs/h2-density/metrics.json hat_diff -0.003548 equals hat_right - hat_left; paper/numbers.tex RdDensityDiff -0.0035.",
+      "response": "Fixed: rd-density-diff text is right minus left; NOTES corrected.",
+      "ruling": "Checked. The sign and the arithmetic are right in the claim, the run and the macro. Resolved."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "(results-r1 F2) The density MDE that H2(a) uses for interpretation (0.01136 density units) is in no claim and no analysis run. It exists only in runs/design-mde, a data-prep run, which PROTOCOL.md does not allow to support a result claim. The paper would therefore state it as a typed number. runs/NOTES.md ('Other surprises') says the paper takes the MDE from runs/design-mde/metrics.json and the NOTES. That is the same gap: a number in the paper with no macro and no analysis run behind it.",
+      "evidence": "runs/design-mde/metrics.json (h2a MDE); runs/h2-density/metrics.json has sd_jk_diff 0.0040538 but no MDE field; claims.jsonl has no density MDE claim; runs/NOTES.md 'Other surprises and points for the paper', bullet 4; PROTOCOL.md 'A result claim needs at least one successful analysis run' and 'Whether a number written by hand in the paper matches a run. Use macros.'",
+      "response": "PI: the MDEs are design constants from run design-mde, recorded in plan.json (new disclosure); the paper cites them as such. Econometrician: added rd-density-n, rd-density-n-left, rd-density-n-right from h2-density; the MDE stays a design constant cited from plan.json, not a result claim.",
+      "ruling": "Rebuttal wrong. A design constant that the paper uses to read a null is still a number the paper must print, and the protocol's only route for printed numbers is a macro tied to a run. The N claims resolve the N part. Cheapest remedy: have h2_density.py record mde_density = (z_0.975 + z_0.80) * sd_jk_diff (value 0.01136 expected) and add a claim on it; this is an analysis-run record, so re-running it with --replace after the gate is allowed. Keep the design-mde value as the check that it reproduces."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "(results-r1 F3) The H2(d) selection interval (-14.5 to 1.8 pp) was not claimed and not linked to H1.",
+      "evidence": "claims.jsonl rd-selection-ci-low, rd-selection-ci-high; rd-selection-coef text ('cannot be ruled out, so H1 is not described as free of selection'); runs/h2-selection/metrics.json ci_low -0.1448, ci_high 0.0177.",
+      "response": "Fixed: rd-selection-ci-low and rd-selection-ci-high added; claim text and NOTES say a shift down to -14.5 pp cannot be ruled out, so H1 is not described as free of selection.",
+      "ruling": "Resolved in the files: the interval is claimed and the claim text forbids the 'selection-free' reading. The unit problem in the same claims is new, see F8. The H1 discussion itself is a paper-stage check."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(results-r1 F4) Placebo bandwidths, bw_max and CI widths were recorded but not claimed.",
+      "evidence": "claims.jsonl rd-placebo-left-bw, -bwmax, -ciwidth and the right-side equivalents; runs/h2-placebo/metrics.json left_h_left 4.8138, left_bw_max 85.655, left_ci_width 26.309.",
+      "response": "Fixed: rd-placebo-left/right-bw, -bwmax and -ciwidth claims added from h2-placebo.",
+      "ruling": "Checked against the run values. Resolved. The placebo p-values are still unclaimed, see F9."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(results-r1 F5) The robust (p = 0.381) and conventional (p = 0.099) density p-values diverge; both must be reported with equal weight, and neither may be read as the CFT (2015) McCrary p = 0.39.",
+      "evidence": "claims.jsonl rd-density-p and rd-density-p-conv; runs/h2-density/metrics.json p_Q 0.38143, p_conv 0.09882; NOTES 'H2(a) density' paragraph.",
+      "response": "Fixed: both claims carry equal weight in their text and both say they are not the CFT (2015) McCrary p = 0.39; NOTES updated.",
+      "ruling": "Resolved. The paper still has to print both p-values in one sentence; that is a paper-stage condition."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(results-r1 F6) The 0.0005 printed-match rule lived only in code, and the two 'adjust' mismatches (class, termssenate) were not stated.",
+      "evidence": "plan.json disclosures, results-stage entry (2): the rule is recorded; runs/NOTES.md 'H2 results', H2(b) bullet, records class difference -0.00058 and termssenate -0.00092 under 'adjust'; runs/h2-covariates/metrics.json class_adj_printed_match 0, termssenate_adj_printed_match 0 (off matches for all four).",
+      "response": "PI: the 0.0005 rule is recorded in plan.json disclosures. Econometrician: NOTES records the two adjust mismatches and the rule.",
+      "ruling": "Recorded in the files, and I re-derived the flags from the metrics: 'off' matches all four printed values to 0.0005, 'adjust' fails class and termssenate. Resolved. Condition for the paper: it states both mismatches and names 'off' for any match sentence. The claims carry the differences but no mismatch flags, so the mismatch appears only in NOTES."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(results-r1 F7) The bw_capped claims ('cap did not bind') rested on a flag whose positive branch was never observed.",
+      "evidence": "claims.jsonl rd-placebo-left-capped and rd-placebo-right-capped text; runs/h2-placebo/metrics.json left_bw_capped 0, right_bw_capped 0; runs/NOTES.md 'bw_capped flag'.",
+      "response": "Fixed: NOTES and the bw_capped claim text say the flag is recorded as 0 and its positive branch was never observed; no claim says the cap did not bind.",
+      "ruling": "Checked. No claim now asserts the cap did not bind. The untested positive branch stays a code matter under code-r3 F7 and does not reopen this finding."
+    },
+    {
+      "id": "F8",
+      "severity": "major",
+      "status": "open",
+      "text": "Units trap on the H2(d) selection claims. rd-selection-coef, rd-selection-ci-low and rd-selection-ci-high are on the proportion scale (macros -0.062, -0.145, 0.018, format .3f), while their text, the NOTES and the plan speak in percentage points (-6.2 pp, -14.5 pp, 1.8 pp). rd-selection-mde is in pp (11.6). The H1 discussion must carry the interval, and a sentence written from \\RdSelectionCiLow reads 100 times too small. This is the number the paper most needs to get right.",
+      "evidence": "paper/numbers.tex \\RdSelectionCoef{-0.062}, \\RdSelectionCiLow{-0.145}, \\RdSelectionCiHigh{0.018}, \\RdSelectionMde{11.6}; claims.jsonl formats .3f for the three proportion claims; code/h2_selection.py lines 42-45 (coef, ci_low, ci_high not multiplied by 100) versus line 52 (mde_pp multiplied by 100).",
+      "response": "",
+      "ruling": "Open. Cheapest remedy: have h2_selection.py also record coef_pp, ci_low_pp and ci_high_pp (100 times the proportion values), re-run with --replace after the gate, and point the three claims at the pp metrics. Or, if the proportion is kept, every claim text and the paper must say 'proportion scale' beside each macro, and the macros must not be used in a pp sentence."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "open",
+      "text": "The H2(c) placebo p-values are recorded in the run but not claimed. The design lists p-value among the report-only quantities (estimate, CI, p-value, N, bandwidth). The paper therefore has no traceable p-value for the placebos, and a reader will look for one: left 0.883, right 0.999.",
+      "evidence": "design.method H2(c) ('reported as estimate, CI, p-value, N and bandwidth'); runs/h2-placebo/metrics.json left_p_robust 0.8832, right_p_robust 0.9991; claims.jsonl has no rd-placebo-*-p claim.",
+      "response": "",
+      "ruling": "Open, minor. Add report-only claims for the two p-values, worded as in the other placebo claims, with no non-rejection sentence attached. This is the same report-only rule as the CI."
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "open",
+      "text": "The printed bandwidths do discriminate the two settings, and no claim says so. Under 'off', h = 17.70803 and b = 27.98412 agree with the printed 17.708 and 27.984. Under 'adjust', h = 17.75440 misses by 0.046 (the design's 0.0005 tolerance fails) and b = 28.02809 misses by 0.044. 'adjust' passes the estimate, CI and N tolerances, so the h check is the only one that separates them. The plan says the choice 'is not fixed by agreement with the printed numbers', which is true of the decision rule but understates what the run shows. The paper needs the printed-bandwidth comparison under both settings, stated as evidence and not proof, since the 2016 algorithm is unverified. The tolerance rule also never tests b, so the b match is recorded but not decided.",
+      "evidence": "runs/h1-rdrobust/metrics.json off_h_left 17.708030, adj_h_left 17.754398, off_b_left 27.984123, adj_b_left 28.028089; plan.json design.method ('The choice is not fixed by agreement with the printed numbers'); code/h1_replication.py tolerance_flags covers conv, CI, N and h, not b; claims.jsonl rd-b text says 'compare with the printed 27.984' with no difference stated.",
+      "response": "",
+      "ruling": "Open, minor. Cheapest remedy: add claims for the h and b differences from the printed values under both settings, labelled as evidence that bears on the 2016 default and not as a tolerance decision. Keep the pre-registered decision on 'off'."
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "open",
+      "text": "The sign of the H2(d) coefficient is not in the claim text. The NOTES say it is right minus left (the observed share is about 6 pp lower on the Democratic-win side), but rd-selection-coef says only 'estimated discontinuity'. A reader of the claim cannot tell the direction, which matters because the threat to H1 is one-sided.",
+      "evidence": "claims.jsonl rd-selection-coef text; runs/NOTES.md 'H2(d) selection' bullet; code/h2_selection.py line 42 uses the conventional rdrobust coefficient, which is right minus left.",
+      "response": "",
+      "ruling": "Open, minor. Add 'right minus left, so negative means a lower observed share on the Democratic-win side' to the claim text."
+    }
+  ]
+}

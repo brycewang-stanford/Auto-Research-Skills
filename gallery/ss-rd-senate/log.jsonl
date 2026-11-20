@@ -71,3 +71,10 @@
 {"time": "2026-11-20T05:50:20Z", "role": "pi", "action": "disclosure-added", "detail": "results-r1 F2, F6. plan.json sha256=726f33964ecd5b21968b161a4e207bd8ecbdf5d1176214fb176911ebf54f91fc"}
 {"time": "2026-11-20T05:50:20Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T055020Z (results-r1)"}
 {"time": "2026-11-20T05:51:05Z", "role": "econometrician", "action": "results-r1-fixes", "detail": "density diff sign corrected; N and side counts, selection CI, placebo bw/bw_max/CI width claims added; both density p-values with equal weight; adjust mismatches and bw_capped wording in NOTES; no estimation run"}
+{"time": "2026-11-20T05:51:16Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T055116Z (results-r2)"}
+{"time": "2026-11-20T05:54:41Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T055441Z (results-r2)"}
+{"time": "2026-11-20T05:55:05Z", "role": "econometrician", "action": "run-superseded", "detail": "h2-density archived to runs/.superseded/h2-density-20261120T054433Z"}
+{"time": "2026-11-20T05:55:07Z", "role": "econometrician", "action": "run", "detail": "h2-density exit=0"}
+{"time": "2026-11-20T05:55:22Z", "role": "econometrician", "action": "run-superseded", "detail": "unit-tests archived to runs/.superseded/unit-tests-20261120T053922Z"}
+{"time": "2026-11-20T05:55:31Z", "role": "econometrician", "action": "run", "detail": "unit-tests exit=0"}
+{"time": "2026-11-20T05:55:44Z", "role": "econometrician", "action": "results-r2-fixes", "detail": "mde_density added to h2_density.py; h2-density rerun --replace (earlier metrics unchanged); unit-tests rerun --replace 49/49; claims for density MDE, placebo p, H1 bandwidth evidence; selection labelled proportion scale; sign stated"}

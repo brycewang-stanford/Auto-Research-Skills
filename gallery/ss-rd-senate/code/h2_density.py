@@ -21,11 +21,13 @@ import os
 
 import pandas as pd
 from rddensity import rddensity
+from scipy.stats import norm
 
 WS = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 RAW = os.path.join(WS, "data", "raw", "rdrobust_senate.csv")
 # design-mde (margin-only run, before the gate) gave p_Q = 0.3814253737593818.
 DESIGN_MDE_P_Q = 0.3814253737593818
+Z_MDE = norm.ppf(0.975) + norm.ppf(0.80)  # 80% power, two-sided 5%
 OPTS = dict(c=0, p=2, kernel="triangular", vce="jackknife", bwselect="comb")
 
 
@@ -50,6 +52,7 @@ def main():
         "hat_right": float(d.hat["right"]),
         "hat_diff": float(d.hat["diff"]),
         "sd_jk_diff": float(d.sd_jk["diff"]),
+        "mde_density": float(Z_MDE * d.sd_jk["diff"]),
         "bw_left": float(d.h["left"]),
         "bw_right": float(d.h["right"]),
         "T_Q": float(d.test["t_jk"]),

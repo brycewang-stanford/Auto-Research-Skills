@@ -123,3 +123,20 @@ Suspicions and checks for round 2 (after the author responds):
 - F6: check that the paper states the printed-match rule and the two 'adjust' mismatches.
 - F7: check that the paper says bw_capped reads 0 and that the positive branch was not observed.
 - Paper stage (later): the pre-gate disclosure, the local-estimand caveat and the no-state-clustering caveat must appear in the text.
+
+## results-r2 (2026-11-20, verdict revise)
+
+Status of round-1 findings: F1 resolved (density diff sign right minus left in claim, run and macro); F2 open (density MDE 0.01136 in no analysis run; rebuttal that it is a design constant is wrong under PROTOCOL; cheapest fix is an MDE metric in h2-density); F3 resolved (selection CI claimed; H1 discussion is a paper-stage check); F4 resolved (placebo bw, bw_max and CI width claimed; p-values still unclaimed, see F9); F5 resolved (both density p-values with equal weight); F6 resolved in files (0.0005 rule in plan disclosures; adjust mismatches in NOTES; paper must state them); F7 resolved in claim text (no claim says the cap did not bind).
+
+New open findings: F8 (major, H2(d) claims are on the proportion scale with .3f macros while the text is in pp: \RdSelectionCiLow{-0.145} reads 100 times too small if used in a pp sentence); F9 (minor, placebo p-values recorded but not claimed); F10 (minor, the printed h and b discriminate: 'off' matches both, 'adjust' misses h by 0.046 and b by 0.044; no claim says so; tolerance rule never tests b); F11 (minor, H2(d) claim text omits the sign convention).
+
+Checks run this round, none on new data: crew.py validate (passes); read claims, numbers.tex, all six analysis metrics, NOTES, and code/h2_placebo.py, h2_selection.py, h2_density.py in full or by range; re-derived the MDEs (0.01136, 11.61 pp), the 'off' and 'adjust' printed-match flags, the placebo bw_max values (85.66, 79.56) and the H1 'adjust' deviations from the printed values from the metrics. I ran no model or estimate and computed no statistic of vote. I did not open the seed task or any answer key.
+
+Suspicions and checks for the paper stage or the next round:
+- The paper must print the H2(a) MDE through a macro once F2 is fixed, and must state both 'adjust' printed mismatches.
+- The paper must print both density p-values in one sentence, with the McCrary p = 0.39 distinction.
+- The paper must not use \RdSelection* macros in pp sentences unless F8 is fixed.
+- The paper's H1 discussion must carry the H2(d) interval and the local-estimand and no-state-clustering caveats (CCFT 2017 Sec. 7.4 not replicated).
+- The 2016 masspoints history is still unverified; the paper must say so.
+- t-rerun (crew.py rerun) is still todo; submission needs replication.json newer than every run.
+- Watch for any h1 rerun under 'adjust' after a change: that would be tuning.
