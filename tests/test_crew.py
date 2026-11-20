@@ -260,6 +260,21 @@ class CrewWorkspaceTest(unittest.TestCase):
         report = json.loads((self.ws / "replication.json").read_text())
         self.assertEqual(report["runs"][0]["status"], "mismatch")
 
+    def test_rerun_gives_each_run_its_folder_and_matches_nan(self) -> None:
+        # a script that writes into runs/<id>/ (as `crew.py run` allows) and reports a NaN metric
+        self.to_design()
+        script = self.ws / "code" / "inrun.py"
+        script.write_text("import json\njson.dump({'acc': 0.5, 'p_asy': float('nan')}, "
+                          "open('runs/inrun/metrics.json', 'w'))\n")
+        code, out = call("run", str(self.ws), "--id", "inrun", "--role", "experimenter", "--kind", "analysis",
+                         "--code", "code/inrun.py", "--metrics", "runs/inrun/metrics.json",
+                         "--", sys.executable, "code/inrun.py")
+        self.assertEqual(code, 0, out)
+        code, out = call("rerun", str(self.ws))
+        self.assertEqual(code, 0, out)
+        report = json.loads((self.ws / "replication.json").read_text())
+        self.assertEqual(report["runs"][0]["status"], "match")
+
     def test_rerun_must_be_newer_than_the_runs(self) -> None:
         self.to_design()
         self.run_main()

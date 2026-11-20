@@ -892,6 +892,8 @@ def cmd_run(args: argparse.Namespace) -> int:
 def same_value(old: object, new: object, rtol: float, atol: float) -> bool:
     numeric = (int, float)
     if isinstance(old, numeric) and isinstance(new, numeric) and not isinstance(old, bool) and not isinstance(new, bool):
+        if isinstance(old, float) and isinstance(new, float) and math.isnan(old) and math.isnan(new):
+            return True  # a metric that is NaN in both runs is reproduced
         return math.isclose(old, new, rel_tol=rtol, abs_tol=atol)
     return old == new
 
@@ -964,6 +966,8 @@ def cmd_rerun(args: argparse.Namespace) -> int:
             entry = {"run": run.get("id"),
                      "record_sha256": sha256(ws / "runs" / str(run.get("id")) / "run.json")}
             metrics_path = run.get("metrics_file")
+            # `crew.py run` creates the run's folder before the command starts; do the same
+            (copy / "runs" / str(run.get("id"))).mkdir(parents=True, exist_ok=True)
             completed = subprocess.run(
                 run.get("command") or ["false"], cwd=copy, check=False,
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
