@@ -1,0 +1,6 @@
+{"time": "2026-11-20T03:50:41Z", "role": "pi", "action": "init", "detail": "track=social-science"}
+{"time": "2026-11-20T03:51:13Z", "role": "pi", "action": "plan-drafted", "detail": "question, hypotheses, contribution; low-cost trial (all role subagents on Claude Haiku 5.5)"}
+{"time": "2026-11-20T03:51:13Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261120T035113Z"}
+{"time": "2026-11-20T03:55:18Z", "role": "scout", "action": "sources-verified", "detail": "5 sources verified (4 fetched full text, 1 fetched abstract); refs.bib, sources.json, claims.jsonl (10 citation claims), notes.md with novelty verdict: already answered"}
+{"time": "2026-11-20T03:55:18Z", "role": "scout", "action": "task-done", "detail": "q-novelty done"}
+{"time": "2026-11-20T03:55:36Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T035536Z (question-r1)"}
