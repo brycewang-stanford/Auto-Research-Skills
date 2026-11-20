@@ -1,3 +1,74 @@
 {
-  "datasets": []
+  "datasets": [
+    {
+      "id": "proximity-zip",
+      "origin": "https://davidcard.berkeley.edu/data_sets/proximity.zip",
+      "license": "No licence or terms of use are stated in the archive (readme, code_bk.txt) or on the download. The file is posted for public download on David Card's Berkeley faculty page (davidcard.berkeley.edu/data_sets.html) as the data set for his college-proximity paper; the seed task records it as 'Distributed publicly by the author for research use; no explicit licence stated'. Used here for non-commercial research replication, the purpose for which the author distributes it; raw and derived files are git-ignored and rebuilt by the logged runs, not redistributed. The underlying NLS Young Men data are public-use U.S. Bureau of Labor Statistics survey data.",
+      "path": "data/raw/proximity.zip",
+      "sha256": "0e9b2ad4182ea631ca3dd8a5fff6c1b0ab86b56c6a3fa868870f716e8d82691f",
+      "retrieved_on": "2026-11-21",
+      "size_bytes": 134563,
+      "integrity_check": "No checksum is published. code/fetch_data.py pins the SHA-256 the Scout observed on 2026-11-20 (sources/notes.md sec. 2) and the member list, and fails on any difference; the 2026-11-21 retrieval matched. Server Last-Modified 27 Jul 2007, ETag \"46aa0c0d-20da3\"; members dated 2002-05-30.",
+      "fetched_by": "code/fetch_data.py (run fetch-data)",
+      "members": [
+        "nls.dat",
+        "code_bk.txt",
+        "read1.sas",
+        "readme",
+        "read1.lst"
+      ],
+      "not_extracted": "read1.lst (SAS listing of read1.sas, 33,092 bytes uncompressed) stays inside the zip: it contains regression output and was not opened.",
+      "citation": "refs.bib key cardproximitydata"
+    },
+    {
+      "id": "nls-dat",
+      "origin": "Member nls.dat of proximity.zip (dataset proximity-zip), extracted by code/fetch_data.py.",
+      "license": "Same as proximity-zip.",
+      "path": "data/raw/proximity/nls.dat",
+      "sha256": "c31a6a6513577d30e1c81ecebe4b126086514163c9afab157cab8cd0724c6a03",
+      "retrieved_on": "2026-11-21",
+      "size_bytes": 614210,
+      "rows": 3613,
+      "columns": 52,
+      "format": "ASCII fixed-width (column positions in code_bk.txt; also whitespace-delimited), '.' = missing"
+    },
+    {
+      "id": "code-bk",
+      "origin": "Member code_bk.txt of proximity.zip: Card's codebook (column positions, labels, N/mean/s.d./min/max for 3,613 rows).",
+      "license": "Same as proximity-zip.",
+      "path": "data/raw/proximity/code_bk.txt",
+      "sha256": "bf3b360f9ac77a92fad4b0a2be3bd17565d82bba13db32ef6902e4e969ddca98",
+      "retrieved_on": "2026-11-21",
+      "size_bytes": 7359
+    },
+    {
+      "id": "read1-sas",
+      "origin": "Member read1.sas of proximity.zip: Card's example SAS program that reads nls.dat and constructs exp76, exp762 and f1-f8.",
+      "license": "Same as proximity-zip.",
+      "path": "data/raw/proximity/read1.sas",
+      "sha256": "60a9aadfeaf0db6b5e9cb3cf933051094973637e8f298c075920d94f54d7ed51",
+      "retrieved_on": "2026-11-21",
+      "size_bytes": 3076
+    },
+    {
+      "id": "readme",
+      "origin": "Member readme of proximity.zip.",
+      "license": "Same as proximity-zip.",
+      "path": "data/raw/proximity/readme",
+      "sha256": "86de10f6ecc04b25aa223daf2532cbee93b03f048bb4c30ca3991648b913d340",
+      "retrieved_on": "2026-11-21",
+      "size_bytes": 551
+    },
+    {
+      "id": "card-analysis",
+      "origin": "Derived from nls-dat by code/prepare_data.py (run prepare-data): the 3,010 rows with non-missing lwage76, all 52 codebook variables (raw tokens) plus exp76, exp762, age762, f1-f8. 603 rows dropped (missing lwage76). See data/CODEBOOK.md.",
+      "license": "Same as proximity-zip (derived).",
+      "path": "data/derived/card_analysis.csv",
+      "sha256": "0862cd54862ed1c06543abb9fb7c0fb5307bf3c0afb231c6432cdea39fb7d8a6",
+      "retrieved_on": "2026-11-21",
+      "size_bytes": 514250,
+      "rows": 3010,
+      "columns": 63
+    }
+  ]
 }

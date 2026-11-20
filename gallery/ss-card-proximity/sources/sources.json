@@ -7,13 +7,6 @@
     "url": "https://www.nber.org/system/files/working_papers/w4483/w4483.pdf",
     "note": "NBER WP 4483, October 1993 (title page and abstract page). 37-page scan without a text layer: OCR'd with tesseract at 300 dpi; every number in sources/notes.md from Tables 1-5 (PDF pp. 33-37) was read from the page images, not from OCR. Metadata confirmed on Crossref (DOI 10.3386/w4483, Card, 1993-10). This is the version whose tables are quoted."
   },
-  "card1995chapter": {
-    "verified_on": "2026-11-20",
-    "verified_by": "scout",
-    "method": "fetched-catalogue-record",
-    "url": "https://librarycatalog.ecu.edu/catalog/591727",
-    "note": "The chapter text was NOT reachable. Verified only bibliographically: the volume (title, editors Christofides/Grant/Swidinsky, University of Toronto Press, Toronto; Buffalo, 1995, xv+286 pp., ISBN 0802028640) from the ECU library catalogue record; the chapter page range 201-222 from two fetched secondary references (Blandhol et al. 2025 reference list; rdocumentation wooldridge::card). The claim that the chapter has 'the same title and identical tables' is Card's own, in code_bk.txt of proximity.zip; it is not checked. Cite for the published version only; every number comes from card1993nber."
-  },
   "card1994earnings": {
     "verified_on": "2026-11-20",
     "verified_by": "scout",
@@ -80,7 +73,7 @@
     "method": "fetched-abstract",
     "doi": "10.3982/ECTA11974",
     "url": "https://econometricsociety.org/publications/econometrica/2015/09/01/test-instrument-validity",
-    "note": "Abstract page only (full text behind login). The abstract does not mention the Card application; its result on Card's instrument is known here only through carr2021testing (secondary)."
+    "note": "Abstract page only (full text behind login); the abstract does not mention Card. No citation claim rests on this record; the Card result is cited via carr2021testing."
   },
   "carr2021testing": {
     "verified_on": "2026-11-20",
@@ -193,5 +186,91 @@
     "method": "fetched-fulltext",
     "url": "https://arxiv.org/abs/2204.07672",
     "note": "arXiv v4, 28 February 2024; sec. 4.2 and Table 3 read. Crossref lists only SSRN versions (10.2139/ssrn.4114817); a journal version was not checked."
+  },
+  "card2000estimating": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w7769",
+    "url": "https://www.nber.org/system/files/working_papers/w7769/w7769.pdf",
+    "note": "NBER WP 7769, June 2000 (49 pp.); title and abstract pages and reference pages OCR'd (text layer garbled), Table 2 'OLS and IV Estimates of the Return to Education with Instruments Based on Features of the School System' (PDF p. 48) read from the text layer. Row 4 'Card (1995b)': OLS 0.073 (0.004), IV 0.132 (0.049); proximity x family background IV 0.097 (0.048). Reference list (printed p. 40): Card (1995), Aspects of Labour Market Behaviour ..., University of Toronto Press, pp. 201-222. Published version Econometrica 69(5) 1127-1160 (Crossref), not read."
+  },
+  "tubbicke2023when": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1007/s00181-023-02441-7",
+    "url": "https://www.econstor.eu/bitstream/10419/308696/1/s00181-023-02441-7.pdf",
+    "note": "Published version (CC BY 4.0, per Crossref licence) from EconStor, 22 pp.; Springer's own PDF link required a login redirect. Read sec. 3.1-3.4 and Table 3 (journal p. 2989, PDF p. 12)."
+  },
+  "angrist1995twostage": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1080/01621459.1995.10476535",
+    "url": "https://www.nber.org/system/files/working_papers/t0127/t0127.pdf",
+    "note": "JASA metadata from Crossref; JASA text not read. Abstract read (OCR) from the earlier NBER Technical Paper 127, 'Average Causal Response with Variable Treatment Intensity' (September 1992), which Crossref links to the same authors; Card (1993) cites the JASA title as an unpublished Harvard discussion paper. Claims use only what that abstract says."
+  },
+  "luo2024identification": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1002/sim.10175",
+    "url": "https://arxiv.org/abs/2206.08228",
+    "note": "Full text read is arXiv v2 (17 June 2022): sec. 6 and Table 2 (PDF p. 13-14). Journal metadata (Statistics in Medicine 43(22), 4372-4387, 2024) from Crossref; the journal version was not compared."
+  },
+  "jiang2022multiply": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1111/rssb.12538",
+    "url": "https://arxiv.org/abs/2012.01615",
+    "note": "Full text read is arXiv v2 (28 March 2022): sec. 6.1 and Table 3 (PDF p. 20-21). Journal metadata (JRSS-B 84(4), 1423-1445, 2022) from Crossref."
+  },
+  "guggenberger2012asymptotic": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.3982/ECTA8953",
+    "url": "https://econometricsociety.org/publications/econometrica/2012/11/01/asymptotic-sizes-subset-anderson-rubin-and-lagrange-multiplier",
+    "note": "Abstract page read (full text behind login). Abstract: under homoskedasticity the subset AR test that plugs in LIML for the untested parameters has correct asymptotic size without extra identification assumptions; the subset LM test is size-distorted. The chi-square(k - m_W) critical value is stated by GKM19 (guggenberger2019more, p. 488) and Andrews-Stock-Sun (manuscript p. 31), both fetched. A related earlier paper, Chen and Guggenberger (Nov 2011, albany.edu), was downloaded but is not this article."
+  },
+  "guggenberger2019more": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3982/QE1116",
+    "url": "https://pure.uva.nl/ws/files/46416178/666_3191_1_SP.pdf",
+    "note": "Final published version (CC BY-NC) from UvA-DARE, 41 pp. incl. cover. Read: abstract and introduction (pp. 487-490), Assumption A and eq. (2.5)-(2.8) (p. 490-491), (2.13)-(2.16), Corollary 4, Algorithm 1 (p. 505-506), Table 3 for k - m_W = 1 (journal p. 519, read from the page image)."
+  },
+  "guggenberger2024powerful": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1017/S0266466622000627",
+    "url": "https://arxiv.org/abs/2103.11371",
+    "note": "arXiv v3 (dated December 24, 2024 on the title page; arXiv stamp 13 Jun 2022), 46 pp.; abstract, introduction and sec. 3.2 (AR/AR test of Andrews 2017, eq. 3.11-3.17, PDF p. 15-16) read. Journal metadata (Econometric Theory 40(5), 957-1002) from Crossref; the typeset version was not read."
+  },
+  "londschien2026weak": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1016/j.jeconom.2026.106239",
+    "url": "https://arxiv.org/abs/2407.15256",
+    "note": "arXiv v4 (1 March 2026; 'Accepted for publication in the Journal of Econometrics'); abstract, sec. 1-2 read (Assumption 1 and 'our results do not allow for general forms of heteroskedasticity', PDF p. 4; ivmodels availability, PDF p. 3). Journal metadata from Crossref."
+  },
+  "sun2018implementing": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://ageconsearch.umn.edu/record/340284/files/Sun.pdf",
+    "note": "Stata Journal 18(4), 803-825 (from the article's first page). Read abstract, sec. 1, and the option descriptions for project() and strong() (pp. 816-818)."
+  },
+  "ivmodelsapi": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://ivmodels.readthedocs.io/en/stable/api.html",
+    "note": "API page read via WebFetch: anderson_rubin_test(Z, X, y, beta, W=None, C=None, D=None, critical_values='chi2', fit_intercept=True) with critical_values 'chi2' (chi2(k - m_W)), 'f', or 'guggenberger'/'GKM'; inverse_anderson_rubin_test returns a Quadric. No heteroskedasticity-robust option is listed. No version number on the page."
   }
 }

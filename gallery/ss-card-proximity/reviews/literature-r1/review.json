@@ -1,0 +1,77 @@
+{
+  "id": "literature-r1",
+  "target": "literature",
+  "round": 1,
+  "created": "2026-11-20T16:59:11Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261120T165350Z-reviewer.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r2/review.json",
+    "plan.json",
+    "log.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "claims.jsonl"
+  ],
+  "kill_argument": "The literature record checks out source by source, but it backs an interpretation that one of its own verified sources rejects on these data. plan.json (contribution; H5) reads the IV estimate as 'a weighted average of returns for men whose schooling responds to proximity'. Blandhol et al. (2025), in the bibliography, show that with Card's additive covariates TSLS has that reading only under 'rich covariates', and their RESET test rejects that condition on Card's data (p = 0.000). Tuebbicke (2023), not in the bibliography, finds that on these data 2SLS exceeds propensity-score IV estimators by 50-100%. Angrist and Imbens was never fetched. So the one sentence the seed's 'not the average return' requirement depends on has no qualified support. What I tried and it held: Card WP 4483 Tables 2, 3 and 5 against the page images, plus the quoted text; Kling Table 1 and its sample note; Bi et al. Table 1; Kang et al.'s AR set; Blandhol et al. Table 3; Cinelli-Hazlett Table 2; Delbianco; Sloczynski et al.; Carr-Kitagawa sec. 5.1; Lee et al.; MOP 23.11; Londschien. The narrow novelty claim still stands.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "L1",
+      "severity": "major",
+      "status": "open",
+      "text": "The interpretation the plan adopts is contradicted by a verified source in its own bibliography and is not supported by a fetched source in the form stated. plan.json contribution: 'interprets the IV estimate as a weighted average of returns for men whose schooling responds to proximity'; H5: 'Under the heterogeneous-returns reading the paper adopts, a difference would compare a weighted average of returns for men whose schooling responds to proximity'. (a) Blandhol et al. (blandhol2025tsls, sec. 6.1 and Table 3, which I read in WP 29709) show that with Card's additive, non-saturated covariates TSLS is 'weakly causal' only under rich covariates. Their RESET test rejects that condition on Card's data (p = 0.000), and their LATE/ACR estimates are 0.067 (DDML) and 0.085 (IPSW) against TSLS 0.132. Claim c-bbmt-card records this, but the plan's interpretation sentence ignores it. Sources notes sec. 5 item 9 mentions it only as 'may not even be a positively weighted LATE'. (b) Kling (kling2001interpreting, WP p. 6) states the weighted-average reading 'conditional on X' under his model's assumptions. Card (fn. 10) cites Angrist and Imbens (1993), which the Scout lists as unverified. No citation claim records the reading with its conditions. (c) Missing: Tuebbicke (2023), 'When to use matching and weighting or regression in instrumental variable estimation? Evidence from college proximity and returns to college', Empirical Economics 65, DOI 10.1007/s00181-023-02441-7 (Crossref abstract read). On Card's data it finds 2SLS 50-100% larger than instrument-propensity-score estimators, because of conditional-variance weighting. Sloczynski (2021, IZA DP 14349) is the theory behind it and is also unfetched. Since the seed requirement turns on how the IV estimate is described, the paper would print an interpretation that its own literature says fails on these data.",
+      "evidence": "plan.json contribution (last sentence) and hypotheses H5 (last sentence); claims.jsonl c-bbmt-card (no claim for the weighted-average reading); sources/notes.md sec. 5 item 9 and sec. 3 'Not verified' list (Angrist and Imbens, Sloczynski 2021); refs.bib (no Tuebbicke, no Angrist-Imbens).",
+      "response": "Scout: fetched and recorded Tübbicke 2023 (EconStor full text, Table 3) and Angrist-Imbens 1995 (abstract of NBER TP 127; JASA via Crossref); added claims c-kling-weighted, c-angrist-imbens, c-tubbicke, expanded c-bbmt-card (rich covariates, RESET p=0.000); notes sec. 5 item 9 now gives the conditional wording the sources support. Słoczyński 2021 not fetched. plan.json wording left to the PI.",
+      "ruling": "",
+      "remedy": "Cheapest fix is to narrow the wording, with no new analysis. Read the estimand as 'under monotonicity and correctly specified (rich) covariates, a positively weighted average of returns for men whose schooling responds to proximity'. Then state that Blandhol et al.'s RESET test rejects rich covariates for Card's Panel A column 5, so not even that reading is guaranteed. Add a citation claim for Kling's 'conditional on X' sentence. Have the Scout fetch and record Tuebbicke (2023) and Angrist and Imbens (1995, JASA) before either is cited, or drop the Angrist-Imbens attribution."
+    },
+    {
+      "id": "L2",
+      "severity": "minor",
+      "status": "open",
+      "text": "The published chapter's tables are still unverified, and there is cheap evidence on both sides. Kling (WP 7989, Table 1, p. 20) labels his replicated columns 'Card (1995b): T2-c2' (OLS .073 (.003)) and 'T3-c5B' (IV .132 (.049)) and gives the chapter as pp. 201-221. In WP 4483, Table 2 col 2 is 0.075 (0.003) and Table 3 Panel B col 5 is 0.122 (0.046). So the chapter's column numbering, and possibly its OLS standard error, may differ from the WP's. The Scout reads Kling's labels as his own error (notes sec. 3), which the files cannot settle. Card (2001), 'Estimating the Return to Schooling: Progress on Some Persistent Econometric Problems' (NBER WP 7769, Table II row 4; I read it), cites 'Card (1995b)' with OLS 0.073 (0.004), IV 0.132 (0.049) and the interaction-instrument IV 0.097 (0.048). That confirms the chapter's headline numbers equal the WP's but says nothing on the Panel A columns or numbering. The bibliography lacks Card (2001). The card1995chapter record's method, 'fetched-catalogue-record', is not one of the three methods PROTOCOL.md defines, and the validator does not catch it.",
+      "evidence": "sources/sources.json card1995chapter (method, note); sources/notes.md sec. 0 and sec. 3 Kling row; refs.bib card1995chapter pages 201--222.",
+      "response": "Scout: recorded Card (2000, NBER WP 7769; Table 2 row 4 confirms 0.073 (0.004), 0.132 (0.049), 0.097 (0.048); ref list gives pp. 201-222); dropped card1995chapter from refs.bib/sources.json since no protocol method fits; notes sec. 0 states the chapter's tables were not seen, records Kling's differing labels as unresolved, and asks for 'WP 4483 Table x, Panel y, column z' labels.",
+      "ruling": "",
+      "remedy": "Record Card (2001) as a verified source supporting the chapter's headline numbers. In the paper, label every target as 'WP 4483 Table x, Panel y, column z' and state that the chapter's tables were not seen, that Kling's column labels differ, and that Card's OLS SE (0.004) is the target. Use one of the protocol's method values for card1995chapter, or have the protocol define the extra value."
+    },
+    {
+      "id": "L3",
+      "severity": "minor",
+      "status": "open",
+      "text": "Three citation claims say more than, or something other than, their sources. (a) c-validity-tests cites kitagawa2015test, whose record is abstract-only and whose abstract does not mention Card. The Kitagawa result is known only through Carr and Kitagawa (sec. 5.1). That source also says Kitagawa (2015) conditioned on up to five covariates, and that both tests binarise education at 16+ years, which can itself violate exclusion through coarsening bias. The claim and notes sec. 5 item 2 use this test to favour Panel A col 6 ('full covariate set') without saying that it tests a binarised-treatment model. (b) c-bbmt-card says 'reproduce Card's IV estimate' but the estimate is Panel A column 5 (Blandhol et al. call it Card's 'main results'), not the basic Panel B col 6 estimate that also prints 0.132. (c) c-ivmodel-card calls the Kang et al. AR interval 'homoskedastic'. The paper's code uses the default homoskedastic model, but the paper does not label the interval that way (sec. 3.3 offers a heteroskedastic variant). Say 'computed under the default homoskedastic model'.",
+      "evidence": "claims.jsonl c-validity-tests, c-bbmt-card, c-ivmodel-card; sources/sources.json kitagawa2015test ('Abstract page only'); sources/notes.md sec. 3 Kitagawa row and sec. 5 item 2.",
+      "response": "Scout: c-validity-tests now rests on carr2021testing only, attributes Kitagawa's result to Carr-Kitagawa and adds the 16+-year binarisation and coarsening-bias caveat; c-bbmt-card names Panel A column 5; c-ivmodel-card says 'computed under the package's default homoskedastic model'; notes sec. 3 and sec. 5 item 2 updated.",
+      "ruling": "",
+      "remedy": "Support c-validity-tests with carr2021testing only, and attribute the Kitagawa result as 'reported by Carr and Kitagawa'. Add 'with education binarised at 16 or more years'. Name Panel A column 5 in c-bbmt-card. Qualify 'homoskedastic' in c-ivmodel-card."
+    },
+    {
+      "id": "L4",
+      "severity": "minor",
+      "status": "open",
+      "text": "There is an obvious, though not novelty-threatening, gap in the record of exclusion-restriction work on these data. Luo, Li, Miao and He (arXiv 2206.08228, sec. 6, Table 2; I read it) reanalyse Card's 3,010 men without imposing exclusion. They use a binary post-high-school treatment and negative controls, and find 'no significant evidence of violating the exclusion restriction'. They cite earlier analyses of the same data by Tan (2006), Kedagni (2021) and Jiang et al. (2022). Tuebbicke (2023) (see L1) is a further reanalysis. Card's own survey (Card 2001, see L2) is the standard place where the proximity estimate is set against other IV estimates. None of these changes the narrow contribution, which is a robust AR, effective F and CHR breakdown on Panel A col 6, and I found none reporting those. But a paper that discusses 'what would violate' exclusion should not present Cinelli-Hazlett and Steiner et al. as the whole exclusion-sensitivity literature on these data.",
+      "evidence": "sources/notes.md sec. 3 (table of reanalyses) and sec. 6 (novelty verdict); refs.bib.",
+      "response": "Scout: fetched and recorded Luo et al. (2024, arXiv v2 Table 2) and Jiang, Yang and Ding (2022, arXiv v2 Table 3), plus Tübbicke 2023 and Card 2000; claim c-principal-strata; notes sec. 3 labels the reanalysis table a selection and lists Tan 2006 and Kédagni 2021 as not fetched.",
+      "ruling": "",
+      "remedy": "Either have the Scout fetch and record Luo et al. (2022) and one of Tan/Kedagni/Jiang et al., or have the paper describe its list of reanalyses as a selection and not cite these works. No change to the hypotheses."
+    }
+  ],
+  "files_sha256": {
+    "briefs/20261120T165350Z-reviewer.md": "2a5bcc04ac14705759dd2c44e66ecab31db3483edafd13a843a9f7cb33d0ef84",
+    "reviews/REVIEWER_MEMORY.md": "8dfa2c536b0c1884ac2a29797a01018eb0d829449d33ea8f5543deb8ee003d9d",
+    "reviews/question-r2/review.json": "f4ebb72ed040d2b23ec2a39fd8285a2905b8e7e3dac0d40c741fe4059eff2a4c",
+    "plan.json": "4e3153a5267c8fc7665d59ab231c03191b8993e7f69af96ad5fbb6501a06a3b7",
+    "log.jsonl": "ba9f3967113f3df0339bd3737d3a6e143d62756f4bdaab048a916d379dfd20da",
+    "refs.bib": "a73289462ff8b9b2aa91bce4c7d7f602972aec3100467848282531717f58d288",
+    "sources/sources.json": "103b2566777eb545cf70f7b59e06c9421807335f75d5782caf5b67c4e711a5e7",
+    "sources/notes.md": "c5dc6e2838736be882c1c523089b8b9a603566ece4482762fc88477da21248bc",
+    "claims.jsonl": "e1160a2faf54e9d6983865ea32b9a1789c42950fd5c61852382d52285eaadc3e"
+  },
+  "recorded": "2026-11-20T16:59:59Z"
+}

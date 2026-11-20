@@ -1,0 +1,69 @@
+{
+  "id": "fetch-data",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    "python3",
+    "code/fetch_data.py"
+  ],
+  "started": "2026-11-20T16:54:38Z",
+  "finished": "2026-11-20T16:54:40Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fetch_data.py",
+      "sha256": "c24a1a733e0863fa548641fd602df7f0e301a17a2707eb7038a88771b445c6c8"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "data/raw/proximity.zip",
+      "sha256": "0e9b2ad4182ea631ca3dd8a5fff6c1b0ab86b56c6a3fa868870f716e8d82691f"
+    },
+    {
+      "path": "data/raw/proximity/nls.dat",
+      "sha256": "c31a6a6513577d30e1c81ecebe4b126086514163c9afab157cab8cd0724c6a03"
+    },
+    {
+      "path": "data/raw/proximity/code_bk.txt",
+      "sha256": "bf3b360f9ac77a92fad4b0a2be3bd17565d82bba13db32ef6902e4e969ddca98"
+    },
+    {
+      "path": "data/raw/proximity/read1.sas",
+      "sha256": "60a9aadfeaf0db6b5e9cb3cf933051094973637e8f298c075920d94f54d7ed51"
+    },
+    {
+      "path": "data/raw/proximity/readme",
+      "sha256": "86de10f6ecc04b25aa223daf2532cbee93b03f048bb4c30ca3991648b913d340"
+    },
+    {
+      "path": "data/fetch_metrics.json",
+      "sha256": "366397a49b8958caa5057bf6bf8903eddea654c0684806355ad96c605d9716ed"
+    }
+  ],
+  "metrics": {
+    "zip_size_bytes": 134563,
+    "zip_sha256": "0e9b2ad4182ea631ca3dd8a5fff6c1b0ab86b56c6a3fa868870f716e8d82691f",
+    "zip_sha256_matches_pinned": true,
+    "n_members_in_zip": 5,
+    "n_members_extracted": 4,
+    "read1_lst_extracted": false,
+    "read1_lst_size_bytes": 33092,
+    "code_bk_txt_size_bytes": 7359,
+    "code_bk_txt_sha256": "bf3b360f9ac77a92fad4b0a2be3bd17565d82bba13db32ef6902e4e969ddca98",
+    "nls_dat_size_bytes": 614210,
+    "nls_dat_sha256": "c31a6a6513577d30e1c81ecebe4b126086514163c9afab157cab8cd0724c6a03",
+    "read1_sas_size_bytes": 3076,
+    "read1_sas_sha256": "60a9aadfeaf0db6b5e9cb3cf933051094973637e8f298c075920d94f54d7ed51",
+    "readme_size_bytes": 551,
+    "readme_sha256": "86de10f6ecc04b25aa223daf2532cbee93b03f048bb4c30ca3991648b913d340",
+    "nls_dat_lines": 3613
+  },
+  "metrics_file": "data/fetch_metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  }
+}

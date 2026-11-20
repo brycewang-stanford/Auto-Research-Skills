@@ -10,18 +10,6 @@
   url         = {https://www.nber.org/system/files/working_papers/w4483/w4483.pdf}
 }
 
-@incollection{card1995chapter,
-  author    = {Card, David},
-  title     = {Using Geographic Variation in College Proximity to Estimate the Return to Schooling},
-  booktitle = {Aspects of Labour Market Behaviour: Essays in Honour of John Vanderkamp},
-  editor    = {Christofides, Louis N. and Grant, E. Kenneth and Swidinsky, Robert},
-  publisher = {University of Toronto Press},
-  address   = {Toronto},
-  year      = {1995},
-  pages     = {201--222},
-  isbn      = {0802028640}
-}
-
 @techreport{card1994earnings,
   author      = {Card, David},
   title       = {Earnings, Schooling, and Ability Revisited},
@@ -253,4 +241,122 @@
   howpublished = {arXiv:2204.07672 [econ.EM], version 4 (28 February 2024)},
   year         = {2024},
   url          = {https://arxiv.org/abs/2204.07672}
+}
+
+@techreport{card2000estimating,
+  author      = {Card, David},
+  title       = {Estimating the Return to Schooling: Progress on Some Persistent Econometric Problems},
+  institution = {National Bureau of Economic Research},
+  type        = {NBER Working Paper},
+  number      = {7769},
+  year        = {2000},
+  month       = jun,
+  doi         = {10.3386/w7769},
+  url         = {https://www.nber.org/system/files/working_papers/w7769/w7769.pdf},
+  note        = {Published as Econometrica 69(5), 1127--1160, 2001, doi:10.1111/1468-0262.00237}
+}
+
+@article{tubbicke2023when,
+  author  = {T{\"u}bbicke, Stefan},
+  title   = {When to Use Matching and Weighting or Regression in Instrumental Variable Estimation? Evidence from College Proximity and Returns to College},
+  journal = {Empirical Economics},
+  year    = {2023},
+  volume  = {65},
+  number  = {6},
+  pages   = {2979--2999},
+  doi     = {10.1007/s00181-023-02441-7}
+}
+
+@article{angrist1995twostage,
+  author  = {Angrist, Joshua D. and Imbens, Guido W.},
+  title   = {Two-Stage Least Squares Estimation of Average Causal Effects in Models with Variable Treatment Intensity},
+  journal = {Journal of the American Statistical Association},
+  year    = {1995},
+  volume  = {90},
+  number  = {430},
+  pages   = {431--442},
+  doi     = {10.1080/01621459.1995.10476535}
+}
+
+@article{luo2024identification,
+  author  = {Luo, Shanshan and Li, Wei and Miao, Wang and He, Yangbo},
+  title   = {Identification and Estimation of Causal Effects in the Presence of Confounded Principal Strata},
+  journal = {Statistics in Medicine},
+  year    = {2024},
+  volume  = {43},
+  number  = {22},
+  pages   = {4372--4387},
+  doi     = {10.1002/sim.10175}
+}
+
+@article{jiang2022multiply,
+  author  = {Jiang, Zhichao and Yang, Shu and Ding, Peng},
+  title   = {Multiply Robust Estimation of Causal Effects under Principal Ignorability},
+  journal = {Journal of the Royal Statistical Society: Series B (Statistical Methodology)},
+  year    = {2022},
+  volume  = {84},
+  number  = {4},
+  pages   = {1423--1445},
+  doi     = {10.1111/rssb.12538}
+}
+
+@article{guggenberger2012asymptotic,
+  author  = {Guggenberger, Patrik and Kleibergen, Frank and Mavroeidis, Sophocles and Chen, Linchun},
+  title   = {On the Asymptotic Sizes of Subset {Anderson-Rubin} and {Lagrange} Multiplier Tests in Linear Instrumental Variables Regression},
+  journal = {Econometrica},
+  year    = {2012},
+  volume  = {80},
+  number  = {6},
+  pages   = {2649--2666},
+  doi     = {10.3982/ECTA8953}
+}
+
+@article{guggenberger2019more,
+  author  = {Guggenberger, Patrik and Kleibergen, Frank and Mavroeidis, Sophocles},
+  title   = {A More Powerful Subvector {Anderson Rubin} Test in Linear Instrumental Variables Regression},
+  journal = {Quantitative Economics},
+  year    = {2019},
+  volume  = {10},
+  number  = {2},
+  pages   = {487--526},
+  doi     = {10.3982/QE1116}
+}
+
+@article{guggenberger2024powerful,
+  author  = {Guggenberger, Patrik and Kleibergen, Frank and Mavroeidis, Sophocles},
+  title   = {A Powerful Subvector {Anderson-Rubin} Test in Linear Instrumental Variables Regression with Conditional Heteroskedasticity},
+  journal = {Econometric Theory},
+  year    = {2024},
+  volume  = {40},
+  number  = {5},
+  pages   = {957--1002},
+  doi     = {10.1017/S0266466622000627}
+}
+
+@article{londschien2026weak,
+  author  = {Londschien, Malte and B{\"u}hlmann, Peter},
+  title   = {Weak-Instrument-Robust Subvector Inference in Instrumental Variables Regression: A Subvector {Lagrange} Multiplier Test and Properties of Subvector {Anderson-Rubin} Confidence Sets},
+  journal = {Journal of Econometrics},
+  year    = {2026},
+  volume  = {256},
+  pages   = {106239},
+  doi     = {10.1016/j.jeconom.2026.106239}
+}
+
+@article{sun2018implementing,
+  author  = {Sun, Liyang},
+  title   = {Implementing Valid Two-Step Identification-Robust Confidence Sets for Linear Instrumental-Variables Models},
+  journal = {The Stata Journal},
+  year    = {2018},
+  volume  = {18},
+  number  = {4},
+  pages   = {803--825},
+  url     = {https://ageconsearch.umn.edu/record/340284/files/Sun.pdf}
+}
+
+@misc{ivmodelsapi,
+  title        = {ivmodels API documentation: anderson\_rubin\_test and inverse\_anderson\_rubin\_test},
+  howpublished = {\url{https://ivmodels.readthedocs.io/en/stable/api.html}},
+  note         = {Python package ivmodels (github.com/mlondschien/ivmodels); accessed 2026-11-21},
+  year         = {2026}
 }

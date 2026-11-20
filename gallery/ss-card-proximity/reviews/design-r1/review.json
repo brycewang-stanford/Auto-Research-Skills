@@ -1,0 +1,129 @@
+{
+  "id": "design-r1",
+  "target": "design",
+  "round": 1,
+  "created": "2026-11-20T17:06:55Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261120T170032Z-reviewer.md",
+    "briefs/20261120T165350Z-designer.md",
+    "briefs/20261120T170042Z-scout.md",
+    "crew.json",
+    "plan.json",
+    "log.jsonl",
+    "claims.jsonl",
+    "sources/notes.md",
+    "data/CODEBOOK.md",
+    "data/manifest.json",
+    "data/prepare_metrics.json",
+    "data/fetch_metrics.json",
+    "data/raw/proximity/read1.sas",
+    "data/raw/proximity/code_bk.txt",
+    "data/raw/proximity/readme",
+    "code/fetch_data.py",
+    "code/prepare_data.py",
+    "runs/prepare-data/run.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r2/review.json"
+  ],
+  "kill_argument": "All H2-H5 statistics, the only part beyond recomputing Card's tables, sit on Table 3 Panel A, which Card himself calls inconsistent under the exercise's premise. Panel A treats experience, exp76 = age76 - ed76 - 6, as exogenous; if schooling is endogenous, the reason to instrument it, then Cov(exp76, u) = -Cov(ed76, u) is not zero (Card, WP 4483 p. 13: 'then so is experience'; hence Panel B). The reduced form that H3 and H4 reduce to also conditions on exp76, a function of schooling, linking nearc4 to the unobservables behind schooling. So 'the positive return survives' and the CHR breakdown describe a pseudo-parameter, and the identifying assumption and threat list never mention it. The column was picked because the tools need one endogenous regressor, not because it identifies the return. Attacked and held: sample rule and N, controls against read1.sas, conventional and HC1 formulas, the AR quadratic and grid check, the CHR breakdown identity, D = -rho g, the Stock-Yogo and MOP values, the pinned versions (all on PyPI), the read1.lst quarantine.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "Panel A column 6, on which every H2-H5 statistic is computed, needs exp76 and exp762 to be exogenous, and the design never states or threatens that assumption. exp76 = age76 - ed76 - 6 (design.method; read1.sas), so if ed76 is correlated with the wage error, as the whole IV exercise assumes, exp76 is correlated with it too (Cov(exp76,u) = -Cov(ed76,u) with age exogenous). Card says so himself: 'if education is truly endogenous in the earnings equation, then so is experience, since experience is mechanically related to education. Therefore, in the lower panel (Panel B) I have estimated models that instrument experience and experience-squared with age and age-squared' (WP 4483 p. 13, NBER scan PDF p. 15). The problem reaches the robust layer: with one instrument H3's AR(0) is the robust t of nearc4 in a regression that conditions on exp76, a function of schooling, and conditioning on it links nearc4 to the unobservables that also drive schooling (both shift ed76, hence exp76), so even the reduced-form test is not a valid test of a zero return under the design's own premise; H4's breakdown inherits it. design.identifying_assumption lists exclusion, independence and relevance only; design.threats T1-T10 have no entry; D2 explains only why Panel B gets no weak-IV inference. As written, H3's decision ('the IV return to schooling is positive survives') and H4's breakdown would be reported as statements about the return to schooling when they concern a coefficient that is inconsistent whenever schooling is endogenous.",
+      "evidence": "plan.json design.identifying_assumption, design.estimand, design.threats (no experience threat), design.deviations D2, hypotheses H3-H5 decision wording; design.method BASE_A includes exp76, exp762 as exogenous; Card WP 4483 p. 13 (https://www.nber.org/system/files/working_papers/w4483/w4483.pdf, PDF p. 15).",
+      "remedy": "Cheapest (narrowing): add to design.identifying_assumption that Panel A also requires exp76 and exp762 to be uncorrelated with the error, which cannot hold exactly if ed76 is endogenous; add a threat mapped to the h1-a6 vs h1-b6 comparison (published 0.140 vs 0.132 IV, 0.045 vs 0.048 reduced form) as the evidence on how much it matters; and fix the H3-H5 decision wording as statements about Card's Panel A column 6 coefficient, not the return to schooling. Stronger (optional): add a subvector Anderson-Rubin set for Panel B col 6 (for each b0, the over-identification statistic of (lwage76 - b0 ed76) on exp76, exp762 instrumented by nearc4, age76, age762, 1 df), which is valid when age strongly identifies experience; sources/notes.md sec. 3 (Londschien 2025) shows subvector inference on a Panel-B-type model is feasible.",
+      "response": "Fixed: design.identifying_assumption and estimand state Panel A's experience-exogeneity assumption; threat T5 (mapped to h1-a6 vs h1-b6 and h2h3-weakiv vs h3b-subvector) and T6 (age exclusion); H2/H3a/H4/H5 worded as about the Panel A coefficient; new run h3b-subvector gives Panel B col 6 subvector AR sets (robust projection chi2(3) primary; GKMC and GKM19 via ivmodels 0.10.0, checked against own code).",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "H5's 95% interval of the IV-OLS difference is not a valid confidence interval, yet the design reads the expected non-rejection through it ('the differences it does not exclude'). (a) The interval is -g x (rho_hat +- 1.96 se_HC1(rho_hat)) from the control-function regression. The HC1 SE of rho_hat ignores that v_hat is a generated regressor; that is harmless only under H0: rho = 0 (where the DWH t-test is valid). Away from 0, rho_hat - rho contains a term -rho (pi_hat - pi)/pi_hat; with the published first stage (0.322, SE 0.083) this adds an SD of about 0.26 x |rho|, i.e. roughly 0.02 at the point estimate and 0.04-0.05 at the upper end of the interval, exactly the region the reading relies on. (b) The interval is a Wald interval built on the 2SLS estimate with a first-stage F of about 15, so it inherits the weak-instrument distortion that H2-H3 exist to avoid; the design reads H3 through AR but H5 through Wald.",
+      "evidence": "plan.json hypotheses H5 ('read through that interval'); design.method H5 (h5-cf) '95% interval of D = -g x (rho_hat +- 1.959964 se_HC1(rho_hat)), treating g as fixed'; design.claims_plan a6-diff-lo/hi, a5-diff-lo/hi.",
+      "remedy": "Keep the robust control-function t as the test (valid under its null). For the interval, either (cheapest, weak-IV robust, no new estimator) report the H3 robust AR set minus the OLS estimate (OLS SE about 0.004 is negligible next to it) and read the non-rejection through that; or compute the HC1 variance of beta_2SLS - beta_OLS from the stacked influence functions of the two estimators, which is valid at any rho, and label it Wald. Drop 'treating g as fixed' as the interval's justification.",
+      "response": "Fixed: the -g x CI(rho) interval is dropped; the control-function t stays as the test under its null; the interval of D now uses the stacked HC1 influence functions of 2SLS and OLS (design.method H5), labelled Wald and not weak-IV robust, plus a flag for whether the OLS estimate lies inside the robust AR set.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "open",
+      "text": "r-balance, the design's only check that 'can contradict the independence reading', uses KWW, which is not a pre-schooling measure, and its fixed reading pre-commits a misinterpretation. Card: 'The 1966 interview also included a 28 item test of Knowledge of the World of Work ... The overall score on this test is correlated with completed education' (WP 4483 p. 5, PDF p. 7). In 1966 the men were aged 14-24, so for the older half the test came after high school and part of college; proximity raises schooling (first stage 0.32-0.37 years), and schooling raises KWW. A positive nearc4 coefficient on KWW is therefore expected even if the instrument is valid, yet the fixed reading says such a coefficient 'is reported as evidence of selection on ability or of better schools near colleges'. design.identifying_assumption calls both measures 'pre-schooling ability measures'. IQ is 'taken from school records for a subset of NLSYM respondents' (PDF p. 17; 2,061 of 3,010 in data/CODEBOOK.md), so the IQ regression tests balance in a selected subsample whose selection may itself depend on nearc4.",
+      "evidence": "plan.json design.analysis_plan item 8 (r-balance fixed reading), design.identifying_assumption ('pre-schooling ability measures'), design.data r-balance sample; data/CODEBOOK.md kww (2,963) and iq (2,061) non-missing counts.",
+      "remedy": "Restrict the KWW regression to men aged 14-15 (or 14-17) in 1966 (age76 24-25, or 24-27), before college, and pre-specify that rule now; or keep the full sample and add to the fixed reading that a positive KWW coefficient is also what a valid instrument produces through 1966 schooling. For IQ, also report the share with a non-missing IQ by nearc4 (a univariate missingness check, no outcome), and drop 'pre-schooling' for KWW in design.identifying_assumption.",
+      "response": "Fixed: r-balance now tests KWW for men aged 14-15 in 1966 (age76 24-25) as the pre-college check, keeps full-sample KWW as descriptive only with the reading that a valid instrument also predicts it, adds the IQ-missingness shares by nearc4, and 'pre-schooling' is dropped from the identifying assumption.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "H3's decision rule ('survives iff 0 is outside the set') does not imply a positive return when the set is unbounded or contains negative values: a union of two half-lines can exclude 0 and contain large negative values. The design reports the shape but the survival flag ignores it.",
+      "evidence": "plan.json hypotheses H3; design.method H3 'Decision: survives iff 0 is outside the set'; claims_plan h3-a6-survives.",
+      "remedy": "Define survival as: the set is a bounded interval with lower bound above 0 (equivalently here, |robust RF t| > 1.96 with positive sign and F_eff > 3.84); otherwise report 'not established' with the shape.",
+      "response": "Fixed: survival now requires the primary set to be a bounded interval with lower bound above 0 (plan.json H3, design.method), for H3(a) and H3(b) separately; otherwise shape and bounds are reported as 'not established'.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "Column counts are wrong. BASE_A as listed (black, reg76r, smsa76r, smsa66r, reg662-reg669, exp76, exp762, intercept) is 15 columns, not 16; BASE_B is 13, not 14. data/CODEBOOK.md calls the base controls '13 variables'; they are 14 without the intercept. n - k = 2994 for column 5 is right only with BASE_A = 15 plus ed76 (or nearc4). If the Econometrician codes the stated counts as assertions or df, a run fails or a spurious column enters.",
+      "evidence": "plan.json design.method VARIABLES ('16 columns', '14 columns'); data/CODEBOOK.md 'Base controls ... (13 variables)'; read1.sas third PROC REG model.",
+      "remedy": "Correct the counts in design.method (BASE_A 15, BASE_B 13 including the intercept) and state k for each regression whose n-k enters H1.",
+      "response": "Fixed: BASE_A = 15 and BASE_B = 13 columns including the intercept, and k and n-k are stated for every regression (16/2994 without FB, 30/2980 with FB).",
+      "ruling": ""
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "r-cluster's fixed reading covers only one direction. With at most 18 region-by-SMSA cells of very unequal size (region 8 holds 2.8% of the sample) and several regressors constant within cells, CR1 with t(G-1) can over-reject, so a clustered t above its critical value is weak reassurance; the design does not say it will not be reported as robustness to county-level dependence.",
+      "evidence": "plan.json design.analysis_plan item 9; design.deviations D1; data/CODEBOOK.md reg668 share 0.0282.",
+      "remedy": "Add to the fixed reading that a clustered t above the critical value is not read as robustness, and report G and the smallest cell size.",
+      "response": "Fixed: r-cluster's fixed reading now covers both directions (a clustered t above the critical value is not reported as robustness) and the run reports G, the smallest cell size and the number of cells under 30.",
+      "ruling": ""
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "The H1 count leaves out printed numbers without a reason: the A3 reduced form 0.042 (0.018) is 'compared but not counted' although A1 (same column pair) is counted, and Panel B columns 1, 3 and 5 (0.382 (0.114), 0.047 (0.019), 0.122 (0.046)) are not estimated though they need no new variable. The choice is fixed in advance, so it is not a search, but the denominators 9 and 14 look selected.",
+      "evidence": "plan.json design.method H1 DECISION ('The A3 reduced form ... compared in the paper but not counted; Panel B columns 1, 3 and 5 are not estimated'); sources/notes.md sec. 1 Table 3.",
+      "remedy": "Either count A3 and add B1, B3, B5 as secondary targets, or give the reason for leaving them out in design.method.",
+      "response": "Fixed: A3 is counted and Panel B cols 1, 3 and 5 are estimated in h1-b6 as secondary targets; secondary count is now 22 (every printed nearc4 or education coefficient of Table 3 and Table 2 cols 2 and 5, plus the Cinelli-Hazlett set).",
+      "ruling": ""
+    }
+  ],
+  "files_sha256": {
+    "briefs/20261120T170032Z-reviewer.md": "d4b4584c410c1f5c99f041f69c7f5d0e2a7b4ae6ad23acd915ea0f3f4ec47918",
+    "briefs/20261120T165350Z-designer.md": "afe72d119595c9d015cf9140223469d10f9bb692c47f7a6fcd524dfa80179ec6",
+    "briefs/20261120T170042Z-scout.md": "c281f4b59ee18e71519ca8f9067f03bcc254ae25748cd89073483ff2fac3f1b9",
+    "crew.json": "c625c92d54f2a36652fdfdd2c1e30a97dce4463eafbde8824f9aa6e1ed8fedcb",
+    "plan.json": "a48a04843ddeba0b7f3a67a2eadaa5856ce071e90a5554acdd35c0aba2e8a13e",
+    "log.jsonl": "d5668eb624d9b8e0102ba4020bed12fd22deb63f9240c7caeba224b6a61674de",
+    "claims.jsonl": "64d58d7643278a8f85dfaf48cb051b6e3d15e31dbec5f8761bcf2e9d082c107a",
+    "sources/notes.md": "e4cc7749ee196a78a8fa3991ac643932653df1805f6e61f3a4ad68fcb1c17abb",
+    "data/CODEBOOK.md": "1af35b2db1445546a0bdc5504bb22c9c08db5d52fcad99d13221112c9f6ae33a",
+    "data/manifest.json": "92a52b884ec0d6525b6619fa69279d55c3804aa279d4f77cf7824c1e68196d1b",
+    "data/prepare_metrics.json": "385479c6678da84259fd9bd5a3b71e7873bdc9c4cee22570e4203ac0e499a2ad",
+    "data/fetch_metrics.json": "366397a49b8958caa5057bf6bf8903eddea654c0684806355ad96c605d9716ed",
+    "data/raw/proximity/read1.sas": "60a9aadfeaf0db6b5e9cb3cf933051094973637e8f298c075920d94f54d7ed51",
+    "data/raw/proximity/code_bk.txt": "bf3b360f9ac77a92fad4b0a2be3bd17565d82bba13db32ef6902e4e969ddca98",
+    "data/raw/proximity/readme": "86de10f6ecc04b25aa223daf2532cbee93b03f048bb4c30ca3991648b913d340",
+    "code/fetch_data.py": "c24a1a733e0863fa548641fd602df7f0e301a17a2707eb7038a88771b445c6c8",
+    "code/prepare_data.py": "2a8b204ecc7e594db95e79298c54fe05899c64b711d29af6192fd6824a899f26",
+    "runs/prepare-data/run.json": "3772571ad383b68728eddd40cdbcc8ba190934b4a60f69f4ebe8dcf911d908d3",
+    "reviews/REVIEWER_MEMORY.md": "f812b53250aee6f5a5df8c0a617d968ba750493bb525ac3652d6b52735185a36",
+    "reviews/question-r2/review.json": "f4ebb72ed040d2b23ec2a39fd8285a2905b8e7e3dac0d40c741fe4059eff2a4c"
+  },
+  "recorded": "2026-11-20T17:07:07Z"
+}

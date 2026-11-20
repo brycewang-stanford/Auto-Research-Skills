@@ -24,3 +24,60 @@ Check next time:
 - Design: controls lists match notes sec. 5 item 6 (reg662-reg669 vs CH's reg661-reg668: same span, different omitted region); sample = non-missing lwage76, unweighted; conventional SE for H1, robust for H2-H5.
 - Results: OLS SE four decimals (Kling .003 vs Card .004); H1 secondary target AR [0.025, 0.285] reproduced homoskedastically on col 5.
 - Paper: no "Card's preferred" for Panel A col 6; no "average return".
+
+## literature-r1 (2026-11-20, verdict revise)
+
+Spot-checked against fetched sources (all held): Card WP 4483 Tables 2/3/5 page images, abstract "25-60%", p.13 "50-60 percent", 5525/3694 inconsistencies; Kling WP 7989 Table 1 + sample note; Bi et al. Table 1; Kang et al. sec. 7 (AR [0.0384, 0.2612], F 16.72); BBMT Table 3; Cinelli-Hazlett Table 2; Delbianco Table 2; Sloczynski Table 3; Carr-Kitagawa 5.1; Lee 104.7/3.43; MOP 23.11; Londschien AR [0.083, 0.352].
+
+Suspicions / asked for:
+- L1 (major): plan reads IV as "weighted average of returns for compliers" but BBMT RESET rejects rich covariates on Card (p=0.000); Tuebbicke 2023 (EmpEcon 65, 10.1007/s00181-023-02441-7) finds 2SLS 50-100% above propensity-score IV on these data; Angrist-Imbens never fetched. Asked: qualify wording (monotonicity + rich covariates; not guaranteed here), add Kling "conditional on X" claim.
+- L2 (minor): chapter tables unseen; Kling labels T2-c2 / T3-c5B and pp. 201-221 vs WP numbering; Card 2001 (NBER WP 7769, Table II row 4) confirms 0.073 (0.004), 0.132 (0.049), 0.097 (0.048) for "Card 1995b". card1995chapter method not a protocol value.
+- L3 (minor): c-validity-tests leans on Kitagawa abstract; Carr-Kitagawa test binarises educ>=16; c-bbmt-card is Panel A col 5; c-ivmodel-card "homoskedastic" wording.
+- L4 (minor): exclusion literature on these data incomplete (Luo et al. arXiv 2206.08228; Tan 2006; Kedagni 2021; Jiang et al. 2022).
+
+Check next time:
+- plan.json contribution/H5 wording; claims for Kling conditional-on-X and BBMT caveat; refs for tuebbicke/card2001/angrist-imbens with records.
+- Paper: no unqualified "weighted average of returns for compliers"; targets labelled as WP 4483 columns.
+- Carry earlier checks (H4 AR inversion = RF lower bound; OLS SE .003/.004; conventional SE for H1).
+
+## design-r1 (2026-11-20, verdict revise)
+
+Held under attack: N/sample rule, control lists vs read1.sas, conventional (n-k) vs HC1, AR quadratic + grid, CHR breakdown = RF lower bound (my earlier check is now built in as an identity), D = -rho g, SY 16.38 / MOP 23.11, pinned versions exist on PyPI, read1.lst quarantined (fetch_data leaves it in the zip; prepare_data has no nearc4-outcome stat).
+
+Suspicions / asked for:
+- F1 (major): Panel A treats exp76 = age76 - ed76 - 6 as exogenous; Card WP p.13 (PDF p.15) says experience is endogenous if education is. RF conditioning on exp76 is a collider path. Asked: state the assumption, add a threat mapped to A6 vs B6, word H3-H5 as about the Panel A coefficient; optional subvector AR on B6.
+- F2 (major): H5 interval from CF HC1 SE of rho is valid only at rho=0 (generated regressor, extra SD ~0.26|rho|) and is Wald under F~15. Asked: AR set minus OLS, or stacked-influence SE of the difference.
+- F3 (major): KWW administered in 1966 (ages 14-24), correlated with schooling (Card PDF p.7) -> not pre-schooling; IQ from school records for a subset (PDF p.17). Asked: KWW on 14-15/14-17 in 1966, amend reading, IQ missingness by nearc4.
+- F4-F7 minor: H3 survival should require bounded set with lower bound > 0; BASE_A is 15 cols not 16, BASE_B 13 not 14 (CODEBOOK says 13 base vars, true 14); r-cluster reading one-directional; A3 and B1/B3/B5 left out of H1 count without reason.
+
+Check next time:
+- design.identifying_assumption and threats mention exogenous experience; H3/H4 claim texts say "Panel A column 6 coefficient".
+- h5-cf interval method changed; no 'treating g as fixed' as justification.
+- r-balance age restriction fixed before any run; no r-balance run before the gate.
+- Code review: k counts and df in ivlib; AR V matrix uses e_i u_i cross term; grid check uses same n/(n-k); CHR grid start at 0; survival flag sign.
+
+## literature-r2 (2026-11-20, verdict pass)
+
+Checked against sources (held): Tuebbicke Table 3 + p. 2990 (EconStor PDF); Card 2000 WP 7769 ref list p. 40 (pp. 201-222); AI TP 127 abstract (no monotonicity/covariate/complier wording); Jiang et al. Table 3; Luo et al. Table 2; GKM19 Table 3 (k-m_W=1, 5%) and pp. 489-490 homoskedasticity; GKM24 abstract; Londschien-Buehlmann p. 4; ASS projection + Lee non-extension; Sun 2018 project()/Table 2; ivmodels API.
+
+Rulings: L1 open but downgraded to minor (contribution fixed; H5 last sentence and design.estimand still unconditional "weighted average of returns for compliers"). L2-L4 resolved.
+New: L5 (minor) monotonicity doubted on these data (Tuebbicke reporting Sloczynski: reordered instrument 0.570 -> 0.289) but contribution only flags rich covariates; Tuebbicke is binary "some college", n=2988; AI cited for conditions its abstract lacks. L6 (minor) c-principal-strata: Jiang text says tau10 significant but triply robust CI (-0.01, 0.23); Luo case (iv) CI (0.00, 1.88); Luo case (i) never-taker effect significant.
+
+Check next time (design-r2 / paper):
+- H5 and design.estimand carry the contribution's qualifier; contribution mentions monotonicity doubt.
+- Paper: no unqualified complier-weighted reading; c-principal-strata narrowed before cited; Tuebbicke described as binary-treatment evidence.
+- Carry earlier checks (AR inversion = RF lower bound; OLS SE .003/.004; conventional SE for H1; exogenous-experience caveat on Panel A).
+
+## design-r2 (2026-11-20, verdict pass)
+
+F1-F7 all resolved (checked in plan.json). Held under attack: GKM19 valid for m_W = 2 with largest root (Thm 3 / Cor 4, fetched PDF pure.uva.nl); ivmodels 0.10.0 statistic x dfn = kappa_p with dfd 2980; hyp1f1 stable to kappa_1 = 1e8; stacked-IF algebra; CHR identity; k counts; age76 - 10 = age in 1966.
+
+New minors: F8 (H3(a) survival label still 'the IV return to schooling'); F9 (H1 secondary list in hypotheses lacks A3, B1, B3, B5; CODEBOOK '13 variables'); F10 (ivmodels uses exact eq. 2.12 quantile, not GKM19's rounded-up Table 3 interpolation: 3.305 vs 3.4 at kappa_1 9.8; kappa 2981 in test vs 2980 in inverse); F11 (projection coverage check homoskedastic only).
+
+Kill argument kept: Panel A robust results concern a pseudo-parameter; H3(b) projection pre-announced to include 0. Do NOT accept a later switch of the H3(b) primary to a robust chi2(1) or GKMC version after results: that would be a results-driven change.
+
+Check next time (code review):
+- ivlib: AR V uses e_i u_i cross term; HC1 n/(n-k) with k = 30/16; CHR breakdown = lambda - 1.96 se; H3(b) A = (1,-b0,-g1,-g2) kron I3 assertion; BFGS starts include LIML; probes at +-1000.
+- h3b: kappa_1 written to metrics; GKM19 cv both ways (F10); which kappa scaling.
+- check-synthetic heteroskedastic coverage (F11); runs only synthetic data; no analysis run before the gate.
+- Results/paper: h3a flag wording (F8); 9/22 denominators; Panel A never 'Card's preferred'; carried checks (OLS SE .003/.004 four decimals, conventional SE for H1).
