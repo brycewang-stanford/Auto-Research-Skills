@@ -123,3 +123,5 @@
 {"time": "2026-11-20T07:30:51Z", "role": "figures-ra", "action": "run", "detail": "tab-main exit=0"}
 {"time": "2026-11-20T07:30:51Z", "role": "figures-ra", "action": "run-superseded", "detail": "tab-falsification archived to runs/.superseded/tab-falsification-20261120T070032Z"}
 {"time": "2026-11-20T07:30:51Z", "role": "figures-ra", "action": "run", "detail": "tab-falsification exit=0"}
+{"time": "2026-11-20T07:31:59Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
+{"time": "2026-11-20T07:32:06Z", "role": "replicator", "action": "rerun-passed", "detail": "fourth run 15/15 after claims.jsonl wording edit and tab reruns"}

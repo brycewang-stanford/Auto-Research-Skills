@@ -2,7 +2,7 @@
 
 ## Outcome of the clean rerun (2026-11-20)
 
-Table below: the third run (crew.py commit 87890ae, `replication.json` created 07:16:07Z).
+Table below: the third run (crew.py commit 87890ae, `replication.json` created 07:16:07Z). The fourth run, described below, also passed 15 of 15.
 
 `crew.py rerun` **PASSED**: 15 of 15 runs reproduced, in a fresh environment built from
 `code/requirements.txt` alone (27 pinned packages, Python 3.12.11). `replication.json` has
@@ -53,6 +53,13 @@ top-level `env.crew_python` as the tool's own interpreter. Attempt 2's record pu
 interpreter ran the analysis. In the third run, every run entry records `python: 3.12.11` and
 `command_executable: .venv/bin/python`; the top-level `crew_python: 3.14.6` is the tool only.
 Pass/fail is unchanged: 15 of 15 match.
+
+**Fourth run (passed, 15 of 15), same procedure.** Repeated on crew.py main at a6d7c45
+(`replication.json` created 07:31:59Z) because the Econometrician edited two claim texts in
+`claims.jsonl` (values unchanged) and reran `tab-main` and `tab-falsification` with `--replace`,
+which declare `claims.jsonl` as an input. The earlier `replication.json` was then older than
+those two runs. Every run entry records `python: 3.12.11`. The table above is still the
+third run's; the fourth run's per-run result is in `replication.json`, with 15 of 15 matching.
 
 ## Environment
 
