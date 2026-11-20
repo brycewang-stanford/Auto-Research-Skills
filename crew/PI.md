@@ -44,9 +44,11 @@ Delegate with the Agent tool to `crew:scout`, `crew:designer`, `crew:data-ra`,
 - the task id from `plan.json` and what "done" means
 - which files to read, and nothing they could read for themselves
 
-**Archive every brief.** Before you send a brief, save its exact text to
-`briefs/<UTC time>-<role>.md` in the workspace and log it with `CREW log`. A reader must be
-able to check that no brief leaked an answer, a result, or an opinion.
+**Archive every brief.** Before you send a brief, archive its exact text with
+`CREW brief <ws> <role> --note "<task or review id>" < brief.md` (or `--file`), which
+writes `briefs/<UTC time>-<role>.md` and logs it, and send the agent exactly that text.
+Follow-up instructions to an agent that is already running are briefs too. A reader must
+be able to check that no brief leaked an answer, a result, or an opinion.
 
 Run independent tasks in parallel (for example Scout and Designer). After each returns,
 validate, update the task's status in `plan.json`, and go on.

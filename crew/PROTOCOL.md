@@ -212,6 +212,7 @@ python3 crew.py run <ws> --id … --role … --kind … [--code …] [--input �
 python3 crew.py review <ws> <review-id>          # record a review and stamp the files it read
 python3 crew.py numbers <ws>                     # paper/numbers.tex and paper/process.tex
 python3 crew.py log <ws> --role <role> --action <verb> [--detail "…"]
+python3 crew.py brief <ws> <role> [--file brief.md] [--note "…"]   # archive a brief in briefs/ and log it
 python3 crew.py rerun <ws> [--rtol 1e-6] [--reuse-data] [--setup "<shell command>"]
 python3 cross_review.py <ws> <target> <round> [--model …]   # Reviewer on another provider's model
 ```

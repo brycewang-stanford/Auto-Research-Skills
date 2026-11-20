@@ -426,6 +426,22 @@ class ProtocolTwoTest(unittest.TestCase):
         self.assertTrue((self.ws / "briefs").is_dir())
         self.assertEqual(json.loads((self.ws / "crew.json").read_text())["protocol"], "0.2")
 
+    def test_brief_is_archived_and_logged(self) -> None:
+        source = Path(self.tmp.name) / "b.md"
+        source.write_text("You are the Scout. Task: q-novelty.")
+        first = call("brief", str(self.ws), "scout", "--file", str(source), "--note", "q-novelty")
+        second = call("brief", str(self.ws), "scout", "--file", str(source))
+        self.assertEqual((first[0], second[0]), (0, 0))
+        paths = sorted((self.ws / "briefs").glob("*-scout*.md"))
+        self.assertEqual(len(paths), 2)
+        self.assertEqual(paths[0].read_text(), "You are the Scout. Task: q-novelty.\n")
+        log = [json.loads(l) for l in (self.ws / "log.jsonl").read_text().splitlines()]
+        archived = [e for e in log if e["action"] == "brief-archived"]
+        self.assertEqual(len(archived), 2)
+        self.assertIn("(q-novelty)", archived[0]["detail"])
+        source.write_text("  ")
+        self.assertEqual(call("brief", str(self.ws), "scout", "--file", str(source))[0], 1)
+
     def test_analysis_needs_a_passing_code_review_of_this_code(self) -> None:
         self.h.to_design()
         self.write_script(0.5)

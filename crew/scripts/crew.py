@@ -1349,6 +1349,27 @@ def cmd_log(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_brief(args: argparse.Namespace) -> int:
+    ws = require_workspace(args.workspace)
+    text = Path(args.file).read_text(encoding="utf-8") if args.file else sys.stdin.read()
+    if not text.strip():
+        print("ERROR: the brief is empty", file=sys.stderr)
+        return 1
+    stamp = now().replace("-", "").replace(":", "")
+    folder = ws / "briefs"
+    folder.mkdir(exist_ok=True)
+    target = folder / f"{stamp}-{args.role}.md"
+    n = 1
+    while target.exists():
+        n += 1
+        target = folder / f"{stamp}-{args.role}-{n}.md"
+    target.write_text(text if text.endswith("\n") else text + "\n", encoding="utf-8")
+    detail = f"{args.role} {target.stem.split('-', 1)[0]}" + (f" ({args.note})" if args.note else "")
+    append_log(ws, "pi", "brief-archived", detail)
+    print(target)
+    return 0
+
+
 def cmd_numbers(args: argparse.Namespace) -> int:
     ws = require_workspace(args.workspace)
     claims, errors = read_claims(ws)
@@ -1432,6 +1453,13 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--action", required=True, help="short verb, e.g. sources-verified")
     p.add_argument("--detail", help="one line of detail")
     p.set_defaults(func=cmd_log)
+
+    p = sub.add_parser("brief", help="archive a brief (from --file or stdin) in briefs/ and log it; prints its path")
+    p.add_argument("workspace")
+    p.add_argument("role", choices=[r for r in ROLES if r != "pi"])
+    p.add_argument("--file", help="read the brief from this file instead of stdin")
+    p.add_argument("--note", help="what the brief is for, e.g. design-r2")
+    p.set_defaults(func=cmd_brief)
 
     p = sub.add_parser("numbers", help="render paper/numbers.tex from claims.jsonl")
     p.add_argument("workspace")
