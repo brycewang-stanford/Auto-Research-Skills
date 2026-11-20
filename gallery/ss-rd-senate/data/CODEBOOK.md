@@ -62,9 +62,10 @@ Compared with CCFT (2017), Section 7.2, p. 390 and p. 392, and CFT (2015), Secti
 | Year range | 1914 to 2010 | 1914 to 2010 | Match |
 | Variable names | `vote`, `margin`, and the covariates named in the source | as listed above | Match |
 
-Not checked: the source's printed summary statistics (means, SDs) and the 8-covariate
-list in CFT (2015). The summary statistics were not compared here, because the brief
-bars any statistic of `vote` before the design gate.
+Not checked here: the 8-covariate list in CFT (2015), and the printed balance-test
+regressions in CCFT (2017) p. 397 (those are regressions of covariates on margin, reserved
+for the design-stage tests). The printed summary statistics for non-outcome variables were
+compared in the design-stage checks below.
 
 Discrepancies: none found in the checks above. The covariate missingness (282 rows for
 `termshouse` and `termssenate`) was not compared with any source, because the source's
@@ -75,3 +76,72 @@ missing-value counts were not checked.
 No restriction is applied. Any sample restriction (for example, a bandwidth window or a
 requirement of non-missing covariates) follows the approved design and will be applied
 in a later data-prep run.
+
+## Design-stage checks (dr-checks)
+
+Run `dr-checks` (`code/prepare_checks.py`, metrics in `runs/dr-checks/metrics.json`) on
+2026-11-20. The script computes no statistic of `vote` by side of the cutoff and no regression.
+The only use of `vote` is a count of non-missing cases by side (595 left, 702 right).
+
+### Ties and mass points in `margin`
+
+| Sample | Obs | Distinct values | Values shared by 2+ obs | Obs at a shared value | Largest multiplicity |
+|---|---|---|---|---|---|
+| All rows with non-missing `margin` | 1,390 | 1,352 | 2 | 40 (2.9%) | 38 at +100 |
+| \|`margin`\| <= 30 | 995 | 995 | 0 | 0 | 1 |
+
+- The only mass points are at the bounds of the running variable: +100 (38 observations) and
+  -100 (2 observations). No other value is shared. The within-30 sample has no ties.
+- The 38 observations at +100 lie far outside any bandwidth used in the design (h = 17.708,
+  b = 27.984, and the 2014 values 16.79 and 27.44), so they do not enter the H1 targets.
+  Whether they are unopposed races is an interpretation, not verified against the source.
+- 97.1% of margins are non-integer, so ties do not come from rounding.
+
+### Printed descriptive statistics versus the file
+
+Printed values: CCFT (2017), Sec. 7.2, `sum vote margin class termshouse termssenate population`,
+p. 390 (Stata output; the file is `rdrobust_senate.dta`). PDF sha256
+`c41e81d2b3763ea5e2ac060747f7c6a22cf6ae3f7fd27d44dfece82e2fe63c8a`, read from the Scout's
+scratchpad copy (`pdftotext`). Matching is at the printed precision.
+
+| Variable | Statistic | Printed | File | Match |
+|---|---|---|---|---|
+| margin | Obs | 1,390 | 1,390 | Yes |
+| margin | Mean | 7.171159 | 7.171159 | Yes |
+| margin | SD | 34.32488 | 34.32488 | Yes |
+| margin | Min / Max | -100 / 100 | -100 / 100 | Yes |
+| class | Obs | 1,390 | 1,390 | Yes |
+| class | Mean | 2.023022 | 2.023022 (raw 2.0230216) | Yes |
+| class | SD | 0.8231983 | 0.8231983 | Yes |
+| class | Min / Max | 1 / 3 | 1 / 3 | Yes |
+| termshouse | Obs | 1,108 | 1,108 | Yes |
+| termshouse | Mean / SD | 1.436823 / 2.357133 | 1.436823 / 2.357133 | Yes |
+| termshouse | Min / Max | 0 / 16 | 0 / 16 | Yes |
+| termssenate | Obs | 1,108 | 1,108 | Yes |
+| termssenate | Mean / SD | 4.555957 / 3.720294 | 4.555957 / 3.720294 | Yes |
+| termssenate | Min / Max | 1 / 20 | 1 / 20 | Yes |
+| population | Obs | 1,390 | 1,390 | Yes |
+| population | Mean / SD | 3,827,919 / 4,436,950 | 3,827,919 / 4,436,950 | Yes |
+| population | Min / Max | 78,000 / 3.73e+07 | 78,000 / 37,253,956 | Yes |
+
+The 1,108 observations for `termshouse` and `termssenate` are the rows with non-missing
+values, which matches the 282 missing rows recorded above.
+
+### Counts printed elsewhere in Sec. 7.2 (non-missing outcome, counts only)
+
+| Statistic | Printed | File | Match |
+|---|---|---|---|
+| Non-missing `vote` (N), p. 390 | 1,297 | 1,297 | Yes |
+| N left of cutoff, p. 391 and p. 392 | 595 | 595 | Yes |
+| N right of cutoff, p. 391 and p. 392 | 702 | 702 | Yes |
+| Closest negative `margin` to 0, rdbwselect output, p. 400 | -0.079 | -0.0789 | Yes |
+| Closest non-negative `margin` to 0, rdbwselect output, p. 400 | 0.036 | 0.0357 | Yes |
+
+The p. 400 minimum and maximum (-100 and 100 on the two sides) also match.
+
+### Result
+
+No discrepancy found in any compared statistic. The file matches the file used in the printed
+output on every row count, moment and bound that Sec. 7.2 reports for non-outcome variables and
+for the outcome's non-missing count. Printed values agree at their printed precision.
+

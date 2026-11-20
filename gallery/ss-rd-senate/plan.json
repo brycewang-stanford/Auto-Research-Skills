@@ -30,14 +30,17 @@
       "id": "dr-checks",
       "title": "Design-stage data checks (data-prep, no vote statistic): ties and mass points in margin; compare the CSV's printed moments for margin, class and population with CCFT 2017 Sec. 7.2 (or other printed descriptive statistics) to establish that the file matches the one used; report in data/CODEBOOK.md",
       "owner": "data-ra",
-      "status": "todo"
+      "status": "done"
     }
   ],
   "gates": {
     "question": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-20T04:02:58Z",
-      "summary": "question-r2 revise, no critical open; minor fixes made; F4/F7/F8 assigned to design stage"
+      "summary": "question-r2 revise, no critical open; minor fixes made; F4/F7/F8 assigned to design stage",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-20T04:22:30Z",
+      "note": "批准 (in chat, after question-r2 revise; F4/F7/F8 assigned to the design stage)"
     },
     "design": {
       "status": "pending"
