@@ -1,0 +1,121 @@
+{
+  "id": "question-r2",
+  "target": "question",
+  "round": 2,
+  "created": "2026-11-20T12:17:27Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew.json",
+    "plan.json",
+    "log.jsonl",
+    "sources/notes.md",
+    "sources/sources.json",
+    "claims.jsonl",
+    "data/manifest.json",
+    "reviews/question-r1/review.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "briefs/20261120T121606Z-reviewer.md",
+    "briefs/20261120T120931Z-scout.md"
+  ],
+  "kill_argument": "Even after the fixes, everything this paper adds beyond a fourth reproduction of Card's numbers is the reduced form restated. With one instrument the effective F is the robust first-stage F, the robust AR test of zero is the robust reduced-form t test, and the AR-based Conley-Hansen-Rossi breakdown point is the reduced form's lower 95% bound; the plan already predicts each from printed numbers (F about 15, breakdown about 0.010). Cinelli and Hazlett publish the AR set and an exclusion sensitivity analysis on column 5, Steiner et al. a direct-effect analysis that breaks between 0.01 and 0.02, and Bi et al. column 6's F and CI. And none of the checks touches the 0.132 (0.049) basic estimate the question calls 'the IV conclusion'. This is now a replication note that says so; that is what it should be called. What I tried and it held: every question-r1 finding against plan.json; the breakdown and MDE arithmetic; the Steiner et al. numbers against arXiv 2511.16029; runs/ and code/ empty (no pre-gate results); crew.py validate passes; seed-claim mapping explicit.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Specification mismatch between the question and the robustness hypotheses. The question asks 'how much of the IV conclusion survives' weak-IV-robust inference and exclusion violations, and H1 names Card's basic specification (Table 3 Panel B col 6: family background included, experience endogenous) as the primary target. H2-H5 are instead fixed on Panel A col 5, which omits all 14 family-background controls. Panel A col 6 (0.140 (0.055), first stage 0.322 (0.083)) also has a single endogenous regressor and keeps the family-background controls, yet the plan gives no reason for choosing col 5 over col 6. The choice matters for H4. Per the Scout's own reading of Carr and Kitagawa (2021), instrument validity is rejected with few covariates and not rejected with Card's full covariate set. Running the exclusion-sensitivity check on the specification without family background tests the version of the design that Card himself did not prefer. H4 also anchors delta to Card's Table 5 direct effects, which come from an experience-endogenous model with family background, so they do not belong to the specification H4 uses.",
+      "evidence": "plan.json question ('how much of the IV conclusion survives'), hypotheses H1 (primary = Panel B) vs H2-H5 ('Panel A column 5 specification'); sources/notes.md sec. 1 Table 3 and sec. 3 Carr-Kitagawa row; sec. 5 item 7.",
+      "response": "Fixed: H2-H5 now take Panel A column 6 (one endogenous regressor, family background kept) as primary, with column 5 alongside for comparison with the literature; H4's reference scale quotes Card's Table 5 with its specification caveat.",
+      "ruling": "plan.json H2-H5 now name Panel A column 6 (one endogenous regressor, family background kept) as primary with column 5 alongside; H2 states that no weak-instrument test is reported for the three-endogenous Panel B model; H4 quotes Card's Table 5 direct effects with the experience-endogenous caveat. The question sentence itself was not narrowed; that residue is carried as F7 (minor).",
+      "remedy": "Cheapest: pre-specify H2-H5 on Panel A col 6 (single endogenous, family background), or on both col 5 and col 6 with col 6 primary, and say in the question that the checks concern the experience-exogenous analogue of the basic specification, not Panel B itself. Alternatively, narrow the question's wording so it does not claim to stress 'the IV conclusion'. Re-anchor or drop the Table 5 scale for H4."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Missed prior work that answers H3 and H4 on exactly the H2-H5 specification. Cinelli and Hazlett, 'An omitted variable bias framework for sensitivity analysis of instrumental variables' (Biometrika 2025; R/Stata package iv.sensemakr), use Card's data as their running example (n = 3,010; outcome lwage, treatment educ, instrument nearc4; covariates exper, expersq, black, south, smsa, reg661-reg668, smsa66, i.e. Panel A col 5). They report an Anderson-Rubin 95% interval [0.025, 0.285] (t = 2.33) and a sensitivity analysis covering both exclusion violations ('side-effects') and instrument confounding: robustness value 0.67% and extreme robustness value 0.05%. With confounders as strong as 'black' or 'smsa', their bounds give a lower CI below zero. I checked this in the package vignette (cran.dcc.uchile.cl/web/packages/iv.sensemakr/vignettes/iv.sensemakr.html) and the NSF PAR record par.nsf.gov/biblio/10614775. The contribution says that in the Scout's search none of the three checks was reported on Card's own specification. For the heteroskedasticity-robust AR set and the CHR parametrisation specifically, that may still be literally true, but the substantive questions (a weak-IV-robust interval, and how large an exclusion violation overturns the result) are answered and published on this specification. The 2025 'statistician's guide to weak-instrument-robust inference' (arXiv 2508.12474) also uses Card as a running example; it was not checked by the Scout.",
+      "evidence": "plan.json contribution ('none of the three was reported on Card's own specification'); sources/notes.md sec. 3 and sec. 6 (neither source listed); sources/sources.json (no record).",
+      "response": "Fixed: the Scout fetched and recorded Cinelli and Hazlett (2025), arXiv 2508.12474 (Londschien), Steiner, Houssineau and Steel, and Delbianco; contribution rewritten to state what is already published and to claim only the robust versions on column 6.",
+      "ruling": "sources/sources.json now has records for cinelli2025omitted, ivsensemakr, londschien2025guide, steiner2025possibilistic, delbianco2026testing and sloczynski2024abadie, with citation claims in claims.jsonl. The contribution now says what is already published (homoskedastic AR and partial-R2 sensitivity on column 5; direct-effect sensitivity on a near-Card specification) and claims only the robust versions on column 6. I checked the Steiner et al. numbers against arXiv 2511.16029 (covariates, A = [0, 0.02] and [0, 0.04], Table 5 lower probabilities 1, 1, 0.887, 0.748, 0.517, mode just below 0.15): they match notes and c-steiner.",
+      "remedy": "The Scout fetches and records Cinelli and Hazlett (2025) and arXiv 2508.12474, and the plan restates the contribution: the AR set and an exclusion sensitivity analysis exist for Panel A col 5 (homoskedastic AR; partial-R2 parametrisation). What this paper adds is the heteroskedasticity-robust version, the CHR delta parametrisation and the logged rerun, and it compares its numbers with Cinelli and Hazlett's. If F1 moves the checks to col 6, say that this is the specification difference."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Parts of H3 and H4 are near-deterministic restatements of published reduced-form numbers, and the plan does not say so. (a) With one instrument, the AR statistic at beta0 = 0 is exactly the test that the reduced-form coefficient on nearc4 is zero. So H3(a), 'AR set excludes 0', is the robust reduced-form t-test, and Card prints 0.042 (0.018), t of about 2.3. (b) H4 specifies Conley-Hansen-Rossi union-of-confidence-intervals built from ordinary 2SLS Wald intervals at each gamma0. Those intervals have the very weak-instrument size distortion that H2 expects (F of about 13, below 16.38 and 23.11), so the H4 breakdown point is not robust to the problem the paper itself flags. If H4 instead inverts the AR test at each gamma0, then 0 enters the union when gamma0 reaches the lower confidence bound of the reduced form (about 0.042 - 1.96*0.018 = 0.007 log points), and delta as a share of the reduced form is about 1 - 1.96/t_RF. Either way the reader should know the answer is essentially arithmetic on the reduced form, which is already below Card's own Table 5 direct-effect estimates (0.013-0.015).",
+      "evidence": "plan.json H3 (decision rule a), H4 ('union-of-confidence-intervals', no statement of which interval), H2 (weak instrument expected); sources/notes.md sec. 4 (CHR eq. 6 uses the usual 2SLS interval) and sec. 1 Table 3 row 4.",
+      "response": "Fixed: H3 and H4 now state the one-instrument equivalences (AR test of 0 = robust reduced-form t test; AR-based CHR breakdown = reduced-form lower bound, predicted values 0.010 and 0.007 written in the plan); the AR-based CHR is primary and the Wald union only a secondary non-robust comparison.",
+      "ruling": "H3 now states that the AR test of 0 is the robust reduced-form t test; H4 is AR-based (Wald union only secondary) and states that the breakdown point equals the reduced-form lower bound, with predicted values. I checked the arithmetic: 0.045 - 1.96 x 0.018 = 0.0097 and 0.042 - 1.96 x 0.018 = 0.0067, as written.",
+      "remedy": "Fix H4's interval before the design gate: AR-based (weak-IV robust) as primary, with the Wald-based CHR as secondary if wanted. State in H3 and H4 the equivalences with the reduced-form test and confidence bound, so that neither is presented as a finding independent of the reduced form. Narrowing the contribution sentence accordingly is enough; no new analysis is needed."
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H5 plans a 'design-stage run' on the study data before the design gate, and that run cannot deliver what it promises. A first-stage regression on nls.dat before the design is approved is a pilot result: it reveals H2's outcome (the first-stage F) before the design is fixed. As an analysis run the tool refuses it before the design gate, and labelling it data-prep would misuse the run kinds. Separately, the minimum detectable IV-OLS difference cannot come 'from the first stage alone': the standard error of b_IV - b_OLS depends on the structural error variance, which needs the outcome. The published numbers already give the MDE without touching the data: for Panel A col 5, about 2.8*sqrt(0.055^2 - 0.003^2) = 0.15 log points (col 6 is similar).",
+      "evidence": "plan.json H5 ('computed in a design-stage run from the first stage alone (no outcome regression)'); crew/PROTOCOL.md Runs (analysis only after the design gate); crew/agents/reviewer.md (no pilot results before the design gate).",
+      "response": "Fixed: the design-stage first-stage run is dropped; the H5 MDE is computed now from the published standard errors (0.153 for column 6, 0.154 for column 5) with no data run.",
+      "ruling": "The design-stage first-stage run is gone; runs/ and code/ are empty. H5 gives the MDE from published SEs: 2.8 x sqrt(0.055^2 - 0.004^2) = 0.1536 and 2.8 x sqrt(0.055^2 - 0.003^2) = 0.1538, both 0.154 as the plan says (the response's '0.153 for column 6' is a slip in the response only, not in the plan).",
+      "remedy": "Compute the MDE from the published standard errors (state the formula, 80% power, 5% two-sided) in the design text, with no run. Alternatively, compute it after the design gate as part of the H5 analysis run and report it alongside the test."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H3(b) and H5 both decide whether the IV return exceeds the OLS return, with different tests (an AR set against a fixed OLS point, and a robust control-function test). The plan does not say which governs if they disagree. Comparing the AR set with the OLS point also ignores OLS sampling error (small, about 0.003). Under heterogeneous returns, which the plan itself adopts, 'IV > OLS' does not identify ability bias or a structural quantity, so the paper should not read either outcome as one.",
+      "evidence": "plan.json H3(b), H5, contribution (LATE interpretation).",
+      "response": "Fixed: H3(b) removed; H5 is the only IV-vs-OLS test and is reported descriptively under the heterogeneous-returns reading.",
+      "ruling": "H3(b) is removed; H5 is the only IV-vs-OLS test and is described as descriptive under heterogeneous returns. The reading of a non-rejection is raised separately as F8.",
+      "remedy": "Name one as the primary decision on IV vs OLS, say what is reported if they conflict, and add a sentence that the comparison is descriptive under heterogeneity."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H1 names 'Table 3 Panel B' as the primary target but never states the column. The log entry says col 6, and the controls described imply it, but plan.json should say so: Panel B col 6 for the IV estimate, col 2 for the first stage, col 4 for the reduced form, and Table 2 col 5 for OLS. Panel B col 5 prints 0.122 (0.046). The seed requires result claims iv-return, iv-return-se, first-stage and ols-return, and the plan does not say they map to the primary (Panel B col 6) rather than the secondary target. Note also that Kling (2001) reports the Table 2 col 5 OLS SE as .003 against Card's .004. The H1 three-decimal SE rule may therefore sit on a rounding knife-edge for that SE; that is acceptable, but expect it.",
+      "evidence": "plan.json H1; log.jsonl 2026-11-20T12:05:10Z ('Panel B col 6 (primary)'); seed task.json requirements; sources/notes.md sec. 3 Kling row.",
+      "response": "Fixed: H1 names the column of every target and maps the seed claims (iv-return, iv-return-se, first-stage, ols-return) to the primary specification; the OLS s.e. rounding boundary (Kling .003 vs Card .004) is stated and the value will be reported to four decimals.",
+      "ruling": "H1 names table, panel and column for every target, maps iv-return, iv-return-se, first-stage and ols-return to Panel B col 6 / col 2 / Table 2 col 5, and states the Kling .003 vs .004 rounding boundary with four-decimal reporting.",
+      "remedy": "Add table/panel/column for every H1 target, and map each seed claim id to the primary specification."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "The wording still claims more than the robustness layer stresses. plan.json question asks 'how much of the IV conclusion survives' weak-IV-robust inference and exclusion violations, but the IV conclusion H1 names as primary is Panel B col 6, 0.132 (0.049), and H2-H5 run only on Panel A cols 5-6; nothing in the robustness layer touches the three-endogenous basic estimate. Separately, plan.json contribution calls Panel A column 6 'Card's preferred one-endogenous-regressor specification'. Card states no preference among the Panel A columns; his stated basic specification is Panel B col 6 (sources/notes.md sec. 1, Table 4 text p. 14). Panel A col 6 is the crew's choice, made after question-r1 F1.",
+      "evidence": "plan.json question (final clause), contribution ('Card's preferred one-endogenous-regressor specification'); sources/notes.md sec. 1 (Table 4 row 1 = Panel B col 6) and sec. 5 item 2.",
+      "response": "Fixed: the question now says the robustness checks are on the experience-exogenous counterparts (Panel A columns 6 and 5) and that Panel B column 6 is replicated without weak-IV-robust inference; 'Card's preferred' replaced by a neutral description stating the crew chose column 6.",
+      "ruling": "",
+      "remedy": "Wording only: in the question, say the robustness checks concern the experience-exogenous analogue of the basic specification (Panel A col 6, col 5 alongside), not the 0.132 (0.049) estimate itself; in the contribution, replace 'Card's preferred' with 'the single-endogenous-regressor column of Card's Table 3 that keeps the family-background controls'. The paper must carry the same wording."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "open",
+      "text": "H5 reads a non-rejection as 'no evidence of a difference larger than about 0.15'. That is not what an MDE licenses: a non-rejection with MDE 0.154 says only that a difference of 0.154 would have been detected 80% of the time. The data remain consistent with larger differences: from published numbers the conventional 95% interval for the column-6 difference is about 0.067 +/- 1.96 x 0.055 = [-0.04, 0.17], whose upper end exceeds 0.15. The MDE is also computed from the homoskedastic Hausman variance (difference of conventional variances, valid only when OLS is efficient under the null), while the test H5 specifies is a heteroskedasticity-robust control-function test; the two need not agree.",
+      "evidence": "plan.json H5 ('read only as no evidence of a difference larger than about 0.15'; MDE formula from conventional SEs); sources/notes.md sec. 1 (Card fn 17, variance of the difference).",
+      "response": "Fixed: H5 now reports the robust 95% CI of the IV-OLS difference and reads a non-rejection through it; the MDEs are labelled approximations from conventional standard errors.",
+      "ruling": "",
+      "remedy": "Pre-specify that H5 reports the robust 95% confidence interval for the IV-OLS difference alongside the test, and read a non-rejection through that interval ('differences between L and U are consistent with the data'); label the 0.154 MDE as an approximation from conventional SEs. No new analysis before the design gate."
+    }
+  ],
+  "files_sha256": {
+    "crew.json": "c625c92d54f2a36652fdfdd2c1e30a97dce4463eafbde8824f9aa6e1ed8fedcb",
+    "plan.json": "6decffecf504b8b99caec16833c05430f6c4623eecd9e0c680016ae3815b31be",
+    "log.jsonl": "89dde7784367b6e068e1e7556e5a2867b2435802f42af511056487f442a2b9f8",
+    "sources/notes.md": "c5dc6e2838736be882c1c523089b8b9a603566ece4482762fc88477da21248bc",
+    "sources/sources.json": "103b2566777eb545cf70f7b59e06c9421807335f75d5782caf5b67c4e711a5e7",
+    "claims.jsonl": "e1160a2faf54e9d6983865ea32b9a1789c42950fd5c61852382d52285eaadc3e",
+    "data/manifest.json": "2c8482bb4631741f1dfa766e32f5eeb696b00cf6066ccc98169bf513d85e74ba",
+    "reviews/question-r1/review.json": "caba688ebc5ddee8032fbb070b0b3f3a8304cd45824dcffe200d9dec66b62591",
+    "reviews/REVIEWER_MEMORY.md": "8dfa2c536b0c1884ac2a29797a01018eb0d829449d33ea8f5543deb8ee003d9d",
+    "briefs/20261120T121606Z-reviewer.md": "ad5ca7bf195bf154bdd0d827151a22c833c960c330a6af96bbe777de4d4aa010",
+    "briefs/20261120T120931Z-scout.md": "15f639664e562bf721b6a5e9392962508bafb5798cd47ebd1f02cb500a2bd0aa"
+  },
+  "recorded": "2026-11-20T12:18:04Z"
+}

@@ -1,0 +1,197 @@
+{
+  "card1993nber": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w4483",
+    "url": "https://www.nber.org/system/files/working_papers/w4483/w4483.pdf",
+    "note": "NBER WP 4483, October 1993 (title page and abstract page). 37-page scan without a text layer: OCR'd with tesseract at 300 dpi; every number in sources/notes.md from Tables 1-5 (PDF pp. 33-37) was read from the page images, not from OCR. Metadata confirmed on Crossref (DOI 10.3386/w4483, Card, 1993-10). This is the version whose tables are quoted."
+  },
+  "card1995chapter": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-catalogue-record",
+    "url": "https://librarycatalog.ecu.edu/catalog/591727",
+    "note": "The chapter text was NOT reachable. Verified only bibliographically: the volume (title, editors Christofides/Grant/Swidinsky, University of Toronto Press, Toronto; Buffalo, 1995, xv+286 pp., ISBN 0802028640) from the ECU library catalogue record; the chapter page range 201-222 from two fetched secondary references (Blandhol et al. 2025 reference list; rdocumentation wooldridge::card). The claim that the chapter has 'the same title and identical tables' is Card's own, in code_bk.txt of proximity.zip; it is not checked. Cite for the published version only; every number comes from card1993nber."
+  },
+  "card1994earnings": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w4832",
+    "url": "https://www.nber.org/system/files/working_papers/w4832/w4832.pdf",
+    "note": "Downloaded and OCR'd: title 'Earnings, Schooling, and Ability Revisited', NBER WP 4832, August 1994 (PDF pp. 1-2); Crossref agrees. Recorded only to document that the codebook's and the seed brief's citation 'NBER Working Paper 4832, August 1994' for the proximity paper is wrong; the proximity paper is WP 4483."
+  },
+  "cardproximitydata": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://davidcard.berkeley.edu/data_sets/proximity.zip",
+    "note": "Downloaded 2026-11-20 to the scout scratchpad (sha256 of the zip 0e9b2ad4182ea631ca3dd8a5fff6c1b0ab86b56c6a3fa868870f716e8d82691f; contents code_bk.txt, nls.dat, read1.lst, read1.sas, readme, all dated 2002-05-30). Read readme, code_bk.txt and read1.sas only. nls.dat was not opened and read1.lst was opened only to identify it (SAS listing of read1.sas output). No licence statement in the zip."
+  },
+  "kling2001interpreting": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1198/073500101681020006",
+    "url": "https://www.nber.org/system/files/working_papers/w7989/w7989.pdf",
+    "note": "Full text read is the NBER WP 7989 version (October 2000, 28 pp.); journal metadata (JBES 19(3), 358-364, July 2001) from Crossref. Numbers quoted (Table 1, section 3) are from the WP; the journal version was not seen."
+  },
+  "blandhol2025tsls": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w29709",
+    "url": "https://www.nber.org/system/files/working_papers/w29709/w29709.pdf",
+    "note": "NBER WP 29709 revised January 2025; section 6.1, Table 3 and Tables SA.3-SA.4 read from pdftotext. A Review of Economic Studies manuscript version exists (restud.com) and was not read."
+  },
+  "bi2020inferring": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://arxiv.org/abs/2003.06723",
+    "note": "arXiv v1, 14 March 2020; section 6.1 and its Table 1 read. No journal version found on Crossref."
+  },
+  "kang2021ivmodel": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1353/obs.2021.0029",
+    "url": "https://arxiv.org/abs/2002.08457",
+    "note": "Full text read is arXiv v2 (8 July 2020, 24 pp.); section 7 (Card application) read. Journal metadata (Observational Studies 7(2), 1-24, 2021) from Crossref."
+  },
+  "ivmodelscard": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://ivmodels.readthedocs.io/en/stable/examples/card1993using.html",
+    "note": "Software documentation page (Python ivmodels), read via WebFetch. No author or version printed on the page; repository github.com/mlondschien/ivmodels. Uses an over-identified instrument set, not nearc4 alone. The same example and numbers appear in Londschien (2025) (londschien2025guide), so the page is Londschien's ivmodels documentation."
+  },
+  "wooldridgecarddata": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.rdocumentation.org/packages/wooldridge/versions/1.4-7/topics/card",
+    "note": "Dataset documentation page: 3010 obs, 34 variables, exper = age - educ - 6, source Card (1995) pp. 201-222."
+  },
+  "kitagawa2015test": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.3982/ECTA11974",
+    "url": "https://econometricsociety.org/publications/econometrica/2015/09/01/test-instrument-validity",
+    "note": "Abstract page only (full text behind login). The abstract does not mention the Card application; its result on Card's instrument is known here only through carr2021testing (secondary)."
+  },
+  "carr2021testing": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://arxiv.org/abs/2112.08092",
+    "note": "arXiv v1, 9 December 2021; abstract, introduction and section 5.1 read."
+  },
+  "anderson1949estimation": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "doi-resolved",
+    "doi": "10.1214/aoms/1177730090",
+    "url": "https://projecteuclid.org/euclid.aoms/1177730090",
+    "note": "DOI resolves to Project Euclid; metadata from Crossref. Full text not read; cite only as the origin of the AR statistic (the heteroskedasticity-robust form is described in andrews2019weak)."
+  },
+  "stock2002testing": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/t0284",
+    "url": "https://www.nber.org/system/files/working_papers/t0284/t0284.pdf",
+    "note": "NBER Technical WP 284, October 2002, 73 pp. Critical values read from Table 1 (TSLS bias, printed p. 58) and Table 2 (TSLS size, printed p. 59) via pdftotext."
+  },
+  "stock2005testing": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "doi-resolved",
+    "doi": "10.1017/CBO9780511614491.006",
+    "note": "Published chapter metadata from Crossref (pp. 80-108, Cambridge UP, 2005). Text not read; the published table numbering (often cited as Table 5.2) is not verified. Numbers are quoted from stock2002testing."
+  },
+  "montielolea2013robust": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1080/00401706.2013.806694",
+    "url": "https://cpflueger.github.io/carolinpflueger_repository/MOP_FINAL_May14.pdf",
+    "note": "Author-hosted final manuscript (dated April 2013, 39 pp.). The DOI (Crossref; resolves to tandfonline) carries a Technometrics-style prefix but is the JBES 31(3) 358-369 article. Critical values from Table 1 and pp. 2-10 of the manuscript; the journal typeset version was not seen."
+  },
+  "andrews2019weak": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1146/annurev-economics-080218-025643",
+    "url": "https://par.nsf.gov/servlets/purl/10142670",
+    "note": "Accepted manuscript dated 20 November 2018 (41 pp.) from NSF PAR; recommendations on p. 3 and sections 4-5 read. Journal metadata from Crossref."
+  },
+  "conley2012plausibly": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1162/REST_a_00139",
+    "url": "https://www.princeton.edu/~erp/erp%20seminar%20pdfs/papersspring09/Rossi%20paper%202.pdf",
+    "note": "Full text read is the 31 July 2008 draft (48 pp.); section 4.1 (union of confidence intervals) and section 6.3 read. Journal metadata (REStat 94(1), 260-272, Feb 2012) from Crossref; the published text was not seen."
+  },
+  "clarke2018practical": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://ageconsearch.umn.edu/record/340263/files/Clarke.pdf",
+    "note": "Stata Journal 18(3), 663-691 (from the article's first page). Full text downloaded; the abstract was read and the text searched: it introduces plausexog (CHR 2012) and imperfectiv (Nevo-Rosen 2012) and contains no match for 'card' or 'proximity', so it does not use Card's data."
+  },
+  "lee2022valid": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1257/aer.20211063",
+    "url": "https://arxiv.org/abs/2010.05058",
+    "note": "Full text read is arXiv v1 (15 October 2020). The 104.7 and 3.43 values are from its abstract and Results 2b/2c; journal metadata (AER 112(10), 3260-3290) from Crossref; the published version was not compared."
+  },
+  "cinelli2025omitted": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1093/biomet/asaf004",
+    "url": "https://par.nsf.gov/servlets/purl/10614775",
+    "note": "NSF PAR accepted manuscript (19 pp.), read via pdftotext: sec. 2 (Card running example, n = 3,010, PDF p. 3-5), classical homoskedastic SEs (p. 6), sec. 5 and Table 2 'Minimal sensitivity reporting' (PDF p. 15-16), Fig. 1 (p. 17). Metadata (Biometrika 112(2), article asaf004, 2025) from Crossref and the NSF PAR record par.nsf.gov/biblio/10614775. The manuscript text gives the covariates only as 'race, experience, and a set of regional factors'; the exact list comes from the vignette (ivsensemakr). Typeset version and Supplementary Material not read."
+  },
+  "ivsensemakr": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://cran.dcc.uchile.cl/web/packages/iv.sensemakr/vignettes/iv.sensemakr.html",
+    "note": "Package vignette dated 2026-02-09, read via WebFetch (first 100,000 of 217,129 characters, which contain the Card model code and output). Gives covariates exper, expersq, black, south, smsa, reg661-reg668, smsa66; OLS 0.07469326; AR CI [0.025, 0.285]; RV 0.00667; XRV 0.000523; bounds for 1x black and 1x smsa. CRAN DOI 10.32614/CRAN.package.iv.sensemakr from Crossref."
+  },
+  "londschien2025guide": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://arxiv.org/abs/2508.12474",
+    "note": "arXiv v1, 17 August 2025, 83 pp.; sec. 2.1 (PDF p. 4), 3.1, 4 (tests at beta = 0, PDF p. 18), 6 (confidence sets, PDF p. 29) read. Numbers identical to the ivmodels documentation page (ivmodelscard). No journal version found."
+  },
+  "steiner2025possibilistic": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://arxiv.org/abs/2511.16029",
+    "note": "arXiv v3, 3 July 2026; sec. 5.3 and Table 5 read via pdftotext. Crossref finds no published version."
+  },
+  "delbianco2026testing": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://arxiv.org/abs/2603.13505",
+    "note": "arXiv v2, 10 September 2026; abstract, sec. 5 and Table 2 read. Crossref finds no published version."
+  },
+  "sloczynski2024abadie": {
+    "verified_on": "2026-11-20",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://arxiv.org/abs/2204.07672",
+    "note": "arXiv v4, 28 February 2024; sec. 4.2 and Table 3 read. Crossref lists only SSRN versions (10.2139/ssrn.4114817); a journal version was not checked."
+  }
+}
