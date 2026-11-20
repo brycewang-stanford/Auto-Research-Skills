@@ -206,3 +206,22 @@ Suspicions and checks for round 4 (the last round):
 - F23: check the two comparator rulings and their times in Section 6 item 2.
 - Carried from code and design targets, still minor and open: code-r3 F7 (bw_capped positive branch tested only on forced inputs), F8 (H3 b baseline is the printed 27.984), F9 (static no-vote guard is a substring match). Design-r3 F12/F13 resolved by PI ruling or disclosure.
 - Round 4 is the last. Open after it, for the human: any of F18 to F24 the Writer does not fix; the paper's core limits stay: H1 pass conditional on 'off', the 2016 masspoints setting unverified, falsification tests report-only or underpowered, no state clustering.
+
+## paper-r4 (2026-11-20, verdict revise; last round)
+
+Status of paper-r3 findings: F1, F6, F11 to F21, F23, F24 resolved (F21 with a nit: the massPoints=False bandwidths are not recorded). F22 open, partly (Sec. 6 item 1 names the density MDE and SE; the Sec. 3.4 pre-gate sentence does not). F18 resolved in the heading, but its scope is the question-stage gap in F27.
+
+New open in round 4 (the human decides after this round):
+- F25 (major): abstract, intro and conclusion say the default output is reproduced within tolerance without naming masspoints='off'. The software default 'adjust' misses the bandwidth (17.754 against 17.708) and two covariate p-values.
+- F26 (major): ai-use says the manuscript was approved at four gates; three are decided and the submission gate is pending.
+- F27 (major): ai-use 'accepted over the Reviewer: one' omits question-r2 F4, F7, F8 (deferred by the human at the question gate, plan.json) and F9 (answered by the PI, never re-reviewed). F8 is only partly met.
+- F22 (minor), F28 (minor: '84 percent' is 83.3 from unrounded metrics; my r3 check accepted it from rounded macros, which was wrong), F29 (minor: a6d7c45 is a gallery commit; crew.py last changed at 87890ae), F30 (minor: two NaN metrics in h2-density, T_Q_asy and p_Q_asy, counted as reproduced and not named), F31 (minor: unit-test command has a session scratchpad path), F32 (minor: typesetting spaces after macros), F33 (carried code-r3 F7 and F9, disclosed), F34 (ai-use review count must become 15 rounds and paper four once this round is recorded).
+
+Checks run this round, none on outcome data: crew.py validate (passes); status; all 122 result claims equal their first supporting run metric (script over claims.jsonl and runs/*/metrics.json); replication.json has 15 match records, created 07:31:59Z, newer than every run; tab-main and tab-falsification runs (07:30:50Z, 07:30:51Z) and claims.jsonl (07:30:35Z edit) are older than replication.json; rdrobust rdbwselect.py (masspoints default 'adjust', mass share threshold 0.2 for the bwcheck, 0.053 is below it) and rddensity funs.py/rddensity.py (mass points enter only through tied observations, which lie outside the density windows) read; NaN metrics scanned across runs/*/metrics.json (only h2-density T_Q_asy and p_Q_asy); PDF text and figure pages 7 and 8 read against the macros and captions (figures consistent with the reported values; the fitted density gap at 0 is about 0.0036, the same size as the estimate).
+
+Lessons for any later round on this workspace:
+- Check derived numbers from unrounded metrics, not from printed macros (F28).
+- Check that every disclosure of an approval matches plan.json gates and the ledger (F26, F27).
+- A tool fix that makes a rerun pass must name the metrics it changes the result for (F30).
+
+I ran no model or estimate on the study data, computed no statistic of vote, and did not open the seed task or any answer key.

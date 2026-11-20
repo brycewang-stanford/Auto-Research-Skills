@@ -1,0 +1,298 @@
+{
+  "id": "paper-r4",
+  "target": "paper",
+  "round": 4,
+  "created": "2026-11-20T07:37:36Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew/agents/reviewer.md",
+    "crew/PROTOCOL.md",
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "refs.bib",
+    "replication.json",
+    "REPLICATION.md",
+    "log.jsonl",
+    "paper/main.tex",
+    "paper/ai-use.tex",
+    "paper/numbers.tex",
+    "paper/main.pdf",
+    "paper/figures/fig_rd.pdf (rendered page 7)",
+    "paper/figures/fig_density.pdf (rendered page 8)",
+    "sources/sources.json",
+    "sources/notes.md",
+    "runs/NOTES.md",
+    "data/CODEBOOK.md",
+    "data/manifest.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/paper-r1/review.json",
+    "reviews/paper-r2/review.json",
+    "reviews/paper-r3/review.json",
+    "reviews/question-r1/review.json",
+    "reviews/question-r2/review.json",
+    "reviews/design-r1/review.json",
+    "reviews/design-r2/review.json",
+    "reviews/design-r3/review.json",
+    "reviews/code-r1/review.json",
+    "reviews/code-r2/review.json",
+    "reviews/code-r3/review.json",
+    "reviews/results-r1/review.json",
+    "reviews/results-r2/review.json",
+    "reviews/results-r3/review.json",
+    "code/design_mde.py",
+    "code/prepare_checks.py",
+    "code/h2_density.py",
+    "code/test_analysis.py",
+    "runs/*/run.json (all, read by script)",
+    "runs/*/metrics.json (all, read by script)",
+    "runs/h2-density/metrics.json",
+    "runs/design-mde/metrics.json",
+    "runs/unit-tests/run.json",
+    ".venv/lib/python3.12/site-packages/rdrobust/rdbwselect.py (lines 495-510, 640-650)",
+    ".venv/lib/python3.12/site-packages/rddensity/funs.py (lines 300-345)",
+    ".venv/lib/python3.12/site-packages/rddensity/rddensity.py (lines 180-262)",
+    "git log (history of crew/scripts/crew.py and gallery commits)"
+  ],
+  "kill_argument": "The headline reproduces Calonico et al.'s printed output, and the pass depends on a setting the paper calls unverified. Under rdrobust 2.1.1's software default (masspoints='adjust') the bandwidth is 17.754 against the printed 17.708, outside the 0.0005 rule fixed in advance, and two covariate p-values miss their printed values. The pass exists only under masspoints='off', which the Designer chose knowing the targets. The abstract and conclusion say the default output is reproduced within tolerance without naming the setting. The falsification battery cannot carry the rest: each non-rejection sits under an MDE several times the estimate (density 0.011 against -0.0035; population 2.2 million against -318,455; selection 11.6 pp against -6.2 pp), the placebos carry no test, and the selection interval [-14.5, 1.8] pp is never tied to the vote estimate. The AI-use statement says the manuscript was signed off at four gates, but the submission gate is pending, and four major question-stage findings sit open in the record. I tried to break the arithmetic, and it held: all 122 result claims equal their run metrics, the Holm values and the rounding of the pp conversions check out, and the masspoints code paths in rdrobust and rddensity behave as the paper says.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Carried from paper-r2. The 'kept it open at design-r2' wording is gone from ai-use.tex.",
+      "evidence": "paper/ai-use.tex 'Findings accepted' bullet; reviews/design-r2 and design-r3 F4 withdrawn",
+      "response": "",
+      "ruling": "Resolved in r3. Stays resolved."
+    },
+    {
+      "id": "F6",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Carried from paper-r2. Three clean reruns are described with commits and the per-run python field.",
+      "evidence": "paper/main.tex Sec. 6 item 9; replication.json",
+      "response": "",
+      "ruling": "Resolved in r3. The fourth-run commit reference is a new finding, F29."
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r2. Section 2 names termshouse and termssenate as the covariates missing on the same rows (N 1,108).",
+      "evidence": "paper/main.tex Sec. 2",
+      "response": "",
+      "ruling": "Resolved in r3."
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r2. Mass share is described as repeats beyond the first (0.053 = 37/702).",
+      "evidence": "paper/main.tex Sec. 2; claims rd-mass-share-right",
+      "response": "",
+      "ruling": "Resolved in r3."
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r2. H2(c) medians are over all margins; placebo estimates use the observed-outcome subsample.",
+      "evidence": "paper/main.tex Sec. 3.4 and 4.2",
+      "response": "",
+      "ruling": "Resolved in r3."
+    },
+    {
+      "id": "F14",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r2. bw_capped caveat reworded; the positive branch is stated as untested on output.",
+      "evidence": "paper/main.tex Sec. 4.2 H2(c)",
+      "response": "",
+      "ruling": "Resolved in r3."
+    },
+    {
+      "id": "F15",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r2. 'default-option output' removed from the printed p-value discussion.",
+      "evidence": "paper/main.tex Sec. 4.2 H2(b); grep finds no 'default-option'",
+      "response": "",
+      "ruling": "Resolved in r3."
+    },
+    {
+      "id": "F16",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r2. Review-round count in ai-use matched the records through paper-r3 (14 rounds, paper 3).",
+      "evidence": "paper/ai-use.tex 'Review' bullet",
+      "response": "",
+      "ruling": "Resolved through paper-r3. It goes stale when this round is recorded; see F34."
+    },
+    {
+      "id": "F17",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r2. Eggers et al. is stated as 'likely to hold', and the CFT full-text mirror is recorded.",
+      "evidence": "paper/main.tex Sec. 5; sources/notes.md; paper/ai-use.tex",
+      "response": "",
+      "ruling": "Resolved in r3."
+    },
+    {
+      "id": "F18",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Carried from paper-r3. The ai-use heading read 'None' above a bullet describing an accepted finding (design-r1 F4).",
+      "evidence": "paper/ai-use.tex 'Findings accepted over the Reviewer: one'",
+      "response": "Done. The heading now names design-r1 F4 and its ruling and withdrawal.",
+      "ruling": "Resolved. The heading and body now agree on design-r1 F4. Its scope is incomplete; see F27."
+    },
+    {
+      "id": "F19",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r3. 'Within tolerance' was applied to the bias bandwidth b, which the rule does not test.",
+      "evidence": "paper/main.tex Sec. 3.3 and Sec. 4.1",
+      "response": "Done.",
+      "ruling": "Resolved. Sec. 3.3 now gives b = 27.98412 against 27.984 and says b is not a tolerance target."
+    },
+    {
+      "id": "F20",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r3. The robust density p-value was called both primary and equal weight.",
+      "evidence": "paper/main.tex Sec. 3.4 and 4.2; claims rd-density-p, rd-density-p-conv",
+      "response": "Done.",
+      "ruling": "Resolved. 'equal weight' is gone from paper and claims. The claim texts now say the robust p-value is primary and decides."
+    },
+    {
+      "id": "F21",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r3. The identical massPoints=False p-value needed a stated reason.",
+      "evidence": "paper/main.tex Sec. 4.2 (Density); runs/h2-density/metrics.json; .venv rddensity funs.py 324-330 and rddensity.py 245-258",
+      "response": "Done. Sec. 4.2 gives the code-path reason and says it was not tested separately.",
+      "ruling": "Resolved. I read the code. Mass-point ranks and jackknife masses change only for tied observations, and the ties at +/-100 lie outside the recorded density windows (19.84 and 27.12), so no windowed observation changes. Nit: the bandwidths for the massPoints=False run are not recorded, so 'outside both density bandwidths' holds for the recorded bandwidths only."
+    },
+    {
+      "id": "F22",
+      "severity": "minor",
+      "status": "open",
+      "text": "Partly addressed. Sec. 6 item 1 now names the density-difference estimate, its jackknife SE and the density MDE (0.01136) as pre-gate values from design-mde. The Sec. 3.4 pre-gate sentence still lists only 'the robust density statistic' and 'the covariate standard errors', and the abstract does not mention the density MDE.",
+      "evidence": "paper/main.tex Sec. 3.4 ('Two computations came before the design gate'); Sec. 6 item 1; runs/design-mde/metrics.json (h2a_mde_density_diff, h2a_se_jk_null)",
+      "response": "Done (Sec. 6 item 1 only).",
+      "ruling": "Open, minor. Add the density-difference MDE and SE to the Sec. 3.4 pre-gate sentence, so the in-text pre-gate list matches Sec. 6 item 1 and Table 2."
+    },
+    {
+      "id": "F23",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r3. The comparator rulings at code-r1 (05:31:36Z) and code-r2 (05:37:58Z) were not in the text.",
+      "evidence": "paper/main.tex Sec. 6 item 2; log.jsonl",
+      "response": "Done.",
+      "ruling": "Resolved. Both rulings and the first analysis run (start 05:44:25Z, end 05:44:27Z) are now given."
+    },
+    {
+      "id": "F24",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Carried from paper-r3. REPLICATION.md did not say which run its table reported.",
+      "evidence": "REPLICATION.md 'Outcome of the clean rerun'",
+      "response": "Fixed in REPLICATION.md.",
+      "ruling": "Resolved. The table is labelled as the third run (87890ae, 07:16:07Z). The fourth-run paragraph has a wrong commit reference; see F29."
+    },
+    {
+      "id": "F25",
+      "severity": "major",
+      "status": "open",
+      "text": "The abstract, the introduction (second paragraph: 'the default output is reproduced within the tolerance') and the conclusion say the default output is reproduced within tolerance, and none names the setting. The body (Sec. 3.3, Sec. 4.1, Table 1) shows that the software default, masspoints='adjust', misses the bandwidth tolerance (17.754 against 17.708) and two covariate p-values (0.896 against 0.897; 0.900 against 0.901), and that the pass is conditional on 'off', an assumption the Designer chose knowing the targets. The plan's code-stage disclosure calls the printed p.397 values 'the output of rdrobust's default options', which in 2.1.1 is 'adjust'. The paper uses 'default' for the printed output, for the software default, and for its primary setting, so a reader who stops at the abstract gets a pass the body does not give.",
+      "evidence": "paper/main.tex abstract, Sec. 1 para 2, Sec. 7; Sec. 3.3, Sec. 4.1, Table 1 notes; runs/h1-rdrobust/metrics.json (adj_h_left 17.754); .venv rdrobust rdbwselect.py (masspoints default 'adjust'); plan.json disclosures (code stage, first entry)",
+      "response": "",
+      "ruling": "Cheapest remedy, no new run: in the abstract and conclusion, say the printed output is reproduced under masspoints='off', which is not the software default, and that the software default does not reproduce the printed bandwidth. Replace 'default output' with 'printed output' where the setting is meant."
+    },
+    {
+      "id": "F26",
+      "severity": "major",
+      "status": "open",
+      "text": "ai-use.tex says the human 'approved the research question, the design, the results and this manuscript at four gates'. The ledger has three approved gates (question 04:22:30Z, design 05:23:23Z, results 06:54:01Z). The submission gate is pending (plan.json gates.submission; crew.py status). The statement asserts an approval that has not happened.",
+      "evidence": "paper/ai-use.tex lines 4-6; plan.json gates; log.jsonl gate entries",
+      "response": "",
+      "ruling": "The human must either give the submission decision, or the sentence must say three gates were decided and the submission gate is pending. The Reviewer does not decide gates."
+    },
+    {
+      "id": "F27",
+      "severity": "major",
+      "status": "open",
+      "text": "'Findings accepted over the Reviewer: one' omits open major findings from question-r2. The question gate was decided at 04:22:30Z with F4, F7 and F8 deferred to the design stage by the human (plan.json gates.question note), and F9 answered by the PI at 04:02:58Z but never re-reviewed (the question target has no round 3). All four records still read 'open'. The design stage addressed their substance: MDEs and equivalence wording (F4), the dr-checks (F7), a data check (F8), and one-sided placebos (F9). F8 is only partly met: the CSV is not the .dta that CCFT used, and the outcome's moments were not compared before the H1 run. Sec. 2 and Sec. 5 disclose that, but the paper does not say it is the status of question-r2 F8.",
+      "evidence": "reviews/question-r2/review.json F4, F7, F8, F9 (status open); plan.json gates.question; log.jsonl 04:02:58Z and 04:22:30Z; paper/ai-use.tex 'Findings accepted' bullet; paper/main.tex Sec. 2 and Sec. 5",
+      "response": "",
+      "ruling": "Add a bullet listing question-r2 F4, F7, F8 (deferred by the human at the question gate, with the design-stage response) and F9 (answered by the PI, not re-reviewed), with the status of each and the partial status of F8. Change 'one' to the true count."
+    },
+    {
+      "id": "F28",
+      "severity": "minor",
+      "status": "open",
+      "text": "Sec. 4.2 (H2(d)) says the point estimate is 'about 84 percent' of the H1 estimate. From the unrounded metrics it is 6.1802 / 7.4160 = 83.3 percent. The 84 comes from the rounded macros (-0.062 and 7.416), which give 83.6. The arithmetic is done by pgf on printed macros, so the rounding enters the sentence. The r3 check accepted 84 from the same rounded inputs; that check was wrong.",
+      "evidence": "paper/main.tex Sec. 4.2 (H2(d)); paper/numbers.tex RdSelectionCoef, RdEffect; runs/h2-selection/metrics.json coef; runs/h1-rdrobust/metrics.json off_conv_coef",
+      "response": "",
+      "ruling": "Add a claim for the ratio computed from the unrounded metrics, and use its macro, or print 83 percent. Either way the sentence should be checked against the metrics."
+    },
+    {
+      "id": "F29",
+      "severity": "minor",
+      "status": "open",
+      "text": "The fourth rerun is said to have run 'on crew.py at commit a6d7c45' (Sec. 6 item 9; ai-use 'Clean reruns'; REPLICATION.md 'Repeated on crew.py main at a6d7c45'). a6d7c45 is a gallery commit ('density p-value claim wording'). The last crew.py change is 87890ae, which is an ancestor of HEAD, and replication.json records no commit. The reference is wrong, though the tool version is identifiable.",
+      "evidence": "git log -- crew/scripts/crew.py (top 87890ae); a6d7c45 touches the gallery only; paper/main.tex Sec. 6 item 9; paper/ai-use.tex; REPLICATION.md",
+      "response": "",
+      "ruling": "Cite 87890ae for the tool and a6d7c45 for the workspace state, in all three places."
+    },
+    {
+      "id": "F30",
+      "severity": "minor",
+      "status": "open",
+      "text": "The rerun's NaN rule counts a metric that is NaN in both runs as reproduced. runs/h2-density/metrics.json has two such metrics, T_Q_asy and p_Q_asy, which plan.json names as the case behind the tool fix. So the fourth '15 of 15' includes two metrics that were not compared. Sec. 6 item 9 says 'a metric that is NaN' without naming them, and the paper does not report either one.",
+      "evidence": "runs/h2-density/metrics.json (T_Q_asy, p_Q_asy NaN); plan.json disclosures (replication stage); paper/main.tex Sec. 6 item 9",
+      "response": "",
+      "ruling": "Name the two metrics in Sec. 6 item 9 and in REPLICATION.md, and say that they are not reported or used."
+    },
+    {
+      "id": "F31",
+      "severity": "minor",
+      "status": "open",
+      "text": "The unit-tests run command includes a session scratchpad path under /private/tmp/claude-501/. The rerun passed on this machine, but the recorded command cannot be reproduced from the workspace alone, which REPLICATION.md presents as the standard.",
+      "evidence": "runs/unit-tests/run.json (command); code/test_analysis.py lines 93-96; REPLICATION.md 'Reproduce'",
+      "response": "",
+      "ruling": "Either disclose the path in REPLICATION.md, or default the scratch directory to a workspace path and rerun. The test is synthetic-only, so the rerun is cheap."
+    },
+    {
+      "id": "F32",
+      "severity": "minor",
+      "status": "open",
+      "text": "Typesetting: a macro followed by a word loses its space. Sec. 2 reads '1,108elections' and '0.053(counting'. Sec. 4.2 (H2(b)) reads '1.000and 1.000'.",
+      "evidence": "paper/main.pdf pages 2 and 5 (pdftotext -layout)",
+      "response": "",
+      "ruling": "Add a backslash-space or {} after the macros. No number changes."
+    },
+    {
+      "id": "F33",
+      "severity": "minor",
+      "status": "open",
+      "text": "Carried from code-r3 F7 and F9. The positive bw_capped branch is untested on real output, and the static 'no vote read' guard is a substring match. Sec. 6 item 10 discloses both, so the paper now states them.",
+      "evidence": "paper/main.tex Sec. 4.2 and Sec. 6 item 10; reviews/code-r3/review.json F7, F9",
+      "response": "",
+      "ruling": "Disclosed limitations. Nothing more is needed in the paper. The code ledger still reads open, and the guard fix belongs to a later code round."
+    },
+    {
+      "id": "F34",
+      "severity": "minor",
+      "status": "open",
+      "text": "Required update, not an error today. Once paper-r4 is recorded, the ai-use review count is 15 rounds, paper is four rounds, and paper has not passed. The Writer must change the 'Review' bullet and the 'paper stage has been reviewed three times' sentence.",
+      "evidence": "paper/ai-use.tex 'Review' bullet; reviews/*/review.json",
+      "response": "",
+      "ruling": "Update ai-use.tex after the human reads this record."
+    }
+  ]
+}
