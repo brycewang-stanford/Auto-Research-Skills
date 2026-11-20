@@ -80,3 +80,17 @@ Suspicions and checks for next round or the results stage:
 - H2(c): check that bw_capped and bw_max are reported for each side, and that no result sentence states a non-rejection.
 - H2(d): check that the run happens after the gate and that vote_observed is the only input.
 - Paper: the printed-value comparison must state its setting (F1); the pre-gate design-mde disclosure must appear in the text; the local-estimand and no-state-clustering caveats must appear.
+
+## code-r2 (2026-11-20, verdict revise)
+
+Status of code-r1 findings: F1 open, raised from minor to major (the printed-value comparator is tied to 'adjust' under a rationale that contradicts the design's own 2016 assumption, 'off'); F2 withdrawn (literal fields disclosed in NOTES, not cited); F3 resolved (SE and MDE checked against design-mde metrics, with match and mismatch tests); F4 resolved (tolerance_flags and estimate tests; 43 of 43 on synthetic data in scratch); F5 withdrawn (disclosure in plan.json; run records use the 1,297-row sample).
+
+New open findings: F6 (minor, NOTES.md says the Reviewer verified the raw hash against the seed task; no reviewer did, and I did not open the seed this round); F7 (minor, the bw_capped flag's positive branch has no test and never fired in 60 random one-sided synthetic samples).
+
+Suspicions and checks for the results stage:
+- H1 run: check that the pass or fail is judged on 'off' only, that 'adjust' was not run after a failure, and that the H3 (v) row was not used to choose; check that the h1 M and side counts cited are the 1,297-row ones.
+- H2(b): check which reading the paper's comparison uses (F1). If it is 'adjust', the paper must say the comparison is not evidence for 'off' or 'adjust'.
+- H2(c): check that the paper reports bw_capped only as recorded, that no non-rejection wording appears, and that c_L and c_R come from h2-placebo metrics (design-r3 F11 resolved).
+- H2(d): check that h2-selection ran after the gate and that vote_observed was the only input.
+- Paper: the pre-gate design-mde computations (density p = 0.381, covariate SEs) must be disclosed in the text; the local-estimand and no-state-clustering caveats must appear.
+- I ran no analysis script on the study data and computed no statistic of vote. I ran code/test_analysis.py on synthetic data in the scratch directory (43 of 43). I did not open the seed task or any answer key. I read the raw CSV only for its sha256.

@@ -1,0 +1,65 @@
+{
+  "id": "unit-tests",
+  "role": "econometrician",
+  "kind": "data-prep",
+  "command": [
+    ".venv/bin/python",
+    "code/test_analysis.py",
+    "runs/unit-tests/metrics.json",
+    "/private/tmp/claude-501/-Users-brycewang-Auto-Research-Skills/ffa26d1a-3847-4b9f-922a-ae897a37d092/scratchpad/senate-econ"
+  ],
+  "started": "2026-11-20T05:33:16Z",
+  "finished": "2026-11-20T05:33:25Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/test_analysis.py",
+      "sha256": "b745dd5569690061b07a45eb96745628e5ffcd09887ff877c5344f6a186e074f"
+    },
+    {
+      "path": "code/h1_replication.py",
+      "sha256": "1f9092b0599baab1a88c2d54d2b51aeee4f66126fa8026e82099aeaa332ad98a"
+    },
+    {
+      "path": "code/h2_density.py",
+      "sha256": "3d170ebcf7df9f5ddd40b9a1aa4e57c566891442425ba8d4ed727c566f78c54d"
+    },
+    {
+      "path": "code/h2_covariates.py",
+      "sha256": "870148d69044dce73413510f9ee79ce1b7d5ae7effe541b9e22e30dd1d486696"
+    },
+    {
+      "path": "code/h2_placebo.py",
+      "sha256": "bef94401120199d04a1859cdd12c18b8526def1f70bdf26c9e99aafcdc1dbe81"
+    },
+    {
+      "path": "code/h2_selection.py",
+      "sha256": "0080e611abe1b3fe51aa3adfeed7f694dfd45fa998f0d18c752622a6ea583e6e"
+    },
+    {
+      "path": "code/h3_sensitivity.py",
+      "sha256": "da0bd6b3f3a408f913a0c038097a3dc9fc7506f9afd82bd183749d41b04da72e"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "runs/unit-tests/metrics.json",
+      "sha256": "fd7ac7e606f23ca87936afa17ac7e222507e52dc2e7cf9dd3ffc3fbdfb380214"
+    }
+  ],
+  "metrics": {
+    "tests_total": 43,
+    "tests_passed": 43,
+    "tests_failed": 0,
+    "failures": []
+  },
+  "metrics_file": "runs/unit-tests/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}

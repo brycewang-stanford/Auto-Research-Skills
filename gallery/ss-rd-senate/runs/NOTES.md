@@ -55,7 +55,15 @@ Two recorded metrics are literals written by scripts that have already run; thos
 - `runs/design-mde/metrics.json` field `outcome_loaded` is written as the constant 0 by `code/design_mde.py`. It is true by construction (the script reads only `margin` and the covariates through `usecols`), but nothing in the run measures it.
 - `runs/fetch-data/metrics.json` field `sha256_matches_seed` is written as the constant 1 by `code/fetch_data.py` after a check against a constant hard-coded in that file. The field shows agreement with that constant, not with the seed task.
 
-The Reviewer verified the hash of the raw file against the seed task and the absence of `vote` reads in the design-stage scripts independently, by reading the code and the data files, not from these fields.
+The raw file's sha256 (def1fc6b...2ad44) matches `data/manifest.json` and the constant in `code/fetch_data.py`. It has not been checked against the seed task by any reviewer. The absence of `vote` reads is verified for `design_mde.py`, `h2_density.py` and `h2_covariates.py` by `usecols` and by the static check in `test_analysis.py`.
+
+## bw_capped flag (code-r2 F7)
+
+The positive branch of `bw_capped` is exercised by a unit test, not only by the full script. `test_analysis.py` fits `rdrobust` on a synthetic one-sided sample with h and b forced to `bw_max`, and checks that `capped_flag()` in `h2_placebo.py` and `h2_covariates.py` returns 1; a bandwidth of half `bw_max` returns 0. The full placebo path cannot be forced to a cap by its inputs, so the flag is shown to fire on a real rdrobust output, not through `one_side()` end to end.
+
+## Printed comparison (code-r2 F1)
+
+`h2_covariates.py` compares the four CCFT p. 397 values under both settings: `*_off_minus_printed` and `*_off_printed_match` for 'off' (primary), and `*_adj_*` for 'adjust' (secondary). A match means agreement to 0.0005, the printed precision. Any paper statement must name the setting.
 
 ## Code-r1 changes (before any analysis run)
 

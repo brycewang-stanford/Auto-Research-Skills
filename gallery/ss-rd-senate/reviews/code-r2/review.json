@@ -1,0 +1,113 @@
+{
+  "id": "code-r2",
+  "target": "code",
+  "round": 2,
+  "created": "2026-11-20T05:37:08Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261120T053343Z-reviewer.md",
+    "crew/agents/reviewer.md",
+    "crew/PROTOCOL.md",
+    "plan.json",
+    "runs/NOTES.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/code-r1/review.json",
+    "reviews/design-r3/review.json",
+    "code/h1_replication.py",
+    "code/h2_density.py",
+    "code/h2_covariates.py",
+    "code/design_mde.py",
+    "code/h2_placebo.py",
+    "code/h2_selection.py",
+    "code/h3_sensitivity.py",
+    "code/test_analysis.py",
+    "code/prepare_checks.py",
+    "code/prepare_data.py",
+    "code/fetch_data.py (grep only)",
+    "code/requirements.txt",
+    "runs/design-mde/metrics.json",
+    "runs/design-mde/run.json",
+    "runs/prepare-data/metrics.json",
+    "runs/unit-tests/metrics.json",
+    "runs/unit-tests/run.json",
+    "runs/dr-checks/run.json",
+    "runs/fetch-data/run.json",
+    "data/manifest.json",
+    "data/raw/rdrobust_senate.csv (sha256 only; content not read)",
+    "sources/notes.md",
+    "log.jsonl (tail)",
+    ".venv/lib/python3.12/site-packages/rddensity/rddensity.py (lines 22-26, 375-425)",
+    ".venv/lib/python3.12/site-packages/rdrobust/rdbwselect.py (lines 600-660)",
+    ".venv/lib/python3.12/site-packages/rdrobust/rdrobust.py (grep)"
+  ],
+  "kill_argument": "This is a replication whose only reproduction target is a published number from a package version the authors do not name, and whose falsification battery cannot falsify. The H1 pass or failure is judged on masspoints = 'off', a setting the design assumes the 2016 release used, with no source in the workspace confirming it. The one check that could discriminate 'off' from 'adjust' against the 2016 output, the H2(b) comparison with CCFT's printed balance p-values, is wired to 'adjust' under a rationale that contradicts the design's own assumption. The density test and the covariate tests are nulls with minimum detectable differences of 0.011 density units, 0.40 to 2.09 covariate units and about 2.2 million persons, so non-rejection says little about balance. The placebo cutoffs are report-only with no decision attached. The unit tests run only on synthetic data, and the bandwidth-cap flag has never been shown to fire. I attacked the density useall identity, the side convention, the Holm step-down, the one-sided sample construction, the no-vote read paths and the tolerance rule; these held. What remains is a computational check of a printed number, and the paper can say no more than that.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "open",
+      "text": "The H2(b) printed-value comparison (`*_adj_minus_printed`) is computed against the masspoints='adjust' reading. The code-stage PI disclosure justifies this by saying the printed p-values are default-option output of the 2016 release, but the same disclosure says whether the 2016 default is 'adjust' or 'off' is unverified. The design's H1 assumption (design.method) takes the 2016 release to use no mass-point adjustment, which is 'off'. On the design's own premise the printed values are 'off' output, so the comparator is tied to the setting that 2.1.1 defaults to, not to 2016. The comparison is also the only check in the plan, apart from the H1 bandwidth, that can separate 'off' from 'adjust' against 2016 output, so a match at 'adjust' would be read as support the design does not license.",
+      "evidence": "plan.json disclosures (code stage, note 1) and design.method (H1 assumption paragraph); code/h2_covariates.py PRINTED_P_CCFT2017 and the `_adj_minus_printed` loop; runs/NOTES.md (H2(b) bullet); sources/notes.md line 22 (printed p-values, p. 397).",
+      "response": "PI: ruling reversed; 'off' is the primary comparison with p. 397, 'adjust' secondary (plan.json disclosure); the Econometrician adds the 'off' comparison to h2_covariates.py. | Econometrician: h2_covariates.py now records the printed comparison under both settings: off_minus_printed and off_printed_match (primary), adj_minus_printed and adj_printed_match (secondary); match means agreement to 0.0005.",
+      "ruling": "Rebuttal is wrong, so the finding stays open and is raised from minor to major. The disclosure ties the comparator to 'default-option output' but does not say which default the 2016 release had, and the design's own H1 assumption says 'off'. Cheapest remedy, either: (a) make the printed comparison at 'off' the primary reading and report 'adjust' as secondary, saying both in the paper; or (b) drop the match statement for H2(b) and report the four p-values at 'off' with no claim of agreement with CCFT p. 397. Either way the paper must not describe a match without naming the setting."
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "withdrawn",
+      "text": "Two recorded metrics are literals, not measurements: design_mde.py writes outcome_loaded = 0 and fetch_data.py writes sha256_matches_seed = 1 after a check against a constant in the same file.",
+      "evidence": "code/design_mde.py lines 36 and 39; code/fetch_data.py lines 18, 41 and 71; runs/design-mde/metrics.json; runs/fetch-data/metrics.json; runs/NOTES.md (Literal metric fields).",
+      "response": "PI: scripts already run and not edited; runs/NOTES.md states the fields are literal and that the Reviewer verified the hash and vote reads independently.",
+      "ruling": "Rebuttal right on the disclosure: runs/NOTES.md states that the two fields are literal, and no claim in claims.jsonl or in the plan relies on them. Withdrawn on condition that the paper does not cite outcome_loaded or sha256_matches_seed as a check. The NOTES sentence attributing a seed check to the Reviewer is wrong; see F6."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "h2_covariates.py did not compare its SEs and MDEs with the design-stage values.",
+      "evidence": "code/h2_covariates.py (reads runs/design-mde/metrics.json; per-covariate design_match flag); test_analysis.py covariate design match and mismatch checks.",
+      "response": "Fixed in code (declared input; match and mismatch tests).",
+      "ruling": "Checked. The design-mde values match the plan text to printed precision: SE 0.1431, 0.4998, 0.7462, 780,006 and MDE 0.401, 1.400, 2.091, 2,185,253 for class, termshouse, termssenate and population. The comparison is against the json rather than the plan text, which is the same source. The match and a 1% perturbation are both tested. Resolved."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Unit tests did not exercise the H1 tolerance flags, and the H1 estimate check accepted any value in (0, 6).",
+      "evidence": "code/test_analysis.py (tolerance checks; estimate check); code/h1_replication.py tolerance_flags().",
+      "response": "Fixed in tests: tolerance_flags() tested on exact, edge and failing inputs; synthetic true effect 3 checked to 0.25; static no-vote check covers design_mde.py.",
+      "ruling": "Checked. The tolerance tests cover exact pass, boundary pass, each flag failing alone, and the h edge at 0.0005. The estimate check is now within 0.25 of the true effect with the CI covering it. I reran test_analysis.py on synthetic data in the scratch directory: 43 of 43 passed. Resolved."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "withdrawn",
+      "text": "The plan's H1 'adjust' and bwcheck figures (1,352 distinct margins; 640 and 750 rows; 1 of 640; 0.05 of 750) are full-file counts, while H1 runs on 1,297 rows.",
+      "evidence": "plan.json design.method (H1 paragraph); code/h1_replication.py lines 84-97 (side counts on the estimation sample).",
+      "response": "PI: plan.json disclosure states the design-text counts are full-file; the paper cites the h1-rdrobust run's 1,297-row counts.",
+      "ruling": "Rebuttal right. The disclosure (code-stage note 2) says the design-text counts are for all 1,390 rows, and h1_replication.py records side counts, distinct values and mass shares on the 1,297-row sample. Withdrawn on condition that the paper cites the run's counts, not the design text's."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "runs/NOTES.md, 'Literal metric fields', says 'The Reviewer verified the hash of the raw file against the seed task and the absence of vote reads ... independently'. No reviewer checked the hash against the seed task. reviews/REVIEWER_MEMORY.md (question-r2) records that the seed was not opened, and I did not open it in this round. What I checked is that the file's sha256 (def1fc6b...2ad44) equals data/manifest.json and the constant in code/fetch_data.py. The attribution is therefore false as written and would be relied on by a referee.",
+      "evidence": "runs/NOTES.md, 'Literal metric fields' paragraph; reviews/REVIEWER_MEMORY.md question-r2 entry; code/fetch_data.py line 18.",
+      "response": "Fixed in runs/NOTES.md: the sha256 is stated as matching data/manifest.json and the constant in fetch_data.py, and not checked against the seed task by any reviewer.",
+      "ruling": "Strike the sentence or restate it as: 'sha256 matches data/manifest.json and the constant in fetch_data.py; not checked against the seed task by any reviewer.' The vote-read claim is supported for design_mde.py, h2_density.py and h2_covariates.py (usecols excludes vote, and the static check covers them), so only the seed attribution needs changing."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "open",
+      "text": "The bw_capped flag in h2_placebo.py and h2_covariates.py has no test in which it fires. test_analysis.py checks only that the flag is 0 or 1 and that bw_max matches the formula. In 60 random one-sided synthetic samples run in scratch, the rdrobust bandwidths never reached bw_max, so the positive branch of the flag is not shown to be reachable. The plan treats bw_capped = 1 as a 'boundary-limited' statement that is reported, so an unexercised flag could silently report 0.",
+      "evidence": "code/test_analysis.py (placebo flag check: `in (0, 1)`); code/h2_placebo.py one_side(), bw_capped; plan.json design.method (placebo bandwidth cap rule).",
+      "response": "Fixed in tests: capped_flag() is tested on a real rdrobust fit with h and b forced to bw_max (flag 1) and at half bw_max (flag 0); the full one_side() path cannot be forced to the cap, and NOTES says so.",
+      "ruling": "Either add a unit test that forces the comparison to fire (for example, call the flag logic with a bandwidth equal to bw_max), or state in runs/NOTES.md that the flag's positive path has not been exercised and the paper may report bw_capped only as recorded. The flag is probably 0 on the real data, but nothing shows that the code would say 1 if it were not."
+    }
+  ]
+}

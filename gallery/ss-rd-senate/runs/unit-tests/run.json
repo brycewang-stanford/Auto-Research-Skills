@@ -8,13 +8,13 @@
     "runs/unit-tests/metrics.json",
     "/private/tmp/claude-501/-Users-brycewang-Auto-Research-Skills/ffa26d1a-3847-4b9f-922a-ae897a37d092/scratchpad/senate-econ"
   ],
-  "started": "2026-11-20T05:33:16Z",
-  "finished": "2026-11-20T05:33:25Z",
+  "started": "2026-11-20T05:39:13Z",
+  "finished": "2026-11-20T05:39:22Z",
   "exit_code": 0,
   "code": [
     {
       "path": "code/test_analysis.py",
-      "sha256": "b745dd5569690061b07a45eb96745628e5ffcd09887ff877c5344f6a186e074f"
+      "sha256": "cf0f046efd83d7cd504d61bc4a0dd177e17d37b818a7ab8ff93d77849d54c04b"
     },
     {
       "path": "code/h1_replication.py",
@@ -26,11 +26,11 @@
     },
     {
       "path": "code/h2_covariates.py",
-      "sha256": "870148d69044dce73413510f9ee79ce1b7d5ae7effe541b9e22e30dd1d486696"
+      "sha256": "931e0e1f15f50838083e2ee844ddfb0b5811ec1f99a1d6a2907f155415d9401f"
     },
     {
       "path": "code/h2_placebo.py",
-      "sha256": "bef94401120199d04a1859cdd12c18b8526def1f70bdf26c9e99aafcdc1dbe81"
+      "sha256": "b884999909d57daff2b6782e557bccbf7b26835dd727bbb7fcaea33dffef47d0"
     },
     {
       "path": "code/h2_selection.py",
@@ -45,12 +45,12 @@
   "outputs": [
     {
       "path": "runs/unit-tests/metrics.json",
-      "sha256": "fd7ac7e606f23ca87936afa17ac7e222507e52dc2e7cf9dd3ffc3fbdfb380214"
+      "sha256": "6af9759942e16638c7176a32eebf9fd713d51d00b42ab244dbfdd529c49b2e29"
     }
   ],
   "metrics": {
-    "tests_total": 43,
-    "tests_passed": 43,
+    "tests_total": 49,
+    "tests_passed": 49,
     "tests_failed": 0,
     "failures": []
   },

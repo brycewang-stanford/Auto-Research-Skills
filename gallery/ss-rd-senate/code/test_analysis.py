@@ -19,6 +19,7 @@ import sys
 
 import numpy as np
 import pandas as pd
+from rdrobust import rdrobust
 from scipy.stats import norm
 
 WS = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -203,6 +204,37 @@ def main():
           and close(m_bad["class_se_minus_design"], -0.01 * true_vals["h2b_class_se_robust"], 1e-9))
     check("covariate adjust reading and printed comparison present",
           all(f"{c}_adj_p_robust" in m and f"{c}_adj_minus_printed" in m for c in n_cov))
+    # F1: printed comparison under both settings, 'off' primary and 'adjust' secondary.
+    check("printed comparison off and adjust: differences and flags consistent",
+          all(close(m[f"{c}_off_minus_printed"], m[f"{c}_p_robust"] - h2c.PRINTED_P_CCFT2017[c], 1e-12)
+              and close(m[f"{c}_adj_minus_printed"], m[f"{c}_adj_p_robust"] - h2c.PRINTED_P_CCFT2017[c], 1e-12)
+              and m[f"{c}_off_printed_match"] == int(abs(m[f"{c}_off_minus_printed"]) <= h2c.PRINT_TOL)
+              and m[f"{c}_adj_printed_match"] == int(abs(m[f"{c}_adj_minus_printed"]) <= h2c.PRINT_TOL)
+              for c in n_cov))
+    check("printed_match tolerance at printed precision",
+          h2c.printed_match(0.8975, 0.897) == 1 and h2c.printed_match(0.8985, 0.897) == 0
+          and h2c.printed_match(0.5610, 0.561) == 1)
+
+    # F7: force the bw_capped = 1 branch. A rdrobust fit whose final h and b are set equal to
+    # bw_max on a synthetic one-sided sample must give flag 1; a bandwidth below bw_max must give 0.
+    h2p = load_module("h2_placebo")
+    left_sample = e_left.reset_index(drop=True)
+    cL = float(df.loc[df["margin"] < 0, "margin"].median())
+    bwm_left = max(abs(cL - e_left["margin"].min()), abs(cL - e_left["margin"].max()))
+    yl = left_sample["vote"].to_numpy(float)
+    xl_arr = left_sample["margin"].to_numpy(float)
+    common = dict(c=cL, masspoints="off", p=1, q=2, kernel="tri", bwselect="mserd", vce="nn",
+                  nnmatch=3, level=95)
+    r_forced = rdrobust(y=yl, x=xl_arr, h=bwm_left, b=bwm_left, **common)
+    check("forced bw_capped: final h and b equal bw_max on the forced fit",
+          close(float(r_forced.bws.loc["h", "left"]), bwm_left, 1e-9)
+          and close(float(r_forced.bws.loc["b", "right"]), bwm_left, 1e-9))
+    check("forced bw_capped = 1 branch fires (placebo flag function)",
+          h2p.capped_flag(r_forced, bwm_left) == 1)
+    check("forced bw_capped = 1 branch fires (covariate flag function)",
+          h2c.capped_flag(r_forced, bwm_left) == 1)
+    r_below = rdrobust(y=yl, x=xl_arr, h=0.5 * bwm_left, b=0.5 * bwm_left, **common)
+    check("bandwidth below bw_max gives flag 0", h2p.capped_flag(r_below, bwm_left) == 0)
 
     # H2(c)
     m = scr("h2_placebo.py")

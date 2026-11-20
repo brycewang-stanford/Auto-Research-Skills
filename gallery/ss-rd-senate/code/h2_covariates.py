@@ -5,9 +5,11 @@ Decision reading: masspoints = 'off' (fixed at the design gate). Holm-adjusted
 p-values over the four covariates, within this family only, at 5%.
 
 Also recorded: the masspoints = 'adjust' reading (rdrobust 2.1.1 default) with
-its own Holm adjustment, and the four p-values printed in CCFT (2017, p. 397)
-for default options, compared with the 'adjust' reading (design-r3 F13). The
-printed p-values are reference constants; they are not used for any decision.
+its own Holm adjustment. The four p-values printed in CCFT (2017, p. 397) for
+default options are reference constants, compared under both settings: 'off'
+is the primary comparison, 'adjust' the secondary (code-r2 F1). Each comparison
+records the difference and a match flag (agreement to 0.0005). Neither is used
+for any decision.
 
 MDE per test = (z_0.975 + z_0.80) * robust SE, in covariate units.
 bw_capped = 1 when a final bandwidth equals bw_max = max(|c - x_min|, |c - x_max|)
@@ -53,6 +55,20 @@ def holm(pvals):
     return adj
 
 
+PRINT_TOL = 0.0005  # printed p-values are given to three decimals
+
+
+def printed_match(p, printed):
+    """1 when a computed p-value agrees with the printed one to the printed precision."""
+    return int(abs(p - printed) <= PRINT_TOL)
+
+
+def capped_flag(r, bwm):
+    """1 when a final bandwidth (h or b, either side) equals bw_max, i.e. the cap binds."""
+    hb = [float(r.bws.loc[k, s]) for k in ["h", "b"] for s in ["left", "right"]]
+    return int(any(math.isclose(v, bwm, rel_tol=0, abs_tol=1e-9) for v in hb))
+
+
 def bw_max_of(x):
     return max(abs(0.0 - float(x.min())), abs(0.0 - float(x.max())))
 
@@ -61,8 +77,6 @@ def run_one(cov, sub, masspoints):
     r = rdrobust(y=sub[cov].to_numpy(dtype=float), x=sub["margin"].to_numpy(dtype=float),
                  masspoints=masspoints, **OPTS)
     bwm = bw_max_of(sub["margin"])
-    hb = [float(r.bws.loc[k, s]) for k in ["h", "b"] for s in ["left", "right"]]
-    capped = any(math.isclose(v, bwm, rel_tol=0, abs_tol=1e-9) for v in hb)
     se = float(r.se.loc["Robust", "Std. Err."])
     return {
         "coef": float(r.coef.loc["Conventional", "Coeff"]),
@@ -76,7 +90,7 @@ def run_one(cov, sub, masspoints):
         "h_left": float(r.bws.loc["h", "left"]), "h_right": float(r.bws.loc["h", "right"]),
         "b_left": float(r.bws.loc["b", "left"]), "b_right": float(r.bws.loc["b", "right"]),
         "bw_max": bwm,
-        "bw_capped": int(capped),
+        "bw_capped": capped_flag(r, bwm),
         "mde": float(Z_MDE * se),
     }
 
@@ -118,7 +132,11 @@ def main():
                                        and math.isclose(m[f"{cov}_mde"], d_mde, rel_tol=1e-6))
     for cov in COVARIATES:
         m[f"{cov}_printed_p_ccft2017"] = PRINTED_P_CCFT2017[cov]
+        # Printed comparison under both settings: 'off' primary (decision setting), 'adjust' secondary.
+        m[f"{cov}_off_minus_printed"] = m[f"{cov}_p_robust"] - PRINTED_P_CCFT2017[cov]
+        m[f"{cov}_off_printed_match"] = printed_match(m[f"{cov}_p_robust"], PRINTED_P_CCFT2017[cov])
         m[f"{cov}_adj_minus_printed"] = m[f"{cov}_adj_p_robust"] - PRINTED_P_CCFT2017[cov]
+        m[f"{cov}_adj_printed_match"] = printed_match(m[f"{cov}_adj_p_robust"], PRINTED_P_CCFT2017[cov])
 
     os.makedirs(os.path.dirname(os.path.abspath(args.metrics)), exist_ok=True)
     with open(args.metrics, "w") as f:

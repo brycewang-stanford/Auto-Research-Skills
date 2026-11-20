@@ -50,3 +50,9 @@
 {"time": "2026-11-20T05:33:16Z", "role": "econometrician", "action": "run-superseded", "detail": "unit-tests archived to runs/.superseded/unit-tests-20261120T053316Z"}
 {"time": "2026-11-20T05:33:25Z", "role": "econometrician", "action": "run", "detail": "unit-tests exit=0"}
 {"time": "2026-11-20T05:33:31Z", "role": "econometrician", "action": "code-r1-fixes", "detail": "F3 design-mde SE/MDE comparison in h2_covariates; F4 tolerance_flags tests and tighter synthetic H1 check; F2 literal-field note in NOTES; unit-tests rerun with --replace: 43/43 synthetic. No real-data analysis run."}
+{"time": "2026-11-20T05:33:43Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T053343Z (code-r2)"}
+{"time": "2026-11-20T05:37:58Z", "role": "pi", "action": "disclosure-added", "detail": "code-r2 F1: H2(b) printed comparison primary on 'off'. plan.json sha256=0c84c3cd3886c0fe615542394002f38b7d6e826a183de2ba51b9d27612c924d4"}
+{"time": "2026-11-20T05:37:58Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T053758Z (code-r2 fixes)"}
+{"time": "2026-11-20T05:39:13Z", "role": "econometrician", "action": "run-superseded", "detail": "unit-tests archived to runs/.superseded/unit-tests-20261120T053325Z"}
+{"time": "2026-11-20T05:39:22Z", "role": "econometrician", "action": "run", "detail": "unit-tests exit=0"}
+{"time": "2026-11-20T05:39:28Z", "role": "econometrician", "action": "code-r2-fixes", "detail": "F1 printed comparison under off (primary) and adjust (secondary) with match flags; F6 NOTES sha256 attribution corrected; F7 forced bw_capped=1 test via capped_flag on rdrobust fit with h=b=bw_max; unit-tests rerun with --replace: 49/49 synthetic. No real-data analysis run."}

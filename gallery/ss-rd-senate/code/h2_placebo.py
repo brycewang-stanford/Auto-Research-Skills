@@ -29,13 +29,17 @@ RAW = os.path.join(WS, "data", "raw", "rdrobust_senate.csv")
 OPTS = dict(p=1, q=2, kernel="tri", bwselect="mserd", vce="nn", nnmatch=3, level=95)
 
 
+def capped_flag(r, bwm):
+    """1 when a final bandwidth (h or b, either side) equals bw_max, i.e. the cap binds."""
+    hb = [float(r.bws.loc[k, s]) for k in ["h", "b"] for s in ["left", "right"]]
+    return int(any(math.isclose(v, bwm, rel_tol=0, abs_tol=1e-9) for v in hb))
+
+
 def one_side(df_side, c, tag):
     y = df_side["vote"].to_numpy(dtype=float)
     x = df_side["margin"].to_numpy(dtype=float)
     r = rdrobust(y=y, x=x, c=c, masspoints="off", **OPTS)
     bwm = max(abs(c - float(x.min())), abs(c - float(x.max())))
-    hb = [float(r.bws.loc[k, s]) for k in ["h", "b"] for s in ["left", "right"]]
-    capped = any(math.isclose(v, bwm, rel_tol=0, abs_tol=1e-9) for v in hb)
     out = {
         f"{tag}_c": float(c),
         f"{tag}_n_side": int(len(x)),
@@ -52,7 +56,7 @@ def one_side(df_side, c, tag):
         f"{tag}_h_left": float(r.bws.loc["h", "left"]), f"{tag}_h_right": float(r.bws.loc["h", "right"]),
         f"{tag}_b_left": float(r.bws.loc["b", "left"]), f"{tag}_b_right": float(r.bws.loc["b", "right"]),
         f"{tag}_bw_max": bwm,
-        f"{tag}_bw_capped": int(capped),
+        f"{tag}_bw_capped": capped_flag(r, bwm),
         f"{tag}_sd_vote_side": float(np.std(y, ddof=1)),
     }
     return out
