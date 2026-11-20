@@ -22,3 +22,4 @@
 {"time": "2026-11-20T04:25:02Z", "role": "data-ra", "action": "task-done", "detail": "dr-checks done"}
 {"time": "2026-11-20T04:25:06Z", "role": "data-ra", "action": "correction", "detail": "checks-done detail miscounted: 32 printed-vs-file comparisons (25 descriptive, 7 counts/bounds), not 82; 82 is the number of metrics in runs/dr-checks/metrics.json"}
 {"time": "2026-11-20T04:25:28Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261120T042528Z"}
+{"time": "2026-11-20T04:28:39Z", "role": "designer", "action": "design-written", "detail": "design fixed in plan.json (H1 masspoints off, H2 tests and bounds, H3 table); tasks t-design-mde..t-rerun added; no vote statistic computed"}
