@@ -1,0 +1,64 @@
+{
+  "id": "fig-rd",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/fig_rd.py",
+    "runs/fig-rd/metrics.json"
+  ],
+  "started": "2026-11-20T07:00:25Z",
+  "finished": "2026-11-20T07:00:26Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_rd.py",
+      "sha256": "60ce0bcc5c34a36436a8508c60623026d0a48eb5741af8663bc955d6e1e4ad33"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/rdrobust_senate.csv",
+      "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44"
+    },
+    {
+      "path": "runs/h1-rdrobust/metrics.json",
+      "sha256": "ac0a193464572939ac7569a3bfc8c6424f675faecd16e492f7510f7f592c6fa3"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_rd.pdf",
+      "sha256": "14a5f13431ac992c81480d16bf1624a350883f6fd5bf13e1952a7a64ac09f6ef"
+    },
+    {
+      "path": "runs/fig-rd/metrics.json",
+      "sha256": "4564d03eb1fad3421cbfee26fad1d814287bad249193ec013b1268e47b3087b5"
+    }
+  ],
+  "metrics": {
+    "N_plotted": 1297,
+    "h": 17.708029731350788,
+    "h_source": "runs/h1-rdrobust off_h_left",
+    "n_bins_total": 49,
+    "n_bins_left": 15,
+    "n_bins_right": 35,
+    "n_bins_one_obs": 3,
+    "bin_mean_max_abs_diff_vs_rdplot": 2.1316282072803006e-14,
+    "n_left_window": 359,
+    "n_right_window": 322,
+    "fit_intercept_left": 45.1713891126996,
+    "fit_intercept_right": 52.587426840623195,
+    "fit_diff": 7.4160377279235945,
+    "conv_coef_recorded": 7.416037727923715,
+    "fit_diff_minus_conv": -1.2079226507921703e-13
+  },
+  "metrics_file": "runs/fig-rd/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}

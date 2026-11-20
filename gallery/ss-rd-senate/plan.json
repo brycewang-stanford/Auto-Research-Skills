@@ -106,6 +106,12 @@
       "title": "Run h2-selection (code/h2_selection.py) after the design gate: rdrobust on vote_observed with H1 options; MDE computed here, not before the gate",
       "owner": "econometrician",
       "status": "done"
+    },
+    {
+      "id": "t-figures",
+      "title": "Build figures and tables by script from logged runs: fig_rd.pdf and fig_density.pdf (code/fig_rd.py, code/fig_density.py), tab_main.tex and tab_falsification.tex (code/tab_main.py, code/tab_falsification.py) with macros from paper/numbers.tex; captions in paper/figures/CAPTIONS.md",
+      "owner": "figures-ra",
+      "status": "done"
     }
   ],
   "gates": {

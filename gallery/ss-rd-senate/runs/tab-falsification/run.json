@@ -1,0 +1,79 @@
+{
+  "id": "tab-falsification",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/tab_falsification.py",
+    "runs/tab-falsification/metrics.json"
+  ],
+  "started": "2026-11-20T07:00:32Z",
+  "finished": "2026-11-20T07:00:32Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/tab_falsification.py",
+      "sha256": "921368baeb2e93284aaedf6bfefb3397b01843eb403a75d891b30d2fc8ecd36f"
+    },
+    {
+      "path": "code/tab_main.py",
+      "sha256": "ed43416ff7d276916714761027f392037cb5282cbdbb0f7de23f2002af7bc1d6"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "claims.jsonl",
+      "sha256": "bb989661e4e6f824bd7b411cfe906ae716dc941acaae29f6c1c755c97d8201a1"
+    },
+    {
+      "path": "paper/numbers.tex",
+      "sha256": "c3f980cce1f2ee498822556a9cf95c2424418d4fe76bf35deef37318d4a32ddc"
+    },
+    {
+      "path": "runs/h2-density/metrics.json",
+      "sha256": "1686e26575a664e93add5b5e7de47b5cd26fa2037382295f34874c41b6d58e31"
+    },
+    {
+      "path": "runs/h2-covariates/metrics.json",
+      "sha256": "1fe312ce396a54a7146b27fed0d568945097c05980a018c82efe3101472692b5"
+    },
+    {
+      "path": "runs/h2-placebo/metrics.json",
+      "sha256": "a3db2ea6b680659d4d8e8cc32c868e548abf66ec396e276686683079ddcd5e7b"
+    },
+    {
+      "path": "runs/h2-selection/metrics.json",
+      "sha256": "48e98a69f3a7a7d71c33059442bc1e6d5661ab3b1b3b085987735666f8508adb"
+    },
+    {
+      "path": "runs/h3-sensitivity/metrics.json",
+      "sha256": "8ff7805206a650514ac71cf31c0bc6267ff8b5d9c895c4926ca664d88a1231dc"
+    },
+    {
+      "path": "runs/h1-rdrobust/metrics.json",
+      "sha256": "ac0a193464572939ac7569a3bfc8c6424f675faecd16e492f7510f7f592c6fa3"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/tables/tab_falsification.tex",
+      "sha256": "4d59b39b4af855322bfefe766d75ceabdb14b14e0d4fd336a7fa1e73c7dbd2f7"
+    },
+    {
+      "path": "runs/tab-falsification/metrics.json",
+      "sha256": "1044e84f41e1664ba53d315988d88b292533a49ce6bf8965cf2645cf3ab93fde"
+    }
+  ],
+  "metrics": {
+    "n_macros_checked": 65,
+    "max_macro_check_diff": 0.0
+  },
+  "metrics_file": "runs/tab-falsification/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}

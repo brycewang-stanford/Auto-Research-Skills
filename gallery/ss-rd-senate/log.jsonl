@@ -84,3 +84,10 @@
 {"time": "2026-11-20T06:54:01Z", "role": "pi", "action": "gate-approve", "detail": "results Bryce Wang"}
 {"time": "2026-11-20T06:54:01Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T065401Z (results-r3 minor)"}
 {"time": "2026-11-20T06:54:29Z", "role": "econometrician", "action": "results-r3-claims", "detail": "F12 claims for adjust M, H2(d) N and placebo N_h; F13 scope wording on rd-effect/ci claims; F14 NOTES count 122; no estimation or code change"}
+{"time": "2026-11-20T06:54:45Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261120T065445Z"}
+{"time": "2026-11-20T07:00:26Z", "role": "figures-ra", "action": "run", "detail": "fig-rd exit=0"}
+{"time": "2026-11-20T07:00:32Z", "role": "figures-ra", "action": "run", "detail": "fig-density exit=0"}
+{"time": "2026-11-20T07:00:32Z", "role": "figures-ra", "action": "run", "detail": "tab-main exit=0"}
+{"time": "2026-11-20T07:00:32Z", "role": "figures-ra", "action": "run", "detail": "tab-falsification exit=0"}
+{"time": "2026-11-20T07:00:47Z", "role": "figures-ra", "action": "figures-built", "detail": "fig_rd, fig_density, tab_main, tab_falsification from runs fig-rd, fig-density, tab-main, tab-falsification; captions in paper/figures/CAPTIONS.md; validate --strict OK"}
+{"time": "2026-11-20T07:00:47Z", "role": "figures-ra", "action": "figures-ra-done", "detail": "brief 20261120T065445Z done; figures task t-figures set to done"}

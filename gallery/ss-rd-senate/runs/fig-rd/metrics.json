@@ -1,0 +1,17 @@
+{
+  "N_plotted": 1297,
+  "h": 17.708029731350788,
+  "h_source": "runs/h1-rdrobust off_h_left",
+  "n_bins_total": 49,
+  "n_bins_left": 15,
+  "n_bins_right": 35,
+  "n_bins_one_obs": 3,
+  "bin_mean_max_abs_diff_vs_rdplot": 2.1316282072803006e-14,
+  "n_left_window": 359,
+  "n_right_window": 322,
+  "fit_intercept_left": 45.1713891126996,
+  "fit_intercept_right": 52.587426840623195,
+  "fit_diff": 7.4160377279235945,
+  "conv_coef_recorded": 7.416037727923715,
+  "fit_diff_minus_conv": -1.2079226507921703e-13
+}

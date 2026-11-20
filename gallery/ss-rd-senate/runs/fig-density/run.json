@@ -1,0 +1,60 @@
+{
+  "id": "fig-density",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/fig_density.py",
+    "runs/fig-density/metrics.json"
+  ],
+  "started": "2026-11-20T07:00:31Z",
+  "finished": "2026-11-20T07:00:32Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_density.py",
+      "sha256": "e57ff5b747461beb07f269d091e06c4d47073f5fe74039b9890834b808aec34f"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/rdrobust_senate.csv",
+      "sha256": "def1fc6b8ae5af273f2140aa449c81b3ecfe1d0f325aa80ceccb0d9638a2ad44"
+    },
+    {
+      "path": "runs/h2-density/metrics.json",
+      "sha256": "1686e26575a664e93add5b5e7de47b5cd26fa2037382295f34874c41b6d58e31"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_density.pdf",
+      "sha256": "b5ae1b2fc478f39a11ba701b8b8668d9f991f6f3f059c0bc1c4330835a583a6a"
+    },
+    {
+      "path": "runs/fig-density/metrics.json",
+      "sha256": "c664f0b4bd374406b190d4796c32c5cd8be05921dceb4e8cf709d0fb0e83899b"
+    }
+  ],
+  "metrics": {
+    "N_plotted": 1390,
+    "n_left": 640,
+    "n_right": 750,
+    "plot_range_lo": -40,
+    "plot_range_hi": 40,
+    "hist_bin_width": 1.0,
+    "fit_grid_points_per_side": 60,
+    "T_Q": -0.8752730140785417,
+    "p_Q": 0.3814253737593818,
+    "bw_left": 19.841108436410984,
+    "bw_right": 27.118786663704757
+  },
+  "metrics_file": "runs/fig-density/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.12.11",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "N_plotted": 1390,
+  "n_left": 640,
+  "n_right": 750,
+  "plot_range_lo": -40,
+  "plot_range_hi": 40,
+  "hist_bin_width": 1.0,
+  "fit_grid_points_per_side": 60,
+  "T_Q": -0.8752730140785417,
+  "p_Q": 0.3814253737593818,
+  "bw_left": 19.841108436410984,
+  "bw_right": 27.118786663704757
+}

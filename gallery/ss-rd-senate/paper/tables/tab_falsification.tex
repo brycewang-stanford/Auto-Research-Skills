@@ -1,0 +1,22 @@
+\begin{tabular}{lrrrr}
+\toprule
+Test (scale of estimate) & Estimate & 95\% CI or $p$ & $N$ & MDE (80\% power) \\
+\midrule
+\multicolumn{5}{l}{\emph{Panel A. Falsification tests (H2), each tested on its own}} \\
+H2(a) density of margin at 0 (density units) & \RdDensityDiff & $p$ = \RdDensityP & \RdDensityN & \RdDensityMde \\
+H2(b) class (covariate units) & \RdCovClassCoef & $p$ = \RdCovClassP (Holm \RdCovClassHolm) & \RdCovClassN & \RdCovClassMde \\
+H2(b) termshouse (covariate units) & \RdCovTermshouseCoef & $p$ = \RdCovTermshouseP (Holm \RdCovTermshouseHolm) & \RdCovTermshouseN & \RdCovTermshouseMde \\
+H2(b) termssenate (covariate units) & \RdCovTermssenateCoef & $p$ = \RdCovTermssenateP (Holm \RdCovTermssenateHolm) & \RdCovTermssenateN & \RdCovTermssenateMde \\
+H2(b) population (persons) & \RdCovPopulationCoef & $p$ = \RdCovPopulationP (Holm \RdCovPopulationHolm) & \RdCovPopulationN & \RdCovPopulationMde \\
+H2(c) placebo, left, $c_L$ = \RdPlaceboCL (report only; pp) & \RdPlaceboLeftEst & [\RdPlaceboLeftCiLow, \RdPlaceboLeftCiHigh] & \RdPlaceboLeftN & -- \\
+H2(c) placebo, right, $c_R$ = \RdPlaceboCR (report only; pp) & \RdPlaceboRightEst & [\RdPlaceboRightCiLow, \RdPlaceboRightCiHigh] & \RdPlaceboRightN & -- \\
+H2(d) observed-outcome share (proportion; MDE in pp) & \RdSelectionCoef & [\RdSelectionCiLow, \RdSelectionCiHigh]; $p$ = \RdSelectionP & \RdSelectionN & \RdSelectionMde \\
+\midrule
+\multicolumn{5}{l}{\emph{Panel B. H3 descriptive sensitivity of H1 (pp; no decision rule)}} \\
+(i) printed 2014 bandwidths, $h$ = \RdSensPrintedBw & \RdSensPrintedEst & [\RdSensPrintedLo, \RdSensPrintedHi] & \RdSensPrintedN & -- \\
+(ii) half H1 bandwidth, $h$ = \RdSensHalfBw & \RdSensHalfEst & [\RdSensHalfLo, \RdSensHalfHi] & \RdSensHalfN & -- \\
+(iii) double H1 bandwidth, $h$ = \RdSensDoubleBw & \RdSensDoubleEst & [\RdSensDoubleLo, \RdSensDoubleHi] & \RdSensDoubleN & -- \\
+(iv) $p$ = 2, $q$ = 3, $h$ = \RdSensPTwoBw & \RdSensPTwoEst & [\RdSensPTwoLo, \RdSensPTwoHi] & \RdSensPTwoN & -- \\
+(v) H1 with masspoints \texttt{adjust}, $h$ = \RdSensAdjustBw & \RdSensAdjustEst & [\RdSensAdjustLo, \RdSensAdjustHi] & \RdSensAdjustN & -- \\
+\bottomrule
+\end{tabular}
