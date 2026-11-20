@@ -85,8 +85,9 @@ Every BibTeX key needs a verification record, and every `\cite` in the paper mus
   "verified_on": "2026-11-18", "verified_by": "scout", "method": "fetched-fulltext"}}
 ```
 
-`method` says how the entry was checked (`fetched-fulltext`, `fetched-abstract`,
-`doi-resolved`). An entry recalled from memory and not checked does not get a record,
+`method` says how the entry was checked: `fetched-fulltext`, `fetched-abstract` or
+`doi-resolved`, and nothing else (protocol 0.2 refuses other values; a catalogue record
+or a citing paper is not a check of the source). An entry recalled from memory and not checked does not get a record,
 and so fails validation.
 
 ### `data/manifest.json`

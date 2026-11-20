@@ -338,6 +338,11 @@ class CrewWorkspaceTest(unittest.TestCase):
             known2020={"doi": "10.1/x", "verified_on": "2026-11-18", "verified_by": "scout",
                        "method": "fetched-abstract"}))
         self.assertEqual(self.errors(), [])
+        edit_json(self.ws / "sources" / "sources.json",
+                  lambda sources: sources["known2020"].update(method="fetched-catalogue-record"))
+        self.assertTrue(any("use one of" in e for e in self.errors()))
+        edit_json(self.ws / "sources" / "sources.json",
+                  lambda sources: sources["known2020"].update(method="fetched-abstract"))
         (self.ws / "paper" / "main.tex").write_text(
             "As shown by \\citet{known2020} and \\citep[p.~3]{ghost1999}.\n% \\cite{commented}\n")
         found = self.errors()

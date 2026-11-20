@@ -211,11 +211,85 @@ the protocol's main remaining gap.
 
 \section{Related work}\label{sec:related}
 
-\textbf{[To be completed: end-to-end AI-scientist systems (AI Scientist v1--v3, Agent
-Laboratory, AI-Researcher), deep-research agents, skill libraries, evaluation benchmarks
-(MLAgentBench, ScienceAgentBench, DiscoveryBench), and pre-registration and
-specification-search literature in economics. The repository's
-\url{docs/systems-matrix-2026.md} is the starting inventory.]}
+\paragraph{End-to-end AI-scientist systems.} The AI Scientist \citep{lu2024aiscientist}
+generates ideas, runs experiments from code templates, writes the paper and runs a
+simulated review of it; its successor \citep{yamada2025aiscientistv2} replaces the
+templates with agentic tree search and reports one fully generated paper that scored
+above the average acceptance threshold of an ICLR workshop. The Agentic Scientist
+\citep{lange2026agentic} rebuilds the pipeline as orchestration over coding agents, with
+rubric verification at each stage. Agent Laboratory \citep{schmidgall2025agentlab} takes
+a human-provided idea through literature review, experimentation and report writing,
+and finds that human feedback at each stage improves the result; AI-Researcher
+\citep{tang2025airesearcher} automates the path from literature to manuscript and
+proposes its own benchmark. Co-Scientist \citep{gottweis2026coscientist} targets
+hypothesis generation rather than papers. Closest to our aims is data-to-paper
+\citep{ifargan2025datatopaper}, which traces each result programmatically back to code
+and data so that the paper can be verified. Independent evaluations are more sobering:
+an evaluation of the first AI Scientist reports failed experiments, misleading results and
+hallucinated numbers \citep{beel2025sakana}, and a controlled study of two open-source
+systems finds that inappropriate benchmarks, data leakage, metric misuse and post hoc
+selection are largely invisible in the final manuscript, and recommends auditing the
+workflow artifacts instead \citep{luo2026pitfalls}. The crew follows that recommendation;
+it is not a more capable scientist. Where these systems let one pipeline both produce and
+judge its results, the crew gives judgments of fact to a deterministic tool and
+judgments of quality to a separate Reviewer, and makes the ledger, hashes and
+verification records the object of review. To our knowledge, none of them refuses to
+execute analysis code until a human has approved the design.
+
+\paragraph{Deep-research and literature agents.} Systems such as STORM
+\citep{shao2024storm} and PaperQA \citep{lala2023paperqa} retrieve and synthesise
+literature into cited text. The crew does not compete on retrieval; its Scout records,
+for each bibliography entry, how the entry was checked against its source, and the tool
+rejects citation claims that lack such a record.
+
+\paragraph{Skill libraries and ARIS.} Skills, folders of instructions and scripts that a
+coding agent loads when needed \citep{agentskills}, have become a common
+way to package research workflows, from domain libraries \citep{kdense2025skills} to a
+vendor workbench whose reviewer agent checks citations and calculations
+\citep{anthropic2026claudescience}. ARIS \citep{aris,yang2026aris} is the nearest
+relative: Markdown skills run inside a coding agent, an executor model is critiqued by a
+reviewer from a different model family, and a claim audit cross-checks manuscript
+statements against a claim ledger and the raw evidence. The crew takes its Reviewer from
+ARIS. It differs in two ways. It moves assurance from instructions into a tool that
+refuses to act: no analysis run before the design gate, no gate approval without the
+human's input, no number that is not tied to a run whose code hashes still match, and no
+submission without a clean rerun. And it divides the work among roles that communicate
+only through files.
+
+\paragraph{Benchmarks.} MLAgentBench \citep{huang2024mlagentbench} scores agents on
+machine-learning experimentation, ScienceAgentBench \citep{chen2025scienceagentbench} on
+data-driven tasks drawn from published papers, DiscoveryBench
+\citep{majumder2025discoverybench} on hypothesis search over given datasets, and
+CORE-Bench \citep{siegel2024corebench} on reproducing published computational results.
+Project-level benchmarks find end-to-end autonomy weak: current agents remain far from
+re-discovering published results \citep{xu2026researchclawbench}, and average scores on
+ASI-Bench fall from 50.9 to 26.6 as methodological guidance is withdrawn
+\citep{zhou2026asibench}. We have not evaluated the crew on any of them. Our seed bench
+asks a different question, whether the process holds when the honest answer is
+uninteresting; seven papers are a demonstration, not a measurement of capability.
+
+\paragraph{Pre-registration and specification search.} The gates encode a lesson from
+psychology and economics. Undisclosed flexibility in collecting, analysing and reporting
+data makes false positives far more likely than the nominal rate \citep{simmons2011}.
+Tests published in leading economics journals show missing p-values between 0.10 and
+0.25 and a matching excess just below 0.05 \citep{brodeur2016}, and the excess varies by identification
+method, with instrumental variables and difference-in-differences the most affected
+\citep{brodeur2020}. Analysts given the same data and question make different choices and
+reach different answers \citep{silberzahn2018,huntingtonklein2021}, and large replication
+projects reproduced many fewer significant effects than were originally reported
+\citep{osc2015,camerer2016}. The responses include pre-analysis plans and pre-registration
+\citep{olken2015,nosek2018}, specification-curve analysis \citep{simonsohn2020}, and
+broader transparency and data-sharing norms \citep{christensen2018}. For an agent,
+specification search is fast and nearly free, so the crew enforces pre-specification
+mechanically rather than by disclosure, and the null-effect seed tests it directly.
+
+\paragraph{Language models as reviewers.} Comments that GPT-4 wrote on papers overlapped
+with those of human reviewers about as much as two human reviewers overlapped with each
+other \citep{liang2024feedback}. But models rate text they recognise as their own more
+favourably \citep{panickssery2024}, and without external feedback they do not reliably
+correct their own reasoning \citep{huang2024selfcorrect}. These findings motivate a
+Reviewer that did not do the work, reads files rather than summaries, and can run on
+another provider's model. We have not measured how much cross-family review adds.
 
 \section{Limitations}
 

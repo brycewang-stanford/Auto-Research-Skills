@@ -55,6 +55,7 @@ TEX_COMMENT_RE = re.compile(r"(?<!\\)%.*")
 TEMP_PREFIXES = tuple(sorted({"/tmp/", "/private/tmp/", "/var/folders/", "/private/var/folders/",
                               tempfile.gettempdir().rstrip("/") + "/"}))
 GENERATED_TEX = ("numbers.tex", "process.tex")
+SOURCE_METHODS = ("fetched-fulltext", "fetched-abstract", "doi-resolved")
 
 
 # ---------------------------------------------------------------- helpers
@@ -505,6 +506,9 @@ def validate(ws: Path, strict: bool = False) -> tuple[list[str], list[str]]:
             errors.append(f"sources/sources.json: {key} is missing {', '.join(missing)}")
         else:
             verified.add(key)
+            if record["method"] not in SOURCE_METHODS:
+                rule.append(f"sources/sources.json: {key} has method {record['method']!r}; "
+                            f"use one of {', '.join(SOURCE_METHODS)}")
     for key in sorted(set(sources) - keys):
         warnings.append(f"sources/sources.json: {key} is not in refs.bib")
     for key, where in sorted(cited_keys(ws).items()):
