@@ -1,0 +1,54 @@
+{
+  "id": "r-age1419",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/r_age1419.py"
+  ],
+  "started": "2026-11-20T18:53:15Z",
+  "finished": "2026-11-20T18:53:17Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/r_age1419.py",
+      "sha256": "be4c99d151528315b23ad05bc442dd7456f09d8dbecd88cfc50e0a2eb5a6e093"
+    },
+    {
+      "path": "code/ivlib.py",
+      "sha256": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/card_analysis.csv",
+      "sha256": "0862cd54862ed1c06543abb9fb7c0fb5307bf3c0afb231c6432cdea39fb7d8a6"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/r-age1419/metrics.json",
+      "sha256": "f9d0e476f28143fc09657c0ecaa61b372b8daac334047b40dc52fb9095da9a16"
+    }
+  ],
+  "metrics": {
+    "young_n": 2037,
+    "young_iv": 0.09444772624055986,
+    "young_iv_se": 0.06445208360795437,
+    "young_iv_se_hc1": 0.06206868119342865,
+    "young_ols": 0.07446125862127007,
+    "young_ols_se": 0.006132502636845787,
+    "young_ols_se_hc1": 0.006253676527703845,
+    "young_iv_lo": -0.03187603735602082,
+    "young_iv_hi": 0.22077148983714054
+  },
+  "metrics_file": "runs/r-age1419/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-proximity/.venv"
+  },
+  "code_review": "code-r1"
+}

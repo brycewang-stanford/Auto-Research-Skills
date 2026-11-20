@@ -1,0 +1,74 @@
+{
+  "id": "r-cluster",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/r_cluster.py"
+  ],
+  "started": "2026-11-20T18:53:18Z",
+  "finished": "2026-11-20T18:53:20Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/r_cluster.py",
+      "sha256": "cb65e7f99d0c3bbd5a828baa2aa5ff526e0a641199d807b902a9ff8856643e53"
+    },
+    {
+      "path": "code/ivlib.py",
+      "sha256": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/card_analysis.csv",
+      "sha256": "0862cd54862ed1c06543abb9fb7c0fb5307bf3c0afb231c6432cdea39fb7d8a6"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/r-cluster/metrics.json",
+      "sha256": "6ca22803ddda754d683d2d584dd6aa54b7b20e08c21d012877284e527ddad636"
+    }
+  ],
+  "metrics": {
+    "n_sample": 3010,
+    "n_clusters": 18,
+    "min_cluster_size": 25,
+    "n_clusters_under30": 1,
+    "t_crit_cl": 2.1098155778333156,
+    "a6_fs": 0.32235115479569143,
+    "a6_fs_se_cl": 0.07393921841878048,
+    "a6_fs_se_hc1": 0.08071853989749013,
+    "a6_fs_cl_ratio": 0.9160128331444156,
+    "a6_fs_t_cl": 4.35967760667882,
+    "a6_fs_t_cl_above_crit": 1,
+    "a6_rf": 0.04526546313952382,
+    "a6_rf_se_cl": 0.014219786257490511,
+    "a6_rf_se_hc1": 0.017261082867271415,
+    "a6_rf_cl_ratio": 0.8238061520724473,
+    "a6_rf_t_cl": 3.1832731041002447,
+    "a6_rf_t_cl_above_crit": 1,
+    "a5_fs": 0.31989894009137454,
+    "a5_fs_se_cl": 0.0948279870269167,
+    "a5_fs_se_hc1": 0.08507628567788099,
+    "a5_fs_cl_ratio": 1.1146230265147912,
+    "a5_fs_t_cl": 3.3734654728099627,
+    "a5_fs_t_cl_above_crit": 1,
+    "a5_rf": 0.04206793440995571,
+    "a5_rf_se_cl": 0.015125525337956781,
+    "a5_rf_se_hc1": 0.01752106526495834,
+    "a5_rf_cl_ratio": 0.8632765821726278,
+    "a5_rf_t_cl": 2.781254433813829,
+    "a5_rf_t_cl_above_crit": 1
+  },
+  "metrics_file": "runs/r-cluster/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-proximity/.venv"
+  },
+  "code_review": "code-r1"
+}

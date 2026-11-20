@@ -1,0 +1,62 @@
+{
+  "id": "h1-a6",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/h1_a6.py"
+  ],
+  "started": "2026-11-20T18:47:14Z",
+  "finished": "2026-11-20T18:47:16Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h1_a6.py",
+      "sha256": "4bde28eef18f3656cd5934ea9af6ead652f2371a7e9418711b9cf8c45944173d"
+    },
+    {
+      "path": "code/ivlib.py",
+      "sha256": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/card_analysis.csv",
+      "sha256": "0862cd54862ed1c06543abb9fb7c0fb5307bf3c0afb231c6432cdea39fb7d8a6"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h1-a6/metrics.json",
+      "sha256": "df8929e2a500e02c05430cab6ed7691a1a43173490102bed5e916bf0a7cd5458"
+    }
+  ],
+  "metrics": {
+    "a6_iv": 0.14042283536218747,
+    "a6_iv_se": 0.05524517161146569,
+    "a6_iv_se_hc1": 0.05464932036577251,
+    "a6_iv_se_conv_n": 0.054969174023522784,
+    "a6_iv_k": 30,
+    "a6_fs": 0.32235115479569143,
+    "a6_fs_se": 0.08340967877194093,
+    "a6_fs_se_hc1": 0.08071853989749013,
+    "a6_fs_se_conv_n": 0.0829929750224431,
+    "a6_fs_k": 30,
+    "a6_rf": 0.04526546313952382,
+    "a6_rf_se": 0.017922268032990595,
+    "a6_rf_se_hc1": 0.017261082867271415,
+    "a6_rf_se_conv_n": 0.017832730746685104,
+    "a6_rf_k": 30,
+    "a6_iv_minus_ratio": -2.5978941220472507e-12,
+    "a6_n": 3010
+  },
+  "metrics_file": "runs/h1-a6/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-proximity/.venv"
+  },
+  "code_review": "code-r1"
+}

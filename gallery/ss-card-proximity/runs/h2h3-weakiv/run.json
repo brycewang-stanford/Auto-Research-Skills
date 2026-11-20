@@ -1,0 +1,88 @@
+{
+  "id": "h2h3-weakiv",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/h2h3_weakiv.py"
+  ],
+  "started": "2026-11-20T18:47:18Z",
+  "finished": "2026-11-20T18:47:21Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h2h3_weakiv.py",
+      "sha256": "2b0cdf275583f7f25c42fd2bd545959a7467223997e601eda9655d6a55f6c944"
+    },
+    {
+      "path": "code/ivlib.py",
+      "sha256": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/card_analysis.csv",
+      "sha256": "0862cd54862ed1c06543abb9fb7c0fb5307bf3c0afb231c6432cdea39fb7d8a6"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h2h3-weakiv/metrics.json",
+      "sha256": "2fe14643e9599499ee6693a9d2c0ab58f7c49661c743c409ead621b90f76f8f4"
+    }
+  ],
+  "metrics": {
+    "n_sample": 3010,
+    "a6_f_conv": 14.935699371399371,
+    "a6_f_eff": 15.948207070877729,
+    "a6_f_conv_above_sy": 0,
+    "a6_f_eff_above_mop": 0,
+    "a6_ar_lo": 0.039510956710145116,
+    "a6_ar_hi": 0.290186963347907,
+    "a6_ar_shape": "bounded",
+    "a6_ar_npieces": 1,
+    "a6_ar_pieces": "[0.039511, 0.290187]",
+    "a6_ar_contains_0": 0,
+    "a6_pacoef_positive": 1,
+    "a6_rf_t_robust": 2.622399966884538,
+    "a6_ar0": 6.876981586316156,
+    "a6_ar_grid_points": 20001,
+    "a6_ar_grid_max_rel_diff": 4.0677470304291046e-08,
+    "a6_ar_grid_mismatch": 0,
+    "a6_lam": 0.04526546313952584,
+    "a6_pi": 0.3223511547956673,
+    "a6_V_ll": 0.0002979449817508317,
+    "a6_V_lp": 0.00041335149584307044,
+    "a6_V_pp": 0.006515482683183175,
+    "a5_f_conv": 13.255785330568754,
+    "a5_f_eff": 14.138670079750279,
+    "a5_f_conv_above_sy": 0,
+    "a5_f_eff_above_mop": 0,
+    "a5_ar_lo": 0.028176920421465555,
+    "a5_ar_hi": 0.28115025374147673,
+    "a5_ar_shape": "bounded",
+    "a5_ar_npieces": 1,
+    "a5_ar_pieces": "[0.028177, 0.281150]",
+    "a5_ar_contains_0": 0,
+    "a5_pacoef_positive": 1,
+    "a5_rf_t_robust": 2.400991821775269,
+    "a5_ar0": 5.764761728232219,
+    "a5_ar_grid_points": 20001,
+    "a5_ar_grid_max_rel_diff": 2.4059620427267754e-08,
+    "a5_ar_grid_mismatch": 0,
+    "a5_lam": 0.042067934409957375,
+    "a5_pi": 0.3198989400913457,
+    "a5_V_ll": 0.00030698772801892763,
+    "a5_V_lp": 0.0005024818823842888,
+    "a5_V_pp": 0.00723797438474436
+  },
+  "metrics_file": "runs/h2h3-weakiv/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-proximity/.venv"
+  },
+  "code_review": "code-r1"
+}

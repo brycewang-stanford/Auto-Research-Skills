@@ -1,0 +1,74 @@
+{
+  "id": "h5-cf",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/h5_cf.py"
+  ],
+  "started": "2026-11-20T18:53:14Z",
+  "finished": "2026-11-20T18:53:15Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h5_cf.py",
+      "sha256": "7e53d5f3ef6c718154625faecdf80d0f8ffb108201e8709ecc3e56c22c6ca6c2"
+    },
+    {
+      "path": "code/ivlib.py",
+      "sha256": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/card_analysis.csv",
+      "sha256": "0862cd54862ed1c06543abb9fb7c0fb5307bf3c0afb231c6432cdea39fb7d8a6"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h5-cf/metrics.json",
+      "sha256": "54e1ad4140845e5b5010dd1b05d6be8b73c9712c13b3fac8b4800c440dbf3fe4"
+    }
+  ],
+  "metrics": {
+    "n_sample": 3010,
+    "a6_pacoef_cf_rho": -0.06812811733985286,
+    "a6_pacoef_cf_rho_se": 0.051458940591207515,
+    "a6_pacoef_cf_t": -1.323931595892464,
+    "a6_pacoef_cf_p": 0.18552576365048656,
+    "a6_pacoef_cf_reject": 0,
+    "a6_pacoef_iv": 0.14042283536218747,
+    "a6_pacoef_ols": 0.07263447192277506,
+    "a6_pacoef_diff": 0.06778836343941241,
+    "a6_pacoef_diff_se": 0.05466826846069226,
+    "a6_pacoef_diff_lo": -0.03935947468587983,
+    "a6_pacoef_diff_hi": 0.17493620156470466,
+    "a6_pacoef_hausman_t_conv": 1.229804863432729,
+    "a6_ols_in_pacoef_ar": 1,
+    "a6_pacoef_ar_pieces": "[0.039511, 0.290187]",
+    "a5_pacoef_cf_rho": -0.05706209208514679,
+    "a5_pacoef_cf_rho_se": 0.0518296717429893,
+    "a5_pacoef_cf_t": -1.1009541478113885,
+    "a5_pacoef_cf_p": 0.2709166136890615,
+    "a5_pacoef_cf_reject": 0,
+    "a5_pacoef_iv": 0.13150382554704265,
+    "a5_pacoef_ols": 0.07469325940204746,
+    "a5_pacoef_diff": 0.05681056614499519,
+    "a5_pacoef_diff_se": 0.05416726097883588,
+    "a5_pacoef_diff_lo": -0.04935531535212791,
+    "a5_pacoef_diff_hi": 0.16297644764211827,
+    "a5_pacoef_hausman_t_conv": 1.0357020807125668,
+    "a5_ols_in_pacoef_ar": 1,
+    "a5_pacoef_ar_pieces": "[0.028177, 0.281150]"
+  },
+  "metrics_file": "runs/h5-cf/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-proximity/.venv"
+  },
+  "code_review": "code-r1"
+}

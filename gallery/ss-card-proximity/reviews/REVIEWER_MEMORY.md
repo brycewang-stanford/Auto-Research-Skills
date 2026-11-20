@@ -93,3 +93,18 @@ Check next time (code review):
 - h3b bound search beyond [-1,1] (F14); ivmodels gkm inverse vs own (3Q) set when set disconnected.
 - Carried: AR V e_i u_i cross term; HC1 n/(n-k) with k 30/16; CHR = lambda - 1.96 se; A = (1,-b0,-g1,-g2) kron I3; BFGS starts incl. LIML; heteroskedastic coverage designs S and WN with threshold 0.921; runs only synthetic data before the gate.
 - Results/paper: h3a flags 'Panel A coefficient'; H4/H5 wording (F13); 9/22 denominators; no 'Card's preferred' for A6; OLS SE four decimals (.003/.004); conventional SE for H1.
+
+## code-r1 (2026-11-20, verdict pass)
+
+Read every file in code/ (ivlib, h1_b6/a6/a5, h2h3_weakiv, h3b_subvector, h4_chr, h5_cf, r_age1419, r_balance, r_cluster, verdict, fig_chr, test_ivlib, fetch_data, prepare_data, requirements). Code hashes equal the check-synthetic run record. No real-data run exists.
+
+Held under attack: k / n-k for all 14 specs; conventional and HC1 (synthetic hand-formula match); AR V cross term e_i u_i; AR quadric coefficients; CHR delta* = lambda - 1.96 se (V unchanged by the gamma0 shift); Wald CHR via beta_z = 1/pi; IF psi_IV with Xhat and D = -rho g (omitted-variable identity); HAR = a'pis, V = sum a_j a_l S_jl, gradient incl. symmetric dV; LIML kappa = 1 + min eig(P, M); GKMC quadric via Schur complement; (3T) table = notes sec. 4b (36 rows), (0,0) anchor, fn. 4 tail; verdict 9/22 targets and values = design.method. My own synthetic check: BFGS profile = 61-start Nelder-Mead + grids at 17 b0 on synthetic_card.csv (to 1e-8); profile asymptote ~18.8 there (> 7.815, so bounded); ivmodels boundaries real (0j).
+
+Open (all minor): F1 no real-data minimisation check in h3b (anti-conservative direction if BFGS fails); F2 NOTES items 2 and 10 are design departures not in design.deviations; F3 --code must include h1_a6.py for h1-a5 and ivlib.py for verdict; F4 inner bounds of non-convex sets only as strings, fig_chr labels interior ends at grid points.
+
+Check next time (results):
+- run.json of h1-a5 lists code/h1_a6.py; verdict lists code/ivlib.py (F3). design.deviations has a D3 for F2.
+- h3b metrics: b6_rob_m_at_0 vs 7.815 margin; if within ~5% of 7.815, ask for an independent minimiser value (F1). b6_ar_*_npieces = 1 for every set, else F4 bites (paper needs numeric piece bounds).
+- ivmodels *_outer differences recorded; (3Q) vs ivmodels gkm passed (ivmodels root search uses max_value 1e3 x boundary gap in the unbounded case).
+- check_sas_listing.py does not exist yet: it needs its own code round before it runs, and only after e-claims.
+- Carried: H3(a) flags say 'Panel A coefficient'; H4/H5 wording (F13 of design-r3); OLS SE four decimals (.003/.004); conventional SE for H1; no switch of the H3(b) primary after results.

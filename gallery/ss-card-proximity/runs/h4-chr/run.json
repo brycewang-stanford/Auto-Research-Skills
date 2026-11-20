@@ -1,0 +1,112 @@
+{
+  "id": "h4-chr",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/h4_chr.py"
+  ],
+  "started": "2026-11-20T18:53:12Z",
+  "finished": "2026-11-20T18:53:14Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h4_chr.py",
+      "sha256": "736c19b3c3847c884892d491ca9df5fd5be5119246fd24470f562e6debc524dc"
+    },
+    {
+      "path": "code/ivlib.py",
+      "sha256": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/card_analysis.csv",
+      "sha256": "0862cd54862ed1c06543abb9fb7c0fb5307bf3c0afb231c6432cdea39fb7d8a6"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h4-chr/chr_grid.csv",
+      "sha256": "a40bcbd368768a7f78b27ae5fa6d747d42dcb733bd7a1f96fbaaec251ac8e482"
+    },
+    {
+      "path": "runs/h4-chr/metrics.json",
+      "sha256": "a8e01b9b36b5fcb8f9f4f924356421723f47c0497e34ab8317867a8441b7a14b"
+    }
+  ],
+  "metrics": {
+    "n_sample": 3010,
+    "a6_pacoef_chr_breakdown": 0.011434362118655901,
+    "a6_pacoef_chr_breakdown_grid": 0.01144,
+    "a6_pacoef_chr_share": 0.2526067629841924,
+    "a6_pacoef_chr_wald_breakdown": 0.012390000000000002,
+    "a6_rf": 0.04526546313952584,
+    "a6_rf_se_hc1": 0.017261082867272022,
+    "a6_chr_union_d000_ar_lo": 0.039510956710145116,
+    "a6_chr_union_d000_ar_hi": 0.290186963347907,
+    "a6_chr_union_d000_ar_npieces": 1,
+    "a6_chr_union_d000_wald_lo": 0.033312134824628956,
+    "a6_chr_union_d000_wald_hi": 0.2475335359043938,
+    "a6_chr_union_d005_ar_lo": 0.022711748312811596,
+    "a6_chr_union_d005_ar_hi": 0.290186963347907,
+    "a6_chr_union_d005_ar_npieces": 1,
+    "a6_chr_union_d005_wald_lo": 0.020243636410120808,
+    "a6_chr_union_d005_wald_hi": 0.2475335359043938,
+    "a6_chr_union_d010_ar_lo": 0.005174949507515694,
+    "a6_chr_union_d010_ar_hi": 0.290186963347907,
+    "a6_chr_union_d010_ar_npieces": 1,
+    "a6_chr_union_d010_wald_lo": 0.006667858078233266,
+    "a6_chr_union_d010_wald_hi": 0.2475335359043938,
+    "a6_chr_union_d015_ar_lo": -0.01315435931557384,
+    "a6_chr_union_d015_ar_hi": 0.290186963347907,
+    "a6_chr_union_d015_ar_npieces": 1,
+    "a6_chr_union_d015_wald_lo": -0.007444268132662926,
+    "a6_chr_union_d015_wald_hi": 0.2475335359043938,
+    "a6_chr_union_d020_ar_lo": -0.0323195066442113,
+    "a6_chr_union_d020_ar_hi": 0.290186963347907,
+    "a6_chr_union_d020_ar_npieces": 1,
+    "a6_chr_union_d020_wald_lo": -0.02211514315765363,
+    "a6_chr_union_d020_wald_hi": 0.2475335359043938,
+    "a5_pacoef_chr_breakdown": 0.007727277248988675,
+    "a5_pacoef_chr_breakdown_grid": 0.007730000000000001,
+    "a5_pacoef_chr_share": 0.183685682631464,
+    "a5_pacoef_chr_wald_breakdown": 0.00927,
+    "a5_rf": 0.042067934409957375,
+    "a5_rf_se_hc1": 0.017521065264958283,
+    "a5_chr_union_d000_ar_lo": 0.028176920421465555,
+    "a5_chr_union_d000_ar_hi": 0.28115025374147673,
+    "a5_chr_union_d000_ar_npieces": 1,
+    "a5_chr_union_d000_wald_lo": 0.025384273233938992,
+    "a5_chr_union_d000_wald_hi": 0.23762337785744825,
+    "a5_chr_union_d005_ar_lo": 0.010198882549872751,
+    "a5_chr_union_d005_ar_hi": 0.28115025374147673,
+    "a5_chr_union_d005_ar_npieces": 1,
+    "a5_chr_union_d005_wald_lo": 0.01194860425231041,
+    "a5_chr_union_d005_wald_hi": 0.23762337785744825,
+    "a5_chr_union_d010_ar_lo": -0.008720931501216004,
+    "a5_chr_union_d010_ar_hi": 0.28115025374147673,
+    "a5_chr_union_d010_ar_npieces": 1,
+    "a5_chr_union_d010_wald_lo": -0.0020903989416894975,
+    "a5_chr_union_d010_wald_hi": 0.23762337785744825,
+    "a5_chr_union_d015_ar_lo": -0.02864290461036184,
+    "a5_chr_union_d015_ar_hi": 0.28115025374147673,
+    "a5_chr_union_d015_ar_npieces": 1,
+    "a5_chr_union_d015_wald_lo": -0.016761145637517058,
+    "a5_chr_union_d015_wald_hi": 0.23762337785744825,
+    "a5_chr_union_d020_ar_lo": -0.04960610952800725,
+    "a5_chr_union_d020_ar_hi": 0.28115025374147673,
+    "a5_chr_union_d020_ar_npieces": 1,
+    "a5_chr_union_d020_wald_lo": -0.0320816245965657,
+    "a5_chr_union_d020_wald_hi": 0.23762337785744825
+  },
+  "metrics_file": "runs/h4-chr/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-proximity/.venv"
+  },
+  "code_review": "code-r1"
+}

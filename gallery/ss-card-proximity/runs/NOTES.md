@@ -139,3 +139,97 @@ coefficient check now uses a scale-aware tolerance.
 
 Next: code review (rv-code) of every script above plus `code/fig_chr.py`; no analysis
 run before it passes.
+
+## Analysis runs (2026-11-20, after code-r1 passed; all `--kind analysis`, covered by code-r1)
+
+Every run executed `.venv/bin/python code/<script>.py` from the workspace root through
+`crew.py run`, with `--input data/derived/card_analysis.csv` (verdict: the ten
+`runs/<id>/metrics.json` files) and `--metrics runs/<id>/metrics.json`. `--code` named the
+script and `code/ivlib.py`; h1-a5 also named `code/h1_a6.py` and verdict `code/ivlib.py`
+(code-r1 F3). Each ran once, in the order of design.analysis_plan; none was replaced, and
+no reviewed script was edited.
+
+| # | Run | Started (UTC) | Wall | Extra outputs |
+|---|---|---|---|---|
+| 1 | h1-b6 | 18:47:11 | <1 s | |
+| 2 | h1-a6 | 18:47:14 | <1 s | |
+| 3 | h1-a5 | 18:47:16 | <1 s | |
+| 4 | h2h3-weakiv | 18:47:18 | <1 s | |
+| 5 | h3b-subvector | 18:47:24 | 331 s | runs/h3b-subvector/profile.csv |
+| 6 | h4-chr | 18:53:12 | <1 s | runs/h4-chr/chr_grid.csv |
+| 7 | h5-cf | 18:53:14 | <1 s | |
+| 8 | r-age1419 | 18:53:15 | <1 s | |
+| 9 | r-balance | 18:53:17 | <1 s | |
+| 10 | r-cluster | 18:53:18 | <1 s | |
+| 11 | verdict | 18:53:20 | <1 s | |
+
+Measured wall time of the whole analysis plan: about 6 minutes (h3b-subvector 331 s),
+inside the seed's 15-minute budget. Every in-run identity and agreement check passed
+(A5/A6 2SLS = RF/FS; AR(0) = robust RF t^2; H3(a) grid check 0 mismatches; stacked HAR =
+direct regression, 4e-12; kappa_p, kappa_1 = ivmodels at 13 points in [-1, 1], 1e-12;
+GKMC quadric = ivmodels = procedure, 3e-7; (3Q) = ivmodels 'gkm', 3e-7; CHR grid within
+one step; IF variances = HC1; D = -rho g; CR1 = own formula). No reported H3(b) bound lies
+beyond |b0| = 1, so the D3(a) "outer" comparison was not needed (metrics 0).
+
+### What surprised us
+
+1. **Card's Panel B first-stage and reduced-form columns are not reproduced; his Panel B
+   2SLS columns are.** B6 2SLS 0.1324 (0.0493) and B5 0.1224 (0.0465) round to the
+   published 0.132 (0.049) and 0.122 (0.046), but B4 is 0.0346 (0.0173) against 0.048
+   (0.019), B3 0.0325 (0.0174) against 0.047 (0.019), B2 0.3639 (0.1024) against 0.365
+   (0.105), B1 0.3924 against 0.382. N, the sample, Panel A (all twelve numbers), both OLS
+   columns and the Cinelli-Hazlett AR set reproduce, so the data reading and sample rule
+   are not the cause. Diagnosis (arithmetic only, nothing re-estimated): Card says the IV
+   estimates are the ratios of the reduced-form coefficients, and his printed Panel B
+   ratios are (0.048/0.365 = 0.132, 0.047/0.382 = 0.123), whereas ours are not
+   (0.0346/0.3639 = 0.095, 0.0325/0.3924 = 0.083). That is expected for the regression
+   the design specified (lwage76 or ed76 on nearc4, age76, age762 and controls): since
+   exp76 = age76 - ed76 - 6, the nearc4 coefficient of that reduced form is not beta x pi.
+   So Card's Panel B "reduced form" columns must be a different regression; the design
+   adopted the Scout's reading, which sources/notes.md flags as not printed. One
+   regression whose ratio is beta by construction is the nearc4 coefficient with experience
+   and its square kept in the equation as endogenous regressors instrumented by age and
+   age squared; this is a hypothesis only. Testing it would be a new, unplanned diagnostic
+   run (new script, code round, PI approval); it was not run and nothing was tuned.
+2. **H3(b): the robust projection set is far wider than the homoskedastic sets.**
+   Robust [-0.0068, 0.4983] (contains 0; m(0) = 7.30 against 7.815) against GKMC
+   [0.0401, 0.2811] and GKM19 [0.0401, 0.2811]. kappa_1 is about 6,000 at the estimate
+   (minimum 5,320 over the point list), so GKM19 = GKMC to four decimals, as the Scout
+   expected. The robust set's width is the projection's conservativeness (chi-square(3)
+   instead of chi-square(1)), as plan.json H3 anticipated.
+3. **r-age1419**: N = 2,037 and IV 0.0944 (0.0645) match Card's 0.094 (0.064), but OLS is
+   0.0745 (0.0061) against the published 0.076 (0.006).
+4. **H4** breakdowns (0.0114 A6, 0.0077 A5) are a little above the values predicted from
+   the published conventional numbers (0.0097, 0.0067), because the HC1 SE of the reduced
+   form is smaller than the conventional one.
+5. **r-cluster**: the CR1 SE of the reduced form is smaller than HC1 (ratio 0.82 A6, 0.86
+   A5; G = 18, smallest cell 25 men, one cell under 30), so clustered t = 3.18 / 2.78 >
+   t(0.975, 17) = 2.11. By the fixed reading this is not reported as robustness to
+   county-level dependence.
+6. **Warnings in runs/h3b-subvector/stderr.log** (not errors): a ComplexWarning when
+   ivmodels' inverse returns a quadric boundary as a complex number with zero imaginary
+   part (we take the real part; the set agrees with ours to 3e-7), and an IntegrationWarning
+   / invalid-power warning from ivmodels' p-value integrand at z near 0. All in-run
+   agreement checks passed.
+
+### Metrics not turned into claims, and why
+
+Check and diagnostic metrics (grid mismatch counts, max relative differences, k, the
+sum(e^2)/n SEs, `*_minus_ratio`, ivmodels comparisons, kappa and critical values at each
+bound, `*_pieces` strings, shapes, CI-excludes-0 flags that duplicate the reported
+coefficient and SE) are the evidence that the run is internally consistent, not findings.
+The h2h3 flags and h3b flag duplicate the verdict flags, which are claimed. The CHR union
+bounds at the five fixed deltas are drawn in the figure from chr_grid.csv and can be
+claimed if the Writer quotes one. HC1 SEs of the H1 first stages and reduced forms, the
+Panel B experience coefficients, r-cluster first-stage SEs and ratios, and the young-men
+HC1 SE and interval are available in the metrics but not planned for the paper.
+
+## Claims (task e-claims)
+
+115 result claims were appended to claims.jsonl (all ids of design.claims_plan, plus
+iv-return-pct, young-ols-se, b6-rob-m-at-zero, the a6/a5 conventional Hausman t,
+balance coefficients in SD units, and t-crit-cl), each with `value` copied from its run's
+metric and a letters-only macro; `crew.py numbers` wrote paper/numbers.tex. No H3(a) or
+H4/H5 claim is worded as a statement about the return to schooling; only
+h3b-b6-return-positive is. check-sas-listing (e-sas-code) has not been started, and
+read1.lst has not been opened.

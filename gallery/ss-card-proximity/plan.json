@@ -48,7 +48,9 @@
     ],
     "deviations": [
       "D1 (track rule 'cluster standard errors at the level treatment varies'): nearc4 is assigned by 1966 county of residence, and nls.dat has no county or primary-sampling-unit identifier, so no H1-H5 statistic can be clustered at that level. H1 follows Card's (unclustered) SEs; H2-H5 use HC1, which assumes men are independent. r-cluster is a one-directional warning only; the paper states that every SE, AR set and the CHR breakdown may be too narrow.",
-      "D2: Card's basic three-endogenous-regressor specification (Panel B col 6) gets weak-instrument-robust subvector AR sets (H3b) but no instrument-strength test (H2), no exclusion-sensitivity breakdown (H4) and no IV-OLS test (H5); those are computed on Panel A, whose coefficient assumes experience exogenous, and the paper never calls Panel A col 6 Card's preferred specification."
+      "D2: Card's basic three-endogenous-regressor specification (Panel B col 6) gets weak-instrument-robust subvector AR sets (H3b) but no instrument-strength test (H2), no exclusion-sensitivity breakdown (H4) and no IV-OLS test (H5); those are computed on Panel A, whose coefficient assumes experience exogenous, and the paper never calls Panel A col 6 Card's preferred specification.",
+      "D3 (recorded before any analysis run, answering code-r1 F2): two checks in h3b-subvector are implemented differently from design.method's wording. (a) The pointwise agreement with ivmodels 0.10.0 fails the run only for |b0| <= 1; for |b0| > 1 the difference is written as a metric, because exp76 + ed76 = age76 - 6 lies in the instrument span, kappa_1 grows with b0^2 and ivmodels' own root-finding loses precision at |b0| >= 1e3 (runs/NOTES.md items 2 and 10); set-level agreement (1e-4) is unchanged. (b) The 20 'random' (b0, g) HAR check points use 20 equally spaced b0 in [-0.5, 0.8] with the 20 rng(4483) g draws, so that the only randomness remains the starting points. Neither changes any estimate, set or decision rule.",
+      "D4 (post hoc, decided by the PI after the H1 runs, before the results review): one added report-only diagnostic run, diag-panelb, tests the hypothesis that Card's Panel B first-stage and reduced-form columns (B1-B4) were estimated with exp76 and exp762 kept in the equation as endogenous regressors instrumented by age76 and age762 (so that the printed reduced form divided by the printed first stage equals the printed 2SLS, as it does in Card's table and does not under the planned regressions). It cannot change any H1 target, verdict count or claim of the approved plan; its results are reported as a diagnosis of the B1-B4 misses, labelled post hoc."
     ],
     "threats": [
       "T1 Sample or variable construction differs from Card's (sample rule, exp76, f1-f8, omitted region, South coded by reg76r): h1-b6, h1-a6, h1-a5 against 31 printed targets (verdict), prepare-data's checks against the codebook and Card's Table 1, the identity checks inside the runs, check-synthetic, and check-sas-listing after the claims are fixed.",
@@ -124,7 +126,7 @@
       "id": "rv-code",
       "title": "Code review (reviews/code-r1) of prepare_data.py, ivlib.py, every run script, verdict.py, fig_chr.py and test_ivlib.py against the design; must pass before any analysis run",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "pi-design-gate",
@@ -136,67 +138,67 @@
       "id": "e-h1-b6",
       "title": "Run h1-b6 (code/h1_b6.py; primary Panel B col 6 with B2, B4, Table 2 col 5; also Panel B cols 1, 3, 5; seed claims)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h1-a6",
       "title": "Run h1-a6 (code/h1_a6.py; Panel A col 6, cols 2 and 4)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h1-a5",
       "title": "Run h1-a5 (code/h1_a5.py; Panel A col 5, A1, A3, Table 2 col 2, homoskedastic AR set)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h2h3",
       "title": "Run h2h3-weakiv (code/h2h3_weakiv.py; H2 F statistics, H3(a) robust AR sets, A6 and A5)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h3b",
       "title": "Run h3b-subvector (code/h3b_subvector.py; H3(b) Panel B col 6 robust projection set, GKMC and GKM19 sets via ivmodels 0.10.0 with own-code checks, kappa_1, profile.csv)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h4",
       "title": "Run h4-chr (code/h4_chr.py; H4 AR-based CHR breakdown and union sets, Wald secondary, chr_grid.csv)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h5",
       "title": "Run h5-cf (code/h5_cf.py; H5 robust control-function test, stacked influence-function Wald interval of the IV-OLS difference, OLS-inside-AR flag)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-r-age1419",
       "title": "Run r-age1419 (code/r_age1419.py; report only, Card Table 4 row 7)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-r-balance",
       "title": "Run r-balance (code/r_balance.py; report only: KWW at ages 14-15 in 1966, KWW overall, IQ and IQ missingness by nearc4)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-r-cluster",
       "title": "Run r-cluster (code/r_cluster.py; report only, SEs clustered on region-1966 x SMSA-1966 cells)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-verdict",
       "title": "Run verdict (code/verdict.py; H1 flags and counts of 9 and 22, H2, H3(a), H3(b), H5 flags)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "f-fig-chr",
@@ -208,6 +210,12 @@
       "id": "e-claims",
       "title": "Write result claims per design.claims_plan (seed ids iv-return, iv-return-se, first-stage, ols-return from h1-b6) and run crew.py numbers",
       "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "e-diag-panelb",
+      "title": "D4 (post hoc, report-only): write code/diag_panelb.py (B1-B4 with exp76, exp762 endogenous, instrumented by age76, age762), code review code-r2, run diag-panelb, report-only claims labelled post hoc",
+      "owner": "econometrician",
       "status": "todo"
     },
     {
@@ -218,7 +226,7 @@
     },
     {
       "id": "rv-code-2",
-      "title": "Code review (reviews/code-r2) of check_sas_listing.py before its run",
+      "title": "Code review (reviews/code-r3) of check_sas_listing.py before its run",
       "owner": "reviewer",
       "status": "todo"
     },

@@ -1,0 +1,80 @@
+{
+  "id": "h1-a5",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/h1_a5.py"
+  ],
+  "started": "2026-11-20T18:47:16Z",
+  "finished": "2026-11-20T18:47:18Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h1_a5.py",
+      "sha256": "756f11a11602d7897cfffc8d0b78dfe82e2f55d9616ef0d42bac95fddaf6a579"
+    },
+    {
+      "path": "code/h1_a6.py",
+      "sha256": "4bde28eef18f3656cd5934ea9af6ead652f2371a7e9418711b9cf8c45944173d"
+    },
+    {
+      "path": "code/ivlib.py",
+      "sha256": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/card_analysis.csv",
+      "sha256": "0862cd54862ed1c06543abb9fb7c0fb5307bf3c0afb231c6432cdea39fb7d8a6"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h1-a5/metrics.json",
+      "sha256": "95514f5604bc883e8b5d678763fea67c82614584467088775fa8c115426cab12"
+    }
+  ],
+  "metrics": {
+    "a5_iv": 0.13150382554704265,
+    "a5_iv_se": 0.05496367239925837,
+    "a5_iv_se_hc1": 0.05414362320659737,
+    "a5_iv_se_conv_n": 0.054817394901313474,
+    "a5_iv_k": 16,
+    "a5_fs": 0.31989894009137454,
+    "a5_fs_se": 0.08786381779522248,
+    "a5_fs_se_hc1": 0.08507628567788099,
+    "a5_fs_se_conv_n": 0.08762998153818329,
+    "a5_fs_k": 16,
+    "a5_rf": 0.04206793440995571,
+    "a5_rf_se": 0.01807760136897673,
+    "a5_rf_se_hc1": 0.01752106526495834,
+    "a5_rf_se_conv_n": 0.01802949056812102,
+    "a5_rf_k": 16,
+    "a5_iv_minus_ratio": 1.5762946503627973e-12,
+    "a5_n": 3010,
+    "a5_ols": 0.07469325940204746,
+    "a5_ols_se": 0.00349834572316933,
+    "a5_ols_se_hc1": 0.0036462477647120923,
+    "a5_ols_se_conv_n": 0.0034890354053358666,
+    "a5_ols_k": 16,
+    "a5_ar_hom_crit": 3.8445666062638866,
+    "a5_ar_hom_lo": 0.02480482084303081,
+    "a5_ar_hom_hi": 0.28482357515685797,
+    "a5_ar_hom_shape": "bounded",
+    "a5_ar_hom_npieces": 1,
+    "a5_ar_hom_chi2_lo": 0.024854672867511442,
+    "a5_ar_hom_chi2_hi": 0.28472066230455456,
+    "a5_ar_hom_chi2_shape": "bounded",
+    "a5_ar_hom_chi2_npieces": 1
+  },
+  "metrics_file": "runs/h1-a5/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-proximity/.venv"
+  },
+  "code_review": "code-r1"
+}

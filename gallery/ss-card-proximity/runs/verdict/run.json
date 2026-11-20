@@ -1,0 +1,130 @@
+{
+  "id": "verdict",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "code/verdict.py"
+  ],
+  "started": "2026-11-20T18:53:20Z",
+  "finished": "2026-11-20T18:53:21Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/verdict.py",
+      "sha256": "fa03bdf579dcbb748761c432b518166808ce0a01ef37b8f946ca8678e2983c66"
+    },
+    {
+      "path": "code/ivlib.py",
+      "sha256": "2579bf84d9f29aeb9e31582f50866b751be0481c212ed070803ef33c1c4cbec6"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/h1-b6/metrics.json",
+      "sha256": "99b9d6a65513ad098053b44e7e2b3896fc229e65681e651406d753caf95ac14a"
+    },
+    {
+      "path": "runs/h1-a6/metrics.json",
+      "sha256": "df8929e2a500e02c05430cab6ed7691a1a43173490102bed5e916bf0a7cd5458"
+    },
+    {
+      "path": "runs/h1-a5/metrics.json",
+      "sha256": "95514f5604bc883e8b5d678763fea67c82614584467088775fa8c115426cab12"
+    },
+    {
+      "path": "runs/h2h3-weakiv/metrics.json",
+      "sha256": "2fe14643e9599499ee6693a9d2c0ab58f7c49661c743c409ead621b90f76f8f4"
+    },
+    {
+      "path": "runs/h3b-subvector/metrics.json",
+      "sha256": "08eb48ba59101825dece51b2f8fddb65243c1088505bed32893db406dd71f520"
+    },
+    {
+      "path": "runs/h4-chr/metrics.json",
+      "sha256": "a8e01b9b36b5fcb8f9f4f924356421723f47c0497e34ab8317867a8441b7a14b"
+    },
+    {
+      "path": "runs/h5-cf/metrics.json",
+      "sha256": "54e1ad4140845e5b5010dd1b05d6be8b73c9712c13b3fac8b4800c440dbf3fe4"
+    },
+    {
+      "path": "runs/r-age1419/metrics.json",
+      "sha256": "f9d0e476f28143fc09657c0ecaa61b372b8daac334047b40dc52fb9095da9a16"
+    },
+    {
+      "path": "runs/r-balance/metrics.json",
+      "sha256": "47f051f6cde955623f92743851b8c6bfd64e65a833d0cb8f4b53579069690c76"
+    },
+    {
+      "path": "runs/r-cluster/metrics.json",
+      "sha256": "6ca22803ddda754d683d2d584dd6aa54b7b20e08c21d012877284e527ddad636"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/verdict/metrics.json",
+      "sha256": "abd4cf0e4e83aa9978985aa99942c0c7f9147b21a42a1b7bb1e86eaddb9f8c8b"
+    }
+  ],
+  "metrics": {
+    "h1_n_reproduced": 1,
+    "h1_b6_2sls_reproduced": 1,
+    "h1_b6_2sls_se_reproduced": 1,
+    "h1_b2_first_stage_reproduced": 0,
+    "h1_b2_first_stage_se_reproduced": 0,
+    "h1_b4_reduced_form_reproduced": 0,
+    "h1_b4_reduced_form_se_reproduced": 0,
+    "h1_t2_col_5_ols_reproduced": 1,
+    "h1_t2_col_5_ols_se_reproduced": 1,
+    "h1_a6_2sls_reproduced": 1,
+    "h1_a6_2sls_se_reproduced": 1,
+    "h1_a2_first_stage_reproduced": 1,
+    "h1_a2_se_reproduced": 1,
+    "h1_a4_reduced_form_reproduced": 1,
+    "h1_a4_se_reproduced": 1,
+    "h1_a5_2sls_reproduced": 1,
+    "h1_a5_2sls_se_reproduced": 1,
+    "h1_a1_first_stage_reproduced": 1,
+    "h1_a1_se_reproduced": 1,
+    "h1_a3_reduced_form_reproduced": 1,
+    "h1_a3_se_reproduced": 1,
+    "h1_t2_col_2_ols_reproduced": 1,
+    "h1_t2_col_2_ols_se_reproduced": 1,
+    "h1_b5_2sls_reproduced": 1,
+    "h1_b5_2sls_se_reproduced": 1,
+    "h1_b1_first_stage_reproduced": 0,
+    "h1_b1_se_reproduced": 1,
+    "h1_b3_reduced_form_reproduced": 0,
+    "h1_b3_se_reproduced": 0,
+    "h1_a5_hom_ar_lower_reproduced": 1,
+    "h1_a5_hom_ar_upper_reproduced": 1,
+    "h1_primary_reproduced": 5,
+    "h1_primary_targets": 9,
+    "h1_secondary_reproduced": 19,
+    "h1_secondary_targets": 22,
+    "h1_misses": "B2 first stage; B2 first stage SE; B4 reduced form; B4 reduced form SE; B1 first stage; B3 reduced form; B3 SE",
+    "h2_a6_sy_above": 0,
+    "h2_a6_mop_above": 0,
+    "h3a_a6_pacoef_positive": 1,
+    "h5_a6_pacoef_equality_rejected": 0,
+    "h4_a6_pacoef_breakdown": 0.011434362118655901,
+    "h4_a6_pacoef_breakdown_pred_pub": 0.009720647999999998,
+    "h2_a5_sy_above": 0,
+    "h2_a5_mop_above": 0,
+    "h3a_a5_pacoef_positive": 1,
+    "h5_a5_pacoef_equality_rejected": 0,
+    "h4_a5_pacoef_breakdown": 0.007727277248988675,
+    "h4_a5_pacoef_breakdown_pred_pub": 0.006720648000000003,
+    "h3b_b6_return_positive": 0
+  },
+  "metrics_file": "runs/verdict/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-proximity/.venv"
+  },
+  "code_review": "code-r1"
+}

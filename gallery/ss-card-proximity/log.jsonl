@@ -71,3 +71,22 @@
 {"time": "2026-11-20T18:36:47Z", "role": "econometrician", "action": "run", "detail": "check-synthetic exit=0"}
 {"time": "2026-11-20T18:37:25Z", "role": "econometrician", "action": "code-written", "detail": "e-code: code/ivlib.py, h1_b6, h1_a6, h1_a5, h2h3_weakiv, h3b_subvector, h4_chr, h5_cf, r_age1419, r_balance, r_cluster, verdict.py, requirements.txt (pip freeze, Python 3.14.6, ivmodels 0.10.0, matplotlib 3.11.2); fig_chr.py column names adopted"}
 {"time": "2026-11-20T18:37:25Z", "role": "econometrician", "action": "check-synthetic-passed", "detail": "e-check-synthetic: code/test_ivlib.py, run check-synthetic (data-prep, synthetic only) 10/10 checks pass; implementation notes in runs/NOTES.md"}
+{"time": "2026-11-20T18:38:27Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T183827Z (code-r1)"}
+{"time": "2026-11-20T18:46:17Z", "role": "reviewer", "action": "review-recorded", "detail": "code-r1 verdict=pass files=29"}
+{"time": "2026-11-20T18:46:53Z", "role": "pi", "action": "deviation-recorded", "detail": "D3 (code-r1 F2) before any analysis run; code-r1 responses written"}
+{"time": "2026-11-20T18:46:53Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T184653Z (analysis runs after code-r1 pass)"}
+{"time": "2026-11-20T18:47:14Z", "role": "econometrician", "action": "run", "detail": "h1-b6 exit=0"}
+{"time": "2026-11-20T18:47:16Z", "role": "econometrician", "action": "run", "detail": "h1-a6 exit=0"}
+{"time": "2026-11-20T18:47:18Z", "role": "econometrician", "action": "run", "detail": "h1-a5 exit=0"}
+{"time": "2026-11-20T18:47:21Z", "role": "econometrician", "action": "run", "detail": "h2h3-weakiv exit=0"}
+{"time": "2026-11-20T18:52:57Z", "role": "econometrician", "action": "run", "detail": "h3b-subvector exit=0"}
+{"time": "2026-11-20T18:53:14Z", "role": "econometrician", "action": "run", "detail": "h4-chr exit=0"}
+{"time": "2026-11-20T18:53:15Z", "role": "econometrician", "action": "run", "detail": "h5-cf exit=0"}
+{"time": "2026-11-20T18:53:17Z", "role": "econometrician", "action": "run", "detail": "r-age1419 exit=0"}
+{"time": "2026-11-20T18:53:18Z", "role": "econometrician", "action": "run", "detail": "r-balance exit=0"}
+{"time": "2026-11-20T18:53:20Z", "role": "econometrician", "action": "run", "detail": "r-cluster exit=0"}
+{"time": "2026-11-20T18:53:21Z", "role": "econometrician", "action": "run", "detail": "verdict exit=0"}
+{"time": "2026-11-20T18:55:56Z", "role": "econometrician", "action": "analysis-runs", "detail": "11 analysis runs (h1-b6 .. verdict) in plan order, all exit 0, covered by code-r1; H1 primary 5/9, secondary 19/22 (misses all in Panel B FS/RF columns)"}
+{"time": "2026-11-20T18:55:56Z", "role": "econometrician", "action": "claims-written", "detail": "115 result claims per design.claims_plan; crew.py numbers; runs/NOTES.md updated"}
+{"time": "2026-11-20T18:56:55Z", "role": "pi", "action": "deviation-recorded", "detail": "D4 post-hoc diagnostic diag-panelb for the B1-B4 misses; report-only; SAS-listing review renumbered code-r3"}
+{"time": "2026-11-20T18:56:55Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261120T185655Z (e-diag-panelb (D4))"}
