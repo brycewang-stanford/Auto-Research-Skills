@@ -7,8 +7,8 @@
     "code/tab_main.py",
     "runs/tab-main/metrics.json"
   ],
-  "started": "2026-11-20T07:00:32Z",
-  "finished": "2026-11-20T07:00:32Z",
+  "started": "2026-11-20T07:30:50Z",
+  "finished": "2026-11-20T07:30:50Z",
   "exit_code": 0,
   "code": [
     {
@@ -23,7 +23,7 @@
     },
     {
       "path": "claims.jsonl",
-      "sha256": "bb989661e4e6f824bd7b411cfe906ae716dc941acaae29f6c1c755c97d8201a1"
+      "sha256": "8c81fcb4d502b1904264c727d03cb280ffd5b1fcf5aea7fee4da23e102adf5ae"
     },
     {
       "path": "paper/numbers.tex",

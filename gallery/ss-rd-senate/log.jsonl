@@ -118,3 +118,8 @@
 {"time": "2026-11-20T07:29:07Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261120T072907Z (paper-r3)"}
 {"time": "2026-11-20T07:29:14Z", "role": "replicator", "action": "f24-response", "detail": "REPLICATION.md wording fixed; response written to paper-r3 F24"}
 {"time": "2026-11-20T07:30:12Z", "role": "writer", "action": "paper-r3-revised", "detail": "paper-r3 revise addressed: F18-F23 (one-line responses in reviews/paper-r3/review.json); F24 left to the Replicator (REPLICATION.md included in commit); AI-use counts 14 rounds; recompiled, 11 pages"}
+{"time": "2026-11-20T07:30:35Z", "role": "econometrician", "action": "density-p-wording", "detail": "rd-density-p and rd-density-p-conv texts: robust p is primary and decides; conventional reported beside it; values unchanged"}
+{"time": "2026-11-20T07:30:50Z", "role": "figures-ra", "action": "run-superseded", "detail": "tab-main archived to runs/.superseded/tab-main-20261120T070032Z"}
+{"time": "2026-11-20T07:30:51Z", "role": "figures-ra", "action": "run", "detail": "tab-main exit=0"}
+{"time": "2026-11-20T07:30:51Z", "role": "figures-ra", "action": "run-superseded", "detail": "tab-falsification archived to runs/.superseded/tab-falsification-20261120T070032Z"}
+{"time": "2026-11-20T07:30:51Z", "role": "figures-ra", "action": "run", "detail": "tab-falsification exit=0"}
