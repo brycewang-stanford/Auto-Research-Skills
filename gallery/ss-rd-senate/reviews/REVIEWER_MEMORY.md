@@ -51,3 +51,18 @@ Suspicions and checks for later rounds:
 - Paper stage: check that the pre-gate design-mde computations are disclosed in the paper's AI-use statement and text.
 - Scout/Data RA: check the 2016 masspoints history if a source becomes available.
 - I ran no model or estimate on the study data. I read code, run metrics and installed rdrobust source, and ran crew.py validate (passed). I did not open the seed task or any answer key.
+
+## design-r3 (2026-11-20, verdict pass)
+
+Status of round-2 findings: F1 conceded (report-only H2(c)); F2 resolved (masspoints 'off' labelled an assumption, both settings reported); F3 resolved (H2(d) added); F4 withdrawn (PI ruling, disclosed); F5 resolved; F6 resolved; F7 resolved (checked: rdbwselect.py mserd branch caps h and b at bw_max, computed on the sample passed in); F8 resolved (hypothesis block matches method); F9 resolved (massPoints rationale and p_Q_nomass); F10 conceded (2016 history left as an assumption; paper must disclose).
+
+New in round 3: F11 (c_L and c_R never recorded; task t-design-mde says they are; stale log wording), F12 (H1 'adjust' and bwcheck counts quoted from the full file, not the 1,297-row H1 sample), F13 (H2(b) compares to CCFT default-option p-values but is run only at masspoints 'off').
+
+Open at round 3: F11, F12, F13, all minor. No critical or major open. The kill argument stands: the falsification battery is report-only or underpowered, so it cannot show absence of a discontinuity; H1 is a computational check.
+
+Suspicions and checks for round 4 (the last round):
+- Paper stage: the paper must carry the pre-gate disclosure (F4), the unverified 2016 masspoints history (F10), the local-estimand caveat, and the absence of state clustering (CCFT 2017 Sec. 7.4).
+- Confirm that numbers in claims.jsonl for H2(c) are report-only and carry no non-rejection wording.
+- Check that h2-placebo records c_L, c_R, bw_max, h, b and N_h (F11), and that H2(b) is reported at the setting the comparison supports (F13).
+- Check the H1 'adjust' M value on the 1,297-row sample (F12).
+- I ran no model or estimate on the study data and did not open the seed task or any answer key.

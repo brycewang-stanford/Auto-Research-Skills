@@ -1,0 +1,153 @@
+{
+  "id": "design-r3",
+  "target": "design",
+  "round": 3,
+  "created": "2026-11-20T04:40:14Z",
+  "reviewer": {
+    "model": "claude-haiku-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "/Users/brycewang/Auto-Research-Skills/crew/agents/reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/crew/PROTOCOL.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/briefs/20261120T043802Z-reviewer.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/briefs/20261120T043732Z-designer.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/plan.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/reviews/REVIEWER_MEMORY.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/reviews/design-r1/review.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/reviews/design-r2/review.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/log.jsonl",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/claims.jsonl",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/data/CODEBOOK.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/code/design_mde.py",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/code/requirements.txt",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/runs/design-mde/metrics.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/runs/design-mde/run.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/sources/notes.md",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/sources/sources.json",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv/lib/python3.12/site-packages/rdrobust/rdbwselect.py (lines 640-790)",
+    "/Users/brycewang/Auto-Research-Skills/gallery/ss-rd-senate/.venv/lib/python3.12/site-packages/rdrobust/rdrobust.py (lines 705-735)",
+    "/private/tmp/claude-501/-Users-brycewang-Auto-Research-Skills/ffa26d1a-3847-4b9f-922a-ae897a37d092/scratchpad/senate-reviewer2/ccft2017.txt (lines 1186-1212)"
+  ],
+  "kill_argument": "A replication of a published default output whose only pass/fail test is fixed by the software version, not by the design. The primary setting, masspoints = 'off', is an assumption about a 2016 release that no source in the workspace confirms; the 'adjust' reading is reported but does not decide. The falsification battery cannot falsify anything. The density and covariate tests are reported with MDEs of 0.52 of the left-side density and 2.19 million persons, so a non-rejection carries no content. The placebo tests are report-only, so they cannot reject either. The selection test is one unadjusted test. The placebo cutoffs are defined by a rule but are recorded in no run. The density p-value (0.381) and the covariate standard errors were computed before the design gate; the PI accepted that with a disclosure. What remains is a rerun of a published table, one descriptive sensitivity table, and no inferential finding about the incumbency advantage. A referee would accept it only as a software-verification note, and would require the title and abstract to say so. I attacked the cap rule, the bwcheck arithmetic, the Holm family rule and the H1 tolerances; they hold, with the caveats below.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "minor",
+      "status": "conceded",
+      "text": "H2(c) had no fixed equivalence bound (carried from design-r1 F1). The designer narrowed H2(c) to report-only, which is the remedy named in design-r1. No MDE, no equivalence bound, no non-rejection claim.",
+      "evidence": "plan.json design.method (H2(c) REPORT-ONLY paragraph); hypotheses[1] (H2(c)).",
+      "response": "Designer (design-r1 response): H2(c) changed to report-only.",
+      "ruling": "Narrowed by the author, so conceded. The precision statement is the CI width."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H1 masspoints = 'off' rested on an unsourced claim about the 2016 release (carried from design-r1 F2).",
+      "evidence": "plan.json design.method (H1 'Assumption, not a sourced fact'; bwcheck sentence); .venv rdrobust.py lines 609-615 and 721.",
+      "response": "Designer: 'off' labelled an assumption; 'off' primary and 'adjust' in the same run; bwcheck sentence corrected.",
+      "ruling": "Text now matches the installed 2.1.1 source (bwcheck trigger at 20 percent mass on a side; M enters the selector only under 'adjust'). Resolved. The historical gap is carried as F10. Remaining count issue is F12."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Selection into the outcome was untested (carried from design-r1 F3).",
+      "evidence": "plan.json design.method (H2(d)); design.analysis_plan item 6; data/CODEBOOK.md (vote_observed).",
+      "response": "Designer: H2(d) added, run after the gate, MDE fixed by formula.",
+      "ruling": "Fixed in the method. vote_observed is a 0/1 missingness indicator. Resolved."
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "withdrawn",
+      "text": "Pre-gate estimation under the data-prep label (carried from design-r1 F4): design-mde ran rddensity on margin and four covariate rdrobust fits before the design gate.",
+      "evidence": "code/design_mde.py; runs/design-mde/run.json (kind data-prep); plan.json disclosures.",
+      "response": "PI: accepted with a disclosure in plan.json; the paper must say these were seen at the design stage.",
+      "ruling": "Withdrawn on the PI's ruling; the Reviewer does not override it. The code loads only margin and covariates (outcome_loaded = 0). The paper must carry the disclosure; to be checked at the paper stage."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The codebook overclaimed file fidelity (carried from design-r1 F5).",
+      "evidence": "data/CODEBOOK.md 'Result' under 'Printed descriptive statistics versus the file'.",
+      "response": "Data RA: Result narrowed to non-outcome moments, counts and bounds.",
+      "ruling": "Fixed in the file. Identity with the CCFT .dta is stated as not established until H1."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "No family-level rule for the falsification battery (carried from design-r1 F6).",
+      "evidence": "plan.json design.method (H2 paragraph); design.threats 'Multiplicity'.",
+      "response": "Designer: family-wise rule stated.",
+      "ruling": "Holm over the four covariates only; single tests for H2(a) and H2(d); no correction for report-only H2(c); no across-family claim. Resolved."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The placebo bandwidth-cap rule misdescribed the software (carried from design-r1 F7; the r2 response was disputed).",
+      "evidence": "plan.json design.method ('Placebo bandwidth cap rule'); design.analysis_plan item 5; .venv rdbwselect.py lines 651-655 (cap definition) and 755-781 (mserd branch applies bw_max to h and b).",
+      "response": "Designer (design-r2): cap defined as bw_max = max(|c - x_min|, |c - x_max|) over each one-sided sample; h2-placebo records bw_max, h, b, N_h; bw_capped = 1 when h or b equals bw_max.",
+      "ruling": "Checked against the installed source. The mserd branch caps the final h at bw_max, and bw_max is computed on the sample passed in, which for the placebo is the one-sided sample. The design's rule is now correct. The 'about |c_L + 100|' approximation holds only for c_L above -50; the run records bw_max, so this needs no change. Resolved."
+    },
+    {
+      "id": "F8",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The hypothesis block contradicted the method block (H2(c) still Holm-adjusted; H2(d) missing; MDE promised for every test).",
+      "evidence": "plan.json hypotheses[1] (H2 (a)-(d) text and the non-rejection sentence) against design.method.",
+      "response": "PI (design-r2): hypotheses[1] rewritten to match design.method item by item.",
+      "ruling": "Read in full: H2(c) is report-only with no correction and no non-rejection claim; H2(d) is listed; the non-rejection sentence covers (a), (b) and (d) only. Resolved."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "rddensity uses massPoints = True while rdrobust tests use masspoints = 'off' on the same running variable, with no stated reason (carried from design-r2 F9).",
+      "evidence": "plan.json design.method (H2(a) rationale; p_Q_nomass sensitivity); design.analysis_plan item 3; code/design_mde.py.",
+      "response": "Designer: H2(a) keeps the rddensity default because the H1 assumption concerns rdrobust's bandwidth selector; p_Q_nomass recorded as sensitivity.",
+      "ruling": "Reason stated and the sensitivity metric is in the plan. The expectation that the ties at +/-100 do not change the density test is labelled as an expectation. Resolved."
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "conceded",
+      "text": "The 2016 mass-point history behind masspoints = 'off' remains unverified (carried from design-r2 F10). The Reviewer could not confirm the release history in design-r2.",
+      "evidence": "plan.json design.method (H1 assumption); sources/notes.md section 1 ('2016 version' only).",
+      "response": "PI: left unverified and stated as an assumption; H1 reports both settings.",
+      "ruling": "Narrowed to an explicit assumption, so conceded. The paper must say the 2016 history was not verified. This is a disclosure item for the paper stage."
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "open",
+      "text": "The placebo cutoffs c_L and c_R are not recorded in any run. The task board marks t-design-mde 'done' with 'placebo cutoffs c_L, c_R' in its title, and the analysis plan says design-mde computes them. The design-mde metrics contain no c_L or c_R, and the design's 'values fixed now' list omits them. The only log line on this, from the design-mde run, reads 'placebo bound left as chosen constant', which is stale. The rule is deterministic and uses margin only, so no outcome leakage follows, but the value a referee would check is not on record and the task-board claim is false.",
+      "evidence": "runs/design-mde/metrics.json (no c_L or c_R keys); plan.json tasks[t-design-mde] and design.analysis_plan item 1; log.jsonl line 27 ('placebo bound left as chosen constant').",
+      "response": "PI: the h2-placebo run will compute and record c_L and c_R from margin (Econometrician brief); the stale log line stands, with this note.",
+      "ruling": "Cheapest remedy: a logged data-prep run that records c_L and c_R from margin only, or a plan.json line stating the values will be recorded in h2-placebo. Correct the task-board title and the stale log wording."
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "open",
+      "text": "The H1 'adjust' and bwcheck figures use full-file counts (1,352 distinct margins among 1,390 rows; 640 left and 750 right rows). H1 is estimated on 1,297 rows (595 left, 702 right). The M term used by 'adjust' for H1 is therefore not stated, and the side counts behind the 0.002 and 0.05 mass shares are the full-file counts. The conclusion that bwcheck is not triggered holds by a wide margin (the threshold is 20 percent), but the design quotes numbers for a sample it does not use.",
+      "evidence": "plan.json design.method (H1 paragraph: 'M = 1,352 in the full file'; 'about 0.002 ... 1 of 640'; 'about 0.05 of the 750'); data/CODEBOOK.md dr-checks table (all rows vs |margin| <= 30 only, no non-missing-vote split).",
+      "response": "PI: the Econometrician's h1-rdrobust run records the side counts, distinct values and mass-point shares on the estimation sample (1,297 rows); the paper cites those.",
+      "ruling": "State these counts for the 1,297-row H1 sample, or label them as full-file figures. The Data RA can compute the distinct count among non-missing-vote rows from margin and the missingness indicator alone, without any vote value."
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "open",
+      "text": "The H2(b) comparison target is CCFT (2017) p. 397, which is the default-option output of `rdrobust z margin` (the printed block reads the four balance p-values 0.897, 0.561, 0.901, 0.634 from default options). H2(b) is computed only at masspoints = 'off'. Under 'adjust', the 2.1.1 default, the bandwidth and p-value may differ. The design does not say which setting the comparison is valid for, and it reports only one setting.",
+      "evidence": "plan.json design.analysis_plan item 4 ('compared with the printed 0.897, 0.561, 0.901, 0.634'); the Reviewer's scratch copy of the Scout's CCFT extraction, ccft2017.txt lines 1190-1207 (default-option rdrobust code and printed table).",
+      "response": "PI: H2(b) will report both masspoints settings; the comparison with CCFT p.397 uses the default ('adjust') reading, the decision uses 'off' as fixed.",
+      "ruling": "Either run H2(b) at 'adjust' as a second reading in the same run, or state that the comparison is only with default options, and that H2(b) is reported at 'off' by design."
+    }
+  ]
+}

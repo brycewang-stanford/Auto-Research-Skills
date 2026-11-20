@@ -35,3 +35,5 @@
 {"time": "2026-11-20T04:37:32Z", "role": "pi", "action": "plan-revised", "detail": "design-r2 F8: H2 hypothesis text aligned with design.method. plan.json sha256=454a84fbfe86ade54745edb0af3066c5b872d8edafbe4ac05fb2c58d95ac7c21"}
 {"time": "2026-11-20T04:37:32Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261120T043732Z (design-r2)"}
 {"time": "2026-11-20T04:37:53Z", "role": "designer", "action": "design-r2-revised", "detail": "design-r2 F7: bw_capped defined from rdrobust bw_max on one-sided samples, placebo metrics record bw_max/h/b/N_h; F9: massPoints rationale for rddensity and p_Q_nomass sensitivity"}
+{"time": "2026-11-20T04:38:02Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261120T043802Z (design-r3)"}
+{"time": "2026-11-20T04:40:36Z", "role": "pi", "action": "gate-request", "detail": "design"}

@@ -118,7 +118,9 @@
       "note": "批准 (in chat, after question-r2 revise; F4/F7/F8 assigned to the design stage)"
     },
     "design": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-20T04:40:36Z",
+      "summary": "design-r3 pass (minor F11-F13 assigned to the analysis code); analysis plan fixed on approval"
     },
     "results": {
       "status": "pending"
