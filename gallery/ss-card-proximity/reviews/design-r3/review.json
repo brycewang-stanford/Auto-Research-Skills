@@ -1,0 +1,176 @@
+{
+  "id": "design-r3",
+  "target": "design",
+  "round": 3,
+  "created": "2026-11-20T17:37:02Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261120T173314Z-reviewer.md",
+    "briefs/20261120T173004Z-designer.md",
+    "briefs/20261120T173004Z-data-ra.md",
+    "briefs/20261120T173155Z-scout.md",
+    "plan.json",
+    "log.jsonl",
+    "sources/notes.md",
+    "data/CODEBOOK.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/design-r2/review.json"
+  ],
+  "kill_argument": "The robust layer still says nothing usable about Card's own estimate. Every informative robust statistic (effective F, robust AR set, CHR breakdown, IV-OLS interval) is computed on Panel A, whose coefficient the design concedes is not the return to schooling when schooling is endogenous; the one robust test on Card's basic specification, the H3(b) chi-square(3) projection, is pre-announced to include 0 (published reduced-form t^2 about 6.4 < 7.815), and the homoskedastic GKMC/GKM19 sets that might exclude 0 are barred from deciding. So the design can deliver a robust statement about a pseudo-parameter or a pre-announced 'not established' about the real one. This is disclosed, fixed in advance and worded honestly, so it limits the contribution rather than invalidating the design. Attacked this round and held: the Scout's 37-row GKM19 Table 3 transcription against the PDF text layer; the eq. (2.12) quantile against the table at every finite row (the check-synthetic bounds hold, narrowly at kappa_1 7.0 and 29.7); ivmodels' inverse uses dfd 2980 and an upper-bound chi2 set, consistent with the design's agreement check; no analysis run exists and the Designer's scratch reads no data.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Panel A column 6, on which every H2-H5 statistic is computed, needs exp76 and exp762 to be exogenous, and the design never states or threatens that assumption. exp76 = age76 - ed76 - 6 (design.method; read1.sas), so if ed76 is correlated with the wage error, as the whole IV exercise assumes, exp76 is correlated with it too (Cov(exp76,u) = -Cov(ed76,u) with age exogenous). Card says so himself: 'if education is truly endogenous in the earnings equation, then so is experience, since experience is mechanically related to education. Therefore, in the lower panel (Panel B) I have estimated models that instrument experience and experience-squared with age and age-squared' (WP 4483 p. 13, NBER scan PDF p. 15). The problem reaches the robust layer: with one instrument H3's AR(0) is the robust t of nearc4 in a regression that conditions on exp76, a function of schooling, and conditioning on it links nearc4 to the unobservables that also drive schooling (both shift ed76, hence exp76), so even the reduced-form test is not a valid test of a zero return under the design's own premise; H4's breakdown inherits it. design.identifying_assumption lists exclusion, independence and relevance only; design.threats T1-T10 have no entry; D2 explains only why Panel B gets no weak-IV inference. As written, H3's decision ('the IV return to schooling is positive survives') and H4's breakdown would be reported as statements about the return to schooling when they concern a coefficient that is inconsistent whenever schooling is endogenous.",
+      "evidence": "plan.json design.identifying_assumption, design.estimand, design.threats (no experience threat), design.deviations D2, hypotheses H3-H5 decision wording; design.method BASE_A includes exp76, exp762 as exogenous; Card WP 4483 p. 13 (https://www.nber.org/system/files/working_papers/w4483/w4483.pdf, PDF p. 15).",
+      "remedy": "Cheapest (narrowing): add to design.identifying_assumption that Panel A also requires exp76 and exp762 to be uncorrelated with the error, which cannot hold exactly if ed76 is endogenous; add a threat mapped to the h1-a6 vs h1-b6 comparison (published 0.140 vs 0.132 IV, 0.045 vs 0.048 reduced form) as the evidence on how much it matters; and fix the H3-H5 decision wording as statements about Card's Panel A column 6 coefficient, not the return to schooling. Stronger (optional): add a subvector Anderson-Rubin set for Panel B col 6 (for each b0, the over-identification statistic of (lwage76 - b0 ed76) on exp76, exp762 instrumented by nearc4, age76, age762, 1 df), which is valid when age strongly identifies experience; sources/notes.md sec. 3 (Londschien 2025) shows subvector inference on a Panel-B-type model is feasible.",
+      "response": "Fixed: design.identifying_assumption and estimand state Panel A's experience-exogeneity assumption; threat T5 (mapped to h1-a6 vs h1-b6 and h2h3-weakiv vs h3b-subvector) and T6 (age exclusion); H2/H3a/H4/H5 worded as about the Panel A coefficient; new run h3b-subvector gives Panel B col 6 subvector AR sets (robust projection chi2(3) primary; GKMC and GKM19 via ivmodels 0.10.0, checked against own code).",
+      "ruling": "Resolved. design.identifying_assumption (ii) now states that Panel A assumes exp76, exp762 uncorrelated with the wage error and that this cannot hold exactly if ed76 is endogenous; design.estimand defines the 'Panel A coefficient' and says H2, H3(a), H4, H5 concern it; threats T5 (mapped to h1-a6 vs h1-b6 and h2h3-weakiv vs h3b-subvector) and T6 (age exclusion, untested) exist; H3(b) adds a subvector AR set on Card's Panel B col 6. One wording residue (the H3 survival statement for H3(a) still says 'the IV return to schooling is positive') is carried as new minor F8."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H5's 95% interval of the IV-OLS difference is not a valid confidence interval, yet the design reads the expected non-rejection through it ('the differences it does not exclude'). (a) The interval is -g x (rho_hat +- 1.96 se_HC1(rho_hat)) from the control-function regression. The HC1 SE of rho_hat ignores that v_hat is a generated regressor; that is harmless only under H0: rho = 0 (where the DWH t-test is valid). Away from 0, rho_hat - rho contains a term -rho (pi_hat - pi)/pi_hat; with the published first stage (0.322, SE 0.083) this adds an SD of about 0.26 x |rho|, i.e. roughly 0.02 at the point estimate and 0.04-0.05 at the upper end of the interval, exactly the region the reading relies on. (b) The interval is a Wald interval built on the 2SLS estimate with a first-stage F of about 15, so it inherits the weak-instrument distortion that H2-H3 exist to avoid; the design reads H3 through AR but H5 through Wald.",
+      "evidence": "plan.json hypotheses H5 ('read through that interval'); design.method H5 (h5-cf) '95% interval of D = -g x (rho_hat +- 1.959964 se_HC1(rho_hat)), treating g as fixed'; design.claims_plan a6-diff-lo/hi, a5-diff-lo/hi.",
+      "remedy": "Keep the robust control-function t as the test (valid under its null). For the interval, either (cheapest, weak-IV robust, no new estimator) report the H3 robust AR set minus the OLS estimate (OLS SE about 0.004 is negligible next to it) and read the non-rejection through that; or compute the HC1 variance of beta_2SLS - beta_OLS from the stacked influence functions of the two estimators, which is valid at any rho, and label it Wald. Drop 'treating g as fixed' as the interval's justification.",
+      "response": "Fixed: the -g x CI(rho) interval is dropped; the control-function t stays as the test under its null; the interval of D now uses the stacked HC1 influence functions of 2SLS and OLS (design.method H5), labelled Wald and not weak-IV robust, plus a flag for whether the OLS estimate lies inside the robust AR set.",
+      "ruling": "Resolved. The -g x CI(rho) interval is gone; the robust control-function t is kept only as a test under its null; the interval uses the stacked HC1 influence functions (psi_IV = e1'(R'P_Q R)^-1 R'Q(Q'Q)^-1 q_i u_i, psi_OLS = e1'(R'R)^-1 r_i e_i, Var(D) = n/(n-k) sum (psi_IV - psi_OLS)^2), which I checked reproduces each estimator's HC1 variance; it is labelled Wald and not weak-IV robust, and the OLS-in-AR-set flag is added. D = -rho_hat g is an exact omitted-variable identity and is only asserted."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "r-balance, the design's only check that 'can contradict the independence reading', uses KWW, which is not a pre-schooling measure, and its fixed reading pre-commits a misinterpretation. Card: 'The 1966 interview also included a 28 item test of Knowledge of the World of Work ... The overall score on this test is correlated with completed education' (WP 4483 p. 5, PDF p. 7). In 1966 the men were aged 14-24, so for the older half the test came after high school and part of college; proximity raises schooling (first stage 0.32-0.37 years), and schooling raises KWW. A positive nearc4 coefficient on KWW is therefore expected even if the instrument is valid, yet the fixed reading says such a coefficient 'is reported as evidence of selection on ability or of better schools near colleges'. design.identifying_assumption calls both measures 'pre-schooling ability measures'. IQ is 'taken from school records for a subset of NLSYM respondents' (PDF p. 17; 2,061 of 3,010 in data/CODEBOOK.md), so the IQ regression tests balance in a selected subsample whose selection may itself depend on nearc4.",
+      "evidence": "plan.json design.analysis_plan item 8 (r-balance fixed reading), design.identifying_assumption ('pre-schooling ability measures'), design.data r-balance sample; data/CODEBOOK.md kww (2,963) and iq (2,061) non-missing counts.",
+      "remedy": "Restrict the KWW regression to men aged 14-15 (or 14-17) in 1966 (age76 24-25, or 24-27), before college, and pre-specify that rule now; or keep the full sample and add to the fixed reading that a positive KWW coefficient is also what a valid instrument produces through 1966 schooling. For IQ, also report the share with a non-missing IQ by nearc4 (a univariate missingness check, no outcome), and drop 'pre-schooling' for KWW in design.identifying_assumption.",
+      "response": "Fixed: r-balance now tests KWW for men aged 14-15 in 1966 (age76 24-25) as the pre-college check, keeps full-sample KWW as descriptive only with the reading that a valid instrument also predicts it, adds the IQ-missingness shares by nearc4, and 'pre-schooling' is dropped from the identifying assumption.",
+      "ruling": "Resolved. r-balance (a) uses KWW at age76 24-25 (14-15 in 1966; age76 spans 24-34 in data/CODEBOOK.md, so age76 - 10 maps the 1966 ages), full-sample KWW is descriptive with the valid-instrument reading stated, IQ missingness by nearc4 is added as (d), and 'pre-schooling' is gone from design.identifying_assumption."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H3's decision rule ('survives iff 0 is outside the set') does not imply a positive return when the set is unbounded or contains negative values: a union of two half-lines can exclude 0 and contain large negative values. The design reports the shape but the survival flag ignores it.",
+      "evidence": "plan.json hypotheses H3; design.method H3 'Decision: survives iff 0 is outside the set'; claims_plan h3-a6-survives.",
+      "remedy": "Define survival as: the set is a bounded interval with lower bound above 0 (equivalently here, |robust RF t| > 1.96 with positive sign and F_eff > 3.84); otherwise report 'not established' with the shape.",
+      "response": "Fixed: survival now requires the primary set to be a bounded interval with lower bound above 0 (plan.json H3, design.method), for H3(a) and H3(b) separately; otherwise shape and bounds are reported as 'not established'.",
+      "ruling": "Resolved. plan.json H3 and design.method require a bounded interval with lower bound above 0, separately for H3(a) and H3(b); other shapes are reported as 'not established'."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Column counts are wrong. BASE_A as listed (black, reg76r, smsa76r, smsa66r, reg662-reg669, exp76, exp762, intercept) is 15 columns, not 16; BASE_B is 13, not 14. data/CODEBOOK.md calls the base controls '13 variables'; they are 14 without the intercept. n - k = 2994 for column 5 is right only with BASE_A = 15 plus ed76 (or nearc4). If the Econometrician codes the stated counts as assertions or df, a run fails or a spurious column enters.",
+      "evidence": "plan.json design.method VARIABLES ('16 columns', '14 columns'); data/CODEBOOK.md 'Base controls ... (13 variables)'; read1.sas third PROC REG model.",
+      "remedy": "Correct the counts in design.method (BASE_A 15, BASE_B 13 including the intercept) and state k for each regression whose n-k enters H1.",
+      "response": "Fixed: BASE_A = 15 and BASE_B = 13 columns including the intercept, and k and n-k are stated for every regression (16/2994 without FB, 30/2980 with FB).",
+      "ruling": "Resolved for the design: BASE_A = 15 and BASE_B = 13 columns including the intercept, and k / n-k are stated per regression (16/2994, 30/2980; X = 27 columns for H3(b)); I recounted them. data/CODEBOOK.md line 88 still says the base controls are '13 variables' (they are 14 without the intercept); carried into new minor F9."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "r-cluster's fixed reading covers only one direction. With at most 18 region-by-SMSA cells of very unequal size (region 8 holds 2.8% of the sample) and several regressors constant within cells, CR1 with t(G-1) can over-reject, so a clustered t above its critical value is weak reassurance; the design does not say it will not be reported as robustness to county-level dependence.",
+      "evidence": "plan.json design.analysis_plan item 9; design.deviations D1; data/CODEBOOK.md reg668 share 0.0282.",
+      "remedy": "Add to the fixed reading that a clustered t above the critical value is not read as robustness, and report G and the smallest cell size.",
+      "response": "Fixed: r-cluster's fixed reading now covers both directions (a clustered t above the critical value is not reported as robustness) and the run reports G, the smallest cell size and the number of cells under 30.",
+      "ruling": "Resolved. analysis_plan item 10 now reads a clustered t above the critical value as not robustness, and the run reports G, the smallest cell and cells under 30. D1 and T9 calling r-cluster a 'one-directional warning' are consistent with this (it can warn, never reassure)."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The H1 count leaves out printed numbers without a reason: the A3 reduced form 0.042 (0.018) is 'compared but not counted' although A1 (same column pair) is counted, and Panel B columns 1, 3 and 5 (0.382 (0.114), 0.047 (0.019), 0.122 (0.046)) are not estimated though they need no new variable. The choice is fixed in advance, so it is not a search, but the denominators 9 and 14 look selected.",
+      "evidence": "plan.json design.method H1 DECISION ('The A3 reduced form ... compared in the paper but not counted; Panel B columns 1, 3 and 5 are not estimated'); sources/notes.md sec. 1 Table 3.",
+      "remedy": "Either count A3 and add B1, B3, B5 as secondary targets, or give the reason for leaving them out in design.method.",
+      "response": "Fixed: A3 is counted and Panel B cols 1, 3 and 5 are estimated in h1-b6 as secondary targets; secondary count is now 22 (every printed nearc4 or education coefficient of Table 3 and Table 2 cols 2 and 5, plus the Cinelli-Hazlett set).",
+      "ruling": "Resolved in design.method: A3 is counted and B1, B3, B5 are secondary targets; I recounted 9 primary and 22 secondary (every Table 3 nearc4/education coefficient and SE, Table 2 cols 2 and 5, plus the two Cinelli-Hazlett bounds). plan.json H1 has not been updated to match; carried into new minor F9."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The H3 survival statement is still worded as a statement about the return to schooling for both parts: 'Decision rule fixed now, applied to the primary set of (a) and of (b) separately: \"the IV return to schooling is positive\" survives iff ...'. For H3(a) the set is for the Panel A coefficient, which design.estimand itself says is not the return to schooling when ed76 is endogenous. The flag that carries the label (claim h3a-a6-survives, and its a5 counterpart) is what the Writer will quote, so the label, not the surrounding caveat, is what reaches the abstract. design.summary has the same unqualified phrase ('a set supports a positive return only if ...').",
+      "evidence": "plan.json hypotheses H3 (decision-rule sentence); design.method 'Decision for H3(a) and H3(b) separately'; design.summary; design.claims_plan item 9 (h3a-a6-survives).",
+      "remedy": "Word the H3(a) statement as 'the Panel A coefficient on schooling is positive' and keep 'the return to schooling is positive' only for H3(b); no change to any computation.",
+      "response": "Fixed: design.method, summary and claims_plan now say H3(a) decides only 'the Panel A coefficient on schooling is positive' (flags/claims h3a-a6-pacoef-positive, h3a-a5-pacoef-positive); 'the return to schooling is positive' is used only for H3(b) (h3b-b6-return-positive).",
+      "ruling": "Resolved. design.method ('Decision rules ... for H3(a) ... the same rule decides only the narrower statement \"the Panel A coefficient on schooling is positive\" ... no H3(a) output, flag, claim or macro is labelled as a statement about the return to schooling'), design.summary, analysis_plan items 4 and 11 and claims_plan items 4 and 8 now use h3a_*_pacoef_positive; the return wording is kept only for h3b_b6_return_positive. plan.json H3 says the same. A related residue in H4 and H5 is new minor F13."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The fixed H1 target list exists in two versions. plan.json hypotheses H1 lists as secondary targets only Panel A cols 6 and 5 (A6, A2, A4, A5, A1), Table 2 cols 2 and 5 and the Cinelli-Hazlett set; it omits A3 0.042 (0.018) and Panel B cols 1, 3, 5, which design.method now counts among the 22 secondary targets (design-r1 F7). data/CODEBOOK.md still calls the base controls '13 variables' (black, smsa76r, reg76r, smsa66r, reg662-reg669, exp76, exp762 = 14). The denominators the paper reports must come from one fixed list.",
+      "evidence": "plan.json hypotheses[0] 'Secondary targets: ...'; design.method 'Secondary targets (22, ...)'; data/CODEBOOK.md 'Base controls' bullet (line 88).",
+      "remedy": "Add A3, B1, B3, B5 and the counts 9 and 22 to H1 (PI), and correct the CODEBOOK count (Data RA).",
+      "response": "",
+      "ruling": "Resolved (no response written, fixed in the files). plan.json H1 now lists A3 (as 'reduced form (column 3)') and Panel B cols 1, 3, 5 and points to design.method's 22 as authoritative; I recounted 9 primary and 22 secondary there. data/CODEBOOK.md lines 87-93 now say 14 base variables / 15 columns with the intercept (BASE_A) and 12 / 13 for BASE_B, matching design.method."
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The 'GKM19' sets are not computed with GKM19's critical values, and nothing in the design would notice. I read the ivmodels 0.10.0 wheel (tests/anderson_rubin.py): it computes c_0.95(kappa_1, k - m_W) as the exact quantile of the approximate conditional density (GKM19 eq. 2.12), via scipy hyp1f1 and quad. GKM19 define the test with the tabulated values interpolated linearly (eq. 2.13, Appendix B Table 3), which 'have been rounded up to one decimal' 'to mitigate any slight overrejection induced by interpolation' (p. 494), and their size result (Theorem 2, Corollary 4) is a numerical check of that tabulated test. For k - m_W = 1 at 5% the ivmodels value is below the table at intermediate kappa_1: 3.305 vs 3.4 at 9.8; 3.601 vs 3.7 at 18.5; 3.700 vs 3.8 at 29.7; 2.525 vs 2.6 at 4.8; they agree at 1000 (3.8376 vs 3.838). I reproduced the ivmodels numbers by independent numerical integration of (2.12) (4 decimals), so the function is right for (2.12), and it is numerically stable up to kappa_1 = 1e8. Also, ivmodels scales kappa_1 by n - k - mc - md = 2981 in anderson_rubin_test but by dfd = 2980 in inverse_anderson_rubin_test, so the reported set and p-value use slightly different conditioning values (the Designer noticed the 2981). The design's own-code agreement checks cover kappa_p, kappa_1 and the GKMC quadric, not the critical-value function. GKM19 is non-deciding and with age strongly identifying experience kappa_1 will probably be far above 1000, where the difference vanishes, so this is minor.",
+      "evidence": "design.method H3(b) (3) and 'Software for (2) and (3)'; analysis_plan item 3 (check-synthetic: 'own kappa_p, kappa_1 and GKMC set equal ivmodels'); ivmodels 0.10.0 anderson_rubin.py more_powerful_subvector_anderson_rubin_critical_value_function and the kappa_max line; GKM19 (Quantitative Economics 10, 2019) eq. 2.12-2.13, p. 494, Table 3 p. 519 (pure.uva.nl PDF); sources/notes.md sec. 4b (b).",
+      "remedy": "Cheapest: write kappa_1 to the metrics and, in the run, compute the GKM19 critical value both ways (ivmodels' eq. 2.12 quantile and Table 3 interpolation for k - m_W = 1, 5%), label the ivmodels set 'eq. (2.12) quantile', and say in the paper which one was used and whether the two give the same decision; add a check-synthetic assertion that the critical-value function reproduces Table 3 to within its one-decimal rounding.",
+      "response": "Fixed: h3b-subvector writes kappa_1 (at the 2SLS estimate, at every bound, minimum over the grid) and computes the GKM19 critical value both from Table 3 interpolation (reported set) and from the ivmodels eq. (2.12) quantile (labelled, with an agreement-on-0 flag); check-synthetic asserts the quantile reproduces Table 3 within its one-decimal rounding up; Scout task s-gkm19-table transcribes the full column.",
+      "ruling": "Resolved. design.method H3(b) (3) computes the critical value as (3T) Table 3 interpolation (reported set) and (3Q) the eq. (2.12) quantile (ivmodels, labelled), writes kappa_1 and both critical values at the 2SLS estimate, at each bound and the grid minimum, flags agreement on 0, and fixes the 2980 vs 2981 scaling. The Scout's transcription in sources/notes.md sec. 4b matches the GKM19 Table 3 text layer row for row (37 rows; I re-extracted p. 519). I recomputed the eq. (2.12) 95% quantile by independent numerical integration at all 36 finite tabulated kappa_1: the check-synthetic assertion table - 0.1 - 1e-3 < quantile <= table + 1e-6 holds at every row, but with little margin at kappa_1 = 7.0 (quantile 3.0005 vs floor 2.999) and 29.7 (3.7004 vs 3.699), so a quadrature error above about 1e-3 in ivmodels (quad limit=50) would fail it; at 1000 the quantile is 3.8376 (|q - 3.838| < 1e-3 holds). The interpolation rule outside the tabulated range departs from GKM19 eq. (2.13): new minor F12."
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The only coverage check of the primary H3(b) procedure is homoskedastic, although that procedure is primary because it is meant to hold under heteroskedasticity, and item 0c itself says 'heteroskedastic errors in every design'. A homoskedastic coverage check cannot catch an error in the HC1 stacking (S, A = (1, -b0, -g1, -g2) kron I_3) or a BFGS minimum that stops above the true infimum (which would wrongly exclude b0 and shrink the set) in the case the method exists for. With 200 replications the pass threshold is about 0.904, which a conservative projection clears easily; the check also has no design in which experience is only weakly identified, where the profile minimum is hardest to find.",
+      "evidence": "design.analysis_plan item 3 ('the projection set contains the true b0 in a 200-replication homoskedastic check at a rate of at least 95% minus 3 Monte Carlo SEs'; 'heteroskedastic errors in every design'); design.method H3(b) (1).",
+      "remedy": "Make the coverage replications heteroskedastic (errors scaled by a function of the instruments), add one design with weakly identified nuisance coefficients, and keep the 401 x 401 brute-force comparison there too; no real data involved.",
+      "response": "Fixed: check-synthetic now runs the H3(b) coverage check on 500 heteroskedastic replications in two designs, strong and weak nuisance (population kappa_1 about 5), threshold 0.921, with the BFGS-versus-401 x 401 brute-force comparison in both (BFGS must be no larger than the grid minimum).",
+      "ruling": "Resolved. analysis_plan item 0c now runs the H3(b) checks in two heteroskedastic designs (errors scaled by sqrt(0.25 + z1^2 + 0.5 z2^2), correlated across equations), strong nuisance and weak nuisance (population kappa_1 about 5), 500 replications each with threshold 0.95 - 3 x sqrt(0.0475/500) = 0.921 (I recomputed it), and the BFGS-versus-401 x 401 brute-force comparison in both; the homoskedastic GKMC coverage is reported, not asserted. design.threats T11 matches."
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "open",
+      "text": "The (3T) set is presented as 'GKM19's own test, eq. (2.13)', but the design's interpolation rule differs from eq. (2.13) at both ends, and the Scout's note contradicts the design on the rounding. (a) Below the first grid point design.method uses 'the smallest tabulated value' (0.4 for kappa_1 < 0.5); GKM19 eq. (2.13) interpolates from kappa_1,0 = 0, q_0 = 0 (journal p. 494; sources/notes.md sec. 4b quotes this correctly). (b) Above kappa_1 = 1000 the design jumps to 3.841; GKM19 fn. 4 uses (1 - F(kappa_1 - 1000)) 3.838 + F(.) 3.841 for a distribution function F, and the size proof treats c(z) as continuous and increasing (proof of Theorem 5, p. 518); a step is a degenerate F and makes c discontinuous at 1000. (c) sources/notes.md sec. 4b says whether the one-decimal rounding up applies to Table 3 'is not stated in what I read'; Appendix B (p. 522) says 'The conditional quantiles are rounded upwards to one decimal place' for Tables 3-7, so the design's statement is right and the note is wrong. None of this can move the Card result if kappa_1 is far above 1000, as the design expects, but the check-synthetic test of (3T) ('returns each tabulated value exactly at its kappa_1') would not catch (a) or (b).",
+      "evidence": "plan.json design.method H3(b) (3) ('below the smallest tabulated kappa_1 the smallest tabulated value is used, above the largest finite one the kappa_1 = infinity value 3.841'); analysis_plan item 0c (GKM19 critical values); sources/notes.md sec. 4b (b) last bullet before 'Assumptions'; GKM19 Quantitative Economics 10 (2019) eq. (2.13) and fn. 4 p. 494, proof of Theorem 5 p. 518, Appendix B p. 522 (pure.uva.nl PDF). Cheap remedy: use eq. (2.13) from (0, 0) below 0.5 and state the F used above 1000 (or say the step is a conservative simplification), add both cases to check-synthetic, and correct the note.",
+      "response": "Fixed: (3T) is now linear from (0, 0) below the first table point and follows fn. 4 above 1000 with F(x) = 1 - exp(-x/1000) (our stated choice; continuous, non-decreasing), the Appendix B rounding-up is cited, and check-synthetic tests both ends, continuity and monotonicity; the note is corrected by the Scout (separate brief).",
+      "ruling": ""
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "open",
+      "text": "The label problem fixed for H3 in F8 survives in the operative sentences of H4 and H5. H4 opens with 'a statement about the Panel A coefficient' but its measured quantity is 'the smallest delta (log points) at which the robust 95% set for the return to schooling first includes 0'; H5 tests 'the null that the 2SLS and OLS returns are equal'. Both are Panel A quantities (design.estimand: 'H2, H3(a), H4 and H5 are statements about the Panel A coefficient, not about the return to schooling'). The claim ids (a6-chr-breakdown, a6-cf-t) are neutral, so this reaches the paper only through the hypothesis text the Writer paraphrases.",
+      "evidence": "plan.json hypotheses[3] (H4, second sentence) and hypotheses[4] (H5, first sentence); design.estimand. Remedy: replace 'the return to schooling' with 'the Panel A coefficient on schooling' in H4 and 'returns' with 'Panel A coefficients' in H5.",
+      "response": "Fixed in the design: summary, method, analysis plan and claim ids/texts for H4 and H5 now name the Panel A coefficient on schooling (a6-pacoef-chr-*, a6-pacoef-cf-*, a6-pacoef-diff-*, h5-a6-pacoef-equality-rejected).",
+      "ruling": ""
+    },
+    {
+      "id": "F14",
+      "severity": "minor",
+      "status": "open",
+      "text": "The H3(b) set is computed only on b0 in [-1, 1]; outside it the design has probes that classify the shape but no rule that locates a bound. If the projection set's upper bound lies between 1 and 2 (the grid edge accepted, the probe at 2 rejected), 'each boundary refined by bisection' has no grid crossing to bisect, and b6-ar-rob-hi (and the GKMC/GKM19 bounds) are undefined. The rule 'an accepted probe beyond the grid = unbounded on that side' also calls a bounded set with a distant piece (e.g. accepted at 5, rejected at 10, 100, 1000) unbounded. From Card's published Panel B first stage and reduced form, a chi-square(3)-calibrated set is roughly [-0.02, 0.8] before the minimisation over g widens it, so the upper bound may come near the grid edge; the lower bound, which decides H3(b), is unaffected.",
+      "evidence": "plan.json design.method H3(b) (1) ('Evaluated on b0 in [-1, 1] step 5e-4, each boundary refined by bisection to 1e-6; probes at b0 = +-2, +-5, +-10, +-100, +-1000 classify the shape (an accepted probe beyond the grid = unbounded on that side)'); claims_plan item 5 (b6-ar-rob-hi). Remedy: bisect between the last accepted and the first rejected point wherever it lies (grid edge or probe), and call a side unbounded only if every probe beyond the last crossing is accepted, else report the disconnected pieces.",
+      "response": "Fixed: every H3(b) set is evaluated on the fine grid plus 400 log-spaced outer points per side to |b0| = 1e5, each crossing is bisected between the last accepted and first rejected point wherever it lies, pieces are reported separately, a side is unbounded only if every outer point beyond the last crossing is accepted, and check-synthetic tests these cases on known quadrics.",
+      "ruling": ""
+    }
+  ],
+  "files_sha256": {
+    "briefs/20261120T173314Z-reviewer.md": "c1f2ac0fdf00b44bd78e7ddfdabf0db085a1383bbbd8aad354e3b80c5f8140c8",
+    "briefs/20261120T173004Z-designer.md": "52cc2f76c140a6d11b77b8ceee246fbbaf6506d8894d2ce85d2352541a256aed",
+    "briefs/20261120T173004Z-data-ra.md": "43611a9912ad68c672865dc99579612458d74b55db38d9879f50a620ef4e1e68",
+    "briefs/20261120T173155Z-scout.md": "8e98235a0598c0d02bca8f9c4d2cb2479fd97618fca289a9d9db32ad7e81fb06",
+    "plan.json": "06455cb1bacd0ebbf968666b9a1e5de6019be99db0a13dfc02f6293b241287d1",
+    "log.jsonl": "d168fb63abdd26d4cb15fc1414752148d1058afdee74098b700a392d5d8add44",
+    "sources/notes.md": "f516bf0b98abbf5fe3c47028c618245ef0e24593ee1125045e7a43eecd1d9856",
+    "data/CODEBOOK.md": "a482bffdcf71db3568d969e945478f2ff6b9353381aa021b603a4737bf37c9de",
+    "reviews/REVIEWER_MEMORY.md": "d1a6753a1fa15d63e3a3313e02d9b33e1054699775637cbdf8cae246efb56113",
+    "reviews/design-r2/review.json": "07d16ce420b3d0ad6923d8761ebdc78087a0dc93fa0aa465d76a4e2e83ba9129"
+  },
+  "recorded": "2026-11-20T17:37:48Z"
+}

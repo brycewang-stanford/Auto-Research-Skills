@@ -474,12 +474,43 @@ full text)
   | 1000 | 3.838 |
   | inf | 3.841 |
 
-  Use as GKM19 prescribe (eq. 2.13, journal p. 494): linear interpolation between grid
-  points, with kappa_1,0 = 0 and q_0 = 0 for values below the first grid point. Above
-  kappa_1 = 1000 the paper's footnote 4 suggests a nonlinear interpolation towards the
-  chi-square(1) value 3.841. GKM19 say (p. 494) the printed values "have been rounded up to
-  one decimal" to offset interpolation error; that sentence refers to Table 1 (k - 1 = 4).
-  Whether the same rounding applies to Table 3 is not stated in what I read.
+  **Rounding (corrected 2026-11-21 after design-r3 F12; my earlier note that this was
+  unstated was wrong).** GKM19 Appendix B, journal p. 522 (PDF p. 37; checked on the page
+  image): "10%, 5%, and 1% conditional critical values c_{1-α}(κ̂1, k − m_W) were computed by
+  numerically integrating the density (2.12) at different values of the conditioning
+  variable κ̂1 for the cases k − m_W = 1, ..., 5. The results are reported in Tables 3–7.
+  Tables of critical values for the cases k − m_W = 6, ..., 20 are reported in Appendix C in
+  the SM. The conditional quantiles are rounded upwards to one decimal place, and the
+  initial value of κ̂1 in each table is the smallest κ̂1 for which the rounded quantile is
+  less than κ̂1." So the Table 3 values are upward-rounded quantiles. (The separate sentence
+  on p. 494, "To mitigate any slight overrejection induced by interpolation, the reported
+  critical values have been rounded up to one decimal", is about Table 1, k − 1 = 4.) The
+  1000 and ∞ rows are printed with three decimals (3.838, 3.841).
+
+  **Interpolation, exactly as printed (journal p. 494, PDF p. 9; checked on the page
+  image).** Text before eq. (2.13): "... conditional critical values for any given κ̂1 are
+  obtained by linear interpolation.[3] Specifically, let q_{1−α,j}(k − 1) denote the 1 − α
+  quantile of the distribution whose density is given by (2.12) with κ̂1 replaced by κ̂_{1,j}.
+  The end point of the grid κ̂_{1,J} should be chosen high enough so that q_{1−α,J}(k − 1) ≈
+  χ²_{k−1,1−α}. For any realization of κ̂1 ≤ κ̂_{1,J},[4] find j such that
+  κ̂1 ∈ [κ̂_{1,j−1}, κ̂_{1,j}] with κ̂_{1,0} = 0 and q_{1−α,0}(k − 1) = 0, and let
+
+      c_{1−α}(κ̂1, k − 1) := (κ̂_{1,j} − κ̂1)/(κ̂_{1,j} − κ̂_{1,j−1}) · q_{1−α,j−1}(k − 1)
+                           + (κ̂1 − κ̂_{1,j−1})/(κ̂_{1,j} − κ̂_{1,j−1}) · q_{1−α,j}(k − 1).   (2.13)"
+
+  - Footnote 3: "For general m_W, discussed in the next subsection, the role of k − 1 is
+    played by k − m_W."
+  - Footnote 4: "When κ̂1 > κ̂_{1,J}, we can define c_{1−α}(κ̂1, k − 1) using nonlinear
+    interpolation between κ̂_{1,J} and ∞, that is, c_{1−α}(κ̂1, k − 1) := (1 − F(κ̂1 −
+    κ̂_{1,J}))q_{1−α,J}(k − 1) + F(κ̂1 − κ̂_{1,J})χ²_{k−1,1−α}, where F is some distribution
+    function."
+  - So, **below the first table point** (κ̂1 < 0.5 for k − m_W = 1 at 5%), eq. (2.13) applies
+    with the anchor (κ̂_{1,0}, q_0) = (0, 0): linear interpolation between (0, 0) and
+    (0.5, 0.4). **Above the last finite point** (κ̂1 > 1000 here, if 1000 is taken as κ̂_{1,J}),
+    footnote 4 allows any distribution function F to move from q_J = 3.838 towards the
+    χ²(1) quantile 3.841. The paper does not fix F. **[Scout reading]** Any choice changes the
+    critical value by at most 0.003, and choosing F = 1 (use 3.841) is the conservative
+    end of that range.
 - Assumptions: Gaussian errors with known covariance for the finite-sample results, and
   conditional homoskedasticity for the asymptotic results. Size equals nominal size, shown
   for alpha in {1, 5, 10}% and k - m_W in {1, ..., 20} (Corollary 4). The GKMC test is

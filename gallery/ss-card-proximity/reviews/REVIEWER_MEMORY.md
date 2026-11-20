@@ -81,3 +81,15 @@ Check next time (code review):
 - h3b: kappa_1 written to metrics; GKM19 cv both ways (F10); which kappa scaling.
 - check-synthetic heteroskedastic coverage (F11); runs only synthetic data; no analysis run before the gate.
 - Results/paper: h3a flag wording (F8); 9/22 denominators; Panel A never 'Card's preferred'; carried checks (OLS SE .003/.004 four decimals, conventional SE for H1).
+
+## design-r3 (2026-11-20, verdict pass)
+
+F8-F11 resolved (plan.json, CODEBOOK lines 87-93). Checked: Scout's 37-row GKM19 Table 3 (k-m_W=1, 5%) matches the PDF text layer row for row; my own eq. (2.12) quantile at all 36 finite rows satisfies table - 0.1 - 1e-3 < q <= table + 1e-6, but tight at kappa_1 7.0 (3.0005 vs 2.999) and 29.7 (3.7004 vs 3.699); q(1000) = 3.8376. Appendix B p. 522: rounding up applies to Tables 3-7 (notes sec. 4b wrongly says unstated). ivmodels inverse 'gkm' uses dfd 2980, chi2 set as outer bound, one root per side between chi2 boundary and LIML (assumes connected set). No analysis run; Designer scratch reads no data.
+
+New minors: F12 (3T) interpolation departs from eq. 2.13 below 0.5 (should go from (0,0)) and steps to 3.841 above 1000 (fn. 4 F; proof of Thm 5 p. 518 wants continuity); notes rounding sentence wrong. F13 H4 'robust 95% set for the return to schooling', H5 '2SLS and OLS returns are equal' are Panel A quantities. F14 H3(b) grid [-1,1]: no rule to locate a bound between grid edge and probe; 'accepted probe = unbounded' misclassifies disconnected bounded sets. Published-number sketch: chi2(3) set roughly [-0.02, 0.8] before minimisation.
+
+Check next time (code review):
+- ivlib (3T) interpolation at kappa_1 < 0.5 and > 1000 (F12); test_ivlib tolerance at kappa_1 7.0/29.7 not loosened after a failure without a logged deviation.
+- h3b bound search beyond [-1,1] (F14); ivmodels gkm inverse vs own (3Q) set when set disconnected.
+- Carried: AR V e_i u_i cross term; HC1 n/(n-k) with k 30/16; CHR = lambda - 1.96 se; A = (1,-b0,-g1,-g2) kron I3; BFGS starts incl. LIML; heteroskedastic coverage designs S and WN with threshold 0.921; runs only synthetic data before the gate.
+- Results/paper: h3a flags 'Panel A coefficient'; H4/H5 wording (F13); 9/22 denominators; no 'Card's preferred' for A6; OLS SE four decimals (.003/.004); conventional SE for H1.
