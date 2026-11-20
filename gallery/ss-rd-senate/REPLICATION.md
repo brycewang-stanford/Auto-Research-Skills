@@ -2,54 +2,55 @@
 
 ## Outcome of the clean rerun (2026-11-20)
 
-`crew.py rerun` **FAILED**: 7 of 15 runs reproduced. `replication.json` has `passed: false`.
-The `results` gate and the `submission` gate cannot pass on this file. Causes are listed below;
-none is a metric that moved, except one NaN comparison (h2-density).
+`crew.py rerun` **PASSED**: 15 of 15 runs reproduced, in a fresh environment built from
+`code/requirements.txt` alone (27 pinned packages, Python 3.12.11). `replication.json` has
+`passed: true` and is newer than every run. The run record is in `replication.json`.
 
-| Run | Status | Cause |
-|---|---|---|
-| h1-rdrobust | match | |
-| h2-placebo | match | |
-| h2-selection | match | |
-| h3-sensitivity | match | |
-| tab-main | match | |
-| fig-rd | match | |
-| fig-density | match | |
-| fetch-data | failed | Script writes `runs/fetch-data/metrics.json`; directory absent in the rerun copy |
-| prepare-data | failed | Same: `runs/prepare-data/metrics.json` |
-| dr-checks | failed | Same: `runs/dr-checks/metrics.json` |
-| design-mde | failed | Same: `runs/design-mde/metrics.json` |
-| h2-covariates | failed | Reads `runs/design-mde/metrics.json`, missing because design-mde failed |
-| tab-falsification | failed | Reads `runs/h2-covariates/metrics.json`, missing (downstream of h2-covariates) |
-| unit-tests | failed | Runs h2_covariates.py, which fails as above |
-| h2-density | mismatch | `T_Q_asy` and `p_Q_asy` are NaN in both the recorded and the rerun metrics; `same_value` uses `math.isclose`, which treats NaN as unequal |
+| Run | Status |
+|---|---|
+| fetch-data | match |
+| prepare-data | match |
+| dr-checks | match |
+| design-mde | match |
+| h1-rdrobust | match |
+| h2-density | match |
+| h2-covariates | match |
+| h2-placebo | match |
+| h2-selection | match |
+| h3-sensitivity | match |
+| unit-tests | match |
+| fig-rd | match |
+| fig-density | match |
+| tab-falsification | match |
+| tab-main | match |
 
-### Diagnosis (for the PI; not fixed here)
+Time: environment build about 30 seconds; rerun about 20 seconds (macOS, arm64). No
+`--reuse-data` was used. No analysis code, data or tolerance was changed.
 
-1. **Missing run directories in the rerun copy.** `cmd_rerun` copies the workspace with
-   `shutil.ignore_patterns("runs", "replication.json")`, so `runs/<id>/` does not exist in the
-   copy. Scripts that do not call `os.makedirs` before writing their metrics file then fail.
-   Scripts that do create the directory (h1-rdrobust and others) run fine. This is a defect in
-   the rerun harness (`crew/scripts/crew.py`, `cmd_rerun`) together with scripts that assume
-   the directory exists. The cascade (h2-covariates, tab-falsification, unit-tests) follows
-   from design-mde failing.
-2. **NaN comparison.** `T_Q_asy` / `p_Q_asy` come out NaN in the original run, so the recorded
-   values are NaN. `rddensity`'s asymptotic test is NaN for this sample. The comparator in
-   `crew.py` (`same_value`) returns unequal for NaN, so the run is flagged even though the
-   value is identical in form. Either the metric should not be recorded when NaN, or the
-   comparator should treat NaN == NaN. Tolerances were not changed.
+## Two attempts and the tool fix
 
-No analysis code, data or tolerance was edited. No `--reuse-data` was used.
+**Attempt 1 (failed, 7 of 15 reproduced).** The rerun copy omitted `runs/`, so scripts that
+write `runs/<id>/metrics.json` without creating the folder failed (fetch-data, prepare-data,
+dr-checks, design-mde), and their dependents failed through the missing metrics file
+(h2-covariates, tab-falsification, unit-tests). h2-density was flagged because `T_Q_asy` and
+`p_Q_asy` are NaN in both the recorded and the rerun metrics, and the comparator treated
+NaN as unequal.
+
+**Tool fix.** Commit `0a72b72` (crew.py): `rerun` creates each run's folder as `run` does,
+and a metric that is NaN in both runs counts as reproduced. A test was added. The PI
+disclosed the fix in `plan.json`.
+
+**Attempt 2 (passed, 15 of 15).** The same procedure, unchanged analysis code and tolerances,
+on the fixed tool. The result above is attempt 2. `replication.json` was overwritten by it;
+attempt 1's record is preserved in git history at commit `2dce826`.
 
 ## Environment
 
-- Python 3.12.11 (uv-managed), built outside the workspace from `code/requirements.txt` alone.
-- `uv venv --python 3.12 <env>` then `uv pip install --python <env>/bin/python -r code/requirements.txt`
-  (27 packages, pinned, including `rdrobust==2.1.1` and `rddensity==3.0`).
-- The workspace `.venv` was parked and symlinked to the fresh environment for the rerun, then
-  restored. The symlink was never committed.
-- Platform of the original runs: macOS on arm64 (Python 3.12.11). The rerun record reports
-  Python 3.14.6 for the crew tool itself; the analysis scripts run under `.venv/bin/python`.
+- Python 3.12.11 (uv-managed), built outside the workspace from `code/requirements.txt` alone:
+  `uv venv --python 3.12 <env>` then `uv pip install --python <env>/bin/python -r code/requirements.txt`.
+- Pinned versions include `rdrobust==2.1.1` and `rddensity==3.0`.
+- The workspace `.venv` was parked, replaced by a symlink to the fresh environment for the
+  rerun, and restored afterwards. The symlink was never committed.
 
 ## Data
 
@@ -75,12 +76,6 @@ No analysis code, data or tolerance was edited. No `--reuse-data` was used.
 Each command is the one recorded in `runs/<id>/run.json`, run from the workspace root with
 `.venv/bin/python`.
 
-## Time on a laptop
-
-- Environment build: about 30 seconds (uv, 27 wheels, warm cache).
-- Full rerun via `python3 crew/scripts/crew.py rerun <workspace>`: about 16 seconds on the
-  machine used here (macOS, arm64).
-
 ## Reproduce
 
 ```
@@ -90,5 +85,3 @@ uv pip install --python /path/outside/workspace/.venv/bin/python -r code/require
 ln -s /path/outside/workspace/.venv .venv      # after parking any existing .venv
 python3 /path/to/crew/scripts/crew.py rerun .
 ```
-
-The rerun is expected to pass only after the two causes above are fixed by their owners.

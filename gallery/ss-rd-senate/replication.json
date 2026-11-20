@@ -1,6 +1,6 @@
 {
-  "created": "2026-11-20T07:02:40Z",
-  "passed": false,
+  "created": "2026-11-20T07:06:42Z",
+  "passed": true,
   "rtol": 1e-06,
   "atol": 1e-09,
   "reuse_data": false,
@@ -12,30 +12,26 @@
     {
       "run": "fetch-data",
       "record_sha256": "86aa2bfef2a4b0d28d1bd9b89abf3376b11491ec36b584b70be06f58e1b6dc0c",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/fetch_data.py\", line 78, in <module>\n    main()\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/fetch_data.py\", line 70, in main\n    with open(metrics_path, \"w\") as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'runs/fetch-data/metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "prepare-data",
       "record_sha256": "58242aa27291a0b757b9c2f14213acdcb05a5a72fedfa1a30ebed30f3e5e562a",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/prepare_data.py\", line 78, in <module>\n    main()\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/prepare_data.py\", line 71, in main\n    with open(metrics_path, \"w\") as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'runs/prepare-data/metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "dr-checks",
       "record_sha256": "3dadd87cd4f1f90af420fcd55f3c6579046494c5cf9d850e537a11be5c560b62",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/prepare_checks.py\", line 131, in <module>\n    main()\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/prepare_checks.py\", line 124, in main\n    with open(metrics_path, \"w\") as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'runs/dr-checks/metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "design-mde",
       "record_sha256": "b9e518ea60b29acf5799690f21ab236bb7c5b91d0210d7a6939faa1f756693ba",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/design_mde.py\", line 77, in <module>\n    main()\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/design_mde.py\", line 70, in main\n    with open(metrics_path, \"w\") as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'runs/design-mde/metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "h1-rdrobust",
@@ -46,9 +42,8 @@
     {
       "run": "h2-covariates",
       "record_sha256": "72ca33506307d120dc57f010a1026fc214c5f2fdf3dc3323754c50d4e1bf024d",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/h2_covariates.py\", line 149, in <module>\n    main()\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/h2_covariates.py\", line 123, in main\n    with open(args.design_mde) as f:\n         ^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/runs/design-mde/metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "h2-placebo",
@@ -72,24 +67,13 @@
       "run": "h2-density",
       "record_sha256": "b7af044eff15f101a790752d21c047bb0e5b3f26282204e505d34c8d7eb55b7a",
       "exit_code": 0,
-      "status": "mismatch",
-      "diffs": {
-        "T_Q_asy": [
-          NaN,
-          NaN
-        ],
-        "p_Q_asy": [
-          NaN,
-          NaN
-        ]
-      }
+      "status": "match"
     },
     {
       "run": "unit-tests",
       "record_sha256": "4ad8e2cdbdef171b81497114a4dbf4360b51049aaefcaf4c142b96c33ded1e83",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/test_analysis.py\", line 288, in <module>\n    main()\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/test_analysis.py\", line 176, in main\n    m = scr(\"h2_covariates.py\")\n        ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/test_analysis.py\", line 111, in scr\n    return run_script(name, os.path.join(unit, name.replace(\".py\", \".json\")), data)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/test_analysis.py\", line 66, in run_script\n    raise RuntimeError(f\"{name} exited {p.returncode}: {p.stderr[-800:]}\")\nRuntimeError: h2_covariates.py exited 1: Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/h2_covariates.py\", line 149, in <module>\n    main()\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/h2_covariates.py\", line 123, in main\n    with open(args.design_mde) as f:\n         ^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/runs/design-mde/metrics.json'\n\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "fig-rd",
@@ -106,9 +90,8 @@
     {
       "run": "tab-falsification",
       "record_sha256": "8ea13c93d75ebdbc2cdc4e19d5353192b66f404c86f3217e9e36392aca913be6",
-      "exit_code": 1,
-      "status": "failed",
-      "output_tail": "Traceback (most recent call last):\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/tab_falsification.py\", line 110, in <module>\n    main()\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/tab_falsification.py\", line 53, in main\n    row(r\"H2(b) class (covariate units)\", m(\"RdCovClassCoef\"),\n                                          ^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/tab_falsification.py\", line 42, in m\n    checked.append(check_macro(name, macro_to_id, claims_by_id, cache))\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/code/tab_main.py\", line 51, in check_macro\n    with open(os.path.join(WS, \"runs\", run, \"metrics.json\")) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-enz44uap/ws/runs/h2-covariates/metrics.json'\n"
+      "exit_code": 0,
+      "status": "match"
     },
     {
       "run": "tab-main",
