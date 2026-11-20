@@ -1,0 +1,4 @@
+# HyperFrames render cache, snapshots and local state
+.hyperframes/
+node_modules/
+*.mp4

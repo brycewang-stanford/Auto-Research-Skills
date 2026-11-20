@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/crew.css" />
+      <style>
+        @font-face {
+          font-family: "CrewSC";
+          src: url("assets/fonts/crew-sc.woff") format("woff");
+          font-weight: 100 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+        #cl-ground {
+          position: absolute;
+          inset: 0;
+          background: var(--teal);
+        }
+        #cl-mark {
+          position: absolute;
+          left: 186px;
+          top: 140px;
+          font-family: var(--sans);
+          font-weight: 900;
+          font-size: 124px;
+          letter-spacing: -0.01em;
+          color: var(--paper);
+          line-height: 1.05;
+          white-space: nowrap;
+        }
+        #cl-mark .l {
+          display: inline-block;
+        }
+        #cl-zh {
+          position: absolute;
+          left: 192px;
+          top: 290px;
+          font-size: 50px;
+          color: var(--cream);
+          letter-spacing: 0.12em;
+        }
+        #cl-term {
+          position: absolute;
+          left: 192px;
+          top: 410px;
+          width: 1540px;
+          padding: 30px 44px;
+          background: var(--ink-d);
+          border: 5px solid var(--frame-ink);
+          border-radius: 18px;
+          font-family: var(--mono);
+          font-size: 32px;
+          line-height: 1.7;
+          color: #efe4c8;
+        }
+        .tl {
+          white-space: nowrap;
+        }
+        #cl-t3 {
+          color: var(--teal-l);
+        }
+        #cl-sub {
+          position: absolute;
+          left: 192px;
+          top: 672px;
+          font-size: 32px;
+          color: var(--cream);
+        }
+        #cl-url {
+          position: absolute;
+          left: 192px;
+          top: 770px;
+          font-family: var(--sans);
+          font-weight: 900;
+          font-size: 50px;
+          color: var(--paper);
+        }
+        #cl-lic {
+          position: absolute;
+          left: 192px;
+          top: 850px;
+          font-family: var(--sans);
+          font-weight: 900;
+          font-size: 50px;
+          color: #f6c46e;
+        }
+      </style>
+      <div id="root" data-composition-id="close" data-width="1920" data-height="1080">
+        <div id="cl-ground"></div>
+        <div id="cl-mark"><span class="l">F</span><span class="l">r</span><span class="l">e</span><span class="l">e</span><span class="l">-</span><span class="l">R</span><span class="l">e</span><span class="l">s</span><span class="l">e</span><span class="l">a</span><span class="l">r</span><span class="l">c</span><span class="l">h</span><span class="l">-</span><span class="l">C</span><span class="l">r</span><span class="l">e</span><span class="l">w</span></div>
+        <div id="cl-zh" class="zh">免费助研团</div>
+        <div id="cl-term">
+          <div class="tl" id="cl-t1">$ claude plugin marketplace add brycewang-stanford/Free-Research-Crew</div>
+          <div class="tl" id="cl-t2">$ claude plugin install crew@free-research-crew</div>
+          <div class="tl" id="cl-t3"># then run /crew:start in an empty folder</div>
+        </div>
+        <div id="cl-sub" class="zh">安装后，在一个空文件夹里运行 /crew:start。</div>
+        <div id="cl-url">github.com/brycewang-stanford/Free-Research-Crew</div>
+        <div id="cl-lic" data-hold>CC0 · v0.5</div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        const type = (sel, t, d) => {
+          tl.set(sel, { opacity: 1 }, t);
+          tl.fromTo(sel, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: d, ease: "none" }, t);
+        };
+        const blurIn = (sel, t) => tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "power4.out" }, t);
+
+        // Teal rises through the frame.
+        tl.fromTo("#cl-ground", { clipPath: "inset(100% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", duration: 0.55, ease: "power2.inOut" }, 0);
+
+        // The name, letter by letter.
+        document.querySelectorAll("#cl-mark .l").forEach((l, i) => {
+          tl.fromTo(l, { opacity: 0, y: 30, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 0.45 + i * 0.035);
+        });
+        blurIn("#cl-zh", 1.15);
+
+        // The install commands type out.
+        tl.fromTo("#cl-term", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 1.5);
+        tl.set(["#cl-t1", "#cl-t2", "#cl-t3"], { opacity: 0 }, 0);
+        type("#cl-t1", 1.85, 1.0);
+        type("#cl-t2", 3.05, 0.65);
+        type("#cl-t3", 3.9, 0.55);
+        blurIn("#cl-sub", 4.3);
+        blurIn("#cl-url", 5.0);
+        tl.fromTo("#cl-lic", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)", transformOrigin: "0% 50%" }, 5.5);
+        window.__timelines["close"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

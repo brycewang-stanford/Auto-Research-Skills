@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/crew.css" />
+      <style>
+        @font-face {
+          font-family: "CrewSC";
+          src: url("assets/fonts/crew-sc.woff") format("woff");
+          font-weight: 100 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+        #crew-stage {
+          position: absolute;
+          inset: 0;
+        }
+        .crew-head {
+          position: absolute;
+          left: 192px;
+          top: 104px;
+          width: 1540px;
+        }
+        .crew-head .en {
+          font-size: 64px;
+        }
+        .crew-head .zh {
+          font-size: 34px;
+          margin-top: 10px;
+        }
+        .crew-head .w {
+          display: inline-block;
+          margin-right: 0.24em;
+        }
+        #crew-folder {
+          position: absolute;
+          left: 760px;
+          top: 330px;
+          width: 400px;
+          height: 560px;
+        }
+        #crew-tab {
+          position: absolute;
+          left: 22px;
+          top: -38px;
+          width: 170px;
+          height: 46px;
+          background: var(--frame);
+          border: 5px solid var(--frame-ink);
+          border-bottom: none;
+          border-radius: 14px 14px 0 0;
+        }
+        #crew-folder-body {
+          position: absolute;
+          inset: 0;
+          padding: 40px 34px;
+        }
+        #crew-ws {
+          font-family: var(--mono);
+          font-weight: 700;
+          font-size: 30px;
+          color: var(--ink);
+          padding-bottom: 18px;
+          border-bottom: 3px solid var(--frame);
+          margin-bottom: 14px;
+        }
+        .crew-file {
+          position: relative;
+          height: 70px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          font-family: var(--mono);
+          font-weight: 700;
+          font-size: 30px;
+          color: var(--ink);
+          padding-left: 12px;
+          border-radius: 10px;
+        }
+        .crew-file .hl {
+          position: absolute;
+          inset: 4px 0;
+          border-radius: 10px;
+          background: rgba(211, 154, 58, 0.28);
+          opacity: 0;
+        }
+        .crew-file .ic {
+          position: relative;
+          width: 22px;
+          height: 28px;
+          border: 3px solid var(--ink);
+          border-radius: 3px;
+          background: #fffaf0;
+          flex: none;
+        }
+        .crew-file .ic.dir {
+          width: 30px;
+          height: 22px;
+          background: var(--frame);
+          border-radius: 3px 3px 4px 4px;
+        }
+        .crew-file span {
+          position: relative;
+        }
+        .slot {
+          position: absolute;
+          width: 440px;
+        }
+        .slot.l {
+          left: 200px;
+          text-align: right;
+        }
+        .slot.r {
+          left: 1280px;
+        }
+        .slot .pill {
+          font-size: 34px;
+        }
+        .slot .duty {
+          margin-top: 10px;
+          font-family: var(--sans);
+          font-weight: 700;
+          font-size: 28px;
+          color: var(--brown);
+        }
+        #crew-lines {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          pointer-events: none;
+        }
+        #crew-lines path {
+          fill: none;
+          stroke: var(--ink);
+          stroke-width: 3.5;
+          stroke-linecap: round;
+        }
+      </style>
+      <div id="root" data-composition-id="crew" data-width="1920" data-height="1080">
+        <div id="crew-stage">
+          <div id="crew-h1" class="crew-head">
+            <div class="en"><span class="w">Nine</span><span class="w">roles,</span><span class="w">plus</span><span class="w">a</span><span class="w">PI:</span><span class="w acc">you</span></div>
+            <div class="zh">九个角色，外加作为 PI 的你。</div>
+          </div>
+          <div id="crew-h2" class="crew-head" data-layout-allow-overlap>
+            <div class="en"><span class="w">Files</span><span class="w">are</span><span class="w">the</span><span class="w">only</span><span class="w acc">handoff</span></div>
+            <div class="zh">文件是唯一的交接方式。</div>
+          </div>
+
+          <svg id="crew-lines" viewBox="0 0 1920 1080" data-layout-ignore aria-hidden="true">
+            <path id="crew-l1" d="M 650 358 C 712 358, 700 485, 762 485" />
+            <path id="crew-l2" d="M 650 622 C 712 622, 700 485, 762 485" />
+            <path id="crew-l3" d="M 650 886 C 712 886, 700 555, 762 555" />
+            <path id="crew-l4" d="M 1270 358 C 1208 358, 1220 555, 1158 555" />
+            <path id="crew-l5" d="M 1270 622 C 1208 622, 1220 625, 1158 625" />
+            <path id="crew-l6" d="M 1270 622 C 1208 622, 1220 765, 1158 765" />
+            <path id="crew-l7" d="M 1270 886 C 1208 886, 1220 695, 1158 695" />
+          </svg>
+
+          <div id="crew-folder">
+            <div id="crew-tab" data-layout-allow-overflow></div>
+            <div id="crew-folder-body" class="card">
+              <div id="crew-ws">workspace/</div>
+              <div class="crew-file" id="crew-f1"><div class="hl"></div><div class="ic"></div><span>plan.json</span></div>
+              <div class="crew-file" id="crew-f2"><div class="hl"></div><div class="ic dir"></div><span>runs/</span></div>
+              <div class="crew-file" id="crew-f3"><div class="hl"></div><div class="ic"></div><span>claims.jsonl</span></div>
+              <div class="crew-file" id="crew-f4"><div class="hl"></div><div class="ic dir"></div><span>reviews/</span></div>
+              <div class="crew-file" id="crew-f5"><div class="hl"></div><div class="ic dir"></div><span>paper/</span></div>
+            </div>
+          </div>
+
+          <div class="slot l" id="crew-s1" style="top: 330px"><div class="pill" style="background: var(--slate)">PI (you)</div><div class="duty">You approve every gate</div></div>
+          <div class="slot l" id="crew-s2" style="top: 462px"><div class="pill" style="background: var(--teal)">Scout</div><div class="duty">Every citation verified</div></div>
+          <div class="slot l" id="crew-s3" style="top: 594px"><div class="pill" style="background: var(--brown)">Designer</div><div class="duty">Design locked before results</div></div>
+          <div class="slot l" id="crew-s4" style="top: 726px"><div class="pill" style="background: var(--brown)">Data RA</div><div class="duty">Every dataset sourced</div></div>
+          <div class="slot l" id="crew-s5" style="top: 858px"><div class="pill" style="background: var(--teal)">Econometrician</div><div class="duty">Identification &amp; robustness</div></div>
+          <div class="slot r" id="crew-s6" style="top: 330px"><div class="pill" style="background: var(--slate)">Experimenter</div><div class="duty">Seeds &amp; fair baselines</div></div>
+          <div class="slot r" id="crew-s7" style="top: 462px"><div class="pill" style="background: var(--teal)">Figures RA</div><div class="duty">Every figure from a script</div></div>
+          <div class="slot r" id="crew-s8" style="top: 594px"><div class="pill" style="background: var(--slate)">Writer</div><div class="duty">Only recorded claims</div></div>
+          <div class="slot r" id="crew-s9" style="top: 726px"><div class="pill" style="background: var(--brown)">Replicator</div><div class="duty">Reruns it all from scratch</div></div>
+          <div class="slot r" id="crew-s10" style="top: 858px"><div class="pill" style="background: var(--rust)">Reviewer</div><div class="duty">Never lets up</div></div>
+        </div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        const q = (s) => document.querySelector(s);
+
+        // Folder lands, files tick in.
+        tl.fromTo("#crew-folder", { opacity: 0, scale: 0.9, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, 0.1);
+        tl.fromTo("#crew-ws", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.45);
+        for (let i = 1; i <= 5; i++) {
+          tl.fromTo("#crew-f" + i, { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.3, ease: "power4.out" }, 0.6 + i * 0.13);
+        }
+
+        // Headline 1, word by word.
+        document.querySelectorAll("#crew-h1 .w").forEach((w, i) => {
+          tl.fromTo(w, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.14, ease: "power2.out" }, 0.3 + i * 0.08);
+        });
+        tl.fromTo("#crew-h1 .zh", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.8);
+
+        // Roles fill the two columns (the Reviewer is already in place from the hook).
+        const order = [1, 6, 2, 7, 3, 8, 4, 9, 5];
+        order.forEach((n, i) => {
+          const t = 1.1 + i * 0.17;
+          tl.fromTo("#crew-s" + n + " .pill", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, t);
+          tl.fromTo("#crew-s" + n + " .duty", { opacity: 0, filter: "blur(5px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power4.out" }, t + 0.12);
+        });
+
+        // Headline swap.
+        tl.to("#crew-h1", { opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power3.in" }, 4.9);
+        tl.set("#crew-h2", { opacity: 0 }, 0);
+        tl.set("#crew-h2", { opacity: 1 }, 5.1);
+        document.querySelectorAll("#crew-h2 .w").forEach((w, i) => {
+          tl.fromTo(w, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.14, ease: "power2.out" }, 5.15 + i * 0.08);
+        });
+        tl.fromTo("#crew-h2 .zh", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 5.55);
+
+        // Ink lines from roles to the files they write.
+        const lines = [
+          ["#crew-l1", "#crew-f1"],
+          ["#crew-l2", "#crew-f1"],
+          ["#crew-l3", "#crew-f2"],
+          ["#crew-l4", "#crew-f2"],
+          ["#crew-l5", "#crew-f3"],
+          ["#crew-l6", "#crew-f5"],
+          ["#crew-l7", "#crew-f4"],
+        ];
+        lines.forEach(([l, f], i) => {
+          const p = q(l);
+          const len = p.getTotalLength();
+          const t = 5.7 + i * 0.32;
+          tl.fromTo(p, { opacity: 0 }, { opacity: 1, duration: 0.01 }, t);
+          tl.fromTo(p, { strokeDasharray: len, strokeDashoffset: len }, { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, t);
+          tl.fromTo(f + " .hl", { opacity: 0 }, { opacity: 1, duration: 0.2 }, t + 0.45);
+        });
+
+        // Whip out to the left.
+        tl.to("#crew-stage", { x: -320, opacity: 0, filter: "blur(14px)", duration: 0.4, ease: "power3.in" }, 10.05);
+        window.__timelines["crew"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

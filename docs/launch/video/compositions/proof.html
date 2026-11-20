@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/crew.css" />
+      <style>
+        @font-face {
+          font-family: "CrewSC";
+          src: url("assets/fonts/crew-sc.woff") format("woff");
+          font-weight: 100 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+        #pf-head {
+          position: absolute;
+          left: 192px;
+          top: 96px;
+          width: 1560px;
+        }
+        #pf-head .en {
+          font-size: 60px;
+        }
+        #pf-head .zh {
+          font-size: 34px;
+          margin-top: 10px;
+        }
+        .w {
+          display: inline-block;
+          margin-right: 0.24em;
+        }
+        #pf-grid {
+          position: absolute;
+          left: 182px;
+          top: 250px;
+          width: 1556px;
+          height: 644px;
+          display: grid;
+          grid-template-columns: repeat(3, 500px);
+          grid-template-rows: repeat(2, 310px);
+          gap: 24px 28px;
+          transform-origin: 50% 0%;
+        }
+        .paper {
+          position: relative;
+          padding: 30px 36px;
+        }
+        .paper .tag {
+          display: inline-block;
+          padding: 0 14px 3px;
+          border-radius: 10px;
+          border: 3px solid var(--ink-d);
+          font-family: var(--sans);
+          font-weight: 900;
+          font-size: 28px;
+          color: #fffaf0;
+        }
+        .tag.ml {
+          background: var(--teal);
+        }
+        .tag.ss {
+          background: var(--brown);
+        }
+        .paper .t {
+          margin-top: 12px;
+          font-family: var(--sans);
+          font-weight: 900;
+          font-size: 34px;
+          color: var(--ink);
+          line-height: 1.15;
+        }
+        .paper .o {
+          margin-top: 8px;
+          font-family: var(--sans);
+          font-weight: 700;
+          font-size: 28px;
+          line-height: 1.25;
+          color: #5a4128;
+        }
+        .paper .rr {
+          position: absolute;
+          left: 34px;
+          bottom: 30px;
+          padding: 0 14px 4px;
+          border: 4px solid var(--green);
+          border-radius: 10px;
+          font-family: var(--sans);
+          font-weight: 900;
+          font-size: 28px;
+          color: #4d7431;
+        }
+        .tot {
+          position: absolute;
+          left: 192px;
+          width: 1540px;
+        }
+        #pf-t1 {
+          top: 500px;
+        }
+        #pf-t2 {
+          top: 660px;
+        }
+        #pf-t3 {
+          top: 806px;
+        }
+        #pf-t1 .en {
+          font-size: 92px;
+        }
+        #pf-t2 .en {
+          font-size: 58px;
+        }
+        #pf-t3 .en {
+          font-size: 46px;
+        }
+        .tot .zh {
+          font-size: 32px;
+          margin-top: 8px;
+        }
+        .crit {
+          color: var(--red);
+        }
+        .maj {
+          color: var(--rust);
+        }
+        .min {
+          color: var(--brown);
+        }
+      </style>
+      <div id="root" data-composition-id="proof" data-width="1920" data-height="1080">
+        <div id="pf-head">
+          <div class="en"><span class="w">Six</span><span class="w">papers.</span><span class="w">Four</span><span class="w">gates</span><span class="w">each.</span><span class="w">Clean</span><span class="w">rerun</span><span class="w acc">passed</span></div>
+          <div class="zh">六篇论文，每篇都过了四道关卡，干净重跑全部通过。</div>
+        </div>
+        <div id="pf-grid">
+          <div class="paper card" id="pf-p1"><span class="tag ml">ML</span><div class="t">Label noise</div><div class="o">Both hypotheses inconclusive</div><div class="rr">clean rerun 20/20</div></div>
+          <div class="paper card" id="pf-p2"><span class="tag ss">Social science</span><div class="t">Null-effect test</div><div class="o">−$9.8 [−358, 338] where the true effect is zero</div><div class="rr">clean rerun 23/23</div></div>
+          <div class="paper card" id="pf-p3"><span class="tag ss">Social science</span><div class="t">401(k) DML replication</div><div class="o">All 10 published cells within pre-registered tolerances</div><div class="rr">clean rerun passed</div></div>
+          <div class="paper card" id="pf-p4"><span class="tag ss">Social science</span><div class="t">Card–Krueger replication</div><div class="o">Two of three targets reproduced</div><div class="rr">clean rerun 15/15</div></div>
+          <div class="paper card" id="pf-p5"><span class="tag ml">ML</span><div class="t">Probability calibration</div><div class="o">H1 contradicted; H2a inconclusive; H2b no difference</div><div class="rr">clean rerun 13/13</div></div>
+          <div class="paper card" id="pf-p6"><span class="tag ss">Social science</span><div class="t">LaLonde comparison</div><div class="o">$1,573 [9.6, 3,136]: a contrast, not a program effect</div><div class="rr">clean rerun 19/19</div></div>
+        </div>
+
+        <div class="tot" id="pf-t1">
+          <div class="en"><span id="pf-n68">68</span> review rounds</div>
+          <div class="zh">68 轮评审。</div>
+        </div>
+        <div class="tot" id="pf-t2">
+          <div class="en"><span class="crit"><span id="pf-n12">12</span> critical</span> · <span class="maj"><span id="pf-n210">210</span> major</span> · <span class="min"><span id="pf-n373">373</span> minor</span> findings</div>
+          <div class="zh">找出 12 个致命、210 个重大、373 个次要问题。</div>
+        </div>
+        <div class="tot" id="pf-t3" data-hold>
+          <div class="en">About <span class="acc">$58–103</span> of model usage per paper, at API list prices</div>
+          <div class="zh">每篇论文约 58–103 美元的模型用量（按 API 标价计）。</div>
+        </div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        const out = (sel, t) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power3.in" }, t);
+        const blurIn = (sel, t) => tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "power4.out" }, t);
+        const count = (sel, to, t, d) => {
+          const el = document.querySelector(sel);
+          const o = { v: 0 };
+          tl.fromTo(o, { v: 0 }, { v: to, duration: d, ease: "power2.out", onUpdate: () => { el.textContent = String(Math.round(o.v)); } }, t);
+        };
+
+        document.querySelectorAll("#pf-head .w").forEach((w, i) => {
+          tl.fromTo(w, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.14, ease: "power2.out" }, 0.25 + i * 0.08);
+        });
+        tl.fromTo("#pf-head .zh", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.8);
+
+        // Papers dealt onto the table, then the rerun stamps.
+        for (let i = 1; i <= 6; i++) {
+          tl.fromTo("#pf-p" + i, { opacity: 0, y: 60, rotation: i % 2 ? -3 : 3 }, { opacity: 1, y: 0, rotation: 0, duration: 0.55, ease: "expo.out" }, 0.4 + i * 0.16);
+          tl.fromTo("#pf-p" + i + " .rr", { opacity: 0, scale: 1.8, rotation: -4 }, { opacity: 1, scale: 1, rotation: -2, duration: 0.3, ease: "back.out(1.7)" }, 2.6 + i * 0.22);
+        }
+
+        // The grid lifts; the totals land.
+        out("#pf-head", 5.4);
+        tl.to("#pf-grid", { y: -140, scale: 0.55, duration: 0.7, ease: "power2.inOut" }, 5.5);
+        tl.set(["#pf-t1", "#pf-t2", "#pf-t3"], { opacity: 0 }, 0);
+        blurIn("#pf-t1", 6.1);
+        count("#pf-n68", 68, 6.1, 1.0);
+        blurIn("#pf-t2", 7.7);
+        count("#pf-n12", 12, 7.7, 0.9);
+        count("#pf-n210", 210, 7.7, 0.9);
+        count("#pf-n373", 373, 7.7, 0.9);
+        blurIn("#pf-t3", 9.5);
+        window.__timelines["proof"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,309 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/crew.css" />
+      <style>
+        @font-face {
+          font-family: "CrewSC";
+          src: url("assets/fonts/crew-sc.woff") format("woff");
+          font-weight: 100 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+        #flow-ground {
+          position: absolute;
+          inset: 0;
+          background: var(--cream);
+        }
+        #flow-stage {
+          position: absolute;
+          inset: 0;
+        }
+        #flow-track {
+          position: absolute;
+          left: 210px;
+          top: 0px;
+          width: 1500px;
+          height: 150px;
+          transform-origin: 50% 0%;
+        }
+        #flow-bench {
+          position: absolute;
+          left: -30px;
+          right: -30px;
+          top: 64px;
+          height: 52px;
+          background: #8a5a2b;
+          border: 4px solid var(--ink-d);
+          border-top: 14px solid #a8743f;
+          border-radius: 8px;
+        }
+        .gate {
+          position: absolute;
+          top: 0;
+          width: 300px;
+          height: 84px;
+          background: var(--paper);
+          border: 4px solid var(--ink-d);
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: var(--sans);
+          font-weight: 900;
+          font-size: 36px;
+          color: var(--ink);
+        }
+        .chk {
+          position: absolute;
+          right: -20px;
+          top: -26px;
+          width: 58px;
+          height: 58px;
+        }
+        .arrow {
+          position: absolute;
+          top: 22px;
+          width: 100px;
+          height: 40px;
+        }
+        .arrow path {
+          fill: none;
+          stroke: var(--ink);
+          stroke-width: 6;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        #flow-lock {
+          position: absolute;
+          left: 722px;
+          top: -50px;
+          width: 56px;
+          height: 74px;
+        }
+        .flow-cap {
+          position: absolute;
+          left: 192px;
+          top: 830px;
+          width: 1540px;
+        }
+        .flow-cap .en {
+          font-size: 56px;
+        }
+        .flow-cap .zh {
+          font-size: 32px;
+          margin-top: 10px;
+        }
+        .flow-cap .w {
+          display: inline-block;
+          margin-right: 0.24em;
+        }
+        #flow-term {
+          position: absolute;
+          left: 240px;
+          top: 360px;
+          width: 1440px;
+          padding: 34px 44px;
+          background: var(--ink-d);
+          border: 5px solid var(--frame-ink);
+          border-radius: 18px;
+          font-family: var(--mono);
+          font-size: 28px;
+          line-height: 1.75;
+          color: #efe4c8;
+        }
+        .tl {
+          white-space: nowrap;
+        }
+        #flow-t2 {
+          color: #eaa35f;
+          font-weight: 700;
+        }
+        #flow-t3 {
+          color: var(--teal-l);
+          font-weight: 700;
+        }
+        #flow-ledger {
+          position: absolute;
+          left: 210px;
+          top: 300px;
+          width: 1500px;
+          height: 470px;
+          padding: 24px 40px;
+        }
+        .row {
+          position: relative;
+          height: 140px;
+          display: flex;
+          align-items: center;
+        }
+        .row + .row {
+          border-top: 3px dashed var(--frame);
+        }
+        .row .lab {
+          width: 480px;
+          flex: none;
+          font-family: var(--mono);
+          font-size: 28px;
+          font-weight: 700;
+          color: var(--brown);
+        }
+        .row .val {
+          font-family: var(--mono);
+          font-size: 34px;
+          font-weight: 700;
+          color: var(--ink);
+          white-space: nowrap;
+        }
+        .row .prose {
+          font-family: "EB Garamond", serif;
+          font-size: 36px;
+          line-height: 1.25;
+          color: var(--ink);
+          width: 900px;
+        }
+        .num {
+          border-radius: 8px;
+          padding: 0 4px;
+          box-shadow: inset 0 0 0 0 rgba(211, 154, 58, 0);
+        }
+        .down {
+          position: absolute;
+          left: 150px;
+          width: 40px;
+          height: 52px;
+        }
+        .down path {
+          fill: none;
+          stroke: var(--amber);
+          stroke-width: 6;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+      </style>
+      <div id="root" data-composition-id="flow" data-width="1920" data-height="1080">
+        <div id="flow-ground"></div>
+        <div id="flow-stage">
+          <div id="flow-track">
+            <div id="flow-bench"></div>
+            <div class="gate" id="flow-g1" style="left: 0px">1 Question
+              <svg class="chk" viewBox="0 0 58 58"><circle cx="29" cy="29" r="25" fill="#6f9a45" stroke="#2a1b10" stroke-width="4" /><path d="M17 30 L26 39 L42 20" fill="none" stroke="#fffaf0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </div>
+            <svg class="arrow" id="flow-a1" style="left: 300px" viewBox="0 0 100 40"><path d="M18 20 H80 M66 8 L82 20 L66 32" /></svg>
+            <div class="gate" id="flow-g2" style="left: 400px">2 Design
+              <svg class="chk" viewBox="0 0 58 58"><circle cx="29" cy="29" r="25" fill="#6f9a45" stroke="#2a1b10" stroke-width="4" /><path d="M17 30 L26 39 L42 20" fill="none" stroke="#fffaf0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </div>
+            <svg class="arrow" id="flow-a2" style="left: 700px" viewBox="0 0 100 40"><path d="M18 20 H80 M66 8 L82 20 L66 32" /></svg>
+            <div class="gate" id="flow-g3" style="left: 800px">3 Results
+              <svg class="chk" viewBox="0 0 58 58"><circle cx="29" cy="29" r="25" fill="#6f9a45" stroke="#2a1b10" stroke-width="4" /><path d="M17 30 L26 39 L42 20" fill="none" stroke="#fffaf0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </div>
+            <svg class="arrow" id="flow-a3" style="left: 1100px" viewBox="0 0 100 40"><path d="M18 20 H80 M66 8 L82 20 L66 32" /></svg>
+            <div class="gate" id="flow-g4" style="left: 1200px">4 Submission</div>
+            <svg id="flow-lock" viewBox="0 0 56 74" data-layout-ignore>
+              <path id="flow-shackle" d="M14 34 V20 a14 14 0 0 1 28 0 V34" fill="none" stroke="#2a1b10" stroke-width="7" stroke-linecap="round" />
+              <rect x="4" y="32" width="48" height="38" rx="8" fill="#d39a3a" stroke="#2a1b10" stroke-width="4" />
+              <circle cx="28" cy="48" r="5" fill="#2a1b10" />
+              <rect x="25.5" y="49" width="5" height="12" rx="2" fill="#2a1b10" />
+            </svg>
+          </div>
+
+          <div id="flow-c1" class="flow-cap">
+            <div class="en"><span class="w">Four</span><span class="w">gates.</span><span class="w">A</span><span class="w acc">human</span><span class="w">approves</span><span class="w">each</span><span class="w">one</span></div>
+            <div class="zh">四道关卡，每一道都由人来批准。</div>
+          </div>
+          <div id="flow-c2" class="flow-cap" data-layout-allow-overlap>
+            <div class="en"><span class="w">No</span><span class="w">analysis</span><span class="w">before</span><span class="w">the</span><span class="w acc">design</span><span class="w">gate</span></div>
+            <div class="zh">设计关卡通过之前，任何分析都跑不了。</div>
+          </div>
+          <div id="flow-c3" class="flow-cap" data-layout-allow-overlap>
+            <div class="en"><span class="w">Every</span><span class="w">result</span><span class="w">number</span><span class="w">is</span><span class="w">a</span><span class="w acc">macro</span><span class="w">from</span><span class="w">a</span><span class="w">logged</span><span class="w">run</span></div>
+            <div class="zh">论文里的每个结果数字，都是由一次有记录的运行生成的宏。</div>
+          </div>
+
+          <div id="flow-term">
+            <div class="tl" id="flow-t1">$ crew.py run lalonde --id main-aipw --role econometrician --kind analysis</div>
+            <div class="tl" id="flow-t2">ERROR: analysis runs are blocked until the design gate is approved</div>
+            <div class="tl" id="flow-t3">/crew:gate lalonde design approve</div>
+          </div>
+
+          <div id="flow-ledger" class="card">
+            <div class="row" id="flow-r1"><div class="lab">runs/main-aipw/metrics.json</div><div class="val">"effect": <span class="num" id="flow-n1">1572.764316543202</span>,</div></div>
+            <div class="row" id="flow-r2"><div class="lab">paper/numbers.tex</div><div class="val">\newcommand{\PrimaryEffect}{<span class="num" id="flow-n2">1,573</span>}</div></div>
+            <div class="row" id="flow-r3"><div class="lab">paper/main.pdf</div><div class="prose">The estimate is <span class="num" id="flow-n3">1,573</span> dollars (1982 dollars; SE 798; 95% confidence interval [9.6, 3,136], p = 0.049).</div></div>
+            <svg class="down" id="flow-d1" style="top: 140px" viewBox="0 0 40 52" data-layout-ignore><path d="M20 4 V44 M8 32 L20 46 L32 32" /></svg>
+            <svg class="down" id="flow-d2" style="top: 283px" viewBox="0 0 40 52" data-layout-ignore><path d="M20 4 V44 M8 32 L20 46 L32 32" /></svg>
+          </div>
+        </div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        const words = (sel, t0) => {
+          document.querySelectorAll(sel + " .w").forEach((w, i) => {
+            tl.fromTo(w, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.14, ease: "power2.out" }, t0 + i * 0.08);
+          });
+          tl.fromTo(sel + " .zh", { opacity: 0 }, { opacity: 1, duration: 0.3 }, t0 + 0.45);
+        };
+        const out = (sel, t) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power3.in" }, t);
+        const stamp = (sel, t) => tl.fromTo(sel, { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)", transformOrigin: "50% 50%" }, t);
+        const type = (sel, t, d) => tl.fromTo(sel, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: d, ease: "none" }, t);
+
+        // Whip in from the right.
+        tl.fromTo("#flow-stage", { x: 320, filter: "blur(14px)" }, { x: 0, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, 0);
+
+        // A. The track, big and central; the question gate is approved.
+        tl.fromTo("#flow-track", { y: 400, scale: 1.12 }, { y: 400, scale: 1.12, duration: 0.01 }, 0);
+        tl.fromTo("#flow-bench", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 0.1);
+        ["#flow-g1", "#flow-a1", "#flow-g2", "#flow-a2", "#flow-g3", "#flow-a3", "#flow-g4"].forEach((s, i) => {
+          tl.fromTo(s, { opacity: 0, y: -24 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 0.25 + i * 0.1);
+        });
+        tl.set(["#flow-g1 .chk", "#flow-g2 .chk", "#flow-g3 .chk", "#flow-lock"], { opacity: 0 }, 0);
+        words("#flow-c1", 0.5);
+        stamp("#flow-g1 .chk", 2.0);
+
+        // B. The track rises; the refusal; the human approves the design.
+        tl.to("#flow-track", { y: 110, scale: 1, duration: 0.6, ease: "power2.inOut" }, 3.9);
+        out("#flow-c1", 4.0);
+        tl.set("#flow-c2", { opacity: 0 }, 0);
+        tl.set("#flow-c2", { opacity: 1 }, 4.3);
+        words("#flow-c2", 4.35);
+        tl.fromTo("#flow-term", { opacity: 0, scale: 0.97, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, 4.3);
+        tl.set(["#flow-t1", "#flow-t2", "#flow-t3"], { opacity: 0 }, 0);
+        tl.set("#flow-t1", { opacity: 1 }, 4.6);
+        type("#flow-t1", 4.6, 0.8);
+        tl.set("#flow-t2", { opacity: 1 }, 5.55);
+        tl.fromTo("#flow-t2", { filter: "blur(6px)" }, { filter: "blur(0px)", duration: 0.15 }, 5.55);
+        stamp("#flow-lock", 5.6);
+        tl.set("#flow-t3", { opacity: 1 }, 6.7);
+        type("#flow-t3", 6.7, 0.5);
+        stamp("#flow-g2 .chk", 7.4);
+        tl.to("#flow-shackle", { y: -10, duration: 0.25, ease: "power2.out" }, 7.6);
+        tl.to("#flow-lock", { opacity: 0, y: -20, duration: 0.3, ease: "power3.in" }, 8.0);
+        out("#flow-term", 8.4);
+        out("#flow-c2", 8.4);
+
+        // C. A run record becomes a macro becomes a number in the paper.
+        tl.set("#flow-c3", { opacity: 0 }, 0);
+        tl.set("#flow-c3", { opacity: 1 }, 8.75);
+        words("#flow-c3", 8.8);
+        tl.fromTo("#flow-ledger", { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, 8.8);
+        tl.set(["#flow-r2", "#flow-r3", "#flow-d1", "#flow-d2"], { opacity: 0 }, 0);
+        const hl = (sel, t) => tl.fromTo(sel, { backgroundColor: "rgba(211,154,58,0)" }, { backgroundColor: "rgba(211,154,58,0.45)", duration: 0.25 }, t);
+        hl("#flow-n1", 9.7);
+        tl.fromTo("#flow-d1", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.3, ease: "power4.out" }, 10.1);
+        tl.fromTo("#flow-r2", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 10.35);
+        hl("#flow-n2", 10.8);
+        tl.fromTo("#flow-d2", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.3, ease: "power4.out" }, 11.3);
+        tl.fromTo("#flow-r3", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 11.55);
+        hl("#flow-n3", 12.1);
+        stamp("#flow-g3 .chk", 13.2);
+        window.__timelines["flow"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

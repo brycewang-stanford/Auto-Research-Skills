@@ -1,0 +1,42 @@
+/* Shared look for the launch film: the palette of assets/poster/build_poster.py. */
+:root {
+  --ink: #3a2a1a;
+  --ink-d: #2a1b10;
+  --paper: #fbf5e4;
+  --cream: #f3e8cc;
+  --teal: #4f8f86;
+  --teal-l: #8cc3b5;
+  --amber: #d39a3a;
+  --rust: #b8643a;
+  --red: #b8463a;
+  --green: #6f9a45;
+  --brown: #7a5232;
+  --slate: #3d6a8a;
+  --frame: #d9b67a;
+  --frame-ink: #4a2e16;
+  --frame-line: #a87a44;
+  --sans: "Nunito", sans-serif;
+  --mono: "JetBrains Mono", monospace;
+  --zh: "CrewSC", sans-serif;
+}
+.en { font-family: var(--sans); font-weight: 900; color: var(--ink); letter-spacing: -0.01em; line-height: 1.08; }
+.zh { font-family: var(--zh); font-weight: 500; color: var(--brown); letter-spacing: 0.04em; line-height: 1.3; }
+.mono { font-family: var(--mono); }
+.card {
+  background: var(--paper);
+  border: 5px solid var(--frame-ink);
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 9px var(--frame), inset 0 0 0 11px var(--frame-line), 0 10px 0 rgba(42, 27, 16, 0.18);
+}
+.pill {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 900;
+  color: #fffaf0;
+  border: 4px solid var(--ink-d);
+  border-radius: 14px;
+  padding: 4px 22px 6px;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+.acc { color: #9c6a1c; }

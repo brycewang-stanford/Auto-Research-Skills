@@ -1,0 +1,364 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/crew.css" />
+      <style>
+        @font-face {
+          font-family: "CrewSC";
+          src: url("assets/fonts/crew-sc.woff") format("woff");
+          font-weight: 100 900;
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+        #rv-ground {
+          position: absolute;
+          inset: 0;
+          background: var(--ink);
+        }
+        #rv-desk {
+          position: absolute;
+          inset: 0;
+        }
+        #rv-pill {
+          position: absolute;
+          left: 192px;
+          top: 130px;
+          font-size: 44px;
+          background: var(--rust);
+          border-color: #1d120a;
+        }
+        #rv-intro {
+          position: absolute;
+          left: 192px;
+          top: 300px;
+          width: 1540px;
+        }
+        #rv-intro .en {
+          color: var(--paper);
+        }
+        #rv-intro .big {
+          font-size: 104px;
+        }
+        #rv-intro .mid {
+          font-size: 60px;
+          margin-top: 56px;
+        }
+        #rv-intro .zh {
+          color: #d9c7a0;
+          margin-top: 12px;
+        }
+        #rv-intro .big + .zh {
+          font-size: 44px;
+        }
+        #rv-intro .mid + .zh {
+          font-size: 34px;
+        }
+        #rv-intro .w {
+          display: inline-block;
+          margin-right: 0.24em;
+        }
+        .rv-col {
+          position: absolute;
+          left: 192px;
+          top: 250px;
+          width: 610px;
+        }
+        .rv-item {
+          margin-bottom: 40px;
+        }
+        .rv-item .en {
+          font-size: 46px;
+          color: var(--paper);
+        }
+        .rv-item .zh {
+          font-size: 30px;
+          color: #d9c7a0;
+          margin-top: 10px;
+        }
+        .sheet {
+          position: absolute;
+          width: 900px;
+          height: 780px;
+          padding: 46px 52px;
+          background: var(--paper);
+          border: 5px solid var(--frame-ink);
+          border-radius: 10px;
+          box-shadow: inset 0 0 0 9px var(--frame), inset 0 0 0 11px var(--frame-line), 0 18px 0 rgba(0, 0, 0, 0.28);
+        }
+        .sheet .src {
+          font-family: var(--mono);
+          font-size: 28px;
+          font-weight: 700;
+          color: var(--brown);
+        }
+        .sheet .ka {
+          margin-top: 26px;
+          font-family: var(--sans);
+          font-weight: 900;
+          font-size: 32px;
+          color: var(--rust);
+        }
+        .sheet .quote {
+          margin-top: 10px;
+          font-family: var(--sans);
+          font-weight: 700;
+          font-size: 36px;
+          line-height: 1.3;
+          color: var(--ink);
+        }
+        .stamp {
+          position: absolute;
+          right: 56px;
+          top: 34px;
+          padding: 4px 22px 8px;
+          border: 6px solid;
+          border-radius: 12px;
+          font-family: var(--sans);
+          font-weight: 900;
+          font-size: 50px;
+          letter-spacing: 0.06em;
+        }
+        .stamp.revise {
+          color: var(--rust);
+          border-color: var(--rust);
+        }
+        .stamp.block {
+          color: var(--red);
+          border-color: var(--red);
+        }
+        #rv-chart {
+          position: absolute;
+          left: 52px;
+          top: 446px;
+          width: 796px;
+          height: 300px;
+        }
+        #rv-chart .cap {
+          font-family: var(--sans);
+          font-weight: 700;
+          font-size: 28px;
+          color: var(--brown);
+        }
+        #rv-chart svg {
+          position: absolute;
+          left: 0;
+          top: 50px;
+        }
+        #rv-chart text {
+          font-family: "JetBrains Mono", monospace;
+          font-weight: 700;
+          font-size: 28px;
+        }
+        .gap {
+          margin-top: 50px;
+          font-family: var(--sans);
+          font-weight: 700;
+          font-size: 30px;
+          color: var(--brown);
+        }
+        .gapnums {
+          position: relative;
+          margin-top: 6px;
+          height: 170px;
+          font-family: var(--sans);
+          font-weight: 900;
+          color: var(--ink);
+        }
+        #rv-87 {
+          position: absolute;
+          left: 0;
+          top: 0;
+          font-size: 150px;
+          line-height: 1;
+        }
+        #rv-strike {
+          position: absolute;
+          left: -6px;
+          top: 70px;
+          width: 270px;
+          height: 12px;
+          background: var(--red);
+          border-radius: 6px;
+          transform-origin: 0% 50%;
+        }
+        #rv-036 {
+          position: absolute;
+          left: 410px;
+          top: 0;
+          font-size: 150px;
+          line-height: 1;
+          color: var(--teal);
+        }
+        #rv-arrow {
+          position: absolute;
+          left: 292px;
+          top: 50px;
+          width: 90px;
+          height: 60px;
+        }
+        .sev {
+          display: inline-block;
+          margin-top: 34px;
+          padding: 2px 18px 6px;
+          border-radius: 12px;
+          background: var(--red);
+          color: #fffaf0;
+          font-family: var(--sans);
+          font-weight: 900;
+          font-size: 30px;
+        }
+        #rv-desk .acc {
+          color: #f0b14f;
+        }
+        #rv-iris {
+          position: absolute;
+          inset: 0;
+        }
+      </style>
+      <div id="root" data-composition-id="reviewer" data-width="1920" data-height="1080">
+        <div id="rv-iris">
+          <div id="rv-ground"></div>
+          <div id="rv-desk">
+            <div id="rv-pill" class="pill">Reviewer</div>
+
+            <div id="rv-intro">
+              <div class="en big"><span class="w">It</span><span class="w">attacks</span><span class="w acc">every</span><span class="w">stage</span></div>
+              <div class="zh">它攻击每一个阶段。</div>
+              <div class="en mid"><span class="w">Every</span><span class="w">review</span><span class="w">opens</span><span class="w">with</span><span class="w">a</span><span class="w acc">kill</span><span class="w acc">argument</span></div>
+              <div class="zh">每份评审都以一条“致命论点”开篇。</div>
+            </div>
+
+            <!-- Catch 1: LaLonde, results-r1 -->
+            <div id="rv-col1" class="rv-col">
+              <div class="rv-item" id="rv-i1a"><div class="en">The interval excluded zero by <span class="acc">$9.6</span></div><div class="zh">区间只以 9.6 美元之差排除了零。</div></div>
+              <div class="rv-item" id="rv-i1b"><div class="en">Three of five repetitions alone did not</div><div class="zh">五次重复中，有三次单独看并不排除零。</div></div>
+              <div class="rv-item" id="rv-i1c"><div class="en">The paper now says: within cross-fitting noise</div><div class="zh">论文改为：结论处于交叉拟合噪声之内。</div></div>
+            </div>
+            <div class="sheet" data-layout-allow-overlap data-layout-allow-occlusion id="rv-s1" style="left: 830px; top: 150px">
+              <div class="src"><div>ss-lalonde-observational/</div><div>reviews/results-r1</div></div>
+              <div class="ka">kill_argument</div>
+              <div class="quote">“The only positive finding, a 95% interval that excludes zero, is decided by the cross-fitting seeds, not the data.”</div>
+              <div class="stamp revise" id="rv-st1">REVISE</div>
+              <div id="rv-chart">
+                <div class="cap">95% lower bound, each repetition alone</div>
+                <svg width="796" height="250" viewBox="0 0 796 250" data-layout-ignore>
+                  <line x1="0" y1="150" x2="796" y2="150" stroke="#3a2a1a" stroke-width="3" />
+                  <g id="rv-bars">
+                    <rect x="40" y="40" width="80" height="110" fill="#4f8f86" />
+                    <rect x="170" y="36" width="80" height="114" fill="#4f8f86" />
+                    <rect x="300" y="150" width="80" height="40" fill="#b8463a" />
+                    <rect x="430" y="150" width="80" height="52" fill="#b8463a" />
+                    <rect x="560" y="150" width="80" height="6" fill="#b8463a" />
+                    <rect x="690" y="131" width="80" height="19" fill="#d39a3a" />
+                  </g>
+                  <g id="rv-vals">
+                    <text x="80" y="28" text-anchor="middle" fill="#3a2a1a">+55</text>
+                    <text x="210" y="24" text-anchor="middle" fill="#3a2a1a">+57</text>
+                    <text x="340" y="226" text-anchor="middle" fill="#b8463a">−20</text>
+                    <text x="470" y="238" text-anchor="middle" fill="#b8463a">−26</text>
+                    <text x="600" y="192" text-anchor="middle" fill="#b8463a">−3</text>
+                    <text x="730" y="116" text-anchor="middle" fill="#3a2a1a">+9.6</text>
+                  </g>
+                  <text x="730" y="192" text-anchor="middle" fill="#7a5232" style="font-family: Nunito, sans-serif; font-size: 28px; font-weight: 900">all 5</text>
+                  <text x="20" y="190" text-anchor="start" fill="#7a5232" style="font-size: 28px">0</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Catch 2: 401(k), code-r1 -->
+            <div id="rv-col2" class="rv-col">
+              <div class="rv-item" id="rv-i2a"><div class="en">A Python port skipped hdm's <span class="acc">zero-threshold</span> step</div><div class="zh">Python 移植漏掉了 hdm 的零阈值步骤。</div></div>
+              <div class="rv-item" id="rv-i2b"><div class="en">Porting it closed the <span style="white-space: nowrap">R–Python</span> gap</div><div class="zh">补上后，R–Python 差距从 87 美元降到 0.36 美元。</div></div>
+            </div>
+            <div class="sheet" data-layout-allow-overlap data-layout-allow-occlusion id="rv-s2" style="left: 850px; top: 160px">
+              <div class="src"><div>ss-dml-401k/</div><div>reviews/code-r1</div></div>
+              <div class="ka">kill_argument</div>
+              <div class="quote">“The lasso port is not the authors' lasso, and the crew has the wrong explanation for why.”</div>
+              <div class="stamp revise" id="rv-st2">REVISE</div>
+              <div class="gap">R–Python gap</div>
+              <div class="gapnums">
+                <div id="rv-87">$87</div>
+                <div id="rv-strike" data-layout-allow-occlusion></div>
+                <svg id="rv-arrow" viewBox="0 0 90 60" data-layout-ignore><path d="M8 30 H74 M58 14 L76 30 L58 46" fill="none" stroke="#3a2a1a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                <div id="rv-036">$0.36</div>
+              </div>
+            </div>
+
+            <!-- Catch 3: null-effect, design-r1 -->
+            <div id="rv-col3" class="rv-col">
+              <div class="rv-item" id="rv-i3a"><div class="en">A placebo that would “fail” <span class="acc">either way</span></div><div class="zh">一个无论如何都会“失败”的安慰剂检验。</div></div>
+              <div class="rv-item" id="rv-i3b"><div class="en">The design was blocked</div><div class="zh">设计被驳回。</div></div>
+            </div>
+            <div class="sheet" data-layout-allow-overlap data-layout-allow-occlusion id="rv-s3" style="left: 820px; top: 155px">
+              <div class="src"><div>ss-null-effect/</div><div>reviews/design-r1</div></div>
+              <div class="ka">kill_argument</div>
+              <div class="quote">“Selection on the 1975 shock, already visible in covariate means, makes a nonzero placebo expected even if the assumption holds.”</div>
+              <div class="sev">critical</div>
+              <div class="stamp block" id="rv-st3">BLOCK</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        const blurIn = (sel, t, d = 0.3) => tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out" }, t);
+        const out = (sel, t) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power3.in" }, t);
+        const deal = (sel, t, rot) => tl.fromTo(sel, { x: 1200, rotation: 9, opacity: 1 }, { x: 0, rotation: rot, duration: 0.6, ease: "expo.out" }, t);
+        const stamp = (sel, t, rot) => tl.fromTo(sel, { opacity: 0, scale: 2.2, rotation: rot }, { opacity: 1, scale: 1, rotation: rot, duration: 0.32, ease: "back.out(1.7)" }, t);
+
+        // Iris opens onto the desk.
+        tl.fromTo("#rv-iris", { clipPath: "circle(0px at 960px 540px)" }, { clipPath: "circle(1150px at 960px 540px)", duration: 0.65, ease: "power2.inOut" }, 0);
+        tl.fromTo("#rv-pill", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }, 0.5);
+
+        // Intro.
+        document.querySelectorAll("#rv-intro .w").forEach((w, i) => {
+          tl.fromTo(w, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.14, ease: "power2.out" }, (i < 4 ? 0.7 : 1.5) + i * 0.08);
+        });
+        tl.set("#rv-intro .zh", { opacity: 0 }, 0);
+        tl.to("#rv-intro .zh", { opacity: 1, duration: 0.3, stagger: 1.0 }, 1.2);
+        out("#rv-intro", 4.1);
+
+        // Sheets start off the desk.
+        tl.set([".rv-item"], { opacity: 0 }, 0);
+        tl.set(["#rv-st1", "#rv-st2", "#rv-st3"], { opacity: 0 }, 0);
+
+        // Catch 1: the LaLonde interval.
+        deal("#rv-s1", 4.4, -1);
+        tl.fromTo("#rv-bars rect", { scaleY: 0, svgOrigin: "400 150" }, { scaleY: 1, duration: 0.5, ease: "expo.out", stagger: 0.12 }, 5.6);
+        tl.fromTo("#rv-vals text", { opacity: 0 }, { opacity: 1, duration: 0.2, stagger: 0.12 }, 5.9);
+        blurIn("#rv-i1a", 4.9);
+        blurIn("#rv-i1b", 7.1);
+        stamp("#rv-st1", 8.6, -7);
+        blurIn("#rv-i1c", 9.2);
+        out("#rv-col1", 11.5);
+
+        // Catch 2: the hdm zero threshold.
+        deal("#rv-s2", 11.6, 1.2);
+        blurIn("#rv-i2a", 12.0);
+        tl.set(["#rv-strike", "#rv-arrow", "#rv-036"], { opacity: 0 }, 0);
+        blurIn("#rv-i2b", 13.6);
+        tl.fromTo("#rv-strike", { opacity: 1, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.3, ease: "power2.inOut" }, 13.7);
+        tl.fromTo("#rv-arrow", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.3, ease: "power4.out" }, 14.0);
+        tl.fromTo("#rv-036", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.4)" }, 14.2);
+        stamp("#rv-st2", 15.0, 6);
+        out("#rv-col2", 16.1);
+
+        // Catch 3: the placebo that fails either way.
+        deal("#rv-s3", 16.2, -0.6);
+        blurIn("#rv-i3a", 16.6);
+        blurIn("#rv-i3b", 18.4);
+        stamp("#rv-st3", 18.5, -5);
+
+        // Iris closes.
+        tl.to("#rv-iris", { clipPath: "circle(0px at 960px 540px)", duration: 0.45, ease: "power3.in" }, 20.95);
+        window.__timelines["reviewer"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
