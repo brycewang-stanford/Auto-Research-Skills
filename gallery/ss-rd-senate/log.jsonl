@@ -125,3 +125,4 @@
 {"time": "2026-11-20T07:30:51Z", "role": "figures-ra", "action": "run", "detail": "tab-falsification exit=0"}
 {"time": "2026-11-20T07:31:59Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
 {"time": "2026-11-20T07:32:06Z", "role": "replicator", "action": "rerun-passed", "detail": "fourth run 15/15 after claims.jsonl wording edit and tab reruns"}
+{"time": "2026-11-20T07:32:32Z", "role": "writer", "action": "paper-four-reruns", "detail": "paper updated for the fourth clean rerun (15/15 at a6d7c45, after claim wording and tab reruns): Sec. 6 item 9 and ai-use; recompiled, 11 pages"}
