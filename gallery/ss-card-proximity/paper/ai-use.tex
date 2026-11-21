@@ -12,14 +12,14 @@ reading the Reviewer's verdict. The manuscript itself is subject to the submissi
   \item \textbf{Roles and models.} Every role (PI, Scout, Designer, Data RA, Econometrician,
         Figures RA, Writer, Reviewer and Replicator) runs on Claude Opus 5.5
         (\texttt{claude-opus-5-5}) in Claude Code, each role as a separate agent. The PI
-        drafted the question and hypotheses, recorded deviations D3--D7 and decided D7; the Scout
+        drafted the question and hypotheses, recorded deviations D3--D8, and decided D7 and, with the human author's consent, D8; the Scout
         found and verified the sources and transcribed the published targets; the Designer
         wrote the design; the Data RA fetched and prepared the data and, at the paper stage, wrote and
         executed the descriptive run behind the summary-statistics table (D7); the Econometrician
         wrote and tested the estimation code, executed the analysis runs, including the
         post hoc diagnostic and the SAS-listing check, and wrote the result claims; the
         Figures RA drew the figure; the Writer drafted this paper from the claims; the
-        Replicator is responsible for the clean rerun. The PI's brief to each role is
+        Replicator ran the clean rerun. The PI's brief to each role is
         archived in \texttt{briefs/}.
   \item \textbf{Review.} The Reviewer ran \CrewReviewRounds{} rounds on
         \CrewReviewerModels{} (\CrewReviewIndependence{}: a new context in every round, the
@@ -29,7 +29,7 @@ reading the Reviewer's verdict. The manuscript itself is subject to the submissi
         \CrewRoundsPaper{} on the paper. It raised \CrewFindingsCritical{} critical,
         \CrewFindingsMajor{} major and \CrewFindingsMinor{} minor distinct findings (a
         finding carried into a later round is counted once, at its latest severity). The last round of each completed stage passed, with minor findings answered
-        before the next gate. A code review passed before every analysis run, including
+        before the next gate. A code review passed before every analysis run except the D8 figure rerun, including
         separate rounds for the post hoc diagnostic, the SAS-listing check and the D7
         descriptive run.
   \item \textbf{Runs.} \CrewRuns{} runs in the ledger (\CrewRunsAnalysis{} analysis,
@@ -53,9 +53,12 @@ reading the Reviewer's verdict. The manuscript itself is subject to the submissi
         record them (for example first-stage $F$ statistics, intervals and direct-effect
         estimates of earlier studies), and process facts such as dates. Card's SAS listing,
         which holds regression output, was left unopened until every claim of the approved
-        plan was written; claims added later came from metrics already written by earlier
-        runs (results review) or from the D7 descriptive run, and no claim value changed
-        after the listing was read. Every
+        plan was written. Claims added later came from metrics already written by earlier
+        runs (results review), from the D7 descriptive run, or, at the paper review, from
+        metrics already written (target and item counts, including the listing run's own,
+        the KWW sample size, and the post hoc, descriptive homoskedastic statistic at zero);
+        some claim texts were reworded at the paper stage. No claim value changed after the
+        listing was read. Every
         citation was checked against its source by the Scout; the verification method for
         each entry (full text, abstract or DOI resolution) is recorded in
         \texttt{sources/sources.json}, and the paper cites each source for no more than was

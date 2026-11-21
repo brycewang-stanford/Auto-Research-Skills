@@ -1,0 +1,200 @@
+{
+  "id": "paper-r2",
+  "target": "paper",
+  "round": 2,
+  "created": "2026-11-21T04:06:50Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "paper/main.tex",
+    "paper/ai-use.tex",
+    "paper/numbers.tex",
+    "paper/process.tex",
+    "paper/tables/tab-checks.tex",
+    "paper/tables/tab-diag.tex",
+    "paper/tables/tab-h1.tex",
+    "paper/tables/tab-panela.tex",
+    "paper/figures/chr.pdf",
+    "paper/figures/CAPTIONS.md",
+    "paper/main.pdf",
+    "paper/main.log",
+    "claims.jsonl",
+    "log.jsonl",
+    "plan.json",
+    "crew.json",
+    "code/fig_chr.py",
+    "runs/fig-chr/run.json",
+    "runs/fig-chr/metrics.json",
+    "runs/.superseded/fig-chr-20261120T191158Z/metrics.json",
+    "sources/notes.md",
+    "reviews/paper-r1/review.json",
+    "reviews/REVIEWER_MEMORY.md"
+  ],
+  "kill_argument": "Nothing in this paper is new evidence about the return to schooling, and the one test that bears on Card's basic specification came out as the design predicted from published numbers before any run: the reduced-form t of about 2.5 is below the chi-square(3) projection value, so the robust set [-0.0068, 0.4983] was bound to contain zero. The exact replication was already published by Kling (2001); the Panel A results are restatements of a reduced-form t on a coefficient the paper itself says cannot be the return; the H3(b) comparison added at this stage shows only that the conservative projection, not the data, separates the robust and homoskedastic answers, and the size-correct robust subvector test that would settle it was not run. A referee could fairly call this a careful audit with no answer. What I attacked that held: every paper-r1 fix in the files; claims.jsonl values, supports and macros unchanged since 569bc72; the D8 diff is two label strings and fig-chr metrics equal the superseded run's; units, counts, balance N and title; validate --strict clean; PDF newer than its sources. Still required for submission: the clean rerun, then regenerate process.tex and the PDF.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "A process statement the ledger contradicts. The paper says the SAS-listing comparison came 'only after every other claim was written' and 'After every other claim was written, a single report-only run compared the listing'; the AI-use statement says the listing 'was left unopened until every other claim was written'. check-sas-listing ran at 2026-11-20T19:11:59Z. Afterwards 13 result claims were added at results-r1 (ols-return-se-robust, ols-return-se-n, young-iv-lo, young-iv-hi, a6-fs-se-cl, a6-fs-cl-ratio, a6-fs-t-cl, a6-rf-cl-ratio, a5-fs-se-cl, a5-fs-cl-ratio, a5-fs-t-cl, a5-rf-cl-ratio, n-clusters-under30) and 15 claim texts were rewritten (log 19:20:10Z), and an analysis run (describe-sample, 2026-11-21T03:39:57Z) wrote 21 more claims (t1-*). The substance is intact: the 13 values come from metrics of runs made at 18:47-18:53Z, before the listing was read, and no claim value, support or macro changed after the results gate (I diffed claims.jsonl against commit 569bc72). Cheapest remedy, narrowing: 'after every claim of the approved plan was written; 13 claims taken from existing run metrics were added at the results review and 21 descriptive claims (D7) at the paper stage; no claim value changed after the listing was read'.",
+      "evidence": "paper/main.tex lines 282-284 (Report-only checks) and 344-346 (Card's SAS listing); paper/ai-use.tex Evidence bullet ('left unopened until every other claim was written'); log.jsonl 2026-11-20T19:11:59Z run check-sas-listing, 19:20:10Z claims-revised, 2026-11-21T03:39:57Z run describe-sample, 03:40:36Z 21 claims added; claims.jsonl order after sas-ols-match",
+      "response": "Writer: SAS-listing timing narrowed to 'after every claim of the approved plan was written' in Sec. 3, Sec. 4.2 and ai-use; later claims stated as log.jsonl has them (results-r1 claims from metrics of runs made before the listing; D7 claims from describe-sample, run after it); no claim value changed after the listing was read.",
+      "ruling": "Fixed in main.tex (Report-only checks, Sec. 4.2 'Card's SAS listing') and ai-use Evidence: the timing now reads 'after every claim of the approved plan was written', the results-review and D7 additions are named, and 'no claim value changed after the listing was read' holds (I diffed claims.jsonl against 569bc72 and 25b7ab5: no value, support, macro or format changed). The seven claims added at paper-r1 are not in this account; see F13."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Unit error in the abstract and elsewhere: 0.0114 is in units of log wage, i.e. about 1.1 log points, but the abstract, the introduction and Section 4.4 say proximity may raise log wages 'by 0.0114 log points', and Table 4 labels the breakdown '(log points)'. The paper contradicts itself two paragraphs later ('a direct effect of about one log point', also in the conclusion). Same error in Section 4.1: '0.1324 log points correspond to a 14.2% higher hourly wage' (0.1324 is 13.2 log points), introduced as 'In real units', which suggests inflation adjustment; it is a percent conversion of a point estimate whose robust set contains zero. Remedy: 'by 0.0114 (about 1.1 log points)' or 'by 0.0114 in log wage'; 'a coefficient of 0.1324 corresponds to a 14.2% wage difference'; fix the table label. The claim texts of a6-/a5-pacoef-chr-breakdown and plan.json H4 carry the same '(log points)' wording.",
+      "evidence": "paper/main.tex line 47 (abstract), line 102 (introduction), line 297 ('In real units, \\IvReturn{} log points'), line 450 (Section 4.4) vs lines 459 and 545 ('about one log point'); paper/tables/tab-panela.tex line 31; claims.jsonl a6-pacoef-chr-breakdown, a5-pacoef-chr-breakdown",
+      "response": "Writer: breakdowns now 'in log wage (about one log point)' in abstract, introduction and Sec. 4.4, Table 4 label '(log wage)', figure caption states the unit; 'In real units ... log points' replaced by 'a coefficient of \\IvReturn corresponds to a \\IvReturnPct% wage difference', flagged as a conversion of a point estimate whose robust set contains zero (claim texts and plan.json H4 not mine to edit).",
+      "ruling": "Abstract, introduction, Sec. 4.4, conclusion, Table 4 label ('(log wage)'), figure caption and axis labels now use log-wage units with 'about one log point'; 'In real units' is gone and the 14.2% conversion (\\IvReturnPct, claim iv-return-pct = 100(exp(b)-1)) is flagged as a point-estimate conversion. Claim texts a6-/a5-pacoef-chr-breakdown say 'about 1.1' / 'about 0.8 log points'. Note: plan.json H4 text was edited after the design gate (units only, visible in git fc7beba) without a log entry; a one-line log note would close that trail."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "Wrong sample size in the balance table. Panel (b) of Table 6 prints N = \\NSample{} (3,010) for 'KWW score, all men', but the run r-balance records bal_kww_all_n = 2963 (47 men have no KWW score; t1-kww also says 2,963). The macro used is for a different quantity, which is exactly what macros are meant to prevent. In the same panel the note says the controls are 'age, age squared, the base controls without experience and family background' for every row except the 14-15-year-olds, but the IQ-recording row is a raw difference of shares with no controls (code/r_balance.py line 50 regresses iq_obs on const and nearc4 only). Remedy: a claim for bal_kww_all_n with its macro, and a note that the IQ-recording difference is unconditional.",
+      "evidence": "paper/tables/tab-checks.tex panel (b) row 'KWW score, all men' (N column) and note (b); runs/r-balance/metrics.json bal_kww_all_n = 2963, iq_obs_diff; code/r_balance.py lines 47-54",
+      "response": "Econometrician part: new claim bal-kww-all-n (r-balance bal_kww_all_n = 2,963, macro \\BalKwwAllN); iq-obs-diff and iq-obs-diff-se texts now say the IQ-recording row is unadjusted (no controls, all 3,010 men). The Writer still has to fix the table. Writer: Table 6(b) KWW all-men row uses \\BalKwwAllN; note marks the IQ-recording row as unadjusted.",
+      "ruling": "tab-checks.tex panel (b): KWW all-men row now uses \\BalKwwAllN (claim bal-kww-all-n = r-balance bal_kww_all_n = 2,963) and the IQ-recording row carries a dagger note 'Unadjusted ... no controls', matching code/r_balance.py; claim texts iq-obs-diff(-se) say the same."
+    },
+    {
+      "id": "F4",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The AI-use statement says the Reviewer 'raised 0 critical, 22 major and 76 minor findings, summed over rounds'. crew.py process_facts counts every finding entry in every review.json, so a finding carried into a later round as resolved, withdrawn or open is counted again. Across the 13 records there are 9 distinct major and 37 distinct minor findings (unique target and id), so 'raised' overstates the review record by a factor of about two. Remedy: reword to 'finding entries over rounds (a finding carried into a later round is counted again)', or have the tool also write distinct counts and use those.",
+      "evidence": "paper/ai-use.tex Review bullet; paper/process.tex \\CrewFindingsMajor 22, \\CrewFindingsMinor 76; crew/scripts/crew.py process_facts (severity counter over review.findings); reviews/*/review.json (distinct target+id: 9 major, 37 minor, 0 critical)",
+      "response": "Writer: crew.py numbers rerun; ai-use now reports \\CrewFindings* as distinct findings, a finding carried across rounds counted once.",
+      "ruling": "process.tex now counts distinct findings (13 major, 45 minor, 0 critical over 14 records; equals my paper-r1 count 9/37 plus paper-r1's 4/8) and ai-use says 'distinct findings (a finding carried into a later round is counted once, at its latest severity)'. process.tex must be regenerated after this round."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Smaller process inaccuracies in the AI-use statement. (a) 'The PI ... recorded deviations D3--D6': the PI also recorded D7 (log 2026-11-21T03:35:06Z; plan.json D7 'decided by the PI'). (b) 'Every role (..., Reviewer and Replicator) ran on Claude Opus 5.5': the Replicator has not run; the compiled PDF prints the rerun as 'not run: 0 of 0 runs reproduced' and \\CrewRoundsPaper as 0, and the introduction calls the replication 'logged, rerunnable' before any rerun. Remedy: D3--D7; rebuild process.tex and main.pdf after rp-rerun and this review; keep 'rerunnable' only if the rerun passes.",
+      "evidence": "paper/ai-use.tex Roles and models, Replication bullets; paper/process.tex \\CrewRerunStatus 'not run', \\CrewRoundsPaper 0; paper/main.tex line 70; log.jsonl 2026-11-21T03:35:06Z; plan.json design.deviations D7",
+      "response": "Writer: PI credited with recording and deciding D7 (D3-D7); roles stated in the present tense; replication bullet uses only the process macros and says rerunnability is what that record states; 'rerunnable' removed from the introduction.",
+      "ruling": "ai-use credits the PI with D7, uses only process macros for the rerun ('Whether the work can be rerun ... is what this record states'), and 'rerunnable' is gone from the introduction. The rerun is still 'not run: 0 of 0' in the PDF; that is a submission-gate requirement, not a wording issue. The D8 addition reintroduced a crediting slip; see F14."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Result counts typed by hand in words: 'All seven misses' and 'matches all eight printed numbers' (abstract), 'all twelve Panel~A numbers' (introduction), 'The misses are seven' (Section 4.1), 'The seven misses' (conclusion). \\DiagTargetsReproduced exists and is not used in the abstract; the miss count (9 - 5 + 22 - 19) has no macro. Validation cannot catch numbers written as words. The AI-use list of hand-typed numbers ('design facts ..., published numbers quoted next to their replication, and process facts') also omits literature numbers quoted without a replication (Bi et al. 13.3 and 15.1, Lee 104.7, Londschien [0.083, 0.352], Card Table 5, Cinelli-Hazlett [-0.02, 0.40]). The abstract also opens a sentence with a numeral ('5 of 9'). Remedy: macros for the counts (a verdict metric or claim for the misses) and a complete AI-use sentence.",
+      "evidence": "paper/main.tex lines 36-38, 85, 309, 533; paper/ai-use.tex Evidence bullet; paper/numbers.tex \\DiagTargetsReproduced",
+      "response": "Econometrician part: count macros from runs, \\HOnePrimaryTargets (verdict h1_primary_targets), \\HOneSecondaryTargets (h1_secondary_targets), \\DiagTargets (diag-panelb diag_targets), \\SasItems and \\SasItemsMatched (check-sas-listing); no run metric holds the number of misses or the twelve Panel A numbers, so those need \\numexpr on these macros or rewording (the AI-use sentence is the Writer's). Writer: miss count is \\HOneMisses (\\numexpr on the target and reproduced macros); 9/22/8/6 use \\HOnePrimaryTargets, \\HOneSecondaryTargets, \\DiagTargets, \\SasItems/\\SasItemsMatched; 'all twelve' -> 'all Panel A numbers'; abstract no longer opens with a numeral; ai-use lists literature numbers among hand-typed numbers.",
+      "ruling": "Counts now come from macros: \\HOnePrimaryTargets, \\HOneSecondaryTargets (verdict), \\DiagTargets (diag-panelb), \\SasItems/\\SasItemsMatched (check-sas-listing), and \\HOneMisses = numexpr(9+22-5-19) renders 7 in the PDF; 'all twelve' became 'all Panel A numbers'; the abstract no longer opens with a numeral; ai-use lists literature numbers among hand-typed numbers."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Kitagawa (2015) is cited for a result on Card's data that its record says was not read: sources.json gives method fetched-abstract and the note 'the abstract does not mention Card. No citation claim rests on this record; the Card result is cited via' Carr and Kitagawa. This also contradicts the AI-use sentence that 'the paper cites each source for no more than was read'. The sentence it sits in opens 'Other work does not find a direct effect', but the cited Kitagawa test rejects validity without covariates, and c-principal-strata records a significant never-taker effect (-0.86) in one Luo et al. specification. Remedy: 'Kitagawa (2015), as reported by Carr and Kitagawa (2021)'; 'Other work finds no significant direct effect in its preferred specifications'.",
+      "evidence": "paper/main.tex lines 469-475; sources/sources.json kitagawa2015test; claims.jsonl c-validity-tests, c-principal-strata; paper/ai-use.tex Evidence bullet",
+      "response": "Writer: Kitagawa (2015) now cited only 'as reported by Carr and Kitagawa (2021)'; sentence narrowed to 'no significant direct effect in its preferred specifications', with Luo et al.'s significant never-taker effect in a specification the authors regard as misspecified.",
+      "ruling": "main.tex Sec. 4.4: Kitagawa (2015) cited only 'as reported by Carr and Kitagawa (2021)', matching claim c-validity-tests; the direct-effect sentence is narrowed to 'no significant direct effect in its preferred specifications' and names Luo et al.'s case (i) never-taker effect, which matches sources/notes.md line 310."
+    },
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Scope framing: the introduction's second question is 'how much of the IV conclusion survives inference that is robust to a weak instrument and to a bounded violation of the exclusion restriction', and the figure title is 'Sensitivity of the IV conclusions to a direct effect of college proximity'. The exclusion sensitivity exists only for the Panel A coefficient (D2); Card's basic specification gets only the weak-IV-robust set. The next paragraph clarifies, but the question as posed promises both for 'the IV conclusion' (the wording question-r2 F7 asked to change in the plan). Remedy: name the specifications in the question and the figure title.",
+      "evidence": "paper/main.tex lines 75-77; figure caption title line 409; plan.json design.deviations D2",
+      "response": "Writer: introduction's second question names the specifications (weak-IV robustness for both, exclusion sensitivity for the Panel A coefficient only); figure title split into (a) Panel A coefficient sensitivity and (b) Card's basic specification.",
+      "ruling": "Introduction's second question names which inference applies to which specification; the figure caption title is split into (a) Panel A coefficient and (b) Card's basic specification. paper/figures/CAPTIONS.md still carries the old title ('Sensitivity of the IV conclusions ...') and the unqualified window sentence; it is not part of the paper."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The H3(b) reading understates evidence already in the ledger. The paper says the robust set contains zero 'possibly because the projection is conservative'. h3b-subvector also wrote b6_kappap_at_zero = 6.836, the homoskedastic subvector AR statistic at b0 = 0 on the chi-square scale (it equals 3.841 at the GKMC bounds), against the robust profile statistic m(0) = 7.300. The robust statistic at zero is not smaller than the homoskedastic one, so the gap between the robust and homoskedastic decisions comes from the critical value (chi-square(3) vs chi-square(1) or GKM19), not from heteroskedasticity. Remedy: a report-only claim on the existing metric, labelled descriptive and post hoc. It must not change the H3(b) decision rule or its primary set.",
+      "evidence": "paper/main.tex lines 42-43, 375-392; runs/h3b-subvector/metrics.json b6_kappap_at_zero, b6_rob_m_at_0, b6_kappap_at_gkmc_lo",
+      "response": "Econometrician part: new report-only, post hoc claim b6-hom-stat-at-zero (h3b-subvector b6_kappap_at_zero, macro \\BSixHomStatAtZero), set next to b6-rob-m-at-zero; the text says the decisions differ through critical values and that the H3(b) rule and primary set are unchanged. Writer: \\BSixHomStatAtZero placed next to \\BSixRobMAtZero in the abstract, introduction and Sec. 4.3, worded as the claim does (post hoc, descriptive, sets differ through critical values; decision rule and primary set unchanged); 'possibly because the projection is conservative' removed.",
+      "ruling": "New claim b6-hom-stat-at-zero (h3b-subvector b6_kappap_at_zero = 6.836), labelled report-only, descriptive and post hoc, placed next to \\BSixRobMAtZero (7.300) in the introduction and Sec. 4.3; 'possibly because the projection is conservative' removed; H3(b) rule, primary set and flag unchanged. The abstract carries the comparison without the post hoc label; see F15."
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The conclusion and limitations describe the GKM (2024) robust subvector test as having 'exact size' or being 'size-exact'; the verified claim says its asymptotic size is bounded by the nominal size. Remedy: 'a heteroskedasticity-robust subvector test with correct asymptotic size and fewer degrees of freedom than the projection'.",
+      "evidence": "paper/main.tex lines 549-550 and 564-565; claims.jsonl c-gkm24-robust",
+      "response": "Writer: GKM (2024) described as having correct asymptotic size and fewer degrees of freedom than the projection, in Sec. 4.3, conclusion and limitations.",
+      "ruling": "GKM (2024) is described as having correct asymptotic size and fewer degrees of freedom than the projection in Sec. 4.3, conclusion and limitations; no 'exact size' remains in the paper. (The figure caption's 'exact-size test' refers to a hypothetical comparison and is harmless.)"
+    },
+    {
+      "id": "F11",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The figure caption states without qualification that 'no set has a piece outside the window', but Table 5's note says 'pieces narrower than the outer-grid spacing outside [-1,1] could be missed'. Remedy: 'on the evaluated point list, no set has a piece outside the window'.",
+      "evidence": "paper/main.tex lines 442-444 (figure caption); paper/figures/CAPTIONS.md last caption paragraph; paper/tables/tab-panelb.tex note",
+      "response": "Writer: figure caption now says 'on that evaluated point list no set has a piece outside the window' and repeats the table note's caveat on narrow outer pieces.",
+      "ruling": "Figure caption now reads 'on that evaluated point list no set has a piece outside the window' and repeats the narrow-piece caveat of Table 5."
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The title promises more than the text delivers in two ways. (a) 'Card's (1995)': the 1995 chapter was never read, and every target is a WP 4483 (1993) number (Limitations, Sources). (b) 'Does growing up near a college raise schooling and earnings?' is the first-stage and reduced-form question, which needs only proximity independence, not exclusion. The paper never answers it in those terms: it reports the reduced forms only as restatements of the AR and CHR results for the return. Remedy: name the working paper in the title (e.g. 'Card's (1993, 1995)'), and either answer the title question explicitly from the first-stage and reduced-form claims with their Panel A or B labels, or retitle.",
+      "evidence": "paper/main.tex lines 19-20 (title), 572-573 (Limitations: Sources); claims.jsonl a6-fs, a6-rf, a6-rf-t-robust, first-stage, reduced-form",
+      "response": "Writer: title now names Card (1993), NBER WP 4483, and asks the question the paper answers (does the estimate replicate and survive weak-instrument-robust inference).",
+      "ruling": "Title now names Card (1993), NBER WP 4483, and asks whether the estimate replicates and survives weak-instrument-robust inference, which the paper answers; crew.json title updated to match."
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "open",
+      "text": "The SAS-listing timing account is now true for what it lists but incomplete. Sec. 4.2 says claims were added after the listing at the results review and, 'at the paper stage, the descriptive claims of Table 1'; ai-use says 'claims added later came from metrics already written by earlier runs (results review) or from the D7 descriptive run'. Seven further result claims were added at the paper review (log 2026-11-21T03:55:12Z): bal-kww-all-n, h1-primary-targets, h1-secondary-targets, diag-targets, sas-items, sas-items-matched and b6-hom-stat-at-zero. Two of them take their values from the listing run itself, and b6-hom-stat-at-zero is a post hoc interpretive claim that now appears in the abstract. Claim texts were also reworded at the paper stage (a6-/a5-pacoef-chr-breakdown at 04:02:51Z, iq-obs-diff(-se) at 03:55Z), but the text names only results-review rewording. No value changed (my diff against 569bc72 and 25b7ab5 holds). Remedy: add one clause, e.g. 'and, at the paper review, seven claims from metrics already written (target counts, the KWW sample size, the listing's item counts and the homoskedastic statistic at zero), with some claim texts reworded'.",
+      "evidence": "paper/main.tex lines 360-366 (Card's SAS listing paragraph); paper/ai-use.tex Evidence bullet; log.jsonl 2026-11-21T03:55:12Z claims-added, 04:02:51Z claims-revised; claims.jsonl entries listed",
+      "response": "Writer: Sec. 4.2 and ai-use now also name the paper-review claims (H1/D4 target counts, KWW sample size, the listing run's own item counts, the post hoc descriptive homoskedastic statistic at zero) and the paper-stage rewording of claim texts; 'no claim value changed after the listing was read' kept.",
+      "ruling": ""
+    },
+    {
+      "id": "F14",
+      "severity": "minor",
+      "status": "open",
+      "text": "The D8 rerun left two AI-use process statements inaccurate. (a) The Review bullet says 'A code review passed before every analysis run'; the Runs bullet two sentences later says one analysis run (fig-chr, 2026-11-21T04:01:41Z, run.json 'unreviewed', no code_review) was not covered by a passing code review, and D8 says the same. (b) The Roles bullet says the PI 'recorded deviations D3--D7'; log.jsonl 04:01:23Z shows the PI also recorded D8 (unreviewed-consent, 'recorded as D8'). Remedy: 'A code review passed before every analysis run except the D8 figure rerun' and 'recorded deviations D3--D8'.",
+      "evidence": "paper/ai-use.tex Roles and models bullet, Review bullet (last sentence), Runs bullet; runs/fig-chr/run.json 'unreviewed'; log.jsonl 2026-11-21T04:01:23Z, 04:01:41Z; plan.json design.deviations D8",
+      "response": "Writer: ai-use Review bullet says 'every analysis run except the D8 figure rerun'; Roles bullet credits the PI with recording D3-D8 and deciding D7 and, with the human's consent, D8.",
+      "ruling": ""
+    },
+    {
+      "id": "F15",
+      "severity": "minor",
+      "status": "open",
+      "text": "The abstract states the robust-versus-homoskedastic comparison at zero ('their statistic at a zero return is not larger than the robust one, so the two decisions differ through the critical values ..., not through heteroskedasticity') without the label that the claim b6-hom-stat-at-zero and the body carry: post hoc, descriptive, and changing neither the H3(b) rule nor its primary set. Unlabelled in the abstract, a reader can take it as saying a size-correct robust test would exclude zero, which no run shows; GKM (2024) was not implemented. Remedy: add '(a post hoc, descriptive comparison)' in the abstract sentence.",
+      "evidence": "paper/main.tex lines 46-50 (abstract) vs lines 105-106 and 403-404; claims.jsonl b6-hom-stat-at-zero text",
+      "response": "Writer: abstract sentence now opens 'In a post hoc, descriptive comparison', as the body and the claim do.",
+      "ruling": ""
+    }
+  ],
+  "files_sha256": {
+    "paper/main.tex": "86716b419791e9da2cfe47256129d2adaebdeb147b4b1da9efbe6de31b6877cb",
+    "paper/ai-use.tex": "ab478a383fb5cd3fcf68b1041cafc027ea9b41df8afc96c5301cac68d504179e",
+    "paper/numbers.tex": "b98c72bd5e42c17528af8b29d135138de7c5ad89c20989111ffe5d684288dff0",
+    "paper/process.tex": "60d8fa7756b5accbeb7750871b7d2b8a6f8a6969223715434a622198447d552f",
+    "paper/tables/tab-checks.tex": "b0ae4102edf768723f86c6207bc1e74db553febccc7dff7fa6e1ee890bf50b08",
+    "paper/tables/tab-diag.tex": "695535fff68150614c130f293839d0f6bdd5b3e1490906adbe9cb8407971c9ab",
+    "paper/tables/tab-h1.tex": "05b7bd53731dfe5dc3f6231b77ac9573a8b42675253d65fd0cf46ff74315cda9",
+    "paper/tables/tab-panela.tex": "2b736f48d84651c5061810940fedb6bb6480cc7861254a336b97130ce95182a4",
+    "paper/figures/chr.pdf": "49c0f4fc463c7a2bb26a454e5bb9aa40daf4f395b5b1455c54d6fbc47db81f33",
+    "paper/figures/CAPTIONS.md": "ab04a34f51dc2e607ddfec2637b7840c40eb7336b3397c0a7cd41cf81ca13856",
+    "paper/main.pdf": "938463ae897427deb3fd239c50b7ec3d5ecf4bb1d66b2954ed0bf80fd583f36b",
+    "paper/main.log": "55df2e128afd0662e3ea802a1b0a3ab9f4466814baebb7b467b259c4c831d77a",
+    "claims.jsonl": "f856f91c49ba210782889bcca83b9a77f19fb939508b52c5fe12fabb67b9097b",
+    "log.jsonl": "8aadd4cf1d3643a1eff65cff15daaf4f4b0b4f9c7dd8aadda6a7c1a8499b7715",
+    "plan.json": "076797db7e8fd463b0480324e4f8bdb7f104aa9c1feeabec0fbd74d39a63cf73",
+    "crew.json": "d456eddd2e02b315cfd10e09ad5712b054dceebcd40c0c93e2b696e4ba411322",
+    "code/fig_chr.py": "a36015e8f546039acf2331346893cbda823efb9357336d5b132062ad5c2c68e6",
+    "runs/fig-chr/run.json": "330e41d7373b3f0c3cd848e95c589ab35c7fe0944ed217e5457690372e4e00ef",
+    "runs/fig-chr/metrics.json": "d104e7f8900e2bad9bb760bbd43546e11ed61b6d54db11bdad033e47b9f29189",
+    "runs/.superseded/fig-chr-20261120T191158Z/metrics.json": "d104e7f8900e2bad9bb760bbd43546e11ed61b6d54db11bdad033e47b9f29189",
+    "sources/notes.md": "61ea5cfa91ecbcfb584caf228fd6ce4031e77d96bb22bef5a55376eb431f37bd",
+    "reviews/paper-r1/review.json": "d4bcdd3cd1cc291e71b584c496f1c1d350e21d63a4155b789e36dc9b3d36dfa4",
+    "reviews/REVIEWER_MEMORY.md": "3fad14198eb476438341672954fe17e077b41c074c9dd35b350c782794f59f1f"
+  },
+  "recorded": "2026-11-21T04:07:24Z"
+}

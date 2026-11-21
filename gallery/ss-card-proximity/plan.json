@@ -268,13 +268,13 @@
       "id": "rv-paper",
       "title": "Review the paper (reviews/paper-r1)",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rp-rerun",
       "title": "Clean rerun (crew.py rerun --setup with code/requirements.txt)",
       "owner": "replicator",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "pi-submission-gate",
@@ -290,7 +290,7 @@
       "summary": "Replication of Card (WP 4483) IV return to schooling; H1 reproduction of Panel B col 6 and Panel A cols 6/5; H2-H5 weak-IV-robust and exclusion sensitivity on Panel A col 6 (col 5 alongside). Reviewer question-r2: pass, F7-F8 minor answered.",
       "decided_by": "Bryce Wang",
       "decided_on": "2026-11-20T16:53:24Z",
-      "note": "\u6279\u51c6 (AskUserQuestion answer, 2026-11-21)"
+      "note": "批准 (AskUserQuestion answer, 2026-11-21)"
     },
     "design": {
       "status": "approved",
@@ -298,7 +298,7 @@
       "summary": "Design fixed: H1 reproduction (9 primary + 22 secondary targets, conventional n-k SEs); H2-H5 on Panel A col 6 (col 5 alongside) labelled as Panel A coefficients; H3(b) subvector AR on Card's basic Panel B col 6 (robust chi2(3) projection decides; GKM19/GKMC homoskedastic alongside); synthetic-data checks before any analysis; read1.lst read once after claims. Reviews: literature-r2 pass, design-r3 pass, all findings answered.",
       "decided_by": "Bryce Wang",
       "decided_on": "2026-11-20T17:49:59Z",
-      "note": "\u6279\u51c6 (AskUserQuestion answer)"
+      "note": "批准 (AskUserQuestion answer)"
     },
     "results": {
       "status": "approved",
@@ -306,10 +306,12 @@
       "summary": "H1 primary 5/9, secondary 19/22 (all 7 misses in Panel B cols 1-4, reproduced 8/8 by the post hoc D4 diagnostic); B6 2SLS 0.132 (0.049) reproduced; H3(b) robust projection [-0.007, 0.498] includes 0: positive return not established (homoskedastic GKM19/GKMC exclude 0, not deciding); Panel A: AR sets above 0, F below thresholds, CHR breakdown 0.011, IV=OLS not rejected; SAS listing 6/6. results-r2 pass.",
       "decided_by": "Bryce Wang",
       "decided_on": "2026-11-21T02:17:22Z",
-      "note": "\u6279\u51c6 (AskUserQuestion answer)"
+      "note": "批准 (AskUserQuestion answer)"
     },
     "submission": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-21T04:35:18Z",
+      "summary": "Paper (19 pp) after paper-r1 (revise) and paper-r2 (pass; F13-F15 minor answered); clean rerun passed 18/18 runs, 911 metrics, fresh venv from requirements.txt; final PDF differs from the reviewed one only in process macros (rerun status, review counts)."
     }
   }
 }

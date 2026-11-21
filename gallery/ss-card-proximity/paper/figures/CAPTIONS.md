@@ -1,8 +1,10 @@
 # Figure captions (ss-card-proximity)
 
 The script `code/fig_chr.py` built the figure below. The script ran as run `fig-chr` through
-`crew.py run --kind analysis`, and code review `code-r1` covered it. It reads only files that
-logged runs wrote, each declared with `--input`:
+`crew.py run --kind analysis`. Code review `code-r1` covered the script; the current run was
+repeated at the paper stage after a label-only change (axis units, "log points" -> log wage) with
+`--unreviewed` and the human's consent (deviation D8). It reads only files that logged runs
+wrote, each declared with `--input`:
 
 - `runs/h4-chr/chr_grid.csv` and `runs/h4-chr/metrics.json`
 - `runs/h3b-subvector/profile.csv` and `runs/h3b-subvector/metrics.json`
@@ -18,8 +20,9 @@ planned critical values that the claims' texts state. They are not results.
 
 **Suggested caption (LaTeX; needs `\input{numbers.tex}`):**
 
-> **Sensitivity of the IV conclusions to a direct effect of college proximity and to weak
-> identification of the experience coefficients.** All men in the analysis sample,
+> **(a) Sensitivity of the Panel A coefficient on schooling to a direct effect of college
+> proximity; (b) weak-instrument-robust inference on the return to schooling in Card's basic
+> specification.** $\delta$ and $\delta^*$ are in log-wage units (0.01 is one log point). All men in the analysis sample,
 > $N = \NSample$ [n-sample]. All sets are 95% sets.
 > *(a) Panel A specifications, which treat experience as exogenous. The quantity is the
 > Panel A coefficient on schooling, not the return to schooling.* For each bound $\delta$
@@ -63,8 +66,9 @@ planned critical values that the claims' texts state. They are not results.
 >   large everywhere on the point list (minimum $\BSixKappaOneMin$ [b6-kappa1-min]).
 >
 > The plotted window of $b_0$ is the span of the sets and 0, padded by 10%. The statistic
-> and the sets were evaluated on $[-1, 1]$ and beyond, up to $|b_0| = 10^5$, and no set has
-> a piece outside the window.
+> and the sets were evaluated on $[-1, 1]$ and beyond, up to $|b_0| = 10^5$; on that evaluated
+> point list no set has a piece outside the window (pieces narrower than the outer-grid
+> spacing outside $[-1, 1]$ could be missed).
 
 **Wording the Writer must keep.**
 

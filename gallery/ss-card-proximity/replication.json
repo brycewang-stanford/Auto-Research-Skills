@@ -1,0 +1,246 @@
+{
+  "created": "2026-11-21T04:33:26Z",
+  "passed": true,
+  "rtol": 1e-06,
+  "atol": 1e-09,
+  "reuse_data": false,
+  "setup": {
+    "command": "python3.14 -m venv .venv && .venv/bin/pip install -r code/requirements.txt",
+    "exit_code": 0,
+    "output_tail": "rrow-26.0.1-cp314-cp314-macosx_12_0_arm64.whl (37.3 MB)\nUsing cached pyhdfe-0.2.1-py3-none-any.whl (20 kB)\nUsing cached pyparsing-3.3.3-py3-none-any.whl (126 kB)\nUsing cached python_dateutil-4.0.0-py3-none-any.whl (92 kB)\nUsing cached scikit_learn-1.9.1-cp314-cp314-macosx_12_0_arm64.whl (8.3 MB)\nUsing cached scipy-1.18.1-cp314-cp314-macosx_14_0_arm64.whl (20.5 MB)\nUsing cached statsmodels-0.15.0-cp314-cp314-macosx_11_0_arm64.whl (11.6 MB)\nUsing cached tabmat-4.3.1-cp314-cp314-macosx_12_0_arm64.whl (1.6 MB)\nUsing cached threadpoolctl-3.8.0-py3-none-any.whl (32 kB)\nUsing cached tqdm-4.70.1-py3-none-any.whl (80 kB)\nUsing cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)\nUsing cached tzdata-2026.6-py2.py3-none-any.whl (348 kB)\nUsing cached wrapt-2.5.2-cp314-cp314-macosx_11_0_arm64.whl (106 kB)\nInstalling collected packages: wrapt, tzdata, typing_extensions, tqdm, threadpoolctl, pyparsing, pyarrow, pillow, packaging, numpy, narwhals, mypy_extensions, llvmlite, kiwisolver, interface_meta, fonttools, cycler, cloudpickle, scipy, python-dateutil, patsy, numexpr, numba, joblib, contourpy, scikit-learn, pyhdfe, pandas, matplotlib, formulaic, tabmat, statsmodels, linearmodels, glum, ivmodels\n\nSuccessfully installed cloudpickle-3.1.3 contourpy-1.4.0 cycler-0.12.1 fonttools-4.68.0 formulaic-1.2.2 glum-3.5.0 interface_meta-2.0.1 ivmodels-0.10.0 joblib-1.6.0 kiwisolver-1.5.1 linearmodels-7.1 llvmlite-0.50.0 matplotlib-3.11.2 mypy_extensions-1.2.0 narwhals-2.29.0 numba-0.68.1 numexpr-2.14.2 numpy-2.5.3 packaging-26.3 pandas-3.0.5 patsy-1.0.3 pillow-13.0.0 pyarrow-26.0.1 pyhdfe-0.2.1 pyparsing-3.3.3 python-dateutil-4.0.0 scikit-learn-1.9.1 scipy-1.18.1 statsmodels-0.15.0 tabmat-4.3.1 threadpoolctl-3.8.0 tqdm-4.70.1 typing_extensions-4.16.0 tzdata-2026.6 wrapt-2.5.2\n\n[notice] A new release of pip is available: 26.1.2 -> 26.3\n[notice] To update, run: /private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv/bin/python3.14 -m pip install --upgrade pip\n"
+  },
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+  },
+  "runs": [
+    {
+      "run": "fetch-data",
+      "record_sha256": "547c7b816e17f552963e4654df6b54b271dfb7c1b74e73646b86f0a03ca11798",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": "python3"
+      },
+      "status": "match"
+    },
+    {
+      "run": "prepare-data",
+      "record_sha256": "3772571ad383b68728eddd40cdbcc8ba190934b4a60f69f4ebe8dcf911d908d3",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": "python3"
+      },
+      "status": "match"
+    },
+    {
+      "run": "check-synthetic",
+      "record_sha256": "2202eb0d0c6762a3fe52125ab0a3cf7464e259ad3ae79b63ad71ecbfdeefa990",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "h1-b6",
+      "record_sha256": "c4e56ffe6dd496c6a8307fcc2da342095e1971ea8e643caa5d84d8a8e7a78f24",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "h1-a6",
+      "record_sha256": "4f196406b483209f2b308d4fa4a4fdb663dd143e0b5fb5d4e3cfb502e2107ccc",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "h1-a5",
+      "record_sha256": "513947addd70bff117576c1addd04fb8184936e186ade5bb0bd7b65944e0402b",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "h2h3-weakiv",
+      "record_sha256": "a34cd439d7ce6c41bef6fe24c46c7b3e614a5b119cfef247219c632d423e39dc",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "h3b-subvector",
+      "record_sha256": "3fc2cfd74d691830ee5c5f0f6d55186560b7cc694e99ade51ee840c8748f32be",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "h4-chr",
+      "record_sha256": "c25725d0dc8c10c061cadc0aa7812f394d497eeb7bb4d72be7503c0ceefc3be3",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "h5-cf",
+      "record_sha256": "9fd780d36a041203bf7b61c3d8a8a20e11e798be1b742f51a87109246b2b2280",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "r-age1419",
+      "record_sha256": "5195ba207b916907726332075a822f39f2a9fdcc8cc2a8247b4babe00f7ed14b",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "r-balance",
+      "record_sha256": "37fe9df10ca46bcaf005b497031bafdf1c75f718ad2a83d84c67db9ec7e570c4",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "r-cluster",
+      "record_sha256": "fa3149b8dec941cbeb84d2c718959b8ea72194eba07d4f012158a5ada8feb911",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "verdict",
+      "record_sha256": "313e657231d7c23525648b8cb6c0248db26dd672f7adc6871e62865eac5e758f",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "diag-panelb",
+      "record_sha256": "c569cdfe7f092e46700f5de98aa5f8116bc815a4ef38b3a0067d344ffb546f89",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "check-sas-listing",
+      "record_sha256": "54d60e381be96840ccf25398831fa161777a6df39eee851c10683a2b85a1b24a",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    },
+    {
+      "run": "describe-sample",
+      "record_sha256": "69c0b3a91394bd923d8f7fdb3230871d8bca9803f979afa3ee8f975ddc5442b6",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": "python3"
+      },
+      "status": "match"
+    },
+    {
+      "run": "fig-chr",
+      "record_sha256": "330e41d7373b3f0c3cd848e95c589ab35c7fe0944ed217e5457690372e4e00ef",
+      "exit_code": 0,
+      "env": {
+        "crew_python": "3.14.6",
+        "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+        "command_executable": ".venv/bin/python",
+        "python": "3.14.6",
+        "python_prefix": "/private/var/folders/bm/2cq1vtmd5wg6k0vdjfpvbmww0000gn/T/crew-rerun-er0t7ejp/ws/.venv"
+      },
+      "status": "match"
+    }
+  ]
+}

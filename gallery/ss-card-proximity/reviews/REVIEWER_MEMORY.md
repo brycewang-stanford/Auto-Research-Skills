@@ -199,3 +199,15 @@ Check next time (paper-r2):
 - F9: if a kappap claim is added it is labelled report-only/post hoc and H3(b) primary, rule and flag (0) unchanged. Do NOT accept any reframing that makes the homoskedastic sets decide.
 - process.tex regenerated after this round and after rp-rerun; main.pdf newer than all sources; \CrewRoundsPaper >= 1; rerun status not 'not run' at submission.
 - Carried: no 'Card's preferred'; no positive-return statement for B6; GKMC/GKM19 not deciding; H1 5/9 and 19/22; D4 'consistent with'.
+
+## paper-r2 (2026-11-21, verdict pass)
+
+F1-F12 resolved (checked in main.tex, ai-use, tables, claims, PDF text). Held: claims.jsonl vs 569bc72 and 25b7ab5: only 7 claims added at paper-r1, 4 texts changed, no value/support/macro/format change; fig_chr.py diff = two axis-label strings; fig-chr metrics = superseded run's; figure checked visually; \HOneMisses renders 7; distinct counts 13/45 = 9/37 + paper-r1 4/8; validate --strict clean; PDF newer than sources.
+Open (minor): F13 SAS-timing account omits the 7 paper-r1 claims (03:55Z; sas-items* from the listing run, b6-hom-stat-at-zero) and paper-stage text rewordings; F14 ai-use 'A code review passed before every analysis run' vs D8 unreviewed fig-chr; PI recorded D8 but credited D3-D7; F15 abstract states the b6 hom-vs-robust comparison without 'post hoc, descriptive'.
+Noted, not findings: plan.json H4 units edited post-gate without a log line (git fc7beba); CAPTIONS.md stale (old title, unqualified window sentence).
+
+Check next time (paper-r3 / submission):
+- rp-rerun done and passing; process.tex regenerated after it and after this round (\CrewRoundsPaper 2, findings counts change); main.pdf rebuilt after.
+- F13-F15 wording; no new claim or run without being named in the timing account.
+- Do NOT accept any wording that lets the homoskedastic sets or the post hoc kappa_p comparison decide H3(b); no 'positive return' for B6.
+- Carried: no 'Card's preferred'; GKMC/GKM19 not deciding; H1 5/9 and 19/22; D4 'consistent with'; D8 the only unreviewed run.
