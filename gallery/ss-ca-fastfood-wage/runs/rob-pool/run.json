@@ -1,0 +1,84 @@
+{
+  "id": "rob-pool",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "python3",
+    "code/robust.py",
+    "pool"
+  ],
+  "started": "2026-11-21T11:55:56Z",
+  "finished": "2026-11-21T11:55:57Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/robust.py",
+      "sha256": "a9f3f39b4cfdddf968494d8829a85350da395ee4633df3e4d396418a477dcf05"
+    },
+    {
+      "path": "code/sclib.py",
+      "sha256": "cd10e760953136b159ceee5dfb602652371c600b038005d369cc48ccfe9daf1d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/state_panel.csv",
+      "sha256": "eab840d72b6863cdedfa6091ddcc7f6165a0d6d9277f72a73f8071a2136273ac"
+    },
+    {
+      "path": "runs/select/metrics.json",
+      "sha256": "4fb8f037915f1ed4d6674abda18b1f36c1432e40b8f05d790c35de6d8fc15663"
+    },
+    {
+      "path": "runs/level-mde/metrics.json",
+      "sha256": "0e8e22b9bee71df851d7404578ec5ef5e58f02b43409d52b896cd7e7bbe204fc"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/rob-pool/metrics.json",
+      "sha256": "580f4a1a22b8e024a683658e89c86826d9916ef69bed42c6e04f8b6c7ad4baff"
+    }
+  ],
+  "metrics": {
+    "selected": "DDT-POPW-E-R50",
+    "variant": "pool",
+    "pool": "D20",
+    "rob_att": -0.032562049743255016,
+    "rob_se": 0.036130071096931504,
+    "rob_se_s": 0.009737183288745873,
+    "rob_se_n": 0.036130071096931504,
+    "rob_J": 20,
+    "rob_fp_a": -0.00031608212535375697,
+    "rob_fp_b": 4451.561040933284,
+    "rob_fp_se": 0.0,
+    "rob_lo95": -0.11739469432176936,
+    "rob_hi95": 0.057564784049910576,
+    "rob_lo90": -0.1006552006771278,
+    "rob_hi90": 0.05666396092734643,
+    "rob_c_hi95": 1.8846669510056921,
+    "rob_c_hi975": 2.3479788996517947,
+    "rob_c_lo05": -2.4695775004489082,
+    "rob_c_lo025": -2.4945102806847226,
+    "rob_p_upper_tnu": 0.8018022093044446,
+    "rob_p_two_tnu": 0.39639558139111086,
+    "rob_nu_hat": 7.253426017410065,
+    "rob_nu": 7.253426017410065,
+    "rob_pct": -3.2037613849683817,
+    "rob_sign": "sign undetermined",
+    "rob_size": "size undetermined",
+    "rob_label": "inconclusive",
+    "rob_headline": "not the headline",
+    "solver_solves": 0,
+    "solver_kkt_max": 0.0,
+    "solver_kkt_above_1e6": 0,
+    "solver_not_converged": 0
+  },
+  "metrics_file": "runs/rob-pool/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  },
+  "code_review": "code-r1"
+}

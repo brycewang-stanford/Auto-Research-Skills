@@ -25,7 +25,35 @@
    (c_hi(0.95) 3.45, c_hi(0.975) 4.32, both from L), which makes MDE_h1 0.148; the S2 run had
    29 of 5,052 weight solves with a KKT residual above 1e-6 (max 3.0e-6; report-only).
 
-No run that reads a post-2023Q3 outcome has been made.
+5. Post-period runs, each once, in analysis_plan order, code as code-r1 stamped it: h1-wage,
+   h2-emp, h3-years, anticip, sec-cemn, sec-dube, rob-base-2023q4, rob-pre-ab257, rob-pool,
+   rob-7225, rob-final-quarters, plc-nonff, plc-722511, event-path, verdict. All exit 0.
+   Main results (selected DDT-POPW-E-R50):
+   - H1: pooled wage ATT +0.092 log points (+9.7%, about $50 a week at the 2023Q3 $521), SE
+     0.035, t = 2.66, below the pre-specified one-sided critical value 3.45, which the decision
+     set L's 0.95 quantile set (t at nu would be 1.76); so H1 is "not supported" and H2 is
+     reported as uninformative about the wage floor. Years: +0.084 (t 2.04) and +0.101 (t 2.99),
+     neither above 3.45.
+   - H2: -0.0295 log points (-2.9%, about -16,700 jobs), 95% CI [-0.106, 0.047], 90% CI
+     [-0.092, 0.033]: "inconclusive". plc-nonff fails (+0.0245, 95% CI [0.003, 0.046]), so the
+     verdict appends "not separable from a California-wide shock".
+   - H3: year 2 minus year 1 -0.008 [-0.050, 0.034]; the rule gives "no detectable change" but
+     the MDE gate (0.065 > 0.04) makes it "uninformative". Elasticities not computed (H1 does not
+     reject).
+   - S1 -0.036 [-0.112, 0.040] and S2 -0.010 [-0.047, 0.028]: both "inconclusive"; no check
+     changes the sign category, so no "not robust to" qualifier.
+   - Cross-checks: our CEMN fixed horizon -2.97 / -3.95 vs print -2.74 / -3.72 (both -0.23);
+     our Dube-timing SDID -0.46 (SE_s 0.47) vs print -0.26 [0.54]; wage +8.31 vs +6.99.
+   Surprises: (1) H1 turns on the L quantile of the wage statistic (3.45), far above t at nu;
+   the wage effect is large and its t-statistic would pass at t_nu or t_J. (2) The non-722513
+   placebo fails with a positive sign: California's rest-of-economy employment ran above the
+   R50 trend-adjusted counterfactual. (3) S2's reused-weights wage effect, +0.075 [0.035, 0.116],
+   excludes 0 under S2's own critical values, while H1's does not under H1's.
+6. e-claims: 960 result claims in claims.jsonl (938 macros), every number of design.claims_plan,
+   including the results that contradict the hypotheses (H1 not supported, the plc-nonff failure)
+   and the check-methods values echoed by level-mde; `crew.py numbers` run. The Prop 99 DID and
+   SDID values are only in check-methods (a data-prep run), so no result claim can cite them;
+   level-mde echoes only the SC values (as C3 lists).
 
 ## check-methods rerun (e-check-r2)
 

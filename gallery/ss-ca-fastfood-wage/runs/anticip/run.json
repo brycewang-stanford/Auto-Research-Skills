@@ -1,0 +1,101 @@
+{
+  "id": "anticip",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "python3",
+    "code/anticip.py"
+  ],
+  "started": "2026-11-21T11:55:52Z",
+  "finished": "2026-11-21T11:55:53Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/anticip.py",
+      "sha256": "8df3da5ba3249bf8b7226cb2d5b923f0b00d0df83c6edd4c7c9336f5245bad8d"
+    },
+    {
+      "path": "code/sclib.py",
+      "sha256": "cd10e760953136b159ceee5dfb602652371c600b038005d369cc48ccfe9daf1d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/state_panel.csv",
+      "sha256": "eab840d72b6863cdedfa6091ddcc7f6165a0d6d9277f72a73f8071a2136273ac"
+    },
+    {
+      "path": "runs/select/metrics.json",
+      "sha256": "4fb8f037915f1ed4d6674abda18b1f36c1432e40b8f05d790c35de6d8fc15663"
+    },
+    {
+      "path": "runs/level-mde/metrics.json",
+      "sha256": "0e8e22b9bee71df851d7404578ec5ef5e58f02b43409d52b896cd7e7bbe204fc"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/anticip/metrics.json",
+      "sha256": "f69776f498f7305d26425cfb97353d64edd5f286cd9d16279998902d9ee29fd0"
+    }
+  ],
+  "metrics": {
+    "selected": "DDT-POPW-E-R50",
+    "window": "2023Q4-2024Q1",
+    "base": "2023Q3",
+    "J": 50,
+    "anticip_emp_att": -0.0074059479320106114,
+    "anticip_emp_se": 0.019265385179876533,
+    "anticip_emp_se_s": 0.0040969356476293645,
+    "anticip_emp_se_n": 0.019265385179876533,
+    "anticip_emp_J": 50,
+    "anticip_emp_fp_a": -0.0002976297378628069,
+    "anticip_emp_fp_b": 1574.6817954872506,
+    "anticip_emp_fp_se": 0.0,
+    "anticip_emp_lo95": -0.04870856824784525,
+    "anticip_emp_hi95": 0.03389667238382403,
+    "anticip_emp_lo90": -0.0413274280174094,
+    "anticip_emp_hi90": 0.02651553215338818,
+    "anticip_emp_c_hi95": 1.7607475671356487,
+    "anticip_emp_c_hi975": 2.1438772145068183,
+    "anticip_emp_c_lo05": -1.7607475671356487,
+    "anticip_emp_c_lo025": -2.1438772145068183,
+    "anticip_emp_p_upper_tnu": 0.6467903286324681,
+    "anticip_emp_p_two_tnu": 0.7064193427350637,
+    "anticip_emp_nu_hat": 14.063590747166092,
+    "anticip_emp_nu": 14.063590747166092,
+    "anticip_emp_pct": -0.7378591474782604,
+    "anticip_wage_att": 0.008301516410748309,
+    "anticip_wage_se": 0.019237881405873836,
+    "anticip_wage_se_s": 0.005239310025202958,
+    "anticip_wage_se_n": 0.019237881405873836,
+    "anticip_wage_J": 50,
+    "anticip_wage_fp_a": 6.390957477428347e-05,
+    "anticip_wage_fp_b": 720.928936301116,
+    "anticip_wage_fp_se": 0.00907185229187627,
+    "anticip_wage_lo95": -0.07481458924043197,
+    "anticip_wage_hi95": 0.04945227964517396,
+    "anticip_wage_lo90": -0.058044259845049836,
+    "anticip_wage_hi90": 0.04211707757581877,
+    "anticip_wage_c_hi95": 3.4487049200511763,
+    "anticip_wage_c_hi975": 4.320439652247919,
+    "anticip_wage_c_lo05": -1.757759103075959,
+    "anticip_wage_c_lo025": -2.1390485972047437,
+    "anticip_wage_p_upper_tnu": 0.33623811340805165,
+    "anticip_wage_p_two_tnu": 0.6724762268161033,
+    "anticip_wage_nu_hat": 14.412008163485876,
+    "anticip_wage_nu": 14.412008163485876,
+    "anticip_wage_pct": 0.8336069546399479,
+    "solver_solves": 0,
+    "solver_kkt_max": 0.0,
+    "solver_kkt_above_1e6": 0,
+    "solver_not_converged": 0
+  },
+  "metrics_file": "runs/anticip/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  },
+  "code_review": "code-r1"
+}

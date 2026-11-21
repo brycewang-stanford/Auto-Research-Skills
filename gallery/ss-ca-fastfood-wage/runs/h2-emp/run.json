@@ -1,0 +1,121 @@
+{
+  "id": "h2-emp",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "python3",
+    "code/h2_emp.py"
+  ],
+  "started": "2026-11-21T11:55:51Z",
+  "finished": "2026-11-21T11:55:51Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/h2_emp.py",
+      "sha256": "236450bde3f8cbcd0b8289c0ec5b0bef4b78d215802bae1849feca023b6d2cca"
+    },
+    {
+      "path": "code/sclib.py",
+      "sha256": "cd10e760953136b159ceee5dfb602652371c600b038005d369cc48ccfe9daf1d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/state_panel.csv",
+      "sha256": "eab840d72b6863cdedfa6091ddcc7f6165a0d6d9277f72a73f8071a2136273ac"
+    },
+    {
+      "path": "runs/select/metrics.json",
+      "sha256": "4fb8f037915f1ed4d6674abda18b1f36c1432e40b8f05d790c35de6d8fc15663"
+    },
+    {
+      "path": "runs/level-mde/metrics.json",
+      "sha256": "0e8e22b9bee71df851d7404578ec5ef5e58f02b43409d52b896cd7e7bbe204fc"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/h2-emp/placebos.csv",
+      "sha256": "35d8dc22ba38734a29a71c06bd8127e6b932772fddcaba53f8423591bd1846d7"
+    },
+    {
+      "path": "runs/h2-emp/metrics.json",
+      "sha256": "78d42fbcd13e0227c0d69157e2e0834a1cd5b30ef1b7fa86e190ed829dd6a43e"
+    }
+  ],
+  "metrics": {
+    "selected": "DDT-POPW-E-R50",
+    "outcome": "E (722513 employment)",
+    "base": "2023Q3",
+    "post": "2024Q2-2026Q1",
+    "nu_hat": 14.063590747166092,
+    "nu": 14.063590747166092,
+    "J": 50,
+    "h2_att": -0.02949201529812852,
+    "h2_se": 0.03565056637869176,
+    "h2_se_s": 0.009456390412221757,
+    "h2_se_n": 0.03565056637869176,
+    "h2_J": 50,
+    "h2_fp_a": -0.00043263959517133275,
+    "h2_fp_b": 4011.2032948457036,
+    "h2_fp_se": 0.0,
+    "h2_lo95": -0.10592245224166864,
+    "h2_hi95": 0.04693842164541161,
+    "h2_lo90": -0.09226366331641798,
+    "h2_hi90": 0.03327963272016095,
+    "h2_c_hi95": 1.7607475671356487,
+    "h2_c_hi975": 2.1438772145068183,
+    "h2_c_lo05": -1.7607475671356487,
+    "h2_c_lo025": -2.1438772145068183,
+    "h2_p_upper_tnu": 0.7890453061954754,
+    "h2_p_two_tnu": 0.4219093876090492,
+    "h2_sign": "sign undetermined",
+    "h2_size": "size undetermined",
+    "h2_label": "inconclusive",
+    "h2_pct": -2.9061369734258795,
+    "h2_pct_lo95": -10.05056008543451,
+    "h2_pct_hi95": 4.80574694380715,
+    "h2_pct_lo90": -8.813530742232683,
+    "h2_pct_hi90": 3.3839594202746364,
+    "ca_emp_post_mean": 556989.9166666666,
+    "h2_jobs": -16671.383135794815,
+    "h2_jobs_lo95": -62235.63626139933,
+    "h2_jobs_hi95": 25540.131794370063,
+    "lvl_mde_h2": 0.09170684851631261,
+    "lvl_h90_h2": 0.05361316365886885,
+    "lvl_se_pre_h2": 0.030449091431138955,
+    "lvl_mde_h2_tJ": 0.08700609728832952,
+    "lvl_h90_h2_tJ": 0.05102978534109637,
+    "lvl_prob_tau0_neg_atleast": 0.01488791503402554,
+    "lvl_prob_tau035_neg_atleast": 0.11267315800303437,
+    "lvl_prob_tau0_neg_smaller": 0.0,
+    "lvl_prob_tau035_neg_smaller": 0.0,
+    "lvl_prob_tau0_neg_undet": 0.01011208496597447,
+    "lvl_prob_tau035_neg_undet": 0.05573793559272877,
+    "lvl_prob_tau0_und_smaller": 0.0,
+    "lvl_prob_tau035_und_smaller": 0.0,
+    "lvl_prob_tau0_und_atleast": 0.0,
+    "lvl_prob_tau035_und_atleast": 0.0,
+    "lvl_prob_tau0_und_undet": 0.95,
+    "lvl_prob_tau035_und_undet": 0.8289366986218261,
+    "lvl_prob_tau0_pos_atleast": 0.014887915034025534,
+    "lvl_prob_tau035_pos_atleast": 0.0015373046901319132,
+    "lvl_prob_tau0_pos_smaller": 0.0,
+    "lvl_prob_tau035_pos_smaller": 0.0,
+    "lvl_prob_tau0_pos_undet": 0.010112084965974488,
+    "lvl_prob_tau035_pos_undet": 0.0011149030922789072,
+    "mde_h2_post_se": 0.10737269773074276,
+    "h90_h2_post_se": 0.06277164801828947,
+    "solver_solves": 0,
+    "solver_kkt_max": 0.0,
+    "solver_kkt_above_1e6": 0,
+    "solver_not_converged": 0
+  },
+  "metrics_file": "runs/h2-emp/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  },
+  "code_review": "code-r1"
+}

@@ -1,0 +1,22 @@
+{
+ "selected": "DDT-POPW-E-R50",
+ "figure_case": "DDT",
+ "figure_note": "2022Q1-2023Q3 gaps are residuals around the fitted trend (curvature only); the 2014-2019 segment is outside the trend's fit",
+ "nu_hat": 14.063590747166092,
+ "nu": 14.063590747166092,
+ "n_rows": 98,
+ "c_hi95": 1.7607475671356487,
+ "c_hi975": 2.1438772145068183,
+ "c_lo05": -1.7607475671356487,
+ "c_lo025": -2.1438772145068183,
+ "emp_2022q1_2023q3_n": 7,
+ "emp_2022q1_2023q3_band_excludes_0": 0,
+ "emp_2022q1_2023q3_rms_gap": 0.00599116423924356,
+ "wage_2022q1_2023q3_n": 7,
+ "wage_2022q1_2023q3_band_excludes_0": 0,
+ "wage_2022q1_2023q3_rms_gap": 0.0038958464045976563,
+ "solver_solves": 0,
+ "solver_kkt_max": 0.0,
+ "solver_kkt_above_1e6": 0,
+ "solver_not_converged": 0
+}

@@ -1,0 +1,82 @@
+{
+  "id": "plc-nonff",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "python3",
+    "code/placebo_outcome.py",
+    "nonff"
+  ],
+  "started": "2026-11-21T11:55:58Z",
+  "finished": "2026-11-21T11:55:59Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/placebo_outcome.py",
+      "sha256": "74661a291e6a773914add7f4a54dda947751a69aa74fb4cfedd8ccd6b6891ec8"
+    },
+    {
+      "path": "code/sclib.py",
+      "sha256": "cd10e760953136b159ceee5dfb602652371c600b038005d369cc48ccfe9daf1d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/state_panel.csv",
+      "sha256": "eab840d72b6863cdedfa6091ddcc7f6165a0d6d9277f72a73f8071a2136273ac"
+    },
+    {
+      "path": "runs/select/metrics.json",
+      "sha256": "4fb8f037915f1ed4d6674abda18b1f36c1432e40b8f05d790c35de6d8fc15663"
+    },
+    {
+      "path": "runs/level-mde/metrics.json",
+      "sha256": "0e8e22b9bee71df851d7404578ec5ef5e58f02b43409d52b896cd7e7bbe204fc"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/plc-nonff/metrics.json",
+      "sha256": "58ea10e33b1729d7e00336ef97004f32397a988951cd3d097a53d75cd35f3520"
+    }
+  ],
+  "metrics": {
+    "selected": "DDT-POPW-E-R50",
+    "outcome": "nonff",
+    "J": 50,
+    "nu_hat": 14.063590747166092,
+    "nu": 14.063590747166092,
+    "plc_att": 0.024541599273366566,
+    "plc_se": 0.009868889913363833,
+    "plc_se_s": 0.004400638663694946,
+    "plc_se_n": 0.009868889913363833,
+    "plc_J": 50,
+    "plc_fp_a": 0.00010855002258929599,
+    "plc_fp_b": -26.264995255110808,
+    "plc_fp_se": 0.010386533312727843,
+    "plc_lo95": 0.003383911055629678,
+    "plc_hi95": 0.045699287491103455,
+    "plc_lo90": 0.0071649753680816525,
+    "plc_hi90": 0.04191822317865148,
+    "plc_c_hi95": 1.7607475671356487,
+    "plc_c_hi975": 2.1438772145068183,
+    "plc_c_lo05": -1.7607475671356487,
+    "plc_c_lo025": -2.1438772145068183,
+    "plc_p_upper_tnu": 0.01302983141650636,
+    "plc_p_two_tnu": 0.02605966283301272,
+    "plc_pct": 2.484522303705537,
+    "plc_ci95_excludes_0": 1,
+    "plc_fails": 1,
+    "solver_solves": 0,
+    "solver_kkt_max": 0.0,
+    "solver_kkt_above_1e6": 0,
+    "solver_not_converged": 0
+  },
+  "metrics_file": "runs/plc-nonff/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  },
+  "code_review": "code-r1"
+}

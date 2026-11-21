@@ -209,91 +209,91 @@
       "id": "e-h1",
       "title": "Run h1-wage (analysis_plan 3)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h2",
       "title": "Run h2-emp (analysis_plan 4)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h3",
       "title": "Run h3-years (analysis_plan 5)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-anticip",
       "title": "Run anticip (analysis_plan 6, report-only)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-sec-cemn",
       "title": "Run sec-cemn (analysis_plan 7, secondary S1 and CEMN cross-check)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-sec-dube",
       "title": "Run sec-dube (analysis_plan 8, secondary S2 and Dube cross-check)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-rob-base4",
       "title": "Run rob-base-2023q4 (analysis_plan 9)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-rob-preab257",
       "title": "Run rob-pre-ab257 (analysis_plan 10, base 2022Q2)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-rob-pool",
       "title": "Run rob-pool (analysis_plan 11)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-rob-7225",
       "title": "Run rob-7225 (analysis_plan 12)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-rob-final",
       "title": "Run rob-final-quarters (analysis_plan 13, 2024Q2-2025Q4)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-plc-nonff",
       "title": "Run plc-nonff (analysis_plan 14, placebo outcome)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-plc-722511",
       "title": "Run plc-722511 (analysis_plan 15, non-clean placebo industry)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-event-path",
       "title": "Run event-path (analysis_plan 16, report-only)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-verdict",
       "title": "Run verdict (analysis_plan 17)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "f-figs",
@@ -305,7 +305,7 @@
       "id": "e-claims",
       "title": "Write result claims per design.claims_plan and run crew.py numbers",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-results",

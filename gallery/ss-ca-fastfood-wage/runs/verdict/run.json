@@ -1,0 +1,135 @@
+{
+  "id": "verdict",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "python3",
+    "code/verdict.py"
+  ],
+  "started": "2026-11-21T11:56:00Z",
+  "finished": "2026-11-21T11:56:01Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/verdict.py",
+      "sha256": "1b42a2ff4471e1792fe54f511131a75d2e2484ab552509d82f0781660cff30fa"
+    },
+    {
+      "path": "code/sclib.py",
+      "sha256": "cd10e760953136b159ceee5dfb602652371c600b038005d369cc48ccfe9daf1d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/level-mde/metrics.json",
+      "sha256": "0e8e22b9bee71df851d7404578ec5ef5e58f02b43409d52b896cd7e7bbe204fc"
+    },
+    {
+      "path": "runs/h1-wage/metrics.json",
+      "sha256": "0868aaab58079c555f3a8f548376b6e5a56199324bbd5e2e622f0e4222c7d864"
+    },
+    {
+      "path": "runs/h2-emp/metrics.json",
+      "sha256": "78d42fbcd13e0227c0d69157e2e0834a1cd5b30ef1b7fa86e190ed829dd6a43e"
+    },
+    {
+      "path": "runs/h3-years/metrics.json",
+      "sha256": "8b34b2a3c230601dc55e69dde3f602a0adbba1be35362435969acde735115e60"
+    },
+    {
+      "path": "runs/sec-cemn/metrics.json",
+      "sha256": "9d1561f420a7ae0b6f090cbfd639a9bdda309739370b0c466d004985cd5f895f"
+    },
+    {
+      "path": "runs/sec-dube/metrics.json",
+      "sha256": "2636e97c2756074dd8d43c69ccdd974b3cdf09fad600e62edf0c8bc3919f42d4"
+    },
+    {
+      "path": "runs/rob-base-2023q4/metrics.json",
+      "sha256": "f1c51f63fc4f2fd721a82079d0ddbb8d0d211cb9a3dccb90d6280ef0cc0376fa"
+    },
+    {
+      "path": "runs/rob-pre-ab257/metrics.json",
+      "sha256": "1e54e2b53a57e2a170beebc2d1c591f59001f83550b784ef9aecffee046e4d60"
+    },
+    {
+      "path": "runs/rob-pool/metrics.json",
+      "sha256": "580f4a1a22b8e024a683658e89c86826d9916ef69bed42c6e04f8b6c7ad4baff"
+    },
+    {
+      "path": "runs/rob-7225/metrics.json",
+      "sha256": "217c90464a653233e94d74ca327e6c9546b6a85ab14006ad598d08b2f31a45c4"
+    },
+    {
+      "path": "runs/rob-final-quarters/metrics.json",
+      "sha256": "ce405af9e1962d1f0da1492000fac786b01bea6bf39a8ba84f213290a4ac8d01"
+    },
+    {
+      "path": "runs/plc-nonff/metrics.json",
+      "sha256": "58ea10e33b1729d7e00336ef97004f32397a988951cd3d097a53d75cd35f3520"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/verdict/metrics.json",
+      "sha256": "16a683b0813e49121d5ab90a4bd4895f6d31572ea3dd858b1ae5ce3a8167f77b"
+    }
+  ],
+  "metrics": {
+    "selected": "DDT-POPW-E-R50",
+    "h1_flag": 0,
+    "h1_label": "not supported",
+    "h2_sign": "sign undetermined",
+    "h2_size": "size undetermined",
+    "h2_label": "inconclusive",
+    "h2_wage_floor_note": "uninformative about the wage floor (H1 not supported)",
+    "h3_label": "uninformative",
+    "owe_pooled": "not computed",
+    "owe_y1": "not computed",
+    "owe_y2": "not computed",
+    "S1_sign": "sign undetermined",
+    "S1_size": "size undetermined",
+    "S1_label": "inconclusive",
+    "S1_headline": "not the headline",
+    "S2_sign": "sign undetermined",
+    "S2_size": "size undetermined",
+    "S2_label": "inconclusive",
+    "S2_headline": "not the headline",
+    "rob_base_2023q4_sign": "sign undetermined",
+    "rob_base_2023q4_size": "size undetermined",
+    "rob_base_2023q4_label": "inconclusive",
+    "rob_base_2023q4_headline": "not the headline",
+    "rob_pre_ab257_sign": "sign undetermined",
+    "rob_pre_ab257_size": "size undetermined",
+    "rob_pre_ab257_label": "inconclusive",
+    "rob_pre_ab257_headline": "not the headline",
+    "rob_pool_sign": "sign undetermined",
+    "rob_pool_size": "size undetermined",
+    "rob_pool_label": "inconclusive",
+    "rob_pool_headline": "not the headline",
+    "rob_final_quarters_sign": "sign undetermined",
+    "rob_final_quarters_size": "size undetermined",
+    "rob_final_quarters_label": "inconclusive",
+    "rob_final_quarters_headline": "not the headline",
+    "rob_7225_sign": "sign undetermined",
+    "rob_7225_size": "size undetermined",
+    "rob_7225_label": "inconclusive",
+    "rob_7225_headline": "not the headline",
+    "rob_7225_alldonors_sign": "sign undetermined",
+    "rob_7225_alldonors_size": "size undetermined",
+    "rob_7225_alldonors_label": "inconclusive",
+    "rob_7225_alldonors_headline": "not the headline",
+    "not_robust_to": "",
+    "n_not_robust": 0,
+    "h2_headline": "inconclusive; not separable from a California-wide shock",
+    "plc_nonff_ci95_excludes_0": 1,
+    "h2_label_qualified": "inconclusive; not separable from a California-wide shock"
+  },
+  "metrics_file": "runs/verdict/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  },
+  "code_review": "code-r1"
+}

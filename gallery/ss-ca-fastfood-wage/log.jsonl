@@ -105,3 +105,22 @@
 {"time": "2026-11-21T11:53:59Z", "role": "econometrician", "action": "run", "detail": "select exit=0"}
 {"time": "2026-11-21T11:54:13Z", "role": "econometrician", "action": "run", "detail": "level-mde exit=0"}
 {"time": "2026-11-21T11:54:36Z", "role": "econometrician", "action": "run", "detail": "select: DDT-POPW-E-R50 selected (RMSE 0.0112; runner-up DDT-AGG-E-R50 0.0125; no tie); level-mde: nu_h2 14.06, MDE_h2 0.092, h90_h2 0.054, MDE_h3 0.065 (h3 uninformative), S2 with D20 SDID floor; e-select and e-level-mde done"}
+{"time": "2026-11-21T11:55:22Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T115522Z (post-period runs, verdict, claims)"}
+{"time": "2026-11-21T11:55:51Z", "role": "econometrician", "action": "run", "detail": "h1-wage exit=0"}
+{"time": "2026-11-21T11:55:51Z", "role": "econometrician", "action": "run", "detail": "h2-emp exit=0"}
+{"time": "2026-11-21T11:55:52Z", "role": "econometrician", "action": "run", "detail": "h3-years exit=0"}
+{"time": "2026-11-21T11:55:53Z", "role": "econometrician", "action": "run", "detail": "anticip exit=0"}
+{"time": "2026-11-21T11:55:54Z", "role": "econometrician", "action": "run", "detail": "sec-cemn exit=0"}
+{"time": "2026-11-21T11:55:55Z", "role": "econometrician", "action": "run", "detail": "sec-dube exit=0"}
+{"time": "2026-11-21T11:55:55Z", "role": "econometrician", "action": "run", "detail": "rob-base-2023q4 exit=0"}
+{"time": "2026-11-21T11:55:56Z", "role": "econometrician", "action": "run", "detail": "rob-pre-ab257 exit=0"}
+{"time": "2026-11-21T11:55:57Z", "role": "econometrician", "action": "run", "detail": "rob-pool exit=0"}
+{"time": "2026-11-21T11:55:57Z", "role": "econometrician", "action": "run", "detail": "rob-7225 exit=0"}
+{"time": "2026-11-21T11:55:58Z", "role": "econometrician", "action": "run", "detail": "rob-final-quarters exit=0"}
+{"time": "2026-11-21T11:55:59Z", "role": "econometrician", "action": "run", "detail": "plc-nonff exit=0"}
+{"time": "2026-11-21T11:56:00Z", "role": "econometrician", "action": "run", "detail": "plc-722511 exit=0"}
+{"time": "2026-11-21T11:56:00Z", "role": "econometrician", "action": "run", "detail": "event-path exit=0"}
+{"time": "2026-11-21T11:56:01Z", "role": "econometrician", "action": "run", "detail": "verdict exit=0"}
+{"time": "2026-11-21T11:56:20Z", "role": "figures-ra", "action": "code-r1-C3-fixed", "detail": "fig_event.py and fig_placebo.py now read runs/level-mde/metrics.json (sdid_floor_h2, pool_h2, qcal_<pool>_*) and, for an SDID candidate, state the C1 Monte Carlo floor, its values and which critical values it sets (checked against the run's c); stale select.py prologue and comments removed from figlib.py and the three fig scripts; CAPTIONS.md inputs updated; synthetic harness rerun (7 candidates incl. SDID D20/R50, tampered floor inputs refused); no study data read"}
+{"time": "2026-11-21T11:59:54Z", "role": "econometrician", "action": "run", "detail": "post-period runs h1-wage..verdict (15, all exit 0, each once): H1 not supported (+0.092, t 2.66 < 3.45); H2 inconclusive [-0.106, 0.047], qualified 'not separable from a California-wide shock' (plc-nonff +0.0245 [0.003, 0.046]); H3 uninformative; S1, S2 inconclusive; no not-robust qualifier"}
+{"time": "2026-11-21T11:59:54Z", "role": "econometrician", "action": "claims", "detail": "e-claims: 960 result claims (938 macros) per design.claims_plan; crew.py numbers run"}
