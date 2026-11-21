@@ -330,13 +330,18 @@ def process_facts(ws: Path) -> list[tuple[str, object, str]]:
     rounds = {target: 0 for target in REVIEW_TARGETS}
     severity = {name: 0 for name in SEVERITIES}
     models, independence = set(), set()
-    for review in reviews.values():
+    distinct: dict[tuple[str, str], str] = {}  # (target, finding id) -> severity in its latest round
+    ordered = sorted(reviews.values(), key=lambda r: r.get("round") if isinstance(r.get("round"), int) else 0)
+    for review in ordered:
         target = review.get("target")
         if target in rounds and isinstance(review.get("round"), int):
             rounds[target] = max(rounds[target], review["round"])
         for finding in review.get("findings") or []:
             if isinstance(finding, dict) and finding.get("severity") in severity:
-                severity[finding["severity"]] += 1
+                # a finding carried into later rounds keeps its id; count it once
+                distinct[(str(target), str(finding.get("id") or id(finding)))] = finding["severity"]
+    for value in distinct.values():
+        severity[value] += 1
         reviewer = review.get("reviewer") if isinstance(review.get("reviewer"), dict) else {}
         if reviewer.get("model"):
             models.add(str(reviewer["model"]))
@@ -346,7 +351,7 @@ def process_facts(ws: Path) -> list[tuple[str, object, str]]:
     for target in REVIEW_TARGETS:
         facts.append((f"CrewRounds{target.capitalize()}", rounds[target], f"rounds of the {target} review"))
     for name in SEVERITIES:
-        facts.append((f"CrewFindings{name.capitalize()}", severity[name], f"{name} findings raised, summed over rounds"))
+        facts.append((f"CrewFindings{name.capitalize()}", severity[name], f"distinct {name} findings raised (a finding carried across rounds counts once, at its latest severity)"))
     facts.append(("CrewReviewerModels", ", ".join(sorted(models)) or "none", "models the Reviewer ran on"))
     facts.append(("CrewReviewIndependence", ", ".join(sorted(independence)) or "none", "how independent the reviews were"))
     analysis = [r for r in runs.values() if r.get("kind") == "analysis"]

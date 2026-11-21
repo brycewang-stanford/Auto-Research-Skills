@@ -426,6 +426,16 @@ class ProtocolTwoTest(unittest.TestCase):
         self.assertTrue((self.ws / "briefs").is_dir())
         self.assertEqual(json.loads((self.ws / "crew.json").read_text())["protocol"], "0.2")
 
+    def test_findings_carried_across_rounds_are_counted_once(self) -> None:
+        major = {"id": "F1", "severity": "major", "status": "open", "text": "t", "evidence": "plan.json"}
+        write_review(self.ws, "question", 1, findings=[major], verdict="revise")
+        later = dict(major, status="resolved", severity="minor")
+        write_review(self.ws, "question", 2, findings=[later, dict(major, id="F2")])
+        write_review(self.ws, "design", 1, findings=[dict(major)])
+        facts = {name: value for name, value, _ in crew.process_facts(self.ws)}
+        # question F1 (minor at its latest round), question F2 (major), design F1 (major)
+        self.assertEqual((facts["CrewFindingsMajor"], facts["CrewFindingsMinor"]), (2, 1))
+
     def test_brief_is_archived_and_logged(self) -> None:
         source = Path(self.tmp.name) / "b.md"
         source.write_text("You are the Scout. Task: q-novelty.")
