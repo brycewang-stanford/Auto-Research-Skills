@@ -1,0 +1,95 @@
+{
+  "id": "question-r1",
+  "target": "question",
+  "round": 1,
+  "created": "2026-11-21T05:00:58Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew.json",
+    "plan.json",
+    "log.jsonl",
+    "claims.jsonl",
+    "sources/notes.md",
+    "sources/sources.json",
+    "data/CODEBOOK.md",
+    "briefs/20261121T043436Z-scout.md",
+    "briefs/20261121T043436Z-data-ra.md",
+    "briefs/20261121T043454Z-data-ra.md",
+    "briefs/20261121T045811Z-reviewer.md"
+  ],
+  "kill_argument": "The question offers one preliminary quarter and a test already passed in print. Clemens et al. w35931 (October 2026) already estimate 1,440 synthetic-control and SDID specifications on one QCEW vintage (the August 2026 release) with a post-period-average estimand running through 2025Q4, and they place both targets inside that distribution: CEMN Table 3 Panel B at the 76th and 46th percentiles, Dube's SDID at the 97th (w35931 pp. 6-7; range -14.27 to 3.01). H4 'holds if the grid's range contains both targets': that is met already, and it is true by construction for any grid that includes both authors' choices, so it cannot fail except through a replication error. It does not test whether choices 'account for' the gap. H2 then differs from w35931's estimand by adding 2026Q1, a preliminary release, to a seven-quarter average; 2026Q2 comes out on 2 December 2026 and these authors have updated with every release. What does this add to the existing grid and Dube Table D1? What held up: the data exist and are adequate at state level (no 722513 state cell suppressed), the novelty table's facts check out against w35931's text, and H1-H3 are falsifiable as written.",
+  "verdict": "block",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "open",
+      "text": "H4's pass criterion is already met in the literature, and true by construction. The criterion is 'H4 holds if the grid's range of pooled ATTs on log employment contains both targets; it fails if either lies outside the range'. w35931 already reports a grid of 1,440 specifications on one QCEW vintage whose QCEW SDID range contains both CEMN's Table 3 Panel B estimates (76th and 46th percentiles) and Dube's SDID estimate (97th percentile) (w35931 p. 7; checked against the fetched PDF). A full-factorial grid that crosses each author's own choices contains replications of both specifications. So the range contains both targets unless the replication fails, and 'H4 fails' then measures replication error or data vintage, not whether the choices explain the disagreement. The claimed addition, 'a grid fixed before estimation on a single vintage', is also partly pre-empted: w35931 already uses a single vintage (the August 2026 release, fn 3). And the PI and Scout have read which choices move the estimate (w35931 Table A1; Dube Table D1), so the grid is not chosen blind to their effect. The range criterion also does not match the question's own wording ('account for their disagreement').",
+      "evidence": "plan.json hypotheses[3] (H4) and question (second clause); sources/notes.md sections 0.3, 1.6 and 3; w35931 pp. 6-7 and fn 3 and 5 (fetched by the Reviewer). Cheapest remedy: narrow H4 to the choices no one has varied. w35931 fn 5 says it does not vary the baseline period, and Dube Table D1 does not decompose base period and anticipation handling or the DDD comparison sector (notes.md section 3). Replace the range criterion with a falsifiable, pre-specified quantity, for example: 'moving the base period from 2023Q3 to 2023Q4 with 2024Q1 dropped, all else at the primary specification, closes at least X% of the CEMN-Dube gap', with X and the test fixed now. Or drop H4.",
+      "response": "H4 replaced: the grid hypothesis is dropped; H4 now tests anticipation (2023Q4-2024Q1 vs a 2023Q3 base), the choice w35931 does not vary, with the H2 decision rule; the question text changed to match.",
+      "ruling": ""
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "open",
+      "text": "The novelty of H2 is one preliminary quarter, and the contribution text overstates it. w35931's post-period-average SDID and SC estimands already average the QCEW post period through 2025Q4, about 2024Q2-2025Q4 under Dube's base choice, which w35931 adopts (fn 5). The proposed pooled 2024Q2-2026Q1 ATT adds only 2026Q1, which BLS will revise (CODEBOOK.md caution 4; c-qcew-2026q1). 'First pooled eight-quarter estimate' is literally true but describes a one-quarter extension of a seven-quarter estimand that is already published across 1,440 specifications. The window will also be overtaken soon: BLS releases 2026Q2 on 2 December 2026, eleven days from now (bls2026cewq1), and CEMN put out two papers on the August release within two months. The question should say plainly that the empirical novelty is marginal. It should also say what the paper's actual value is (pre-specified design with valid single-state inference, an equivalence test against a 2% bound, the year-two contrast), or decide whether the post window waits for 2026Q2.",
+      "evidence": "plan.json question ('no published estimate ... pools all eight post-policy quarters') and contribution ('Adds 2026Q1 QCEW data and the first pooled eight-quarter estimate'); sources/notes.md sections 1.6 and 2; w35931 p. 6 ('The QCEW and QWI currently end in 2025Q4'), fn 5, Figure 1 note. Resolve by rewording the contribution so the main value is the pre-specified test and not the new data. Also record a decision on the 2026Q2 release before the design gate.",
+      "response": "Contribution rewritten: no novelty claimed from data; one preliminary quarter stated; the crew does not wait for 2026Q2 (due 2026-12-02), stated in the question and to be put to the human at the gate.",
+      "ruling": ""
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "open",
+      "text": "H2's decision rule can return two verdicts at once. 'Decline' uses the two-sided 95% CI. 'No effect larger than 2%' uses TOST at 5%, which is the 90% CI inside [-2%, +2%]. Both hold for any estimate whose 95% CI lies entirely inside (-2%, 0) with its 90% CI also inside (-2%, +2%), for example an ATT of -1.0% with SE 0.4. The rule gives no precedence, so the verdict the paper reports could be chosen after the result is seen. That region is plausible: Dube's DD is -1.39 [FP SE 0.44] (notes.md 1.3). There is also a mismatch of estimands. The 2% bound is justified by the 'roughly 3% decline reported by Clemens et al.', which is a fixed-horizon index-point endpoint (Sept 2023 to Sept 2025). H2 is a pooled average in log points with a different base, so 'excludes the Clemens decline' does not compare like with like.",
+      "evidence": "plan.json hypotheses[1] (H2) decision rule; sources/notes.md 1.2 and 1.3. Resolve by making the categories exhaustive and mutually exclusive, with an explicit order (for example 'decline, and smaller than 2%' as its own category, or TOST evaluated first). State the bound's rationale in the same estimand as H2.",
+      "response": "H2 decision rule now an exhaustive, mutually exclusive sign x size table; the bound is justified with Dube's pooled log weekly-wage effect (same pooled estimand) as an own-wage elasticity of about -0.29.",
+      "ruling": ""
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "open",
+      "text": "The coverage figure is attributed beyond what the source says. The contribution says 'about 30% of NAICS 722513 employment is outside the law's coverage', and c-coverage-share says 'about 70 percent of California fast-food workers'. Sosinskiy and Reich (April 2026) say 'about 70 percent of the workers in the two industries are covered', and the two industries are 722513 and 722515 together (checked in the fetched PDF, the paragraph around 'snack and nonalcoholic beverage bars'). The share for 722513 alone is not given. That matters because the plan uses the share to scale the ITT dilution.",
+      "evidence": "plan.json contribution; claims.jsonl c-coverage-share; sosinskiy2026effects pp. 1-2 and 6 ('We estimate that about 70 percent of the workers in the two industries are covered'). Resolve by rewording to 'about 70% of workers in 722513 and 722515 combined' and flagging the 722513-only share as unknown.",
+      "response": "Plan wording corrected (70% refers to 722513+722515; 722513 alone unknown). The claim c-coverage-share is the Scout's; sent to the Scout.",
+      "ruling": ""
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "open",
+      "text": "H3 is read as 'dynamics', but the treatment's bite falls in year two. The fast-food premium over California's general minimum shrinks from $4.00 to $3.50 to $3.10 (notes.md section 4), and CEMN report the wage effect falling from about 8% to just over 6% (notes.md 6.9). 'Shrinks' therefore cannot separate adjustment over time from a smaller dose. The plan reports H1 by year, but the H3 labels ('grows' / 'shrinks') still read as dynamics of a fixed treatment. A difference of two four-quarter averages for a single treated state is also likely to have a large MDE, so 'no detectable change' may be the expected outcome before any data are seen.",
+      "evidence": "plan.json hypotheses[2] (H3) and hypotheses[0] (H1 by year); sources/notes.md sections 4 and 6.9. Resolve by renaming H3 as a reduced-form year-two minus year-one contrast, reporting it next to the wage contrast by year (or the own-wage elasticity by year), and committing at the design gate to report H3 as uninformative if its MDE exceeds a stated size.",
+      "response": "H3 renamed reduced-form year two minus year one, reported with yearly wage effects and elasticities; uninformative if the pre-period MDE of the difference exceeds 0.04.",
+      "ruling": ""
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "open",
+      "text": "Whether H1 and H2 can be tested depends on a choice the question leaves open. With rank-based placebo inference and Dube's 20-state donor pool there are 21 units. The smallest attainable one-sided p is 1/21 = 0.048, so H1 passes at 5% only if California ranks first, and inverting the test to get a 95% CI for H2 and a TOST is very coarse. The question names 'placebo-in-space permutation' as an option without noting that its resolution depends on the donor pool. Also, H1 uses QCEW average weekly wage, which is weekly earnings, not the hourly wage the law sets (c-qcew-concepts). A cut in hours would bias the first stage toward zero, so 'the policy binds' is measured imperfectly.",
+      "evidence": "plan.json hypotheses[0] and [1] (inference method left to the design gate); sources/notes.md 1.3 (20 control states) and section 5 (AWW definition). Resolve at the design gate by requiring that the chosen donor pool and inference method can reach the stated test levels (or by using Ferman-Pinto or conformal intervals), and by describing H1 as a weekly-earnings first stage.",
+      "response": "H1 is now a weekly-earnings first stage; the design gate must show the pool and method attain a 5% test; Ferman-Pinto or conformal named.",
+      "ruling": ""
+    }
+  ],
+  "files_sha256": {
+    "crew.json": "dda332380e01e54e8ab18db26093f062b7a666fbece0a0b73e45ea700977c4a6",
+    "plan.json": "de16bfa527bed90268fdbca2c4d8a0839955caf29ce27a0febb7ac9249c15024",
+    "log.jsonl": "923ee37f616a91cca31f51db90e2353960c0d36026f336490731feae50284463",
+    "claims.jsonl": "386abf8a59488d5fb528b46f891b9a0f0019cd786d8fa091a2b35347776ec828",
+    "sources/notes.md": "b0a5ab26e06db26031f5bcfefb50cc5338affde2851be1e488948b69fbc8388b",
+    "sources/sources.json": "4c100ab81eff62868217187648c4f48c4a2936a20bbc5cf842acf31b0f0b5f69",
+    "data/CODEBOOK.md": "47e5acd13697c7a4487b6d0d7fbf74d82dcb99ee5e88109d67c9a15a1e01b73e",
+    "briefs/20261121T043436Z-scout.md": "d963addba387d34b11519d5232f9df7445927a78b96933d2c82bc081b3aed435",
+    "briefs/20261121T043436Z-data-ra.md": "c723a1cd5c1aff31f79be9f0e55c1ba0097be21a27e725aeb5dd3840d5fa7f1a",
+    "briefs/20261121T043454Z-data-ra.md": "5a77de9988486671bf5789e4ce9d3bb449dc46957f4dbb2a6c0928639c12b663",
+    "briefs/20261121T045811Z-reviewer.md": "b65b32fd81351a3a1b7225ed258cfafb1a511d79d6c2190f15832a5c08f9d5f2"
+  },
+  "recorded": "2026-11-21T05:01:49Z"
+}

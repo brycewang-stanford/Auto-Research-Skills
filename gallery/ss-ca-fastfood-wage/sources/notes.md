@@ -306,9 +306,18 @@ differ: CEM index points (percent of the Sept 2023 level), Dube log points times
 - General state minimum: $16.00 (2024), $16.50 (2025), $16.90 (2026) `[dir2026mw]`.
   [Scout arithmetic: the fast-food premium over the general minimum falls from $4.00 to
   $3.50 to $3.10.]
-- Coverage share: about 70% of California fast-food workers are in covered chains
-  (Sosinskiy-Reich 2026, p. 6, "about 70 percent of the workers in the two industries");
-  Reich (2025) says about 72%.
+- Coverage share (Sosinskiy-Reich 2026, re-checked in the fetched PDF, sha256 prefix
+  92fc2cac799f9c96): "We estimate that about 70 percent of the workers in the two
+  industries are covered by the policy" (p. 6). The two industries are "fast food
+  restaurants and snack and nonalcoholic beverage bars" (same paragraph), which the paper
+  maps to NAICS 722513 and 722515 (p. 8). So the 70% is for **722513 and 722515
+  combined**. The introduction words it as "roughly 70 percent of California's fast-food
+  industry employees" (pp. 2-3). The only worked number is 71.8% (p. 7): 76.1% of chain
+  fast-food restaurants (Dataessential counts) are in chains of 60+, times 94.4% of
+  employees in chains, under employees-per-restaurant figures the authors give as an
+  example ("If, for example ..."); it is stated for "fast food" restaurants, not a NAICS
+  code, and is used to rescale the QCEW fast-food wage effect (p. 19). **No coverage
+  share for NAICS 722513 alone is given.** Reich (2025) says about 72%.
 
 ## 5. QCEW documentation for county x industry quarterly files
 
@@ -344,8 +353,10 @@ differ: CEM index points (percent of the Sept 2023 level), Dube log points times
    be covered; Sosinskiy-Reich describe the law as covering limited-service restaurants
    and snack and nonalcoholic beverage bars (Starbucks, Dunkin), i.e. NAICS 722515. So
    722515 must not be a control, and 722513+722515 is a natural secondary outcome. 722513
-   also contains uncovered small chains and independents (about 30%), so a 722513 effect
-   is an intent-to-treat effect diluted by about 0.7.
+   also contains uncovered small chains and independents, so a 722513 effect is an
+   intent-to-treat effect. The published share (about 70% covered) is for 722513 and
+   722515 combined; the 722513-only share is unknown, so a dilution factor of about 0.7
+   is an approximation, not a sourced number.
 3. **Full-service DDD is contested:** CEMN say spillovers make 722511 invalid (p. 15);
    Dube shows the DDD comparison sector alone moves the estimate from -0.38 to -2.19.
    Any DDD sector must be fixed at the design gate and the alternatives reported.
