@@ -120,3 +120,15 @@ Check next time (code review):
 - rob-pre-ab257 trend points match whatever D10 fixes; sec-cemn's 2021Q3 endpoint.
 - The elasticity denominator reuses the employment fit (D5); verdict.py's 'not robust' uses sign category only (paper review: watch size-label differences).
 - Paper stage: the event-path figure is not called a pre-trend test for a DDT, SC or SDID winner (D11); H1 wording (D9).
+
+## design-r3 (2026-11-21, verdict pass)
+
+D8-D12 resolved. New: D13 minor, open. hetero-A is under the Monte Carlo pass condition although the plan predicts t_J over-rejects there. In my synthetic illustration (scratch rv-d3/mc.py, approximate populations, no study data) the two-sided rate is 0.054-0.057 against a bound of 0.0646 at R = 2,000, so pass or fail is close to chance, and the plan does not say what a fail leads to. hetero-A-CA2 in the same illustration: two-sided about 0.15, one-sided about 0.12.
+
+Checked: the stamped plan (git f907556~1, sha 96505a63...) against the current one, field by field. No stale 'plus California' or 'stays J' text. rob-pre-ab257 now lists 9 trend points. Pseudo-dates 2016Q1-2017Q2, so B'-8 is 2014Q1-2015Q2 (no COVID quarter). Satterthwaite df 12.9. Runs: still the same five data-prep runs, none of kind analysis; validate passes. The Econometrician was briefed in parallel for e-code and e-check; code/ has only the five data-prep scripts so far.
+
+Check next time (code review):
+- check-methods output: hetero-A rates next to pure-A; whether any fail was answered by a change chosen after the fact (D13); hetero-A-CA2 rates recorded for T6.
+- level_mde.py: L units use pool minus u (J-1) with California out of donors and placebos; t_{J-1} for their rates; c_hi floor t_J; SE_n divisor equals the size of u's own donor set.
+- rob-pre-ab257 DDT trend points are 2018Q2-2019Q4 plus 2022Q1-2022Q2; sec-cemn alone touches 2021Q3.
+- Paper: event-path figure note per D11; H1 wording per D9; hetero-A-CA2 size reported in the limits.
