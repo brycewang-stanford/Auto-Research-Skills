@@ -3,3 +3,9 @@
 {"time": "2026-11-21T04:34:36Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261121T043436Z (q-novelty)"}
 {"time": "2026-11-21T04:34:36Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261121T043436Z (dr-fetch)"}
 {"time": "2026-11-21T04:34:54Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261121T043454Z (dr-fetch follow-up)"}
+{"time": "2026-11-21T04:34:54Z", "role": "scout", "action": "started", "detail": "q-novelty: literature search on AB 1228 employment effects"}
+{"time": "2026-11-21T04:45:56Z", "role": "data-ra", "action": "run", "detail": "fetch-data exit=0"}
+{"time": "2026-11-21T04:46:17Z", "role": "data-ra", "action": "run", "detail": "prepare-data exit=0"}
+{"time": "2026-11-21T04:48:29Z", "role": "data-ra", "action": "data-fetched", "detail": "QCEW industry slices 722513/722511/7225/10, 2014Q1-2026Q1 (196 files; 2026Q2 404 on 2026-11-21); manifest 198 entries"}
+{"time": "2026-11-21T04:48:30Z", "role": "data-ra", "action": "data-prepared", "detail": "qcew_panel.csv 640,423 rows kept of 1,503,889; CODEBOOK.md with suppression counts; 2025 suppression jump flagged; no CA-vs-other or pre/post statistic computed"}
+{"time": "2026-11-21T04:48:30Z", "role": "data-ra", "action": "task-done", "detail": "dr-fetch"}

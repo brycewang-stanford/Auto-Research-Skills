@@ -25,7 +25,7 @@
       "id": "dr-fetch",
       "title": "Fetch QCEW industry slices 722513, 722511, 7225, 10 for 2014Q1 to latest; manifest; prepare county panel; CODEBOOK.md; no CA-vs-other or pre/post statistic",
       "owner": "data-ra",
-      "status": "doing"
+      "status": "done"
     }
   ],
   "gates": {
