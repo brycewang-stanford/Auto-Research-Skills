@@ -1,24 +1,63 @@
 \section*{AI-use statement}
 
 This paper was drafted by a crew of AI research-assistant agents
-(Free-Research-Crew, protocol v0.2) under the direction of the human author, who approved
-the research question, the design, the results and this manuscript at four gates and
-takes responsibility for its content.
+(Free-Research-Crew, protocol v0.2) under the direction of the human author, Bryce Wang.
+He chose the topic from a proposal and approved the research question (2026-11-21, 05:35
+UTC), the design (2026-11-21, 11:41 UTC) and the results (2026-11-21, 14:12 UTC), each in
+chat after reading the Reviewer's verdict. The manuscript itself is subject to the
+submission gate. He takes responsibility for the paper's content.
 
-% Fill in before the submission gate. Counts are macros from process.tex (`crew.py numbers`);
-% who did what is checked against log.jsonl and reviews/, never written from memory.
+% Counts are macros from process.tex (`crew.py numbers`); who did what is taken from
+% log.jsonl, reviews/ and briefs/.
 \begin{itemize}
-  \item \textbf{Roles and models.} ROLE: MODEL, for each role used.
-  \item \textbf{Review.} The Reviewer ran \CrewReviewRounds{} rounds
-        (\CrewRoundsCode{} of the code, \CrewRoundsPaper{} of the paper) on
-        \CrewReviewerModels{} (\CrewReviewIndependence{}) and raised \CrewFindingsCritical{}
-        critical, \CrewFindingsMajor{} major and \CrewFindingsMinor{} minor findings,
-        summed over rounds.
-  \item \textbf{Runs.} \CrewRuns{} runs in the ledger (\CrewRunsAnalysis{} analysis);
-        \CrewRunsSuperseded{} replaced by a later run and archived; \CrewRunsUnreviewed{}
-        analysis runs not covered by a passing code review. The clean rerun
+  \item \textbf{Roles and models.} Every role (PI, Scout, Designer, Data RA, Econometrician,
+        Figures RA, Writer, Reviewer and Replicator) ran on Claude Opus 5.5
+        (\texttt{claude-opus-5-5}) in Claude Code, each role as a separate agent. The PI
+        proposed the topic, drafted the question and hypotheses, wrote the contribution
+        statement, recorded deviations D5--D7 and corrected threat T14 after the results
+        gate; the Scout found and verified the sources; the Designer wrote the design and
+        deviations D1--D4; the Data RA fetched and prepared the data; the Econometrician
+        wrote and tested the estimation code, executed the analysis runs, including the
+        post hoc run, and wrote the result claims; the Figures RA wrote the figure scripts
+        and drew the figures; the Writer drafted this paper from the claims; the Replicator
+        ran the clean rerun. The PI's brief to each role is archived in \texttt{briefs/}.
+  \item \textbf{Review.} The Reviewer ran \CrewReviewRounds{} rounds on
+        \CrewReviewerModels{} (\CrewReviewIndependence{}: a new context in every round, the
+        same model family as the other roles): \CrewRoundsQuestion{} on the question,
+        \CrewRoundsLiterature{} on the literature, \CrewRoundsDesign{} on the design,
+        \CrewRoundsCode{} on the code, \CrewRoundsResults{} on the results and
+        \CrewRoundsPaper{} on the paper. It raised \CrewFindingsCritical{} critical,
+        \CrewFindingsMajor{} major and \CrewFindingsMinor{} minor distinct findings (a
+        finding carried into a later round is counted once, at its latest severity). The
+        last round of each completed stage passed. Three sets of changes were made after
+        the last round of their stage and reached the human at the next gate without
+        another round of that stage: the design's responses to the check-methods failures
+        (the SDID critical-value floor, the two-part synthetic-control check and the
+        adopted implementation choices), which the code review then checked against the
+        code; two report-only additions to the design (findings D14 and D15); and
+        claim-text corrections after the third results round (findings R12 and R13).
+  \item \textbf{Runs.} \CrewRuns{} runs in the ledger (\CrewRunsAnalysis{} analysis,
+        \CrewRunsDataPrep{} data preparation); \CrewRunsSuperseded{} were replaced by a
+        later run with the same id and archived (data-preparation runs only; no run behind
+        a result claim was replaced); \CrewRunsUnreviewed{} analysis run was not covered
+        by a passing code review: the post hoc run (deviation D7), whose code was changed
+        after the fourth and last code-review round to add the leave-one-out check the
+        Reviewer asked for, and which ran with the human author's consent in chat.
+  \item \textbf{Replication.} The Replicator's clean rerun (\texttt{crew.py rerun}, in a
+        fresh environment built from \texttt{code/requirements.txt}) has status
         \CrewRerunStatus{}: \CrewRerunReproduced{} of \CrewRerunTotal{} runs reproduced.
-  \item \textbf{Findings accepted over the Reviewer's objection.} NONE, or list them.
-  \item \textbf{Evidence.} Every reported number is generated from a logged run; every
-        citation was checked against its source. The full workspace is available at URL.
+        Whether the work can be rerun from scratch is what this record states, not
+        something the authoring roles assert.
+  \item \textbf{Not blind.} The PI and the Scout knew the published estimates and a
+        published descriptive index of California fast-food employment and weekly wages
+        through 2026Q1 before the design was fixed; the primary specification was
+        therefore chosen by a rule on data through 2019, and the analysing roles computed
+        nothing on post-2023Q3 outcomes before the design gate.
+  \item \textbf{Findings accepted over the Reviewer's objection.} None.
+  \item \textbf{Evidence.} Every result number in the text, the tables and the figure
+        captions is a macro generated from the metrics of a logged run. The numbers typed
+        by hand are design facts fixed before any analysis run, published numbers quoted
+        from the literature as the Scout's source notes record them, and process facts
+        such as dates. The full workspace, including every brief, review and run record, is
+        published with the paper.
 \end{itemize}

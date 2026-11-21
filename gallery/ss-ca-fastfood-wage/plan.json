@@ -324,7 +324,7 @@
       "id": "w-paper",
       "title": "Write paper/main.tex and ai-use.tex: pre-specified not blind, all 24 RMSEs, S1 and S2, every robustness and placebo with its pre-stated reading, deviations D1-D4, AB 257 and the coverage limits",
       "owner": "writer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-paper",

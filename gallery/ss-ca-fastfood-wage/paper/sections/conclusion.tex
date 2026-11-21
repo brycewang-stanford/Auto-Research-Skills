@@ -1,0 +1,112 @@
+% Conclusion, limitations and deviations. Every number is a macro; process facts from process.tex.
+% Deviations D1-D7: plan.json design.deviations.
+\section{Conclusion}
+\label{sec:conclusion}
+
+Two years after California's \$20 fast-food minimum wage took effect, a state-level QCEW comparison
+whose specification was chosen by a pre-registered rule, with inference built for one treated
+state, does not determine the sign of its effect on limited-service restaurant employment. The
+primary estimate is $\HTwoPct$ percent, with a 95 percent interval from $\HTwoPctLo$ to
+$\HTwoPctHi$ percent; the re-estimated specifications of both published camps are also
+inconclusive; and employment outside limited-service restaurants deviated from its counterfactual
+by a similar amount in the opposite direction, so the estimate is not separable from a
+California-wide shock. The first stage in weekly earnings is not supported at the pre-specified
+critical value, and two post hoc checks of that verdict pull in opposite directions; the change
+between the two years is uninformative.
+
+The main lesson is about precision, and it was known before the post-period data were read. With
+a standard error that is honest about California being the largest unit and about the few effective
+degrees of freedom of a placebo standard error, the 90 percent interval has a half-width of
+$\HNinetyHTwo$ log points, and this comparison cannot tell a decline of about 3.5 percent from no
+effect: ``inconclusive'' had probability $\ProbTauAltUndUndet$ under the first and
+$\ProbTauZeroUndUndet$ under the second. The published estimates that disagree are both consistent
+with our interval. Separating them would need more precise data than QCEW state aggregates, more
+treated units, or inference that is valid for California at a smaller cost in width.
+
+\section*{Limitations and deviations from the approved design}
+\label{sec:limitations}
+
+\paragraph{Limitations.}
+\begin{enumerate}
+  \item \emph{Precision.} The design could not reach ``smaller than 2\%'' (Section~\ref{sec:res-power}):
+        the pre-period half-width $h_{90} = \HNinetyHTwo$ exceeds $b = 0.02$, and the probability
+        of ``inconclusive'' was $\ProbTauZeroUndUndet$ with no effect. The equivalence test therefore
+        cannot separate the published readings, which was part of the study's motivation.
+  \item \emph{The first stage.} H1's critical value comes from the decision-set quantile, not from
+        $t_\nu$; the post hoc checks (Section~\ref{sec:res-posthoc}) show that it is set by one state
+        and that the selected estimator's pre-2020 wage counterfactual drifts, and they cannot be
+        resolved within this design. The selected estimator was chosen on employment and fits
+        California's pre-period wages poorly. Weekly earnings per job are not hourly wages, and wages
+        are nominal.
+  \item \emph{Identification.} The placebo outcome fails, so a California-wide deviation cannot be
+        separated from the effect. The selection rule favours candidates that track California's own
+        2014--2022 minimum-wage ramp, and its winner's employment pseudo-ATTs are all positive; the
+        out-of-fit 2014--2019 employment drift (post hoc) points in the same direction as the placebo
+        failure. Neither is corrected for.
+  \item \emph{Inference.} California's level is argued from the conservative standard error, not
+        measured: no placebo state is as large. If California's own noise exceeds what its size
+        implies, the tests over-reject; in the Monte Carlo design with California twice as noisy as
+        its donors, the selected candidate's two-sided test at $t_J$ rejected in a share
+        $\McDDTPOPWERFiftyHeteroACATwoRhoZeroZeroMaxTJTwo$ of replications. The power quantities rest
+        on 2014--2019 noise; the post-period recomputations are reported next to them.
+  \item \emph{Measurement.} The estimand is an intent-to-treat effect on QCEW 722513 jobs, covered
+        and uncovered establishments together; covered chains are also coded in 722515 and 722511,
+        and QCEW 722513 may track covered-chain employment poorly across states and over time
+        \citep{melo2026covered}. The QCEW counts jobs, not hours. 2026Q1 is preliminary; the
+        final-data window drops it.
+  \item \emph{Summary statistics.} The paper has no summary-statistics table, which the
+        social-science track asks for: no run tabulated the outcomes' levels, and the result claims
+        carry only two California levels (Section~\ref{sec:sumstats}).
+  \item \emph{Unexplained cross-check differences.} Our fixed-horizon replication of Clemens and
+        coauthors differs from their print by $\CemnFhSimpleDiff$ and $\CemnFhDetrDiff$ index points,
+        and our SDID under Dube's timing differs from his by $\DubeTimingEmpDiff$ ($100\times$ log
+        points); neither difference was traced.
+  \item \emph{Not blind.} The PI and the literature scout knew the published estimates and a public
+        descriptive series through March 2026 before the design was fixed
+        (Section~\ref{sec:prespec}). Several rules that settle the outcomes of the code check were
+        adopted after the last of the \CrewRoundsDesign{} design review rounds.
+\end{enumerate}
+
+\paragraph{Deviations from the approved design.} The first four are departures the approved design
+itself makes from the track rules and the published specifications (Section~\ref{sec:departures});
+the last three arose while the runs were made.
+\begin{enumerate}
+  \item[D1.] Standard errors are not clustered at the level of treatment: with one treated state,
+        cluster-robust standard errors are invalid; placebo-based inference with a pre-registered
+        level check is used instead.
+  \item[D2.] S1 adapts the monthly fixed-horizon estimator of Clemens and coauthors to a pooled
+        quarterly average, which needs seasonal adjustment; the fixed-horizon number is reported as a
+        cross-check. S1 keeps their endpoint trend, whose start, 2021Q3, is the only COVID quarter
+        used in any estimate.
+  \item[D3.] S2 uses our implementation of Algorithm~1 of \citet{arkhangelsky2021synthetic}, with an
+        intercept and separate penalties, and our seasonal factors, not Dube's code; the cross-check
+        measures the combined difference.
+  \item[D4.] R50 keeps Alaska and Michigan, which Clemens and coauthors drop; the cross-check against
+        their print uses their 48-state pool.
+  \item[D5.] The design gave no yearly H1 statistic. Recorded after the first code review and before
+        any analysis run, the yearly wage tests use the pooled H1 critical values and $\nu$, so they
+        are approximate. They decide whether yearly elasticities are reported; none is.
+  \item[D6.] The frozen requirements pin the released \texttt{wrapt} 2.5.2 rather than the
+        pre-release the design named, on the PI's instruction; no estimate depends on it.
+  \item[D7.] Post hoc and report-only: run \cand{posthoc} (Section~\ref{sec:res-posthoc} and the
+        employment drift in Section~\ref{sec:rob-event}) was added after the results review had
+        seen every post-period result. Its code passed the last of the \CrewRoundsCode{} code review
+        rounds; that round's minor findings were then fixed and, with the human PI's agreement, the
+        run was made without a further review, so the code it ran was not reviewed; the ledger counts it among
+        the analysis runs not covered by a passing code review ($\CrewRunsUnreviewed$ in all). It reports facts
+        about Georgia's 2014--2015 series, the H1 critical values without Georgia's decision-set tests
+        and with $\nu$ recomputed, a leave-one-out over the ten decision-set states, and the
+        2014--2019 drift of the event path. It changes no label. Known defect: its leave-one-out
+        change flags (\texttt{b\_loo\_*\_changes\_chi}, \texttt{b\_loo\_n\_changing},
+        \texttt{b\_loo\_changing\_states} and the matching line of its log) all read 1, because they
+        compare values stored at ten significant digits with a tolerance of $10^{-12}$; no claim uses
+        them, the statement that only Georgia moves the critical value rests on the critical values
+        themselves, and a clean rerun reproduces the same flags.
+\end{enumerate}
+
+\paragraph{How the results were checked.} The results were reviewed in \CrewRoundsResults{} rounds
+by a reviewer agent that did not produce them, before the human PI approved them. The ledger holds
+\CrewRuns{} runs (\CrewRunsAnalysis{} analysis runs); \CrewRunsSuperseded{} were replaced by a later
+run with the same identifier and are archived. Clean rerun of every run from scratch, as recorded
+when this version was compiled: \CrewRerunStatus{}, with \CrewRerunReproduced{} of
+\CrewRerunTotal{} runs reproduced.

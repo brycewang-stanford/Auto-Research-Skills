@@ -1,0 +1,87 @@
+% Introduction. Written after the results gate from the result claims; every number is a macro.
+% Claims: r-sel-candidate, r-v-h2-headline, r-h2-emp-*, r-v-h2 (label probabilities), r-h90-h2,
+% r-mde-h2, r-plc-nonff-sign, r-v-s1, r-v-s2, r-v-h1, r-h1-wage-*, r-v-h2-note, r-ph-h1-joint,
+% r-v-h3, r-v-n-not-robust.
+\section{Introduction}
+\label{sec:intro}
+
+On April 1, 2024 California raised the minimum wage of workers at fast-food chains with at least
+60 establishments nationwide to \$20 an hour, under Assembly Bill 1228. The studies that
+estimate its effect on employment from the same administrative data, the Quarterly Census of Employment and Wages
+(QCEW), disagree. \citet{clemens2026employment} find that California's fast-food employment fell
+by about 3.5 percent relative to the rest of the country over two years; \citet{dube2026labor}
+finds an effect near zero with a different comparison group, outcome normalisation and
+estimator. The disagreement has been decomposed into these choices
+\citep{dube2026labor,clemens2026synthetic,sosinskiy2026effects}, which means that anyone who
+re-estimates the effect knows in advance which choices give which answer.
+
+We ask whether AB 1228 changed employment in California's private limited-service restaurants
+(NAICS 722513) over its first eight quarters, 2024Q2--2026Q1, relative to the same industry in
+other states, and whether the effect changed between the first and the second year, when the
+law's premium over California's general minimum wage fell. Because the specification choices
+and their published consequences were known, we did not choose a specification. Before any
+outcome after 2023Q3 was computed we fixed the estimand, the base quarter, decision rules for
+every label, an inference procedure valid with one treated state, and a rule that picks the
+primary estimator from 24 candidates covering both published approaches by how well each
+reproduced California's own path at placebo dates in 2016--2017, using only data through 2019.
+Both published approaches are also re-estimated as named secondary analyses. The study is
+pre-specified but not blind: its authors knew the published estimates and a public descriptive
+series through March 2026 before the design was fixed (Section~\ref{sec:prespec}). The data add
+one preliminary quarter, 2026Q1, to the latest published window.
+
+The answer is that this design cannot tell. The rule selected \cand{DDT-POPW-E-R50}, a
+difference in differences with a linear trend in the gap, population-weighted donors and all
+other states and the District of Columbia as the comparison pool. Its pooled effect on log
+employment is $\HTwoAtt$ log points ($\HTwoPct$ percent, about $\HTwoJobs$ jobs), with a 95
+percent interval from $\HTwoLoNinetyFive$ to $\HTwoHiNinetyFive$ ($\HTwoPctLo$ to $\HTwoPctHi$
+percent). Under the pre-specified rule the label is
+``inconclusive''. Employment outside limited-service restaurants also ran above its
+counterfactual, by $\PlcNonffAtt$ log points with an interval that excludes zero, so the label
+is qualified as not separable from a California-wide shock; a shared deviation of that sign
+would bias the employment estimate toward zero or upward, not toward a decline. The two named
+secondary analyses, the detrended comparison of Clemens and coauthors and the synthetic
+difference in differences of Dube, both re-estimated with our timing and inference, are also
+``inconclusive'' ($\SOneAtt$ and $\STwoAtt$), and no robustness check changes the sign category.
+
+The equivalence test against a 2 percent bound was meant to separate the two published
+readings, and it could not. The power run, made on data through 2019 before any post-period
+outcome was read, put the half-width of the 90 percent interval at $\HNinetyHTwo$ log points,
+above the bound of 0.02, so the label ``no effect as large as 2\%'' had probability
+$\ProbTauZeroUndSmaller$ whatever the true effect; ``inconclusive'' had probability
+$\ProbTauZeroUndUndet$ with no effect and $\ProbTauAltUndUndet$ with a decline of 3.5 percent.
+The label is therefore not evidence against either published estimate, both of which lie inside
+our interval. The standard error is deliberately conservative for California, the largest
+state, and its effective degrees of freedom are few; at the placebo dates California's own six
+$t$ statistics had a root mean square of only $\KDiagHTwo$.
+
+The first stage is not established either. The pooled effect on log average weekly earnings in
+722513 is $\HOneAtt$ log points ($\HOnePct$ percent, about \$$\HOneDollars$ a week), with
+$t = \HOneT$. That is below the pre-specified one-sided critical value $\HOneCrit$, which the
+placebo calibration set far above $t$ at the estimated degrees of freedom ($\TnuHOneNinetyFive$),
+so hypothesis H1 is not supported, and by the design's rule the employment result is reported as
+uninformative about the wage floor. This is not a finding that weekly earnings did not rise. Two
+post hoc checks bear on the verdict, and they point in opposite directions. Removing one
+comparison state's placebo tests, whose trend windows straddle a 2015 drop in that state's
+weekly-wage series, lowers the critical value to $t$ at the degrees of freedom, and the test
+would then reject; but that state was singled out after the results were seen. The selected
+estimator's wage gap drifted before 2020 by $\PhDriftWageSlope$ log points a quarter, which
+extrapolated over the post window is $\PhDriftWageImpliedPost$ against the estimate of
+$\HOneAtt$; but a linear extrapolation is not a test, and the pre-2020 years contain
+California's own minimum-wage ramp. Neither check changes the pre-specified verdict
+(Section~\ref{sec:res-posthoc}). The
+comparison of year two with year one is uninformative by the pre-specified power rule.
+
+The contribution is therefore modest and mainly about what QCEW state data can and cannot settle.
+We add an estimate with a rule-selected primary specification, inference whose level was checked
+on placebo states before the post-period data were read, and one more quarter of data; and we
+document, before seeing the results, that the precision of this state-level QCEW comparison is
+too low to separate a decline of about 3.5 percent from no effect. The
+published decompositions of the disagreement are cited, not repeated
+(Section~\ref{sec:literature}).
+
+Section~\ref{sec:background} describes the law and its coverage, Section~\ref{sec:literature} the
+literature, Section~\ref{sec:data} the data and Section~\ref{sec:strategy} the pre-specified
+strategy. Section~\ref{sec:results} reports the selection, the inference and power checks and the
+three hypotheses; Section~\ref{sec:robustness} the secondary analyses, robustness and placebo
+checks; Section~\ref{sec:conclusion} concludes, and the last section lists the limitations and
+every deviation from the approved design.

@@ -1,7 +1,8 @@
 % Data. States no result. Sources: plan.json design.data and design.method (OUTCOMES, SEASONAL
 % ADJUSTMENT), data/CODEBOOK.md (counts and checks only), sources/notes.md sections 5, 9-12.
-% The design plans no run that tabulates summary statistics of the outcomes; a summary-statistics
-% table needs a logged run and claims (raised with the PI).
+% The design plans no run that tabulates summary statistics of the outcomes. After the results
+% gate the result claims carry only two California levels (CaEmpPost, AwwCaBase), too few for a
+% table; the paper says so and lists it as a limitation (no new run, per the PI's brief).
 \section{Data}
 \label{sec:data}
 
@@ -98,6 +99,18 @@ industry 10. A second file holds the same rows for 2014Q1--2019Q4 only (1,224 ro
 only input of the two runs that select the primary estimator and check the level of the inference
 (Sections~\ref{sec:select} and~\ref{sec:inference}). Both files come from one data-preparation run
 that computes no statistic comparing states or periods.
+
+\subsection{Summary statistics}
+\label{sec:sumstats}
+
+The social-science track asks for a table of summary statistics. The design planned no run that
+tabulates levels of the outcomes, and the result claims carry only two levels, both for
+California: mean private 722513 employment over the post window 2024Q2--2026Q1, $\CaEmpPost$ jobs
+(published, not seasonally adjusted), which converts the employment effect into jobs, and the
+average weekly wage in the base quarter 2023Q3, \$$\AwwCaBase$, which converts the wage effect
+into dollars. They are too few for a table: no claim gives donor levels, pre-period means or
+dispersion. We did not add a run after the results gate to produce them, so the paper has no
+summary-statistics table; this is listed among the limitations (Section~\ref{sec:limitations}).
 
 \subsection{Comparison pools}
 \label{sec:pools}
