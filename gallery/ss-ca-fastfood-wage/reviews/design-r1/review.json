@@ -1,0 +1,118 @@
+{
+  "id": "design-r1",
+  "target": "design",
+  "round": 1,
+  "created": "2026-11-21T06:11:58Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "plan.json",
+    "crew.json",
+    "log.jsonl",
+    "sources/notes.md",
+    "sources/sources.json",
+    "data/CODEBOOK.md",
+    "data/prepare_metrics.json",
+    "data/prepare_state_metrics.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r4/review.json",
+    "reviews/literature-r1/review.json",
+    "runs/fetch-data/run.json",
+    "runs/prepare-data/run.json",
+    "runs/fetch-pop/run.json",
+    "runs/fetch-prop99/run.json",
+    "runs/prepare-state/run.json",
+    "briefs/20261121T053537Z-designer.md",
+    "briefs/20261121T060330Z-reviewer.md"
+  ],
+  "kill_argument": "The headline is a confidence-interval label (sign x size against b = 0.02), so it is only as good as California's standard error, and the design's SE is built to be too small for California and checked in a way that cannot see it. The SE rescales each donor's placebo by sqrt(pop_j/pop_CA), which assumes placebo variance proportional to 1/population (Ferman-Pinto's A + B/M with A = 0). Ferman and Pinto estimate A and B; they note that with large cells a state-level shock A dominates. California is the largest unit, so every donor is shrunk: with only state-level shocks, D20 donors average about 0.16 of California's population, the SE is about 0.4 of the truth and a nominal 5% test rejects about 40% of the time. The level check pools 6(J+1) placebo tests over all units. Under the same model small units under-reject and large ones over-reject, so the pooled rate can sit at 5% while California's does not. The tolerance of 0.10 and the A = 0 Monte Carlo do not help. What held: the pre-specification (one 2019Q4 cutoff, fixed pseudo-dates, tie-break and order, no analysis runs), state level, the estimand, F16, and the AB 257 handling.",
+  "verdict": "block",
+  "findings": [
+    {
+      "id": "D1",
+      "severity": "critical",
+      "status": "open",
+      "text": "The inference that decides every H1-H3 label is not shown to be valid for California, and the check meant to show it cannot detect the failure that matters. (a) The SE scales each donor placebo by sqrt(pop_j/pop_CA) and takes the RMS. That imposes var(tau_j) proportional to 1/pop_j, i.e. Ferman-Pinto's var(W_j|M_j) = A + B/M_j with A = 0. Ferman and Pinto estimate A and B (step 3 of their procedure: regress the squared residuals on a constant and 1/M_j). They note that when M_j is large a common group-level shock A dominates and the variance tends to A for all j (WP p. 10). State-level QCEW 722513 is a near-census, so the noise is mostly state-economy shocks (e.g. the 2015-2016 oil downturn in ND, WY, OK, LA and TX, all D20 states and all inside the pseudo-windows). It is not sampling noise. (b) California is the largest unit, so the scaling shrinks every donor. Illustration, not a data result: with pure state shocks of equal variance, SE_CA^2 = sigma^2 * mean(pop_j/pop_CA), about 0.16 for D20 (about 126 million against 39 million) and about 0.15 for R50. The SE is then about 0.4 sigma, and the two-sided 5% t_J test rejects about 40% of the time. The size label is hit too: the 90% CI is about 2.5 times too narrow, so 'no effect as large as 2%' and 'decline of at least 2%' both come too easily. (c) The level check pools the 6(J+1) tests over all units, each with donors (pool minus u) plus California. Under the same model a unit's SE is overstated when it is smaller than the donor mean (about 8 million) and understated when it is larger. About 16 of 21 D20 units are smaller, so they under-reject, while TX, PA, GA, NC and CA over-reject. The pooled rate can then pass the threshold while California's rate is several times nominal. T6 names exactly this risk, and the design answers it only with the diagnostic k, which it says is too thin to act on. (d) The Monte Carlo in check-methods (iv) draws errors with variance proportional to 1/pop, so it tests the method only under its own assumption. The MDE (SE_pre) inherits the same understatement.",
+      "evidence": "plan.json design.method INFERENCE ('Scale z_j = tau_j * sqrt(pop_j / pop_CA)'), LEVEL CHECK ('empirical rates over the 6(J+1) tests'), MDE; design.threats[5] (T6); design.analysis_plan[4] (iv); hypotheses[0] ('inference method must be valid with a single treated state'). Ferman and Pinto (2019) MPRA WP 81988 (sha256 8d2afec9..., matches sources.json): var(W_j|M_j) = A + B/M_j (p. 9, PDF p. 10); 'If A > 0 ... var(Wj|Mj) -> A for all j when Mj -> infinity' (p. 10, PDF p. 11); estimator by regressing squared residuals on 1/M_j and a constant (p. 12, PDF p. 13; algorithm step 3, p. 13, PDF p. 14). Dube w35171 p. 8 (scaling by sqrt(pop_j/pop_CA), 'as implemented in Cengiz et al.'). Remedy, pre-specifiable now with no outcome data: in level-mde, (1) fit A and B by regressing squared pre-period placebo estimates on 1 and 1/pop (Ferman-Pinto's own step) and set SE_CA^2 = A_hat + B_hat/pop_CA, or use the larger of the scaled and unscaled SEs; (2) base the variant decision on the rejection rates of large units (for example units at or above the pool's median population, reported by population tercile), not the pooled rate; (3) add an A > 0 design to the Monte Carlo. Alternatively, narrow the claim: report H2 and H3 labels under both scaled and unscaled SEs and headline only the label that both give.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "D2",
+      "severity": "major",
+      "status": "open",
+      "text": "The level check accepts the t variant if each empirical rejection rate is at most 0.10, against nominal rates of 0.05 for each one-sided tail at t_{J,0.95} and 0.05 two-sided at t_{J,0.975}. So a test that rejects twice as often as stated passes. The check also has little power. The six pseudo-dates per unit have almost the same post windows (2016Q4-2018Q3 to 2018Q1-2019Q4), so the 6(J+1) = 126 or 306 draws are about 2(J+1) independent ones. The same overlap limits the calibrated quantiles at 0.025 and 0.975, which the plan calls attainable. H1's own text requires that 'the chosen pool and method attain the stated level'; a 10% ceiling does not show that.",
+      "evidence": "plan.json design.method LEVEL CHECK ('Variant t stands for a statistic if all three rates are <= 0.10'); design.threats[1] (T2: 'six overlapping pseudo-windows (about two independent draws)'); hypotheses[0]. Cheapest remedy: always use the calibrated variant, or the more conservative of t and calibrated, for every statistic, since both can be computed anyway. Otherwise tie the threshold to the nominal level with a stated tolerance for dependent draws. Either way, state the effective number of independent draws.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "D3",
+      "severity": "major",
+      "status": "open",
+      "text": "The pseudo-null that the selection rule, the level check and the MDE all assume is false for California and for many R50 units, and the threats list omits it. California's general minimum wage rose every year of the pseudo-windows (from July 2014 to $15 in 2022: Wiltshire et al., Section 2.1, recorded in notes.md section 10), while the D20 donors stayed at $7.25. The Scout's own note says the 2014-2022 pre-period 'is not policy-free for California'. (i) Selection: California's pseudo-ATTs on log employment at 2016Q1-2017Q2 contain whatever effect the 2016-2019 increases had on 722513 employment, not zero. The rule therefore rewards candidates that absorb a steady policy ramp (the pre-trend-adjusted DD) or that use donors with their own increases (R50), independent of which reproduces Y(0). (ii) The level check makes every R50 unit 'treated' at the pseudo-dates. Many R50 states raised their minimum wages in 2014-2019, so for the H1 wage statistic especially, the 'null' T distribution contains real effects. That inflates the rejection rates and the calibrated quantiles, making H1 conservative by an unknown amount. (iii) The MDE and SE_pre use the same draws. T8 handles donor minimum-wage changes only in 2024-2026, and T12 only California's post-period increases.",
+      "evidence": "plan.json design.method SELECTION RULE ('the pseudo-ATT ... read as an estimate of the (zero) effect'), LEVEL CHECK; design.identifying_assumption ('The rule's premise is ...'); design.threats (no entry for 2014-2019 minimum-wage changes; T8 and T12 are post-period only); sources/notes.md section 10 (wiltshire2026minimum: 'the pre-period used to fit donors and pick the primary is not policy-free for California'). Remedy: (1) add the threat and restate the rule's premise as fit to California's path under its own general-MW ramp; (2) in level-mde, restrict the treated units u to states with no state minimum-wage change in 2014-2019 (the D20 states qualify by definition), or report rates for that subset and use them for the variant decision; (3) say in the paper that an R50 or DDT winner may reflect the shared ramp.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "D4",
+      "severity": "major",
+      "status": "open",
+      "text": "The headline label rests on a selection with about two independent draws, and the two published specifications cannot qualify it. T2 concedes that the 24 RMSEs come from six heavily overlapping 2016-2019 windows with shorter fit windows than the real one, so the winner 'may not be the best estimator for 2024-2026'. But the verdict qualifies the headline as 'not robust' only when rob-base-2023q4, rob-pre-ab257, rob-pool or rob-final-quarters change the sign category. S1 (the CEM detrended DD) and S2 (Dube's SDID) are 'not the headline' and 'never create a new finding'. The published disagreement is exactly S1 against S2, and the design itself says detrending and the estimator are the choices that move the estimate (w35931). So the study's headline answer to the contested question can be decided by which side a near-uninformative rule falls on, while the other side is reported as a footnote.",
+      "evidence": "plan.json design.analysis_plan[21] (verdict: 'If any of 9, 10, 11 or 13 gives a different sign category ...'); design.method MULTIPLE TESTING ('Secondaries ... never create a new finding'); design.threats[1] (T2). Cheapest remedy: add S1 and S2 to the verdict's robustness list (headline stated 'not robust to S1/S2' when either gives a different sign category), or pre-commit to reporting the primary, S1 and S2 labels side by side with equal weight in the abstract.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "D5",
+      "severity": "minor",
+      "status": "open",
+      "text": "The own-wage elasticity divides an employment ATT by a wage ATT built from a different counterfactual when an SC or SDID candidate wins. The wage weights are refitted on wages (design.method: 'weights refitted on wages for SC/SDID'). Dube shows refitted wage weights can put 100% on one state (New Hampshire; w35171 fn 12). The claim that 'dilution by uncovered establishments roughly cancels in the ratio' assumes the same comparison in numerator and denominator. The H2 bound's elasticity (-0.29) is also calibrated on Dube's reused-weights wage effect.",
+      "evidence": "plan.json design.method (W paragraph; DECISIONS, own-wage elasticities); hypotheses[1] (the bound); dube2026labor fn 12 (rv-lit1/dl/w35171.txt). Remedy: compute the elasticity with the employment weights and lambda reused for wages (as S2 does), or report both versions.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "D6",
+      "severity": "minor",
+      "status": "open",
+      "text": "The MDE is the 80%-power effect for a two-sided test against zero, but H2's size label is an equivalence test (90% CI inside +/-0.02). Its informativeness depends on whether t_{J,0.95} * SE can fall well below b, which the MDE does not report. SE_pre is also computed on series whose seasonal factors were fitted on the same 2014-2019 years (T13), which flatters it. T7 covers only post-COVID noise.",
+      "evidence": "plan.json design.method MDE; hypotheses[1] (size rule); design.threats[12] (T13), [6] (T7). Remedy: also report, from level-mde, the 90% half-width t_{J,0.95} * SE_pre against b = 0.02, and the probability of each H2 size label under tau = 0 and under tau = -0.035.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "D7",
+      "severity": "minor",
+      "status": "open",
+      "text": "The approved hypotheses text and the design disagree on when things happen. H1 says 'The design gate shows that the chosen pool and method attain the stated level', and H2 says 'The design stage computes, from pre-2023Q4 data only, the minimum detectable effect'. The design instead runs both after the gate, in level-mde, on data ending in 2019Q4 (it says so: 'The design gate therefore approves a rule whose winner is unknown'). design.data also says the population is extrapolated for '2025Q4, 2026Q1', but under its own placement rule 2025Q3 is extrapolated too (the Data RA's CODEBOOK, discrepancy 1). This is the remainder of question-r4 F15(b): the order is now right, but the text that the paper will quote is not.",
+      "evidence": "plan.json hypotheses[0] and [1] (quoted sentences); design.method INFERENCE ('The design gate therefore approves ...'); design.data ('2025Q4, 2026Q1 flagged'); data/CODEBOOK.md 'Discrepancies and cautions' item 1; data/prepare_state_metrics.json pop_extrap_quarters. Remedy: reword the two hypotheses sentences to 'level-mde, after the gate and before any post-2023Q3 run, on data ending 2019Q4', and correct the extrapolated-quarters list.",
+      "response": "",
+      "ruling": ""
+    }
+  ],
+  "files_sha256": {
+    "plan.json": "65845b4b442505ce94909a531aa2fa29867fa7f192c98fc1034e77c9e8a554bc",
+    "crew.json": "dda332380e01e54e8ab18db26093f062b7a666fbece0a0b73e45ea700977c4a6",
+    "log.jsonl": "27dfc2aa7e41b8be305034050d9c90747d340c3b0d6639f3652deaef0892fdfc",
+    "sources/notes.md": "a1e72c65f1c9d521f33dfafb2062573f6b7203b2a9963181f7cebc154c6ad336",
+    "sources/sources.json": "eac8bb71ff7f6afbe878ec25a3962ca80f051b0dd150cded085d549971b54751",
+    "data/CODEBOOK.md": "d8e6c18eaf8e2379a830fb4638a011abb470b9f2cfa9725e1746bae955ebe663",
+    "data/prepare_metrics.json": "64cdc5609c5602ba1812a11f2a52e89df1903fe385f90ad19d1a0c399141a2e5",
+    "data/prepare_state_metrics.json": "4fdb72102e685b3a9cb0fc2a9d6bbe2f51f6030152e0194fe0befb9038f24fa7",
+    "reviews/REVIEWER_MEMORY.md": "0579fa1f71954fdb8f8159091c501c50ce2e16eefb5be59bf745a53bab7b3736",
+    "reviews/question-r4/review.json": "a733b76451f5a61897113fede658ac5722236b28cfa62a5ca31cb424223193ff",
+    "reviews/literature-r1/review.json": "7924b6bcc42c65608275b71922be5a92919658b343fc0fc51b10bc8081484aa0",
+    "runs/fetch-data/run.json": "03baa027e82fb1195150c827d76f4c7213e6764226147ae64e87df7207a05332",
+    "runs/prepare-data/run.json": "c178813ae2ecc2b437ceed838c5be41081e4f33b62f0170f1add64a4e084e0ac",
+    "runs/fetch-pop/run.json": "82cebb45ede25276d79f0ba998310b96f955a9f15e971bae0ab4e0124459d2ed",
+    "runs/fetch-prop99/run.json": "eb9a63f43de67f863b94a2ea2c16ef7aaaa58577074ed89267d7f492d14fd9e1",
+    "runs/prepare-state/run.json": "eb0ad65045ec6a0698e97d89bd50658deac41853efbe68cb8287a148be4c94dc",
+    "briefs/20261121T053537Z-designer.md": "3d57127bcf43484d37d184678ffc3860530bad2ef293c7e035ebf8b213bdcead",
+    "briefs/20261121T060330Z-reviewer.md": "782e4d95b820c0d781b7f5c7d9113dc7e419870283a2ca8e28d31ffa9cb467b5"
+  },
+  "recorded": "2026-11-21T06:12:14Z"
+}

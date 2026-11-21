@@ -6,13 +6,13 @@
     "python3",
     "code/fetch_data.py"
   ],
-  "started": "2026-11-21T04:37:10Z",
-  "finished": "2026-11-21T04:45:56Z",
+  "started": "2026-11-21T06:11:25Z",
+  "finished": "2026-11-21T06:17:09Z",
   "exit_code": 0,
   "code": [
     {
       "path": "code/fetch_data.py",
-      "sha256": "b6000bbcce20e96d7b00e9ed4b47c19d906faa33df9fc29f1f8192d513942bcc"
+      "sha256": "e649c9c4bff6a4b0749d116dd2a97b3bf144d8f34d1800e73378620261b80275"
     }
   ],
   "inputs": [],
@@ -807,7 +807,7 @@
     },
     {
       "path": "data/fetch_metrics.json",
-      "sha256": "c3c8d5d7f81d40a0e58e6d426f26c5acb837a52a7abd80c9621c22a0d48b48f6"
+      "sha256": "ab36b4925f18bc9905339e6c59176d3ad537f0cafa9f77d80678c4d5fe7be89e"
     }
   ],
   "metrics": {
@@ -817,9 +817,7 @@
     "first_quarter": "2014Q1",
     "last_quarter": "2026Q1",
     "total_bytes": 288941864,
-    "total_rows": 1503889,
-    "n_files_pinned_in_manifest": 0,
-    "n_files_matching_manifest": 0
+    "total_rows": 1503889
   },
   "metrics_file": "data/fetch_metrics.json",
   "env": {

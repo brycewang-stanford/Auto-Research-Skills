@@ -11,7 +11,7 @@ The quarter after END is probed (HTTP status recorded in data/fetch_index.json) 
 later rerun shows whether a newer quarter has appeared; it is not downloaded.
 
 No checksum is published by BLS. If data/manifest.json already lists a file, the fetched
-bytes are compared with the recorded sha256 and mismatches are counted (BLS revises
+bytes are compared with the recorded sha256 and mismatches are printed (BLS revises
 recent quarters, so a mismatch means a revised vintage, not a broken download).
 
 Writes: data/raw/qcew/<year>q<qtr>_<code>.csv, data/fetch_index.json,
@@ -107,10 +107,13 @@ def main():
     metrics = {"n_files": len(files), "n_industries": len(INDUSTRIES),
                "n_quarters": len(files) // len(INDUSTRIES),
                "first_quarter": index["start"], "last_quarter": index["end"],
-               "total_bytes": total_bytes, "total_rows": sum(f["rows"] for f in files),
-               "n_files_pinned_in_manifest": pinned, "n_files_matching_manifest": pinned_match}
+               "total_bytes": total_bytes, "total_rows": sum(f["rows"] for f in files)}
+    # The manifest comparison depends on the manifest's state at run time, so it is printed,
+    # not recorded as a metric (a clean rerun from the committed manifest must reproduce
+    # every metric).
     Path("data/fetch_metrics.json").write_text(json.dumps(metrics, indent=2) + "\n")
     print(json.dumps(metrics))
+    print(f"manifest comparison: {pinned} files listed in data/manifest.json, {pinned_match} match its sha256")
     print("next quarter probe:", json.dumps(index["next_quarter_probe"]))
 
 

@@ -76,3 +76,21 @@ Check next round:
 - `crew.py changes <ws> literature`; new claims for AB 257, Melo misclassification/coverage, methods sources; c-no-2026-qcew reworded to "no causal estimate"; c-ab1228-no-increase reworded; H2 bound wording (L5).
 - Spot-check every new sources.json entry against the fetched document (methods papers: title, journal, year).
 - Still only data-prep runs (fetch-data, prepare-data) as of literature-r1.
+
+## design-r1 (2026-11-21, verdict block)
+
+New: D1 critical; D2, D3, D4 major; D5, D6, D7 minor. question-r4 F15(a)(c) and F16 are settled in the design; F15(b) remains only as wording (D7). literature-r1 L1 (T4, rob-pre-ab257) and L2 (T9, plc-722511) are folded in.
+
+Verified myself: Ferman-Pinto MPRA 81988 (sha256 8d2afec9..., same as sources.json; copy in scratch rv-d1/dl): var = A + B/M (p. 9), A > 0 dominates as M grows (p. 10), A and B estimated by regressing squared residuals on 1/M (pp. 12-13). Dube w35171 p. 8 scales by sqrt(pop_j/pop_CA), which imposes A = 0. Arkhangelsky Table 1 Prop 99: -15.6 / -19.6 / -27.3 (w25532 text). Runs as of design-r1: fetch-data, prepare-data, fetch-pop, fetch-prop99, prepare-state, all data-prep; no analysis run, no runs/.superseded. The Designer's scratch holds only a Census population xlsx and a text-writing script, with no outcome computation.
+
+Suspicions:
+- D1 is the crux. The H2 label is a CI label, and California is the largest unit, so 1/pop scaling shrinks its SE. Illustration (pure state shocks): SE about 0.4 of the truth, a nominal 5% test rejecting about 40%. The pooled level check averages small units that under-reject with large ones that over-reject. Watch for a fix that only adds the k diagnostic or more wording.
+- D3: California's general minimum wage ramp 2016-2019 sits inside every pseudo-window, and many R50 states raised minimum wages then too. An R50 or DDT winner may reflect this.
+- D4: S1 and S2 are outside the verdict's not-robust rule; the headline can hinge on a nearly uninformative selection.
+
+Check next round:
+- `crew.py changes <ws> design`; read plan.json design.method INFERENCE, LEVEL CHECK, MDE and the verdict step in full.
+- D1: an A + B/pop fit, or a conservative max(scaled, unscaled) SE, and a level decision based on large units, all fixed before level-mde runs; an A > 0 design in the Monte Carlo (check-methods iv).
+- D2: the threshold tied to nominal, or calibrated/conservative always.
+- D3: a threat entry; level-check treated units restricted to states with no minimum-wage change in 2014-2019, or rates reported for them.
+- Still no analysis runs before the gate; select reads only state_panel_pre.csv.
