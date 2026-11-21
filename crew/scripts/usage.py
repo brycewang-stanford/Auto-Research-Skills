@@ -16,7 +16,11 @@ Attribution:
 Time:
 - elapsed: first log entry to the submission gate (or the last log entry);
 - human wait: the sum of gate request -> decision intervals;
-- compute: the sum of the logged runs' durations.
+- compute: the sum of the logged runs' durations;
+- subagent minutes by role: first to last API request of each subagent transcript, with
+  the role read from the brief it was given (`briefs/<time>-<role>.md`). Roles that ran
+  in parallel overlap, so these add up to more than the elapsed time; a role that
+  dominates is where to look when a paper is slow.
 
 Dollar figures use the Claude API list prices below. Under a Claude subscription the
 same work is billed to the subscription, not per token.
@@ -43,6 +47,7 @@ PRICES = {
     "claude-haiku-5-5": (0.10, 0.50, 0.01, 0.125, 0.20),
 }
 PRICES_AS_OF = "2026-11-03"
+BRIEF_ROLE = re.compile(r"briefs/\d{8}T\d{6}Z-([a-z-]+)\.md")
 PI_ACTION = re.compile(r"crew\.py[\"']?\s+(init|gate)\s")
 TOKEN_FIELDS = ("input", "output", "cache_read", "cache_write_5m", "cache_write_1h")
 
@@ -135,6 +140,7 @@ class Workspace:
         self.end = max(times) if times else None
         self.tokens = defaultdict(lambda: defaultdict(float))  # source -> model/field -> tokens
         self.subagents = 0
+        self.role_minutes: dict[str, list[float]] = defaultdict(list)
 
     def mentioned_in(self, text: str) -> bool:
         return str(self.path) in text or re.search(rf"(^|[/\s\"'`]){re.escape(self.name)}(/|\b)", text) is not None
@@ -187,6 +193,9 @@ def cost(model_fields: dict) -> tuple[float, list[str]]:
 
 def summarize(ws: Workspace) -> dict:
     out = {"workspace": ws.name, **ws.timing(), "subagent_transcripts": ws.subagents, "by_source": {}}
+    out["subagent_minutes_by_role"] = {
+        role: {"runs": len(spans), "minutes": round(sum(spans), 1), "longest": round(max(spans), 1)}
+        for role, spans in sorted(ws.role_minutes.items(), key=lambda kv: -sum(kv[1]))}
     grand: dict[str, float] = defaultdict(float)
     for source, fields in ws.tokens.items():
         usd, unknown = cost(fields)
@@ -220,9 +229,16 @@ def main(argv: list[str] | None = None) -> int:
                 continue
             for ws in owners:
                 ws.subagents += 1
-            for _, model, tokens, _, _ in requests(sub):
+            times = []
+            for when, model, tokens, _, _ in requests(sub):
+                times.append(when)
                 for ws in owners:
                     ws.add("subagents", model, tokens, 1 / len(owners))
+            role = BRIEF_ROLE.search(context)
+            times = [t for t in times if t]
+            if role and times:
+                for ws in owners:
+                    ws.role_minutes[role.group(1)].append((max(times) - min(times)).total_seconds() / 60)
 
         rows = list(requests(main_path))
         pi_of = [ws for ws in spaces if any(PI_ACTION.search(cmd) and ws.mentioned_in(cmd)
@@ -245,6 +261,10 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{row['workspace']:<26} {row['elapsed_hours']}h elapsed, {row['human_gate_wait_hours']}h at gates, "
               f"{row['logged_compute_minutes']} min compute | out {t['output']/1e6:.2f}M, "
               f"cache-read {t['cache_read']/1e6:.0f}M | ~${row['api_usd']:,.0f} API-equivalent")
+        slow = list(row["subagent_minutes_by_role"].items())[:3]
+        if slow:
+            print("  slowest roles: " + ", ".join(f"{r} {v['minutes']:.0f} min over {v['runs']} run(s)"
+                                                  for r, v in slow))
     if args.out:
         Path(args.out).write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
         print(f"Wrote {args.out}")

@@ -882,7 +882,11 @@ def cmd_init(args: argparse.Namespace) -> int:
     write_json(ws / "data" / "manifest.json", {"datasets": []})
     (ws / "refs.bib").write_text("", encoding="utf-8")
     (ws / "claims.jsonl").write_text("", encoding="utf-8")
-    (ws / ".gitignore").write_text("data/raw/\ndata/derived/\n.venv\n__pycache__/\n", encoding="utf-8")
+    (ws / ".gitignore").write_text(
+        "data/raw/\ndata/derived/\n.venv\n__pycache__/\n"
+        "# LaTeX build files the Writer's compile leaves behind\n"
+        "paper/*.aux\npaper/*.bbl\npaper/*.blg\npaper/*.fdb_latexmk\npaper/*.fls\npaper/*.log\npaper/*.out\n",
+        encoding="utf-8")
     append_log(ws, "pi", "init", f"track={args.track}")
     print(f"Created crew workspace at {ws}")
     return 0
@@ -1388,6 +1392,204 @@ def cmd_numbers(args: argparse.Namespace) -> int:
     return 0
 
 
+# Review targets each gate needs, in order; targets in one tuple entry can be reviewed in parallel.
+STAGE_TARGETS = {
+    "question": (("question",),),
+    "design": (("literature", "design"),),
+    "results": (("code",), ("results",)),
+    "submission": (("paper",),),
+}
+SETTLED = ("resolved", "withdrawn", "conceded")
+
+
+def reviews_of(ws: Path, target: str) -> list[dict]:
+    reviews, _ = read_reviews(ws)
+    found = [r for r in reviews.values() if r.get("target") == target and isinstance(r.get("round"), int)]
+    return sorted(found, key=lambda r: r["round"])
+
+
+def cmd_changes(args: argparse.Namespace) -> int:
+    """What changed since the last recorded review round of a target (read-only).
+
+    Computed from the hashes `crew.py review` stamped, not from anyone's account, so a
+    Reviewer can start round n+1 with the files that changed and the findings still in play.
+    """
+    ws = require_workspace(args.workspace).resolve()
+    rounds = reviews_of(ws, args.target)
+    if args.round is not None:
+        rounds = [r for r in rounds if r["round"] == args.round]
+    if not rounds:
+        print(f"No review of {args.target}{'' if args.round is None else f' round {args.round}'}: "
+              "read everything (this is round 1).")
+        return 0
+    base = rounds[-1]
+    stamped = base.get("files_sha256")
+    if not isinstance(stamped, dict):  # a 0.1 review, not recorded with `crew.py review`
+        print(f"NOTE: {base.get('id')} was not recorded with `crew.py review`; only modification times "
+              "are available, so read everything that matters.")
+        stamped = {}
+    current = review_files(ws, base.get("files_read") or []) if stamped else {}
+    changed = sorted(p for p in stamped if p in current and current[p] != stamped[p] and p != "log.jsonl")
+    removed = sorted(p for p in stamped if p not in current and not (ws / p).exists())
+    added = sorted(p for p in current if p not in stamped)
+    since = parse_time(base.get("recorded") or base.get("created"))
+    skip = {".venv", "venv", "__pycache__", ".git", ".superseded", "briefs", "reviews"}
+    elsewhere = []
+    if since is not None:
+        cutoff = since.timestamp()
+        for path in ws.rglob("*"):
+            relative = path.relative_to(ws)
+            if (path.is_file() and not skip & set(relative.parts) and str(relative) not in current
+                    and str(relative) != "log.jsonl" and path.stat().st_mtime > cutoff):
+                elsewhere.append(str(relative))
+    findings = [f for f in base.get("findings") or [] if isinstance(f, dict)]
+    live = [f for f in findings if f.get("status") not in SETTLED]
+    log = []
+    if since is not None and (ws / "log.jsonl").exists():
+        for line in (ws / "log.jsonl").read_text(encoding="utf-8").splitlines():
+            try:
+                entry = json.loads(line)
+            except ValueError:
+                continue
+            when = parse_time(entry.get("time"))
+            if when and when > since and entry.get("action") not in ("brief-archived",):
+                log.append(entry)
+    report = {
+        "since": base.get("id"), "recorded": base.get("recorded") or base.get("created"), "verdict": base.get("verdict"),
+        "changed": changed, "added": added, "removed": removed, "other_files_modified": sorted(elsewhere),
+        "findings_in_play": [{"id": f.get("id"), "severity": f.get("severity"), "status": f.get("status"),
+                              "has_response": bool(f.get("response"))} for f in live],
+        "log_since": [f"{e.get('time')} {e.get('role')} {e.get('action')}" for e in log],
+    }
+    if args.json:
+        print(json.dumps(report, indent=2))
+        return 0
+    print(f"Since {base.get('id')} (verdict {base.get('verdict')}, recorded {report['recorded']}):")
+    for label, items in (("changed", changed), ("added (matched by its files_read)", added),
+                         ("removed", removed), ("modified elsewhere", report["other_files_modified"])):
+        print(f"  {label}: {len(items)}")
+        for item in items[: args.limit]:
+            print(f"    {item}")
+        if len(items) > args.limit:
+            print(f"    ... {len(items) - args.limit} more (use --json)")
+    print(f"Findings still in play: {len(live)} of {len(findings)}")
+    for f in live:
+        print(f"    {f.get('id')} [{f.get('severity')}] {f.get('status')}"
+              f"{' (has a response)' if f.get('response') else ' (no response)'}")
+    print(f"Ledger entries since: {len(log)}")
+    for line in report["log_since"][-args.limit:]:
+        print(f"    {line}")
+    print("Unchanged files were already read in that round; re-read changed and added files in full "
+          "and spot-check the rest.")
+    return 0
+
+
+def next_actions(ws: Path) -> list[str]:
+    """The next steps for the PI, derived from the workspace alone. Lines starting with
+    `parallel:` list steps with no dependency on each other."""
+    plan = read_json(ws / "plan.json")
+    gates = plan.get("gates", {})
+    errors, _ = validate(ws)
+    out: list[str] = []
+    if errors:
+        out.append(f"fix {len(errors)} validation error(s) first (`crew.py validate`): {errors[0]}")
+    stage = next((g for g in GATES if (gates.get(g) or {}).get("status") != "approved"), None)
+    if stage is None:
+        return out + ["all four gates approved: the paper is final"]
+    status = (gates.get(stage) or {}).get("status", "pending")
+    if status == "requested":
+        out.append(f"wait: the {stage} gate is with the human; present it and stop")
+        return out
+    if status == "rejected":
+        out.append(f"the human rejected the {stage} gate: act on their note, then review and request it again")
+    runs, _ = read_runs(ws)
+    analysis = [r for r in runs.values() if r.get("kind") == "analysis"]
+    tasks = [t for t in plan.get("tasks") or [] if isinstance(t, dict) and t.get("status") in ("todo", "doing")]
+    reviews = {t: reviews_of(ws, t) for t in REVIEW_TARGETS}
+    ready = True
+    for group in STAGE_TARGETS[stage]:
+        steps = []
+        for target in group:
+            done = reviews[target]
+            latest = done[-1] if done else None
+            if latest and latest.get("verdict") == "pass" and not open_critical(latest):
+                continue
+            ready = False
+            missing = {
+                "question": not plan.get("question") and "PI drafts question, hypotheses and contribution in plan.json",
+                "literature": not bib_keys(ws) and "Scout: verified refs.bib and sources/",
+                "design": not (plan.get("design") or {}).get("summary") and "Designer: design and task board in plan.json",
+                "code": not (ws / "code").is_dir() or not any((ws / "code").iterdir()),
+            }
+            if target == "code" and missing["code"]:
+                steps.append("analysis code: the Econometrician/Experimenter writes code/ (and synthetic checks)")
+                continue
+            if latest is None and missing.get(target):
+                steps.append(str(missing[target]))
+                continue
+            if target == "results" and not analysis:
+                steps.append("analysis runs: run the plan through `crew.py run --kind analysis --code ...`")
+                continue
+            if target == "paper" and not (ws / "paper" / "main.tex").exists():
+                steps.append("paper: Figures RA builds figures/tables, then the Writer drafts paper/main.tex")
+                continue
+            if latest is None:
+                steps.append(f"Reviewer: {target} round 1")
+                continue
+            live = [f for f in latest.get("findings") or [] if isinstance(f, dict) and f.get("status") == "open"]
+            if latest["round"] >= MAX_REVIEW_ROUNDS:
+                steps.append(f"{target}: round {latest['round']} was the last; take open findings "
+                             f"{', '.join(str(f.get('id')) for f in live) or '(none open)'} to the human")
+                continue
+            answered = all(f.get("response") for f in live)
+            if live and not answered:
+                steps.append(f"{target}: send all {len(live)} open finding(s) of {latest.get('id')} to their owners "
+                             "at once (one brief per owner, in parallel), then Reviewer round "
+                             f"{latest['round'] + 1}")
+            else:
+                steps.append(f"Reviewer: {target} round {latest['round'] + 1} (start it with "
+                             f"`crew.py changes <ws> {target}`)")
+        if steps:
+            out.append(("parallel: " if len(steps) > 1 else "") + " | ".join(steps))
+            break  # later groups depend on this one
+    if stage == "submission":
+        problems = check_replication(ws, runs, required=True)
+        if problems and runs:
+            out.append("parallel: Replicator: `crew.py rerun --setup ...` (needs only the runs; it can go "
+                       "alongside the Writer and the paper review once the Figures RA's runs are logged) "
+                       f"— {problems[0]}")
+            ready = False
+        if stale_paper_inputs(ws):
+            out.append("run `crew.py numbers` and recompile: paper inputs are stale")
+    # Review, rerun and gate tasks are scheduled by the stage logic above, not as free work.
+    tasks = [t for t in tasks if t.get("owner") not in ("reviewer", "replicator", "pi")]
+    if tasks:
+        owners: dict[str, list[str]] = {}
+        for task in tasks:
+            owners.setdefault(str(task.get("owner")), []).append(str(task.get("id")))
+        line = " | ".join(f"{owner}: {', '.join(ids)}" for owner, ids in owners.items())
+        out.append(("parallel (one subagent per owner): " if len(owners) > 1 else "open tasks: ") + line)
+        ready = False
+    if stage == "results" and not (ws / "paper" / "main.tex").exists():
+        out.append("off the critical path, now: the Writer may draft the sections that need no results "
+                   "(introduction, background, data, method) from plan.json and refs.bib")
+    if ready and not errors:
+        out.append(f"request the {stage} gate: `crew.py gate <ws> {stage} request --note ...`")
+    return out
+
+
+def cmd_next(args: argparse.Namespace) -> int:
+    """Print the next steps for the PI (read-only)."""
+    ws = require_workspace(args.workspace)
+    steps = next_actions(ws)
+    if args.json:
+        print(json.dumps(steps, indent=2))
+    else:
+        for step in steps:
+            print(f"- {step}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = parser.add_subparsers(dest="command_name", required=True)
@@ -1465,6 +1667,19 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("numbers", help="render paper/numbers.tex from claims.jsonl")
     p.add_argument("workspace")
     p.set_defaults(func=cmd_numbers)
+
+    p = sub.add_parser("changes", help="what changed since the last recorded review round of a target (read-only)")
+    p.add_argument("workspace")
+    p.add_argument("target", choices=REVIEW_TARGETS)
+    p.add_argument("--round", type=int, help="compare against this round instead of the latest recorded one")
+    p.add_argument("--limit", type=int, default=40, help="list at most this many paths per group")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=cmd_changes)
+
+    p = sub.add_parser("next", help="the PI's next steps, with the ones that can run in parallel (read-only)")
+    p.add_argument("workspace")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=cmd_next)
     return parser
 
 

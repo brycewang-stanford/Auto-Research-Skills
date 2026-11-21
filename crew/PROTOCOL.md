@@ -49,8 +49,8 @@ they never approve them.
 | Gate | Needs before approval | Unlocks |
 |---|---|---|
 | `question` | Question and hypotheses; a review of `question` | Literature and design work |
-| `design` | Design summary, method, analysis plan; a review of `design` | **Analysis runs.** The tool refuses them before this gate |
-| `results` | Result claims backed by runs; a review of `results` | Writing the paper |
+| `design` | Design summary, method, analysis plan; a review of `design` | **Analysis runs.** The tool refuses them before this gate. Drafting the paper sections that state no result (data, strategy or setup, related work) |
+| `results` | Result claims backed by runs; a review of `results` | Writing the results, introduction, abstract and conclusion |
 | `submission` | Compiled `paper/main.pdf`, newer than every paper source; `paper/ai-use.tex`; an up-to-date `paper/process.tex` **(0.2)**; no task left `todo` or `doing` **(0.2)**; no result number typed by hand **(0.2)**; a review of `paper`; a passing `replication.json` newer than every run | Release to the gallery |
 
 A gate cannot be approved while the Reviewer's latest review of that stage has an open
@@ -214,6 +214,8 @@ python3 crew.py numbers <ws>                     # paper/numbers.tex and paper/p
 python3 crew.py log <ws> --role <role> --action <verb> [--detail "…"]
 python3 crew.py brief <ws> <role> [--file brief.md] [--note "…"]   # archive a brief in briefs/ and log it
 python3 crew.py rerun <ws> [--rtol 1e-6] [--reuse-data] [--setup "<shell command>"]
+python3 crew.py changes <ws> <target> [--round N] [--json]   # what changed since the last recorded review round (read-only)
+python3 crew.py next <ws> [--json]               # the PI's next steps; `parallel:` lines can run together (read-only)
 python3 cross_review.py <ws> <target> <round> [--model …]   # Reviewer on another provider's model
 ```
 

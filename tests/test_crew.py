@@ -640,5 +640,96 @@ class PluginFilesTest(unittest.TestCase):
             self.assertTrue(task["question"])
 
 
+class ChangesAndNextTest(unittest.TestCase):
+    """`changes` and `next` are read-only helpers that keep review rounds and the PI loop short."""
+
+    def setUp(self) -> None:
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.ws = Path(self.tmp.name) / "ws"
+        self.assertEqual(call("init", str(self.ws), "--track", "cs", "--title", "T")[0], 0)
+
+    def steps(self) -> list[str]:
+        code, out = call("next", str(self.ws), "--json")
+        self.assertEqual(code, 0)
+        return json.loads(out)
+
+    def test_init_ignores_latex_build_files_but_not_the_pdf(self) -> None:
+        ignored = (self.ws / ".gitignore").read_text().splitlines()
+        for pattern in ("paper/*.aux", "paper/*.bbl", "paper/*.log", "paper/*.fdb_latexmk"):
+            self.assertIn(pattern, ignored)
+        self.assertNotIn("paper/*.pdf", ignored)
+
+    def test_changes_without_a_review_says_round_one(self) -> None:
+        code, out = call("changes", str(self.ws), "design")
+        self.assertEqual(code, 0)
+        self.assertIn("round 1", out)
+
+    def test_changes_lists_files_edited_after_the_recorded_round(self) -> None:
+        (self.ws / "code").mkdir(exist_ok=True)
+        (self.ws / "code" / "a.py").write_text("print(1)\n")
+        (self.ws / "code" / "b.py").write_text("print(2)\n")
+        write_review(self.ws, "code", 1, verdict="revise", files_read=["code/"], findings=[
+            {"id": "F1", "severity": "major", "status": "open", "text": "t", "evidence": "code/a.py"},
+            {"id": "F2", "severity": "minor", "status": "resolved", "text": "t", "evidence": "code/b.py"}])
+        self.assertEqual(call("review", str(self.ws), "code-r1")[0], 0)
+        (self.ws / "code" / "a.py").write_text("print(10)\n")
+        (self.ws / "code" / "c.py").write_text("print(3)\n")
+        code, out = call("changes", str(self.ws), "code", "--json")
+        self.assertEqual(code, 0)
+        report = json.loads(out)
+        self.assertEqual(report["since"], "code-r1")
+        self.assertEqual(report["changed"], ["code/a.py"])
+        self.assertEqual(report["added"], ["code/c.py"])
+        self.assertEqual([f["id"] for f in report["findings_in_play"]], ["F1"])
+
+    def test_changes_and_next_write_nothing(self) -> None:
+        before = {p: p.stat().st_mtime_ns for p in self.ws.rglob("*") if p.is_file()}
+        call("changes", str(self.ws), "question")
+        call("next", str(self.ws))
+        after = {p: p.stat().st_mtime_ns for p in self.ws.rglob("*") if p.is_file()}
+        self.assertEqual(before, after)
+
+    def test_next_starts_with_the_question(self) -> None:
+        self.assertTrue(any("PI drafts question" in step for step in self.steps()))
+
+    def test_next_waits_while_a_gate_is_with_the_human(self) -> None:
+        edit_json(self.ws / "plan.json", lambda plan: plan.update(question="Q?", hypotheses=["H"]))
+        write_review(self.ws, "question", 1)
+        self.assertEqual(call("gate", str(self.ws), "question", "request", "--note", "q")[0], 0)
+        self.assertTrue(self.steps()[-1].startswith("wait:"))
+
+    def test_next_runs_literature_and_design_reviews_in_parallel(self) -> None:
+        def change(plan):
+            plan["question"] = "Does X change Y?"
+            plan["hypotheses"] = ["X raises Y."]
+            plan["design"].update(summary="s", method="m", analysis_plan=["main run"])
+            plan["gates"]["question"].update(status="approved", decided_by="Human",
+                                             decided_on=crew.now(), note="ok")
+        edit_json(self.ws / "plan.json", change)
+        write_review(self.ws, "question", 1)
+        (self.ws / "refs.bib").write_text("@article{a2020, title={A}}\n")
+        parallel = [s for s in self.steps() if s.startswith("parallel:")]
+        self.assertTrue(parallel)
+        self.assertIn("literature round 1", parallel[0])
+        self.assertIn("design round 1", parallel[0])
+
+    def test_next_sends_unanswered_findings_back_before_another_round(self) -> None:
+        edit_json(self.ws / "plan.json", lambda plan: plan.update(question="Q?", hypotheses=["H"]))
+        write_review(self.ws, "question", 1, verdict="revise", findings=[
+            {"id": "F1", "severity": "major", "status": "open", "text": "t", "evidence": "plan.json"}])
+        self.assertIn("send all 1 open finding", " ".join(self.steps()))
+        edit_json(self.ws / "reviews" / "question-r1" / "review.json",
+                  lambda r: r["findings"][0].update(response="Narrowed the claim."))
+        self.assertIn("question round 2", " ".join(self.steps()))
+
+    def test_next_hands_the_last_round_to_the_human(self) -> None:
+        edit_json(self.ws / "plan.json", lambda plan: plan.update(question="Q?", hypotheses=["H"]))
+        for number in range(1, crew.MAX_REVIEW_ROUNDS + 1):
+            write_review(self.ws, "question", number, verdict="revise", findings=[
+                {"id": "F1", "severity": "major", "status": "open", "text": "t", "evidence": "plan.json"}])
+        self.assertIn("take open findings F1 to the human", " ".join(self.steps()))
+
+
 if __name__ == "__main__":
     unittest.main()

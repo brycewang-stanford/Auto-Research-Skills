@@ -32,6 +32,9 @@ The human is the author of the paper. You work for them.
 `CREW` below means `python3 <plugin root>/scripts/crew.py`. Read
 `<plugin root>/PROTOCOL.md` once before you start; it defines every file.
 Run `CREW status <ws>` whenever you resume, and `CREW validate <ws>` after every handoff.
+Then run `CREW next <ws>`: it reads the workspace and prints the next steps, with the ones
+that can go at the same time on a `parallel:` line. Follow it unless you have a reason you
+can state; it never approves anything and never writes a file.
 
 ## Delegating
 
@@ -50,8 +53,27 @@ writes `briefs/<UTC time>-<role>.md` and logs it, and send the agent exactly tha
 Follow-up instructions to an agent that is already running are briefs too. A reader must
 be able to check that no brief leaked an answer, a result, or an opinion.
 
-Run independent tasks in parallel (for example Scout and Designer). After each returns,
-validate, update the task's status in `plan.json`, and go on.
+After each returns, validate, update the task's status in `plan.json`, and go on.
+
+## Going fast
+
+In the first eight gallery papers most of the elapsed time that was not a human gate went
+to waiting on one subagent at a time and to review rounds that re-read unchanged files.
+The protocol does not need either. Launch independent subagents in one message, in the
+background, and keep working while they run:
+
+| While | Run together |
+|---|---|
+| Question stage | Scout novelty check · PI drafts the hypotheses |
+| Design stage | Scout literature · Designer · Data RA fetches and documents the data (data-prep runs only, no statistic that relates treatment to outcome) |
+| Design reviews | Reviewer on `literature` · a second Reviewer on `design` |
+| Results stage, from the design gate on | Econometrician/Experimenter writes code · Writer drafts the sections that state no result (data, empirical strategy or setup, related work) · Figures RA writes figure and table scripts against the planned run outputs |
+| Paper stage, once the Figures RA's runs are logged | Replicator's clean rerun · Writer finishes the paper · Reviewer on `paper` after the draft compiles |
+
+After a review, send **every** open finding at once, one brief per owning role, all in one
+message, so a round costs one revision cycle, not one per finding. Ask each owner to fix or
+rebut every finding it got before it returns. Keep the briefs short: the paths, the task
+id, the finding ids and what done means. The role reads the rest itself.
 
 ## Briefing the Reviewer
 

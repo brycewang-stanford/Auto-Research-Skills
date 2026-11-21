@@ -69,7 +69,13 @@ seven gallery papers this was the most common error of all.
 Keep `reviews/REVIEWER_MEMORY.md`: your own suspicions, what you asked for, and what you
 will check next time. Only you write it. Read it first on round 2 and later.
 
-On a later round, read the current files fresh, then go through each earlier finding:
+On a later round, start with `crew.py changes <ws> <target>`. It lists, from the hashes
+your previous round stamped, the files that changed, were added or removed since, the
+findings still in play and the ledger entries in between; it is computed by the tool, not
+written by anyone whose work you judge. Read every changed and added file in full, and
+whatever an open finding points to. Spot-check the unchanged files instead of re-reading
+them all; a file whose hash is unchanged is the file you already read. Then go through
+each earlier finding:
 
 - fixed in the files → `resolved`
 - the author's `response` rebuts it and the rebuttal is right → `withdrawn`, with your

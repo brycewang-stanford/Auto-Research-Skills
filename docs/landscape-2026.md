@@ -182,6 +182,46 @@ were checked against the linked primary sources on 2026-10-19/20; items marked
 - Added **research-stage starter kits**: one collision-free, safety-gated kit
   of five skills per stage, installable in one command.
 
+## November 2026: where Free-Research-Crew stands
+
+Since 2026-11-18 this repo also ships a research crew ([`crew/`](../crew/)). This is
+how it compares with the end-to-end systems that matter most for it. The figures come from
+each project's own paper or page, as of 2026-11-21; they are not our measurements.
+
+| System | Scope | Human in the loop | Enforced by a tool, not by prompts | Track record |
+|---|---|---|---|---|
+| **Project APE** (U. Zurich, Social Catalyst Lab) | Fully autonomous policy-evaluation papers (economics) | No | Not described | ~900 generated papers ranked against 41 AER / AEJ: Policy papers by an LLM judge; human papers win ~83% of matchups ([arXiv 2604.03338](https://arxiv.org/abs/2604.03338)) |
+| **HLER** (Zhu & Wang, 2026) | Empirical economics from a given dataset | Yes, at question selection and review | Not described | Reports feasible questions in 87% of cases with dataset-aware ideation, about $1 per manuscript ([arXiv 2603.07444](https://arxiv.org/abs/2603.07444)) |
+| **EvoScientist** (2026) | Self-evolving three-agent system, CS | Limited | Not described | Six papers accepted at the ICAIS 2025 AI Scientist track ([arXiv 2603.08127](https://arxiv.org/abs/2603.08127)) |
+| **AI Scientist v2** (Sakana) | ML papers, agentic tree search | No | No | First fully generated paper accepted at a workshop |
+| **Academic Research Skills** (Claude Code) | Deep research, writing, a seven-agent review suite | Yes | No | The most-starred Claude Code research plugin (several thousand stars) |
+| **ARIS** ([`skills/aris`](../skills/aris)) | Overnight ML research loops with an adversarial reviewer | Optional | Partly | The design the crew's Reviewer follows |
+| **Free-Research-Crew** ([`crew/`](../crew/)) | CS and social-science papers with real runs | Yes, four gates the tool and a hook enforce | Yes: no analysis before the design gate, code reviewed before it runs, every number a macro from a logged run, every citation verified, a clean rerun before submission | 8 seed papers (7 final), mostly replications, with full workspaces and failures published; passes a null-effect seed with a hidden answer key |
+
+**What the crew does best.** Nothing else on this list makes integrity mechanical: the
+tool refuses an analysis run before the design gate or before a passing code review, fails
+validation when a number in the paper does not come from a logged run, and requires a
+clean rerun before submission. It is also one of very few systems with a social-science
+track built around identification, and the only one we know of that is tested on data
+whose true effect is zero.
+
+**Where it is not the best yet.**
+
+1. **Volume and novelty.** APE has produced roughly a hundred times as many papers, and
+   on new questions. The crew's papers are mostly replications of known results. No crew
+   paper yet asks an open question.
+2. **Speed.** A paper took 18–25 hours of elapsed time, 0.4–13 of them waiting at gates,
+   with the role subagents run one after another. `crew.py next` and `crew.py changes`
+   (2026-11-21) target this: they put independent roles in parallel and make each
+   review round read only what changed.
+3. **No external quality score.** APE and EvoScientist report results against human
+   papers or a venue; the crew has not been run on
+   [`benchmarks/discoverybench`](../benchmarks/discoverybench) or
+   [`benchmarks/scienceagentbench`](../benchmarks/scienceagentbench), or judged against human papers.
+4. **One runtime proven.** All papers ran in Claude Code; the Codex adapter installs but
+   has not carried a paper end to end.
+5. **Reach.** Academic Research Skills has far more users; the crew launched on 2026-11-20.
+
 ## Cross-cutting trends (2026)
 
 1. **Autonomy is retreating, not advancing.** The narrative moved from
