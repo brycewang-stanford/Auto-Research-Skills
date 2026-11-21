@@ -53,8 +53,10 @@ The adapter (`crew/adapters/codex/install.py`) installs:
 - the same guard as hooks. It refuses gate approvals the human did not give, approvals
   while a subagent runs, and `apply_patch` edits that approve a gate.
 
-An end-to-end test paper in Codex is in progress at release time. Until it completes, the
-adapter is verified to load and its guard is tested, but no paper has finished in Codex.
+An end-to-end test in Codex ([`gallery/ss-null-effect-codex`](https://github.com/brycewang-stanford/Free-Research-Crew/tree/main/gallery/ss-null-effect-codex))
+ran through the results stage: the PI delegated to the custom agents, the guard ran as
+hooks, and the code was reviewed before every run. It was then stopped by choice, so no
+paper has yet passed all four gates in Codex.
 
 ## Eighth gallery paper
 
