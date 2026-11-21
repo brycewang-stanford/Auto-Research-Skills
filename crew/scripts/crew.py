@@ -1539,6 +1539,10 @@ def next_actions(ws: Path) -> list[str]:
             if target == "paper" and not (ws / "paper" / "main.tex").exists():
                 steps.append("paper: Figures RA builds figures/tables, then the Writer drafts paper/main.tex")
                 continue
+            drafting = [str(t.get("id")) for t in tasks if t.get("owner") in ("writer", "figures-ra")]
+            if target == "paper" and drafting:  # an early draft exists, but the paper is not finished
+                steps.append(f"paper: finish {', '.join(drafting)} before the paper review")
+                continue
             if latest is None:
                 steps.append(f"Reviewer: {target} round 1")
                 continue

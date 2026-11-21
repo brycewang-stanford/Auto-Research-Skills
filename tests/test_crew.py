@@ -733,6 +733,19 @@ class ChangesAndNextTest(unittest.TestCase):
                   lambda r: r["findings"][0].update(response="Narrowed the claim."))
         self.assertIn("question round 2", " ".join(self.steps()))
 
+    def test_next_waits_for_the_writer_before_the_paper_review(self) -> None:
+        def change(plan):
+            plan.update(question="Q?", hypotheses=["H"])
+            plan["design"].update(summary="s", method="m", analysis_plan=["main run"])
+            plan["tasks"] = [{"id": "w-paper", "title": "paper", "owner": "writer", "status": "doing"}]
+            for gate in ("question", "design", "results"):
+                plan["gates"][gate].update(status="approved", decided_by="Human", decided_on=crew.now(), note="ok")
+        edit_json(self.ws / "plan.json", change)
+        (self.ws / "paper" / "main.tex").write_text("\\documentclass{article}\n")
+        steps = " ".join(self.steps())
+        self.assertIn("finish w-paper before the paper review", steps)
+        self.assertNotIn("Reviewer: paper round 1", steps)
+
     def test_next_hands_the_last_round_to_the_human(self) -> None:
         edit_json(self.ws / "plan.json", lambda plan: plan.update(question="Q?", hypotheses=["H"]))
         for number in range(1, crew.MAX_REVIEW_ROUNDS + 1):
