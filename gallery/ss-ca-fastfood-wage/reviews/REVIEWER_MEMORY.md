@@ -202,3 +202,20 @@ Check next round:
 - plan.json contribution no longer says the bound 'separates the two published readings' (R2).
 - f-figs is still todo. The figure scripts changed after code-r1 (C3, 11:56Z), so fig runs need code-r2.
 - Paper stage: the abstract shows S1/S2 labels with the R4 caveat; no 'no first stage' wording; no 'robust' wording (all checks inconclusive, n_not_robust 0 because every sign category is 'undetermined', not because estimates agree).
+
+## code-r4 (2026-11-21, verdict pass; last code round)
+
+Target: code/posthoc.py (D7, post hoc, report-only). C1-C5 still resolved. New: C6-C9, all minor and open; they go to the human.
+
+- C6: part (b) 'without Georgia' removes only Georgia's six L tests. Georgia stays in nu_h1 (s2_h1_13 = 0.0105, the largest of 50, 17.8% of the sum; nu without it 17.92 against 14.41), in California's h1 SE_n (R50 donor) and in the other nine L units' SE_n. The direction probably favours rejection, so the qualitative flip should survive. This was my own results-r1 framing, computed the same partial way. Lesson: say 'own tests removed' when I mean that.
+- C7: Georgia-only deletion; asked for leave-one-L-state-out c_hi and decisions.
+- C8: 722511/7225/10 comparison series are in georgia.csv only, not in metrics; D7(a) 'whether ... artifact' wording; county_sum emp includes suppressed zeros.
+- C9: claim r-h1-crit-georgia states the posthoc result with level-mde support only.
+
+Ran (scratch rv-c4/ws, copies of the seven declared inputs; nothing written to the workspace): posthoc.py exits 0 in about 1 s. Results: GA 722513 aww 304 -> 255 (2014Q4 -> 2015Q1), level shift, yoy dev -0.139 to -0.170; emp dev within ±0.012; estabs +3.8%; 0 suppressed quarters; 722511 aww not down. Largest other |dev| is FL 2018Q4 at -0.078. Part (b): 54 values, others' max T 1.13, c_hi95 = t_nu 1.758, all three decisions reject (pre-specified 0). Part (c): emp slope 0.00229/q (implied +0.0149), wage 0.00847/q (implied +0.055, against an h1 ATT of 0.092), wage RMS 0.141.
+
+Check next time (results r2 / paper):
+- runs/posthoc ran once, names code-r4 as its code review, with --code posthoc.py and sclib.py and the seven inputs in runs/NOTES.md. If posthoc.py changes for C6-C8 it needs a new code review; code is capped at r4, so it would have to run --unreviewed with a reason.
+- The paper never presents b_*_reject_noga as a verdict or as 'H1 supported'. Georgia's removal is described as partial (C6) and as post hoc.
+- The wage drift implied over the post window (about 0.055) is large next to the h1 ATT; the limits section should say so, because the DDT wage counterfactual itself drifts.
+- r-h1-crit-georgia is re-supported by posthoc metrics (C9).

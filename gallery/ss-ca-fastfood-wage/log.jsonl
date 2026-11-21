@@ -141,3 +141,5 @@
 {"time": "2026-11-21T12:10:21Z", "role": "pi", "action": "deviation-recorded", "detail": "D7 post hoc report-only checks after results-r1 (Georgia series, H1 quantiles without Georgia, 2014-2019 drift); contribution narrowed (R2)"}
 {"time": "2026-11-21T12:10:40Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T121040Z (results-r1 claims; posthoc.py (D7))"}
 {"time": "2026-11-21T12:14:53Z", "role": "econometrician", "action": "revise-claims", "detail": "results-r1 R1, R2, R4-R8: claim texts revised (L-calibrated qualifier and p at t_nu for H1, label probabilities and k_h2 beside H2, S2 pre-period caveat, signed plc-nonff claim, ca_h1 pseudo-ATT claims, FP diagnostic wording, templated texts regenerated); 974 result claims, no value or macro changed; responses written; code/posthoc.py (D7) written and unit-tested on synthetic inputs, not run (awaits code review)"}
+{"time": "2026-11-21T12:15:35Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T121535Z (code-r4)"}
+{"time": "2026-11-21T12:19:26Z", "role": "reviewer", "action": "review-recorded", "detail": "code-r4 verdict=pass files=40"}
