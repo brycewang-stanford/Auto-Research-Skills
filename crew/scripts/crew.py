@@ -1445,6 +1445,7 @@ def cmd_changes(args: argparse.Namespace) -> int:
         for path in ws.rglob("*"):
             relative = path.relative_to(ws)
             if (path.is_file() and not skip & set(relative.parts) and str(relative) not in current
+                    and relative.parts[:2] != ("data", "raw")  # fetched files; the manifest records them
                     and str(relative) != "log.jsonl" and path.stat().st_mtime > cutoff):
                 elsewhere.append(str(relative))
     findings = [f for f in base.get("findings") or [] if isinstance(f, dict)]
