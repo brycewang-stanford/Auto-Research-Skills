@@ -219,3 +219,19 @@ Check next time (results r2 / paper):
 - The paper never presents b_*_reject_noga as a verdict or as 'H1 supported'. Georgia's removal is described as partial (C6) and as post hoc.
 - The wage drift implied over the post window (about 0.055) is large next to the h1 ATT; the limits section should say so, because the DDT wage counterfactual itself drifts.
 - r-h1-crit-georgia is re-supported by posthoc metrics (C9).
+
+## results-r2 (2026-11-21, verdict revise)
+
+R1-R8 resolved (claims fixed, contribution narrowed, posthoc (c) claimed). New: R9 major; R10, R11 minor. No critical finding.
+
+What I did (report-only, from run outputs; no estimator run): checked posthoc metrics against my results-r1 numbers (match); verified Georgia is the largest s2_h1 donor share (0.178 of 50); checked leave-one-out c_hi differences (9.4e-10, 6.0e-10) against r-ph-loo-only-georgia's 1e-9; recomputed the 2014-2019 wage slope (0.00847/q) and the largest 2014-2019 quarter-to-quarter wage-gap change (0.030) against the 2024Q1->2024Q2 step (0.071). Script in scratch rv-r2/write_review.py.
+
+Suspicions:
+- R9: the post hoc no-Georgia check (H1 exceeds t_nu) and the 2014-2019 drift (0.055 of a 0.092 ATT) pull opposite ways. Watch the Writer picking one. The paper must cite both or neither, and keep the pre-specified verdict as the verdict.
+- The posthoc run was --unreviewed (code changed after code-r4); D7 in plan.json still says 'after its code review' (R10). The AI-use statement and deviations must say unreviewed with the human's agreement; process.tex has CrewRunsUnreviewed = 1.
+- posthoc metrics.json/stdout carry defective b_loo_*_changes_chi flags (all 1); a clean rerun will reproduce them (R11).
+- literature.tex:43 now also warns (0.0137 = \CaHOneSeventeenQOneTau, Melo's coefficient): another coincidence; needs `% crew:literal` with 44's 0.0240.
+
+Check next round / paper stage:
+- `crew.py changes <ws> results`: a joint text claim for R9; D7 text updated; replication note for R11.
+- Paper: no 'H1 supported without Georgia', no 'wage effect is drift'; Georgia removal described as partial (Georgia stays in nu-pre and every SE) and post hoc; S2 caveat next to its interval; 'inconclusive' framed as expected ex ante; no 'robust'.
