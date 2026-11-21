@@ -7,11 +7,67 @@
   ],
   "contribution": "A pre-specified (not blind) update with modest novelty, stated as such: the estimand, base period, a rule that picks the primary estimator from pre-2023Q3 data only, inference valid with a single treated state and decision rules are fixed and reviewed before any post-2023Q3 outcome is computed; H2 adds an equivalence test against a 2% bound that separates the two published readings; H3 compares year two with year one next to the yearly wage effects, because the fast-food premium over California's general minimum fell from $4.00 to $3.10; the data add one preliminary quarter (2026Q1) to the latest published window (2025Q4). Decompositions of the published disagreement (Dube 2026, Tables D1-D2; Clemens et al. w35931, Table A1; Sosinskiy and Reich 2026, Appendix A) and published anticipation and base-period checks (Dube 2026, Table 1 Panel B; Sosinskiy and Reich 2026, Table A3; w35931, footnote 5) are cited, not repeated as findings. The PI and the Scout know the published estimates (disclosed); the analysing roles compute nothing on post-period outcomes before the design gate. Limits known now: QCEW counts jobs and weekly earnings, not hours or hourly wages; part of NAICS 722513 is outside the law's coverage (the published 70% coverage figure refers to 722513 and 722515 together; the share for 722513 alone is not known), so effects on covered jobs are diluted by an unknown factor; some covered chains sit in NAICS 722515, which therefore cannot serve as a control; county cells are suppressed more often from 2025, so the design must say whether the analysis is at state or county level; 2026Q1 is preliminary and will be revised.",
   "design": {
-    "summary": "",
-    "method": "",
-    "data": "",
-    "analysis_plan": [],
-    "threats": []
+    "summary": "State-level comparison of California's private NAICS 722513 employment (quarterly mean of the three monthly QCEW levels, seasonally adjusted with fixed 2014-2019 state factors) with donor states over 2024Q2-2026Q1 relative to the base quarter 2023Q3. 2023Q4-2024Q1 is held out as a report-only anticipation window, and 2020Q1-2021Q4 is excluded from every fitting window. The primary estimator and pool are not chosen by judgement. One logged analysis run reads only a panel truncated at 2019Q4. It picks the candidate with the smallest root mean squared error of California's placebo pooled ATTs on log employment at six pre-COVID pseudo-treatment dates (2016Q1-2017Q2). The 24 candidates are: DD and pre-trend-adjusted DD, each with CEM-style aggregate or Dube-style population weights; demeaned synthetic control; and synthetic DID. Each is fitted on log employment or log employment per capita, with Dube's 20 federal-minimum states or with all 50 other states and DC. Inference is a population-scaled placebo t-test (Ferman-Pinto, as implemented by Dube). Its level is checked on the same truncated panel before any post-2023Q3 outcome is read, and it is replaced by placebo-calibrated critical values if it over-rejects. H1 (log weekly wage), H2 (sign x size rule, b = 0.02) and H3 (year two minus year one) then use the selected estimator and pool. Both camps' specifications (CEM detrended indexed DD, Dube SDID) are named secondaries. Pre-specified robustness and placebo checks (Dube's 2023Q4 base, a pre-AB 257 2022Q2 base, the other pool, NAICS 7225, the final-data window, non-722513 employment, NAICS 722511) are reported whatever they show.",
+    "estimand": "tau = (1/8) * sum over t in 2024Q2..2026Q1 of [Y_CA,t(1) - Y_CA,t(0)] - [Y_CA,2023Q3(1) - Y_CA,2023Q3(0)], where Y is seasonally adjusted log employment (quarterly mean of the three monthly levels) of private NAICS 722513 establishments in California and Y(0) is the path without AB 1228. If AB 1228 had no effect before its signing (28 September 2023, after the September pay period), the second bracket is zero. tau is an intent-to-treat effect on the whole industry code, covered and uncovered establishments together, and in log points (reported also as 100*(exp(tau)-1) percent and as jobs). H1: the same with log average weekly wage. H3: tau_2 - tau_1, with year 1 = 2024Q2-2025Q1 and year 2 = 2025Q2-2026Q1. Candidates on log(employment/population) estimate the same tau, under the maintained assumption that AB 1228 did not change California's resident population; this is why the selection rule can compare all candidates on one scale (F16).",
+    "identifying_assumption": "Without AB 1228, California's seasonally adjusted log 722513 employment (H1: log weekly wage) after 2023Q3 would have stayed as far from the selected counterfactual as it was before. For DD candidates the reference is the 2023Q3 gap, with the pre-period gap trend extrapolated for the trend variant. For synthetic control the reference is the pre-period mean gap; for SDID it is the time-weighted pre-period gap. The rule's premise is that the candidate that reproduced California's path best at pre-COVID pseudo-dates is the one for which this holds best. The data would contradict the assumption if: (i) the selected candidate's placebo RMSE is near or above b = 0.02 (reported by select); (ii) the event path shows systematic gaps over 2022Q1-2023Q3 (event-path); (iii) employment outside 722513 shows an effect (plc-nonff); or (iv) the estimate moves materially with the base (rob-base-2023q4, rob-pre-ab257) or with the pool (rob-pool). None of these checks can confirm the assumption.",
+    "method": "SOFTWARE: Python 3.14.6, numpy 2.5.3, scipy 1.18.1, pandas 3.0.5, statsmodels 0.15.0. Code/requirements.txt is frozen from a fresh venv; StatsPAI 1.43.0 may be used only as a cross-check in check-methods, never in a run that produces a claim. Nothing is random. Weights are solved by scipy.optimize.minimize (SLSQP, simplex constraints, start at uniform weights, ftol 1e-12, maxiter 2000); the tests check the KKT conditions to 1e-6. NOTATION: B is the base quarter: 2023Q3 for the real analysis, B' for a pseudo-date. COVID quarters C = 2020Q1-2021Q4 (Dube's exclusion) are never used in any fit, base, trend or SE calculation. Fit window F(B) = all quarters from 2014Q1 to B that are not in C. Anticipation window A(B) = {B+1, B+2}. Post window P(B) = B+3..B+10 (8 quarters); year 1 = B+3..B+6; year 2 = B+7..B+10. For the real B these are F = 2014Q1-2019Q4 plus 2022Q1-2023Q3 (31 quarters), A = 2023Q4-2024Q1 and P = 2024Q2-2026Q1. Time t is the calendar quarter index, so the COVID gap counts as elapsed time in trends. OUTCOMES (per state and per donor aggregate; seasonal adjustment is applied to every series that enters an estimator, after aggregation): E = ln(mean of month1-3 employment); P = SA ln(employment) - ln(population); W = ln(avg_wkly_wage) as BLS publishes it (aggregates: ln(sum of total_qtrly_wages / (13 * sum of mean employment))). SEASONAL ADJUSTMENT, fixed and the same for every run: 2x4 centred moving average m_t = (0.5y_{t-2} + y_{t-1} + y_t + y_{t+1} + 0.5y_{t+2})/4 for t = 2014Q3..2019Q2 (it uses only 2014Q1-2019Q4). The factor s_q is the mean of y_t - m_t over the five quarters of type q, minus the mean of the four s_q. The adjusted series is y_t - s_q(t) for all t. ESTIMATORS (closed forms; g_t = Y_CA,t - Ybar_donor,t): DD: tau = mean_{t in P} g_t - g_B. DDT (CEM-style detrended DD): tau = mean_{t in P} [g_t - g_B - b(t - B)], where b is the OLS slope of g_t on t over the calendar quarters B-8..B that are not in C. For the real B that is 2022Q1-2023Q3 (7 points); for pseudo-dates, 9 points. Equivalent to state-specific linear trends in the weighted 2x2 comparison. Donor average for DD and DDT, two weightings: AGG (CEM): the donor aggregate series, i.e. summed employment, summed population and summed wages, logged. POPW (Dube): population-weighted mean of donor log series, weights pop_j at B. SC (demeaned synthetic control, Doudchenko-Imbens / Ferman-Pinto): simplex weights w minimising sum over F of [(Y_CA,t - Ybar_CA,F) - sum_j w_j (Y_j,t - Ybar_j,F)]^2; tau = mean over P of the same demeaned gap. The demeaned form is needed because California's log employment level lies outside the donors' convex hull. SDID (Arkhangelsky et al. 2021, Algorithm 1, no sparsification): the unit weights (omega0, omega in the simplex) minimise sum over F of (omega0 + sum_j omega_j Y_jt - Y_CA,t)^2 + zeta^2 |F| ||omega||^2. Here zeta = (1 * 8)^(1/4) * sigma_hat, and sigma_hat is the SD of donor first differences Y_j,t+1 - Y_j,t over consecutive calendar quarters that are both in F. The time weights (lambda0, lambda in the simplex) minimise sum_j (lambda0 + sum_{s in F} lambda_s Y_js - mean_{t in window} Y_jt)^2 + (1e-6 sigma_hat)^2 |F| ||lambda||^2. tau = (mean_window Y_CA - sum_s lambda_s Y_CA,s) - sum_j omega_j (mean_window Y_j - sum_s lambda_s Y_js). omega and zeta are fitted once with the 8-quarter post window and reused for the year windows and the anticipation window; lambda is refitted for each window. For W (H1), each estimator is re-applied to the wage series with the same pool: weights refitted on wages for SC/SDID, the gap trend fitted on wages for DDT, and the same weighting for DD/DDT (F16: H1 uses the selected estimator and pool with log weekly wage as outcome). Dube's reuse of employment weights appears only in S2. CANDIDATE SET (24, in this order, which is also the last tie-break): for e in [DD, DDT], w in [AGG, POPW], n in [E, P], pool in [D20, R50]: 16 candidates. Then SC x [E, P] x [D20, R50] and SDID x [E, P] x [D20, R50]: 8. Ids look like 'DDT-POPW-P-D20'. SELECTION RULE (run select; input data/derived/state_panel_pre.csv, 2014Q1-2019Q4 only; the single cutoff for the selection, the level check and the MDE is 2019Q4. That is earlier than both 'before 2023Q3' (H2 rule) and 'pre-2023Q4' (H2 MDE), and earlier than AB 257's enactment in September 2022 (literature-r1 L1)): pseudo-dates B' in {2016Q1, 2016Q2, 2016Q3, 2016Q4, 2017Q1, 2017Q2}, California treated, the candidate's pool as donors, windows F(B'), A(B'), P(B') as above, so every pseudo-window ends by 2019Q4 and contains no COVID quarter. B' starts at 2016Q1 because DDT needs B'-8 >= 2014Q1, and stops at 2017Q2 because B'+10 <= 2019Q4. The pseudo-ATT is tau_c(B') in log points; for P candidates it is read as an estimate of the (zero) effect on log employment. RMSE_c = sqrt(mean over the six B' of tau_c(B')^2). Primary = argmin RMSE_c. Tie-break: RMSEs equal after rounding to 4 decimals, then smaller max |tau_c(B')|, then the earlier candidate in the order above. The rule's parameters were fixed by the Designer on 2026-11-21 without computing any placebo or any statistic of the outcomes; no alternative set of pseudo-dates is computed by anyone (F15a). INFERENCE (H1-H3, valid with one treated state; no clustered SEs): for the statistic tau_CA, compute the placebo estimate tau_j for each donor j in the pool (J donors), treating j as treated with the other J-1 donors (California excluded) and the same estimator, windows and outcome. Scale z_j = tau_j * sqrt(pop_j(B) / pop_CA(B)) (Dube's Ferman-Pinto scaling by population). SE = sqrt((1/J) sum_j z_j^2) (mean-zero placebos; J degrees of freedom). Variant 't': two-sided 95% CI = tau +/- t_{J,0.975} SE; 90% CI = tau +/- t_{J,0.95} SE; one-sided 5% test (H1) rejects if tau/SE > t_{J,0.95}. P-values are continuous, so a 5% test is attainable without California ranking first among the placebos (with D20, J = 20; with R50, J = 50). LEVEL CHECK (run level-mde; truncated input only, selected candidate only): at each of the six pseudo-dates, for each u in the pool plus California, the procedure above is applied with u treated and donors D_u = (pool minus u) plus California (CA itself uses the pool), so the donor count stays J. This gives T_u = tau_u/SE_u for three statistics: pooled W (H1), pooled E-or-P (H2), and the year-2-minus-year-1 difference (H3). For each statistic the empirical rates over the 6(J+1) tests of T > t_{J,0.95}, T < -t_{J,0.95} and |T| > t_{J,0.975} are reported. Variant 't' stands for a statistic if all three rates are <= 0.10. Otherwise that statistic uses variant 'calibrated': critical values are the empirical quantiles of its 6(J+1) T values (upper quantiles numpy method 'higher', lower 'lower'), and CIs are tau - q_hi SE to tau - q_lo SE. With 126 or 306 draws every quantile used (0.025 to 0.975) is attainable, so the stated level is attainable either way. Reported as a diagnostic only: k = RMS of California's own six T values. Six overlapping windows are too few to act on. The design gate therefore approves a rule whose winner is unknown, together with a level procedure that holds for any winner. The empirical level is documented by level-mde before any post-2023Q3 outcome is read (F15b). MDE (level-mde): SE_pre = sqrt(mean over B' of SE_CA(B')^2) for each statistic; MDE = (q_0.975 - q_0.20) * SE_pre, using the variant's reference distribution (t_J, or the empirical T quantiles). MDE_H2 is reported next to H2 and compared with b = 0.02. If MDE_H3 > 0.04, H3 is reported as uninformative whatever its estimate. MDE_H1 is reported. DECISIONS (verdict run; exactly the approved rules): H1 supported if the pooled W statistic rejects the one-sided 5% test. If not, H2 is reported as uninformative about the wage floor. H2: sign from the 95% CI [L, U], size from the 90% CI [l, u] against b = 0.02, and the label from the nine-cell table in hypotheses[1]. H3: 95% CI of tau_2 - tau_1 below 0 means 'larger decline in year two', above 0 means 'smaller decline in year two', otherwise 'no detectable change'. Own-wage elasticities (pooled and yearly) = employment ATT / wage ATT. They are reported only for windows whose wage effect rejects the one-sided 5% test, otherwise 'not computed'. They are point values only, and dilution by uncovered establishments roughly cancels in the ratio. MULTIPLE TESTING: no family-wise correction. H2 is the single primary employment test, H1 is a gate for reading it, and H3 is a separately labelled secondary with its own MDE rule. Secondaries, robustness checks and placebos are reported with CIs and rule labels marked 'not the headline'; they never create a new finding. The paper says that with two placebo outcomes a chance 'failure' of one at 95% has probability of about 0.10. ORDER AFTER THE GATE: select, then level-mde, then any run that reads post-2023Q3 outcomes. Each post-period script declares runs/select/metrics.json and runs/level-mde/metrics.json as --input and takes the candidate and inference variant from them; nothing is hard-coded. select is run once. If a reviewed bug fix forces a rerun with --replace, the superseded record stays under runs/.superseded and the paper reports every selection run and its winner.",
+    "data": "SOURCES: (1) BLS QCEW open-data industry slices, 2014Q1-2026Q1, vintage pinned by the manifest hashes (dr-fetch; data/CODEBOOK.md). Used: state rows (agglvl 58 for 722513 and 722511, 56 for 7225, 50 for industry 10) of NAICS 722513 private (own 5), 722511 private, 7225 private, and 10 Total Covered (own 0). County rows are not used: suppression of county restaurant cells jumps in 2025 in most states (CODEBOOK), so a county panel would be selected partly on post-period disclosure. No 722513 or 722511 state row is suppressed, and state totals include suppressed county data. (2) U.S. Census Bureau Population Estimates Program, July 1 resident population by state. 2013-2019 come from the 2010-2020 intercensal file sc-est2020int-alldata6.csv (SEX 0, ORIGIN 0, summed over RACE and AGE); 2020-2025 come from Vintage 2025 NST-EST2025-ALLDATA.csv (POPESTIMATE2020-2025). Both are in www2.census.gov/programs-surveys/popest/datasets/ (directory listings checked 2026-11-21) and are public domain. ln pop is interpolated linearly between July 1 anchors (placed at year + 0.5), with quarter q of year y placed at y + (q - 0.5)/4, and extrapolated after 2025.5 with the 2024-2025 log growth (2025Q4, 2026Q1 flagged). (3) For code checks only: synthdid package data california_prop99.csv (github.com/synth-inference/synthdid, data/; GPL>=2 | BSD-3), used in check-methods and never in a study run. UNIT AND SAMPLE: state x quarter; 50 states and DC (51 units; Puerto Rico and the Virgin Islands excluded); 2014Q1-2026Q1; treated unit California (06). Pools: D20 = Dube's 20 states whose binding fast-food minimum is the federal $7.25 (AL 01, GA 13, IA 19, ID 16, IN 18, KS 20, KY 21, LA 22, MS 28, NC 37, ND 38, NH 33, OK 40, PA 42, SC 45, TN 47, TX 48, UT 49, WI 55, WY 56); R50 = all 50 other units (CEM's 'rest of US', here including Alaska and Michigan, which CEMN drop for their monthly panel; our state rows have no gaps). COVID quarters 2020Q1-2021Q4 stay in the files but are used only in figures. 722515 is never used (covered chains). VARIABLES (built by prepare-state): emp_X = mean(month1_emplvl, month2_emplvl, month3_emplvl) for X in {722513, 722511, 7225, 10}; emp_nonff = emp_10 - emp_722513; sep_722513 = month3_emplvl (for the CEM cross-check); wages_722513 = total_qtrly_wages; aww_722513 = avg_wkly_wage (checked against wages / (13 * emp) to within $1); pop; sup_7225 = state 7225 row suppressed. FILES: data/derived/state_panel.csv (all quarters) and data/derived/state_panel_pre.csv (the same rows for 2014Q1-2019Q4 only; the only input of select and level-mde). Both come from one data-prep run that computes no statistic comparing areas or periods.",
+    "analysis_plan": [
+      "0a. fetch-data and 0b. prepare-data (data-prep, data-ra; done): QCEW slices and county/state panel (data/CODEBOOK.md).",
+      "0c. fetch-pop (data-prep, data-ra, code/fetch_pop.py; task dr-pop): the two Census files in data/raw/census/, manifest entries with sha256, URL, license and retrieval date; the intercensal file's totals are summed in prepare-state, not here.",
+      "0d. fetch-prop99 (data-prep, data-ra, code/fetch_prop99.py; task dr-prop99): california_prop99.csv into data/raw/synthdid/, manifest entry and license. Used only by check-methods.",
+      "0e. prepare-state (data-prep, data-ra, code/prepare_state.py; task dr-state): builds state_panel.csv and state_panel_pre.csv as in design.data. Checks: 51 units x 49 quarters, no missing 722513/722511/10 state value, the aww identity, the splice of the two population files (count of states whose July 2020 Vintage 2025 / July 2019 intercensal ratio lies outside 0.97-1.03; population only, no outcome), the population extrapolation flag, and state_panel_pre.csv = the 2014Q1-2019Q4 rows of state_panel.csv byte for byte. CODEBOOK addendum. No statistic comparing areas or periods.",
+      "0f. check-methods (data-prep, econometrician, code/test_sclib.py importing code/sclib.py; synthetic data and Prop 99 only; task e-check; before the code review). (i) Prop 99 (39 states, 1970-2000, treatment 1989): DID = -27.35 +/- 0.05, SDID = -15.6 +/- 0.5 and SC without intercept (zeta = 1e-6 sigma_hat, no time weights) = -19.6 +/- 0.5, against Arkhangelsky et al. (2021) Table 1 as recorded by the Scout. A miss is a bug to find, not a reason to change the algorithm. (ii) Synthetic panels with one treated unit, 20 and 50 donors and a known effect: DD/DDT closed forms equal an OLS TWFE with unit and time effects (plus unit trends for DDT), population weights included, to 1e-10; SC and SDID recover exact weights when the treated unit is a convex combination; demeaned SC equals the SDID routine with zeta = 0 and uniform time weights; the KKT conditions hold to 1e-6. (iii) Seasonal factors computed from state_panel_pre.csv equal those computed from state_panel.csv. (iv) Monte Carlo, 2,000 replications, Gaussian errors with variance proportional to 1/pop and true effect 0: the variant-'t' one-sided 5% test rejects in 0.05 +/- 3*sqrt(0.05*0.95/2000), stated in the script before it runs. (v) select.py and level_mde.py raise an error if their input contains any quarter after 2019Q4.",
+      "1. select (analysis, econometrician, code/select.py + code/sclib.py; --input data/derived/state_panel_pre.csv only; first analysis run after the design gate, run once): the 24 candidates x 6 pseudo-dates of California pseudo-ATTs (runs/select/pseudo_atts.csv); metrics rmse_<id> for every candidate, maxabs_<id>, selected (the id), selected_rmse, tie_used (0/1). All values are pre-2020 placebo numbers; the paper reports all 24.",
+      "2. level-mde (analysis, econometrician, code/level_mde.py; --input state_panel_pre.csv and runs/select/metrics.json; before any post-period run): for the H1, H2 and H3 statistics of the selected candidate, the three empirical rejection rates, the variant ('t' or 'calibrated') and its quantiles q_0.025, q_0.05, q_0.20, q_0.80, q_0.95, q_0.975, plus SE_pre, MDE_h1, MDE_h2, MDE_h3, h3_informative (MDE_h3 <= 0.04) and the diagnostic k.",
+      "3. h1-wage (analysis, code/h1_wage.py; full panel): pooled W ATT 2024Q2-2026Q1 and the year-1 and year-2 W ATTs, SEs, the one-sided 5% test for each, dollars at the 2023Q3 California weekly wage. H1 counts against the first stage if the pooled test does not reject.",
+      "4. h2-emp (analysis, code/h2_emp.py): pooled E-or-P ATT, SE, 95% and 90% CIs, placebo estimates, percent and implied jobs (mean post California employment x (1 - exp(-tau))), MDE_h2 carried through. A 'decline of at least 2%' counts against the near-zero reading (Dube); 'no effect as large as 2%' or 'decline smaller than 2%' count against the about -3.5% reading (CEMN).",
+      "5. h3-years (analysis, code/h3_years.py): year-1 and year-2 employment ATTs (SDID: same omega, lambda refitted per year), the difference, its SE and 95% CI, and yearly elasticities (with h1-wage metrics as --input). The H3 label is replaced by 'uninformative' if h3_informative = 0.",
+      "6. anticip (analysis, code/anticip.py; report-only): the employment and wage ATT over 2023Q4-2024Q1 against base 2023Q3, with the same estimator, pool and SE. No label, no test claim.",
+      "7. sec-cemn (analysis, code/sec_cemn.py; secondary S1, reported whatever the rule picks): CEM's detrended indexed DD under the 2023Q3 timing. g_t = SA ln(E_CA) - SA ln(sum of R50 employment); tau = mean over 2024Q2-2026Q1 of [g_t - g_B - (t - B)(g_B - g_{B-8})/8], i.e. CEM's endpoint 2021Q3-2023Q3 growth trend (2021Q3 kept, as CEM do); the simple (undetrended) version too. Variant-'t' inference with R50, plus CEM's placebo rank p (b+1)/(m+1). Report-only cross-check against print: the September-to-September fixed horizon 2023-2025 on month3 levels, R50 minus AK and MI (48 states, as CEMN), simple and detrended (two times the annual 2021-2023 trend), next to CEMN Table 3 Panel B (-2.74, -3.72).",
+      "8. sec-dube (analysis, code/sec_dube.py; secondary S2): Dube's SDID under the 2023Q3 timing: SA log(emp/pop), D20, pre 2015Q1-2023Q3 excluding C, post 2024Q2-2026Q1, the wage effect with the employment omega and lambda reused (Dube's choice), variant-'t' inference. Report-only cross-check: Dube's own timing (pre 2015Q1-2023Q4 excluding C, 2024Q1 dropped, post 2024Q2-2025Q3) next to Table 1 Panel A SDID (-0.26 [0.54], wage +6.99).",
+      "9. rob-base-2023q4 (analysis, code/robust.py base2023q4): the selected estimator and pool with Dube's base. B = 2023Q4 (fit windows end 2023Q4, DDT trend over 2022Q1-2023Q4), 2024Q1 dropped, post 2024Q2-2026Q1.",
+      "10. rob-pre-ab257 (analysis, code/robust.py preab257; literature-r1 L1): B = 2022Q2, the last quarter before AB 257 was enacted (September 2022). Fit windows end 2022Q2; 2022Q3-2024Q1 is excluded from the base, the fit and the post window; post 2024Q2-2026Q1. For DDT the trend uses the last 9 non-COVID quarters up to 2022Q2 (2018Q1-2019Q4 and 2022Q1-2022Q2), because B-8..B holds only 2 non-COVID points. This reports the base-period choice both ways (2023Q3 inside the AB 257 window, 2022Q2 before it) and also covers anticipation of AB 1228 from mid-2023 (Sosinskiy-Reich p. 42).",
+      "11. rob-pool (analysis, code/robust.py pool): the selected estimator and normalisation with the other pool (D20 <-> R50).",
+      "12. rob-7225 (analysis, code/robust.py naics7225): outcome = 7225 (all restaurants) employment. Donors with any suppressed 7225 state row in a used quarter are dropped for this run and listed. Reading: a 722513 decline with no 7225 decline points to reclassification between restaurant codes (Melo et al.) or substitution toward other restaurants, not job loss in restaurants.",
+      "13. rob-final-quarters (analysis, code/robust.py final7): post window 2024Q2-2025Q4 (7 quarters, no preliminary 2026Q1 data). Shows how much the one new, preliminary quarter moves the pooled estimate.",
+      "14. plc-nonff (analysis, code/placebo_outcome.py nonff; placebo outcome): employment in all covered industries except 722513, with the selected estimator and pool. The law's direct share of this aggregate is small. Failure = a 95% CI that excludes 0: the comparison does not hold for California's aggregate labour market, and the paper qualifies the H2 label as 'not separable from a California-wide shock'. No re-specification follows.",
+      "15. plc-722511 (analysis, code/placebo_outcome.py 722511): full-service employment. Not a clean placebo (literature-r1 L2): covered chains are also coded in 722511 (Melo et al.: 7.9% of matched chain locations in Louisiana), and CEMN report wage and price spillovers to full service. A 722511 effect therefore mixes misfiled covered establishments, spillovers and restaurant-wide shocks. What it can show: a 722511 decline of similar size to H2 means the 722513 result is not specific to the limited-service code and may reflect a restaurant-wide shock. What it cannot show: a null or opposite-signed 722511 effect does not validate the design, and no 722511 result is used as a DDD comparison. Reported only.",
+      "16. event-path (analysis, code/event_path.py; report-only, for the figure): quarterly California-minus-counterfactual gaps 2014Q1-2026Q1 for the selected candidate (E-or-P and W), with real-B weights and trend and pointwise variant-'t' bands. COVID quarters are shaded and AB 257 (2022Q3) and AB 1228 (2023Q4) are marked. The pre-period gaps 2022Q1-2023Q3 are the visible check of (ii).",
+      "17. verdict (analysis, code/verdict.py; inputs the metrics of runs 2-5): H1 flag, H2 sign, size and label, H3 label or 'uninformative', elasticities or 'not computed'. Each robustness run (9-13) also reports the label the H2 rule would give, marked 'not the headline'. If any of 9, 10, 11 or 13 gives a different sign category from the primary, the headline is stated as 'not robust to <check>'.",
+      "18. fig-event, fig-select, fig-placebo (analysis, figures-ra, code/fig_event.py, fig_select.py, fig_placebo.py): event path; the 24 RMSEs (pre-period only); scaled placebo estimates against California's H2 estimate.",
+      "19. Claims from the metrics above, then crew.py numbers; clean rerun (crew.py rerun --setup with code/requirements.txt)."
+    ],
+    "claims_plan": [
+      "select: sel-candidate (text), sel-rmse, rmse of the best DD, DDT, SC and SDID candidates.",
+      "level-mde: level-variant-h1/h2/h3 (text), rej rates, mde-h1, mde-h2, mde-h3.",
+      "h1-wage: h1-att, h1-se, h1-att-y1, h1-att-y2, h1-dollars. h2-emp: h2-att, h2-lo95, h2-hi95, h2-lo90, h2-hi90, h2-pct, h2-jobs. h3-years: h3-y1, h3-y2, h3-diff, h3-diff-lo, h3-diff-hi, owe-pooled, owe-y1, owe-y2.",
+      "verdict: h1-flag, h2-label, h3-label (text claims backed by the verdict run). anticip, sec-cemn, sec-dube, rob-*, plc-*: att, lo95 and hi95 each, plus the published cross-check values next to their print (marked % crew:literal for the printed side)."
+    ],
+    "deviations": [
+      "D1 (track rule 'cluster standard errors at the level treatment varies'): with one treated state, cluster-robust SEs are invalid (Dube p. 8; CEM p. 6; SR p. 14). Placebo-based inference with a pre-registered level check is used instead.",
+      "D2: S1 adapts CEM's monthly fixed-horizon estimator to a pooled quarterly average, which needs seasonal adjustment that CEM's September-to-September comparison does not; the faithful fixed-horizon number is reported as a cross-check.",
+      "D3: S2 uses our implementation of Arkhangelsky et al.'s Algorithm 1 (with intercept and separate penalties) and our 2014-2019 seasonal factors, not Dube's code. w35931 reports that Dube's SDID omits the intercept and uses one penalty; we cannot check his code, so the Panel A cross-check measures the combined difference.",
+      "D4: R50 keeps Alaska and Michigan, which CEMN drop; the CEM cross-check uses the 48-state pool."
+    ],
+    "threats": [
+      "T1 Search moved into the rule's parameters (question-r4 F15a): the pseudo-dates, windows, COVID handling, outcome scale, tie-break, pools, inference variant rule and cutoff are all fixed above before any placebo is computed. select runs once on an input that ends in 2019Q4, and repeated selection runs remain visible in runs/.superseded. The PI and Scout know the published map (disclosed); both camps' specifications are reported as S1 and S2.",
+      "T2 The selection has little information: six overlapping pseudo-windows (about two independent draws) in calm 2016-2019, with shorter fit windows (9-14 quarters) than the real one (31). DD and DDT trend windows are alike at pseudo-dates but differ after COVID. The winner may not be the best estimator for 2024-2026. Handled by: all 24 RMSEs reported, S1 and S2 reported whatever wins, rob-pool, event-path. No re-selection.",
+      "T3 COVID: every eight-quarter pseudo-window from 2018Q3 contains COVID quarters, so all pseudo-windows end by 2019Q4 and 2020Q1-2021Q4 is excluded from every fit, base, trend and SE. The real fit windows straddle the gap, which the pseudo-dates do not mimic (T2). event-path shows the straddle.",
+      "T4 AB 257 (enacted September 2022, a possible $22 fast-food wage, stayed January 2023, replaced by AB 1228; literature-r1 L1): 2022Q3-2023Q3, including the 2023Q3 base and the end of every real fit window, falls under a pending sectoral wage law. The selection, the level check and the MDE use only 2014Q1-2019Q4, so they avoid it. The base is reported both ways: rob-pre-ab257 (base 2022Q2; 2022Q3-2024Q1 excluded from fit and base) against the primary 2023Q3. The event path marks 2022Q3.",
+      "T5 Anticipation of AB 1228 before signing (Sosinskiy-Reich p. 42: as early as July-August 2023) biases a 2023Q3 base: rob-pre-ab257 (2022Q2 base), event-path. Anticipation between signing and the effective date: the anticip estimate (report-only) and rob-base-2023q4 (Dube's base).",
+      "T6 Inference with one treated state: population-scaled placebo t (variant 't') with an empirical level check on 6(J+1) pre-2020 placebo tests, and calibrated critical values if any rate exceeds 0.10 (level-mde). Remaining risk: population scaling may understate California's SE because California is larger than every donor (extrapolation). Diagnostic k is reported; the CA-only evidence is too thin to act on.",
+      "T7 MDE from 2014-2019 noise may understate post-COVID noise: the real SE from h2-emp is reported next to MDE_h2.",
+      "T8 Donor contamination: R50 states that raised their minimum wages during 2024-2026 bias the R50 estimate toward a smaller decline. D20 states have no minimum-wage change but differ economically. rob-pool and S1 versus S2 show the difference.",
+      "T9 Treated sector is wider than and different from 722513: covered chains sit in 722515 (never used) and in 722511 (Melo et al. 7.9% of chain locations in Louisiana; L2). 722511 is therefore reported as a non-clean placebo only (plc-722511) and is never a DDD control. Classification can change with the policy: rob-7225.",
+      "T10 Dilution: tau is an intent-to-treat effect on all of 722513. Melo et al. put California covered-chain employment (YTS) about one third below QCEW 722513 in 2025, an approximation from another universe; no rescaling is done. The own-wage elasticity is roughly invariant to dilution.",
+      "T11 QCEW counts jobs held in the pay period including the 12th, not hours; weekly earnings are not the hourly wage, so H1 is biased toward zero if hours fell, and lower turnover can lower counts (Dube App. B). Stated as limits; no fix.",
+      "T12 Concurrent California shocks: the general minimum wage rises (affecting uncovered 722513 and 722511 workers), SB 525 (health care, from October 2024), and California's slower population growth (per-capita candidates; Census extrapolation for 2025Q4-2026Q1 matters only if a P candidate wins). plc-nonff is the check; a failure qualifies H2.",
+      "T13 Seasonal factors are estimated on 2014-2019, the years of the pseudo-windows, which flatters every candidate's placebo RMSE about equally. Stale factors after COVID mostly average out over two full post years, except at the single Q3 base: event-path, rob-base-2023q4 (a Q4 base).",
+      "T14 Data revisions: 2026Q1 is preliminary and 2025 will be revised. The vintage is pinned by the manifest hashes; rob-final-quarters drops 2026Q1.",
+      "T15 Nominal wages: differential price changes between California and donors enter H1. Stated.",
+      "T16 Code errors: check-methods (Prop 99 against Arkhangelsky et al. Table 1, synthetic identities, Monte Carlo level), code review before any analysis run, the published cross-checks in sec-cemn and sec-dube, and a clean rerun."
+    ]
   },
   "tasks": [
     {
@@ -25,6 +81,234 @@
       "title": "Fetch QCEW industry slices 722513, 722511, 7225, 10 for 2014Q1 to latest; manifest; prepare county panel; CODEBOOK.md; no CA-vs-other or pre/post statistic",
       "owner": "data-ra",
       "status": "done"
+    },
+    {
+      "id": "d-design",
+      "title": "Write plan.json design and tasks (question-r4 F15, F16; literature-r1 L1, L2 folded in)",
+      "owner": "designer",
+      "status": "done"
+    },
+    {
+      "id": "rv-literature",
+      "title": "Review the literature record (reviews/literature-r1)",
+      "owner": "reviewer",
+      "status": "done"
+    },
+    {
+      "id": "s-methods",
+      "title": "Verify and record (refs.bib, sources.json, notes): Arkhangelsky et al. 2021 (Algorithm 1, zeta formula, Table 1 Prop 99 values DID/SC/SDID), Ferman-Pinto 2019 (heteroskedasticity correction, assumptions with one treated unit), Abadie-Diamond-Hainmueller 2010, Abadie 2021 (in-time placebos), Doudchenko-Imbens 2016 or Ferman-Pinto 2021 (demeaned SC), Ferman-Pinto-Possebom 2020 (cherry picking), Schuirmann 1987 (TOST), Census PEP intercensal 2010-2020 and Vintage 2025 documentation, the synthdid data source and license (literature-r1 L3)",
+      "owner": "scout",
+      "status": "todo"
+    },
+    {
+      "id": "dr-pop",
+      "title": "Run fetch-pop (data-prep, code/fetch_pop.py): Census sc-est2020int-alldata6.csv and NST-EST2025-ALLDATA.csv into data/raw/census/, manifest",
+      "owner": "data-ra",
+      "status": "todo"
+    },
+    {
+      "id": "dr-prop99",
+      "title": "Run fetch-prop99 (data-prep, code/fetch_prop99.py): synthdid california_prop99.csv into data/raw/synthdid/, manifest with license; code checks only",
+      "owner": "data-ra",
+      "status": "todo"
+    },
+    {
+      "id": "dr-state",
+      "title": "Run prepare-state (data-prep, code/prepare_state.py): data/derived/state_panel.csv and state_panel_pre.csv (2014Q1-2019Q4) per design.data, checks in analysis_plan 0e, CODEBOOK addendum; no statistic comparing areas or periods",
+      "owner": "data-ra",
+      "status": "todo"
+    },
+    {
+      "id": "e-code",
+      "title": "Write code/sclib.py (outcomes, seasonal adjustment, windows, DD/DDT/SC/SDID, placebo inference, level check, MDE), select.py, level_mde.py, h1_wage.py, h2_emp.py, h3_years.py, anticip.py, sec_cemn.py, sec_dube.py, robust.py, placebo_outcome.py, event_path.py, verdict.py and code/requirements.txt, exactly as design.method and analysis_plan specify",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-check",
+      "title": "Write code/test_sclib.py and run check-methods (data-prep; Prop 99 and synthetic data only) before the code review (analysis_plan 0f)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "f-code",
+      "title": "Write code/fig_event.py, fig_select.py, fig_placebo.py (reading runs/event-path, runs/select, runs/h2-emp outputs) before the code review",
+      "owner": "figures-ra",
+      "status": "todo"
+    },
+    {
+      "id": "rv-design",
+      "title": "Review the design (reviews/design-r1)",
+      "owner": "reviewer",
+      "status": "todo"
+    },
+    {
+      "id": "rv-code",
+      "title": "Code review (reviews/code-r1) of prepare_state.py, fetch_pop.py, fetch_prop99.py, sclib.py, every run script, verdict.py, the figure scripts and test_sclib.py against the design; must pass before any analysis run. Check that select.py and level_mde.py read only state_panel_pre.csv",
+      "owner": "reviewer",
+      "status": "todo"
+    },
+    {
+      "id": "w-data-strategy",
+      "title": "After the design gate: draft paper data and empirical-strategy sections (no results), citing the selection rule, inference and timing as fixed in design",
+      "owner": "writer",
+      "status": "todo"
+    },
+    {
+      "id": "pi-design-gate",
+      "title": "Request and decide the design gate after the design and code reviews",
+      "owner": "pi",
+      "status": "todo"
+    },
+    {
+      "id": "e-select",
+      "title": "Run select (analysis_plan 1): first analysis run, truncated input only, run once",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-level-mde",
+      "title": "Run level-mde (analysis_plan 2) before any post-period run",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-h1",
+      "title": "Run h1-wage (analysis_plan 3)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-h2",
+      "title": "Run h2-emp (analysis_plan 4)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-h3",
+      "title": "Run h3-years (analysis_plan 5)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-anticip",
+      "title": "Run anticip (analysis_plan 6, report-only)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-sec-cemn",
+      "title": "Run sec-cemn (analysis_plan 7, secondary S1 and CEMN cross-check)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-sec-dube",
+      "title": "Run sec-dube (analysis_plan 8, secondary S2 and Dube cross-check)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-rob-base4",
+      "title": "Run rob-base-2023q4 (analysis_plan 9)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-rob-preab257",
+      "title": "Run rob-pre-ab257 (analysis_plan 10, base 2022Q2)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-rob-pool",
+      "title": "Run rob-pool (analysis_plan 11)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-rob-7225",
+      "title": "Run rob-7225 (analysis_plan 12)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-rob-final",
+      "title": "Run rob-final-quarters (analysis_plan 13, 2024Q2-2025Q4)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-plc-nonff",
+      "title": "Run plc-nonff (analysis_plan 14, placebo outcome)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-plc-722511",
+      "title": "Run plc-722511 (analysis_plan 15, non-clean placebo industry)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-event-path",
+      "title": "Run event-path (analysis_plan 16, report-only)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "e-verdict",
+      "title": "Run verdict (analysis_plan 17)",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "f-figs",
+      "title": "Run fig-event, fig-select, fig-placebo (analysis_plan 18)",
+      "owner": "figures-ra",
+      "status": "todo"
+    },
+    {
+      "id": "e-claims",
+      "title": "Write result claims per design.claims_plan and run crew.py numbers",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "rv-results",
+      "title": "Review results (reviews/results-r1)",
+      "owner": "reviewer",
+      "status": "todo"
+    },
+    {
+      "id": "pi-results-gate",
+      "title": "Request and decide the results gate",
+      "owner": "pi",
+      "status": "todo"
+    },
+    {
+      "id": "w-paper",
+      "title": "Write paper/main.tex and ai-use.tex: pre-specified not blind, all 24 RMSEs, S1 and S2, every robustness and placebo with its pre-stated reading, deviations D1-D4, AB 257 and the coverage limits",
+      "owner": "writer",
+      "status": "todo"
+    },
+    {
+      "id": "rv-paper",
+      "title": "Review the paper (reviews/paper-r1)",
+      "owner": "reviewer",
+      "status": "todo"
+    },
+    {
+      "id": "rp-rerun",
+      "title": "Clean rerun (crew.py rerun --setup with code/requirements.txt)",
+      "owner": "replicator",
+      "status": "todo"
+    },
+    {
+      "id": "pi-submission-gate",
+      "title": "Request and decide the submission gate",
+      "owner": "pi",
+      "status": "todo"
     }
   ],
   "gates": {
