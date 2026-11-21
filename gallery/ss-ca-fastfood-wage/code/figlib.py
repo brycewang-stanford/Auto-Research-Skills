@@ -151,6 +151,12 @@ def sdid_floor(lvl: dict, lvl_path: str, selected: str, c: dict, keys: tuple) ->
             "sentence": sentence}
 
 
+def file_list(paths) -> str:
+    """'`a`, `b` and `c`': every file a script read, for a caption's provenance line."""
+    names = [f"`{p}`" for p in paths]
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+
+
 def quarter_index(label: str) -> int:
     y, q = str(label).split("Q")
     return 4 * int(y) + int(q) - 1

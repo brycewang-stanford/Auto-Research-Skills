@@ -126,7 +126,7 @@ which = "SE_s (scaled)" if se_s >= se_n else "SE_n (unscaled)"
 caption = f"""\
 # Figure `fig_placebo.pdf` (run `fig-placebo`, script `code/fig_placebo.py`)
 
-Generated from `runs/h2-emp/placebos.csv` and `runs/h2-emp/metrics.json`; do not edit by hand.
+Generated from {F.file_list([CSV, MJ, args.level_metrics])}; do not edit by hand.
 Any number below that the text also quotes is written there as its claim macro.
 
 **Caption.** California's pooled estimate for H2 against the placebo estimates of its {J}

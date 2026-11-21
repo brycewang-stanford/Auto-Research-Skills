@@ -6,6 +6,9 @@ Reads   runs/event-path/event_path.csv   one row per outcome (emp, wage) and qua
         runs/event-path/metrics.json     selected, figure_case, figure_note, nu_hat, nu, c_*
         runs/level-mde/metrics.json      selected, sdid_floor_h2, pool_h2, qcal_<pool>_* (whether
                                          the SDID Monte Carlo floor applies, and its values)
+        runs/h1-wage/metrics.json        selected, nu, h1_c_hi95, h1_c_hi975 (H1's one-sided
+                                         critical values, stated in the caption next to the H2
+                                         values the wage bands use; code-r2 C4)
 Writes  paper/figures/fig_event.pdf, paper/figures/fig_event.caption.md, and the run's
         metrics (--metrics).
 
@@ -27,6 +30,7 @@ ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
 ap.add_argument("--csv", default="runs/event-path/event_path.csv")
 ap.add_argument("--run-metrics", default="runs/event-path/metrics.json")
 ap.add_argument("--level-metrics", default="runs/level-mde/metrics.json")
+ap.add_argument("--h1-metrics", default="runs/h1-wage/metrics.json")
 ap.add_argument("--out", default="paper/figures/fig_event.pdf")
 ap.add_argument("--caption", default="paper/figures/fig_event.caption.md")
 ap.add_argument("--metrics", default="runs/fig-event/metrics.json")
@@ -46,6 +50,14 @@ note = F.need(M, "figure_note", args.run_metrics)
 nu = float(F.need(M, "nu", args.run_metrics))
 c = {k: float(F.need(M, f"c_{k}", args.run_metrics)) for k in ("hi95", "hi975", "lo05", "lo025")}
 FLOOR = F.sdid_floor(F.load_json(args.level_metrics), args.level_metrics, selected, c, ("hi975", "lo025"))
+H1J = args.h1_metrics
+H1 = F.load_json(H1J)
+if F.need(H1, "selected", H1J) != selected:
+    raise F.FigureInputError(f"{H1J} is for {H1['selected']}, event-path for {selected}")
+h1_nu = float(F.need(H1, "nu", H1J))
+h1_c = {k: float(F.need(H1, f"h1_c_{k}", H1J)) for k in ("hi95", "hi975")}
+if h1_c["hi95"] > h1_c["hi975"]:
+    raise F.FigureInputError(f"{H1J}: h1_c_hi95 exceeds h1_c_hi975")
 if int(F.need(M, "n_rows", args.run_metrics)) != len(rows):
     raise F.FigureInputError(f"{W}: {len(rows)} rows, metrics say {M['n_rows']}")
 
@@ -178,6 +190,13 @@ F.save_pdf(fig, args.out)
 # ----------------------------------------------------------------------------- caption
 cov = runs_of(covid_q)
 gap_txt = ", ".join(F.quarter_label(q) for q in between) or "none"
+if c["hi975"] < h1_c["hi95"]:
+    h1_cmp = ("That threshold is below H1's c_hi(0.95), so on the upper side the wage bands are "
+              "narrower than the H1 test: a quarter's band can exclude zero at a t value the H1 "
+              "test would not reject.")
+else:
+    h1_cmp = ("That threshold is not below H1's c_hi(0.95), so on the upper side the wage bands "
+              "are not narrower than the H1 test; they are per-quarter bands, not the H1 test.")
 pst = runs_of(post_q)
 span = lambda blocks: ", ".join(f"{F.quarter_label(a)}–{F.quarter_label(b)}" for a, b in blocks)  # noqa: E731
 fit_txt = (f" Filled markers are quarters in the weight-fit window ({len(fit_q)} quarters), where the "
@@ -185,7 +204,7 @@ fit_txt = (f" Filled markers are quarters in the weight-fit window ({len(fit_q)}
 caption = f"""\
 # Figure `fig_event.pdf` (run `fig-event`, script `code/fig_event.py`)
 
-Generated from `runs/event-path/event_path.csv` and `runs/event-path/metrics.json`; do not edit
+Generated from {F.file_list([W, args.run_metrics, args.level_metrics, H1J])}; do not edit
 by hand. Any number below that the text also quotes is written there as its claim macro.
 
 **Caption.** Quarterly gap between California and its estimated counterfactual,
@@ -205,6 +224,14 @@ quarters ({span(cov)}), excluded from every fit window. Light shading: the post 
 signed (28 September 2023). The quarters after the last fit-window quarter ({F.quarter_label(q_base)})
 and before the post window ({gap_txt}) are in neither window.
 
+**Panel (b) and the H1 test.** H1 is decided by run h1-wage's one-sided 5% test of the pooled
+wage estimate, which rejects when t exceeds H1's own c_hi(0.95) = {F.fmt(h1_c['hi95'])} (t at
+ν = {F.fmt(h1_nu, '.1f')} with {FLOOR['phrase']}; its c_hi(0.975) = {F.fmt(h1_c['hi975'])}).
+Panel (b)'s bands do not use these values: they use the H2 critical values above, as analysis
+plan item 16 specifies, so a band's lower edge lies above zero when gap / SE exceeds
+c_hi(0.975) = {F.fmt(c['hi975'])}. {h1_cmp} A band in panel (b) that excludes zero is therefore
+not evidence against the H1 verdict, which comes from run h1-wage alone.
+
 **Reading (estimator case {case}).** {note[0].upper() + note[1:]}.
 
 **What the figure does not show.** The bands are pointwise, not simultaneous, so a quarter
@@ -220,6 +247,8 @@ F.write_metrics(args.metrics, {
     "n_quarters": len(qs), "first_quarter": F.quarter_label(q_first),
     "last_quarter": F.quarter_label(q_last), "n_covid": len(covid_q), "n_post": len(post_q),
     "n_in_fit": len(fit_q), "nu": nu, "sdid_floor": FLOOR["applies"],
+    "h1_c_hi95": h1_c["hi95"], "h1_c_hi975": h1_c["hi975"],
+    "wage_band_narrower_than_h1_test": int(c["hi975"] < h1_c["hi95"]),
     "sdid_floor_binding": ",".join(FLOOR["binding"]),
     "checksum_emp": sum(p["gap"] + p["lo"] + p["hi"] for p in series["emp"]),
     "checksum_wage": sum(p["gap"] + p["lo"] + p["hi"] for p in series["wage"]),
