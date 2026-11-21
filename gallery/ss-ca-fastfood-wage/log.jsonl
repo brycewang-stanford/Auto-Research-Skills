@@ -70,3 +70,5 @@
 {"time": "2026-11-21T06:37:23Z", "role": "pi", "action": "plan-revised", "detail": "design-r2 D9: H1 level wording"}
 {"time": "2026-11-21T06:37:23Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261121T063723Z (design-r2 D8 D10-D12)"}
 {"time": "2026-11-21T06:39:33Z", "role": "designer", "action": "revise-design", "detail": "design-r2 D8 (L units' donors and placebos exclude California, J-1, t_{J-1}), D10 (rob-pre-ab257 9-point trend 2018Q2-2019Q4+2022Q1-Q2; S1 2021Q3 endpoint stated as the one COVID exception), D11 (falsification (ii) narrowed by candidate; event-path not a pre-trend test for DDT/SC/SDID), D12 (hetero-A and report-only hetero-A-CA2 Monte Carlo designs); responses written"}
+{"time": "2026-11-21T06:40:20Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T064020Z (e-code e-check)"}
+{"time": "2026-11-21T06:40:20Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T064020Z (design-r3)"}
