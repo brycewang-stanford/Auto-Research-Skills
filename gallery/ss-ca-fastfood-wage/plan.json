@@ -146,7 +146,7 @@
     {
       "id": "e-check-r2",
       "owner": "econometrician",
-      "status": "todo",
+      "status": "done",
       "title": "Update the code to design.method C1-C5 and IMPLEMENTATION CHOICES, then rerun check-methods with --replace (data-prep, before the code review): rename code/select.py to code/select_rule.py; test_sclib.py: Prop 99 SC conditions i-SC-1 (independent exact solve) and i-SC-2 (Frank-Wolfe port with sparsification as a pass condition, inputs from sclib), the SDID calibration draws (default_rng(20261122)) and q_cal per pool, condition (a-SDID), SDID hetero-A and hetero-A-CA2 rates with the floor (report-only); sclib.py/level_mde.py: the floor on every SDID critical value, level-mde --input runs/check-methods/metrics.json and mc_rates.csv with the echoed values; sec_dube.py with the floor; select_rule.py sc_solver_gap_<id>; verdict.py reads plc-nonff; requirements.txt with pinned matplotlib. Every first-run (iv) rate must reproduce exactly; update runs/NOTES.md"
     },
     {

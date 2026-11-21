@@ -7,9 +7,38 @@
    Carlo; all rows for the seasonal-factor check), state_panel.csv (seasonal-factor check only:
    2014Q1-2019Q4 rows, no later statistic)). Results: see "check-methods results" below.
 
+2. `check-methods` again with `--replace` (task e-check-r2, after design.method C1-C5; the first
+   record is under runs/.superseded/). Code: test_sclib.py, sclib.py, select_rule.py (renamed from
+   select.py, C4), level_mde.py; same inputs. Results: "check-methods rerun (e-check-r2)" below.
+
 No analysis run has been made (the design gate is pending).
 
-## check-methods results
+## check-methods rerun (e-check-r2)
+
+Exit 0, 1218 metrics. Every first-run (iv) number reproduced exactly: all 21 rate and bound
+columns of mc_rates.csv in all 80 cells, and all 884 per-cell mc_ metrics, are identical (compared
+against a copy of the first run's files), as are the MC KKT maximum (4.3e-6) and the
+non-convergence count (0).
+
+- (i) DID -27.349 and SDID -15.604 pass as before. i-SC-1: sclib SC -19.5138 (KKT 1.6e-8) vs the
+  independent active-set solve -19.5136 (its KKT 2.6e-15), difference 1.2e-4 <= 1e-3: pass.
+  i-SC-2: Frank-Wolfe port with sparsification, fed sclib.sdid_unit_problem and sclib.sigma_hat,
+  -19.620 in [-19.65, -19.55): pass (unsparsified -19.587).
+- (ii), (iii), (v) pass as before (part (v) now imports select_rule and level_mde by name).
+- SDID floor q_cal (C1; default_rng(20261122); pure A; D20 4,000 and R50 1,000 per rho):
+  D20 hi95 1.8541, hi975 2.2768, lo05 -1.7990, lo025 -2.1690 (all from rho = 0);
+  R50 hi95 1.8081, hi975 2.2687 (rho = 0), lo05 -1.6692, lo025 -2.1419 (rho = 0.5). The R50
+  lo05 is inside -t_50,0.95 = -1.676, so there the t_J value binds.
+- (a) on the DD, DDT and SC cells: pass. (a-SDID) with the floor: pass in all 12 cells; D20 pure
+  A rho 0: upper 0.0565, lower 0.0465, two-sided 0.0575 (uncorrected t_J: 0.0670, 0.0510,
+  0.0705); D20 pure A rho 0.5: 0.0460 / 0.0465 / 0.0500; R50 pure A: two-sided 0.032 and 0.042.
+- (b) fails again in SDID-E, D20, hetero-A, rho 0 (two-sided 0.0765 at t_J, 0.0700 at t_nu_MC),
+  the C2 recorded result; every other hetero-A cell passes. With the floor (report-only), this
+  cell's rates are 0.0470 / 0.0575 / 0.0635 two-sided.
+- (c) hetero-A-CA2 unchanged; SDID with the floor (report-only), two-sided: D20 0.158 (rho 0) and
+  0.137 (rho 0.5); R50 0.114 and 0.166.
+
+## check-methods results (first run, superseded)
 
 Run `check-methods` (exit 0; metrics in runs/check-methods/metrics.json, Monte Carlo table in
 runs/check-methods/mc_rates.csv). Run once, as instructed.
@@ -53,12 +82,11 @@ runs/check-methods/mc_rates.csv). Run once, as instructed.
 
 ## Implementation choices the design does not fix (for the code review)
 
-1. **code/select.py shadows the standard-library module `select`.** Running any script in code/
-   puts code/ first on `sys.path`, and scipy imports subprocess -> selectors -> select, which
-   would load code/select.py and crash. Every script in code/ therefore starts with a four-line
-   prologue that imports the standard `select` before code/ is on the path. test_sclib.py
-   loads select.py under another module name. Renaming the script (e.g. select_rule.py) would
-   remove the need; the design names it select.py, so the name was kept.
+1. **Renamed (design.method C4):** code/select.py, which shadowed the standard-library module
+   `select`, is now code/select_rule.py; the import prologue is dropped from every script I
+   wrote (the figures RA's fig_*.py and figlib.py still carry it; harmless). The run id stays
+   `select`. select_rule.py imports test_sclib.exact_simplex_ls for its sc_solver_gap
+   diagnostic, so the select run must name code/test_sclib.py with --code.
 2. **Weight solver.** SLSQP with the design's options (simplex, uniform start, ftol 1e-12,
    maxiter 2000), on the objective divided by b'b (same minimiser; makes ftol and the KKT
    tolerance scale-free: log-employment objectives are near 1e-4, Prop 99 near 1e5). SLSQP's
@@ -93,9 +121,17 @@ runs/check-methods/mc_rates.csv). Run once, as instructed.
     estimates at or below California's (unscaled), one-sided.
 11. **Dube cross-check SE** is our scaled placebo SE (root mean square of the scaled placebo
     estimates), not a standard deviation around their mean.
-12. **verdict** reads the runs analysis_plan 17 lists (2-5, 7, 8, 9-13); the plc-nonff
-    qualification of the H2 label (analysis_plan 14) is applied by the paper from runs/plc-nonff.
+12. **verdict** (changed, C5) also reads runs/plc-nonff/metrics.json and appends 'not separable
+    from a California-wide shock' to the H2 label if its 95% CI excludes 0.
 13. **Elasticity gating** (H1 rejects and the reused-weights wage ATT is positive) applies to the
     refitted-weights ratio too.
-14. **requirements.txt** is `pip freeze` of a fresh Python 3.14.6 venv with the four design
-    packages; pip resolved wrapt to 2.6.0.dev1 (a statsmodels/formulaic dependency).
+14. **requirements.txt** is `pip freeze` of a fresh Python 3.14.6 venv after installing the four
+    design packages, matplotlib (3.11.2, for code/fig_*.py) and wrapt==2.5.2: on the PI's
+    instruction only released versions are pinned, so wrapt is its latest release instead of
+    the 2.6.0.dev1 pre-release pip resolved by itself (design.method IMPLEMENTATION CHOICES 14
+    still says "keeping the resolved wrapt 2.6.0.dev1"; the PI's later instruction overrides it).
+    `pip check` reports no broken requirement.
+15. **SDID floor in the run scripts** (C1): sclib.crit_for applies q_cal of the run's pool to
+    every SDID statistic (S2 always; the selected candidate's statistics if it is SDID); level-mde
+    echoes q_cal of both pools (qcal_<pool>_<k>) and reports crit_<stat>_<k>_nofloor; it copies the
+    cited check-methods values with prefix cm_. Every run reports solver_kkt_above_1e6.
