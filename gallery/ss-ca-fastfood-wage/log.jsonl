@@ -78,3 +78,7 @@
 {"time": "2026-11-21T06:48:39Z", "role": "designer", "action": "revise-design", "detail": "design-r3 D13: every label uses t at nu = min(J, Satterthwaite df of SE_n from level-mde pre-period placebo variances), regardless of check-methods; hetero-A judged against the t_J rate expected at its own df nu_MC and t_{nu_MC} against 0.05; each hetero-A outcome's consequence fixed (pass: reported; fail: bug search, else measured size reported in T6), no Designer round; c_hi/c_lo, MDE, label probabilities, level-mde, rob-7225, claims_plan, T6, e-code/e-check titles updated; response written"}
 {"time": "2026-11-21T06:49:08Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T064908Z (design D13 change)"}
 {"time": "2026-11-21T06:49:08Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T064908Z (design-r4)"}
+{"time": "2026-11-21T06:52:28Z", "role": "reviewer", "action": "review-recorded", "detail": "design-r4 verdict=pass files=12"}
+{"time": "2026-11-21T06:53:02Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261121T065302Z (design-r4 D14 D15 (report-only))"}
+{"time": "2026-11-21T06:54:25Z", "role": "designer", "action": "design-revised", "detail": "design-r4 D14 D15 answered after design-r4 (report-only: t_J MDE_h2/h90 in level-mde, hetero-A-CA2 at t_J and t_nu_MC with T6 citing t_nu_MC; df-penalty wording in DoF and T6; no rule changed)"}
+{"time": "2026-11-21T06:54:43Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T065443Z (release check-methods)"}

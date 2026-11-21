@@ -132,3 +132,15 @@ Check next time (code review):
 - level_mde.py: L units use pool minus u (J-1) with California out of donors and placebos; t_{J-1} for their rates; c_hi floor t_J; SE_n divisor equals the size of u's own donor set.
 - rob-pre-ab257 DDT trend points are 2018Q2-2019Q4 plus 2022Q1-2022Q2; sec-cemn alone touches 2021Q3.
 - Paper: event-path figure note per D11; H1 wording per D9; hetero-A-CA2 size reported in the limits.
+
+## design-r4 (2026-11-21, verdict pass; last design round)
+
+D13 resolved (every label at t_nu, nu = min(J, nu_hat); every outcome of check-methods (iv) fixed before it runs). New, both minor and open, for the human: D14 (the df penalty also applies when donor variances differ because of size, where SE_n is already conservative for California, so the intervals widen twice; in my synthetic illustration rv-d4/nu.py, pure B with D20 gives true df 9.1, nu_hat median 6.6, 5th percentile 3.2, MDE factor 1.12 at the median and 1.37 at the 5th percentile; remedy: wording plus a t_J MDE/h90 shown next to it), and D15 (hetero-A-CA2 rate for T6 not tied to t_{nu_MC}).
+
+Checked: plan diff against the design-r3 stamp (git 01c0fa3, sha 18eb7860...) field by field; 1 - F_13(t_20,0.95) = 0.0541 and 2(1 - F_13(t_20,0.975)) = 0.0573; grep shows no t_J left in a label rule. Runs: the same five data-prep runs, none of kind analysis; validate passes. code/sclib.py now exists (Econometrician, 801 lines, mtime 06:51Z) with a fresh __pycache__ (06:51:20Z): an import, not a logged run. Not read in full; it is for the code review.
+
+Check next time (code review):
+- sclib.py satterthwaite_df / nu_from_s2 / nu_for_donors: s_j^2 = mean over the six B' of tau_j(B')^2 from California's level-check placebos; rob-7225 over its own donors; t from scipy at non-integer df.
+- check-methods: hetero-A judged against r at nu_MC; hetero-A-CA2 rates at t_{nu_MC} as well as t_J (D15); no change chosen after the Monte Carlo is seen.
+- Whether D14 got the wording and the t_J MDE/h90 comparison before level-mde runs; if the PI adds a floor on nu, it must be logged before level-mde.
+- That nothing ran sclib.py on data/derived before the gate (the __pycache__ is from an import).
