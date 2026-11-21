@@ -363,7 +363,9 @@
       "note": "批准 design 门 (AskUserQuestion answer, 2026-11-21)"
     },
     "results": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-21T13:59:14Z",
+      "summary": "H1 not supported at the pre-specified L-calibrated critical value (t 2.66 vs 3.45; that value set by Georgia's 2015 wage break; post hoc checks point both ways); H2 inconclusive, -0.030 [-0.106, 0.047], qualified by the failed non-fast-food placebo; H3 uninformative by rule; S1/S2 inconclusive. results-r3 pass; R12/R13 claim-text fixes after it."
     },
     "submission": {
       "status": "pending"
