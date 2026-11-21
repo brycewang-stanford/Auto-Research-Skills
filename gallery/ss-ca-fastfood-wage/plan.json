@@ -104,19 +104,19 @@
       "id": "dr-pop",
       "title": "Run fetch-pop (data-prep, code/fetch_pop.py): Census sc-est2020int-alldata6.csv and NST-EST2025-ALLDATA.csv into data/raw/census/, manifest",
       "owner": "data-ra",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "dr-prop99",
       "title": "Run fetch-prop99 (data-prep, code/fetch_prop99.py): synthdid california_prop99.csv into data/raw/synthdid/, manifest with license; code checks only",
       "owner": "data-ra",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "dr-state",
       "title": "Run prepare-state (data-prep, code/prepare_state.py): data/derived/state_panel.csv and state_panel_pre.csv (2014Q1-2019Q4) per design.data, checks in analysis_plan 0e, CODEBOOK addendum; no statistic comparing areas or periods",
       "owner": "data-ra",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-code",

@@ -42,3 +42,9 @@
 {"time": "2026-11-21T06:03:30Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T060330Z (design-r1)"}
 {"time": "2026-11-21T06:03:31Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261121T060331Z (s-methods)"}
 {"time": "2026-11-21T06:03:31Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261121T060331Z (dr-pop dr-prop99 dr-state)"}
+{"time": "2026-11-21T06:07:17Z", "role": "data-ra", "action": "run", "detail": "fetch-pop exit=0"}
+{"time": "2026-11-21T06:07:18Z", "role": "data-ra", "action": "run", "detail": "fetch-prop99 exit=0"}
+{"time": "2026-11-21T06:08:31Z", "role": "data-ra", "action": "run", "detail": "prepare-state exit=0"}
+{"time": "2026-11-21T06:10:05Z", "role": "data-ra", "action": "data-fetched", "detail": "dr-pop: fetch-pop exit 0; Census sc-est2020int-alldata6.csv (236,844 rows) and NST-EST2025-ALLDATA.csv (66 rows) in data/raw/census/, manifest entries"}
+{"time": "2026-11-21T06:10:06Z", "role": "data-ra", "action": "data-fetched", "detail": "dr-prop99: fetch-prop99 exit 0; synthdid california_prop99.csv at commit 70c1ce3 (1,209 rows, 39 states x 1970-2000, git blob sha1 matches), manifest with license; code checks only"}
+{"time": "2026-11-21T06:10:06Z", "role": "data-ra", "action": "data-prepared", "detail": "dr-state: prepare-state exit 0; state_panel.csv 2,499 rows (51 x 49), state_panel_pre.csv 1,224 rows (byte-identical subset); all 0e checks pass; splice 0 of 51 outside 0.97-1.03; pop extrapolated 2025Q3-2026Q1 (design text lists only 2025Q4-2026Q1); CODEBOOK addendum"}

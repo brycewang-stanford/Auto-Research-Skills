@@ -199,3 +199,112 @@ suppressed county-quarter cells / county-quarter cells:
    below 60 national locations, independents). The QCEW does not identify chain size.
 6. **Wages are nominal**, and `avg_wkly_wage` is kept as BLS publishes it. The panel does not
    recompute it.
+
+---
+
+# Addendum (2026-11-21): state panel, population series, Prop 99 test data
+
+Prepared by the Data RA (tasks `dr-pop`, `dr-prop99`, `dr-state`; analysis_plan steps 0c-0e).
+The design gate is not approved. This addendum reports counts and pass/fail checks only; it
+contains no statistic of employment or wages that compares California with other states or one
+period with another.
+
+## Population sources (run `fetch-pop`, `code/fetch_pop.py`)
+
+- **U.S. Census Bureau, Population Estimates Program**, files in
+  `https://www2.census.gov/programs-surveys/popest/datasets/`. Public domain (works of the U.S.
+  Government, 17 U.S.C. 105); cite the Census Bureau, Population Division.
+  - `2010-2020/intercensal/state/asrh/sc-est2020int-alldata6.csv` -> `data/raw/census/`:
+    annual intercensal state estimates by 6 race groups, age, sex and Hispanic origin (release
+    September 2025; Last-Modified 30 Sep 2025). 18,292,193 bytes, 236,844 rows = 51 states x 3
+    SEX x 3 ORIGIN x 6 RACE x 86 AGE, 21 columns, header equal to the layout
+    (`.../technical-documentation/file-layouts/2010-2020/intercensal/state/SC-EST2020INT-ALLDATA6.pdf`).
+    The file has no RACE total and no national row.
+  - `2020-2025/state/totals/NST-EST2025-ALLDATA.csv` -> `data/raw/census/`: Vintage 2025
+    (release January 2026; Last-Modified 27 Jan 2026). 53,555 bytes, 66 rows (nation, regions,
+    divisions, 50 states, DC, Puerto Rico), 97 columns; the leading 12 fields equal the layout
+    (`.../file-layouts/2020-2025/NST-EST2025-ALLDATA.pdf`).
+- No checksum is published. The sha256 of each file is in `data/manifest.json` and in the run's
+  metrics (`data/fetch_pop_metrics.json`), so a clean rerun that fetches other bytes fails.
+- Requests sent the generic User-Agent `Mozilla/5.0 (compatible; research-data-fetch/1.0)`.
+
+## Prop 99 test data (run `fetch-prop99`, `code/fetch_prop99.py`)
+
+- `california_prop99.csv` from the synthdid R package, pinned to commit
+  `70c1ce3eac58e28c30b67435ca377bb48baa9b8a` (repository HEAD on 2026-11-21; the file last
+  changed in `eaf905d`, 2021-03-13) -> `data/raw/synthdid/california_prop99.csv`. License: package
+  DESCRIPTION "GPL (>= 2) | BSD_3_clause + file LICENSE". The data are Abadie, Diamond and
+  Hainmueller's (2010) replication data (package `data/README.md`).
+- Integrity: GitHub's git blob SHA-1 at the pinned commit (`4ff21c81...`) is recomputed from the
+  downloaded bytes; it matches.
+- Structure (counts only; no statistic of PacksPerCapita computed): 32,687 bytes, `;`-delimited,
+  columns State, Year, PacksPerCapita, treated; 1,209 rows = 39 states x 31 years (1970-2000),
+  balanced, no missing value; `treated` is 0/1, equal to 1 on exactly 12 rows, California
+  1989-2000. Used only by check-methods, never in a study run.
+
+## State panel (run `prepare-state`, `code/prepare_state.py`)
+
+Files: `data/derived/state_panel.csv` (2,499 rows = 51 units x 49 quarters, 2014Q1-2026Q1) and
+`data/derived/state_panel_pre.csv` (1,224 rows = 51 x 24 quarters, 2014Q1-2019Q4; the only
+input of `select` and `level-mde`). Units: the 50 states and DC. Puerto Rico (72) and the
+Virgin Islands (78) are dropped: 392 QCEW state rows. Rows are sorted by state_fips, year, qtr.
+
+| Variable | Definition | Units / source |
+|---|---|---|
+| state_fips | State FIPS code (2 characters) | QCEW `area_fips` SS000 |
+| state_abbr | USPS abbreviation | |
+| year, qtr, quarter | Reference year, quarter, label `YYYYQq` | |
+| emp_722513 | mean(month1, month2, month3 `emplvl`), private NAICS 722513, state row (agglvl 58) | jobs, QCEW |
+| emp_722511 | same, private NAICS 722511 (agglvl 58) | jobs, QCEW |
+| emp_7225 | same, private NAICS 7225 (agglvl 56); missing when `sup_7225` = 1 | jobs, QCEW |
+| emp_10 | same, industry 10 Total Covered, own_code 0 (agglvl 50; includes government) | jobs, QCEW |
+| emp_nonff | emp_10 - emp_722513 | jobs |
+| sep_722513 | `month3_emplvl` of 722513 (third month of the quarter; for the CEM cross-check) | jobs, QCEW |
+| wages_722513 | `total_qtrly_wages` of 722513 | US dollars, nominal |
+| aww_722513 | `avg_wkly_wage` of 722513 as BLS publishes it | US dollars per week, nominal |
+| pop | July 1 resident population interpolated to the quarter (below) | persons, Census PEP |
+| pop_extrap | 1 if pop is extrapolated (quarter time after 2025.5), else 0 | 0/1 |
+| sup_7225 | 1 if the state 7225 row has disclosure code `N` | 0/1 |
+
+Population construction (design.data, source 2): July 1 anchors 2013-2019 = intercensal file,
+SEX 0, ORIGIN 0, summed over RACE 1-6 and AGE 0-85; 2020-2025 = Vintage 2025 POPESTIMATE2020-2025
+(SUMLEV 040). Anchor of year y at y + 0.5; quarter q of year y at y + (q - 0.5)/4; ln pop is
+linear between adjacent anchors; after 2025.5, ln pop(2025) + (x - 2025.5)[ln pop(2025) -
+ln pop(2024)]. 2014Q1 (2014.125) uses the 2013 and 2014 anchors; 2019Q4 (2019.875) uses the
+2019 intercensal and the 2020 Vintage 2025 anchors.
+
+Seasonal adjustment, logs, pools and aggregates are not computed here; the estimator code builds
+them from these columns.
+
+## Checks (analysis_plan 0e; exact values in `data/prepare_state_metrics.json`)
+
+| Check | Result |
+|---|---|
+| 51 units x 49 quarters, no duplicate key | pass (2,499 rows; 51 units; 49 quarters) |
+| QCEW state rows matched to the grid, each industry | 2,499 of 2,499 for 722513, 722511, 7225 and 10 |
+| No missing 722513 / 722511 / 10 state value (employment, wages, avg weekly wage) | pass (0 missing) |
+| 7225 state rows suppressed | 4 rows; `emp_7225` missing on exactly those rows (pass) |
+| aww identity, \|avg_wkly_wage - total_qtrly_wages / (13 x emp_722513)\| <= $1, row by row | pass (0 of 2,499 rows outside) |
+| Splice: states whose V2025 July 2020 / intercensal July 2019 ratio lies outside 0.97-1.03 | 0 of 51 (pass) |
+| Intercensal SEX 1 + 2 and ORIGIN 1 + 2 add up to the SEX 0 / ORIGIN 0 totals (2013-2019) | 357 of 357 state-years each |
+| Vintage 2025: 50 states + DC add up to the U.S. row | 6 of 6 years (2020-2025) |
+| Population missing | 0 |
+| Extrapolated quarters (`pop_extrap` = 1) | 2025Q3, 2025Q4, 2026Q1 (153 rows) |
+| `state_panel_pre.csv` = header + the 2014Q1-2019Q4 lines of `state_panel.csv`, byte for byte | pass; last quarter 2019Q4, max year 2019 |
+| D20 states present / California present | 20 of 20 / yes |
+
+## Discrepancies and cautions
+
+1. **Extrapolated quarters: three, not two.** design.data says "extrapolated after 2025.5 ...
+   (2025Q4, 2026Q1 flagged)". Under the design's own placement rule, 2025Q3 sits at 2025.625,
+   which is also after the last anchor (2025.5), so 2025Q3 is extrapolated and flagged as well.
+   The script follows the formula; the parenthetical in the design omits 2025Q3. This matters
+   only if a per-capita (P) candidate wins.
+2. **The four suppressed 7225 state rows are all in 2024Q4**: Alaska, New Hampshire, Vermont and
+   Wyoming. 2024Q4 is inside the post window (2024Q2-2026Q1), so rob-7225's rule drops these four
+   donors; New Hampshire and Wyoming are D20 states (D20 would have 18 donors in rob-7225).
+3. Population for 2019Q4 uses the 2020 Vintage 2025 anchor, i.e. the pre-2020 file
+   `state_panel_pre.csv` contains a population value informed by a July 2020 estimate. It
+   contains no QCEW value after 2019Q4.
+4. `emp_10` is Total Covered (private and government), as the design specifies, so `emp_nonff`
+   includes government employment.

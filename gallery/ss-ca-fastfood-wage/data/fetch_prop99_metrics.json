@@ -1,0 +1,16 @@
+{
+  "sha256": "550d24c2f743507d097692d181bdbbf36c6168a39a0b6fc831cc89d98082f7de",
+  "git_blob_sha1_matches": 1,
+  "bytes": 32687,
+  "rows": 1209,
+  "n_states": 39,
+  "n_years": 31,
+  "first_year": 1970,
+  "last_year": 2000,
+  "balanced": 1,
+  "missing_packs": 0,
+  "treated_values_0_1_only": 1,
+  "treated_rows": 12,
+  "treated_states": "California",
+  "treated_is_california_1989_2000": 1
+}

@@ -3155,6 +3155,73 @@
       "retrieved_on": "2026-11-21",
       "description": "Counts of county-quarter cells, suppressed cells and counties by state, industry and year",
       "derived_by": "code/prepare_data.py (run prepare-data)"
+    },
+    {
+      "id": "census-sc-est2020int-alldata6",
+      "origin": "https://www2.census.gov/programs-surveys/popest/datasets/2010-2020/intercensal/state/asrh/sc-est2020int-alldata6.csv",
+      "license": "Public domain. U.S. Census Bureau data products are works of the U.S. Government and are not subject to copyright in the United States (17 U.S.C. 105); free to use for research with attribution to the U.S. Census Bureau, Population Division, as the source.",
+      "path": "data/raw/census/sc-est2020int-alldata6.csv",
+      "sha256": "a88c2879490e3283896e953d1aeddc8f9afb95cd90ab40f2910304a2548bd654",
+      "retrieved_on": "2026-11-21",
+      "size_bytes": 18292193,
+      "rows": 236844,
+      "description": "Annual intercensal state resident population estimates by 6 race groups, age, sex and Hispanic origin, April 1 2010 to April 1 2020 (release September 2025). Used: POPESTIMATE2013-2019, SEX 0, ORIGIN 0, summed over RACE 1-6 and AGE 0-85.",
+      "server_last_modified": "Tue, 30 Sep 2025 13:16:13 GMT",
+      "integrity_check": "No checksum is published by the Census Bureau; sha256 recorded at retrieval and written to the fetch-pop metrics, so a clean rerun that fetches different bytes fails the metric comparison.",
+      "fetched_by": "code/fetch_pop.py (run fetch-pop)",
+      "citation": "file layout: https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2020/intercensal/state/SC-EST2020INT-ALLDATA6.pdf"
+    },
+    {
+      "id": "census-nst-est2025-alldata",
+      "origin": "https://www2.census.gov/programs-surveys/popest/datasets/2020-2025/state/totals/NST-EST2025-ALLDATA.csv",
+      "license": "Public domain. U.S. Census Bureau data products are works of the U.S. Government and are not subject to copyright in the United States (17 U.S.C. 105); free to use for research with attribution to the U.S. Census Bureau, Population Division, as the source.",
+      "path": "data/raw/census/NST-EST2025-ALLDATA.csv",
+      "sha256": "92188e29cb0a67dcf95afa7d6c47359409782f086478b70ea4128eb70e223ca9",
+      "retrieved_on": "2026-11-21",
+      "size_bytes": 53555,
+      "rows": 66,
+      "description": "Vintage 2025 annual population estimates and components of change, United States, regions, divisions, states, DC and Puerto Rico, April 1 2020 to July 1 2025 (release January 2026). Used: POPESTIMATE2020-2025 of SUMLEV 040, 50 states and DC.",
+      "server_last_modified": "Tue, 27 Jan 2026 13:45:29 GMT",
+      "integrity_check": "No checksum is published by the Census Bureau; sha256 recorded at retrieval and written to the fetch-pop metrics, so a clean rerun that fetches different bytes fails the metric comparison.",
+      "fetched_by": "code/fetch_pop.py (run fetch-pop)",
+      "citation": "file layout: https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2020-2025/NST-EST2025-ALLDATA.pdf"
+    },
+    {
+      "id": "synthdid-california-prop99",
+      "origin": "https://raw.githubusercontent.com/synth-inference/synthdid/70c1ce3eac58e28c30b67435ca377bb48baa9b8a/data/california_prop99.csv",
+      "license": "synthdid R package (github.com/synth-inference/synthdid), DESCRIPTION: 'License: GPL (>= 2) | BSD_3_clause + file LICENSE' (LICENSE: BSD 3-clause, Copyright 2019, Stanford University; checked 2026-11-21). The data are the Abadie, Diamond and Hainmueller (2010) California Proposition 99 replication data (package data/README.md), redistributed in the package; used here only for code checks (check-methods), never in a study run.",
+      "path": "data/raw/synthdid/california_prop99.csv",
+      "sha256": "550d24c2f743507d097692d181bdbbf36c6168a39a0b6fc831cc89d98082f7de",
+      "retrieved_on": "2026-11-21",
+      "size_bytes": 32687,
+      "rows": 1209,
+      "description": "California Proposition 99 panel: 39 states x 1970-2000, ';'-delimited, columns State, Year, PacksPerCapita, treated (1 for California 1989-2000). Code checks only.",
+      "commit": "70c1ce3eac58e28c30b67435ca377bb48baa9b8a",
+      "integrity_check": "GitHub-published git blob SHA-1 at the pinned commit (4ff21c81016d1feaa117d3b863eb8c44cd9b2c07) is recomputed from the downloaded bytes by code/fetch_prop99.py, which stops on a mismatch.",
+      "fetched_by": "code/fetch_prop99.py (run fetch-prop99)",
+      "citation": "Abadie, Diamond and Hainmueller (2010); Arkhangelsky, Athey, Hirshberg, Imbens and Wager (2021)"
+    },
+    {
+      "id": "state-panel",
+      "origin": "Derived from qcew-panel, census-sc-est2020int-alldata6 and census-nst-est2025-alldata by code/prepare_state.py (run prepare-state)",
+      "license": "Same as the sources: QCEW state rows (public domain, BLS) and Census population estimates (public domain, U.S. Census Bureau).",
+      "path": "data/derived/state_panel.csv",
+      "sha256": "eab840d72b6863cdedfa6091ddcc7f6165a0d6d9277f72a73f8071a2136273ac",
+      "retrieved_on": "2026-11-21",
+      "rows": 2499,
+      "description": "State x quarter panel, 50 states and DC, 2014Q1-2026Q1 (2,499 rows): QCEW 722513/722511/7225/10 state employment and 722513 wages, population interpolated to quarters (see data/CODEBOOK.md, addendum)",
+      "derived_by": "code/prepare_state.py (run prepare-state)"
+    },
+    {
+      "id": "state-panel-pre",
+      "origin": "Derived from qcew-panel, census-sc-est2020int-alldata6 and census-nst-est2025-alldata by code/prepare_state.py (run prepare-state)",
+      "license": "Same as the sources: QCEW state rows (public domain, BLS) and Census population estimates (public domain, U.S. Census Bureau).",
+      "path": "data/derived/state_panel_pre.csv",
+      "sha256": "b652e9eb91cd359982968aac95858a58c2d5903e34ca012a311604f5a6c7f4b9",
+      "retrieved_on": "2026-11-21",
+      "rows": 1224,
+      "description": "The 2014Q1-2019Q4 rows of state_panel.csv, byte for byte (1,224 rows); the only input of select and level-mde",
+      "derived_by": "code/prepare_state.py (run prepare-state)"
     }
   ]
 }

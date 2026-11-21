@@ -1,0 +1,51 @@
+{
+  "id": "fetch-prop99",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    "python3",
+    "code/fetch_prop99.py"
+  ],
+  "started": "2026-11-21T06:07:17Z",
+  "finished": "2026-11-21T06:07:18Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fetch_prop99.py",
+      "sha256": "3526c753f5a443ff00d28f20a07b555eeaab4dede58f98889a9ecab6d4b9b17f"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "data/raw/synthdid/california_prop99.csv",
+      "sha256": "550d24c2f743507d097692d181bdbbf36c6168a39a0b6fc831cc89d98082f7de"
+    },
+    {
+      "path": "data/fetch_prop99_metrics.json",
+      "sha256": "b385d8299ad44d990c28b819798caba9aa4cc7856879a0b419b9004015a419e2"
+    }
+  ],
+  "metrics": {
+    "sha256": "550d24c2f743507d097692d181bdbbf36c6168a39a0b6fc831cc89d98082f7de",
+    "git_blob_sha1_matches": 1,
+    "bytes": 32687,
+    "rows": 1209,
+    "n_states": 39,
+    "n_years": 31,
+    "first_year": 1970,
+    "last_year": 2000,
+    "balanced": 1,
+    "missing_packs": 0,
+    "treated_values_0_1_only": 1,
+    "treated_rows": 12,
+    "treated_states": "California",
+    "treated_is_california_1989_2000": 1
+  },
+  "metrics_file": "data/fetch_prop99_metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  }
+}
