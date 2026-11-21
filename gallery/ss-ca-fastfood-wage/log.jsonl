@@ -1,0 +1,5 @@
+{"time": "2026-11-21T04:33:29Z", "role": "pi", "action": "init", "detail": "track=social-science"}
+{"time": "2026-11-21T04:34:03Z", "role": "pi", "action": "plan-drafted", "detail": "question, H1-H4 with decision rules, contribution; open question (AB 1228), user approved the topic 2026-11-21"}
+{"time": "2026-11-21T04:34:36Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261121T043436Z (q-novelty)"}
+{"time": "2026-11-21T04:34:36Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261121T043436Z (dr-fetch)"}
+{"time": "2026-11-21T04:34:54Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261121T043454Z (dr-fetch follow-up)"}

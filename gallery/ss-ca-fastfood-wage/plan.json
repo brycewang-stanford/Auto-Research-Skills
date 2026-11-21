@@ -1,0 +1,45 @@
+{
+  "question": "Did California's AB 1228 minimum wage for workers at large limited-service restaurant chains ($20 per hour from 1 April 2024) change employment in California's limited-service restaurants (NAICS 722513) over its first eight quarters, 2024Q2-2026Q1, relative to limited-service restaurants in other states; and do the specification choices on which the two published QCEW-based studies differ (Clemens, Edwards and Meer, NBER 2025, about a 3% decline; Dube, NBER w35171, 2026, near zero with data through 2025Q3) account for their disagreement? This is an open, contested question, not a replication: no published estimate uses data past 2025Q3.",
+  "hypotheses": [
+    "H1 (first stage; the policy binds in these data): the pooled 2024Q2-2026Q1 ATT on log average weekly wage of California NAICS 722513 relative to the comparison group, estimated with the primary estimator fixed at the design gate, is positive: one-sided test at the 5% level with standard errors clustered by state as fixed at the design gate. If H1 fails, H2 is reported as uninformative about the wage floor rather than as a null employment effect.",
+    "H2 (main): the pooled 2024Q2-2026Q1 ATT on log employment of California NAICS 722513, same estimator and inference. Decision rule, fixed now: 'decline' if the upper end of the two-sided 95% CI is below 0; 'increase' if the lower end is above 0; 'no effect larger than 2%' if a two one-sided test at 5% rejects both ATT <= -0.02 and ATT >= +0.02 (the bound is chosen so that an equivalence finding excludes the roughly 3% decline reported by Clemens et al.); otherwise 'inconclusive'. The design stage computes, from pre-2023Q4 data only, the minimum detectable effect at 80% power, and the paper reports it next to H2.",
+    "H3 (dynamics): the ATT on log employment for the second year (2025Q2-2026Q1) minus that for the first year (2024Q2-2025Q1), same estimator; 'grows' if the 95% CI of the difference is below 0 (a larger decline in year two), 'shrinks' if above 0, otherwise 'no detectable change'. Reported with its MDE.",
+    "H4 (the disagreement): a grid of specifications, fixed at the design gate, that crosses every choice the Scout documents as differing between Clemens et al. (2025) and Dube (2026) (for example comparison group, outcome normalization, estimator, anticipation window, weighting), estimated on the common window ending 2025Q3. H4 holds if the grid's range of pooled ATTs on log employment contains both published point estimates (as recorded by the Scout with table and column); it fails if either published estimate lies outside the range, which would mean the listed choices do not explain the disagreement (data vintage or other choices would). The paper then reports which single choice, flipped from the primary specification, moves the estimate most, as a descriptive result."
+  ],
+  "contribution": "Adds two quarters of QCEW data (through 2026Q1, eight post-policy quarters) to a contested policy question, with the estimand, estimator, inference and decision rules fixed and reviewed before any post-2023Q3 outcome is computed, and a pre-registered specification grid that tests whether the published disagreement comes from specification choices. The PI knows the published estimates from the literature (disclosed); the analysing roles compute nothing on post-period outcomes before the design gate. Limits known now: QCEW counts jobs, not hours; NAICS 722513 also contains establishments the law does not cover (chains with fewer than 60 locations nationally); the law was signed in September 2023, so anticipation is possible.",
+  "design": {
+    "summary": "",
+    "method": "",
+    "data": "",
+    "analysis_plan": [],
+    "threats": []
+  },
+  "tasks": [
+    {
+      "id": "q-novelty",
+      "title": "Novelty and prior-estimate check: find every study of AB 1228's employment effects (at least Clemens, Edwards and Meer 2025; Dube NBER w35171 2026; Reich and Sosinskiy 2024 or later), record for each the data, period, estimator, comparison group, outcome definition and the headline employment estimate with SE, table and column; say whether any uses QCEW data past 2025Q3; list the specification choices on which Clemens et al. and Dube differ",
+      "owner": "scout",
+      "status": "todo"
+    },
+    {
+      "id": "dr-fetch",
+      "title": "Fetch QCEW industry slices 722513, 722511, 7225, 10 for 2014Q1 to latest; manifest; prepare county panel; CODEBOOK.md; no CA-vs-other or pre/post statistic",
+      "owner": "data-ra",
+      "status": "doing"
+    }
+  ],
+  "gates": {
+    "question": {
+      "status": "pending"
+    },
+    "design": {
+      "status": "pending"
+    },
+    "results": {
+      "status": "pending"
+    },
+    "submission": {
+      "status": "pending"
+    }
+  }
+}
