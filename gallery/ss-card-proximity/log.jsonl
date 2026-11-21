@@ -160,3 +160,4 @@
 {"time": "2026-11-21T04:33:54Z", "role": "writer", "action": "paper-revised", "detail": "final process-macro update after the clean rerun: crew.py numbers (\\CrewRerunStatus passed, 18 of 18 reproduced); ai-use Roles wording 'the Replicator ran the clean rerun' (was 'is responsible for'); nothing else changed; 19 pp., clean compile, validate --strict OK"}
 {"time": "2026-11-21T04:34:53Z", "role": "replicator", "action": "replication-written", "detail": "REPLICATION.md: clean rerun with --setup (fresh Python 3.14.6 venv from code/requirements.txt, 35 packages) passed 18/18 runs, 911/911 metrics matched (rtol 1e-6), data re-downloaded, wall 1806 s; rp-rerun done"}
 {"time": "2026-11-21T04:35:18Z", "role": "pi", "action": "gate-request", "detail": "submission"}
+{"time": "2026-11-21T05:17:08Z", "role": "pi", "action": "gate-approve", "detail": "submission Bryce Wang"}

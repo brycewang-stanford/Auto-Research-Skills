@@ -1,5 +1,5 @@
 {
-  "measured_on": "2026-11-20T16:24:00+08:00",
+  "measured_on": "2026-11-21T13:18:05+08:00",
   "prices_usd_per_mtok": {
     "claude-opus-5-5": {
       "input": 4.0,
@@ -41,46 +41,47 @@
       "elapsed_hours": 18.0,
       "human_gate_wait_hours": 5.2,
       "logged_compute_minutes": 29.3,
-      "subagent_transcripts": 22,
+      "subagent_transcripts": 23,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 1362,
-            "output": 707644,
-            "cache_read": 77483894,
-            "cache_write_5m": 4761180,
+            "input": 1369,
+            "output": 710512,
+            "cache_read": 77747916,
+            "cache_write_5m": 4782058,
             "cache_write_1h": 0
           },
-          "api_usd": 53.46,
+          "api_usd": 53.68,
           "unpriced_models": [
             "<synthetic>"
           ]
         },
         "pi": {
           "tokens": {
-            "input": 246,
-            "output": 83377,
-            "cache_read": 39000142,
+            "input": 248,
+            "output": 83642,
+            "cache_read": 39198426,
             "cache_write_5m": 0,
-            "cache_write_1h": 895815
+            "cache_write_1h": 896986
           },
-          "api_usd": 16.75,
+          "api_usd": 16.81,
           "unpriced_models": []
         }
       },
+      "subagent_minutes_by_role": {},
       "tokens": {
-        "input": 1608,
-        "output": 791022,
-        "cache_read": 116484037,
-        "cache_write_5m": 4761180,
-        "cache_write_1h": 895815
+        "input": 1617,
+        "output": 794154,
+        "cache_read": 116946342,
+        "cache_write_5m": 4782058,
+        "cache_write_1h": 896986
       },
       "models": [
         "<synthetic>",
         "claude-fable-5-2",
         "claude-opus-5-5"
       ],
-      "api_usd": 70.22,
+      "api_usd": 70.48,
       "unpriced_models": [
         "<synthetic>"
       ]
@@ -93,42 +94,43 @@
       "elapsed_hours": 19.1,
       "human_gate_wait_hours": 0.4,
       "logged_compute_minutes": 37.4,
-      "subagent_transcripts": 30,
+      "subagent_transcripts": 31,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 1548,
-            "output": 785672,
-            "cache_read": 88261177,
-            "cache_write_5m": 4270100,
+            "input": 1556,
+            "output": 788539,
+            "cache_read": 88525199,
+            "cache_write_5m": 4290978,
             "cache_write_1h": 0
           },
-          "api_usd": 54.72,
+          "api_usd": 54.94,
           "unpriced_models": []
         },
         "pi": {
           "tokens": {
-            "input": 238,
-            "output": 79671,
-            "cache_read": 40388161,
+            "input": 239,
+            "output": 80156,
+            "cache_read": 40556433,
             "cache_write_5m": 0,
-            "cache_write_1h": 148722
+            "cache_write_1h": 149520
           },
-          "api_usd": 10.86,
+          "api_usd": 10.91,
           "unpriced_models": []
         }
       },
+      "subagent_minutes_by_role": {},
       "tokens": {
-        "input": 1786,
-        "output": 865343,
-        "cache_read": 128649337,
-        "cache_write_5m": 4270100,
-        "cache_write_1h": 148722
+        "input": 1795,
+        "output": 868695,
+        "cache_read": 129081631,
+        "cache_write_5m": 4290978,
+        "cache_write_1h": 149520
       },
       "models": [
         "claude-opus-5-5"
       ],
-      "api_usd": 65.58,
+      "api_usd": 65.85,
       "unpriced_models": []
     },
     {
@@ -139,43 +141,57 @@
       "elapsed_hours": 25.0,
       "human_gate_wait_hours": 0.4,
       "logged_compute_minutes": 105.5,
-      "subagent_transcripts": 25,
+      "subagent_transcripts": 26,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 1808,
-            "output": 942746,
-            "cache_read": 116030391,
-            "cache_write_5m": 8691093,
+            "input": 1816,
+            "output": 945613,
+            "cache_read": 116294413,
+            "cache_write_5m": 8711971,
             "cache_write_1h": 0
           },
-          "api_usd": 85.52,
+          "api_usd": 85.74,
           "unpriced_models": []
         },
         "pi": {
           "tokens": {
-            "input": 306,
-            "output": 106402,
-            "cache_read": 56345482,
+            "input": 312,
+            "output": 112180,
+            "cache_read": 56785184,
             "cache_write_5m": 0,
-            "cache_write_1h": 454473
+            "cache_write_1h": 457926
           },
-          "api_usd": 17.27,
+          "api_usd": 17.5,
           "unpriced_models": []
         }
       },
+      "subagent_minutes_by_role": {
+        "replicator": {
+          "runs": 1,
+          "minutes": 61.8,
+          "longest": 61.8,
+          "span_minutes": 103.7
+        },
+        "reviewer": {
+          "runs": 4,
+          "minutes": 22.1,
+          "longest": 7.4,
+          "span_minutes": 22.1
+        }
+      },
       "tokens": {
-        "input": 2115,
-        "output": 1049148,
-        "cache_read": 172375873,
-        "cache_write_5m": 8691093,
-        "cache_write_1h": 454473
+        "input": 2127,
+        "output": 1057793,
+        "cache_read": 173079596,
+        "cache_write_5m": 8711971,
+        "cache_write_1h": 457926
       },
       "models": [
         "claude-fable-5-2",
         "claude-opus-5-5"
       ],
-      "api_usd": 102.8,
+      "api_usd": 103.24,
       "unpriced_models": []
     },
     {
@@ -186,43 +202,69 @@
       "elapsed_hours": 20.3,
       "human_gate_wait_hours": 9.7,
       "logged_compute_minutes": 0.3,
-      "subagent_transcripts": 18,
+      "subagent_transcripts": 19,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 990,
-            "output": 580135,
-            "cache_read": 57383494,
-            "cache_write_5m": 3466143,
+            "input": 998,
+            "output": 583002,
+            "cache_read": 57647516,
+            "cache_write_5m": 3487021,
             "cache_write_1h": 0
           },
-          "api_usd": 40.27,
+          "api_usd": 40.48,
           "unpriced_models": []
         },
         "pi": {
           "tokens": {
-            "input": 157,
-            "output": 50818,
-            "cache_read": 34386033,
+            "input": 159,
+            "output": 51676,
+            "cache_read": 34663458,
             "cache_write_5m": 0,
-            "cache_write_1h": 1349333
+            "cache_write_1h": 1350632
           },
-          "api_usd": 18.69,
+          "api_usd": 18.77,
           "unpriced_models": []
         }
       },
+      "subagent_minutes_by_role": {
+        "writer": {
+          "runs": 1,
+          "minutes": 21.0,
+          "longest": 21.0,
+          "span_minutes": 275.9
+        },
+        "reviewer": {
+          "runs": 4,
+          "minutes": 18.8,
+          "longest": 5.6,
+          "span_minutes": 18.8
+        },
+        "figures-ra": {
+          "runs": 1,
+          "minutes": 10.4,
+          "longest": 10.4,
+          "span_minutes": 10.4
+        },
+        "replicator": {
+          "runs": 1,
+          "minutes": 2.9,
+          "longest": 2.9,
+          "span_minutes": 2.9
+        }
+      },
       "tokens": {
-        "input": 1147,
-        "output": 630953,
-        "cache_read": 91769528,
-        "cache_write_5m": 3466143,
-        "cache_write_1h": 1349333
+        "input": 1157,
+        "output": 634678,
+        "cache_read": 92310974,
+        "cache_write_5m": 3487021,
+        "cache_write_1h": 1350632
       },
       "models": [
         "claude-haiku-5-5",
         "claude-opus-5-5"
       ],
-      "api_usd": 58.96,
+      "api_usd": 59.25,
       "unpriced_models": []
     },
     {
@@ -248,27 +290,53 @@
         },
         "pi": {
           "tokens": {
-            "input": 203,
-            "output": 63868,
-            "cache_read": 36516585,
+            "input": 204,
+            "output": 63871,
+            "cache_read": 36607462,
             "cache_write_5m": 0,
-            "cache_write_1h": 572345
+            "cache_write_1h": 572950
           },
-          "api_usd": 13.16,
+          "api_usd": 13.18,
           "unpriced_models": []
         }
       },
+      "subagent_minutes_by_role": {
+        "reviewer": {
+          "runs": 5,
+          "minutes": 30.7,
+          "longest": 9.8,
+          "span_minutes": 30.7
+        },
+        "writer": {
+          "runs": 1,
+          "minutes": 23.6,
+          "longest": 23.6,
+          "span_minutes": 35.3
+        },
+        "figures-ra": {
+          "runs": 1,
+          "minutes": 11.5,
+          "longest": 11.5,
+          "span_minutes": 11.5
+        },
+        "replicator": {
+          "runs": 1,
+          "minutes": 10.6,
+          "longest": 10.6,
+          "span_minutes": 16.1
+        }
+      },
       "tokens": {
-        "input": 1617,
-        "output": 802342,
-        "cache_read": 131462178,
+        "input": 1618,
+        "output": 802346,
+        "cache_read": 131553055,
         "cache_write_5m": 4658143,
-        "cache_write_1h": 572345
+        "cache_write_1h": 572950
       },
       "models": [
         "claude-opus-5-5"
       ],
-      "api_usd": 70.22,
+      "api_usd": 70.24,
       "unpriced_models": []
     },
     {
@@ -279,42 +347,80 @@
       "elapsed_hours": 24.7,
       "human_gate_wait_hours": 8.8,
       "logged_compute_minutes": 14.0,
-      "subagent_transcripts": 21,
+      "subagent_transcripts": 22,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 1560,
-            "output": 750649,
-            "cache_read": 111295216,
-            "cache_write_5m": 4982084,
+            "input": 1568,
+            "output": 753516,
+            "cache_read": 111559238,
+            "cache_write_5m": 5002962,
             "cache_write_1h": 0
           },
-          "api_usd": 62.19,
+          "api_usd": 62.4,
           "unpriced_models": []
         },
         "pi": {
           "tokens": {
-            "input": 239,
-            "output": 63486,
-            "cache_read": 36022147,
+            "input": 242,
+            "output": 64753,
+            "cache_read": 36708095,
             "cache_write_5m": 0,
-            "cache_write_1h": 764228
+            "cache_write_1h": 766387
           },
-          "api_usd": 14.59,
+          "api_usd": 14.77,
           "unpriced_models": []
         }
       },
+      "subagent_minutes_by_role": {
+        "econometrician": {
+          "runs": 1,
+          "minutes": 83.0,
+          "longest": 83.0,
+          "span_minutes": 333.0
+        },
+        "reviewer": {
+          "runs": 5,
+          "minutes": 40.0,
+          "longest": 18.6,
+          "span_minutes": 40.0
+        },
+        "writer": {
+          "runs": 1,
+          "minutes": 27.4,
+          "longest": 27.4,
+          "span_minutes": 201.0
+        },
+        "figures-ra": {
+          "runs": 1,
+          "minutes": 9.1,
+          "longest": 9.1,
+          "span_minutes": 9.1
+        },
+        "scout": {
+          "runs": 1,
+          "minutes": 9.1,
+          "longest": 9.1,
+          "span_minutes": 9.1
+        },
+        "replicator": {
+          "runs": 1,
+          "minutes": 7.8,
+          "longest": 7.8,
+          "span_minutes": 175.6
+        }
+      },
       "tokens": {
-        "input": 1799,
-        "output": 814135,
-        "cache_read": 147317363,
-        "cache_write_5m": 4982084,
-        "cache_write_1h": 764228
+        "input": 1809,
+        "output": 818269,
+        "cache_read": 148267332,
+        "cache_write_5m": 5002962,
+        "cache_write_1h": 766387
       },
       "models": [
         "claude-opus-5-5"
       ],
-      "api_usd": 76.78,
+      "api_usd": 77.17,
       "unpriced_models": []
     },
     {
@@ -325,44 +431,183 @@
       "elapsed_hours": 4.6,
       "human_gate_wait_hours": 2.6,
       "logged_compute_minutes": 0.4,
-      "subagent_transcripts": 23,
+      "subagent_transcripts": 24,
       "by_source": {
         "subagents": {
           "tokens": {
-            "input": 1556,
-            "output": 1203528,
-            "cache_read": 91613037,
-            "cache_write_5m": 4908058,
+            "input": 1563,
+            "output": 1206395,
+            "cache_read": 91877059,
+            "cache_write_5m": 4928936,
             "cache_write_1h": 0
           },
-          "api_usd": 2.13,
+          "api_usd": 2.35,
           "unpriced_models": []
         },
         "pi": {
           "tokens": {
-            "input": 374,
-            "output": 78933,
-            "cache_read": 56884305,
+            "input": 393,
+            "output": 84915,
+            "cache_read": 59303425,
             "cache_write_5m": 0,
-            "cache_write_1h": 171877
+            "cache_write_1h": 327051
           },
-          "api_usd": 14.33,
+          "api_usd": 16.18,
           "unpriced_models": []
         }
       },
+      "subagent_minutes_by_role": {
+        "econometrician": {
+          "runs": 1,
+          "minutes": 43.5,
+          "longest": 43.5,
+          "span_minutes": 127.4
+        },
+        "writer": {
+          "runs": 1,
+          "minutes": 34.9,
+          "longest": 34.9,
+          "span_minutes": 40.2
+        },
+        "replicator": {
+          "runs": 1,
+          "minutes": 31.2,
+          "longest": 31.2,
+          "span_minutes": 49.8
+        },
+        "designer": {
+          "runs": 1,
+          "minutes": 12.4,
+          "longest": 12.4,
+          "span_minutes": 12.4
+        },
+        "data-ra": {
+          "runs": 2,
+          "minutes": 11.4,
+          "longest": 8.9,
+          "span_minutes": 14.8
+        },
+        "scout": {
+          "runs": 1,
+          "minutes": 4.0,
+          "longest": 4.0,
+          "span_minutes": 4.0
+        },
+        "reviewer": {
+          "runs": 1,
+          "minutes": 0.9,
+          "longest": 0.9,
+          "span_minutes": 0.9
+        }
+      },
       "tokens": {
-        "input": 1930,
-        "output": 1282461,
-        "cache_read": 148497342,
-        "cache_write_5m": 4908058,
-        "cache_write_1h": 171877
+        "input": 1957,
+        "output": 1291310,
+        "cache_read": 151180484,
+        "cache_write_5m": 4928936,
+        "cache_write_1h": 327051
       },
       "models": [
         "claude-haiku-5-5",
         "claude-opus-5-5"
       ],
-      "api_usd": 16.46,
+      "api_usd": 18.52,
       "unpriced_models": []
+    },
+    {
+      "workspace": "ss-card-proximity",
+      "started": "2026-11-20T11:18:37+00:00",
+      "finished": "2026-11-21T05:17:08+00:00",
+      "complete": true,
+      "elapsed_hours": 18.0,
+      "human_gate_wait_hours": 12.3,
+      "logged_compute_minutes": 13.2,
+      "subagent_transcripts": 22,
+      "by_source": {
+        "subagents": {
+          "tokens": {
+            "input": 2164,
+            "output": 1109691,
+            "cache_read": 176981134,
+            "cache_write_5m": 11538975,
+            "cache_write_1h": 0
+          },
+          "api_usd": 115.29,
+          "unpriced_models": [
+            "<synthetic>"
+          ]
+        },
+        "pi": {
+          "tokens": {
+            "input": 616,
+            "output": 121652,
+            "cache_read": 61005546,
+            "cache_write_5m": 0,
+            "cache_write_1h": 829379
+          },
+          "api_usd": 21.27,
+          "unpriced_models": []
+        }
+      },
+      "subagent_minutes_by_role": {
+        "econometrician": {
+          "runs": 1,
+          "minutes": 97.3,
+          "longest": 97.3,
+          "span_minutes": 612.5
+        },
+        "reviewer": {
+          "runs": 13,
+          "minutes": 74.7,
+          "longest": 10.2,
+          "span_minutes": 74.7
+        },
+        "writer": {
+          "runs": 1,
+          "minutes": 61.7,
+          "longest": 61.7,
+          "span_minutes": 136.2
+        },
+        "designer": {
+          "runs": 1,
+          "minutes": 31.5,
+          "longest": 31.5,
+          "span_minutes": 46.1
+        },
+        "figures-ra": {
+          "runs": 1,
+          "minutes": 24.5,
+          "longest": 24.5,
+          "span_minutes": 611.3
+        },
+        "data-ra": {
+          "runs": 1,
+          "minutes": 21.6,
+          "longest": 21.6,
+          "span_minutes": 646.9
+        },
+        "replicator": {
+          "runs": 1,
+          "minutes": 19.7,
+          "longest": 19.7,
+          "span_minutes": 52.4
+        }
+      },
+      "tokens": {
+        "input": 2780,
+        "output": 1231343,
+        "cache_read": 237986680,
+        "cache_write_5m": 11538975,
+        "cache_write_1h": 829379
+      },
+      "models": [
+        "<synthetic>",
+        "claude-opus-5-5"
+      ],
+      "api_usd": 136.57,
+      "unpriced_models": [
+        "<synthetic>"
+      ]
     }
   ]
 }

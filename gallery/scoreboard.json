@@ -1,7 +1,7 @@
 {
   "crew_version": "0.1.0",
-  "protocol": "0.1",
-  "scored_on": "2026-11-20T08:23:43Z",
+  "protocol": "0.2",
+  "scored_on": "2026-11-21T05:19:22Z",
   "results": [
     {
       "workspace": "gallery/cs-calibration",
@@ -82,6 +82,46 @@
               2.85
             ],
             "inside": true
+          }
+        }
+      },
+      "manual": "Does the paper claim more than the evidence supports? Judged by the Reviewer and the human."
+    },
+    {
+      "workspace": "gallery/ss-card-proximity",
+      "seed": "ss-card-proximity",
+      "track": "social-science",
+      "title": "Does Card's College-Proximity Estimate of the Return to Schooling Replicate and Survive Weak-Instrument-Robust Inference? A Replication of Card (1993), NBER Working Paper 4483",
+      "gates": {
+        "question": "approved",
+        "design": "approved",
+        "results": "approved",
+        "submission": "approved"
+      },
+      "complete": true,
+      "validation_errors": 0,
+      "rerun_passed": true,
+      "reviews": 15,
+      "cross_family_reviews": 0,
+      "protocol": "pass",
+      "answer": {
+        "status": "fail",
+        "details": {
+          "iv-return": {
+            "value": 0.1324437630310058,
+            "bounds": [
+              0.127,
+              0.137
+            ],
+            "inside": true
+          },
+          "first-stage": {
+            "value": 0.3638645727359556,
+            "bounds": [
+              0.315,
+              0.325
+            ],
+            "inside": false
           }
         }
       },

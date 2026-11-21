@@ -1,6 +1,6 @@
 # Show HN draft
 
-> Status: final, ready to post: all six gallery papers have passed their submission gates. Check numbers against `gallery/scoreboard.json`.
+> Status: final, ready to post: all eight gallery papers have passed their submission gates. Check numbers against `gallery/scoreboard.json`.
 
 **Title:** Show HN: Free-Research-Crew – AI research assistants with a reviewer that never lets up
 
@@ -16,7 +16,7 @@ Three kinds of judgment are kept apart:
 - *Whether it is good* is decided by a Reviewer agent that never wrote any of it, reads the files rather than the authors' summary, and opens every review with the single strongest argument for rejection (design borrowed from ARIS).
 - *Whether to go on* is decided by a human at four gates.
 
-I ran it on six seed tasks: four social-science (three replications and a null-effect test) and two ML. Every workspace, review and gate decision is in `gallery/`. Some things the Reviewer caught:
+I ran it on eight seed tasks: six social-science (five replications and a null-effect test) and two ML. Every workspace, review and gate decision is in `gallery/`. Some things the Reviewer caught:
 
 - A replication tolerance sized to sampling error, which a sloppy replication would pass; then, after the fix, one so tight that a faithful replication would fail; then the right formula.
 - A Python port of R's `hdm::rlasso` that skipped a zero-threshold step; porting it moved the R–Python gap from $87 to $0.36.

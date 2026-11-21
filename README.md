@@ -101,9 +101,9 @@ claude plugin install crew@free-research-crew
 
 每个项目的工作区在 `./crew-workspace/<slug>`。团队每到一关都会停下，等你输入 `/crew:gate`；智能体不能替你批准。
 
-**运行需要：** 支持插件的 Claude Code、Python 3.9+，编译论文需要 LaTeX。种子任务另需各自的科学计算 Python 包，团队会把它们固定在每个工作区的 `code/requirements.txt` 中。六个种子任务（2 个 CS、4 个社科）见 [`crew/bench/`](crew/bench/README.md)。
+**运行需要：** 支持插件的 Claude Code、Python 3.9+，编译论文需要 LaTeX。种子任务另需各自的科学计算 Python 包，团队会把它们固定在每个工作区的 `code/requirements.txt` 中。八个种子任务（2 个 CS、6 个社科）见 [`crew/bench/`](crew/bench/README.md)。
 
-> **当前状态：** 七篇论文全部通过四道关卡，均附 PDF 与通过的干净重跑：[标签噪声](gallery/cs-label-noise/)、[零效应检验](gallery/ss-null-effect/)、[401(k) DML 复现](gallery/ss-dml-401k/)、[Card–Krueger 复现](gallery/ss-card-krueger/)、[概率校准](gallery/cs-calibration/)、[LaLonde 观察性估计](gallery/ss-lalonde-observational/)、[参议院断点回归](gallery/ss-rd-senate/)。其中参议院这篇是低成本试跑：所有角色（含审稿人）都用 Claude Haiku 5.5，整篇约 16 美元，其中助研只花了约 2 美元。每篇从开题到投稿关卡约 18–25 小时（含等待你审批的时间），按 Claude API 标价折算约 58–103 美元的模型用量（订阅用户计入订阅额度，见 [`gallery/usage.json`](gallery/usage.json)）。每篇都附完整工作区、审稿人的批评与关卡决定，见 [**gallery/**](gallery/README.md)。完整计划、阶段与指标见 [**ROADMAP.md**](ROADMAP.md)；团队如何运作见 [`crew/README.md`](crew/README.md)。
+> **当前状态：** 八篇论文全部通过四道关卡，均附 PDF 与通过的干净重跑：[标签噪声](gallery/cs-label-noise/)、[零效应检验](gallery/ss-null-effect/)、[401(k) DML 复现](gallery/ss-dml-401k/)、[Card–Krueger 复现](gallery/ss-card-krueger/)、[概率校准](gallery/cs-calibration/)、[LaLonde 观察性估计](gallery/ss-lalonde-observational/)、[参议院断点回归](gallery/ss-rd-senate/)、[Card 大学距离工具变量的教育回报](gallery/ss-card-proximity/)。大学距离这篇是第一篇按 0.2 协议（代码先审后跑）写成的：复现了 Card 的 0.132 (0.049)，把所有未复现的数字都追溯到另一种第一阶段设定，并如实报告弱工具变量稳健检验无法确立回报为正；它的答案键在种子没写明列号的一项上判为不通过（原因见 gallery）。参议院这篇是低成本试跑：所有角色（含审稿人）都用 Claude Haiku 5.5，模型用量约 19 美元，其中助研约 2 美元。每篇从开题到投稿关卡约 18–25 小时（含等待你审批的时间），用你已有的 Claude Code 订阅就能跑，不另付 API 费（按 Claude API 标价折算约 59–137 美元，见 [`gallery/usage.json`](gallery/usage.json)）。每篇都附完整工作区、审稿人的批评与关卡决定，见 [**gallery/**](gallery/README.md)。完整计划、阶段与指标见 [**ROADMAP.md**](ROADMAP.md)；团队如何运作见 [`crew/README.md`](crew/README.md)；与其他科研智能体系统的比较（2026 年 11 月）见 [`docs/landscape-2026.md`](docs/landscape-2026.md#november-2026-where-free-research-crew-stands)。
 
 ---
 

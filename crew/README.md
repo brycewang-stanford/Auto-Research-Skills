@@ -54,6 +54,10 @@ ss-dml-401k"*. Details in [`adapters/codex/`](adapters/codex/).
 /crew:gate <workspace> design approve        record your decision on a gate
 ```
 
+Between gates, `python3 scripts/crew.py next <ws>` lists the next steps and what can run
+in parallel, and the Reviewer starts round 2 and later from
+`python3 scripts/crew.py changes <ws> <target>` (what changed since its last round).
+
 The crew stops at each gate — question, design, results, submission — and shows you the
 Reviewer's verdict and open objections. Nothing proceeds until you approve.
 
@@ -111,10 +115,11 @@ included, ran on Claude Haiku 5.5 (`model: haiku` in the frontmatter of the file
 Reviewer needed more rounds and the roles made more slips for it to catch. `python3
 scripts/usage.py <workspace>` reports what a project used.
 
-## Limits of v0.1
+## Limits
 
-- Seven seed papers have passed all four gates; see
-  [`gallery/`](../gallery/README.md).
+- Eight seed papers have passed all four gates; see
+  [`gallery/`](../gallery/README.md). All eight are replications or synthetic tests
+  with a known answer; none yet asks an open question.
 - Cross-family review needs the Codex CLI and your consent to send the workspace to
   OpenAI; without it the Reviewer runs on the same model family in a fresh context.
 - Gate approval is guarded by a hook ([`hooks/guard.py`](hooks/guard.py)): an approve
@@ -123,9 +128,11 @@ scripts/usage.py <workspace>` reports what a project used.
   approve. The same hook keeps agents out of the bench answer keys. It narrows the
   agents to the honest path; a determined workaround (a script written to disk and run
   later) is still possible, so the rule in `PI.md` stays.
-- All seven gallery papers were written in Claude Code. The Codex adapter
+- All eight gallery papers were written in Claude Code. The Codex adapter
   ([`adapters/codex/`](adapters/codex/)) installs the same roles as Codex custom agents
   and the same guard; Codex loads them, but no paper has yet been run end to end in Codex.
 - Protocol 0.2's checks (code review before analysis, process macros, typed numbers)
-  came after the seven gallery papers, which were written under 0.1; for them the new
-  rules are warnings.
+  came after the first seven gallery papers, which were written under 0.1; for them the
+  new rules are warnings. The eighth, `ss-card-proximity`, was written under 0.2: four
+  code rounds, 15 review rounds in all, and every analysis run covered by a code review
+  except one label-only figure rerun the human approved.

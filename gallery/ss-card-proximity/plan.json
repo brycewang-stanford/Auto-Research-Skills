@@ -280,7 +280,7 @@
       "id": "pi-submission-gate",
       "title": "Request and decide the submission gate",
       "owner": "pi",
-      "status": "todo"
+      "status": "done"
     }
   ],
   "gates": {
@@ -309,9 +309,12 @@
       "note": "批准 (AskUserQuestion answer)"
     },
     "submission": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-21T04:35:18Z",
-      "summary": "Paper (19 pp) after paper-r1 (revise) and paper-r2 (pass; F13-F15 minor answered); clean rerun passed 18/18 runs, 911 metrics, fresh venv from requirements.txt; final PDF differs from the reviewed one only in process macros (rerun status, review counts)."
+      "summary": "Paper (19 pp) after paper-r1 (revise) and paper-r2 (pass; F13-F15 minor answered); clean rerun passed 18/18 runs, 911 metrics, fresh venv from requirements.txt; final PDF differs from the reviewed one only in process macros (rerun status, review counts).",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-21T05:17:08Z",
+      "note": "批准 (AskUserQuestion answer)"
     }
   }
 }
