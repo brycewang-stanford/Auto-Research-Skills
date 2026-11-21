@@ -16,9 +16,12 @@ Bureau of Labor Statistics, through its open-data files by industry
 196 files of one industry and quarter each. On November 21, 2026 the files for 2026Q2 were not yet
 available; the BLS schedules them for December 2, 2026 \citep{bls2026cewq1}, and we do not wait
 for them. The vintage used is pinned by the SHA-256 hash of every file in the data manifest. The
-files for 2025Q1--2026Q1 carry a server date of August 21, 2026; 2026Q1 is preliminary, and a
-later download may return revised values for 2025 and 2026, which would be a new vintage. The
-data are in the public domain.
+files for 2025Q1--2026Q1 carry a server date of August 21, 2026. Under the BLS revision schedule
+a year's quarters receive their last revision with the release of the following year's
+first-quarter data, so in this vintage, the 2026Q1 release, all four 2025 quarters are final and
+only 2026Q1 is preliminary; 2026Q1 will be revised four more times, first with the 2026Q2 release
+\citep{blsqcewrevisions,bls2026cewq1}. A later download would be a new vintage. The data are in
+the public domain.
 
 We use state rows only: aggregation level 58 for 722513 and 722511, 56 for 7225 and 50 for
 industry 10, with ownership code 5 (private) for the restaurant industries and 0 (total covered)

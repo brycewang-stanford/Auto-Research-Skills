@@ -80,7 +80,7 @@
       "status": "open",
       "text": "The abstract and the introduction misstate the direction of the placebo result relative to the estimate. The abstract says the label is qualified 'because employment outside 722513 also ran above its counterfactual'. The introduction says 'Employment outside limited-service restaurants also ran above its counterfactual' right after giving the primary estimate. 'Also' implies that 722513 ran above its counterfactual, but HTwoAtt is -0.0295. robustness.tex sec:rob-placebo and the conclusion correctly say the deviation is of the opposite sign. The direction is what the paper's bias argument (toward zero or upward) rests on, and the abstract is where readers take it from.",
       "evidence": "paper/sections/abstract.tex sentence 'because employment outside 722513 also ran above its counterfactual'; paper/sections/intro.tex paragraph 3 ('Employment outside limited-service restaurants also ran above'); claims r-h2-emp-h2-att (-0.0295), r-plc-nonff-sign (+0.0245, 'about the size of |H2|'); robustness.tex sec:rob-placebo ('of the opposite sign'). Remedy: delete 'also' and say that employment outside 722513 ran above its counterfactual while 722513 ran below it.",
-      "response": "",
+      "response": "Writer: abstract now says employment outside 722513 'ran above its counterfactual, the opposite sign to the estimate'; the introduction says 'by contrast, ran above its counterfactual'. No 'also' remains (sections/abstract.tex, sections/intro.tex).",
       "ruling": ""
     },
     {
@@ -98,7 +98,7 @@
       "status": "open",
       "text": "Results sec:res-inference says that for 'the employment statistics of the primary (H2, H3), of S1 and of the other-pool check, the critical values are t at nu: the quantiles of the decision set L are less extreme'. That is false for the other-pool check on the lower side: CritOtherPoolLoFive = -2.470 and CritOtherPoolLoTwoFive = -2.495 come from L, against t_nu = 1.885 and 2.348. The rob-pool interval is wider on the negative side for that reason.",
       "evidence": "paper/sections/results.tex sec:res-inference first paragraph; paper/numbers.tex CritOtherPoolLoFive, CritOtherPoolLoTwoFive, TnuOtherPoolNinetyFive, TnuOtherPoolNinetySevenFive (claims r-crit-op-lo05, r-crit-op-lo025). Remedy: say that the other-pool check's lower critical values come from L, as S2's do.",
-      "response": "",
+      "response": "Writer: sec:res-inference now says t at nu holds for H2, H3 and S1; for the other-pool check only the upper critical values are t at nu, the lower ones (CritOtherPoolLoFive, CritOtherPoolLoTwoFive) come from L and are more extreme than -t_nu, so its interval is wider on the negative side (sections/results.tex).",
       "ruling": ""
     },
     {
@@ -107,7 +107,7 @@
       "status": "open",
       "text": "data.tex says '2026Q1 is preliminary, and a later download may return revised values for 2025 and 2026'. That contradicts claim c-qcew-revision-status and the corrected threat T14: in the 2026Q1 release all four 2025 quarters are final, and only 2026Q1 will be revised. The sentence follows data/CODEBOOK.md, which predates the Scout's check, and data.tex was not updated with T14 (data.tex mtime 14:17Z, T14 corrected 14:15Z).",
       "evidence": "paper/sections/data.tex subsection 'Employment and wages: the QCEW', vintage sentence; claims.jsonl c-qcew-revision-status; plan.json design.threats T14; log.jsonl 2026-11-21T14:15:03Z and 14:15:31Z. Remedy: 'a later download may return revised values for 2026Q1'.",
-      "response": "",
+      "response": "Writer: data.tex now follows c-qcew-revision-status and T14: in the 2026Q1 release all four 2025 quarters are final and only 2026Q1 is preliminary, to be revised four more times starting with the 2026Q2 release (cites blsqcewrevisions, bls2026cewq1); the sentence about revised 2025 values is gone.",
       "ruling": ""
     },
     {
@@ -116,7 +116,7 @@
       "status": "open",
       "text": "Wording overstates the design in three places. The conclusion says the specification 'was chosen by a pre-registered rule', and deviation D1 speaks of a 'pre-registered level check'. No registry or public time-stamped filing is cited; elsewhere the paper says 'pre-specified, not blind', which is accurate. The introduction calls the inference 'an inference procedure valid with one treated state', but the paper itself says California's level is argued, not measured, and that a California twice as noisy as its size implies would reject at 0.161.",
       "evidence": "paper/sections/conclusion.tex first paragraph ('pre-registered rule') and D1 ('pre-registered level check'; plan.json design.deviations D1 uses the same word); paper/sections/intro.tex paragraph 2 ('valid with one treated state'); strategy.tex sec:inference and conclusion limitation 4. Remedy: 'pre-specified'; 'built for one treated state' (the abstract's wording).",
-      "response": "",
+      "response": "Writer: conclusion 'pre-registered rule' and D1 'pre-registered level check' now read 'pre-specified'; the introduction says 'an inference procedure built for one treated state' instead of 'valid with'. No 'pre-registered' remains in the paper.",
       "ruling": ""
     },
     {
@@ -134,7 +134,7 @@
       "status": "open",
       "text": "literature.tex opens 'Five studies estimate the employment effect of AB 1228 with administrative data'. The fifth, Melo et al., estimates its state-level effect from YTS, which background.tex calls 'modelled establishment data' and the paper treats as contested for that reason.",
       "evidence": "paper/sections/literature.tex sec:lit-estimates first sentence and the Melo et al. sentence; paper/sections/background.tex sec:coverage ('Because YTS is itself modelled data'). Remedy: 'with QCEW or establishment-level data'.",
-      "response": "",
+      "response": "Writer: literature.tex now says five studies estimate the effect, four with administrative QCEW data and one (Melo et al.) with the modelled establishment data YTS, pointing to sec:coverage.",
       "ruling": ""
     },
     {
@@ -152,7 +152,7 @@
       "status": "open",
       "text": "results.tex sec:res-h3 says 'Before the power gate the rule would label it \"no detectable change\"'. There is no power gate. The meaning is 'Without the power rule'.",
       "evidence": "paper/sections/results.tex sec:res-h3 second sentence. Remedy: reword.",
-      "response": "",
+      "response": "Writer: sec:res-h3 now reads 'Without the power rule the H3 rule would label it \"no detectable change\"'.",
       "ruling": ""
     }
   ],

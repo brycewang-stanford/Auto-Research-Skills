@@ -129,9 +129,12 @@ below the 2 percent bound of H2, so falsification check (i) of the identifying a
 
 Table~\ref{tab:inference} reports, for every statistic that carries a label, the degrees of
 freedom and critical values fixed by run \cand{level-mde} on data through 2019Q4, before any
-post-period run. For the employment statistics of the primary (H2, H3), of S1 and of the
-other-pool check, the critical values are $t$ at $\nu$: the quantiles of the decision set $L$ are
-less extreme. For H1 they are not. The upper quantiles of the 60 wage $t$ statistics in $L$,
+post-period run. For the employment statistics of the primary (H2, H3) and of S1, the critical
+values are $t$ at $\nu$: the quantiles of the decision set $L$ are less extreme. For the other-pool
+check the upper ones are $t$ at $\nu$, but the lower ones, $\CritOtherPoolLoFive$ (0.05) and
+$\CritOtherPoolLoTwoFive$ (0.025), come from $L$ and are more extreme than $-t_\nu$
+($-\TnuOtherPoolNinetyFive$ and $-\TnuOtherPoolNinetySevenFive$), so its interval is wider on the
+negative side. For H1 the quantiles of $L$ set the upper side: the upper quantiles of the 60 wage $t$ statistics in $L$,
 $\LqHOneNinetyFive$ and $\LqHOneNinetySevenFive$, are far above $t_\nu$ ($\TnuHOneNinetyFive$ and
 $\TnuHOneNinetySevenFive$), so they set H1's one-sided critical value and the upper end of its
 interval. For S2 the SDID floor raises the upper critical values from
@@ -373,7 +376,7 @@ permutation test, and no $p$-value is read from California's rank. Run \cand{fig
 The employment effect is $\HThreeYrOne$ in year one (95 percent interval $\HThreeYrOneLo$ to
 $\HThreeYrOneHi$) and $\HThreeYrTwo$ in year two ($\HThreeYrTwoLo$ to $\HThreeYrTwoHi$). Their
 difference is $\HThreeDiff$, with standard error $\HThreeDiffSe$ and 95 percent interval
-$\HThreeDiffLo$ to $\HThreeDiffHi$. Before the power gate the rule would label it ``no detectable
+$\HThreeDiffLo$ to $\HThreeDiffHi$. Without the power rule the H3 rule would label it ``no detectable
 change''; but the minimum detectable difference is $\MdeHThree$ with the pre-period standard error
 and $\MdeHThreePost$ with the real one, and the larger, $\MdeHThreeMax$, exceeds 0.04, so H3 is
 ``uninformative''. The yearly wage effects next to which H3 was to be read, $\HOneAttYrOne$ and

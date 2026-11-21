@@ -173,3 +173,8 @@
 {"time": "2026-11-21T14:47:52Z", "role": "replicator", "action": "rerun", "detail": "passed=True"}
 {"time": "2026-11-21T14:49:21Z", "role": "replicator", "action": "replicate", "detail": "rp-rerun done: crew.py rerun --setup (fresh .venv from code/requirements.txt, pip freeze equal to it), no --reuse-data; 27/27 runs reproduced, 4416 metrics matched (rtol 1e-6); all 203 manifest files byte-identical on fresh download; 2071 s wall clock; posthoc D7 leave-one-out flags reproduced as expected; REPLICATION.md written"}
 {"time": "2026-11-21T15:36:30Z", "role": "pi", "action": "deviation-recorded", "detail": "D8 descriptive run (paper-r1 P3), unreviewed with the human's agreement"}
+{"time": "2026-11-21T15:36:33Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T153633Z (paper-r1 P1 claims; D8 describe run)"}
+{"time": "2026-11-21T15:36:33Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261121T153633Z (paper-r1 P2 P4-P6 P8 P10)"}
+{"time": "2026-11-21T15:37:34Z", "role": "writer", "action": "paper-r1-fixes", "detail": "paper-r1 P2, P4, P5, P6, P8, P10 fixed in text (abstract, intro, data, literature, results, conclusion); responses in reviews/paper-r1/review.json; P1, P3 left for the PI's next brief; crew.py numbers rerun; main.pdf recompiled (39 pages)"}
+{"time": "2026-11-21T15:37:41Z", "role": "econometrician", "action": "run-unreviewed", "detail": "describe: human agreed 2026-11-21 (AskUserQuestion): paper-r1 P3 descriptive table after the last code round"}
+{"time": "2026-11-21T15:37:41Z", "role": "econometrician", "action": "run", "detail": "describe exit=0"}
