@@ -1,0 +1,183 @@
+{
+  "id": "question-r4",
+  "target": "question",
+  "round": 4,
+  "created": "2026-11-21T05:24:58Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "plan.json",
+    "sources/notes.md",
+    "claims.jsonl",
+    "log.jsonl",
+    "reviews/question-r3/review.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "briefs/20261121T052049Z-scout.md",
+    "briefs/20261121T052200Z-reviewer.md",
+    "runs/fetch-data/run.json",
+    "runs/prepare-data/run.json"
+  ],
+  "kill_argument": "The study's empirical novelty is one preliminary quarter. Seven of its eight pooled quarters are already estimated on the same QCEW release (w35931, through 2025Q4), and both camps' specifications, base-period checks and anticipation estimates are in print. What is left is procedure: an outcome-blind rule that picks the primary specification by placebo-in-time fit before 2023Q3. A hostile referee would say the rule only moves the search. Its pseudo-dates, windows, tie-break and pools are still to be fixed by a PI who knows the published map. Every eight-quarter pseudo-window from about 2018Q3 to 2021Q3 contains COVID, and how COVID is handled can decide whether trend-based or weighting estimators win. What I tried and what held: F11-F14 are fixed in the files. No 'first', 'no study' or 'pre-registered' claim remains; the plan says 'pre-specified, not blind'. The nine-cell decision table is exhaustive and its labels are distinct. The placebo exercises in w34033 rev., w35171 and w35931 are in space, not in time, so the rule's winner is not already published. Only data-prep runs exist. The question is answerable, falsifiable and honestly scoped; the residual risk belongs to the design gate.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "critical",
+      "status": "resolved",
+      "text": "H4's pass criterion is already met in the literature, and true by construction. The criterion is 'H4 holds if the grid's range of pooled ATTs on log employment contains both targets; it fails if either lies outside the range'. w35931 already reports a grid of 1,440 specifications on one QCEW vintage whose QCEW SDID range contains both CEMN's Table 3 Panel B estimates (76th and 46th percentiles) and Dube's SDID estimate (97th percentile) (w35931 p. 7; checked against the fetched PDF). A full-factorial grid that crosses each author's own choices contains replications of both specifications. So the range contains both targets unless the replication fails, and 'H4 fails' then measures replication error or data vintage, not whether the choices explain the disagreement. The claimed addition, 'a grid fixed before estimation on a single vintage', is also partly pre-empted: w35931 already uses a single vintage (the August 2026 release, fn 3). And the PI and Scout have read which choices move the estimate (w35931 Table A1; Dube Table D1), so the grid is not chosen blind to their effect. The range criterion also does not match the question's own wording ('account for their disagreement').",
+      "evidence": "plan.json hypotheses[3] (H4) and question (second clause); sources/notes.md sections 0.3, 1.6 and 3; w35931 pp. 6-7 and fn 3 and 5 (fetched by the Reviewer). Cheapest remedy: narrow H4 to the choices no one has varied. w35931 fn 5 says it does not vary the baseline period, and Dube Table D1 does not decompose base period and anticipation handling or the DDD comparison sector (notes.md section 3). Replace the range criterion with a falsifiable, pre-specified quantity, for example: 'moving the base period from 2023Q3 to 2023Q4 with 2024Q1 dropped, all else at the primary specification, closes at least X% of the CEMN-Dube gap', with X and the test fixed now. Or drop H4.",
+      "response": "H4 replaced: the grid hypothesis is dropped; H4 now tests anticipation (2023Q4-2024Q1 vs a 2023Q3 base), the choice w35931 does not vary, with the H2 decision rule; the question text changed to match.",
+      "ruling": "The range criterion is gone and the grid hypothesis is dropped, so the tautology is fixed. Its replacement fails for a different reason (F7)."
+    },
+    {
+      "id": "F2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The novelty of H2 is one preliminary quarter, and the contribution text overstates it. w35931's post-period-average SDID and SC estimands already average the QCEW post period through 2025Q4, about 2024Q2-2025Q4 under Dube's base choice, which w35931 adopts (fn 5). The proposed pooled 2024Q2-2026Q1 ATT adds only 2026Q1, which BLS will revise (CODEBOOK.md caution 4; c-qcew-2026q1). 'First pooled eight-quarter estimate' is literally true but describes a one-quarter extension of a seven-quarter estimand that is already published across 1,440 specifications. The window will also be overtaken soon: BLS releases 2026Q2 on 2 December 2026, eleven days from now (bls2026cewq1), and CEMN put out two papers on the August release within two months. The question should say plainly that the empirical novelty is marginal. It should also say what the paper's actual value is (pre-specified design with valid single-state inference, an equivalence test against a 2% bound, the year-two contrast), or decide whether the post window waits for 2026Q2.",
+      "evidence": "plan.json question ('no published estimate ... pools all eight post-policy quarters') and contribution ('Adds 2026Q1 QCEW data and the first pooled eight-quarter estimate'); sources/notes.md sections 1.6 and 2; w35931 p. 6 ('The QCEW and QWI currently end in 2025Q4'), fn 5, Figure 1 note. Resolve by rewording the contribution so the main value is the pre-specified test and not the new data. Also record a decision on the 2026Q2 release before the design gate.",
+      "response": "Contribution rewritten: no novelty claimed from data; one preliminary quarter stated; the crew does not wait for 2026Q2 (due 2026-12-02), stated in the question and to be put to the human at the gate.",
+      "ruling": "The contribution no longer claims novelty from data, states that 2026Q1 is one preliminary quarter, and records the decision not to wait for 2026Q2 (due 2026-12-02), to be put to the human at the gate."
+    },
+    {
+      "id": "F3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "H2's decision rule can return two verdicts at once. 'Decline' uses the two-sided 95% CI. 'No effect larger than 2%' uses TOST at 5%, which is the 90% CI inside [-2%, +2%]. Both hold for any estimate whose 95% CI lies entirely inside (-2%, 0) with its 90% CI also inside (-2%, +2%), for example an ATT of -1.0% with SE 0.4. The rule gives no precedence, so the verdict the paper reports could be chosen after the result is seen. That region is plausible: Dube's DD is -1.39 [FP SE 0.44] (notes.md 1.3). There is also a mismatch of estimands. The 2% bound is justified by the 'roughly 3% decline reported by Clemens et al.', which is a fixed-horizon index-point endpoint (Sept 2023 to Sept 2025). H2 is a pooled average in log points with a different base, so 'excludes the Clemens decline' does not compare like with like.",
+      "evidence": "plan.json hypotheses[1] (H2) decision rule; sources/notes.md 1.2 and 1.3. Resolve by making the categories exhaustive and mutually exclusive, with an explicit order (for example 'decline, and smaller than 2%' as its own category, or TOST evaluated first). State the bound's rationale in the same estimand as H2.",
+      "response": "H2 decision rule now an exhaustive, mutually exclusive sign x size table; the bound is justified with Dube's pooled log weekly-wage effect (same pooled estimand) as an own-wage elasticity of about -0.29.",
+      "ruling": "Sign and size are now separate tests combined in one table with no overlapping cells, and the bound is restated as an own-wage elasticity using Dube's pooled log weekly-wage effect (Table 1 Panel A: +6.99 SDID, +7.50 DD; checked). One cell is still missing from the table (F9)."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The coverage figure is attributed beyond what the source says. The contribution says 'about 30% of NAICS 722513 employment is outside the law's coverage', and c-coverage-share says 'about 70 percent of California fast-food workers'. Sosinskiy and Reich (April 2026) say 'about 70 percent of the workers in the two industries are covered', and the two industries are 722513 and 722515 together (checked in the fetched PDF, the paragraph around 'snack and nonalcoholic beverage bars'). The share for 722513 alone is not given. That matters because the plan uses the share to scale the ITT dilution.",
+      "evidence": "plan.json contribution; claims.jsonl c-coverage-share; sosinskiy2026effects pp. 1-2 and 6 ('We estimate that about 70 percent of the workers in the two industries are covered'). Resolve by rewording to 'about 70% of workers in 722513 and 722515 combined' and flagging the 722513-only share as unknown.",
+      "response": "Plan wording corrected (70% refers to 722513+722515; 722513 alone unknown). The claim c-coverage-share is the Scout's; sent to the Scout.",
+      "ruling": "plan.json contribution and claims.jsonl c-coverage-share now say the 70% figure covers 722513 and 722515 together and that no share for 722513 alone is given, which matches the PDF (checked in round 1)."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H3 is read as 'dynamics', but the treatment's bite falls in year two. The fast-food premium over California's general minimum shrinks from $4.00 to $3.50 to $3.10 (notes.md section 4), and CEMN report the wage effect falling from about 8% to just over 6% (notes.md 6.9). 'Shrinks' therefore cannot separate adjustment over time from a smaller dose. The plan reports H1 by year, but the H3 labels ('grows' / 'shrinks') still read as dynamics of a fixed treatment. A difference of two four-quarter averages for a single treated state is also likely to have a large MDE, so 'no detectable change' may be the expected outcome before any data are seen.",
+      "evidence": "plan.json hypotheses[2] (H3) and hypotheses[0] (H1 by year); sources/notes.md sections 4 and 6.9. Resolve by renaming H3 as a reduced-form year-two minus year-one contrast, reporting it next to the wage contrast by year (or the own-wage elasticity by year), and committing at the design gate to report H3 as uninformative if its MDE exceeds a stated size.",
+      "response": "H3 renamed reduced-form year two minus year one, reported with yearly wage effects and elasticities; uninformative if the pre-period MDE of the difference exceeds 0.04.",
+      "ruling": "H3 is now a reduced-form difference between year two and year one, reported next to the yearly wage effects and elasticities, with a rule that it is uninformative if the pre-period MDE exceeds 0.04."
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Whether H1 and H2 can be tested depends on a choice the question leaves open. With rank-based placebo inference and Dube's 20-state donor pool there are 21 units. The smallest attainable one-sided p is 1/21 = 0.048, so H1 passes at 5% only if California ranks first, and inverting the test to get a 95% CI for H2 and a TOST is very coarse. The question names 'placebo-in-space permutation' as an option without noting that its resolution depends on the donor pool. Also, H1 uses QCEW average weekly wage, which is weekly earnings, not the hourly wage the law sets (c-qcew-concepts). A cut in hours would bias the first stage toward zero, so 'the policy binds' is measured imperfectly.",
+      "evidence": "plan.json hypotheses[0] and [1] (inference method left to the design gate); sources/notes.md 1.3 (20 control states) and section 5 (AWW definition). Resolve at the design gate by requiring that the chosen donor pool and inference method can reach the stated test levels (or by using Ferman-Pinto or conformal intervals), and by describing H1 as a weekly-earnings first stage.",
+      "response": "H1 is now a weekly-earnings first stage; the design gate must show the pool and method attain a 5% test; Ferman-Pinto or conformal named.",
+      "ruling": "H1 is now described as a weekly-earnings first stage. Inference valid with one treated state is required, and the design gate must show that a 5% test is attainable. That is the right place to settle it."
+    },
+    {
+      "id": "F7",
+      "severity": "critical",
+      "status": "resolved",
+      "text": "The revised question and H4 rest on a premise that the crew's own sources contradict: that the base period or anticipation is 'the one specification choice on which the published QCEW-based studies differ ... that no published study varies'. Four of the cited papers vary it or estimate the anticipation window directly. (1) Dube (2026), the paper whose base choice is in dispute, reports every Table 1 estimate under a second base, Panel B, the 2022Q1-2023Q3 average. The text says this is 'invariant to anticipation that may have leaked into 2023Q4 itself' (p. 6). Removing 2023Q4 from the base moves the SDID estimate from -0.26 to -0.02 and the DD estimate from -1.39 to -1.28, both toward zero (Table 1, p. 29). (2) Sosinskiy and Reich (2026), Appendix A.1 (pp. 42-43) and Table A3 (p. 48), re-estimate with CEM's September 2023 reference and report the 2023Q4 and 2024Q1 effects directly: -0.002 [-0.019, 0.017] and -0.006 [-0.045, 0.027] in the preferred specification, and -0.005 and -0.014 in the specification closest to CEM. They conclude there is no anticipation effect and that 'almost 60 percent of CEM's estimated employment effect occurs during the anticipation phase'. (3) w35931 fn 5, the footnote the plan cites for 'does not vary', ends: 'The distribution of estimates is slightly more negative, but not meaningfully changed, when using 2023Q3 as a baseline and not excluding any transition quarters.' Its fixed-horizon estimates are already measured from 2023Q3. (4) CEMN (2026 rev., fn 9 and Table A3) re-estimate the QWI results on Dube's 2023Q4 base. The 'one choice' wording is also wrong: Dube Table D1 and w35931 attribute the gap mainly to detrending, population normalisation, averaging windows and SDID (notes.md section 3), not to the base. Finally, H4's estimand covers 2023Q4-2024Q1, so it uses none of the new data. My round-1 remedy pointed at the base period on the strength of w35931 fn 5's first sentence and notes.md section 3 ('Not decomposed by Dube'). That remedy was wrong, and this finding corrects it.",
+      "evidence": "plan.json question ('the one specification choice ... that no published study varies'), hypotheses[3] (H4: 'the choice no published study varies'; 'w35931 does not vary the base period (footnote 5)'), contribution ('the choice ... that no study varies'); sources/notes.md section 3 row 'Base period' and section 6.4; claims.jsonl c-anticipation-debate (already says SR 'find no anticipation effect'). Checked by the Reviewer in the fetched PDFs: w35171 pp. 6, 9-10 and Table 1 (sha256 783af68d...); SR 2026 pp. 42-43 and Table A3 (sha256 prefix 92fc2cac); w35931 fn 5; w34033 rev. fn 9 (sha256 fad0da0c...). Cheapest remedy: remove every 'no published study varies' and 'the one choice' statement, cite Dube Panel B, SR Table A3 and w35931 fn 5, and either drop H4 or restate it as a re-estimate of the anticipation window with the crew's pre-specified estimator and inference. If kept, the question must say what that adds beyond SR Table A3 (state level instead of county level, SDID or SC instead of TWFE, a pre-specified equivalence test) and that it uses no post-2024Q1 data.",
+      "response": "Conceded. H4 deleted; every 'no published study varies' and 'the one choice' statement removed from question and contribution; Dube Table 1 Panel B, Sosinskiy-Reich Table A3 and w35931 footnote 5 cited as existing anticipation and base-period checks; the anticipation window is report-only.",
+      "ruling": "plan.json no longer contains 'no published study varies', 'the one choice' or any 'first' claim (grep of plan.json and claims.jsonl), H4 is gone, and the question and contribution cite Dube Table 1 Panel B, SR Table A3 and w35931 fn 5 as existing checks. notes.md section 3.1 and the four new claims match the PDFs: I re-checked SR Table A3 (it is on PDF p. 49; my 'p. 48' in round 2 was wrong, the Scout is right) including -0.002 [-0.019, 0.017] and -0.006 [-0.045, 0.027] and the 'almost 60 percent' passage (pp. 42-43); w35931 fn 5 verbatim; CEMN rev. fn 9 (-0.59 to -2.47, median -1.43, none significant at 0.10) and Table A3 Panel B; Dube Panel B was checked in round 2. One residual misattribution in the new timing sentence is F13."
+    },
+    {
+      "id": "F8",
+      "severity": "major",
+      "status": "conceded",
+      "text": "Even as a test, H4's estimand and labels do not support the conclusions attached to them. (a) Dube's base is 2023Q4 alone, and 2024Q1 is excluded from both his base and his post average (w35171 p. 6). Only anticipation in 2023Q4 can bias his estimate. H4 averages 2023Q4 and 2024Q1, so a decline concentrated in 2024Q1 would make H4 'negative' and the paper would then say 'a 2023Q4 base absorbs part of the effect', which would be false. (b) The 'no effect as large as 2%' branch concludes that 'the base-period choice cannot explain the disagreement'. The gap is about 3.2 points (CEMN two-year median -3.45, Dube SDID -0.26), so an anticipation effect bounded inside +/-2 points could still account for up to about 60% of it. That is the share SR attribute to CEM's anticipation window. (c) b = 0.02 is justified for H2 as an own-wage elasticity of -0.29 at a 7% wage effect. Before 1 April 2024 the fast-food wage had not changed (Dube Figure 2: 'a sharp increase of 6-8 percent at implementation', p. 9), so the elasticity rationale does not apply to H4 and its bound has no stated justification. (d) The descriptive add-on, 'by how much Dube's pooled estimate would move with a 2023Q3 base', is already published in substance: Dube Panel B (base without 2023Q4) and w35931 fn 5 (2023Q3 base, no transition quarter, 'not meaningfully changed').",
+      "evidence": "plan.json hypotheses[3] (H4); w35171 p. 6 and Table 1 Panel A/B; SR 2026 p. 43; notes.md 1.2 and 1.3. Resolve, if H4 survives F7, by: using the 2023Q4 effect relative to 2023Q3 as the quantity that bears on Dube's base, with 2024Q1 reported separately; stating the conclusion as a share of the published gap with its CI rather than as a +/-2% equivalence; and giving H4 its own bound with a rationale, plus an uninformative-if-MDE rule like H3's.",
+      "response": "Moot with H4 deleted; the anticipation estimate is report-only, carries no b and no label.",
+      "ruling": "H4 is deleted and the 2023Q4-2024Q1 estimate is report-only, with no bound, label or conclusion attached, so the estimand and label problems no longer arise. Conceded by narrowing."
+    },
+    {
+      "id": "F9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H2's decision table, which also serves H4, is described as 'exhaustive and mutually exclusive', but it has no cell for (sign undetermined, at least b). That case occurs when the 90% CI lies entirely below -b while the 95% CI still reaches 0 (or symmetrically above). Under a normal approximation this needs an SE above about 0.064 (for example an estimate of -0.137 with SE 0.07). Published Ferman-Pinto SEs are 0.4 to 0.7 points, so it is unlikely for H2. It is less unlikely for a coarse permutation inversion or for the two-quarter H4 window. In that case the label would be chosen after the result is seen.",
+      "evidence": "plan.json hypotheses[1] (H2 decision rule: the listed cells and 'the positive cases symmetrically'); hypotheses[3] ('with the H2 decision rule and labels'). Reviewer arithmetic: with z95 = 1.96 and z90 = 1.645 the gap needs 0.315*SE > b. Resolve by adding the cell (for example label it 'inconclusive') or by giving the sign test precedence.",
+      "response": "Added the cell (sign undetermined, at least b) = 'inconclusive'.",
+      "ruling": "plan.json H2 now lists (sign undetermined, at least b) = 'inconclusive'; the table has all nine cells (with the positive cases symmetric). See F12 for a separate issue with one merged label."
+    },
+    {
+      "id": "F10",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "H2 and H3 do not state the base period or how 2023Q4-2024Q1 are treated, although the question names this as the choice the disagreement turns on. H4 assumes a 2023Q3 base and notes.md 6.4 recommends it, but H2's pooled ATT is not tied to it. The bound's rationale also uses Dube's estimate on a 2023Q4 base. Leaving it open makes the base a free choice at the design stage, after the PI has seen how each base moves the published numbers.",
+      "evidence": "plan.json hypotheses[1]-[2] (no base stated) versus hypotheses[3] ('relative to a 2023Q3 base'); sources/notes.md section 6.4. Resolve now in one sentence, for example 'all pooled ATTs are relative to 2023Q3, with 2023Q4-2024Q1 excluded from both the pre-period fit and the post average', with any alternative named as a pre-specified secondary.",
+      "response": "H2 now fixes timing for H1-H3: base 2023Q3; 2023Q4-2024Q1 excluded from base and pooled post-period and reported separately; Dube's 2023Q4 base is a pre-specified robustness check.",
+      "ruling": "H2 now fixes the timing for H1-H3: base 2023Q3, 2023Q4 and 2024Q1 excluded from base and pooled post-period, Dube's 2023Q4 base a pre-specified robustness check, not an alternative primary. With a 2023Q3 base, any persistent decline that began in anticipation stays in the pooled post-period level, so the estimand is comparable to CEMN's on timing. Note for the design gate: SR (p. 42) argue anticipation could start as early as July or August 2023, inside the 2023Q3 base; that is a threat to state, not a question-stage defect."
+    },
+    {
+      "id": "F11",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The H2 verdict is decided by choices the question leaves to the design gate, and the published literature already shows which choice gives which verdict. Seven of the eight pooled quarters (2024Q2-2025Q4) are already estimated on the same QCEW release under 1,440 specifications (w35931). Detrending alone moves the pooled median from -2.83 percent (none) to -5.67 (CEM linear) or -4.98 (2021Q3-2023Q3 trend) (w35931 p. 12 and Table A1), and none of the 38 grouped medians is closer to zero than -2.2. Dube's undetrended SDID gives -0.26 (Panel A) or -0.02 (Panel B, timing close to the plan's). With b = 0.02, a detrended estimator all but fixes the label 'decline of at least 2%', and Dube's estimator 'no effect as large as 2%' or 'decline, size below or not distinguishable from 2%'. plan.json leaves the estimator, detrending, outcome normalisation (level vs per capita), donor pool and match window open ('primary estimator fixed at the design gate'). The PI who fixes them knows this map (disclosed in the contribution). Yet the question calls the study 'a pre-registered update', and the contribution says its value is that everything is 'fixed and reviewed before any post-2023Q3 outcome is computed'. Fixing choices before computing protects against searching the data. Here the search results are in print, so it protects against nothing that matters for H2. As written, H2 is falsifiable in form but close to determined by an unconstrained choice.",
+      "evidence": "plan.json question ('a pre-registered update'), hypotheses[0] ('with the primary estimator fixed at the design gate'), hypotheses[1] (H2: 'same estimator'), contribution ('fixed and reviewed before any post-2023Q3 outcome is computed'; 'The PI and the Scout know the published estimates'); sources/notes.md 1.3, 1.6 and section 3 rows Detrending, Outcome, Estimator, Pre-period / match window; w35931 p. 12 lines on detrending (-2.83 / -5.67 / -4.98) and Table A1, checked by the Reviewer in the fetched PDF; Dube Table 1 Panels A-B. Cheapest remedy, one or two sentences now: (a) commit that the design gate chooses detrending, normalisation, estimator and match window by a rule stated in advance that uses only pre-2023Q3 data (for example the specification with the smallest placebo-in-time RMSE over pseudo-treatment dates before 2023Q3), with the reasons written down, and not by appeal to which published camp it matches; and (b) pre-specify H2 also under each camp's published specification (CEMN's detrended index DD and Dube's SDID, both on the 2023Q3 timing) as named secondaries, so the reader sees where the primary falls. Alternatively, narrow the wording to 'pre-specified, not blind: results for 7 of the 8 quarters under most specifications are published'.",
+      "response": "Both remedies taken: H2 now fixes a selection rule (smallest placebo-in-time RMSE on pre-2023Q3 data over a listed candidate set covering both published approaches), names CEMN's detrended indexed DD and Dube's SDID (2023Q3 timing) as secondary analyses, and the plan says 'pre-specified, not blind' instead of 'pre-registered'.",
+      "ruling": "Resolved. plan.json H2 now says the design gate does not choose estimator, detrending, normalisation, pool or fitting window by judgement; the primary is the candidate with the smallest placebo-in-time RMSE using only pre-2023Q3 data, over a candidate set that covers both published approaches; CEMN's detrended indexed DD and Dube's SDID on the 2023Q3 timing are named secondaries; the question and contribution say 'pre-specified, not blind'. I checked whether the rule's outcome is itself already in print: the placebo exercises in w34033 rev. (Tables 2 and 4), w35171 (Ferman-Pinto placebo SEs from placebo states) and w35931 are placebo-in-space over states, not placebo-in-time over pseudo-dates, so none reports which candidate fits best in time. The rule's free parameters remain (new F15)."
+    },
+    {
+      "id": "F12",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The decision table merges the one negative-sign outcome that separates the two published readings with an outcome that does not. (negative, smaller than b) is a significant decline whose 90% CI lies inside (-2%, +2%); it rules out the CEMN size of about -3.45. (negative, size undetermined) is a significant decline whose size could be 2% or more. Both get the label 'decline, size below or not distinguishable from 2%'. The plan's own rationale is that 'a CI inside +/-0.02 therefore separates the two published readings', but the headline label suppresses exactly that separation when the sign is negative. A Dube-like result (DD -1.39, FP SE 0.44 gives a 90% CI of about [-2.1, -0.7]) sits on this boundary. I missed this in round 2, when I wrote that the cells do not overlap. They do not overlap, but two different outcomes share one label.",
+      "evidence": "plan.json hypotheses[1] (H2 label '(negative, smaller than b or size undetermined) = ...') versus its sentence 'a CI inside +/-0.02 therefore separates the two published readings'. Resolve by splitting the cell: (negative, smaller than b) = 'decline smaller than 2%'; (negative, size undetermined) = 'decline, size not distinguishable from 2%'. Do the same for the positive cases.",
+      "response": "Labels split: 'decline smaller than 2%' and 'decline, size not distinguishable from 2%' (and the positive cases).",
+      "ruling": "Resolved. The negative cells are now 'decline of at least 2%', 'decline smaller than 2%' and 'decline, size not distinguishable from 2%', with the positive cases named symmetrically. The nine sign-by-size cells are each labelled once; I rechecked that (sign undetermined, at least b) is reachable only with a wide asymmetric gap between the 90% and 95% intervals and is labelled 'inconclusive', which is acceptable."
+    },
+    {
+      "id": "F13",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The new timing sentence says that 2023Q4 and 2024Q1 'are reported separately as a report-only anticipation estimate, as Sosinskiy and Reich (2026, Table A3) and Dube (2026, Table 1 Panel B) already do'. SR Table A3 reports the 2023Q4 and 2024Q1 coefficients on a 2023Q3 / September 2023 reference. Dube Panel B does not report them. It changes the base to the 2022Q1-2023Q3 average, so that 2023Q4 enters neither the base nor the post average, and 2024Q1 is dropped in both panels. The crew's own notes say 'He reports no separate 2023Q4 or 2024Q1 effect in Tables 1-2'. The sentence attributes to Dube something he does not do. Separately, Panel B's timing is close to the plan's own timing (2023Q4-2024Q1 in neither base nor post), so it is the nearest published analogue of H2's timing. The paper should say so, because Panel B moves Dube's SDID to -0.02.",
+      "evidence": "plan.json hypotheses[1], the sentence beginning 'Timing for H1-H3, fixed now'; sources/notes.md section 3.1 item 1, last sentence; w35171 p. 6 (checked in round 2). Resolve by rewording, for example: '..., as Sosinskiy and Reich (2026, Table A3) do; Dube (2026, Table 1 Panel B) uses a base that also excludes 2023Q4.'",
+      "response": "Attribution corrected: only Sosinskiy-Reich report 2023Q4 and 2024Q1 separately; Dube Panel B (2022Q1-2023Q3 mean base) is named as the closest published timing.",
+      "ruling": "Resolved. plan.json H2 now credits only Sosinskiy and Reich (Table A3) with reporting 2023Q4 and 2024Q1 separately and names Dube Table 1 Panel B (2022Q1-2023Q3 mean base) as the closest published timing. sources/notes.md 3.1 item 1 still says, correctly, that Dube reports no separate 2023Q4 or 2024Q1 effect."
+    },
+    {
+      "id": "F14",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "sources/notes.md still describes an H4 that no longer exists and calls a grid the study's new contribution. Section 0 item 3 says 'H4 can still add something (a full factorial grid fixed in advance, one data vintage, both published estimates as targets)'. Section 3 ends with 'Published estimates H4 could target'. Section 6.1 lists 'a fixed-in-advance specification grid' as part of 'the new contribution'. Section 7 says 'H4 is partly answered ... a pre-specified full-factorial grid on one vintage is still a modest addition'. plan.json has no H4 and no grid. The Writer and the design-stage roles read these notes, and a 'modest addition' claim for a grid the plan dropped could reach the paper.",
+      "evidence": "sources/notes.md section 0 item 3, the paragraph after the section 3 table, section 6 item 1, section 7; plan.json hypotheses (H1-H3 only). Resolve by marking those passages as superseded by plan.json (H4 deleted after question-r2) or by rewording them.",
+      "response": "sources/notes.md is the Scout's; sent to the Scout.",
+      "ruling": "Resolved, although the response sent it to the Scout rather than answering it: sources/notes.md now has a dated note at the top, section 0 item 3 is marked superseded, the paragraph after the section 3 table, section 6 item 1 and section 7 are reworded, and a grep for 'H4' and 'grid' finds only superseded or literature passages."
+    },
+    {
+      "id": "F15",
+      "severity": "minor",
+      "status": "open",
+      "text": "The selection rule moves the remaining room for search into parameters that plan.json defers, and it does not say when the selection is computed relative to the design gate. (a) The pseudo-treatment dates, their pre- and post-windows, the tie-break and the comparison pools are 'fixed in the design'. With data from 2014Q1 and an eight-quarter pooled window, every pseudo-date from about 2018Q3 to 2021Q3 puts COVID quarters inside the pseudo-post window, and whether those quarters count largely decides whether trend-based or weighting estimators win. A Designer who computes the RMSEs under more than one set of pseudo-dates and then fixes one is searching again. (b) H1 says 'the design gate shows that the chosen pool and method attain the stated level' and H2 says 'the design stage computes ... the minimum detectable effect', both of which need the primary; but the primary is the output of a placebo computation on study data, which the tool counts as an analysis run and refuses before the design gate. So either the selection runs before the gate (and must not be logged as data-prep) or the gate approves a rule whose winner is unknown, in which case the level check and the MDE must hold for every candidate. (c) The rule cuts at 'data before 2023Q3' and the MDE at 'pre-2023Q4 data'; one cutoff should be stated for both.",
+      "evidence": "plan.json hypotheses[1] (H2): '(the pseudo-dates, their windows and the tie-break are fixed in the design)', 'The design stage computes, from pre-2023Q4 data only, the minimum detectable effect', 'pseudo-treatment dates that use only data before 2023Q3'; hypotheses[0] (H1): 'The design gate shows that the chosen pool and method attain the stated level'; PROTOCOL.md Runs (analysis runs only after the design gate); runs/ holds only fetch-data and prepare-data (data-prep). Cheapest remedy, at the design stage: fix the pseudo-dates (with the COVID handling stated), windows, tie-break and pools in plan.json before any placebo is computed; run the selection once as a logged analysis run on an input truncated at the stated cutoff, before any run that reads post-2023Q3 outcomes; and require the level check and MDE for every candidate, or compute the MDE after the selection run and before any post-period run.",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "F16",
+      "severity": "minor",
+      "status": "open",
+      "text": "The rule does not say on which outcome the placebo-in-time RMSE is computed, and H1 and H2 point at each other for the estimator. H1 (wages) uses 'the primary estimator fixed at the design gate'; H2 (employment) uses the 'same estimator and inference' as H1; the selection rule sits in H2 and its candidates are defined 'on log employment and on log employment per capita', a normalisation that has no analogue for log average weekly wage. If the rule is run on employment, the wage first stage inherits an estimator chosen for employment fit (defensible, but it should be said); if it is run separately on wages, H1 and H2 may use different estimators and the elasticity in the H2 bound mixes them.",
+      "evidence": "plan.json hypotheses[0] ('with the primary estimator fixed at the design gate'), hypotheses[1] ('same estimator and inference'; candidate list 'each on log employment and on log employment per capita'). Resolve with one sentence: the RMSE is computed on log employment (or on the stated normalisation) and H1 uses the selected estimator and pool, with log average weekly wage as its outcome.",
+      "response": "",
+      "ruling": ""
+    }
+  ],
+  "files_sha256": {
+    "plan.json": "629fe9d1e9e6d2fc4fef00a83761ff645b027f2285db755d278aebd0611715dd",
+    "sources/notes.md": "2c1cc05d79eca685b8be673e6773388e3294f11eae1f452d779cdf5dbc9328f9",
+    "claims.jsonl": "44000b0b1ec60fb33247b4cd6e1dc1234cc5f6d5670cea4c917e36bd5f0ec974",
+    "log.jsonl": "1abe26c00cd1c1af6f63a7b92daf2c1903bd4c5d7a97255c64d54559b04afb71",
+    "reviews/question-r3/review.json": "19157477cbabc499c46d23a6c4f8a72b6c853226fdd5db58de4a9f7ab3869c15",
+    "reviews/REVIEWER_MEMORY.md": "0bf8bc4a1e8e2eb50862316834efe3685efe0738c2f8e9e4e79d93a8cb57f987",
+    "briefs/20261121T052049Z-scout.md": "f355bad460c78588a2264d4d50a8e2dcdb8a6dcd7703648da91c47e302e1985e",
+    "briefs/20261121T052200Z-reviewer.md": "862b474a7519300b046c54ac4e012be661288a5280b8792ba963cd18773b8f0e",
+    "runs/fetch-data/run.json": "03baa027e82fb1195150c827d76f4c7213e6764226147ae64e87df7207a05332",
+    "runs/prepare-data/run.json": "c178813ae2ecc2b437ceed838c5be41081e4f33b62f0170f1add64a4e084e0ac"
+  },
+  "recorded": "2026-11-21T05:24:59Z"
+}

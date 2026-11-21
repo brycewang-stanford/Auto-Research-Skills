@@ -47,3 +47,15 @@ Check next round (r4 is the last):
 - F13: Dube Panel B no longer credited with reporting 2023Q4/2024Q1 separately.
 - F14: notes.md sections 0.3, 3 (end), 6.1 and 7 marked as superseded or reworded.
 - Still only data-prep runs (fetch-data and prepare-data).
+
+## question-r4 (2026-11-21, verdict pass; last question round)
+
+F11-F14 resolved. New: F15 and F16, both minor and open; they go to the design stage and the human.
+
+Checked: the placebo exercises in w34033 rev. (Tables 2, 4), w35171 and w35931 are placebo-in-space over states; none reports placebo-in-time fit, so the selection rule's winner is not already in print. Notes grep for H4/grid finds only superseded or literature passages. Still only data-prep runs (fetch-data, prepare-data). validate passes.
+
+Suspicions for the design review:
+- F15: the room to search now sits in the rule's pseudo-dates, windows (COVID inside every eight-quarter pseudo-window from about 2018Q3 to 2021Q3), tie-break and pools. Check they are fixed in plan.json before any placebo is computed, and that the selection is one logged analysis run on an input truncated at one stated cutoff (the plan says pre-2023Q3 for the rule and pre-2023Q4 for the MDE), before any post-period run. Look in runs/.superseded and log.jsonl for repeated selection runs.
+- F16: which outcome the RMSE uses, and whether H1 inherits the employment-selected estimator.
+- 2023Q3 base may contain anticipation (SR p. 42, July-August 2023); it should be in design.threats.
+- The H2 bound uses Dube's pooled ~7% wage effect from a window ending 2025Q3 as "the same pooled post-period estimand"; it is close but not the same window. Check the paper does not overstate this.
