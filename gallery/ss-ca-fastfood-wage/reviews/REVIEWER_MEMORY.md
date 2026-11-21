@@ -157,3 +157,16 @@ Suspicions / check next time (results stage):
 - Whether C1 was disclosed before h1-wage ran; whether yearly elasticities are reported as gated by the pooled critical values.
 - sc_solver_gap only covers California's six pseudo-ATTs; if SC wins with R50, ask for the real-window solver gap too (non-unique weights, T16).
 - Paper: S1/S2 labels next to the primary; 'not robust to' and the plc-nonff qualifier exactly as verdict wrote them; figure captions vs SDID floor (C3).
+
+## code-r2 (2026-11-21, verdict revise)
+
+C1, C2 (D5, D6 in design.deviations; D5 logged 11:53:27Z, before h1-wage at 11:55:50Z) and C3 (figlib.sdid_floor; formula matches sclib.critical_values; synthetic SDID input checked; stale prologues gone) resolved. New: C4 major, C5 minor, both open.
+
+C4: fig_event panel (b) (wage) uses H2's critical values (c_hi(0.975) 2.14) per analysis_plan 16, but the wage test H1 uses c_hi(0.95) 3.45 / c_hi(0.975) 4.32 from L (Lq_h1). On the real event_path.csv the wage band excludes zero in 6 of 8 post quarters under H2's c and in none under H1's; the caption does not say so. I missed this at design time, when the wage L quantile was not yet known. C5: the caption's 'Generated from' line omits runs/level-mde/metrics.json.
+
+Ran (scratch rv-c2, outputs only there): fig_event, fig_placebo, fig_select on the real run outputs; all exit 0, every internal check passes. No estimate run. crew.py validate passes (2 paper warnings: a typed 0.0240 in literature.tex, main.pdf older than numbers.tex). Post-period runs all name code_review code-r1; select and level-mde ran once, before any post run; no runs/.superseded for select.
+
+Check next round:
+- `crew.py changes <ws> code`; fig_event.py caption gives H1's critical values for panel (b), or panel (b) is redrawn with them and a deviation is logged before fig-event runs; runs/h1-wage/metrics.json is declared as an input if read.
+- C5: provenance line lists every input.
+- Paper/results stage: the text does not read panel (b) as evidence of a wage effect beyond H1's label; S2's reused-weights wage effect (+0.075, excludes 0 under S2's c) is not presented as overturning H1; the typed 0.0240 in literature.tex becomes \SelBestDDRmse.
