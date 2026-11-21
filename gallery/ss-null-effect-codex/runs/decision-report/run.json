@@ -1,0 +1,160 @@
+{
+  "id": "decision-report",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "code/decision_report.py",
+    "--main",
+    "runs/main-att/metrics.json",
+    "--ols",
+    "runs/alternative-ols/metrics.json",
+    "--cap",
+    "runs/capped-odds/metrics.json",
+    "--placebo",
+    "runs/preprogram-placebo/metrics.json",
+    "--support",
+    "runs/support-diagnostics/metrics.json",
+    "--precision",
+    "runs/precision-plan/metrics.json",
+    "--bias",
+    "runs/bias-sensitivity/metrics.json",
+    "--data",
+    "data/raw/seed.csv",
+    "--schema",
+    "data/schema.json",
+    "--metrics",
+    "runs/decision-report/metrics.json"
+  ],
+  "started": "2026-11-21T07:00:21Z",
+  "finished": "2026-11-21T07:00:23Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/decision_report.py",
+      "sha256": "6c32e42a12d3e8f1d8f8efaeaf0f08a3b236ba614b8d10a44b99a960d48c77c9"
+    },
+    {
+      "path": "code/analysis_common.py",
+      "sha256": "416a5f9fdb92d090f241f02498bba6d6121f3674710de0e0a97fd9b7050a79fb"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/main-att/metrics.json",
+      "sha256": "f786ce95ed17d11abe4ae7afec72271e56c76d38a2ac405f5e2a22bd6d77a907"
+    },
+    {
+      "path": "runs/alternative-ols/metrics.json",
+      "sha256": "fecfe8089cca4e883808085059974c8e899e4612e6d12cfe98500b700f7e1da1"
+    },
+    {
+      "path": "runs/capped-odds/metrics.json",
+      "sha256": "061a9509649e96099836b4a1088bebc8c1389682bdb4b01605010c1083e5abf2"
+    },
+    {
+      "path": "runs/preprogram-placebo/metrics.json",
+      "sha256": "4ee0d9068f83606bd1ba5412454c1622ebde26479838a4a1f9f3c7ee94f5f341"
+    },
+    {
+      "path": "runs/support-diagnostics/metrics.json",
+      "sha256": "570dbe892be444f39ed561cc1398eeb0d1150c603178c6dc246d33cc1d61539a"
+    },
+    {
+      "path": "runs/precision-plan/metrics.json",
+      "sha256": "d1de3aeae4cc079d8e174d9c42aa6c497319e6ebe56e6b076712693d4d351db2"
+    },
+    {
+      "path": "runs/bias-sensitivity/metrics.json",
+      "sha256": "845772ccce5407010c02436faa33545bad7bff89b5a976fbc4ea4b9290e75354"
+    },
+    {
+      "path": "data/raw/seed.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    },
+    {
+      "path": "data/schema.json",
+      "sha256": "0f5369bdd2ea5c5daac5fc1bee4d570ef2a0f5e6b3221e5360e111c723a6e1c6"
+    },
+    {
+      "path": "code/requirements.txt",
+      "sha256": "362634e3246beb2c91d6ffe5ec73d22ce0b8fd68c25d98b81f5761ff8925e02c"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/decision-report/metrics.json",
+      "sha256": "9e36cd6670a8eb1ee0491edac9b62da8a9b930520c789ec1c56443a42ff922ea"
+    }
+  ],
+  "metrics": {
+    "family_size": 5,
+    "main_p_raw": 0.4756489971297513,
+    "main_p_holm": 1.0,
+    "main_reject_holm": 0,
+    "ols_p_raw": 0.43367408136304186,
+    "ols_p_holm": 1.0,
+    "ols_reject_holm": 0,
+    "cap_p_raw": 0.509937868534754,
+    "cap_p_holm": 1.0,
+    "cap_reject_holm": 0,
+    "placebo_p_raw": 8.356534366389994e-102,
+    "placebo_p_holm": 4.178267183194997e-101,
+    "placebo_reject_holm": 1,
+    "tost_p_raw": 7.691417113876829e-08,
+    "tost_p_holm": 3.0765668455507316e-07,
+    "tost_reject_holm": 1,
+    "main_fit_ok": 1,
+    "main_estimate": -119.65942860150413,
+    "main_se": 167.7504666865724,
+    "main_ci95_low": -448.4443016969631,
+    "main_ci95_high": 209.12544449395483,
+    "main_ci99_low": -551.7559963767809,
+    "main_ci99_high": 312.43713917377266,
+    "ols_fit_ok": 1,
+    "ols_estimate": -123.1592216146125,
+    "ols_se": 157.30753940515368,
+    "ols_ci95_low": -431.47633334532054,
+    "ols_ci95_high": 185.15789011609556,
+    "ols_ci99_low": -528.3565912835807,
+    "ols_ci99_high": 282.0381480543557,
+    "cap_fit_ok": 1,
+    "cap_estimate": -109.63038399839611,
+    "cap_se": 166.37525256884135,
+    "cap_ci95_low": -435.71988695207125,
+    "cap_ci95_high": 216.45911895527905,
+    "cap_ci99_low": -538.1846349505671,
+    "cap_ci99_high": 318.9238669537749,
+    "placebo_fit_ok": 1,
+    "placebo_estimate": -3595.9868303137723,
+    "placebo_se": 167.86521308252495,
+    "placebo_ci95_low": -3924.996602212654,
+    "placebo_ci95_high": -3266.9770584148905,
+    "placebo_ci99_low": -4028.3789652182204,
+    "placebo_ci99_high": -3163.5946954093242,
+    "affirmative_causal_interpretation_permitted": 1,
+    "support_inadequate": 0,
+    "h1_supported": 0,
+    "h1_interval_below_zero": 0,
+    "h1_interval_spans_zero": 1,
+    "h2_supported": 1,
+    "main_ci98_low": -509.90537014717074,
+    "main_ci98_high": 270.58651294416245,
+    "control_re78_mean": 11392.762614543926,
+    "control_re78_sd": 6258.935536351515,
+    "att_relative_control_mean_defined": 1,
+    "att_relative_control_mean": -0.010503109092148352,
+    "att_relative_control_sd_defined": 1,
+    "att_relative_control_sd": -0.019118175591764684
+  },
+  "metrics_file": "runs/decision-report/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-null-effect-codex/.venv"
+  },
+  "code_review": "code-r2"
+}

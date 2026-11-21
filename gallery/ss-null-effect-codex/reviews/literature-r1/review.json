@@ -1,0 +1,40 @@
+{
+  "id": "literature-r1",
+  "target": "literature",
+  "round": 1,
+  "created": "2026-11-21T06:26:45Z",
+  "reviewer": {
+    "model": "gpt-6.1",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "plan.json",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "claims.jsonl",
+    "reviews/REVIEWER_MEMORY.md"
+  ],
+  "kill_argument": "There is no research novelty here beyond a reproducible synthetic exercise: the training-evaluation controversy, observed-selection limitations and distinction between nonsignificance and equivalence are already established. That would defeat a substantive or methodological contribution claim, but plan.json expressly disclaims both. I checked the Imbens/Xu v3 abstract, Lakens full text, Chernozhukov et al. score and inference sections, Crump manuscript opening sections, and the Dehejia/Wahba opening-page scan against the recorded claims; these checks did not expose a false attribution. The strongest remaining objection is narrower: the bibliography does not directly support inference for the actual full-sample parametric/bootstrap estimator, and the notes correctly warn that the cited cross-fitting theorem cannot be imported wholesale. No data, models or estimates were inspected or run.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "L1",
+      "severity": "minor",
+      "status": "open",
+      "text": "The actual estimator uses full-sample logistic/OLS nuisance fitting with full-refit bootstrap, while the sole direct ATT inference source documents cross-fitting and score-based inference. The notes acknowledge this limit, so the existing citation claim is accurate, but the literature does not yet provide estimator-specific inferential grounding. Resolve by adding a verified reference for parametric doubly robust ATT estimation and bootstrap/M-estimation regularity, or by giving a transparent derivation under stated conditions; do not present the cross-fitting theorem as direct validation.",
+      "evidence": "sources/notes.md design-stage chernozhukov2017 paragraph; plan.json design.method.estimator and design.method.uncertainty; claims.jsonl lit-att-inference",
+      "response": "",
+      "ruling": ""
+    }
+  ],
+  "files_sha256": {
+    "plan.json": "51ae664ce14576abeddfe1ff91dae9410154250409a6ba76a457e68627ab71e7",
+    "refs.bib": "fc1b417f5487cd4638cd7fdbab2b2f0a6e87a9ef984809e5dc8386db895c96f1",
+    "sources/sources.json": "1859c11222a427aaf4ab54d73bc0558425361570962993755fcfc86b06d2b579",
+    "sources/notes.md": "5eb89719f3c341eee3a7da69edd8daedd5a21df8ea2f6725a534d55933fbd8e7",
+    "claims.jsonl": "f389b1944c381c505a87f4e15d82215019a27b15e3ad0ddfa4fd1addc46d83b6",
+    "reviews/REVIEWER_MEMORY.md": "478b7916dee54f8c79d1481abe6125e1e7e98e245631ab87e30a3b881993dba3"
+  },
+  "recorded": "2026-11-21T06:27:00Z"
+}

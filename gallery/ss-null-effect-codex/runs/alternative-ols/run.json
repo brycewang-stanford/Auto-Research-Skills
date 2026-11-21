@@ -1,0 +1,70 @@
+{
+  "id": "alternative-ols",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "code/alternative_ols.py",
+    "--data",
+    "data/raw/seed.csv",
+    "--schema",
+    "data/schema.json",
+    "--metrics",
+    "runs/alternative-ols/metrics.json"
+  ],
+  "started": "2026-11-21T07:00:05Z",
+  "finished": "2026-11-21T07:00:07Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/alternative_ols.py",
+      "sha256": "8bd413480f9581fd96f26e33664ef095b3e76ba7672e5e80af8380123e1dc9a7"
+    },
+    {
+      "path": "code/analysis_common.py",
+      "sha256": "416a5f9fdb92d090f241f02498bba6d6121f3674710de0e0a97fd9b7050a79fb"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/seed.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    },
+    {
+      "path": "data/schema.json",
+      "sha256": "0f5369bdd2ea5c5daac5fc1bee4d570ef2a0f5e6b3221e5360e111c723a6e1c6"
+    },
+    {
+      "path": "code/requirements.txt",
+      "sha256": "362634e3246beb2c91d6ffe5ec73d22ce0b8fd68c25d98b81f5761ff8925e02c"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/alternative-ols/metrics.json",
+      "sha256": "fecfe8089cca4e883808085059974c8e899e4612e6d12cfe98500b700f7e1da1"
+    }
+  ],
+  "metrics": {
+    "estimate": -123.1592216146125,
+    "se": 157.30753940515368,
+    "ci95_low": -431.47633334532054,
+    "ci95_high": 185.15789011609556,
+    "ci90_low": -381.9070983517596,
+    "ci90_high": 135.58865512253456,
+    "p_zero": 0.43367408136304186,
+    "fit_ok": 1,
+    "n": 4000,
+    "failure_reason": ""
+  },
+  "metrics_file": "runs/alternative-ols/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-null-effect-codex/.venv"
+  },
+  "code_review": "code-r2"
+}

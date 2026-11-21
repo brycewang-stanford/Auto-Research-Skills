@@ -1,0 +1,257 @@
+{
+  "question": "What is the average treatment effect on participants in the supplied synthetic cohort of voluntary participation in the 1976\u201377 job-training program on 1978 earnings (re78), using cohort nonparticipants as the observational comparison under explicitly stated identification assumptions?",
+  "hypotheses": [
+    "H1 (primary, ATT in re78 earnings units): participation raises 1978 earnings. Test H0: ATT = 0 with a two-sided test at alpha 0.05 and a 95% confidence interval; support a positive effect only if the interval lies entirely above zero. An interval spanning zero is inconclusive, not evidence of no effect.",
+    "H2 (practical equivalence, same primary ATT): the effect lies within [-1000, 1000] re78 earnings units. Use two one-sided tests at alpha 0.05 (90% confidence interval wholly within those bounds). Otherwise practical equivalence is not established. The 1000-unit bound is a prospective supplied-unit benchmark with no established welfare calibration, not calibrated to these data; design-stage power and scale justification must assess its informativeness before analysis. Report the primary 95% interval and effect sizes it can rule out regardless of significance."
+  ],
+  "contribution": "A transparent evaluation exercise on a supplied CC0 synthetic observational cohort, not evidence about an actual historical program or a claim of a novel causal method. The intended contribution is a pre-specified ATT evaluation that distinguishes an imprecise null from practical equivalence, reports all analyzed outcomes with multiplicity adjustment, and makes selection-on-observables limitations explicit. The Scout will verify the relationship to existing job-training evaluation literature; no novelty claim about substantive program effects is made.",
+  "design": {
+    "summary": "Estimate the ATT of participation on re78 among participants in the supplied synthetic cohort, comparing them with cohort nonparticipants under conditional untreated-potential-outcome mean independence. Use a prospectively fixed augmented inverse-probability-weighted ATT estimator, full-refit individual bootstrap uncertainty, explicit support failure rules and prespecified specification/placebo checks. Report every analyzed outcome and specification, Holm-adjust all inferential decisions including benchmark equivalence, and distinguish an imprecise interval from evidence within the fixed \u00b11000 supplied-unit benchmark.",
+    "method": {
+      "estimand": "ATT = E[Y(1)-Y(0) | treat=1] for participants in the complete supplied eligible cohort; Y=re78 in supplied earnings units.",
+      "identifying_assumption": "Conditional on the specified preprogram X, participants and nonparticipants have equal mean untreated 1978 potential earnings, with untreated comparison support at participant covariate values, consistency and no interference.",
+      "interpretation": "This is an explicitly conditional observational synthetic evaluation, with no natural experiment or external evidence establishing exchangeability; diagnostics can contradict adequacy but cannot verify hidden-selection absence.",
+      "estimator": "Full-sample augmented inverse-probability-weighted ATT: tau = sum[D*(Y-m0(X)) - (1-D)*e(X)/(1-e(X))*(Y-m0(X))] / sum[D]. Fit e by unpenalized logistic maximum likelihood in all rows and m0 by OLS in controls. No odds normalization, clipping or trimming in the primary estimator. This is a parametric doubly robust estimating equation; consistency requires either correct propensity or correct untreated outcome mean plus the causal assumptions, and bootstrap inference requires regular identifiable nuisance fits and finite moments.",
+      "features": "Intercept; age, educ, married, urban, children, health_limit, re74/1000, re75/1000, unemp74, unemp75; region indicators with lexicographically first category omitted. No interactions or polynomial terms. Use exact same X in both nuisances. No post-treatment covariates, automated selection or tuning.",
+      "uncertainty": "Nonparametric individual row bootstrap, 499 resamples with numpy PCG64 seed 19781979, refit both nuisances and the estimator in each resample. Standard error is sample SD of valid bootstrap estimates (ddof=1). Use normal Wald z tests and 95% marginal interval tau \u00b11.95996398454*SE; 90% interval tau \u00b11.64485362695*SE for raw TOST. Treatment varies by person; region is a categorical covariate, not an assignment cluster. IID sampling is an assumption, not verified from the administrative label. Report absence of cluster identifiers as a limitation.",
+      "failure_rules": "Stop confirmatory causal/equivalence interpretation if primary nuisance MLE fails to converge (max_iter=2000, tolerance 1e-8), design matrix is rank deficient, fitted propensities are nonfinite or outside (0,1), primary SE is nonfinite/nonpositive, or fewer than 490 of 499 bootstrap estimates succeed. Retain all failed-resample counts. No numerical propensity clipping beyond rejecting nonfinite odds. Failed main estimates are reported as failure, never replaced by a sensitivity result."
+    },
+    "data": {
+      "source": "Only crew/bench/seeds/ss-null-effect/data.csv, CC0-1.0 synthetic administrative extract, expected SHA256 f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9; data-ra copies via logged data-prep and manifest. No external outcome data.",
+      "unit_sample": "One row per id, all 4000 supplied working-age adults, both treat=1 participants and treat=0 nonparticipants. No age cut, outlier deletion, earnings winsorization, subgroup selection or survey-completeness restriction. Do not infer eligibility beyond supplied cohort membership.",
+      "treatment": "treat binary indicator of voluntary participation in program during 1976\u201377, contrast participation versus nonparticipation; no dose or receipt timing available.",
+      "outcomes": "Primary: re78, untransformed. Sole diagnostic placebo outcome: re75, predating treatment. re79, employed78, hours78, benefits78, wellbeing78 and survey_q01\u2013survey_q20 remain unanalyzed: no summaries, correlations, plots, effects or searches using them. No additional labor-market outcome family is silently introduced.",
+      "validation_missingness": "Data-ra validates SHA, unique nonmissing id, exactly 4000 rows, binary treat and listed indicators, finite numerical X/re78/re75 and nonmissing region in the fixed encoding vocabulary {midwest,northeast,south,west} (observed schema labels, not independently validated source semantics); report schema/missingness counts only, never outcome summaries before approval. Any missing required field, duplicate id, nonbinary treatment/indicator, nonfinite required value or unexpected row count stops analysis for documented design amendment and human approval; no imputation or complete-case target change.",
+      "scale": "Currency and price base are undocumented. \u00b11000 is retained from approved H2 as a declared supplied-unit benchmark, not an externally justified smallest welfare-relevant effect. Preprogram earnings scale comparisons may contextualize it without changing bounds. Historical dollar estimates are not calibration evidence.",
+      "clarification": "Q1: question wording clarifies the already approved participant ATT and comparison group; no scope change. Q2: title explicitly labels the exercise synthetic. CSV header alone inspected by Designer to confirm variable names; no values inspected."
+    },
+    "analysis_plan": [
+      {
+        "run": "precision-plan",
+        "task": "a-precision",
+        "owner": "econometrician",
+        "purpose": "Execute before main-att and any re78 analysis. Outcome-free prospective precision grid: n1=1600,n0=2400 as seed expectations; common hypothetical residual SD=2000,5000,10000 and variance inflation factor=1,2,4. SE=sigma*sqrt(VIF*(1/n1+1/n0)); 80% raw two-sided MDE=(1.959964+0.841621)*SE, conservative five-test MDE=(2.575829+0.841621)*SE. For true tau=0 report normal approximation equivalence power max(0,2*Phi(1000/SE-z)-1), z=1.644854 raw and z=2.326348 Bonferroni alpha .01. Also tabulate expected 95% halfwidth and whether even centered intervals can fit bounds. These assumptions are hypothetical, not estimated from re78; no observed/post-hoc power and no boundary adjustment. Report baseline re74/re75 scale descriptively in this logged run after gate."
+      },
+      {
+        "run": "main-att",
+        "task": "a-main",
+        "owner": "econometrician",
+        "purpose": "First outcome-analysis run after gate/code review: primary fixed re78 AIPW ATT and bootstrap; record effect, SE, 95%/90% marginal intervals, raw two-sided p and raw TOST p=max(1-Phi((tau+1000)/SE), Phi((tau-1000)/SE)). Required claims primary-effect, primary-ci-low, primary-ci-high are original-unit primary ATT and marginal 95% limits, backed by this run even when inconclusive. No claim is substituted by a robustness estimate."
+      },
+      {
+        "run": "support-diagnostics",
+        "task": "a-support",
+        "owner": "econometrician",
+        "purpose": "Use D/X only, identical primary propensity fit: report e quantiles by D, maximum control odds, control odds ESS=(sum w)^2/sum(w^2), participant fraction with e>0.95 or outside control [min e,max e], and raw/weighted standardized mean differences for every feature with unweighted pooled group SD denominator. Inadequate support flag if any participant outside control score range, >5% participants e>0.95, control ESS<100 or any absolute weighted SMD>0.10. Any flag blocks affirmative full-cohort causal/equivalence conclusion; estimates may be displayed as unstable conditional associations. No treated trimming or automatic alternate target."
+      },
+      {
+        "run": "alternative-ols",
+        "task": "a-ols",
+        "owner": "econometrician",
+        "purpose": "Functional-form challenge: re78 OLS on intercept,D,X with HC3 individual robust SE, treatment coefficient marginal 95% interval and two-sided p. It estimates a constant additive regression coefficient, not generally the ATT with heterogeneous effects; show disagreement explicitly, never replace primary. No tuning."
+      },
+      {
+        "run": "capped-odds",
+        "task": "a-cap",
+        "owner": "econometrician",
+        "purpose": "Weight-leverage challenge: repeat primary score replacing control odds by min(odds,10), unchanged nuisance fits and full bootstrap seed/resamples. Report tau, SE, marginal 95% interval and two-sided p. Capping changes estimating equation and may bias the full ATT; label as sensitivity rather than a repaired target. Large divergence weakens stability."
+      },
+      {
+        "run": "preprogram-placebo",
+        "task": "a-placebo",
+        "owner": "econometrician",
+        "purpose": "Pseudo-effect of future D on re75 using same AIPW/bootstrap but remove re75 and unemp75 from X; retain re74 and unemp74 and demographics/region. A nonzero adjusted placebo challenges selection adjustment across preprogram earnings dynamics (does not directly test the exact main exchangeability assumption). Report tau, SE, 95% interval and two-sided p. Even a nonsignificant placebo cannot validate ignorability."
+      },
+      {
+        "run": "bias-sensitivity",
+        "task": "a-bias",
+        "owner": "econometrician",
+        "purpose": "No new fitted outcomes or tests: translate primary interval under additive unidentified ATT bias b in {-2000,-1000,-500,0,500,1000,2000}: tau_true=tau_hat-b, limits shifted by -b. Report bias magnitudes sufficient to cross zero and benchmark boundaries; assess unobserved selection explicitly. These are assumption scenarios, not identified bounds."
+      },
+      {
+        "run": "decision-report",
+        "task": "a-decisions",
+        "owner": "econometrician",
+        "purpose": "One fixed family of five raw p-values: primary re78 zero, primary re78 benchmark TOST, OLS re78 zero, capped re78 zero, placebo re75 zero. Holm stepdown adjusted p: sorted p_(j), adjusted=max_{k<=j} min(1,(5-k+1)*p_(k)); failed/unavailable tests set p=1, preserving family size. All tests and analyzed outcomes reported regardless of result. H1 supported only if main 95% interval entirely above zero AND Holm p<=.05; entirely below zero counts against H1, spanning zero is inconclusive. H2 supported only if raw 90% interval strictly inside [-1000,1000] AND Holm-adjusted TOST p<=.05; interval overlapping/exceeding bounds fails to establish equivalence, not proof of nonequivalence. Support flags/fit failures prohibit affirmative causal claims. Report marginal intervals as marginal; additionally report conservative simultaneous 99% intervals for four zero-effect estimates (Bonferroni over the five-test family), and primary 98% interval for conservative equivalence at alpha .01. A 95% primary interval alone cannot confer familywise discovery. Report primary interval endpoints, compatible effect sizes, control mean/SD of re78, ATT relative to both (undefined if zero), without extra inferential tests. No second equivalence bound, subgroup, post-outcome analysis or additional tests without documented prospective amendment."
+      }
+    ],
+    "threats": [
+      "Unobserved selection, interference or treatment misclassification defeat causal interpretation; no run proves these absent. Preprogram-placebo can expose a selection problem and bias-sensitivity shows dependence on unidentified bias.",
+      "Limited comparison support and extreme weights: support-diagnostics applies fixed failure thresholds; capped-odds quantifies leverage but does not restore full-cohort identification.",
+      "Incorrect nuisance functional forms: primary is doubly robust only if one working model is correct; alternative-ols/capped-odds can reveal instability but share observables and cannot validate causality.",
+      "Imprecision and undocumented earnings scale: precision-plan evaluates hypothetical ability to exclude \u00b11000; decision-report states excluded/compatible effects in supplied units, and never interprets nonsignificance as no effect or benchmark equivalence as welfare irrelevance.",
+      "Searching outcomes or specifications and equivalence claims can generate false discovery: decision-report fixes a joint five-test family; excluded outcomes remain unread, failed tests remain in denominator; amendments disclosed.",
+      "IID/bootstrap regularity may fail with dependent persons, weak overlap or nuisance separation; validation/support and bootstrap failure rules stop affirmative conclusions, and lack of cluster data remains a limitation.",
+      "Compute budget: laptop CPU, all planned analyses \u226430 minutes total; only two AIPW robustness bootstrap runs plus primary (1497 fits per nuisance pair), no tuning. Log elapsed time; if budget exhausted, mark remaining runs incomplete and withhold confirmatory decision report rather than silently reducing replicates or selecting results."
+    ],
+    "prospective_clarifications": {
+      "timing": "Recorded before any seed analysis. These clarifications reconcile design-r1 D1/D2 and the implementation proposal; they do not change estimand, estimator, outcome, sample, equivalence bounds, inference or tests. Disclose them as post-design-gate, pre-analysis clarifications, including the precision scheduling correction and the absence of independent region semantics.",
+      "D1": "H2 is benchmark equivalence in supplied earnings units. Its phrase substantive benchmark denotes the fixed declared benchmark only; there is no independently established currency, price base, welfare calibration or smallest economically meaningful effect. The bound stays [-1000,1000]. Execute precision-plan before main-att: its grid uses fixed hypothetical variances/counts, and its authorized re74/re75 scale descriptors supply context without reading re78 or tuning any bound, model or test. Main-att remains the first postprogram outcome-analysis run. Baseline scale assessment cannot establish welfare relevance; report that limitation regardless of precision.",
+      "D2": "For operational validation and fixed dummy encoding, known nonmissing region means exactly one of the schema-documented observed labels midwest, northeast, south, west; omit midwest lexicographically. This vocabulary was documented during schema-only data preparation, not chosen from outcome relationships. Reject missing, new or changed labels and do not repair/drop rows or alter the full-cohort ATT. This checks consistency with the hash-pinned extract, not independent source-defined semantic validity; no external vocabulary exists in supplied metadata. Retain that limitation in the paper."
+    }
+  },
+  "tasks": [
+    {
+      "id": "q-scout",
+      "title": "Verify literature positioning and question novelty",
+      "owner": "scout",
+      "status": "done"
+    },
+    {
+      "id": "q-review",
+      "title": "Independent question review",
+      "owner": "reviewer",
+      "status": "done"
+    },
+    {
+      "id": "d-literature",
+      "title": "Complete verified design-stage literature",
+      "owner": "scout",
+      "status": "done"
+    },
+    {
+      "id": "d-design",
+      "title": "Specify design and task board; address Q1 and Q2",
+      "owner": "designer",
+      "status": "done"
+    },
+    {
+      "id": "d-data",
+      "title": "Acquire and document seed data without outcome analysis",
+      "owner": "data-ra",
+      "status": "done"
+    },
+    {
+      "id": "a-main",
+      "title": "Primary re78 ATT, bootstrap and required claim ids",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "a-support",
+      "title": "Overlap and covariate balance diagnostics",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "a-precision",
+      "title": "Outcome-free precision grid and baseline scale",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "a-ols",
+      "title": "Alternative OLS specification",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "a-cap",
+      "title": "Capped control odds sensitivity",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "a-placebo",
+      "title": "Preprogram re75 placebo",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "a-bias",
+      "title": "Unidentified additive-bias sensitivity",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "a-decisions",
+      "title": "Joint multiplicity, equivalence and all-result report",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "d-review",
+      "title": "Independent prospective design review",
+      "owner": "reviewer",
+      "status": "done"
+    },
+    {
+      "id": "c-implement",
+      "title": "Implement fixed analysis and environment",
+      "owner": "econometrician",
+      "status": "done"
+    },
+    {
+      "id": "c-review",
+      "title": "Independent code review before analysis",
+      "owner": "reviewer",
+      "status": "done"
+    },
+    {
+      "id": "r-review",
+      "title": "Independent results review",
+      "owner": "reviewer",
+      "status": "doing"
+    },
+    {
+      "id": "f-artifacts",
+      "title": "Generate all tables and figures from runs",
+      "owner": "figures-ra",
+      "status": "todo"
+    },
+    {
+      "id": "p-write",
+      "title": "Write and compile synthetic evaluation paper",
+      "owner": "writer",
+      "status": "todo"
+    },
+    {
+      "id": "p-review",
+      "title": "Independent paper review",
+      "owner": "reviewer",
+      "status": "todo"
+    },
+    {
+      "id": "replicate",
+      "title": "Clean environment rerun of every run",
+      "owner": "replicator",
+      "status": "todo"
+    },
+    {
+      "id": "d-lit-review",
+      "title": "Independent literature review",
+      "owner": "reviewer",
+      "status": "done"
+    },
+    {
+      "id": "r-clarify",
+      "title": "Prospective resolution of D1/D2 implementation ambiguities",
+      "owner": "designer",
+      "status": "done"
+    }
+  ],
+  "gates": {
+    "question": {
+      "status": "approved",
+      "requested_on": "2026-11-21T06:14:17Z",
+      "summary": "Conditional synthetic ATT question; Scout novelty check complete; fresh-context question-r1 passed with open minor findings Q1 and Q2.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-21T06:19:55Z",
+      "note": "Bryce Wang approved: \u6279\u51c6. Approval relayed verbatim from the Claude Code chat because this Codex session runs headless."
+    },
+    "design": {
+      "status": "approved",
+      "requested_on": "2026-11-21T06:27:36Z",
+      "summary": "Prospective synthetic participant ATT design; fresh-context literature-r1 and design-r1 pass, open minor L1/D1/D2; one data-prep run, no analysis. Approval fixes analysis plan; later deviations must be disclosed.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-21T06:49:11Z",
+      "note": "Bryce Wang approved: \u6279\u51c6. Approval relayed verbatim from the Claude Code chat because this Codex session runs headless."
+    },
+    "results": {
+      "status": "pending"
+    },
+    "submission": {
+      "status": "pending"
+    }
+  }
+}

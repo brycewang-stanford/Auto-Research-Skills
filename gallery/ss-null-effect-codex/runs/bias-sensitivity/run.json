@@ -1,0 +1,85 @@
+{
+  "id": "bias-sensitivity",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "code/bias_sensitivity.py",
+    "--main",
+    "runs/main-att/metrics.json",
+    "--metrics",
+    "runs/bias-sensitivity/metrics.json"
+  ],
+  "started": "2026-11-21T07:00:19Z",
+  "finished": "2026-11-21T07:00:21Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/bias_sensitivity.py",
+      "sha256": "2ba17c303413deea46dc252a4f1ed65f1e1322451f0c2a5e02341b4bbf1a99b2"
+    },
+    {
+      "path": "code/analysis_common.py",
+      "sha256": "416a5f9fdb92d090f241f02498bba6d6121f3674710de0e0a97fd9b7050a79fb"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/main-att/metrics.json",
+      "sha256": "f786ce95ed17d11abe4ae7afec72271e56c76d38a2ac405f5e2a22bd6d77a907"
+    },
+    {
+      "path": "code/requirements.txt",
+      "sha256": "362634e3246beb2c91d6ffe5ec73d22ce0b8fd68c25d98b81f5761ff8925e02c"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/bias-sensitivity/metrics.json",
+      "sha256": "845772ccce5407010c02436faa33545bad7bff89b5a976fbc4ea4b9290e75354"
+    }
+  ],
+  "metrics": {
+    "available": 1,
+    "bias_minus2000_estimate": 1880.340571398496,
+    "bias_minus2000_ci95_low": 1551.555698303037,
+    "bias_minus2000_ci95_high": 2209.125444493955,
+    "bias_minus1000_estimate": 880.3405713984959,
+    "bias_minus1000_ci95_low": 551.5556983030369,
+    "bias_minus1000_ci95_high": 1209.1254444939548,
+    "bias_minus500_estimate": 380.34057139849585,
+    "bias_minus500_ci95_low": 51.55569830303688,
+    "bias_minus500_ci95_high": 709.1254444939548,
+    "bias_0_estimate": -119.65942860150413,
+    "bias_0_ci95_low": -448.4443016969631,
+    "bias_0_ci95_high": 209.12544449395483,
+    "bias_500_estimate": -619.6594286015041,
+    "bias_500_ci95_low": -948.4443016969631,
+    "bias_500_ci95_high": -290.87455550604517,
+    "bias_1000_estimate": -1119.659428601504,
+    "bias_1000_ci95_low": -1448.444301696963,
+    "bias_1000_ci95_high": -790.8745555060452,
+    "bias_2000_estimate": -2119.6594286015043,
+    "bias_2000_ci95_low": -2448.444301696963,
+    "bias_2000_ci95_high": -1790.8745555060452,
+    "estimate_bias_to_zero": -119.65942860150413,
+    "estimate_bias_to_lower_benchmark": 880.3405713984959,
+    "estimate_bias_to_upper_benchmark": -1119.659428601504,
+    "ci95_low_bias_to_zero": -448.4443016969631,
+    "ci95_low_bias_to_lower_benchmark": 551.5556983030369,
+    "ci95_low_bias_to_upper_benchmark": -1448.444301696963,
+    "ci95_high_bias_to_zero": 209.12544449395483,
+    "ci95_high_bias_to_lower_benchmark": 1209.1254444939548,
+    "ci95_high_bias_to_upper_benchmark": -790.8745555060452
+  },
+  "metrics_file": "runs/bias-sensitivity/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-null-effect-codex/.venv"
+  },
+  "code_review": "code-r2"
+}

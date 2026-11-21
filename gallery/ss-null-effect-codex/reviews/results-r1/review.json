@@ -1,0 +1,1551 @@
+{
+  "id": "results-r1",
+  "target": "results",
+  "round": 1,
+  "created": "2026-11-21T07:02:43Z",
+  "reviewer": {
+    "model": "gpt-6.1",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "claims.jsonl",
+    "code/alternative_ols.py",
+    "code/analysis_common.py",
+    "code/bias_sensitivity.py",
+    "code/capped_odds.py",
+    "code/decision_report.py",
+    "code/fetch_seed.py",
+    "code/main_att.py",
+    "code/precision_plan.py",
+    "code/preprogram_placebo.py",
+    "code/requirements.txt",
+    "code/support_diagnostics.py",
+    "data/manifest.json",
+    "data/raw/seed.csv",
+    "data/schema.json",
+    "log.jsonl",
+    "plan.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "runs/NOTES.md",
+    "runs/alternative-ols/metrics.json",
+    "runs/alternative-ols/run.json",
+    "runs/bias-sensitivity/metrics.json",
+    "runs/bias-sensitivity/run.json",
+    "runs/capped-odds/metrics.json",
+    "runs/capped-odds/run.json",
+    "runs/decision-report/metrics.json",
+    "runs/decision-report/run.json",
+    "runs/fetch-seed/metrics.json",
+    "runs/fetch-seed/run.json",
+    "runs/main-att/metrics.json",
+    "runs/main-att/run.json",
+    "runs/precision-plan/metrics.json",
+    "runs/precision-plan/run.json",
+    "runs/preprogram-placebo/metrics.json",
+    "runs/preprogram-placebo/run.json",
+    "runs/support-diagnostics/metrics.json",
+    "runs/support-diagnostics/run.json"
+  ],
+  "kill_argument": "The strongest case for rejection is that benchmark equivalence is being mistaken for evidence of a negligible causal training effect: the future-participation placebo is about -3596 supplied earnings units, with its simultaneous interval wholly below zero. Observed balance and successful fits cannot repair that selection warning. I attacked the claim scope, all eight planned runs, metric provenance, omitted outputs, bootstrap failures, multiplicity and ordering. The current claims explicitly retain the adverse placebo, condition causal interpretation on unverified assumptions, and disclaim welfare calibration; the primary interval spans zero. Those qualifications defeat rejection of this restricted synthetic estimation exercise, but they must survive into the paper. The remaining concrete defect is mislabeling Boolean precision checks and signed bias thresholds as confidence-interval endpoints.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "minor",
+      "status": "open",
+      "text": "Thirty-three result claims append an incorrect interval-endpoint description: the 27 precision-plan centered-ci90/95/98-fits metrics are Boolean containment indicators, and the six bias-sensitivity-ci95-{low,high}-bias-to-* metrics are signed bias thresholds. Their values match their runs, but their appended prose describes a different quantity. Remove the endpoint sentence or replace it with the correct indicator/threshold description; no new analysis is needed. Resolution evidence: corrected claim texts consistent with precision_plan.py and bias_sensitivity.py.",
+      "evidence": "claims.jsonl ids precision-plan-sd2000-vif1-centered-ci90-fits through precision-plan-sd10000-vif4-centered-ci95-fits (all 27 centered flags); bias-sensitivity-ci95-low-bias-to-zero and the five other ci95 endpoint bias-to thresholds; code/precision_plan.py values centered_ci*_fits; code/bias_sensitivity.py signed boundary loop",
+      "response": "Corrected all 27 prospective centered-ci90/95/98-fits texts to Boolean indicators (1 fits, 0 does not), with zero centering, strict halfwidth<1000 containment and hypothetical SD/VIF/count context. Corrected all six ci95-low/high-bias-to texts to signed b thresholds under endpoint_shifted=endpoint_original-b, explicitly identifying the endpoint and target boundary and shift direction. Removed erroneous endpoint characterizations. All values, support, ids, macros, formats and executable code are unchanged; every result value was rechecked against its supporting metric. No new analysis. Ruling and finding status left to Reviewer.",
+      "ruling": ""
+    }
+  ],
+  "claim_assessments": [
+    {
+      "id": "precision-plan-hypothetical-n1",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-hypothetical-n0",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-benchmark",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif1-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif1-mde80-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif1-mde80-five-test",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif1-halfwidth95",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif1-power-equivalence-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif1-power-equivalence-bonferroni",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif1-centered-ci90-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd2000-vif1-centered-ci98-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd2000-vif1-centered-ci95-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd2000-vif2-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif2-mde80-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif2-mde80-five-test",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif2-halfwidth95",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif2-power-equivalence-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif2-power-equivalence-bonferroni",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif2-centered-ci90-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd2000-vif2-centered-ci98-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd2000-vif2-centered-ci95-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd2000-vif4-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif4-mde80-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif4-mde80-five-test",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif4-halfwidth95",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif4-power-equivalence-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif4-power-equivalence-bonferroni",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd2000-vif4-centered-ci90-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd2000-vif4-centered-ci98-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd2000-vif4-centered-ci95-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd5000-vif1-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif1-mde80-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif1-mde80-five-test",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif1-halfwidth95",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif1-power-equivalence-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif1-power-equivalence-bonferroni",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif1-centered-ci90-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd5000-vif1-centered-ci98-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd5000-vif1-centered-ci95-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd5000-vif2-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif2-mde80-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif2-mde80-five-test",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif2-halfwidth95",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif2-power-equivalence-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif2-power-equivalence-bonferroni",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif2-centered-ci90-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd5000-vif2-centered-ci98-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd5000-vif2-centered-ci95-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd5000-vif4-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif4-mde80-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif4-mde80-five-test",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif4-halfwidth95",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif4-power-equivalence-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif4-power-equivalence-bonferroni",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd5000-vif4-centered-ci90-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd5000-vif4-centered-ci98-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd5000-vif4-centered-ci95-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd10000-vif1-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif1-mde80-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif1-mde80-five-test",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif1-halfwidth95",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif1-power-equivalence-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif1-power-equivalence-bonferroni",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif1-centered-ci90-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd10000-vif1-centered-ci98-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd10000-vif1-centered-ci95-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd10000-vif2-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif2-mde80-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif2-mde80-five-test",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif2-halfwidth95",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif2-power-equivalence-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif2-power-equivalence-bonferroni",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif2-centered-ci90-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd10000-vif2-centered-ci98-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd10000-vif2-centered-ci95-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd10000-vif4-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif4-mde80-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif4-mde80-five-test",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif4-halfwidth95",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif4-power-equivalence-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif4-power-equivalence-bonferroni",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-sd10000-vif4-centered-ci90-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd10000-vif4-centered-ci98-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-sd10000-vif4-centered-ci95-fits",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "precision-plan-re74-mean",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re74-sd",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re74-min",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re74-p25",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re74-median",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re74-p75",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re74-max",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re75-mean",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re75-sd",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re75-min",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re75-p25",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re75-median",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re75-p75",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "precision-plan-re75-max",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "primary-effect",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "main-att-n",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "main-att-n-treated",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "main-att-bootstrap-requested",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "main-att-bootstrap-valid",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "main-att-bootstrap-failed",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "main-att-fit-ok",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "main-att-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "primary-ci-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "primary-ci-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "main-att-ci90-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "main-att-ci90-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "main-att-p-zero",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "main-att-p-tost",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-fit-ok",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-n",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-n-treated",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d0-min",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d0-p01",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d0-p05",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d0-p25",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d0-p50",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d0-p75",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d0-p95",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d0-p99",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d0-max",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d1-min",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d1-p01",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d1-p05",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d1-p25",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d1-p50",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d1-p75",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d1-p95",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d1-p99",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-propensity-d1-max",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-control-max-odds",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-control-ess",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-treated-fraction-above-095",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-treated-fraction-outside-control-range",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-intercept",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-intercept",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-age",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-age",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-educ",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-educ",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-married",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-married",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-urban",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-urban",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-children",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-children",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-health-limit",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-health-limit",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-re74",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-re74",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-re75",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-re75",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-unemp74",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-unemp74",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-unemp75",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-unemp75",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-region-northeast",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-region-northeast",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-region-south",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-region-south",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-raw-region-west",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-smd-weighted-region-west",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-flag-outside-range",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-flag-high-propensity",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-flag-low-ess",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-flag-imbalance",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "support-diagnostics-support-inadequate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "alternative-ols-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "alternative-ols-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "alternative-ols-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "alternative-ols-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "alternative-ols-p-zero",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "alternative-ols-fit-ok",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "alternative-ols-n",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "capped-odds-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "capped-odds-n",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "capped-odds-n-treated",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "capped-odds-bootstrap-requested",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "capped-odds-bootstrap-valid",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "capped-odds-bootstrap-failed",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "capped-odds-fit-ok",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "capped-odds-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "capped-odds-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "capped-odds-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "capped-odds-p-zero",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "preprogram-placebo-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "preprogram-placebo-n",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "preprogram-placebo-n-treated",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "preprogram-placebo-bootstrap-requested",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "preprogram-placebo-bootstrap-valid",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "preprogram-placebo-bootstrap-failed",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "preprogram-placebo-fit-ok",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "preprogram-placebo-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "preprogram-placebo-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "preprogram-placebo-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "preprogram-placebo-p-zero",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-available",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-minus2000-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-minus2000-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-minus2000-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-minus1000-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-minus1000-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-minus1000-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-minus500-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-minus500-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-minus500-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-0-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-0-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-0-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-500-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-500-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-500-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-1000-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-1000-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-1000-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-2000-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-2000-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-bias-2000-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-estimate-bias-to-zero",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-estimate-bias-to-lower-benchmark",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-estimate-bias-to-upper-benchmark",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "bias-sensitivity-ci95-low-bias-to-zero",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "bias-sensitivity-ci95-low-bias-to-lower-benchmark",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "bias-sensitivity-ci95-low-bias-to-upper-benchmark",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "bias-sensitivity-ci95-high-bias-to-zero",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "bias-sensitivity-ci95-high-bias-to-lower-benchmark",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "bias-sensitivity-ci95-high-bias-to-upper-benchmark",
+      "assessment": "partly supported",
+      "basis": "Value matches successful supporting run; appended endpoint description incorrect (R1)."
+    },
+    {
+      "id": "decision-report-family-size",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-p-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-p-holm",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-reject-holm",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-ols-p-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-ols-p-holm",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-ols-reject-holm",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-cap-p-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-cap-p-holm",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-cap-reject-holm",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-placebo-p-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-placebo-p-holm",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-placebo-reject-holm",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-tost-p-raw",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-tost-p-holm",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-tost-reject-holm",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-fit-ok",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-ci99-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-ci99-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-ols-fit-ok",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-ols-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-ols-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-ols-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-ols-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-ols-ci99-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-ols-ci99-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-cap-fit-ok",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-cap-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-cap-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-cap-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-cap-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-cap-ci99-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-cap-ci99-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-placebo-fit-ok",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-placebo-estimate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-placebo-se",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-placebo-ci95-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-placebo-ci95-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-placebo-ci99-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-placebo-ci99-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-affirmative-causal-interpretation-permitted",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-support-inadequate",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-h1-supported",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-h1-interval-below-zero",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-h1-interval-spans-zero",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-h2-supported",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-ci98-low",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-main-ci98-high",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-control-re78-mean",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-control-re78-sd",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-att-relative-control-mean-defined",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-att-relative-control-mean",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-att-relative-control-sd-defined",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    },
+    {
+      "id": "decision-report-att-relative-control-sd",
+      "assessment": "supported",
+      "basis": "Value matches successful supporting run; scope read against approved design and generating code, conditional on stated assumptions."
+    }
+  ],
+  "checks_performed": [
+    "Read all result claim texts and supporting run/metric records. Checked all 288 result values exactly against their first supporting run. No new model or estimate executed.",
+    "Verified all recorded code/input/output hashes and metric-file equality; raw seed read only as opaque bytes for hashing, no raw values inspected.",
+    "Eight planned analysis runs, 34 ledger seconds, precision first, main first re78 estimate; all three bootstraps 499 valid/0 failed; no superseded run directory found.",
+    "Unclaimed analysis outputs limited to computational seeds, empty failure strings and unused mechanical 90% sensitivity/OLS endpoints, disclosed in runs/NOTES.md.",
+    "Strict workspace validation passed with zero warnings. Citation claims are outside this results support audit; previous literature review remains the relevant source check."
+  ],
+  "files_sha256": {
+    "claims.jsonl": "9d18293340463d1e9f38a04943eb5a0b9d5a52fc49b1e6608908c50032b9cfae",
+    "code/alternative_ols.py": "8bd413480f9581fd96f26e33664ef095b3e76ba7672e5e80af8380123e1dc9a7",
+    "code/analysis_common.py": "416a5f9fdb92d090f241f02498bba6d6121f3674710de0e0a97fd9b7050a79fb",
+    "code/bias_sensitivity.py": "2ba17c303413deea46dc252a4f1ed65f1e1322451f0c2a5e02341b4bbf1a99b2",
+    "code/capped_odds.py": "3530f621fdbbef69521287ff53f75d41293280493f6b20546fadc94a7920a415",
+    "code/decision_report.py": "6c32e42a12d3e8f1d8f8efaeaf0f08a3b236ba614b8d10a44b99a960d48c77c9",
+    "code/fetch_seed.py": "1cabef54464ab6107800e005bbbfc73f2cef3542157d797833cfade37030d9d4",
+    "code/main_att.py": "130022eb37e4578601d13aafa21f8d9a2530a668dffd02b37d79fe6b8588bfc9",
+    "code/precision_plan.py": "fd90b63204e2bc362ba04d96497e16eb7c8077302a7252b182a7b1020b6f25ac",
+    "code/preprogram_placebo.py": "d1d5ee2de31c4751b4a5d9dd1a436c94b93a77c628c4232850c0947667d08838",
+    "code/requirements.txt": "362634e3246beb2c91d6ffe5ec73d22ce0b8fd68c25d98b81f5761ff8925e02c",
+    "code/support_diagnostics.py": "09d175584bc8d11deb09ec9c39816857f612f80063c486b786488b1056807b78",
+    "data/manifest.json": "61206731cee6d3d309a327c511bb5637b8edf4d4648a20163557b5693f2c5ce1",
+    "data/raw/seed.csv": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9",
+    "data/schema.json": "0f5369bdd2ea5c5daac5fc1bee4d570ef2a0f5e6b3221e5360e111c723a6e1c6",
+    "log.jsonl": "2709cf5e851e4bce74ff98472cb9275dcc4998834438670f208db34da53d0021",
+    "plan.json": "623f08285af59292d1a0eb679186472de5facd5bba4e0457f760981807ba9540",
+    "reviews/REVIEWER_MEMORY.md": "8e8db183b8e7e509d9b12b7c4cb388f3bcb0ea14ba42f803595be91980992381",
+    "runs/NOTES.md": "0844823b96524292a057f70839d55092d9c6cf47473b75d92f69e7f6b2776fe8",
+    "runs/alternative-ols/metrics.json": "fecfe8089cca4e883808085059974c8e899e4612e6d12cfe98500b700f7e1da1",
+    "runs/alternative-ols/run.json": "31e17ed86873d5e95788dbdb9c117253cec18c38e90814ac31dede7afc5c0de2",
+    "runs/bias-sensitivity/metrics.json": "845772ccce5407010c02436faa33545bad7bff89b5a976fbc4ea4b9290e75354",
+    "runs/bias-sensitivity/run.json": "7b00739e20455d2b06ed88b74cae3a30c8875e3796c838829e2c3c01a59e60ea",
+    "runs/capped-odds/metrics.json": "061a9509649e96099836b4a1088bebc8c1389682bdb4b01605010c1083e5abf2",
+    "runs/capped-odds/run.json": "5fc26e93f1e81bf1c9957162cebb907c49de4acfb6f96d10e89a606161349ae2",
+    "runs/decision-report/metrics.json": "9e36cd6670a8eb1ee0491edac9b62da8a9b930520c789ec1c56443a42ff922ea",
+    "runs/decision-report/run.json": "84c0846bcdbbb4c1c96cdb3d3d6657084d5a8e23b01cd5eae6dbe4c7ed86f190",
+    "runs/fetch-seed/metrics.json": "95e123f0e311f831377e190d9faddb4ea4a343cc45c40f7cd0a77e620190f6db",
+    "runs/fetch-seed/run.json": "c39247e7ee4b9ee55f71ff97465e6a6ed5f9fda83208f1157393ab134a9482d6",
+    "runs/main-att/metrics.json": "f786ce95ed17d11abe4ae7afec72271e56c76d38a2ac405f5e2a22bd6d77a907",
+    "runs/main-att/run.json": "d53babd5ce973925518a5eead0f3a3a1585af8b9f7be11ca3e56d09e6d62b904",
+    "runs/precision-plan/metrics.json": "d1de3aeae4cc079d8e174d9c42aa6c497319e6ebe56e6b076712693d4d351db2",
+    "runs/precision-plan/run.json": "3b2a0a5a2ccbb3a90bd73fe67bf45963e70c58e9b930c2f282bea5e270a19713",
+    "runs/preprogram-placebo/metrics.json": "4ee0d9068f83606bd1ba5412454c1622ebde26479838a4a1f9f3c7ee94f5f341",
+    "runs/preprogram-placebo/run.json": "7fc5aae85f396e5cf47743658b7495de74fd5538bcbe8292ff58d764bb633121",
+    "runs/support-diagnostics/metrics.json": "570dbe892be444f39ed561cc1398eeb0d1150c603178c6dc246d33cc1d61539a",
+    "runs/support-diagnostics/run.json": "a7aefba4c82e03328c328960773a26486a20bdb4fe8ee99add425415f42be3c8"
+  },
+  "recorded": "2026-11-21T07:02:43Z"
+}

@@ -1,0 +1,88 @@
+{
+  "id": "fetch-seed",
+  "role": "data-ra",
+  "kind": "data-prep",
+  "command": [
+    "python3",
+    "code/fetch_seed.py"
+  ],
+  "started": "2026-11-21T06:25:30Z",
+  "finished": "2026-11-21T06:25:30Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fetch_seed.py",
+      "sha256": "1cabef54464ab6107800e005bbbfc73f2cef3542157d797833cfade37030d9d4"
+    }
+  ],
+  "inputs": [],
+  "outputs": [
+    {
+      "path": "data/raw/seed.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    },
+    {
+      "path": "data/manifest.json",
+      "sha256": "61206731cee6d3d309a327c511bb5637b8edf4d4648a20163557b5693f2c5ce1"
+    },
+    {
+      "path": "data/schema.json",
+      "sha256": "0f5369bdd2ea5c5daac5fc1bee4d570ef2a0f5e6b3221e5360e111c723a6e1c6"
+    },
+    {
+      "path": "runs/fetch-seed/metrics.json",
+      "sha256": "95e123f0e311f831377e190d9faddb4ea4a343cc45c40f7cd0a77e620190f6db"
+    }
+  ],
+  "metrics": {
+    "sha_verified": 1,
+    "source_bytes": 483855,
+    "rows": 4000,
+    "duplicate_ids": 0,
+    "missing_ids": 0,
+    "missing_region": 0,
+    "rows_kept": 4000,
+    "rows_dropped": 0,
+    "missing_id": 0,
+    "missing_treat": 0,
+    "missing_age": 0,
+    "missing_educ": 0,
+    "missing_married": 0,
+    "missing_urban": 0,
+    "missing_children": 0,
+    "missing_health_limit": 0,
+    "missing_re74": 0,
+    "missing_re75": 0,
+    "missing_unemp74": 0,
+    "missing_unemp75": 0,
+    "missing_re78": 0,
+    "nonfinite_treat": 0,
+    "nonfinite_age": 0,
+    "nonfinite_educ": 0,
+    "nonfinite_married": 0,
+    "nonfinite_urban": 0,
+    "nonfinite_children": 0,
+    "nonfinite_health_limit": 0,
+    "nonfinite_re74": 0,
+    "nonfinite_re75": 0,
+    "nonfinite_unemp74": 0,
+    "nonfinite_unemp75": 0,
+    "nonfinite_re78": 0,
+    "nonbinary_treat": 0,
+    "nonbinary_married": 0,
+    "nonbinary_urban": 0,
+    "nonbinary_health_limit": 0,
+    "nonbinary_unemp74": 0,
+    "nonbinary_unemp75": 0,
+    "schema_columns": 39,
+    "unique_ids": 4000,
+    "region_categories": 4,
+    "validation_pass": 1
+  },
+  "metrics_file": "runs/fetch-seed/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  }
+}

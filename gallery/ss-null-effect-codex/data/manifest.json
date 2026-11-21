@@ -1,0 +1,14 @@
+{
+  "datasets": [
+    {
+      "id": "ss-null-effect-seed",
+      "origin": "https://raw.githubusercontent.com/brycewang-stanford/Free-Research-Crew/40fac308b3c6ed5a9832e9d687519b12c9487b76/crew/bench/seeds/ss-null-effect/data.csv",
+      "license": "CC0-1.0 (synthetic data distributed with this repository; crew/bench/seeds/ss-null-effect/task.json)",
+      "path": "data/raw/seed.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9",
+      "retrieved_on": "2026-11-21",
+      "source_commit": "40fac308b3c6ed5a9832e9d687519b12c9487b76",
+      "expected_sha256_source": "crew/bench/seeds/ss-null-effect/task.json"
+    }
+  ]
+}

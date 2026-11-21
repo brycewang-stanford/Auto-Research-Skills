@@ -1,0 +1,75 @@
+{
+  "id": "preprogram-placebo",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "code/preprogram_placebo.py",
+    "--data",
+    "data/raw/seed.csv",
+    "--schema",
+    "data/schema.json",
+    "--metrics",
+    "runs/preprogram-placebo/metrics.json"
+  ],
+  "started": "2026-11-21T07:00:15Z",
+  "finished": "2026-11-21T07:00:19Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/preprogram_placebo.py",
+      "sha256": "d1d5ee2de31c4751b4a5d9dd1a436c94b93a77c628c4232850c0947667d08838"
+    },
+    {
+      "path": "code/analysis_common.py",
+      "sha256": "416a5f9fdb92d090f241f02498bba6d6121f3674710de0e0a97fd9b7050a79fb"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/seed.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    },
+    {
+      "path": "data/schema.json",
+      "sha256": "0f5369bdd2ea5c5daac5fc1bee4d570ef2a0f5e6b3221e5360e111c723a6e1c6"
+    },
+    {
+      "path": "code/requirements.txt",
+      "sha256": "362634e3246beb2c91d6ffe5ec73d22ce0b8fd68c25d98b81f5761ff8925e02c"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/preprogram-placebo/metrics.json",
+      "sha256": "4ee0d9068f83606bd1ba5412454c1622ebde26479838a4a1f9f3c7ee94f5f341"
+    }
+  ],
+  "metrics": {
+    "estimate": -3595.9868303137723,
+    "n": 4000,
+    "n_treated": 1621,
+    "bootstrap_requested": 499,
+    "bootstrap_valid": 499,
+    "bootstrap_failed": 0,
+    "seed": 19781979,
+    "fit_ok": 1,
+    "failure_reason": "",
+    "se": 167.86521308252495,
+    "ci95_low": -3924.996602212654,
+    "ci95_high": -3266.9770584148905,
+    "ci90_low": -3872.100534891298,
+    "ci90_high": -3319.8731257362465,
+    "p_zero": 8.356534366389994e-102
+  },
+  "metrics_file": "runs/preprogram-placebo/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-null-effect-codex/.venv"
+  },
+  "code_review": "code-r2"
+}

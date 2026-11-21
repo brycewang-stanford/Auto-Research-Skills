@@ -1,0 +1,75 @@
+{
+  "id": "capped-odds",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "code/capped_odds.py",
+    "--data",
+    "data/raw/seed.csv",
+    "--schema",
+    "data/schema.json",
+    "--metrics",
+    "runs/capped-odds/metrics.json"
+  ],
+  "started": "2026-11-21T07:00:08Z",
+  "finished": "2026-11-21T07:00:15Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/capped_odds.py",
+      "sha256": "3530f621fdbbef69521287ff53f75d41293280493f6b20546fadc94a7920a415"
+    },
+    {
+      "path": "code/analysis_common.py",
+      "sha256": "416a5f9fdb92d090f241f02498bba6d6121f3674710de0e0a97fd9b7050a79fb"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/seed.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    },
+    {
+      "path": "data/schema.json",
+      "sha256": "0f5369bdd2ea5c5daac5fc1bee4d570ef2a0f5e6b3221e5360e111c723a6e1c6"
+    },
+    {
+      "path": "code/requirements.txt",
+      "sha256": "362634e3246beb2c91d6ffe5ec73d22ce0b8fd68c25d98b81f5761ff8925e02c"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/capped-odds/metrics.json",
+      "sha256": "061a9509649e96099836b4a1088bebc8c1389682bdb4b01605010c1083e5abf2"
+    }
+  ],
+  "metrics": {
+    "estimate": -109.63038399839611,
+    "n": 4000,
+    "n_treated": 1621,
+    "bootstrap_requested": 499,
+    "bootstrap_valid": 499,
+    "bootstrap_failed": 0,
+    "seed": 19781979,
+    "fit_ok": 1,
+    "failure_reason": "",
+    "se": 166.37525256884135,
+    "ci95_low": -435.71988695207125,
+    "ci95_high": 216.45911895527905,
+    "ci90_low": -383.2933216209771,
+    "ci90_high": 164.0325536241849,
+    "p_zero": 0.509937868534754
+  },
+  "metrics_file": "runs/capped-odds/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-null-effect-codex/.venv"
+  },
+  "code_review": "code-r2"
+}

@@ -1,0 +1,76 @@
+{
+  "id": "main-att",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "code/main_att.py",
+    "--data",
+    "data/raw/seed.csv",
+    "--schema",
+    "data/schema.json",
+    "--metrics",
+    "runs/main-att/metrics.json"
+  ],
+  "started": "2026-11-21T06:59:52Z",
+  "finished": "2026-11-21T07:00:00Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/main_att.py",
+      "sha256": "130022eb37e4578601d13aafa21f8d9a2530a668dffd02b37d79fe6b8588bfc9"
+    },
+    {
+      "path": "code/analysis_common.py",
+      "sha256": "416a5f9fdb92d090f241f02498bba6d6121f3674710de0e0a97fd9b7050a79fb"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/raw/seed.csv",
+      "sha256": "f09fba8695df8d2cfe44abe770860772f07a562ad88c19789f6feab946048ca9"
+    },
+    {
+      "path": "data/schema.json",
+      "sha256": "0f5369bdd2ea5c5daac5fc1bee4d570ef2a0f5e6b3221e5360e111c723a6e1c6"
+    },
+    {
+      "path": "code/requirements.txt",
+      "sha256": "362634e3246beb2c91d6ffe5ec73d22ce0b8fd68c25d98b81f5761ff8925e02c"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/main-att/metrics.json",
+      "sha256": "f786ce95ed17d11abe4ae7afec72271e56c76d38a2ac405f5e2a22bd6d77a907"
+    }
+  ],
+  "metrics": {
+    "estimate": -119.65942860150413,
+    "n": 4000,
+    "n_treated": 1621,
+    "bootstrap_requested": 499,
+    "bootstrap_valid": 499,
+    "bootstrap_failed": 0,
+    "seed": 19781979,
+    "fit_ok": 1,
+    "failure_reason": "",
+    "se": 167.7504666865724,
+    "ci95_low": -448.4443016969631,
+    "ci95_high": 209.12544449395483,
+    "ci90_low": -395.5843921534679,
+    "ci90_high": 156.2655349504596,
+    "p_zero": 0.4756489971297513,
+    "p_tost": 7.691417113876829e-08
+  },
+  "metrics_file": "runs/main-att/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": ".venv/bin/python",
+    "python": "3.14.6",
+    "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-null-effect-codex/.venv"
+  },
+  "code_review": "code-r2"
+}

@@ -1,0 +1,12 @@
+data/raw/
+data/derived/
+.venv
+__pycache__/
+# LaTeX build files the Writer's compile leaves behind
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out

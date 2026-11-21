@@ -1,0 +1,54 @@
+{
+  "lalonde1986": {
+    "url": "https://users.nber.org/~rdehejia/%21%40%24AEM/Topic%2009%20Matching%20Advanced/readings/LaLonde.pdf",
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext"
+  },
+  "dehejiawahba1999": {
+    "url": "https://users.nber.org/~rdehejia/papers/dehejia_wahba_jasa.pdf",
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext"
+  },
+  "imbensxu2025": {
+    "url": "https://arxiv.org/abs/2406.00827v3",
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.48550/arXiv.2406.00827"
+  },
+  "lakens2017": {
+    "url": "https://pure.tue.nl/ws/portalfiles/portal/80918653/lakeequi2017.pdf",
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1177/1948550617697177"
+  },
+  "rosenbaumrubin1983": {
+    "url": "https://www.math.mcgill.ca/dstephens/SISCR2017/Articles/Rosenbaum-Rubin-Bka83.pdf",
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext"
+  },
+  "chernozhukov2017": {
+    "url": "https://economics.mit.edu/research/publications/doubledebiasedneyman-machine-learning-treatment-effects",
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1257/aer.p20171038"
+  },
+  "crump2009": {
+    "url": "https://public.econ.duke.edu/~vjh3/working_papers/overlap.pdf",
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1093/biomet/asn055"
+  },
+  "holm1979": {
+    "url": "https://sci2s.ugr.es/keel/pdf/specific/articulo/0052_001.pdf",
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext"
+  }
+}

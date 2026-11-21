@@ -1,0 +1,17 @@
+{
+  "estimate": -3595.9868303137723,
+  "n": 4000,
+  "n_treated": 1621,
+  "bootstrap_requested": 499,
+  "bootstrap_valid": 499,
+  "bootstrap_failed": 0,
+  "seed": 19781979,
+  "fit_ok": 1,
+  "failure_reason": "",
+  "se": 167.86521308252495,
+  "ci95_low": -3924.996602212654,
+  "ci95_high": -3266.9770584148905,
+  "ci90_low": -3872.100534891298,
+  "ci90_high": -3319.8731257362465,
+  "p_zero": 8.356534366389994e-102
+}

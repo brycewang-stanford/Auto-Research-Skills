@@ -1,0 +1,61 @@
+{"time": "2026-11-21T06:11:29Z", "role": "pi", "action": "init", "detail": "track=social-science"}
+{"time": "2026-11-21T06:11:48Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261121T061148Z (q-scout)"}
+{"time": "2026-11-21T06:12:51Z", "role": "pi", "action": "draft-question", "detail": "Drafted question, prospective decision rules and synthetic-evaluation contribution from seed task; no outcome data inspected."}
+{"time": "2026-11-21T06:13:03Z", "role": "scout", "action": "question-literature-check", "detail": "Verified four primary sources; documented established literature, synthetic-only contribution, and equivalence/identification concerns without inspecting outcomes."}
+{"time": "2026-11-21T06:13:16Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T061316Z (question-r1)"}
+{"time": "2026-11-21T06:14:03Z", "role": "reviewer", "action": "review-recorded", "detail": "question-r1 verdict=pass files=10"}
+{"time": "2026-11-21T06:14:17Z", "role": "pi", "action": "gate-request", "detail": "question"}
+{"time": "2026-11-21T06:19:55Z", "role": "pi", "action": "gate-approve", "detail": "question Bryce Wang"}
+{"time": "2026-11-21T06:20:05Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261121T062005Z (d-literature)"}
+{"time": "2026-11-21T06:22:18Z", "role": "scout", "action": "verified-design-literature", "detail": "Added four verified primary sources and five citation claims; documented ATT inference, overlap/target changes, Holm families and benchmark-only equivalence bound; no outcomes inspected."}
+{"time": "2026-11-21T06:22:24Z", "role": "scout", "action": "validated", "detail": "crew.py validate passed with zero warnings; removed temporary source-render artifacts after visual verification. Eight entries all have verification records."}
+{"time": "2026-11-21T06:22:38Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261121T062238Z (d-design-Q1-Q2)"}
+{"time": "2026-11-21T06:24:09Z", "role": "designer", "action": "specify", "detail": "Fixed prospective ATT design and all run owners; clarified participant population and synthetic title for Q1/Q2, recorded responses without rulings; read CSV header only, no values. No gate approval."}
+{"time": "2026-11-21T06:24:32Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261121T062432Z (d-data)"}
+{"time": "2026-11-21T06:25:30Z", "role": "data-ra", "action": "run", "detail": "fetch-seed exit=0"}
+{"time": "2026-11-21T06:25:53Z", "role": "data-ra", "action": "acquired", "detail": "Pinned CC0 synthetic seed downloaded via fetch-seed data-prep; published SHA verified, 4000 rows retained, no excluded values parsed."}
+{"time": "2026-11-21T06:25:53Z", "role": "data-ra", "action": "documented", "detail": "CODEBOOK records required-field checks, zero missing/nonfinite/nonbinary/duplicate findings, and unavailable external region vocabulary; no summaries or analysis."}
+{"time": "2026-11-21T06:26:07Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T062607Z (literature-r1)"}
+{"time": "2026-11-21T06:26:15Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T062615Z (design-r1)"}
+{"time": "2026-11-21T06:27:00Z", "role": "reviewer", "action": "review-recorded", "detail": "literature-r1 verdict=pass files=6"}
+{"time": "2026-11-21T06:27:01Z", "role": "reviewer", "action": "review-recorded", "detail": "design-r1 verdict=pass files=10"}
+{"time": "2026-11-21T06:27:36Z", "role": "pi", "action": "design-handoff", "detail": "Scout, Designer and Data RA handoffs validated; literature-r1 and design-r1 passed. Open minor findings L1, D1, D2 go unchanged to human. next lists future-stage tasks; deferring those because analysis requires human design approval and this task stops at design gate."}
+{"time": "2026-11-21T06:27:36Z", "role": "pi", "action": "gate-request", "detail": "design"}
+{"time": "2026-11-21T06:49:11Z", "role": "pi", "action": "gate-approve", "detail": "design Bryce Wang"}
+{"time": "2026-11-21T06:49:20Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T064920Z (c-implement)"}
+{"time": "2026-11-21T06:52:37Z", "role": "econometrician", "action": "implement", "detail": "Prepared all eight approved analysis scripts, shared module, dependency pins and execution manifest; four memory-only artificial-data checks passed. No seed analysis. D1/D2 execution clarifications and independent code review remain pending."}
+{"time": "2026-11-21T06:52:57Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261121T065257Z (r-clarify-D1-D2)"}
+{"time": "2026-11-21T06:53:39Z", "role": "designer", "action": "clarify", "detail": "Prospectively documented D1 precision-first schedule and uncalibrated benchmark interpretation; D2 fixed observed region encoding vocabulary with external semantics limitation. Wrote design and finding responses only; preserved findings statuses/rulings, hypotheses, gates and task status. No seed outcomes or analysis inspected."}
+{"time": "2026-11-21T06:53:52Z", "role": "pi", "action": "clarify-hypothesis-wording", "detail": "Aligned H2 benchmark wording with documented supplied-unit interpretation; bound, tests and estimand unchanged. Prospective clarification, no seed analysis yet."}
+{"time": "2026-11-21T06:53:52Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T065352Z (code-r1)"}
+{"time": "2026-11-21T06:54:35Z", "role": "reviewer", "action": "review-recorded", "detail": "code-r1 verdict=pass files=18"}
+{"time": "2026-11-21T06:54:50Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T065450Z (a-runs-C1)"}
+{"time": "2026-11-21T06:55:25Z", "role": "econometrician", "action": "clarify", "detail": "Aligned C1 execution documentation with recorded prospective D1/D2; no executable changes; response without ruling."}
+{"time": "2026-11-21T06:56:14Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T065614Z (c-implement-environment-correction)"}
+{"time": "2026-11-21T06:56:57Z", "role": "econometrician", "action": "correct-environment", "detail": "Stopped before analysis per PI; explicit Python 3.14 setup and five transitive pins added. Original setup selected 3.11 and failed. Requirements change requires new independent code review."}
+{"time": "2026-11-21T06:57:36Z", "role": "econometrician", "action": "verify-environment", "detail": "All 13 pins installed and metadata matched under CPython 3.14.6; pip check passed. Environment record written. No analysis executed; ready for code review."}
+{"time": "2026-11-21T06:57:48Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T065748Z (code-r2)"}
+{"time": "2026-11-21T06:59:08Z", "role": "reviewer", "action": "review-recorded", "detail": "code-r2 verdict=pass files=21"}
+{"time": "2026-11-21T06:59:22Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T065922Z (a-runs-after-code-r2)"}
+{"time": "2026-11-21T06:59:51Z", "role": "econometrician", "action": "run", "detail": "precision-plan exit=0"}
+{"time": "2026-11-21T06:59:52Z", "role": "econometrician", "action": "execute", "detail": "precision-plan: exit 0; elapsed 5s; cumulative 5s."}
+{"time": "2026-11-21T07:00:00Z", "role": "econometrician", "action": "run", "detail": "main-att exit=0"}
+{"time": "2026-11-21T07:00:00Z", "role": "econometrician", "action": "execute", "detail": "main-att: exit 0; elapsed 8s; cumulative 13s."}
+{"time": "2026-11-21T07:00:05Z", "role": "econometrician", "action": "run", "detail": "support-diagnostics exit=0"}
+{"time": "2026-11-21T07:00:05Z", "role": "econometrician", "action": "execute", "detail": "support-diagnostics: exit 0; elapsed 4s; cumulative 17s."}
+{"time": "2026-11-21T07:00:07Z", "role": "econometrician", "action": "run", "detail": "alternative-ols exit=0"}
+{"time": "2026-11-21T07:00:07Z", "role": "econometrician", "action": "execute", "detail": "alternative-ols: exit 0; elapsed 2s; cumulative 19s."}
+{"time": "2026-11-21T07:00:15Z", "role": "econometrician", "action": "run", "detail": "capped-odds exit=0"}
+{"time": "2026-11-21T07:00:15Z", "role": "econometrician", "action": "execute", "detail": "capped-odds: exit 0; elapsed 7s; cumulative 26s."}
+{"time": "2026-11-21T07:00:19Z", "role": "econometrician", "action": "run", "detail": "preprogram-placebo exit=0"}
+{"time": "2026-11-21T07:00:19Z", "role": "econometrician", "action": "execute", "detail": "preprogram-placebo: exit 0; elapsed 4s; cumulative 30s."}
+{"time": "2026-11-21T07:00:21Z", "role": "econometrician", "action": "run", "detail": "bias-sensitivity exit=0"}
+{"time": "2026-11-21T07:00:21Z", "role": "econometrician", "action": "execute", "detail": "bias-sensitivity: exit 0; elapsed 2s; cumulative 32s."}
+{"time": "2026-11-21T07:00:23Z", "role": "econometrician", "action": "run", "detail": "decision-report exit=0"}
+{"time": "2026-11-21T07:00:23Z", "role": "econometrician", "action": "execute", "detail": "decision-report: exit 0; elapsed 2s; cumulative 34s."}
+{"time": "2026-11-21T07:01:20Z", "role": "econometrician", "action": "report-results", "detail": "Eight code-r2 runs complete in 34 ledger seconds; 288 result claims and generated macros; null-spanning primary, benchmark TOST passes, adverse preprogram placebo disclosed. Factual handoff in runs/NOTES.md; validation passed."}
+{"time": "2026-11-21T07:01:35Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T070135Z (results-r1)"}
+{"time": "2026-11-21T07:02:43Z", "role": "reviewer", "action": "review-recorded", "detail": "results-r1 verdict=pass files=37"}
+{"time": "2026-11-21T07:02:57Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T070257Z (results-R1)"}
+{"time": "2026-11-21T07:03:32Z", "role": "econometrician", "action": "correct-claims", "detail": "R1: corrected 27 Boolean precision containment flags and six signed bias threshold descriptions; values/support/code unchanged; response without ruling."}
+{"time": "2026-11-21T07:03:42Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T070342Z (results-r2)"}

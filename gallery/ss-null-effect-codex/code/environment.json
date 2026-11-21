@@ -1,0 +1,26 @@
+{
+  "python": "3.14.6",
+  "implementation": "CPython",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "interpreter": "python3.14",
+  "local_interpreter": "/opt/homebrew/bin/python3.14",
+  "packages": {
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "statsmodels": "0.15.0",
+    "pandas": "3.0.5",
+    "patsy": "1.0.3",
+    "packaging": "26.3",
+    "python-dateutil": "2.9.0.post0",
+    "six": "1.17.0",
+    "formulaic": "1.2.2",
+    "interface-meta": "2.0.1",
+    "narwhals": "2.29.0",
+    "typing-extensions": "4.16.0",
+    "wrapt": "2.6.0.dev1"
+  },
+  "requirements_sha256": "362634e3246beb2c91d6ffe5ec73d22ce0b8fd68c25d98b81f5761ff8925e02c",
+  "verification": "All requirement versions match installed distribution metadata; pip check passed. No analysis/data reads.",
+  "initial_setup_failure": "Plain python3 selected 3.11; numpy==2.5.3 installation failed. Venv cleared and recreated with Python 3.14.6.",
+  "analysis_executed": false
+}

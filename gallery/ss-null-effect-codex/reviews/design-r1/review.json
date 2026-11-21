@@ -1,0 +1,57 @@
+{
+  "id": "design-r1",
+  "target": "design",
+  "round": 1,
+  "created": "2026-11-21T06:27:01Z",
+  "reviewer": {
+    "model": "gpt-6.1",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "plan.json",
+    "crew.json",
+    "data/CODEBOOK.md",
+    "data/schema.json",
+    "data/manifest.json",
+    "sources/notes.md",
+    "log.jsonl",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r1/review.json",
+    "briefs/20261121T062615Z-reviewer.md"
+  ],
+  "kill_argument": "The causal claim remains entirely hostage to unverified selection on observables: this voluntary synthetic cohort supplies no assignment mechanism establishing equal untreated potential earnings. I attacked the design for treating balance or a preprogram placebo as proof of identification, silently changing the ATT under poor support, and using nonsignificance as equivalence. Those attacks do not defeat the written design: it explicitly conditions interpretation on exchangeability, blocks affirmative conclusions under fixed support failures, labels capping as sensitivity, and fixes valid distinct zero-effect and benchmark-equivalence decisions with a joint multiplicity family. Rejection as an unconditional historical evaluation would be warranted; that is not the contribution actually specified. The strongest remaining objection is that H2 still calls the arbitrary supplied-unit bound substantive and promises a design-stage precision assessment that the run schedule postpones until after the primary outcome analysis.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "D1",
+      "severity": "minor",
+      "status": "open",
+      "text": "H2 calls 1000 a substantive benchmark and requires its power/scale assessment before analysis, while design.data.scale correctly disclaims substantive calibration and analysis_plan puts precision-plan after main-att. Align H2 with supplied-unit benchmark equivalence and make the outcome-free precision grid precede main-att (or explicitly withdraw the before-analysis promise). Resolution requires consistent wording and run ordering, not new outcome data or a changed bound.",
+      "evidence": "plan.json hypotheses[1], design.data.scale, design.analysis_plan[0] and [2]",
+      "response": "Prospective Designer response (before seed analysis; no reviewer ruling): H2 is benchmark equivalence in supplied earnings units. Its phrase substantive benchmark denotes the fixed declared benchmark only; there is no independently established currency, price base, welfare calibration or smallest economically meaningful effect. The bound stays [-1000,1000]. Execute precision-plan before main-att: its grid uses fixed hypothetical variances/counts, and its authorized re74/re75 scale descriptors supply context without reading re78 or tuning any bound, model or test. Main-att remains the first postprogram outcome-analysis run. Baseline scale assessment cannot establish welfare relevance; report that limitation regardless of precision. See plan.json design.prospective_clarifications. Finding status and ruling remain for the independent Reviewer.",
+      "ruling": ""
+    },
+    {
+      "id": "D2",
+      "severity": "minor",
+      "status": "open",
+      "text": "Validation requires a known region category, but the codebook and schema correctly say no external region vocabulary exists. This leaves the stop rule ambiguous: the data-prep validity flag cannot establish source-defined category validity. Explicitly authorize the four documented observed labels as the fixed encoding vocabulary, or narrow validation to nonmissing categorical labels with this metadata limitation. Resolution requires a prospective validation clarification; no outcome analysis is needed.",
+      "evidence": "plan.json design.data.validation_missingness; data/CODEBOOK.md Source comparisons and authorized validation, region bullet; data/schema.json region_vocabulary_source",
+      "response": "Prospective Designer response (before seed analysis; no reviewer ruling): For operational validation and fixed dummy encoding, known nonmissing region means exactly one of the schema-documented observed labels midwest, northeast, south, west; omit midwest lexicographically. This vocabulary was documented during schema-only data preparation, not chosen from outcome relationships. Reject missing, new or changed labels and do not repair/drop rows or alter the full-cohort ATT. This checks consistency with the hash-pinned extract, not independent source-defined semantic validity; no external vocabulary exists in supplied metadata. Retain that limitation in the paper. See plan.json design.prospective_clarifications. Finding status and ruling remain for the independent Reviewer.",
+      "ruling": ""
+    }
+  ],
+  "files_sha256": {
+    "plan.json": "51ae664ce14576abeddfe1ff91dae9410154250409a6ba76a457e68627ab71e7",
+    "crew.json": "90d0188f28445b56e5df609ed7b6233a5d730b381067fd873259183fe33b40be",
+    "data/CODEBOOK.md": "6cc9fa4f5796e81c0b537d473b2952a50d298a7cdcf930a5f410f4b9d940c41a",
+    "data/schema.json": "0f5369bdd2ea5c5daac5fc1bee4d570ef2a0f5e6b3221e5360e111c723a6e1c6",
+    "data/manifest.json": "61206731cee6d3d309a327c511bb5637b8edf4d4648a20163557b5693f2c5ce1",
+    "sources/notes.md": "5eb89719f3c341eee3a7da69edd8daedd5a21df8ea2f6725a534d55933fbd8e7",
+    "log.jsonl": "12e0ecb0e3d64bdb6ecd3c1825105814f5faa4746366ded7401f668d5b4957db",
+    "reviews/REVIEWER_MEMORY.md": "eb72c642b72c13ec679ae2b3e4290baea9598f58a0f381407f7d879bf9ed57e7",
+    "reviews/question-r1/review.json": "c260d813575e20e909b1efbc113acfaed12c74c50504aa29100cb8c19b1e38b1",
+    "briefs/20261121T062615Z-reviewer.md": "f379b9ca57460b94edbaeef14682532941bc231dfc99d53c02eb5d8cd688875e"
+  },
+  "recorded": "2026-11-21T06:27:01Z"
+}

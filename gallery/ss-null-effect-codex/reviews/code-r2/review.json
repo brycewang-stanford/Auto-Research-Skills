@@ -1,0 +1,70 @@
+{
+  "id": "code-r2",
+  "target": "code",
+  "round": 2,
+  "created": "2026-11-21T06:58:53Z",
+  "reviewer": {
+    "model": "gpt-6.1",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "plan.json",
+    "log.jsonl",
+    "data/schema.json",
+    "reviews/REVIEWER_MEMORY.md",
+    "code/IMPLEMENTATION.md",
+    "code/alternative_ols.py",
+    "code/analysis_common.py",
+    "code/bias_sensitivity.py",
+    "code/capped_odds.py",
+    "code/check_synthetic.py",
+    "code/decision_report.py",
+    "code/execution_manifest.json",
+    "code/fetch_seed.py",
+    "code/main_att.py",
+    "code/precision_plan.py",
+    "code/preprogram_placebo.py",
+    "code/requirements.txt",
+    "code/support_diagnostics.py",
+    "reviews/code-r1/review.json",
+    "code/environment.json",
+    "runs/NOTES.md"
+  ],
+  "kill_argument": "The strongest remaining objection is dependence on an existing local software environment: matching installed metadata and a passing dependency check do not establish that a fresh machine can rebuild these unusually recent pins, including a development release of wrapt. That is a replication obligation, not evidence of a present code defect. I attacked the interpreter mismatch, missing transitive pins, conflicting execution order and undocumented changes to the estimator. The corrected manifest specifies Python 3.14, all thirteen installed distribution versions match the pins and recorded requirements hash, and pip check passes. The executable hashes are unchanged from round 1; spot-checks of the ATT, bootstrap, Holm and failure handling reveal no new divergence from the approved conditional design. C1 is resolved in the files. I ran only dependency metadata and import checks, never a model, estimate or study-data calculation. The eventual synthetic causal interpretation still depends on exchangeability, overlap and regular IID inference; software completion cannot establish those assumptions.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "C1",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Execution documentation still calls D1/D2 unresolved and describes precision-first as an unapproved proposal, while plan.json now explicitly fixes precision-first and the observed region encoding interpretation. This leaves conflicting instructions for the executor. Cheap remedy: update documentation to point to the prospective clarifications and retain the disclosure requirement; no numerical change or new experiment is needed. Resolve with consistent manifest and handoff wording.",
+      "evidence": "code/execution_manifest.json execution_blockers[1] and order_note; code/IMPLEMENTATION.md section Unresolved prospective clarification; plan.json design.prospective_clarifications",
+      "response": "Updated execution_manifest.json and IMPLEMENTATION.md to point to the recorded prospective D1/D2 clarifications, fixing precision-first execution and observed-region encoding wording while retaining post-design-gate/pre-analysis and metadata limitations. No executable code or reviewed requirements changed; ruling left to Reviewer.",
+      "ruling": "Manifest order_note and execution_blockers, IMPLEMENTATION.md prospective clarification section, and the dated superseding entry in runs/NOTES.md now consistently implement the recorded D1/D2 clarifications. The later environment-review blocker is explicit and distinct; no unresolved D1/D2 executor choice remains."
+    }
+  ],
+  "files_sha256": {
+    "plan.json": "655ec83e12d608f256de900338f2ecb0879d116847c88d28b95be9a9ed8dcfdd",
+    "log.jsonl": "93039218489966d8819ae56fbb25042a2f623c1ac646e2674ef58392afe3e669",
+    "data/schema.json": "0f5369bdd2ea5c5daac5fc1bee4d570ef2a0f5e6b3221e5360e111c723a6e1c6",
+    "reviews/REVIEWER_MEMORY.md": "977c7844863adcb69d0d9ac11c510bf231ab968c7d9a915f372a5d679dc8fac8",
+    "code/IMPLEMENTATION.md": "1596f589e87cb6f0c7ec745476a2c9b271e62d6de5a1ccb7d33cd5cb0e77b93b",
+    "code/alternative_ols.py": "8bd413480f9581fd96f26e33664ef095b3e76ba7672e5e80af8380123e1dc9a7",
+    "code/analysis_common.py": "416a5f9fdb92d090f241f02498bba6d6121f3674710de0e0a97fd9b7050a79fb",
+    "code/bias_sensitivity.py": "2ba17c303413deea46dc252a4f1ed65f1e1322451f0c2a5e02341b4bbf1a99b2",
+    "code/capped_odds.py": "3530f621fdbbef69521287ff53f75d41293280493f6b20546fadc94a7920a415",
+    "code/check_synthetic.py": "ef1b2dbe7c2e1f9b7ccfaaafb14a421097760c69a295750e1f95d29397757f61",
+    "code/decision_report.py": "6c32e42a12d3e8f1d8f8efaeaf0f08a3b236ba614b8d10a44b99a960d48c77c9",
+    "code/execution_manifest.json": "7a50709a4cd6cfc8d082446620c96ace6be16f1e49657347508573c1ded72009",
+    "code/fetch_seed.py": "1cabef54464ab6107800e005bbbfc73f2cef3542157d797833cfade37030d9d4",
+    "code/main_att.py": "130022eb37e4578601d13aafa21f8d9a2530a668dffd02b37d79fe6b8588bfc9",
+    "code/precision_plan.py": "fd90b63204e2bc362ba04d96497e16eb7c8077302a7252b182a7b1020b6f25ac",
+    "code/preprogram_placebo.py": "d1d5ee2de31c4751b4a5d9dd1a436c94b93a77c628c4232850c0947667d08838",
+    "code/requirements.txt": "362634e3246beb2c91d6ffe5ec73d22ce0b8fd68c25d98b81f5761ff8925e02c",
+    "code/support_diagnostics.py": "09d175584bc8d11deb09ec9c39816857f612f80063c486b786488b1056807b78",
+    "reviews/code-r1/review.json": "39c08f1c7a242b7ab1a64bfdc7ba0e7bf06c5f920777ef08ef0b50d677f62417",
+    "code/environment.json": "ac236686788d4ae521f265cac0436f670afc39faed43ca9e876120a6136acd13",
+    "runs/NOTES.md": "2f1de71aec4fc5217e22c97cc70bb370f523f36b7b5cb7434f4798cd2b456a1e"
+  },
+  "recorded": "2026-11-21T06:59:08Z"
+}
