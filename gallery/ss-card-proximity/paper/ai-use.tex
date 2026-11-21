@@ -10,12 +10,12 @@ reading the Reviewer's verdict. The manuscript itself is subject to the submissi
 % log.jsonl and reviews/.
 \begin{itemize}
   \item \textbf{Roles and models.} Every role (PI, Scout, Designer, Data RA, Econometrician,
-        Figures RA, Writer, Reviewer and Replicator) ran on Claude Opus 5.5
+        Figures RA, Writer, Reviewer and Replicator) runs on Claude Opus 5.5
         (\texttt{claude-opus-5-5}) in Claude Code, each role as a separate agent. The PI
-        drafted the question and hypotheses and recorded deviations D3--D6; the Scout
+        drafted the question and hypotheses, recorded deviations D3--D7 and decided D7; the Scout
         found and verified the sources and transcribed the published targets; the Designer
-        wrote the design; the Data RA fetched and prepared the data and, at the paper stage, ran the
-        descriptive run behind the summary-statistics table (D7); the Econometrician
+        wrote the design; the Data RA fetched and prepared the data and, at the paper stage, wrote and
+        executed the descriptive run behind the summary-statistics table (D7); the Econometrician
         wrote and tested the estimation code, executed the analysis runs, including the
         post hoc diagnostic and the SAS-listing check, and wrote the result claims; the
         Figures RA drew the figure; the Writer drafted this paper from the claims; the
@@ -27,25 +27,35 @@ reading the Reviewer's verdict. The manuscript itself is subject to the submissi
         \CrewRoundsLiterature{} on the literature, \CrewRoundsDesign{} on the design,
         \CrewRoundsCode{} on the code, \CrewRoundsResults{} on the results and
         \CrewRoundsPaper{} on the paper. It raised \CrewFindingsCritical{} critical,
-        \CrewFindingsMajor{} major and \CrewFindingsMinor{} minor findings, summed over
-        rounds. The last round of each completed stage passed, with minor findings answered
+        \CrewFindingsMajor{} major and \CrewFindingsMinor{} minor distinct findings (a
+        finding carried into a later round is counted once, at its latest severity). The last round of each completed stage passed, with minor findings answered
         before the next gate. A code review passed before every analysis run, including
-        separate rounds for the post hoc diagnostic and the SAS-listing check.
+        separate rounds for the post hoc diagnostic, the SAS-listing check and the D7
+        descriptive run.
   \item \textbf{Runs.} \CrewRuns{} runs in the ledger (\CrewRunsAnalysis{} analysis,
         \CrewRunsDataPrep{} data preparation); \CrewRunsSuperseded{} were replaced by a
         later run with the same id and archived (data-preparation and figure runs only; no run
         behind a result claim was replaced); \CrewRunsUnreviewed{} analysis
-        runs were not covered by a passing code review.
+        run was not covered by a passing code review: the figure run repeated at the paper
+        stage to correct its axis-label units only (deviation D8), with the human author's
+        consent in chat, after the four code-review rounds had been used.
   \item \textbf{Replication.} The Replicator's clean rerun (\texttt{crew.py rerun}, in a
         fresh environment built from \texttt{code/requirements.txt}) has status
         \CrewRerunStatus{}: \CrewRerunReproduced{} of \CrewRerunTotal{} runs reproduced.
+        Whether the work can be rerun from scratch is what this record states, not
+        something the authoring roles assert.
   \item \textbf{Findings accepted over the Reviewer's objection.} None.
   \item \textbf{Evidence.} Every result number in the text, the tables and the figure caption
         is a macro generated from the metrics of a logged run. The numbers typed by hand are
         design facts fixed before any analysis run (critical values, targets, the
         pre-registered minimum detectable difference), published numbers quoted next to
-        their replication, and process facts such as dates. Card's SAS listing, which holds
-        regression output, was left unopened until every other claim was written. Every
+        their replication, numbers from the literature quoted as the Scout's source notes
+        record them (for example first-stage $F$ statistics, intervals and direct-effect
+        estimates of earlier studies), and process facts such as dates. Card's SAS listing,
+        which holds regression output, was left unopened until every claim of the approved
+        plan was written; claims added later came from metrics already written by earlier
+        runs (results review) or from the D7 descriptive run, and no claim value changed
+        after the listing was read. Every
         citation was checked against its source by the Scout; the verification method for
         each entry (full text, abstract or DOI resolution) is recorded in
         \texttt{sources/sources.json}, and the paper cites each source for no more than was

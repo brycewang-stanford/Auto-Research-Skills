@@ -1,7 +1,7 @@
 {
   "protocol": "0.2",
   "track": "social-science",
-  "title": "Does growing up near a college raise schooling and earnings? A replication of Card's (1995) instrumental-variables return to schooling",
+  "title": "Does Card's College-Proximity Estimate of the Return to Schooling Replicate and Survive Weak-Instrument-Robust Inference? A Replication of Card (1993), NBER Working Paper 4483",
   "created": "2026-11-20T11:18:37Z",
   "seed": "ss-card-proximity"
 }

@@ -1,0 +1,1 @@
+Task from the PI: the a6/a5-pacoef-chr-breakdown claim texts say "(log points)" for values in log-wage units (0.0114 is about 1.1 log points). Reword those texts (and any other claim with the same unit slip) to "in log-wage units (about N log points)" with no value change. Run crew.py numbers, validate, log. Reply with the ids changed.

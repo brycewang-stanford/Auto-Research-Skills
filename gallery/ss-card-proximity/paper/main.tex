@@ -15,9 +15,12 @@
 \renewcommand{\textfraction}{0.07}
 \renewcommand{\floatpagefraction}{0.8}
 \newcommand{\var}[1]{\texttt{#1}}
+% Number of H1 misses, derived from the count macros (no run metric holds it).
+\newcommand{\HOneMisses}{\the\numexpr\HOnePrimaryTargets+\HOneSecondaryTargets-\HOnePrimaryReproduced-\HOneSecondaryReproduced\relax}
 
-\title{Does Growing Up Near a College Raise Schooling and Earnings?\\
-A Replication of Card's (1995) Instrumental-Variables Return to Schooling}
+\title{Does Card's College-Proximity Estimate of the Return to Schooling\\
+Replicate and Survive Weak-Instrument-Robust Inference?\\[4pt]
+\large A Replication of Card (1993), NBER Working Paper 4483}
 \author{Bryce Wang (human PI) \\ \small Drafted with Free-Research-Crew; see the AI-use statement.}
 \date{\today}
 
@@ -32,20 +35,23 @@ public extract of the NLS Young Men, with targets, standard-error formulas and d
 rules fixed before any estimate was computed. In Card's basic specification the 2SLS
 coefficient on schooling is \IvReturn{} (standard error \IvReturnSe{}) on \NSample{} men,
 reproducing the published 0.132 (0.049); the OLS coefficient \OlsReturn{} reproduces 0.073. % crew:literal
-\HOnePrimaryReproduced{} of 9 primary and \HOneSecondaryReproduced{} of 22 secondary
-printed targets are reproduced. All seven misses lie in the first-stage and reduced-form
-columns of Card's Panel~B; a post hoc regression that keeps experience as an endogenous
-regressor instrumented by age matches all eight printed numbers there, which is consistent
+Of the \HOnePrimaryTargets{} primary and \HOneSecondaryTargets{} secondary printed targets,
+\HOnePrimaryReproduced{} and \HOneSecondaryReproduced{} are reproduced. All \HOneMisses{}
+misses lie in the first-stage and reduced-form columns of Card's Panel~B; a post hoc
+regression that keeps experience as an endogenous regressor instrumented by age matches
+\DiagTargetsReproduced{} of the \DiagTargets{} printed numbers there, which is consistent
 with, but does not prove, how they were estimated. A heteroskedasticity-robust
 Anderson--Rubin projection set, valid whatever the instrument strength but conservative,
 runs from \BSixArRobLo{} to \BSixArRobHi{} for the return in the basic specification: it
-contains zero, so a positive return is not established by this test, possibly because the
-projection is conservative. Homoskedastic subvector sets exclude zero but were fixed in
-advance not to decide. In the specifications that treat experience as exogenous, the
+contains zero, so a positive return is not established by this test. Homoskedastic
+subvector sets exclude zero but were fixed in advance not to decide; their statistic at a
+zero return is not larger than the robust one, so the two decisions differ through the
+critical values (the projection's is the more conservative), not through
+heteroskedasticity. In the specifications that treat experience as exogenous, the
 first stage is below the usual weak-instrument thresholds, the robust Anderson--Rubin set
 for the Panel~A coefficient on schooling lies above zero, it first includes zero once
-proximity may raise log wages directly by \ASixPacoefChrBreakdown{} log points, and
-equality of the 2SLS and OLS coefficients is not rejected. The 2SLS coefficient is not
+proximity may raise log wages directly by \ASixPacoefChrBreakdown{} (about one log point),
+and equality of the 2SLS and OLS coefficients is not rejected. The 2SLS coefficient is not
 the average return to schooling for all men.
 \end{abstract}
 
@@ -66,22 +72,22 @@ and the seed task cite it as Working Paper 4832, which is a different paper
 is from the working paper. Card's later survey quotes the same headline estimates for the
 chapter \citep{card2000estimating}.
 
-This paper asks two questions. The first is computational: does a logged, rerunnable
-replication from Card's public file \citep{cardproximitydata} reproduce the published OLS,
+This paper asks two questions. The first is computational: does a logged replication, built to be rerun from scratch, from Card's public file \citep{cardproximitydata} reproduce the published OLS,
 first-stage, reduced-form and 2SLS estimates? \citet{kling2001interpreting} reported an
 exact replication of the basic specification (OLS 0.073, IV 0.132 (0.049)), and several % crew:literal
 later papers reproduce the specifications that treat experience as exogenous
 \citep{bi2020inferring,blandhol2025tsls,delbianco2026testing}. A successful reproduction is
 therefore a check, not new evidence on the return to schooling. The second question is
-how much of the IV conclusion survives inference that is robust to a weak instrument and
-to a bounded violation of the exclusion restriction.
+how much of the IV conclusion survives inference that is robust to a weak instrument (for
+Card's basic specification and for the specifications that treat experience as exogenous)
+and, for the latter only, to a bounded violation of the exclusion restriction.
 
 The answers are as follows. The 2SLS estimate of Card's basic specification is reproduced
 to the printed digit: \IvReturn{} (\IvReturnSe{}), with OLS \OlsReturn{}
-(\OlsReturnSe{}) and N $=$ \NSample{}. Of the 9 primary targets fixed in advance,
-\HOnePrimaryReproduced{} are reproduced; of 22 secondary targets,
-\HOneSecondaryReproduced{}. Every miss is a first-stage or reduced-form coefficient (or its
-standard error) in Card's Panel~B, where experience is treated as endogenous; all twelve
+(\OlsReturnSe{}) and N $=$ \NSample{}. Of the \HOnePrimaryTargets{} primary targets fixed
+in advance, \HOnePrimaryReproduced{} are reproduced; of \HOneSecondaryTargets{} secondary
+targets, \HOneSecondaryReproduced{}. Every miss is a first-stage or reduced-form coefficient (or its
+standard error) in Card's Panel~B, where experience is treated as endogenous; all
 Panel~A numbers, both OLS columns and both Panel~B 2SLS estimates are reproduced. A post
 hoc diagnostic, labelled as such throughout, finds that Card's printed Panel~B columns 1--4
 match regressions that keep experience in the equation as an endogenous regressor
@@ -91,16 +97,21 @@ On inference, the result that bears on the return to schooling in Card's basic
 specification is negative in the narrow sense fixed before the runs: the
 heteroskedasticity-robust projection Anderson--Rubin set, [\BSixArRobLo,
 \BSixArRobHi], contains zero, so this test does not establish that the return is
-positive. This set is conservative, and a ``not established'' may reflect that rather than
-the data. It is not evidence that the return is zero. The homoskedastic subvector sets of
+positive. It is not evidence that the return is zero. The homoskedastic subvector
+statistic at a zero return, \BSixHomStatAtZero{}, is not larger than the robust projection
+statistic there, \BSixRobMAtZero{}, so the robust and homoskedastic sets disagree about zero
+through their critical values (the projection's $\chi^2_3$ value is the more conservative),
+not because heteroskedasticity-robust inference is less favourable to a positive return
+(a post hoc, descriptive comparison that changes neither the decision rule nor the primary
+set). The homoskedastic subvector sets of
 \citet{guggenberger2012asymptotic} and \citet{guggenberger2019more} exclude zero, but they
 assume homoskedasticity and were fixed in advance not to decide. Everything that comes out
 positive concerns the Panel~A coefficient, which assumes experience exogenous although
 experience is age minus schooling minus six: the robust Anderson--Rubin set for that
 coefficient with family background is [\ASixArLo, \ASixArHi], its first stage is below the
 Stock--Yogo and Montiel Olea--Pflueger thresholds, the set first includes zero if
-proximity may raise log wages directly by \ASixPacoefChrBreakdown{} log points, and the
-2SLS and OLS coefficients are not distinguishable.
+proximity may raise log wages directly by \ASixPacoefChrBreakdown{} (about one log
+point), and the 2SLS and OLS coefficients are not distinguishable.
 
 The contribution is small and stated precisely. Weak-instrument-robust inference and
 exclusion sensitivity on these data are published for the Panel~A specification without
@@ -224,9 +235,9 @@ fixed conventional (homoskedastic, $n-k$) standard errors for the comparison, be
 \citet{blandhol2025tsls} obtain 0.054 for Panel~A column~5 with robust errors where Card % crew:literal
 prints 0.055, and report HC1 standard errors alongside. A printed number counts as % crew:literal
 reproduced if the unrounded replicated value rounds to it at the printed precision; N must
-match exactly. The 9 primary targets are the B6 2SLS estimate, the B2 first stage, the B4
+match exactly. The \HOnePrimaryTargets{} primary targets are the B6 2SLS estimate, the B2 first stage, the B4
 reduced form and the Table~2 column~5 OLS estimate, each with its standard error, and N;
-the 22 secondary targets are every other printed proximity or schooling coefficient of
+the \HOneSecondaryTargets{} secondary targets are every other printed proximity or schooling coefficient of
 Table~3 and Table~2 columns 2 and 5, with standard errors, and the homoskedastic
 Anderson--Rubin set that \citet{cinelli2025omitted} print for Panel~A column~5.
 
@@ -280,8 +291,8 @@ the interval. A difference is reported descriptively, not as a measure of abilit
 \paragraph{Report-only checks.} Card's Table~4 row~7 (men aged 14--19 in 1966); balance of
 proximity on KWW at ages 14--15, on KWW for all men and on IQ, with IQ missingness by
 proximity; standard errors clustered on region-1966 $\times$ SMSA-1966 cells; and, only
-after every other claim was written, a comparison with the output listing of Card's own
-SAS program. Their readings were fixed in advance and none of them can change a claim.
+after every claim of the approved plan was written, a comparison with the output listing of
+Card's own SAS program (Section~\ref{sec:diag} gives the timing of later claims). Their readings were fixed in advance and none of them can change a claim.
 
 \section{Results}
 \label{sec:results}
@@ -294,8 +305,9 @@ SAS program. Their readings were fixed in advance and none of them can change a 
 Table~\ref{tab:h1} sets every published target next to its replication. Card's basic
 specification is reproduced: the 2SLS coefficient on schooling is \IvReturn{} with
 conventional standard error \IvReturnSe{} (HC1 \IvReturnSeRobust{}), against the printed
-0.132 (0.049). In real units, \IvReturn{} log points correspond to a \IvReturnPct\% higher % crew:literal
-hourly wage per year of schooling, with the caveats on its meaning in
+0.132 (0.049). A coefficient of \IvReturn{} corresponds to a \IvReturnPct\% wage difference % crew:literal
+per year of schooling; this is a conversion of the point estimate, whose robust set
+contains zero (Section~\ref{sec:weakiv}), with the caveats on its meaning in
 Section~\ref{sec:strategy}. The OLS coefficient, \OlsReturn{} (\OlsReturnSe{}), matches
 Card's 0.073 (0.004). \citet{kling2001interpreting} print the OLS standard error as .003; % crew:literal
 neither the conventional, nor the HC1 (\OlsReturnSeRobust{}), nor the $n$-denominator
@@ -306,7 +318,7 @@ Panel~A is reproduced in full, including the Panel~A column~6 2SLS coefficient
 Table~2 column~2 OLS standard error, \AFiveOlsSe{}, reproduces Card's 0.003 just inside the % crew:literal
 rounding boundary.
 
-The misses are seven, all in Panel~B columns 1--4: the B2 first stage \FirstStage{}
+The \HOneMisses{} misses are all in Panel~B columns 1--4: the B2 first stage \FirstStage{}
 (\FirstStageSe{}) against 0.365 (0.105), the B4 reduced form \ReducedForm{} % crew:literal
 (\ReducedFormSe{}) against 0.048 (0.019), the B1 first stage \BOneFs{} against 0.382 (its % crew:literal
 standard error matches), and the B3 reduced form \BThreeRf{} (\BThreeRfSe{}) against 0.047 % crew:literal
@@ -335,17 +347,23 @@ After the H1 runs and before the results review, the PI added one report-only di
 experience and its square in the equation as endogenous regressors instrumented by age and
 age squared. For these regressions the ratio of the reduced form to the first stage equals
 the 2SLS estimate by construction (checked in the run as a code test, not used as evidence).
-Table~\ref{tab:diag} shows that \DiagTargetsReproduced{} of Card's 8 printed numbers in
+Table~\ref{tab:diag} shows that \DiagTargetsReproduced{} of Card's \DiagTargets{} printed numbers in
 columns 1--4, coefficients and standard errors, round to these re-estimates. This is
 consistent with Card having estimated the columns this way; it does not prove it, the
 diagnostic was not in the approved plan, and the approved B1--B4 targets remain counted as
 misses.
 
-\paragraph{Card's SAS listing.} After every other claim was written, a single report-only
-run compared the listing of Card's example SAS program, distributed with the data and
-unopened until then, with our two OLS regressions (Table~2 columns 2 and 5). The sample
-size, the schooling coefficient and its standard error agree for both models at the
-listing's printed precision, all six compared items. This confirms the data reading and
+\paragraph{Card's SAS listing.} After every claim of the approved plan was written, a
+single report-only run compared the listing of Card's example SAS program, distributed with
+the data and unopened until then, with our two OLS regressions (Table~2 columns 2 and 5).
+The sample size, the schooling coefficient and its standard error agree for both models at
+the listing's printed precision: \SasItemsMatched{} of \SasItems{} compared items. Claims
+were added after this run. At the results review, claims were taken from metrics that runs
+made before the listing was read had already written (clustered first stages, HC1 and
+$n$-denominator OLS standard errors, the age 14--19 interval), and claim texts were
+reworded. At the paper stage, the descriptive claims of Table~\ref{tab:sumstats} came from
+a run made after the listing was read (D7), which recomputes univariate shares and means
+recorded before any analysis. No claim value changed after the listing was read. This confirms the data reading and
 variable construction for those two OLS regressions to more digits than Card's tables; it
 says nothing about the instrument, the age variables, any IV estimate or the Panel~B misses.
 
@@ -378,8 +396,12 @@ the set and the statement ``the IV return to schooling is positive'' is not esta
 the pre-registered test. We state plainly what this does and does not mean. The projection
 compares a minimum over two nuisance coefficients with a $\chi^2_3$ critical value, which
 makes it conservative; the design anticipated before any run that its set would very
-likely contain zero, and a ``not established'' may reflect this conservativeness rather
-than the data. It is not evidence that the return is zero or small: the set also extends
+likely contain zero. The homoskedastic subvector statistic at zero is \BSixHomStatAtZero{}
+on the same $\chi^2$ scale, not larger than the robust \BSixRobMAtZero{}; so the robust and
+homoskedastic sets differ on zero through their critical values ($\chi^2_3$ for the
+projection, $\chi^2_1$ or GKM19 for the homoskedastic tests), not through a smaller robust
+statistic. This comparison is post hoc and descriptive; it changes neither the decision
+rule nor the primary set, which contains zero. It is not evidence that the return is zero or small: the set also extends
 well above every point estimate in this paper. The homoskedastic subvector sets are much
 narrower and exclude zero: GKMC [\BSixArGkmcLo, \BSixArGkmcHi], GKM19 with Table~3 critical
 values [\BSixArGkmOneNineLo, \BSixArGkmOneNineHi] and with the eq.~(2.12) quantile
@@ -387,9 +409,9 @@ values [\BSixArGkmOneNineLo, \BSixArGkmOneNineHi] and with the eq.~(2.12) quanti
 everywhere on the point list (minimum \BSixKappaOneMin{}), so the GKM19 critical value is
 close to the $\chi^2_1$ value. They were fixed in advance not to decide H3(b), because their
 size is not controlled under heteroskedasticity
-\citep{guggenberger2019more}. A heteroskedasticity-robust subvector test with fewer
-degrees of freedom \citep{guggenberger2024powerful} could resolve the difference; we did
-not implement it.
+\citep{guggenberger2019more}. A heteroskedasticity-robust subvector test with correct asymptotic size and fewer degrees
+of freedom than the projection \citep{guggenberger2024powerful} could resolve the
+difference; we did not implement it.
 
 \paragraph{How much the experience assumption matters.} The point estimates differ
 little: \ASixIv{} in Panel~A column~6 against \IvReturn{} in Panel~B column~6, with the same
@@ -406,8 +428,10 @@ with three proximity instruments, [0.083, 0.352] under homoskedasticity % crew:l
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.9\linewidth]{figures/chr.pdf}
-\caption{\small \textbf{Sensitivity of the IV conclusions to a direct effect of college proximity
-and to weak identification of the experience coefficients.} All men in the analysis sample,
+\caption{\small \textbf{(a) Sensitivity of the Panel~A coefficient on schooling to a direct
+effect of college proximity; (b) weak-instrument-robust inference on the return to schooling
+in Card's basic specification.} $\delta$ and $\delta^*$ are in log-wage units (0.01 is one log
+point). All men in the analysis sample,
 $N = \NSample$. All sets are 95\% sets.
 \emph{(a) Panel A specifications, which treat experience as exogenous. The quantity is the
 Panel A coefficient on schooling, not the return to schooling.} For each bound $\delta$ on
@@ -441,13 +465,14 @@ from ivmodels, $[\BSixArGkmOneNineqLo, \BSixArGkmOneNineqHi]$. Their critical va
 close to the chi-square(1) value because $\kappa_1$ is large everywhere on the point list
 (minimum $\BSixKappaOneMin$). The plotted window of $b_0$ is the span of the sets and 0,
 padded by 10\%. The statistic and the sets were evaluated on $[-1, 1]$ and beyond, up to
-$|b_0| = 10^5$, and no set has a piece outside the window.}
+$|b_0| = 10^5$; on that evaluated point list no set has a piece outside the window
+(pieces narrower than the outer-grid spacing outside $[-1,1]$ could be missed).}
 \label{fig:chr}
 \end{figure}
 
 Figure~\ref{fig:chr}(a) lets proximity raise log wages directly by up to $\delta$. For the
 Panel~A column~6 coefficient on schooling the robust union first includes zero at
-$\delta^* = \ASixPacoefChrBreakdown$ log points, \ASixPacoefChrShare{} of the replicated
+$\delta^* = \ASixPacoefChrBreakdown$ in log wage (about one log point), \ASixPacoefChrShare{} of the replicated
 reduced-form coefficient; for column~5 at \AFivePacoefChrBreakdown{}
 (\AFivePacoefChrShare{}). With one instrument these are the lower 95\% limits of the robust
 reduced forms, a little above the values about 0.010 and 0.007 predicted from Card's % crew:literal
@@ -466,13 +491,16 @@ breakdown points and far from precise. With a control set that adds marital stat
 but not of 2\% or 4\%. \citet{cinelli2025omitted} show for Panel~A column~5 that an omitted
 variable explaining 0.67\% of the residual variation of both proximity and log earnings % crew:literal
 suffices to make the IV estimate insignificant, and that confounding as strong as the SMSA
-or Black indicator widens the AR interval to about [$-$0.02, 0.40]. Other work does not % crew:literal
-find a direct effect: principal-stratification reanalyses that drop the exclusion
-restriction find no significant direct effect for always- or never-takers in their
-preferred specifications, though with wide intervals and a binary intermediate variable
-\citep{jiang2022multiply,luo2024identification}, and tests of instrument validity with
-schooling binarised reject without covariates but not with Card's full covariate set
-\citep{kitagawa2015test,carr2021testing}.
+or Black indicator widens the AR interval to about [$-$0.02, 0.40]. Other work finds no significant % crew:literal
+direct effect in its preferred specifications: principal-stratification reanalyses that
+drop the exclusion restriction find none for always- or never-takers, with wide intervals
+and a binary intermediate variable, although one of Luo et al.'s specifications that the
+authors regard as misspecified gives a significantly negative never-taker effect
+\citep{jiang2022multiply,luo2024identification}. Tests of the testable implications of
+instrument validity with schooling binarised give mixed results: as reported by
+\citet{carr2021testing}, the test of \citet{kitagawa2015test} rejects Card's instrument
+without covariates, while Carr and Kitagawa do not reject when conditioning on Card's full
+covariate set.
 
 \subsection{IV versus OLS (H5)}
 \label{sec:h5}
@@ -530,7 +558,7 @@ thus weakens the instrument-strength reading for column~5.
 \label{sec:conclusion}
 
 From Card's public file, the 2SLS and OLS estimates of his basic specification, every
-Panel~A estimate and both OLS columns are reproduced at the printed precision. The seven
+Panel~A estimate and both OLS columns are reproduced at the printed precision. The \HOneMisses{}
 misses are all in Panel~B's first-stage and reduced-form columns, and a post hoc diagnostic
 suggests these columns keep experience in the equation, instrumented by age; the
 diagnostic is consistent with Card's printed numbers but does not prove how they were
@@ -546,8 +574,8 @@ sign survives only a direct effect of proximity of about one log point (the robu
 reduced-form lower limit restated), and the 2SLS and OLS coefficients cannot be told apart.
 None of these estimates is the average return to schooling for all men, and on these data
 even the weighted-average reading needs conditions that are in doubt. The natural next step
-is a heteroskedasticity-robust subvector test with exact size, such as that of
-\citet{guggenberger2024powerful}, on Card's basic specification.
+is a heteroskedasticity-robust subvector test with correct asymptotic size and fewer
+degrees of freedom than the projection, such as that of \citet{guggenberger2024powerful}, on Card's basic specification.
 
 \section*{Limitations and deviations from the approved design}
 \label{sec:deviations}
@@ -562,7 +590,8 @@ warning.
 which treats experience as exogenous although experience contains schooling. Only H3(b)
 concerns Card's basic specification (D2).
 \item \emph{Conservative primary set.} The H3(b) decision rests on a projection set; a
-size-exact robust subvector test was not available to us in Python and was not implemented.
+robust subvector test with correct asymptotic size and fewer degrees of freedom was not
+available to us in Python and was not implemented.
 \item \emph{Untested exclusions.} The age exclusion in Panel~B is maintained, not tested.
 The proximity exclusion is examined only through a breakdown point, balance checks with
 little power or a selected sample, and the literature.
@@ -602,6 +631,11 @@ interval was written as a run metric. No run was added.
 analysis run, \var{describe-sample}, recomputes the Table~1 items of the wage sample
 (Table~\ref{tab:sumstats}) so that they can be reported as result claims; it changes no
 estimate, decision or count. Its claims never passed a results review.
+\item \textbf{D8} (paper stage, with the human author's consent in chat). The two axis
+labels of the figure said ``log points'' for values in log-wage units. The labels alone
+were corrected and the figure run repeated without a further code review, because the four
+code-review rounds the protocol allows had been used; no statistic, check or input changed.
+This is the one analysis run not covered by a passing code review.
 \item \textbf{Timing.} The synthetic-data checks of the estimators, the figure code and the
 first code review were planned before the design gate but took place after it, still before
 any analysis run.

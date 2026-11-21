@@ -17,9 +17,9 @@ OLS, schooling (conventional SE) & 0.076 (0.006) & \YoungOls{} (\YoungOlsSe{}) &
 \multicolumn{4}{@{}l}{\emph{(b) Balance: coefficient on college proximity, HC1 standard errors}} \\
 Outcome & Coefficient (SE) & In SD units & N \\
 KWW score, men aged 14--15 in 1966 & \BalKwwYoung{} (\BalKwwYoungSe{}) & \BalKwwYoungSdu{} & \BalKwwYoungN{} \\
-KWW score, all men (descriptive only) & \BalKwwAll{} (\BalKwwAllSe{}) & \BalKwwAllSdu{} & \NSample{} \\
+KWW score, all men with a score (descriptive only) & \BalKwwAll{} (\BalKwwAllSe{}) & \BalKwwAllSdu{} & \BalKwwAllN{} \\
 School-record IQ, where recorded & \BalIq{} (\BalIqSe{}) & \BalIqSdu{} & \BalIqN{} \\
-Share with IQ recorded, near minus not near & \IqObsDiff{} (\IqObsDiffSe{}) & & \NSample{} \\
+Share with IQ recorded, near minus not near$^{\dagger}$ & \IqObsDiff{} (\IqObsDiffSe{}) & & \NSample{} \\
 \midrule
 \multicolumn{4}{@{}l}{\emph{(c) CR1 standard errors clustered on region-1966 $\times$ SMSA-1966 cells (Panel A)}} \\
  & A(6) & A(5) & \\
@@ -36,7 +36,8 @@ Reduced form: clustered $t$ & \ASixRfTCl{} & \AFiveRfTCl{} & \\
 \emph{Notes.} (a) The interval is the estimate $\pm 1.959964$ times the conventional SE.
 (b) Controls: for the 14--15-year-olds, the base controls without experience, family
 background and an indicator for age 25 in 1976; otherwise age, age squared, the base
-controls without experience and family background. KWW is the Knowledge of the World of
+controls without experience and family background. $^{\dagger}$Unadjusted: a regression of
+an IQ-recorded indicator on proximity and a constant, with no controls. KWW is the Knowledge of the World of
 Work score from the 1966 interview. (c) \NClusters{} cells; the smallest has
 \MinClusterSize{} men, and \NClustersUnderThirty{} has fewer than 30. Critical value
 $t(0.975, G-1) = \TCritCl{}$. With so few, unequal cells, CR1 can itself over-reject.

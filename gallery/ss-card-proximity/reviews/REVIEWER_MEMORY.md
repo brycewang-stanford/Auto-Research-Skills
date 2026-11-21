@@ -179,3 +179,23 @@ Check next time (paper-r1):
 - t1-* claims: value = metric, units percent/mean, published value in text only; misses named (3 of 18); no claim about nearc4 vs schooling/wages.
 - Paper: D7 disclosed as post-results-gate; 'enters no result claim' sentence rewritten; black-share miss unexplained or labelled a guess; one-man boundary for age 18-20 and South 1976 if discussed.
 - Carried: SAS-listing paragraph scope (two OLS regressions + N); no 'Card's preferred' for A6; no 'average return'; H3(a)/H4/H5 about the Panel A coefficient; robust H3(b) set includes 0 (lo -0.0068), headline B6 number never paired with a positive-return statement; GKMC/GKM19 homoskedastic, not deciding; H1 5/9 and 19/22 with misses named; D4 post hoc; young-ols not diagnosed; clustered F not instrument strength; process statements from process.tex macros and log.jsonl (UTC).
+
+## paper-r1 (2026-11-21, verdict revise)
+
+Held under attack: validate/--strict clean; every result number a macro equal to its run; claims.jsonl vs 569bc72: only 21 t1-* added, no value/support/macro/text changed; H1 5/9, 19/22 with misses named; D4 post hoc and 'consistent with'; D6, D7 disclosed; robust H3(b) set includes 0, never paired with a positive-return statement; GKMC/GKM19 homoskedastic, not deciding; Panel A labels; no 'Card's preferred'; 'average return' only negated; Tubbicke binary, monotonicity doubt stated; clustered F not instrument strength; young-ols not diagnosed; SAS scope narrow; t1 misses and one-man boundary; describe-sample = code-r4 hash 68211f89; gate dates and Timing bullet match log (UTC). My descriptive check (after results gate): ed76 13.26346, lwage76 6.26183, N 3010.
+
+Open:
+- F1 (major) 'SAS listing opened only after every other claim was written' (main.tex ~283, ~344; ai-use Evidence) is false: 13 claims added at results-r1 (19:20Z) and 21 t1-* (03:40Z) after check-sas-listing (19:11:59Z). Remedy is narrowing, values untouched.
+- F2 (major) '0.0114 log points' (abstract, intro, 4.4, Table 4 label) is 1.1 log points; paper itself says 'about one log point'; '0.1324 log points ... In real units' in 4.1.
+- F3 (major) Table 6(b) KWW all-men N = \NSample but bal_kww_all_n = 2963; IQ-recording row is unconditional but note implies controls.
+- F4 (major) ai-use 'raised 22 major, 76 minor': tool counts carried entries; distinct 9 major, 37 minor.
+- F5-F12 minor: D3--D6 should be D3--D7, Replicator 'ran' and rerun 'not run' in the PDF; counts typed as words (seven, eight, twelve); Kitagawa 2015 cited beyond its abstract record + 'Other work does not find a direct effect'; intro/figure 'the IV conclusion' scope; H3(b) b6_kappap_at_zero 6.84 vs m(0) 7.30 unreported (critical-value, not heteroskedasticity); GKM24 'exact size'; caption 'no piece outside the window' vs table caveat; title '(1995)' and title question (reduced form) unanswered.
+
+Check next time (paper-r2):
+- F1 wording against log times; no claim value changed after the listing (diff claims.jsonl vs 569bc72 again).
+- F2 every 'log points' occurrence (also tab-panela label); claim texts a6/a5-pacoef-chr-breakdown if Econometrician edits them.
+- F3 a new bal-kww-all-n claim with value 2963 from r-balance; note (b) wording.
+- F4 wording or a new distinct-count macro in process.tex.
+- F9: if a kappap claim is added it is labelled report-only/post hoc and H3(b) primary, rule and flag (0) unchanged. Do NOT accept any reframing that makes the homoskedastic sets decide.
+- process.tex regenerated after this round and after rp-rerun; main.pdf newer than all sources; \CrewRoundsPaper >= 1; rerun status not 'not run' at submission.
+- Carried: no 'Card's preferred'; no positive-return statement for B6; GKMC/GKM19 not deciding; H1 5/9 and 19/22; D4 'consistent with'.

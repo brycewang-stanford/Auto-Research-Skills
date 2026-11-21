@@ -336,8 +336,8 @@ for s, _ in SPECS:
                      ha="right", va="top", fontsize=7, color=st["color"])
 axA.set_xlim(-0.04 * dmax, dmax * 1.06)
 axA.set_ylim(*YA)
-axA.set_xlabel(r"Bound on the direct effect of nearc4, $\delta$ (log points)")
-axA.set_ylabel("Coefficient on schooling (log points per year)")
+axA.set_xlabel(r"Bound on the direct effect of nearc4, $\delta$ (log wage)")
+axA.set_ylabel("Coefficient on schooling (log wage per year)")
 axA.set_title(r"(a) Panel A: union of 95% sets, $\gamma_0 \in [0, \delta]$", loc="left")
 handles = [Line2D([], [], color=SPEC_STYLE[s]["color"], marker=SPEC_STYLE[s]["marker"], ms=3,
                   mfc="white", lw=1.1, label=lab) for s, lab in SPECS]

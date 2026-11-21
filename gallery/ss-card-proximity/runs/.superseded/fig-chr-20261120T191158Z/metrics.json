@@ -1,0 +1,22 @@
+{
+  "crit_gkmc": 3.8414588206941205,
+  "crit_rob": 7.8147279032511765,
+  "dstar_a5": 0.007727277248988675,
+  "dstar_a6": 0.011434362118655901,
+  "n_delta_a5": 201,
+  "n_delta_a6": 201,
+  "n_grid_rows": 402,
+  "n_inf_clipped_panel_a": 0,
+  "n_profile_fine": 4001,
+  "n_profile_rows": 4801,
+  "pieces_drawn_gkm19": 1,
+  "pieces_drawn_gkm19q": 1,
+  "pieces_drawn_gkmc": 1,
+  "pieces_drawn_rob": 1,
+  "pieces_gkm19": 1,
+  "pieces_gkm19q": 1,
+  "pieces_gkmc": 1,
+  "pieces_rob": 1,
+  "window_hi": 0.54886396484375,
+  "window_lo": -0.057314160156249995
+}

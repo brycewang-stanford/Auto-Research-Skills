@@ -338,3 +338,14 @@ claim is now complete.
   a5-fs-se-cl, a5-fs-cl-ratio, a5-fs-t-cl, a5-rf-cl-ratio and n-clusters-under30 (F6).
 - **Clustered first-stage F (squared clustered t)**: A5 is about 11.4, below both H2
   thresholds. A6 is about 19.0, above 16.38 but below 23.11.
+
+## Claims added after paper-r1 (2026-11-20; no run, no value changed)
+
+- **F3**: bal-kww-all-n. The iq-obs-diff and iq-obs-diff-se texts now say the row is
+  unadjusted.
+- **F6**: h1-primary-targets, h1-secondary-targets, diag-targets, sas-items,
+  sas-items-matched. No run metric gives the number of H1 misses (7) or the number of
+  Panel A targets (12) directly. Each is a sum of verdict flags, so the Writer must
+  derive it from macros (for example with `\numexpr`) or reword.
+- **F9**: b6-hom-stat-at-zero (kappa_p at b0 = 0 = 6.84, next to m(0) = 7.30). It is
+  descriptive and post hoc, and changes neither the H3(b) rule nor its primary set.

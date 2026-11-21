@@ -8,13 +8,13 @@
     "--metrics",
     "runs/fig-chr/metrics.json"
   ],
-  "started": "2026-11-20T19:11:57Z",
-  "finished": "2026-11-20T19:11:58Z",
+  "started": "2026-11-21T04:01:39Z",
+  "finished": "2026-11-21T04:01:41Z",
   "exit_code": 0,
   "code": [
     {
       "path": "code/fig_chr.py",
-      "sha256": "383f5febaf3c8de6c34c3d72501795f0783e1a5705672a6fdf26229c9495a4ab"
+      "sha256": "a36015e8f546039acf2331346893cbda823efb9357336d5b132062ad5c2c68e6"
     }
   ],
   "inputs": [
@@ -38,7 +38,7 @@
   "outputs": [
     {
       "path": "paper/figures/chr.pdf",
-      "sha256": "3684d3e32a2d5faa15dc9b21b897d03faa1f82927b507efbb0a50980575b891c"
+      "sha256": "49c0f4fc463c7a2bb26a454e5bb9aa40daf4f395b5b1455c54d6fbc47db81f33"
     },
     {
       "path": "runs/fig-chr/metrics.json",
@@ -75,5 +75,5 @@
     "python": "3.14.6",
     "python_prefix": "/Users/brycewang/Auto-Research-Skills/gallery/ss-card-proximity/.venv"
   },
-  "code_review": "code-r3"
+  "unreviewed": "D8: axis-label units corrected (log points -> log wage); label-only change approved by the human in chat after the four code-review rounds; no statistic, check or input changed"
 }
