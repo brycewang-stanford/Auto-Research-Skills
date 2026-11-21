@@ -10,6 +10,7 @@ maintainer posts by hand. See the schedule in [`ROADMAP.md`](../../ROADMAP.md#3-
 | [`show-hn.md`](show-hn.md) | Show HN title and first comment | final |
 | [`post-xhs.md`](post-xhs.md) | Xiaohongshu note and video script | final |
 | [`release-v0.5.md`](release-v0.5.md) | GitHub release notes | published |
+| [`release-v0.6.md`](release-v0.6.md) | GitHub release notes (protocol 0.2, Codex, eighth paper, count corrections) | published |
 | [`video/`](video/) | demo video (76 s, 1080p, silent; `demo.mp4`) | done |
 | [`report/`](report/) | technical-report draft | results written; related work pending |
 
