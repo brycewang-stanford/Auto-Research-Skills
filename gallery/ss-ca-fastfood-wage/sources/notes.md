@@ -18,6 +18,9 @@ coverage findings (section 1.7); methods sources with their one-treated-unit ass
 2, 7); further prior work (section 10); a direct source for "no increase" (section 4). Sources
 fetched for this update are in `sources.json` with their sha256 prefixes.
 
+Updated 2026-11-21 for task s-mw-history (section 11: D20 and R50 state minimum wages,
+2014-2019) and for finding L8 of `reviews/literature-r2` (sections 1.4 and 3 reworded).
+
 ## 0. Read this first: three corrections to plan.json
 
 1. **"No published estimate uses data past 2025Q3" is not quite true.** Clemens, Edwards,
@@ -186,7 +189,9 @@ inference is invalid and uses something else (Section 6).
 ### 1.4 Sosinskiy and Reich (2026), IRLE working paper, April 1, 2026 `[sosinskiy2026effects]`
 
 (Earlier versions: Reich and Sosinskiy, "Sectoral Wage-Setting in California", September
-2024 - not reached; May 2025 and September 2025 versions fetched, not relied on.)
+2024, IRLE WP 104-24 - fetched for literature-r1 L6 and recorded as `reich2024sectoral`
+(section 10; used only for its abstract); May 2025 and September 2025 versions fetched, not
+relied on.)
 - **Data, last period:** county-level quarterly QCEW "for years 2022-2024" (p. 13); event
   window k = -8 to 3; three post-policy quarters 2024Q2-2024Q4 (pp. 13-14; Table 1). Also
   CES, Glassdoor, Square payroll, Advan foot traffic (2023-2025) and scraped prices. Appendix
@@ -346,9 +351,10 @@ Published estimates for comparison (window ending 2025Q3; formerly listed as "H4
 superseded since H4 was deleted; plan.json H2 names Dube 2026 Table 1 Panel B as the
 published result closest to its timing): CEMN 2026 Table 3, Panel B
 (QCEW two-year: simple DD rest of US -2.74; detrended -3.72; median -3.45) and Dube 2026
-Table 1, Panel A (DD -1.39 [0.44]; SDID -0.26 [0.54]). The plan names "Clemens et al.
-2025 about 3%"; that one-year number (Table 1 of `clemens2025did`) ends September 2024,
-not 2025Q3. **[Scout] The PI should name the exact cells at the design gate.** The units
+Table 1, Panel A (DD -1.39 [0.44]; SDID -0.26 [0.54]). (Superseded: an earlier plan
+named "Clemens et al. 2025 about 3%", the one-year number of `clemens2025did` Table 1, which
+ends September 2024. plan.json now cites the revised w34033, `clemens2026employment`, at
+about 3.5% at two years; section 0, item 2.) **[Scout] The PI should name the exact cells at the design gate.** The units
 differ: CEM index points (percent of the Sept 2023 level), Dube log points times 100.
 
 ### 3.1 Base period and anticipation: what each study already does
@@ -864,3 +870,43 @@ article, with the journal metadata taken from Crossref).
   does not use; QCEW is the benchmark itself. The relevant revision risk is QCEW's own
   preliminary-to-final revision of 2026Q1, which BLS describes as usually minor
   (`[blsqcewfaq]`, section 5); keep the final-data-window robustness check. [Scout]
+
+## 11. State minimum wages 2014-2019 (task s-mw-history; design.method LEVEL CHECK, T17)
+
+Sources: the Wage and Hour Division's history table `[dolwhd2025history]` ("Changes in Basic
+Minimum Wages in Non-Farm Employment Under State Law: Selected Years 1968 to 2024", last
+revised January 2025) and its current state page `[dolwhd2026state]` (updated November 5,
+2026). dol.gov refused automated requests (HTTP 403), so both were read in Internet Archive
+copies captured 2026-11-01 and 2026-11-17; URLs and hashes are in `sources.json`. The table
+gives "rates ... for January 1 of each year"; I read the 2014-2019 and 2020-2024 tables cell by
+cell. The federal (FLSA) row is 7.25 in every year 2010-2024.
+
+**D20: all 20 states at the federal $7.25 throughout 2014-2019.** For FLSA-covered employers
+the binding minimum was $7.25 on 1 January of every year 2014-2020 (and 2010-2024):
+
+| Group | States | Table entry, 2014-2020 | Why $7.25 binds |
+|---|---|---|---|
+| No state law | AL, LA, MS, SC, TN | "..." (not applicable) | State page: "No state minimum wage law. Employers subject to the Fair Labor Standards Act must pay the current Federal minimum wage of $7.25" |
+| State rate below federal | GA (5.15, employers of 6+), WY (5.15) | 5.15 every year | State page: FLSA-covered employers "must pay the current Federal minimum wage of $7.25" |
+| Two-tier | OK | 2.00-7.25 every year | $7.25 for 10+ full-time employees at a location or sales over $100,000; $2.00 only for smaller employers; adopts the federal rate by reference |
+| State rate = federal | IA, ID, IN (employers of 2+), KS, KY, NC, ND, NH, PA, TX, UT, WI | 7.25 every year | equal to the federal rate |
+
+[Scout] No D20 entry changes in any column from 2010 to 2024, so a change effective between
+two January 1 dates (for example on 1 July) cannot be hidden by the January 1 sampling.
+Fast-food chains are large enterprises, so the small-employer tiers (OK $2.00, GA's
+six-employee threshold) do not bear on 722513. Not checked: local (city or county) minimum
+wages, which neither DOL page displays ("Such differential provisions are not displayed in
+this table"); the design's D20 premise is about state law.
+
+**R50: units whose state minimum changed in 2014-2019 (for T17).** Of the 30 units outside
+California and D20 (29 states and DC), the table's January 1 rates change at least once
+between the 2014 and 2019 columns for 27 states and DC: AK, AZ, AR, CO, CT, DE, FL, HI, IL,
+ME, MD, MA, MI, MN, MO, MT, NE, NJ, NM, NY, OH, OR, RI, SD, VT, WA, WV, DC. Virginia stays at
+7.25 (employers of 4+) from 2013 to 2020. Nevada's two-tier rate (7.25-8.25) is the same in
+every column 2013-2019 and is 8.00-9.00 in the 2020 column; this table cannot say whether
+that change took effect during 2019 or on or after 1 January 2020, so Nevada is undetermined
+for the 2014Q1-2019Q4 window. So 20 of R50's 50 units (D20) plus Virginia, and possibly
+Nevada, had no state increase in the selection and level-check window; the other 28 did.
+[Scout] I did not cross-check the R50 entries against state labor departments; this list is
+context for T17 (R50 placebo T values carry own increases) and enters no estimator, while the
+D20 result, which defines the decision set L, rests on entries that never change.

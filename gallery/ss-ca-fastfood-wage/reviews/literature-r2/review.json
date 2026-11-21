@@ -73,7 +73,7 @@
       "text": "sources/notes.md contradicts itself after the update. Section 1.4 (line 188-189) still says 'Earlier versions: Reich and Sosinskiy, \"Sectoral Wage-Setting in California\", September 2024 - not reached', while section 8 and sources.json reich2024sectoral record it as fetched. Section 3 (line 349-351) still says 'The plan names \"Clemens et al. 2025 about 3%\"', but plan.json now cites the revised w34033 at about 3.5%. The Writer will draft related work from these notes.",
       "evidence": "sources/notes.md lines 188-189 and 349-351; sources/sources.json reich2024sectoral; plan.json question.",
       "remedy": "Reword both lines, or mark them superseded.",
-      "response": "notes.md is the Scout's; sent to the Scout.",
+      "response": "notes.md is the Scout's; sent to the Scout. Fixed by the Scout: section 1.4 now says the September 2024 Reich-Sosinskiy version (IRLE WP 104-24) was fetched for literature-r1 L6 and is recorded as reich2024sectoral (section 10); section 3's 'Clemens et al. 2025 about 3%' sentence is marked superseded and points to the revised w34033 (clemens2026employment, about 3.5% at two years) that plan.json now cites. A dated update line at the top of notes.md lists both.",
       "ruling": ""
     },
     {
