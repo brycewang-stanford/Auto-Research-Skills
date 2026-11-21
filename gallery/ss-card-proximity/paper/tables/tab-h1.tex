@@ -1,0 +1,58 @@
+% H1: published and replicated estimates. Replicated numbers are macros from numbers.tex;
+% published numbers (Card 1993, WP 4483; Cinelli and Hazlett 2025) sit on crew:literal lines.
+\begin{table}[tbp]
+\centering
+\small
+\caption{Published and replicated estimates (H1). Coefficient with its conventional
+($n-k$) standard error in parentheses; N $=$ \NSample{} men with a 1976 wage, unweighted.
+A printed number is reproduced if the unrounded replicated value rounds to it at the
+printed precision. ``Match'' gives the verdict for the coefficient and then for the
+standard error.}
+\label{tab:h1}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Column (WP 4483) & Quantity & Published & Replicated & Match \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Primary targets: Card's basic specification}} \\
+Table 3, B(6) & 2SLS, schooling & 0.132 (0.049) & \IvReturn{} (\IvReturnSe{}) & yes, yes \\ % crew:literal
+Table 3, B(2) & first stage, proximity & 0.365 (0.105) & \FirstStage{} (\FirstStageSe{}) & no, no \\ % crew:literal
+Table 3, B(4) & reduced form, proximity & 0.048 (0.019) & \ReducedForm{} (\ReducedFormSe{}) & no, no \\ % crew:literal
+Table 2, col.~5 & OLS, schooling & 0.073 (0.004) & \OlsReturn{} (\OlsReturnSe{}) & yes, yes \\ % crew:literal
+-- & sample size & 3,010 & \NSample{} & yes \\ % crew:literal
+\addlinespace
+\multicolumn{5}{@{}l}{\emph{Secondary targets: Panel B without family background}} \\
+Table 3, B(5) & 2SLS, schooling & 0.122 (0.046) & \BFiveIv{} (\BFiveIvSe{}) & yes, yes \\ % crew:literal
+Table 3, B(1) & first stage, proximity & 0.382 (0.114) & \BOneFs{} (\BOneFsSe{}) & no, yes \\ % crew:literal
+Table 3, B(3) & reduced form, proximity & 0.047 (0.019) & \BThreeRf{} (\BThreeRfSe{}) & no, no \\ % crew:literal
+\addlinespace
+\multicolumn{5}{@{}l}{\emph{Secondary targets: Panel A (experience treated as exogenous)}} \\
+Table 3, A(6) & 2SLS, schooling & 0.140 (0.055) & \ASixIv{} (\ASixIvSe{}) & yes, yes \\ % crew:literal
+Table 3, A(2) & first stage, proximity & 0.322 (0.083) & \ASixFs{} (\ASixFsSe{}) & yes, yes \\ % crew:literal
+Table 3, A(4) & reduced form, proximity & 0.045 (0.018) & \ASixRf{} (\ASixRfSe{}) & yes, yes \\ % crew:literal
+Table 3, A(5) & 2SLS, schooling & 0.132 (0.055) & \AFiveIv{} (\AFiveIvSe{}) & yes, yes \\ % crew:literal
+Table 3, A(1) & first stage, proximity & 0.320 (0.088) & \AFiveFs{} (\AFiveFsSe{}) & yes, yes \\ % crew:literal
+Table 3, A(3) & reduced form, proximity & 0.042 (0.018) & \AFiveRf{} (\AFiveRfSe{}) & yes, yes \\ % crew:literal
+Table 2, col.~2 & OLS, schooling & 0.075 (0.003) & \AFiveOls{} (\AFiveOlsSe{}) & yes, yes \\ % crew:literal
+\addlinespace
+\multicolumn{5}{@{}l}{\emph{Secondary target from the later literature}} \\
+A(5), AR set$^{a}$ & 95\% set, schooling & [0.025, 0.285] & [\AFiveArHomLo, \AFiveArHomHi] & yes, yes \\ % crew:literal
+\midrule
+\multicolumn{5}{@{}l}{Reproduced: \HOnePrimaryReproduced{} of 9 primary and \HOneSecondaryReproduced{} of 22 secondary targets.} \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\begin{minipage}{0.95\linewidth}
+\footnotesize
+\emph{Notes.} B: schooling, experience and its square endogenous, with proximity, age and
+age squared as excluded instruments; A: experience and its square treated as exogenous
+controls. Columns 2, 4 and 6 add the 14 family-background variables. The first-stage and
+reduced-form rows of Panel B are the regressions the approved design specified (age and age
+squared in place of experience); Table~\ref{tab:diag} gives the post hoc diagnosis of
+their misses. Heteroskedasticity-robust (HC1) standard errors: \IvReturnSeRobust{} for
+B(6), \ASixIvSeRobust{} for A(6), \AFiveIvSeRobust{} for A(5) and \OlsReturnSeRobust{} for
+the Table~2 column~5 OLS. $^{a}$Homoskedastic Anderson--Rubin set for the Panel~A column~5
+coefficient on schooling, printed by \citet[Table~2]{cinelli2025omitted}; critical value
+$t(0.975, 2994)^2$.
+\end{minipage}
+\end{table}

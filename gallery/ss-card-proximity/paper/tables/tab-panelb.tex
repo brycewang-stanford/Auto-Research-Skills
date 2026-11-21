@@ -1,0 +1,40 @@
+% H3(b): Card's basic specification (Panel B column 6). All numbers are macros from numbers.tex.
+\begin{table}[tbp]
+\centering
+\small
+\caption{Weak-instrument-robust subvector inference on the return to schooling in Card's
+basic specification (WP 4483 Table~3, Panel~B column~6; H3(b)). Schooling, experience and
+its square are endogenous; proximity, age and age squared are the excluded instruments;
+the two experience coefficients are nuisance parameters. All sets are 95\% sets.}
+\label{tab:panelb}
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & Set or value & Role \\
+\midrule
+2SLS coefficient (conventional SE) [HC1 SE] & \IvReturn{} (\IvReturnSe{}) [\IvReturnSeRobust{}] & H1 \\
+\addlinespace
+Robust projection AR set (HC1, $\chi^2_3$ critical value 7.815) & [\BSixArRobLo, \BSixArRobHi] & primary, decides \\
+\quad number of separate pieces & \BSixArRobNpieces{} & \\
+\quad profile statistic $m(0)$ at a zero return & \BSixRobMAtZero{} & \\
+\quad Set one bounded interval above 0? (1 = yes) & \HThreebBSixReturnPositive{} & decision \\
+\addlinespace
+GKMC subvector AR set ($\chi^2_1$), homoskedastic & [\BSixArGkmcLo, \BSixArGkmcHi] & alongside \\
+GKM19 set, Table~3 critical values, homoskedastic & [\BSixArGkmOneNineLo, \BSixArGkmOneNineHi] & alongside \\
+GKM19 set, eq.~(2.12) quantile (ivmodels), homoskedastic & [\BSixArGkmOneNineqLo, \BSixArGkmOneNineqHi] & alongside \\
+\quad $\kappa_1$ at the 2SLS estimate; minimum over the point list & \BSixKappaOne{}; \BSixKappaOneMin{} & \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\begin{minipage}{0.95\linewidth}
+\footnotesize
+\emph{Notes.} N $=$ \NSample{}. Each set was computed on a fine grid on $[-1,1]$ and a
+log-spaced outer grid to $|b_0| = 10^5$, with every boundary found by bisection; pieces
+narrower than the outer-grid spacing outside $[-1,1]$ could be missed. The robust
+projection set is valid under heteroskedasticity whatever the instrument strength, but
+conservative. The homoskedastic sets were fixed before any run to be reported without
+deciding H3(b). $\kappa_1$, the largest root of the homoskedastic subvector problem, is the
+conditioning statistic of the GKM19 critical value; it reflects only the best-identified
+direction of the nuisance system and varies with $b_0$.
+\end{minipage}
+\end{table}

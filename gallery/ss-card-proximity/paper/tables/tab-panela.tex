@@ -1,0 +1,57 @@
+% H2, H3(a), H4, H5 on the Panel A specifications. All numbers are macros from numbers.tex.
+\begin{table}[tbp]
+\centering
+\small
+\caption{Instrument strength, weak-instrument-robust inference, exclusion sensitivity and
+the IV--OLS comparison for the Panel~A coefficient on schooling (H2--H5). Panel~A treats
+experience and its square as exogenous, so every entry concerns the Panel~A coefficient,
+not the return to schooling in Card's basic specification. Heteroskedasticity-robust (HC1)
+inference unless stated.}
+\label{tab:panela}
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & A(6), family background & A(5), no family background \\
+ & (primary) & (alongside) \\
+\midrule
+2SLS coefficient (conventional SE) [HC1 SE] & \ASixIv{} (\ASixIvSe{}) [\ASixIvSeRobust{}] & \AFiveIv{} (\AFiveIvSe{}) [\AFiveIvSeRobust{}] \\
+First stage on proximity (conventional SE) & \ASixFs{} (\ASixFsSe{}) & \AFiveFs{} (\AFiveFsSe{}) \\
+\addlinespace
+\emph{H2: instrument strength} & & \\
+Conventional first-stage $F$ & \ASixFConv{} & \AFiveFConv{} \\
+Effective (robust) first-stage $F$ & \ASixFEff{} & \AFiveFEff{} \\
+\quad Above Stock--Yogo 16.38? (1 = yes) & \HTwoASixSyAbove{} & \HTwoAFiveSyAbove{} \\
+\quad Above Montiel Olea--Pflueger 23.11? (1 = yes) & \HTwoASixMopAbove{} & \HTwoAFiveMopAbove{} \\
+\addlinespace
+\emph{H3(a): robust Anderson--Rubin inference} & & \\
+Robust AR 95\% set & [\ASixArLo, \ASixArHi] & [\AFiveArLo, \AFiveArHi] \\
+Robust reduced-form $t$ on proximity & \ASixRfTRobust{} & \AFiveRfTRobust{} \\
+\quad Set one bounded interval above 0? (1 = yes) & \HThreeaASixPacoefPositive{} & \HThreeaAFivePacoefPositive{} \\
+\addlinespace
+\emph{H4: direct effect of proximity, $\gamma \in [0,\delta]$} & & \\
+Breakdown $\delta^*$, AR-based union (log points) & \ASixPacoefChrBreakdown{} & \AFivePacoefChrBreakdown{} \\
+\quad as a share of the reduced-form coefficient & \ASixPacoefChrShare{} & \AFivePacoefChrShare{} \\
+Breakdown, Wald-based union (secondary) & \ASixPacoefChrWaldBreakdown{} & \AFivePacoefChrWaldBreakdown{} \\
+\addlinespace
+\emph{H5: Panel A 2SLS versus OLS} & & \\
+OLS coefficient (conventional SE) & \OlsReturn{} (\OlsReturnSe{}) & \AFiveOls{} (\AFiveOlsSe{}) \\
+2SLS $-$ OLS (stacked influence-function SE) & \ASixPacoefDiff{} (\ASixPacoefDiffSe{}) & \AFivePacoefDiff{} (\AFivePacoefDiffSe{}) \\
+95\% Wald interval of the difference$^{a}$ & [\ASixPacoefDiffLo, \ASixPacoefDiffHi] & [\AFivePacoefDiffLo, \AFivePacoefDiffHi] \\
+Robust control-function $t$ ($p$-value) & \ASixPacoefCfT{} (\ASixPacoefCfP{}) & \AFivePacoefCfT{} (\AFivePacoefCfP{}) \\
+Conventional Hausman $t$ & \ASixPacoefHausmanTConv{} & \AFivePacoefHausmanTConv{} \\
+\quad Equality rejected at 5\%? (1 = yes) & \HFiveASixPacoefEqualityRejected{} & \HFiveAFivePacoefEqualityRejected{} \\
+\quad OLS inside the robust AR set? (1 = yes) & \ASixOlsInPacoefAr{} & \AFiveOlsInPacoefAr{} \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\begin{minipage}{0.95\linewidth}
+\footnotesize
+\emph{Notes.} N $=$ \NSample{}. The OLS counterparts are Card's Table~2 column~5 (for A6)
+and column~2 (for A5). With one instrument the robust AR set excludes 0 exactly when the
+robust reduced-form $|t|$ exceeds 1.96, and the AR-based breakdown $\delta^*$ is the lower
+95\% limit of the robust reduced-form coefficient. The pre-registered minimum detectable
+IV--OLS difference at 80\% power, computed from Card's published conventional standard
+errors before any run, is 0.154 for both columns. % crew:literal
+$^{a}$Not robust to a weak instrument.
+\end{minipage}
+\end{table}

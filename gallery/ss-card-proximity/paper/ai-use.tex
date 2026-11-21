@@ -1,0 +1,55 @@
+\section*{AI-use statement}
+
+This paper was drafted by a crew of AI research-assistant agents
+(Free-Research-Crew, protocol v0.2) under the direction of the human author, Bryce Wang.
+He approved the research question (2026-11-20, 16:53 UTC), the design (2026-11-20,
+17:49 UTC) and the results (2026-11-21, 02:17 UTC), each in chat after
+reading the Reviewer's verdict. The manuscript itself is subject to the submission gate. He takes responsibility for the paper's content.
+
+% Counts are macros from process.tex (`crew.py numbers`); who did what is taken from
+% log.jsonl and reviews/.
+\begin{itemize}
+  \item \textbf{Roles and models.} Every role (PI, Scout, Designer, Data RA, Econometrician,
+        Figures RA, Writer, Reviewer and Replicator) ran on Claude Opus 5.5
+        (\texttt{claude-opus-5-5}) in Claude Code, each role as a separate agent. The PI
+        drafted the question and hypotheses and recorded deviations D3--D6; the Scout
+        found and verified the sources and transcribed the published targets; the Designer
+        wrote the design; the Data RA fetched and prepared the data and, at the paper stage, ran the
+        descriptive run behind the summary-statistics table (D7); the Econometrician
+        wrote and tested the estimation code, executed the analysis runs, including the
+        post hoc diagnostic and the SAS-listing check, and wrote the result claims; the
+        Figures RA drew the figure; the Writer drafted this paper from the claims; the
+        Replicator is responsible for the clean rerun. The PI's brief to each role is
+        archived in \texttt{briefs/}.
+  \item \textbf{Review.} The Reviewer ran \CrewReviewRounds{} rounds on
+        \CrewReviewerModels{} (\CrewReviewIndependence{}: a new context in every round, the
+        same model family as the other roles): \CrewRoundsQuestion{} on the question,
+        \CrewRoundsLiterature{} on the literature, \CrewRoundsDesign{} on the design,
+        \CrewRoundsCode{} on the code, \CrewRoundsResults{} on the results and
+        \CrewRoundsPaper{} on the paper. It raised \CrewFindingsCritical{} critical,
+        \CrewFindingsMajor{} major and \CrewFindingsMinor{} minor findings, summed over
+        rounds. The last round of each completed stage passed, with minor findings answered
+        before the next gate. A code review passed before every analysis run, including
+        separate rounds for the post hoc diagnostic and the SAS-listing check.
+  \item \textbf{Runs.} \CrewRuns{} runs in the ledger (\CrewRunsAnalysis{} analysis,
+        \CrewRunsDataPrep{} data preparation); \CrewRunsSuperseded{} were replaced by a
+        later run with the same id and archived (data-preparation and figure runs only; no run
+        behind a result claim was replaced); \CrewRunsUnreviewed{} analysis
+        runs were not covered by a passing code review.
+  \item \textbf{Replication.} The Replicator's clean rerun (\texttt{crew.py rerun}, in a
+        fresh environment built from \texttt{code/requirements.txt}) has status
+        \CrewRerunStatus{}: \CrewRerunReproduced{} of \CrewRerunTotal{} runs reproduced.
+  \item \textbf{Findings accepted over the Reviewer's objection.} None.
+  \item \textbf{Evidence.} Every result number in the text, the tables and the figure caption
+        is a macro generated from the metrics of a logged run. The numbers typed by hand are
+        design facts fixed before any analysis run (critical values, targets, the
+        pre-registered minimum detectable difference), published numbers quoted next to
+        their replication, and process facts such as dates. Card's SAS listing, which holds
+        regression output, was left unopened until every other claim was written. Every
+        citation was checked against its source by the Scout; the verification method for
+        each entry (full text, abstract or DOI resolution) is recorded in
+        \texttt{sources/sources.json}, and the paper cites each source for no more than was
+        read. The full workspace, with the plan, run ledger and notes, code, data manifest,
+        reviews, briefs and source notes, is at
+        \url{https://github.com/brycewang-stanford/Free-Research-Crew/tree/main/gallery/ss-card-proximity}.
+\end{itemize}

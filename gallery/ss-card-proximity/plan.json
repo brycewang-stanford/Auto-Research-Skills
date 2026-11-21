@@ -52,7 +52,8 @@
       "D3 (recorded before any analysis run, answering code-r1 F2): two checks in h3b-subvector are implemented differently from design.method's wording. (a) The pointwise agreement with ivmodels 0.10.0 fails the run only for |b0| <= 1; for |b0| > 1 the difference is written as a metric, because exp76 + ed76 = age76 - 6 lies in the instrument span, kappa_1 grows with b0^2 and ivmodels' own root-finding loses precision at |b0| >= 1e3 (runs/NOTES.md items 2 and 10); set-level agreement (1e-4) is unchanged. (b) The 20 'random' (b0, g) HAR check points use 20 equally spaced b0 in [-0.5, 0.8] with the 20 rng(4483) g draws, so that the only randomness remains the starting points. Neither changes any estimate, set or decision rule.",
       "D4 (post hoc, decided by the PI after the H1 runs, before the results review): one added report-only diagnostic run, diag-panelb, tests the hypothesis that Card's Panel B first-stage and reduced-form columns (B1-B4) were estimated with exp76 and exp762 kept in the equation as endogenous regressors instrumented by age76 and age762 (so that the printed reduced form divided by the printed first stage equals the printed 2SLS, as it does in Card's table and does not under the planned regressions). It cannot change any H1 target, verdict count or claim of the approved plan; its results are reported as a diagnosis of the B1-B4 misses, labelled post hoc.",
       "D5 (rule fixed before the check-sas-listing run, answering code-r3 F6): if check-sas-listing exits non-zero, the failed run stays in the ledger; the Econometrician may then inspect only the line layout of read1.lst (every claim is already frozen); any fix is recorded here as a deviation and reviewed in code-r4 before a --replace run; if the reviewed fix still fails, the paper reports the check as not completed, and --unreviewed is not used. Per code-r3 F7 the sas-ols-match claim speaks only of Table 2 columns 2 and 5 (OLS) and N, all six comparisons are reported with their differences, and no tolerance is relaxed after the run.",
-      "D6 (answering results-r2 F9): analysis_plan step 8 asked for the r-age1419 and full-sample estimates with two confidence intervals side by side. The full sample is reported as beta (SE) through the iv-return and iv-return-se macros, with the H3(b) set as its interval, because h1-b6 writes no Wald interval metric; the age 14-19 subsample keeps its interval (young-iv-lo, young-iv-hi). No run was added."
+      "D6 (answering results-r2 F9): analysis_plan step 8 asked for the r-age1419 and full-sample estimates with two confidence intervals side by side. The full sample is reported as beta (SE) through the iv-return and iv-return-se macros, with the H3(b) set as its interval, because h1-b6 writes no Wald interval metric; the age 14-19 subsample keeps its interval (young-iv-lo, young-iv-hi). No run was added.",
+      "D7 (added at the paper stage, decided by the PI): one descriptive analysis run, describe-sample, recomputes from data/derived/card_analysis.csv the Card Table 1 column 3 items for the 3,010-man sample (shares and means only; no statistic relating nearc4 to schooling or wages) and asserts equality with the values recorded by the prepare-data run, so that the data section can report them as macros (result claims must come from analysis runs). It changes no estimate, decision or count."
     ],
     "threats": [
       "T1 Sample or variable construction differs from Card's (sample rule, exp76, f1-f8, omitted region, South coded by reg76r): h1-b6, h1-a6, h1-a5 against 31 printed targets (verdict), prepare-data's checks against the codebook and Card's Table 1, the identity checks inside the runs, check-synthetic, and check-sas-listing after the claims are fixed.",
@@ -248,13 +249,19 @@
       "id": "pi-results-gate",
       "title": "Request and decide the results gate",
       "owner": "pi",
-      "status": "todo"
+      "status": "done"
+    },
+    {
+      "id": "dr-describe",
+      "title": "D7: write code/describe_sample.py, code review code-r4, run describe-sample (analysis, descriptive only), add t1-* claims",
+      "owner": "data-ra",
+      "status": "done"
     },
     {
       "id": "w-paper",
       "title": "Write paper/main.tex and ai-use.tex: published vs replicated side by side with every miss explained, D1 and D2, the one-instrument equivalences in H3 and H4, no 'average return' and no 'Card's preferred' for Panel A col 6",
       "owner": "writer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-paper",
@@ -293,9 +300,12 @@
       "note": "批准 (AskUserQuestion answer)"
     },
     "results": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-20T19:24:08Z",
-      "summary": "H1 primary 5/9, secondary 19/22 (all 7 misses in Panel B cols 1-4, reproduced 8/8 by the post hoc D4 diagnostic); B6 2SLS 0.132 (0.049) reproduced; H3(b) robust projection [-0.007, 0.498] includes 0: positive return not established (homoskedastic GKM19/GKMC exclude 0, not deciding); Panel A: AR sets above 0, F below thresholds, CHR breakdown 0.011, IV=OLS not rejected; SAS listing 6/6. results-r2 pass."
+      "summary": "H1 primary 5/9, secondary 19/22 (all 7 misses in Panel B cols 1-4, reproduced 8/8 by the post hoc D4 diagnostic); B6 2SLS 0.132 (0.049) reproduced; H3(b) robust projection [-0.007, 0.498] includes 0: positive return not established (homoskedastic GKM19/GKMC exclude 0, not deciding); Panel A: AR sets above 0, F below thresholds, CHR breakdown 0.011, IV=OLS not rejected; SAS listing 6/6. results-r2 pass.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-21T02:17:22Z",
+      "note": "批准 (AskUserQuestion answer)"
     },
     "submission": {
       "status": "pending"

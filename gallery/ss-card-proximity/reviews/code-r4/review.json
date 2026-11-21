@@ -1,0 +1,126 @@
+{
+  "id": "code-r4",
+  "target": "code",
+  "round": 4,
+  "created": "2026-11-21T03:38:41Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261121T033615Z-reviewer.md",
+    "briefs/20261121T033408Z-data-ra.md",
+    "briefs/20261121T033506Z-data-ra.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/code-r3/review.json",
+    "plan.json",
+    "log.jsonl",
+    "code/describe_sample.py",
+    "code/prepare_data.py",
+    "data/prepare_metrics.json",
+    "data/manifest.json",
+    "data/CODEBOOK.md",
+    "runs/prepare-data/run.json",
+    "runs/check-sas-listing/run.json",
+    "runs/check-sas-listing/metrics.json",
+    "claims.jsonl",
+    "paper/main.tex"
+  ],
+  "kill_argument": "describe-sample adds no evidence; it relabels it. Its 18 numbers were already computed by prepare-data before the design gate, and the script recomputes them with a near-verbatim copy of prepare_data.py's definitions and then asserts equality to 1e-9, so its only internal check is that two copies of the same code agree. The run exists to turn data-prep metrics into 'analysis' metrics, because result claims must cite analysis runs (the PI's first brief, 033408Z, tried to cite prepare-data directly and the tool refused). It is added after the results gate, so the t1-* claims it will support were never in a results review. I attacked the code and it held: the input hash is checked against data/manifest.json; the definitions (age in 1966 = age76 - 10 with the four bins, regions 1-2/3-4/5-7/8-9, reg76r, smsa66r, parental education over nomomed/nodaded = 0, KWW over non-missing) are those of prepare_data.py; missing values are '' in the CSV and are skipped; flags compare string '1' against prepare's num()==1 and the equality assertion would catch any coding difference; nothing relates nearc4 to schooling or wages; failures exit before metrics are written. The substantive check is the 0.05 rule against Card's printed values, which gives 15/18.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "F8",
+      "severity": "minor",
+      "status": "open",
+      "text": "D7 adds result claims (t1-*) after the results gate and after results-r2, so no results review covers them, and the paper currently says the opposite of what will be true: the summary-statistics paragraph says the Table 1 comparison 'is a data check and enters no result claim'. Two of the three misses are one man from the rounding boundary (age 18-20: 742 men = 24.651%, 741 would round to 24.6; South 1976: 1,215 = 40.365%, 1,214 would give 40.332), and data/CODEBOOK.md reads the black-share miss as 'a transcription error in Table 1', which is a guess. Remedy (no code change): the paper states that D7 was added at the paper stage after the results gate and that describe-sample recomputes the prepare-data values; the 'enters no result claim' sentence is rewritten; the black-share miss is reported as unexplained (or as a guess, labelled as such); paper-r1 checks each t1-* claim against runs/describe-sample/metrics.json.",
+      "evidence": "plan.json design.deviations D7 and task dr-describe; paper/main.tex summary-statistics paragraph ('the comparison is a data check and enters no result claim'); data/CODEBOOK.md 'Discrepancies, stated plainly'; data/prepare_metrics.json t1_sample_age66_18_20_pct 24.6512, t1_sample_south76_pct 40.3654, t1_sample_black_pct 23.3555",
+      "response": "",
+      "ruling": ""
+    },
+    {
+      "id": "F6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(code-r3) No rule for a parse-failure exit of check-sas-listing.",
+      "evidence": "plan.json design.deviations D5; runs/check-sas-listing/run.json",
+      "response": "Fixed by the PI before the run: deviation D5 fixes the failure rule (failed run kept, layout-only inspection, code-r4, report 'not completed', no --unreviewed).",
+      "ruling": "D5 was logged at 2026-11-20T19:11:47Z, before check-sas-listing started (19:11:57Z). The run exited 0 with 6/6 on the first attempt, so the rule was never needed. The run's code hashes equal those code-r3 read (check_sas_listing.py cd602aef..., ivlib.py 2579bf84...), code_review code-r3, and there is no superseded record of it."
+    },
+    {
+      "id": "F7",
+      "severity": "minor",
+      "status": "conceded",
+      "text": "(code-r3) The docstring and threat T3 overstate what a listing match shows.",
+      "evidence": "claims.jsonl sas-ols-match; paper/main.tex 'Card's SAS listing' paragraph",
+      "response": "Fixed in the brief and D5: the claim is narrowed to the two OLS regressions and N, all six comparisons reported with differences, tolerance fixed.",
+      "ruling": "Conceded by narrowing: the sas-ols-match claim names only Table 2 cols 2 and 5 (OLS) and N, lists all six items with their differences, and says it says nothing about the instrument, the age variables, any IV estimate or the Panel B misses; the paper's paragraph limits 'data reading and variable construction' to those two OLS regressions. The docstring of check_sas_listing.py still overstates, but it cannot change after the run and no claim relies on it."
+    },
+    {
+      "id": "F5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(code-r2) The ratio check in diag_panelb.py is an algebraic identity, not evidence for D4.",
+      "evidence": "code/diag_panelb.py; claims.jsonl diag-*",
+      "response": "Claims written per F5.",
+      "ruling": "Resolved in code-r3; unchanged."
+    },
+    {
+      "id": "F1",
+      "severity": "minor",
+      "status": "withdrawn",
+      "text": "(code-r1) h3b-subvector checks no real-data minimisation of the profile statistic.",
+      "evidence": "code/h3b_subvector.py",
+      "response": "Accepted as residual risk; to be checked at results.",
+      "ruling": "Withdrawn in code-r2 after my brute-force check (agreement to 4e-15). No change since."
+    },
+    {
+      "id": "F2",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(code-r1) Two h3b in-run check departures were recorded only in runs/NOTES.md.",
+      "evidence": "plan.json design.deviations D3",
+      "response": "Recorded as D3 before any analysis run.",
+      "ruling": "Resolved in code-r2."
+    },
+    {
+      "id": "F3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "(code-r1) Runs must name their imported modules with --code.",
+      "evidence": "runs/*/run.json code lists",
+      "response": "Fixed in the run commands.",
+      "ruling": "Resolved in code-r2. describe_sample.py imports only the standard library, so its run needs --code code/describe_sample.py alone; it reads data/derived/card_analysis.csv, data/manifest.json and data/prepare_metrics.json, which the run should declare with --input."
+    },
+    {
+      "id": "F4",
+      "severity": "minor",
+      "status": "withdrawn",
+      "text": "(code-r1) Bounds of non-convex sets were written only as strings.",
+      "evidence": "code/h2h3_weakiv.py; code/h3b_subvector.py",
+      "response": "Deferred; applies only if a set is not one bounded interval.",
+      "ruling": "Withdrawn in code-r2: every realised set is one bounded interval."
+    }
+  ],
+  "reviewer_checks_run": "In my scratch directory only (a copy of data/derived/card_analysis.csv with sha256 0862cd54... = manifest, data/manifest.json, data/prepare_metrics.json and code/describe_sample.py at sha256 68211f89...): (1) python3 -I code/describe_sample.py exits 0, writes 59 metrics, n_sample 3010, 15/18 round to Card, misses age66_18_20_pct, black_pct, south76_pct, t1_sample_kww_n 2963, all equal to prepare-data's values. (2) Changing t1_sample_black_pct in the copied prepare_metrics.json by 1e-6 makes it exit 1 with an assertion. (3) Appending a newline to the copied CSV makes the manifest hash check exit 1. (4) Value counts in the CSV: dummies are '0'/'1' strings, imputed momed is 10.25 for nomomed = 1 (excluded by the filter), so the string comparisons match prepare's num() == 1. These are univariate shares and means already recorded by the prepare-data run; no new estimate was produced, and nothing was written into the workspace except this review and my memory.",
+  "files_sha256": {
+    "briefs/20261121T033615Z-reviewer.md": "4472d0a0a44c8c61bbbc8dc1fcda5011af95d17527eede5fadf93e5bc61e2ebf",
+    "briefs/20261121T033408Z-data-ra.md": "99893161ae99d9dcc42439692c8f3c8a0906dfab101269080eb91e52e0629d24",
+    "briefs/20261121T033506Z-data-ra.md": "731f92b35c168f08e15e653a7fef5e4864244ba0f22bd44660cd154e3f35d556",
+    "reviews/REVIEWER_MEMORY.md": "81d9bd766ab18a8e041ddc9f3abde7e29d398b07e16addb2ff9119f2c1385ce2",
+    "reviews/code-r3/review.json": "cb4c892795830b71cc5d7eece18d2e79969e67078a0cb2edb9b820c91944e9f4",
+    "plan.json": "3db7de0eeebfd1fe62effaca0275925eba4c90026722cbf94293a435d186bb3d",
+    "log.jsonl": "81c7b3607348eb11b12c846a01febba7b311f12436bf8801b7fabb8d94e15e91",
+    "code/describe_sample.py": "68211f89401b5d923f07df7566d33457b9e69191adcb774e202bf476a115ec4e",
+    "code/prepare_data.py": "2a8b204ecc7e594db95e79298c54fe05899c64b711d29af6192fd6824a899f26",
+    "data/prepare_metrics.json": "385479c6678da84259fd9bd5a3b71e7873bdc9c4cee22570e4203ac0e499a2ad",
+    "data/manifest.json": "92a52b884ec0d6525b6619fa69279d55c3804aa279d4f77cf7824c1e68196d1b",
+    "data/CODEBOOK.md": "a482bffdcf71db3568d969e945478f2ff6b9353381aa021b603a4737bf37c9de",
+    "runs/prepare-data/run.json": "3772571ad383b68728eddd40cdbcc8ba190934b4a60f69f4ebe8dcf911d908d3",
+    "runs/check-sas-listing/run.json": "54d60e381be96840ccf25398831fa161777a6df39eee851c10683a2b85a1b24a",
+    "runs/check-sas-listing/metrics.json": "e37c50e85c10cc2472dca926e71c46102ee422f684070eb8f6408652f994dfa2",
+    "claims.jsonl": "dd928e515f8daaf57b2fda0208878f22055844cd1ef097a3149b4e4aa7bc0679",
+    "paper/main.tex": "fdbb5d28222411d96eb129109cabe69c4d13e53cf4a29d9139b6fe33692ba3b5"
+  },
+  "recorded": "2026-11-21T03:39:21Z"
+}

@@ -160,14 +160,20 @@ rows (`all_reg665_to_667_ne_south66` = 0).
 | Years of education, mean (s.d.) (Table 3 note) | 13.263 (2.677) | 13.2635 (2.6769) | yes |
 
 **Discrepancies, stated plainly.** All 18 Table 1 rows of column 2 match. In column 3,
-15 of 18 rows match and three do not: age 18-20 in 1966 (24.65 vs 24.6, half a tenth over
-the rounding boundary), live in South 1976 (40.37 vs 40.3) and per cent black (23.36 vs
-23.0, i.e. 703 men where 23.0% would be about 692). The sample itself is not in doubt: N,
-the mean and s.d. of log wage and of education match Card's table notes to three
-decimals, and the same 3,010 rows are the codebook's non-missing `lwage76`. The black share
-in column 3 repeats column 2's 23.0 exactly, which suggests a transcription error in
-Table 1; the other two differ in the last digit. These are not adjusted; they do not
-affect the sample or any variable the specifications use.
+15 of 18 rows match and three do not: age 18-20 in 1966 (24.65 vs 24.6; 742 men),
+live in South 1976 (40.37 vs 40.3; 1,215 men) and per cent black (23.36 vs 23.0, i.e. 703
+men where 23.0% would be about 692). The first two are each one man from the published
+rounding: 741 men would give 24.62 and 1,214 men 40.33, both rounding to Card's figures.
+The cause of the black-share difference is unknown. That column 3 repeats column 2's 23.0
+exactly is consistent with a transcription error in Card's Table 1, but that is a
+conjecture, not an established explanation. The sample itself is not in doubt: N, the
+mean and s.d. of log wage and of education match Card's table notes to three decimals,
+and the same 3,010 rows are the codebook's non-missing `lwage76`. None of these is
+adjusted; they do not affect the sample or any variable the specifications use.
+
+The column 3 values are also recomputed and asserted equal by the analysis run
+`describe-sample` (deviation D7, added at the paper stage after the results gate), whose
+metrics back the result claims `t1-*` in `claims.jsonl`.
 
 Card prints no mean of experience; ours is 8.86 years (s.d. 4.14) in the sample.
 

@@ -1,0 +1,106 @@
+{
+  "id": "describe-sample",
+  "role": "data-ra",
+  "kind": "analysis",
+  "command": [
+    "python3",
+    "code/describe_sample.py"
+  ],
+  "started": "2026-11-21T03:39:57Z",
+  "finished": "2026-11-21T03:39:57Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/describe_sample.py",
+      "sha256": "68211f89401b5d923f07df7566d33457b9e69191adcb774e202bf476a115ec4e"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/card_analysis.csv",
+      "sha256": "0862cd54862ed1c06543abb9fb7c0fb5307bf3c0afb231c6432cdea39fb7d8a6"
+    },
+    {
+      "path": "data/prepare_metrics.json",
+      "sha256": "385479c6678da84259fd9bd5a3b71e7873bdc9c4cee22570e4203ac0e499a2ad"
+    },
+    {
+      "path": "data/manifest.json",
+      "sha256": "92a52b884ec0d6525b6619fa69279d55c3804aa279d4f77cf7824c1e68196d1b"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/describe-sample/metrics.json",
+      "sha256": "f154ad22a44587c0d1944df5417efd02d6b7c09fd1d29aaf804542f4ac90e268"
+    }
+  ],
+  "metrics": {
+    "n_sample": 3010,
+    "t1_sample_age66_14_15_pct": 25.4817,
+    "t1_sample_age66_14_15_pct_pub": 25.5,
+    "t1_sample_age66_14_15_pct_rounds_to_published": 1,
+    "t1_sample_age66_16_17_pct": 24.0864,
+    "t1_sample_age66_16_17_pct_pub": 24.1,
+    "t1_sample_age66_16_17_pct_rounds_to_published": 1,
+    "t1_sample_age66_18_20_pct": 24.6512,
+    "t1_sample_age66_18_20_pct_pub": 24.6,
+    "t1_sample_age66_18_20_pct_rounds_to_published": 0,
+    "t1_sample_age66_21_24_pct": 25.7807,
+    "t1_sample_age66_21_24_pct_pub": 25.8,
+    "t1_sample_age66_21_24_pct_rounds_to_published": 1,
+    "t1_sample_region66_northeast_pct": 20.7309,
+    "t1_sample_region66_northeast_pct_pub": 20.7,
+    "t1_sample_region66_northeast_pct_rounds_to_published": 1,
+    "t1_sample_region66_midwest_pct": 25.9801,
+    "t1_sample_region66_midwest_pct_pub": 26.0,
+    "t1_sample_region66_midwest_pct_rounds_to_published": 1,
+    "t1_sample_region66_south_pct": 41.4286,
+    "t1_sample_region66_south_pct_pub": 41.4,
+    "t1_sample_region66_south_pct_rounds_to_published": 1,
+    "t1_sample_region66_west_pct": 11.8605,
+    "t1_sample_region66_west_pct_pub": 11.9,
+    "t1_sample_region66_west_pct_rounds_to_published": 1,
+    "t1_sample_smsa66_pct": 64.9502,
+    "t1_sample_smsa66_pct_pub": 65.0,
+    "t1_sample_smsa66_pct_rounds_to_published": 1,
+    "t1_sample_nearc4_pct": 68.206,
+    "t1_sample_nearc4_pct_pub": 68.2,
+    "t1_sample_nearc4_pct_rounds_to_published": 1,
+    "t1_sample_momdad14_pct": 78.9369,
+    "t1_sample_momdad14_pct_pub": 78.9,
+    "t1_sample_momdad14_pct_rounds_to_published": 1,
+    "t1_sample_sinmom14_pct": 10.0664,
+    "t1_sample_sinmom14_pct_pub": 10.1,
+    "t1_sample_sinmom14_pct_rounds_to_published": 1,
+    "t1_sample_momed_valid_mean": 10.3481,
+    "t1_sample_momed_valid_mean_pub": 10.3,
+    "t1_sample_momed_valid_mean_rounds_to_published": 1,
+    "t1_sample_daded_valid_mean": 10.0034,
+    "t1_sample_daded_valid_mean_pub": 10.0,
+    "t1_sample_daded_valid_mean_rounds_to_published": 1,
+    "t1_sample_black_pct": 23.3555,
+    "t1_sample_black_pct_pub": 23.0,
+    "t1_sample_black_pct_rounds_to_published": 0,
+    "t1_sample_kww_mean": 33.5407,
+    "t1_sample_kww_mean_pub": 33.5,
+    "t1_sample_kww_mean_rounds_to_published": 1,
+    "t1_sample_ed76_mean": 13.2635,
+    "t1_sample_ed76_mean_pub": 13.3,
+    "t1_sample_ed76_mean_rounds_to_published": 1,
+    "t1_sample_south76_pct": 40.3654,
+    "t1_sample_south76_pct_pub": 40.3,
+    "t1_sample_south76_pct_rounds_to_published": 0,
+    "t1_sample_rounds_to_published": 15,
+    "t1_sample_items": 18,
+    "t1_sample_misses": 3,
+    "t1_sample_kww_n": 2963
+  },
+  "metrics_file": "runs/describe-sample/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  },
+  "code_review": "code-r4"
+}

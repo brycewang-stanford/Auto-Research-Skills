@@ -1,0 +1,51 @@
+% Summary statistics: Card WP 4483 Table 1 column 3 against the replicated sample (run
+% describe-sample, deviation D7). Published values on crew:literal lines; replicated values are macros.
+\begin{table}[tbp]
+\centering
+\small
+\caption{Summary statistics of the wage sample: Card's Table~1, column~3, and the
+replicated analysis sample (N $=$ \NSample{} men with a 1976 wage). Percent of the sample
+unless stated. ``Match'': the replicated value rounds to Card's at his printed precision.}
+\label{tab:sumstats}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Item & Card (WP 4483) & Replicated & Match \\
+\midrule
+\multicolumn{4}{@{}l}{\emph{Age in 1966}} \\
+\quad 14--15 & 25.5 & \TOneAgeFourteen{} & yes \\ % crew:literal
+\quad 16--17 & 24.1 & \TOneAgeSixteen{} & yes \\ % crew:literal
+\quad 18--20 & 24.6 & \TOneAgeEighteen{} & no$^{a}$ \\ % crew:literal
+\quad 21--24 & 25.8 & \TOneAgeTwentyOne{} & yes \\ % crew:literal
+\multicolumn{4}{@{}l}{\emph{Region of residence in 1966}} \\
+\quad Northeast & 20.7 & \TOneNortheast{} & yes \\ % crew:literal
+\quad Midwest & 26.0 & \TOneMidwest{} & yes \\ % crew:literal
+\quad South & 41.4 & \TOneSouthSixtySix{} & yes \\ % crew:literal
+\quad West & 11.9 & \TOneWest{} & yes \\ % crew:literal
+Lived in an SMSA in 1966 & 65.0 & \TOneSmsaSixtySix{} & yes \\ % crew:literal
+Grew up near a four-year college & 68.2 & \TOneNearFour{} & yes \\ % crew:literal
+Lived with mother and father at 14 & 78.9 & \TOneMomDad{} & yes \\ % crew:literal
+Lived with single mother at 14 & 10.1 & \TOneSingleMom{} & yes \\ % crew:literal
+Mother's education, years (not imputed) & 10.3 & \TOneMomEd{} & yes \\ % crew:literal
+Father's education, years (not imputed) & 10.0 & \TOneDadEd{} & yes \\ % crew:literal
+Black & 23.0 & \TOneBlack{} & no$^{b}$ \\ % crew:literal
+KWW score, men with a score & 33.5 & \TOneKww{} & yes \\ % crew:literal
+Years of education in 1976 & 13.3 & \TOneEdSeventySix{} & yes \\ % crew:literal
+Lived in the South in 1976 & 40.3 & \TOneSouthSeventySix{} & no$^{a}$ \\ % crew:literal
+\midrule
+\multicolumn{4}{@{}l}{Items that round to Card's value: \TOneRoundsOk{} of \TOneItems{}; not matched: \TOneMisses{}.} \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\begin{minipage}{0.95\linewidth}
+\footnotesize
+\emph{Notes.} Recomputed by the run \var{describe-sample} (deviation D7, added at the paper
+stage), which asserts equality with the values the data-preparation run recorded. Regions
+1966 group the nine unnamed codebook regions as Northeast 1--2, Midwest 3--4, South 5--7,
+West 8--9, an inference of the Data RA. Parental education is averaged over men whose value
+is not imputed. $^{a}$One man from the published rounding: one man fewer in the category
+would round to Card's figure. $^{b}$Cause unknown. Card's column~3 repeats his
+column~2 figure exactly, which suggests a transcription error in his table, but this is a
+conjecture, not established.
+\end{minipage}
+\end{table}

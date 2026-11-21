@@ -1,0 +1,44 @@
+% Report-only checks: r-age1419, r-balance, r-cluster. Published numbers on crew:literal lines.
+\begin{table}[tbp]
+\centering
+\small
+\caption{Report-only checks fixed in the design. None of them could change a
+specification, a standard-error formula or a claim.}
+\label{tab:checks}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\multicolumn{4}{@{}l}{\emph{(a) Men aged 14--19 in 1966, Card's basic specification (WP 4483 Table~4, row~7)}} \\
+ & Published & Replicated & Match \\
+N & 2,037 & \YoungN{} & yes \\ % crew:literal
+2SLS, schooling (conventional SE) & 0.094 (0.064) & \YoungIv{} (\YoungIvSe{}) & yes, yes \\ % crew:literal
+\quad 95\% Wald interval & -- & [\YoungIvLo, \YoungIvHi] & \\
+OLS, schooling (conventional SE) & 0.076 (0.006) & \YoungOls{} (\YoungOlsSe{}) & no, yes \\ % crew:literal
+\midrule
+\multicolumn{4}{@{}l}{\emph{(b) Balance: coefficient on college proximity, HC1 standard errors}} \\
+Outcome & Coefficient (SE) & In SD units & N \\
+KWW score, men aged 14--15 in 1966 & \BalKwwYoung{} (\BalKwwYoungSe{}) & \BalKwwYoungSdu{} & \BalKwwYoungN{} \\
+KWW score, all men (descriptive only) & \BalKwwAll{} (\BalKwwAllSe{}) & \BalKwwAllSdu{} & \NSample{} \\
+School-record IQ, where recorded & \BalIq{} (\BalIqSe{}) & \BalIqSdu{} & \BalIqN{} \\
+Share with IQ recorded, near minus not near & \IqObsDiff{} (\IqObsDiffSe{}) & & \NSample{} \\
+\midrule
+\multicolumn{4}{@{}l}{\emph{(c) CR1 standard errors clustered on region-1966 $\times$ SMSA-1966 cells (Panel A)}} \\
+ & A(6) & A(5) & \\
+First stage: clustered SE (ratio to HC1) & \ASixFsSeCl{} (\ASixFsClRatio{}) & \AFiveFsSeCl{} (\AFiveFsClRatio{}) & \\
+First stage: clustered $t$ & \ASixFsTCl{} & \AFiveFsTCl{} & \\
+Reduced form: clustered SE (ratio to HC1) & \ASixRfSeCl{} (\ASixRfClRatio{}) & \AFiveRfSeCl{} (\AFiveRfClRatio{}) & \\
+Reduced form: clustered $t$ & \ASixRfTCl{} & \AFiveRfTCl{} & \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\begin{minipage}{0.95\linewidth}
+\footnotesize
+\emph{Notes.} (a) The interval is the estimate $\pm 1.959964$ times the conventional SE.
+(b) Controls: for the 14--15-year-olds, the base controls without experience, family
+background and an indicator for age 25 in 1976; otherwise age, age squared, the base
+controls without experience and family background. KWW is the Knowledge of the World of
+Work score from the 1966 interview. (c) \NClusters{} cells; the smallest has
+\MinClusterSize{} men, and \NClustersUnderThirty{} has fewer than 30. Critical value
+$t(0.975, G-1) = \TCritCl{}$. With so few, unequal cells, CR1 can itself over-reject.
+\end{minipage}
+\end{table}

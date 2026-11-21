@@ -1,0 +1,34 @@
+% Post hoc diagnostic D4 (diag-panelb): Panel B columns 1-4. Published numbers on crew:literal lines.
+\begin{table}[tbp]
+\centering
+\small
+\caption{Card's Panel B first-stage and reduced-form columns: the approved regressions and
+a post hoc diagnostic (deviation D4). Coefficient on college proximity with its
+conventional standard error. The diagnostic was added after the H1 runs, is report-only,
+and changes no H1 target or count.}
+\label{tab:diag}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+ & Dependent & Published & As designed & Post hoc \\
+Column & variable & (WP 4483) & (H1) & (D4) \\
+\midrule
+B(1) & schooling, no FB & 0.382 (0.114) & \BOneFs{} (\BOneFsSe{}) & \DiagBOne{} (\DiagBOneSe{}) \\ % crew:literal
+B(2) & schooling, FB & 0.365 (0.105) & \FirstStage{} (\FirstStageSe{}) & \DiagBTwo{} (\DiagBTwoSe{}) \\ % crew:literal
+B(3) & log wage, no FB & 0.047 (0.019) & \BThreeRf{} (\BThreeRfSe{}) & \DiagBThree{} (\DiagBThreeSe{}) \\ % crew:literal
+B(4) & log wage, FB & 0.048 (0.019) & \ReducedForm{} (\ReducedFormSe{}) & \DiagBFour{} (\DiagBFourSe{}) \\ % crew:literal
+\midrule
+\multicolumn{5}{@{}l}{Printed numbers that round to the post hoc re-estimates: \DiagTargetsReproduced{} of 8.} \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\begin{minipage}{0.95\linewidth}
+\footnotesize
+\emph{Notes.} FB: family background. ``As designed'': OLS of schooling or log wage on proximity, age, age squared,
+the base controls without experience, and (columns 2, 4) family background; column~2 is
+the first stage of the B(6) 2SLS. ``Post hoc'': just-identified 2SLS of the same dependent
+variable on proximity and the controls, with experience and its square kept as endogenous
+regressors instrumented by age and age squared. The match is consistent with Card having
+estimated the columns this way; it does not prove it.
+\end{minipage}
+\end{table}

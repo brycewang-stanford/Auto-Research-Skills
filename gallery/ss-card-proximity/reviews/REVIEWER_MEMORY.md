@@ -166,3 +166,16 @@ Check next time (paper):
 - sas-ols-match numbers typed only with % crew:literal; scope = Table 2 cols 2/5 OLS and N.
 - Process statements from process.tex macros and log.jsonl (UTC), not NOTES dates.
 - Carried: no 'Card's preferred' for A6; no 'average return'; H3(a)/H4/H5 about the Panel A coefficient.
+
+## code-r4 (2026-11-21, verdict pass; last code round)
+
+Scope: code/describe_sample.py (D7, added at the paper stage after the results gate); carried F1-F7.
+Held under attack: definitions = prepare_data.py (age76 - 10 bins, regions 1-2/3-4/5-7/8-9, reg76r, smsa66r, non-imputed parental means, KWW non-missing); CSV missing = '' and dummies '0'/'1'; manifest hash check; tamper of prep metric (1e-6) or CSV fails loudly; nothing relating nearc4 to ed76/lwage76; stdlib only. My scratch run reproduces prepare-data's 18 values, 15/18, misses age 18-20, black, South 1976.
+F6 resolved (D5 logged 19:11:47Z before the 19:11:57Z run; 6/6 first try, no superseded record). F7 conceded (claim and paper narrowed; docstring still overstates, frozen).
+New: F8 (minor) t1-* claims arrive after results-r2; paper says Table 1 'enters no result claim'; two misses are one man from the rounding boundary; CODEBOOK calls the black miss a 'transcription error' (a guess).
+
+Check next time (paper-r1):
+- describe-sample: exactly one run, code = describe_sample.py at hash 68211f89..., code_review code-r4, inputs card_analysis.csv + manifest + prepare_metrics; metrics equal prepare-data's.
+- t1-* claims: value = metric, units percent/mean, published value in text only; misses named (3 of 18); no claim about nearc4 vs schooling/wages.
+- Paper: D7 disclosed as post-results-gate; 'enters no result claim' sentence rewritten; black-share miss unexplained or labelled a guess; one-man boundary for age 18-20 and South 1976 if discussed.
+- Carried: SAS-listing paragraph scope (two OLS regressions + N); no 'Card's preferred' for A6; no 'average return'; H3(a)/H4/H5 about the Panel A coefficient; robust H3(b) set includes 0 (lo -0.0068), headline B6 number never paired with a positive-return statement; GKMC/GKM19 homoskedastic, not deciding; H1 5/9 and 19/22 with misses named; D4 post hoc; young-ols not diagnosed; clustered F not instrument strength; process statements from process.tex macros and log.jsonl (UTC).
