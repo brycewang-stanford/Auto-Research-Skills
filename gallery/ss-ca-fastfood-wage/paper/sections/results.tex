@@ -189,33 +189,49 @@ the negative wage pseudo-ATTs above, and S2's upper test in a share $\RejSTwoMax
 (Section~\ref{sec:rob-secondary}). California's employment statistics of the primary, with
 $k = \KDiagHTwo$, are small relative to their standard error, which is the conservative side.
 
-\paragraph{Which standard error, and what the choice costs.} The H2 label depends on the
-pre-specified rule $\mathrm{SE} = \max(\SEs, \SEn)$, so we report the three diagnostics the
-design names for it (Section~\ref{sec:inference}). Table~\ref{tab:sechoice} gives them for the H2
-statistic. First, the level check by population tercile: with the scaled $\SEs$ alone the
-two-sided test rejects in a share $\RejHTwoScaledTercThreeTwo$ of the tests of the largest third
-of units, the group closest to California in size, against $\RejHTwoMaxTercThreeTwo$ with the
-maximum; with the unscaled $\SEn$ alone it over-rejects among the smallest third
-($\RejHTwoUnscaledTercOneTwo$), where the maximum takes $\SEs$. The code-check Monte Carlo likewise
-showed $\SEs$ alone over-rejecting under state-level shocks. Second, the diagnostic $k$, the root
-mean square of California's own six pseudo-date $t$ statistics: $\KDiagHTwoScaled$ with $\SEs$ and
-$\KDiagHTwoUnscaled$ with $\SEn$. A value of one would mean that the standard error matches
-California's pre-period spread, so $\SEs$ understates that spread and $\SEn$ overstates it
-severalfold; the same pattern holds for H3 ($\KDiagHThreeScaled$ against $\KDiagHThreeUnscaled$),
-S1 ($\KDiagSOneScaled$ against $\KDiagSOneUnscaled$) and the other-pool check
-($\KDiagOtherPoolScaled$ against $\KDiagOtherPoolUnscaled$), while for H1 ($\KDiagHOneScaled$
-against $\KDiagHOneUnscaled$) and S2 ($\KDiagSTwoScaled$ against $\KDiagSTwoUnscaled$) even $\SEn$ is
-close to or below California's spread. Third, Ferman and Pinto's own step, the regression of the
-squared placebo estimates on a constant and $1/\mathrm{pop}_j$, which we report only as a
-diagnostic: at California's six pseudo-dates its implied $\mathrm{SE}_{\mathrm{FP}}$ ranges from
-$\CaHTwoSeventeenQOneFpSe$ to $\CaHTwoSixteenQOneFpSe$, against California's standard errors of
-$\CaHTwoSixteenQOneSe$ to $\CaHTwoSeventeenQTwoSe$; in the real H2 run $\hat A = \HTwoFpA$ is
-negative and $\hat B = \HTwoFpB$, so $\mathrm{SE}_{\mathrm{FP}} = \HTwoFpSe$: the
-$A + B/\mathrm{pop}$ variance model fails here, which is not a standard error but supports not
-relying on the scaled one. Read together, the diagnostics bracket California's true standard error
-between $\SEs$ and $\SEn$, as the argument of Section~\ref{sec:inference} says, and show that the
-maximum chosen to protect the level is far from tight for California's employment statistics. What
-that costs for H2 is shown in Section~\ref{sec:res-h2}.
+\paragraph{Which standard error, and what the evidence on it shows.} The H2 label depends on the
+pre-specified rule $\mathrm{SE} = \max(\SEs, \SEn)$. The maximum was chosen a priori, before any
+diagnostic was computed, against one threat: that the placebo variance has a state-level component
+($A > 0$ in Section~\ref{sec:inference}), in which case the scaled $\SEs$ understates California's
+standard error. We report the three diagnostics the design names (Table~\ref{tab:sechoice} for the
+H2 statistic). They do not all point the same way.
+
+First, the level check. With $\SEs$ alone the two-sided test rejects in a share
+$\RejHTwoScaledTercThreeTwo$ of the tests of the largest third of units, the group closest to
+California in size, against $\RejHTwoMaxTercThreeTwo$ with the maximum. That is the one cell that
+supports the maximum, and it rests on about 17 units at six overlapping pseudo-dates. Elsewhere
+$\SEs$ holds its level: over all tests it rejects in a share $\RejHTwoScaledAllTwo$, in the decision
+set $L$ in $\RejHTwoScaledSetLTwo$, inside its binomial band of $\BandHTwoSetL$, and in none of
+California's own six tests ($\RejHTwoScaledCATwo$). $\SEn$ alone over-rejects among the smallest
+third ($\RejHTwoUnscaledTercOneTwo$), where the maximum takes $\SEs$.
+
+Second, the diagnostic $k$, the root mean square of California's own six pseudo-date $t$
+statistics: $\KDiagHTwoScaled$ with $\SEs$ and $\KDiagHTwoUnscaled$ with $\SEn$. A value of one would
+mean that the standard error matches California's pre-period spread, so $\SEs$ understates that
+spread somewhat and $\SEn$ overstates it severalfold. The same pattern holds for H3
+($\KDiagHThreeScaled$ against $\KDiagHThreeUnscaled$), S1 ($\KDiagSOneScaled$ against
+$\KDiagSOneUnscaled$) and the other-pool check ($\KDiagOtherPoolScaled$ against
+$\KDiagOtherPoolUnscaled$), while for H1 ($\KDiagHOneScaled$ against $\KDiagHOneUnscaled$) and S2
+($\KDiagSTwoScaled$ against $\KDiagSTwoUnscaled$) even $\SEn$ is close to or below California's
+spread. Six $t$ statistics per statistic are few, so $k$ is itself noisy.
+
+Third, Ferman and Pinto's own step, the regression of the squared placebo estimates on a constant
+and $1/\mathrm{pop}_j$, reported only as a diagnostic, never as a standard error. In the real H2
+run $\hat A = \HTwoFpA$ is negative and $\hat B = \HTwoFpB$, so $\mathrm{SE}_{\mathrm{FP}} =
+\HTwoFpSe$; the same happens at two of California's six pseudo-dates (2017Q1 and 2017Q2), and at
+the other four $\mathrm{SE}_{\mathrm{FP}}$ is between $\CaHTwoSixteenQFourFpSe$ and
+$\CaHTwoSixteenQOneFpSe$. A negative $\hat A$ gives no support to the state-level component the
+maximum guards against; if anything it says that the placebo variance falls with size at least as
+fast as the scaling assumes, which points to a standard error at or below $\SEs$, not above it.
+
+Read together, the level check and $k$ place California's standard error between $\SEs$ and
+$\SEn$, while the Ferman--Pinto fit points below $\SEs$. Among the pre-2020 diagnostics only the
+largest-tercile rate supports the maximum; the decision set, California's own tests and the
+Ferman--Pinto fit do not. The code-check Monte Carlo, on synthetic panels, shows $\SEs$ alone over-rejecting
+heavily when shocks have a state-level component and much less under pure size-related noise: it
+measures the size of the failure if $A > 0$, not that $A > 0$. The maximum therefore rests on the a priori threat more than on
+the data, and for California's employment statistics it is far from tight. What it costs for H2 is
+shown in Section~\ref{sec:res-h2}.
 
 \begin{table}[tbp]
 \centering
@@ -399,9 +415,12 @@ The label rests on the pre-specified choice of the larger standard error. As a r
 not the pre-specified inference: with the scaled $\SEs$ alone ($\HTwoSeScaled$, the population
 scaling Dube uses) in place of $\max(\SEs, \SEn)$ and the same critical values, which for H2 are
 $t$ at $\nu$, the 95 percent interval of the H2 estimate would lie entirely below zero. The design
-takes the larger standard error because $\SEs$ alone over-rejects for large units in the level
-check ($\RejHTwoScaledTercThreeTwo$ in the largest tercile, against $\RejHTwoMaxTercThreeTwo$ with
-the maximum; Table~\ref{tab:sechoice}) and under state-level shocks in the Monte Carlo study. The
+takes the larger standard error as a precaution, chosen before any data were read, against a
+state-level component of the placebo variance, under which $\SEs$ alone over-rejects. The
+pre-2020 evidence on that component is mixed: the largest population tercile rejects in a share
+$\RejHTwoScaledTercThreeTwo$ with $\SEs$ (against $\RejHTwoMaxTercThreeTwo$ with the maximum),
+but the decision set, California's own tests and the Ferman--Pinto fit do not show it
+(Section~\ref{sec:res-inference}). The
 ``inconclusive'' label is therefore a property of this design's conservative inference for one
 treated state, not of the QCEW data alone: the width of the interval is set by the standard error
 the design chose to protect the level of its tests.

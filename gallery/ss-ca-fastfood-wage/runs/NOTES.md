@@ -183,8 +183,9 @@ runs/check-methods/mc_rates.csv). Run once, as instructed.
 - Claim texts revised for R1, R2, R4-R8 (values and macros unchanged; 14 claims added: the
   California H1 pseudo-date ATTs and SEs, r-h1-crit-georgia, r-plc-nonff-sign). Responses are in
   reviews/results-r1/review.json.
-- code/posthoc.py (deviation D7, report-only, post hoc) is written and was unit-tested on synthetic
-  inputs in the scratchpad (15 checks with known answers). It has not been run: it waits for a code
+- code/posthoc.py (deviation D7, report-only, post hoc) is written and was tested on synthetic
+  inputs by a script in my session scratchpad (15 checks, later 24 after the C6-C8 changes); like
+  the describe test, it is not part of the workspace and cannot be rerun from it. It has not been run: it waits for a code
   review. The posthoc run must name code/posthoc.py and code/sclib.py with --code, and declare as
   --input data/derived/qcew_panel.csv, data/derived/state_panel_pre.csv,
   runs/level-mde/tests.csv, runs/level-mde/metrics.json, runs/h1-wage/metrics.json,
@@ -199,8 +200,10 @@ runs/check-methods/mc_rates.csv). Run once, as instructed.
   critical values, while runs/level-mde/tests.csv stores T inputs at %.10g, so every flag reads 1
   (differences about 9e-10 for the nine non-Georgia states). The b_loo_<fips>_crit_h1_* values are
   correct; only Georgia's removal moves c_hi. The flags are not claimed.
-- describe (D8; analysis, unreviewed, human agreed 2026-11-21; code/describe.py, unit-tested on
-  synthetic data, 10 checks): levels only for the summary-statistics table, California, R50 and
+- describe (D8; analysis, unreviewed, human agreed 2026-11-21; code/describe.py): before the run I
+  tested it with a script in my session scratchpad (synthetic inputs, 10 checks with known
+  answers); that test is not part of the workspace, is not in code/, and cannot be rerun or
+  inspected from here (paper-r2 P13). Levels only for the summary-statistics table, California, R50 and
   D20, pre-period fit window (31 quarters) and post window (8 quarters). Claims r-desc-*.
 - paper-r1 P1: claims added for k under SE_s and SE_n (r-k-<stat>-ses/-sen), the h2-emp
   Ferman-Pinto diagnostic (r-h2-emp-fp-a/-b/-se; A_hat < 0, SE_FP = 0) and r-h2-ses-only (with

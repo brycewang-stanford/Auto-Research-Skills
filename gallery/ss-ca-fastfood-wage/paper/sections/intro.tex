@@ -54,9 +54,10 @@ our interval. The width comes from the design's inference more than from the dat
 error is the larger of a population-scaled and an unscaled placebo standard error, chosen to keep
 the level of the tests for California, the largest state, and at the placebo dates California's
 own six $t$ statistics had a root mean square of $\KDiagHTwo$ with it, against
-$\KDiagHTwoScaled$ with the scaled one. With the scaled standard error alone, which over-rejects
-for the largest states in the pre-2020 level check, the interval would lie entirely below zero
-(Section~\ref{sec:res-h2}).
+$\KDiagHTwoScaled$ with the scaled one. With the scaled standard error alone, which the design
+does not use because it over-rejects if shocks have a state-level component, the interval would
+lie entirely below zero; the pre-2020 diagnostics are mixed on whether such a component is present
+(Sections~\ref{sec:res-inference} and~\ref{sec:res-h2}).
 
 The first stage is not established either. The pooled effect on log average weekly earnings in
 722513 is $\HOneAtt$ log points ($\HOnePct$ percent, about \$$\HOneDollars$ a week), with

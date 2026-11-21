@@ -21,10 +21,12 @@ of freedom of a placebo standard error, the 90 percent interval has a half-width
 $\HNinetyHTwo$ log points, and this design cannot tell a decline of about 3.5 percent from no
 effect: ``inconclusive'' had probability $\ProbTauAltUndUndet$ under the first and
 $\ProbTauZeroUndUndet$ under the second. The published estimates that disagree are both consistent
-with our interval. The diagnostics show that this maximum is far from tight for California's
-employment statistics, and with the scaled standard error alone the interval would lie below zero;
-but that standard error over-rejects for the largest states in the level check, so the paper does
-not use it. Separating the published readings would need inference that is valid for California
+with our interval. The maximum is far from tight for California's employment statistics, and with
+the scaled standard error alone the interval would lie below zero. That standard error over-rejects
+if shocks have a state-level component, the threat against which the maximum was chosen a priori;
+the pre-2020 diagnostics are mixed on whether such a component is present (one population tercile
+supports it; the decision set, California's own tests and the Ferman--Pinto fit do not), and the
+paper keeps the pre-specified maximum. Separating the published readings would need inference that is valid for California
 at a smaller cost in width, more treated units, or more precise data.
 
 \section*{Limitations and deviations from the approved design}
@@ -38,7 +40,8 @@ at a smaller cost in width, more treated units, or more precise data.
         cannot separate the published readings, which was part of the study's motivation. The width
         is set mainly by the pre-specified maximum standard error, which overstates California's
         pre-period spread ($k = \KDiagHTwo$); with the scaled standard error alone, which
-        over-rejects for large states, the H2 interval would lie below zero
+        over-rejects if shocks have a state-level component, the H2 interval would lie below zero.
+        The evidence on whether that component is present is mixed
         (Sections~\ref{sec:res-inference} and~\ref{sec:res-h2}).
   \item \emph{The first stage.} H1's critical value comes from the decision-set quantile, not from
         $t_\nu$; the post hoc checks (Section~\ref{sec:res-posthoc}) show that it is set by one state

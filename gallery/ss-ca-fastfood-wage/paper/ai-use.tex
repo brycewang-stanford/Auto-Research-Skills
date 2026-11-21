@@ -14,11 +14,11 @@ submission gate. He takes responsibility for the paper's content.
         Figures RA, Writer, Reviewer and Replicator) ran on Claude Opus 5.5
         (\texttt{claude-opus-5-5}) in Claude Code, each role as a separate agent. The PI
         proposed the topic, drafted the question and hypotheses, wrote the contribution
-        statement, recorded deviations D5--D7 and corrected threat T14 after the results
+        statement, recorded deviations D5--D8 and corrected threat T14 after the results
         gate; the Scout found and verified the sources; the Designer wrote the design and
         deviations D1--D4; the Data RA fetched and prepared the data; the Econometrician
         wrote and tested the estimation code, executed the analysis runs, including the
-        post hoc run, and wrote the result claims; the Figures RA wrote the figure scripts
+        post hoc and descriptive runs, and wrote the result claims; the Figures RA wrote the figure scripts
         and drew the figures; the Writer drafted this paper from the claims; the Replicator
         ran the clean rerun. The PI's brief to each role is archived in \texttt{briefs/}.
   \item \textbf{Review.} The Reviewer ran \CrewReviewRounds{} rounds on
@@ -40,10 +40,12 @@ submission gate. He takes responsibility for the paper's content.
         \CrewRunsDataPrep{} data preparation); \CrewRunsSuperseded{} were replaced by a
         later run with the same id and archived (the first data fetch, replaced to drop two metrics that a clean rerun could not reproduce, and the
         first run of the method checks, whose failures led to the design changes described above; no run behind
-        a result claim was replaced); \CrewRunsUnreviewed{} analysis run was not covered
-        by a passing code review: the post hoc run (deviation D7), whose code was changed
-        after the fourth and last code-review round to add the leave-one-out check the
-        Reviewer asked for, and which ran with the human author's consent in chat.
+        a result claim was replaced); \CrewRunsUnreviewed{} analysis runs were not covered
+        by a passing code review, both after the fourth and last code-review round and both
+        with the human author's consent in chat: the post hoc run (deviation D7), whose
+        code was changed to add the leave-one-out check the Reviewer asked for, and the
+        descriptive run behind the summary-statistics table (deviation D8), added at the
+        paper stage; the paper review read both runs' outputs.
   \item \textbf{Replication.} The Replicator's clean rerun (\texttt{crew.py rerun}, in a
         fresh environment built from \texttt{code/requirements.txt}) has status
         \CrewRerunStatus{}: \CrewRerunReproduced{} of \CrewRerunTotal{} runs reproduced.

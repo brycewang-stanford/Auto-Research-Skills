@@ -265,3 +265,19 @@ Check next round:
 - P3: if a descriptive run is added, it must compute no between-group statistic. Check its kind and whether it needs code review (analysis needs a passing code review; code is capped at r4, so --unreviewed would have to be disclosed).
 - replication.json: once it exists, check \CrewRerunStatus / reproduced counts in the conclusion and AI-use, and that the posthoc defective flags reproduce as D7 says.
 - Held this round: process facts vs log/runs, RMSE ordering, Georgia/drift pairing, no 'robust', panel (b) caveat, typed literals marked.
+
+## paper-r2 (2026-11-21, verdict revise)
+
+P1-P10 resolved (P7 and P9 fixed without a written response). New: P11, P12 major; P13, P14 minor. No critical finding. The rerun was still running (replication.json 14:47Z, 27/27, before describe); judged as it stands.
+
+What I did (no estimator run): recomputed four describe values from data/derived/state_panel.csv (CA emp pre/post, CA aww pre, R50 aww post); all match. Read describe.py: within-group levels only. Pulled check-methods MC rates for DDT-POPW-E (scaled SE: pure-A 0.46, pure-B 0.061). Script in scratch rv-p2/write_review.py.
+
+Suspicions:
+- P11: the FP fit has A_hat < 0 (real run, 2017Q1, 2017Q2). That is evidence against the A > 0 premise of the max rule (T6), yet the paper and the r-*-fpse claim texts say it 'supports the max-SE choice'. The 'bracket between SE_s and SE_n' holds for k and the tercile check only. The abstract's reason ('over-rejects for large states') rests on one tercile cell; L (0.067) and CA (0/6) do not show it. Watch for a fix that drops the FP numbers instead of rereading them, and for any change to the label (it must stay 'inconclusive').
+- P12: ai-use.tex not touched since 14:35Z; the PDF renders '2 analysis run was not covered ...: the post hoc run'. D5-D7 should be D5-D8.
+- P13: NOTES.md says describe was unit-tested (10 checks), but there is no test file in code/.
+
+Check next round (paper-r3):
+- `crew.py changes <ws> paper`; read the results.tex diagnostics paragraph, the abstract sentence, the r-*-fpse and r-h2-ses-only claim texts (support for the MC sentence), and ai-use.tex in full.
+- replication.json newer than describe; \CrewRerunTotal = \CrewRuns = 28; PDF recompiled after numbers; posthoc defective flags still reproduce.
+- If describe.py changes for P13, it must be rerun with --replace and --unreviewed. Check runs/.superseded and the disclosure.
