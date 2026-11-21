@@ -1,1 +1,161 @@
-{}
+{
+  "clemens2025did": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w34033",
+    "url": "https://www.nber.org/system/files/working_papers/w34033/revisions/w34033.rev0.pdf",
+    "note": "Original July 2025 version (NBER rev0), 33 pp., downloaded and read with pdftotext -layout (sha256 prefix 0617f4bf1c0cbde2). Title page: 'Did California's Fast Food Minimum Wage Reduce Employment?', Clemens, Edwards, Meer, WP 34033, July 2025. Numbers quoted from Table 1 (printed p. 18, PDF p. 20) and Table A1 (PDF p. 23). The NBER paper page (citation_publication_date 2025/07/14, Revision Date October 2026) now serves the revised version under the same DOI; Crossref metadata for 10.3386/w34033 shows the revised title and four authors."
+  },
+  "clemens2026employment": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w34033",
+    "url": "https://www.nber.org/system/files/working_papers/w34033/w34033.pdf",
+    "note": "Revised version, title page 'July 2025, Revised October 2026', authors Clemens, Edwards, Meer, Nguyen; 44 pp.; read with pdftotext -layout (sha256 prefix fad0da0c432dbd4a). Numbers from Tables 1-8 (printed pp. 24-31, PDF pp. 26-33) and text pp. 3-13. Crossref (10.3386/w34033) agrees on title and authors."
+  },
+  "dube2026labor": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w35171",
+    "url": "https://www.nber.org/system/files/working_papers/w35171/w35171.pdf",
+    "note": "NBER WP 35171, May 2026 (current version; NBER page Issue Date May 2026, Revision Date May 2026), 45 pp., sha256 prefix 783af68d219581f1. rev0 (revisions/w35171.rev0.pdf) also downloaded: same Table 1 and Table D1 numbers, wording changes only (e.g., 26 vs 27 post-2010 events). Numbers from Table 1 (printed p. 29, PDF p. 30), Table 2 (p. 30/31), Tables D1-D2 (pp. 43-44 / PDF 44-45), text pp. 2-11. Crossref agrees."
+  },
+  "sosinskiy2026effects": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://irle.berkeley.edu/wp-content/uploads/2025/09/Effects-of-a-20-Minimum-Wage-Evidence-from-Granular-Data-on-Wages-Employment-and-Prices-April-1-2026.pdf",
+    "note": "IRLE working paper dated April 1, 2026, 55 pp., linked from https://irle.berkeley.edu/publications/working-papers/effects-of-a-20-minimum-wage-evidence-from-granular-data-on-wages-employment-and-prices/ ; sha256 prefix 92fc2cac799f9c96. Numbers from Table 1 (p. 31), text pp. 3, 13-14, 20-22, Appendix A pp. 42-45. Earlier versions also fetched but not relied on: May 2025 ('Sectoral Wage-Setting and Prices in California', irle.berkeley.edu/wp-content/uploads/2025/06/sosinskiy_reich_2025.pdf) and September 2025 ('A $20 Minimum Wage: Effects on Wages, Employment and Prices', irle.berkeley.edu/wp-content/uploads/2025/09/20_Minimum_Wage_in_CA_September-7-2025.pdf). The 2024 'Sectoral wage-setting in California' (IRLE WP 104-24, cited by CEMN 2026) was not reached: its IRLE page now links the September 2025 revision."
+  },
+  "reich2025highlights": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://irle.berkeley.edu/wp-content/uploads/2025/02/Effects-of-the-20-California-Fast-Food-Minimum-Wage-Highlights-final.pdf",
+    "note": "CWED Policy Brief, February 24, 2025, 13 pp., Michael Reich (joint work with Sosinskiy); sha256 prefix 54a47039f8a72df4. Employment statements from section 4 (pp. 8-9). No point estimate or SE for the preferred triple difference is printed in the text (only Figure 5)."
+  },
+  "clemens2026synthetic": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w35931",
+    "url": "https://www.nber.org/system/files/working_papers/w35931/w35931.pdf",
+    "note": "NBER WP 35931, October 2026, 32 pp.; sha256 prefix c5e4553c6de03c82. Data statement p. 6 (PDF p. 7) incl. fn 3; results pp. 7-12; Table A1 note. Crossref agrees."
+  },
+  "melo2026covered": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w35749",
+    "url": "https://www.nber.org/system/files/working_papers/w35749/w35749.pdf",
+    "note": "NBER WP 35749, September 2026, 56 pp.; sha256 prefix 1cfa46ae94e691fd. Numbers from Table 2 (PDF p. 48) and text pp. 4, 20-22. Crossref agrees."
+  },
+  "hamdi2025wage": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://haslam.utk.edu/wp-content/uploads/2024/11/Sovich-Paper.pdf",
+    "note": "Title page dated March 2025, Hamdi (Equifax) and Sovich (University of Kentucky), 43 pp.; sha256 prefix 3104edc6c4216e69. Numbers from Table 2 (printed p. 27, PDF p. 28) and text pp. 16-17. Dube (2026) and Melo et al. (2026) cite it as SSRN Working Paper 5197571 (March 2025); the SSRN page itself returned 'Content Blocked', so the SSRN number is taken from those reference lists, not verified."
+  },
+  "pandit2026simply": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "doi-resolved",
+    "doi": "10.1080/13504851.2026.2641130",
+    "note": "Crossref metadata only: title 'Simply can't wait: evaluating the effect of California's fast-food minimum wage increase', author Hitanshu Pandit, Applied Economics Letters, published online 2026-03-04, pp. 1-6. Tandfonline and SSRN (5707182) pages returned 403, so no abstract or full text was read. Nothing about its findings may be attributed to this key; descriptions in notes.md are second-hand (from Dube 2026, Sosinskiy and Reich 2026, Melo et al. 2026)."
+  },
+  "schneider2024early": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://shift.hks.harvard.edu/wp-content/uploads/2024/10/ca_fastfood_MW_Final.pdf",
+    "note": "Shift Project brief, October 2024, full PDF read with pdftotext (sha256 prefix d68a32e35a33a78b). Authors Daniel Schneider, Kristen Harknett and Kevin Bruey are printed in the PDF (p. 1 and author notes). Worker survey (3,420 California fast-food workers; comparison samples of California retail workers and Western-state fast-food and retail workers); reports wages, hours, scheduling, staffing and benefits, not establishment employment counts."
+  },
+  "dir2024fastfoodfaq": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.dir.ca.gov/dlse/Fast-Food-Minimum-Wage-FAQ.htm",
+    "note": "Official DIR Labor Commissioner FAQ, page dated September 2024; full text read (coverage criteria, 60-establishment threshold, April 1, 2024 effective date, exemptions, Fast Food Council powers)."
+  },
+  "dir2026fastfoodcouncil": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.dir.ca.gov/AB1228/AB1228.html",
+    "note": "Official DIR Fast Food Council page dated March 2026: 'On September 28, 2023, Governor Newsom signed into law AB 1228 ... $20 effective April 1, 2024'. Meetings page (https://www.dir.ca.gov/AB1228/Meetings.html, dated April 2025) lists meetings from March 15, 2024 to February 26, 2025."
+  },
+  "dir2024mwffsupplement": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.dir.ca.gov/iwc/MW-2024-FF-SUPPLEMENT.pdf",
+    "note": "Official notice MW-2024 Supplement for Fast Food Restaurant Employees: 'Effective April 1, 2024 Minimum Wage: $20.00 per hour'; applies to employers under Labor Code section 1474 et seq. (AB 1228, Stats. 2023). sha256 prefix 973d4d7768db3ef0. No MW-2025 fast-food supplement exists at the analogous URL (returned HTML, not a PDF)."
+  },
+  "dir2026mw": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.dir.ca.gov/iwc/MW-2026.pdf",
+    "note": "Official General Minimum Wage Order MW-2026: general minimum $16.90 from January 1, 2026; $16.50 from January 1, 2025; $16.00 from January 1, 2024. Section 2 still names only the fast-food rate 'effective April 1, 2024'. MW-2025 (https://www.dir.ca.gov/iwc/MW-2025.pdf) read too, same wording. sha256 prefixes 9dcfe03ce00c7aed (2026), d5bece2efc26de07 (2025)."
+  },
+  "bls2026cewq1": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.bls.gov/news.release/archives/cewqtr_08282026.htm",
+    "note": "BLS news release USDL-26-1424, 'County Employment and Wages - First Quarter 2026', for release Friday, August 28, 2026; employment for March 2026, wages for 2026Q1; 'Data are preliminary'; next release (2026Q2) Wednesday, December 2, 2026."
+  },
+  "blsqcewopendata": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.bls.gov/cew/additional-resources/open-data/",
+    "note": "Open data page: CSV slices give 'all QCEW data for the most recent 5 years'; older years via downloadable data files. CSV data slices page (https://www.bls.gov/cew/additional-resources/open-data/csv-data-slices.htm) gives URL patterns https://data.bls.gov/cew/data/api/{year}/{qtr}/industry/{code}.csv and /area/{fips}.csv, and the 42-field quarterly layout incl. disclosure_code (blank or 'N')."
+  },
+  "blsqcewfaq": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.bls.gov/cew/questions-and-answers.htm",
+    "note": "QCEW Q&A: Q6 (about 60% of most detailed data suppressed), Q13-Q14 (suppressed lower-level data are included in higher-level published totals), Q7 (preliminary data finalized with next year's first-quarter publication; revisions usually minor)."
+  },
+  "blsqcewhom": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.bls.gov/opub/hom/cew/concepts.htm",
+    "note": "BLS Handbook of Methods, QCEW concepts: employment = covered workers who worked during or received pay for the pay period including the 12th; workers on more than one payroll counted by each employer; exclusions (proprietors, unincorporated self-employed, unpaid family members, some farm and domestic workers)."
+  },
+  "blsqcewtechnote": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.bls.gov/cew/news-release-technical-note.htm",
+    "note": "Technical note: average weekly wage = total quarterly wages / average of the three monthly employment levels / 13; data preliminary until finalized in the first quarter of the following year; data not meeting publication standards may be suppressed."
+  },
+  "blsqcewagglvl": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.bls.gov/cew/classifications/aggregation/agg-level-titles.htm",
+    "note": "Aggregation levels: 18 national NAICS 6-digit by ownership; 58 statewide NAICS 6-digit by ownership; 78 county NAICS 6-digit by ownership; 10/50/70 national/state/county total covered."
+  },
+  "blsqcewowncodes": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.bls.gov/cew/classifications/ownerships/ownership-titles.htm",
+    "note": "Ownership codes: 0 total covered, 5 private, 1-4 and 8 government, 9 total UI covered excluding federal."
+  },
+  "naics2022": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.census.gov/naics/reference_files_tools/2022_NAICS_Manual.pdf",
+    "note": "2022 NAICS Manual (958 pp.) downloaded; definitions of 722511, 722513, 722514, 722515 read from printed pp. 562-563 (Sector 72). sha256 prefix 8a19163d845163ab. census.gov/naics web search returned 403."
+  }
+}

@@ -9,3 +9,6 @@
 {"time": "2026-11-21T04:48:29Z", "role": "data-ra", "action": "data-fetched", "detail": "QCEW industry slices 722513/722511/7225/10, 2014Q1-2026Q1 (196 files; 2026Q2 404 on 2026-11-21); manifest 198 entries"}
 {"time": "2026-11-21T04:48:30Z", "role": "data-ra", "action": "data-prepared", "detail": "qcew_panel.csv 640,423 rows kept of 1,503,889; CODEBOOK.md with suppression counts; 2025 suppression jump flagged; no CA-vs-other or pre/post statistic computed"}
 {"time": "2026-11-21T04:48:30Z", "role": "data-ra", "action": "task-done", "detail": "dr-fetch"}
+{"time": "2026-11-21T04:56:58Z", "role": "scout", "action": "literature-verified", "detail": "q-novelty done: 22 verified sources, 20 citation claims; verdict partly answered, open for 2024Q2-2026Q1; w35931 uses QCEW through 2025Q4; H4 partly pre-empted by Dube Table D1"}
+{"time": "2026-11-21T04:58:01Z", "role": "pi", "action": "question-revised", "detail": "after q-novelty: w35931 uses QCEW to 2025Q4 (claim corrected), H4 framed against existing partial decompositions, single-treated-state inference, coverage and anticipation limits"}
+{"time": "2026-11-21T04:58:11Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T045811Z (question-r1)"}
