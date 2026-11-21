@@ -199,3 +199,10 @@ runs/check-methods/mc_rates.csv). Run once, as instructed.
   critical values, while runs/level-mde/tests.csv stores T inputs at %.10g, so every flag reads 1
   (differences about 9e-10 for the nine non-Georgia states). The b_loo_<fips>_crit_h1_* values are
   correct; only Georgia's removal moves c_hi. The flags are not claimed.
+- describe (D8; analysis, unreviewed, human agreed 2026-11-21; code/describe.py, unit-tested on
+  synthetic data, 10 checks): levels only for the summary-statistics table, California, R50 and
+  D20, pre-period fit window (31 quarters) and post window (8 quarters). Claims r-desc-*.
+- paper-r1 P1: claims added for k under SE_s and SE_n (r-k-<stat>-ses/-sen), the h2-emp
+  Ferman-Pinto diagnostic (r-h2-emp-fp-a/-b/-se; A_hat < 0, SE_FP = 0) and r-h2-ses-only (with
+  SE_s alone the 95% interval would lie below zero; not the pre-specified inference). The tercile
+  and California rejection-rate claims already existed (r-rej-<stat>-<se>-<t1|t2|t3|ca>-<test>).

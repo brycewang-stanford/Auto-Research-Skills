@@ -1,0 +1,101 @@
+{
+  "id": "describe",
+  "role": "econometrician",
+  "kind": "analysis",
+  "command": [
+    "python3",
+    "code/describe.py"
+  ],
+  "started": "2026-11-21T15:37:40Z",
+  "finished": "2026-11-21T15:37:41Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/describe.py",
+      "sha256": "bc321818f40d2d312f005ae969cdc4ab94b20a552cabef33dffc8c1177bcb418"
+    },
+    {
+      "path": "code/sclib.py",
+      "sha256": "cd10e760953136b159ceee5dfb602652371c600b038005d369cc48ccfe9daf1d"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "data/derived/state_panel.csv",
+      "sha256": "eab840d72b6863cdedfa6091ddcc7f6165a0d6d9277f72a73f8071a2136273ac"
+    },
+    {
+      "path": "data/derived/qcew_panel.csv",
+      "sha256": "ff1c5b942531fbd6b665c932ad6b5e29fb08663916eedca01cac77ce45ef7320"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "runs/describe/table.csv",
+      "sha256": "4d9a202907bddf8774484b76140b125fdfc1f7abae9f402c4a42fb3d127fe3e9"
+    },
+    {
+      "path": "runs/describe/metrics.json",
+      "sha256": "3459f50258d579c1c1f8312dc20b027a8d44f6f980f0fbcd294d0f2ef4928178"
+    }
+  ],
+  "metrics": {
+    "desc_CA_emp_mean_pre": 519621.21505376353,
+    "desc_CA_emp_total_pre": 519621.21505376353,
+    "desc_CA_aww_pre": 383.58845436975986,
+    "desc_CA_estabs_mean_pre": 29153.032258064515,
+    "desc_CA_estabs_total_pre": 29153.032258064515,
+    "desc_CA_n_states_pre": 1,
+    "desc_CA_n_quarters_pre": 31,
+    "desc_CA_n_obs_pre": 31,
+    "desc_R50_emp_mean_pre": 75988.19849462366,
+    "desc_R50_emp_total_pre": 3799409.9247311824,
+    "desc_R50_aww_pre": 317.76856414121596,
+    "desc_R50_estabs_mean_pre": 4228.307741935484,
+    "desc_R50_estabs_total_pre": 211415.38709677418,
+    "desc_R50_n_states_pre": 50,
+    "desc_R50_n_quarters_pre": 31,
+    "desc_R50_n_obs_pre": 1550,
+    "desc_D20_emp_mean_pre": 88785.46612903225,
+    "desc_D20_emp_total_pre": 1775709.3225806453,
+    "desc_D20_aww_pre": 301.05976571251057,
+    "desc_D20_estabs_mean_pre": 4420.6467741935485,
+    "desc_D20_estabs_total_pre": 88412.93548387097,
+    "desc_D20_n_states_pre": 20,
+    "desc_D20_n_quarters_pre": 31,
+    "desc_D20_n_obs_pre": 620,
+    "desc_CA_emp_mean_post": 556989.9166666666,
+    "desc_CA_emp_total_post": 556989.9166666666,
+    "desc_CA_aww_post": 583.3740027412209,
+    "desc_CA_estabs_mean_post": 34327.875,
+    "desc_CA_estabs_total_post": 34327.875,
+    "desc_CA_n_states_post": 1,
+    "desc_CA_n_quarters_post": 8,
+    "desc_CA_n_obs_post": 8,
+    "desc_R50_emp_mean_post": 81020.9625,
+    "desc_R50_emp_total_post": 4051048.125,
+    "desc_R50_aww_post": 447.1081752016955,
+    "desc_R50_estabs_mean_post": 4698.4525,
+    "desc_R50_estabs_total_post": 234922.625,
+    "desc_R50_n_states_post": 50,
+    "desc_R50_n_quarters_post": 8,
+    "desc_R50_n_obs_post": 400,
+    "desc_D20_emp_mean_post": 95818.31458333333,
+    "desc_D20_emp_total_post": 1916366.2916666667,
+    "desc_D20_aww_post": 412.76242210274495,
+    "desc_D20_estabs_mean_post": 5042.175,
+    "desc_D20_estabs_total_post": 100843.5,
+    "desc_D20_n_states_post": 20,
+    "desc_D20_n_quarters_post": 8,
+    "desc_D20_n_obs_post": 160,
+    "desc_pre_quarters": "2014Q1-2019Q4, 2022Q1-2023Q3",
+    "desc_post_quarters": "2024Q2-2026Q1"
+  },
+  "metrics_file": "runs/describe/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  },
+  "unreviewed": "human agreed 2026-11-21 (AskUserQuestion): paper-r1 P3 descriptive table after the last code round"
+}
