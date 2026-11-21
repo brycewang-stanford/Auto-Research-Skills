@@ -17,10 +17,11 @@ Time:
 - elapsed: first log entry to the submission gate (or the last log entry);
 - human wait: the sum of gate request -> decision intervals;
 - compute: the sum of the logged runs' durations;
-- subagent minutes by role: first to last API request of each subagent transcript, with
-  the role read from the brief it was given (`briefs/<time>-<role>.md`). Roles that ran
-  in parallel overlap, so these add up to more than the elapsed time; a role that
-  dominates is where to look when a paper is slow.
+- subagent minutes by role: busy time of each subagent transcript, with the role read
+  from the brief it was given (`briefs/<time>-<role>.md`). Busy time sums the gaps
+  between its API requests, each gap capped at 5 minutes, so a subagent resumed hours
+  later (after a gate, say) is not counted as working meanwhile; `span_minutes` is the
+  uncapped first-to-last time. Roles that ran in parallel overlap.
 
 Dollar figures use the Claude API list prices below. Under a Claude subscription the
 same work is billed to the subscription, not per token.
@@ -48,6 +49,7 @@ PRICES = {
 }
 PRICES_AS_OF = "2026-11-03"
 BRIEF_ROLE = re.compile(r"briefs/\d{8}T\d{6}Z-([a-z-]+)\.md")
+IDLE_CAP_SECONDS = 300
 PI_ACTION = re.compile(r"crew\.py[\"']?\s+(init|gate)\s")
 TOKEN_FIELDS = ("input", "output", "cache_read", "cache_write_5m", "cache_write_1h")
 
@@ -140,7 +142,7 @@ class Workspace:
         self.end = max(times) if times else None
         self.tokens = defaultdict(lambda: defaultdict(float))  # source -> model/field -> tokens
         self.subagents = 0
-        self.role_minutes: dict[str, list[float]] = defaultdict(list)
+        self.role_minutes: dict[str, list[tuple[float, float]]] = defaultdict(list)  # (busy, span)
 
     def mentioned_in(self, text: str) -> bool:
         return str(self.path) in text or re.search(rf"(^|[/\s\"'`]){re.escape(self.name)}(/|\b)", text) is not None
@@ -194,8 +196,9 @@ def cost(model_fields: dict) -> tuple[float, list[str]]:
 def summarize(ws: Workspace) -> dict:
     out = {"workspace": ws.name, **ws.timing(), "subagent_transcripts": ws.subagents, "by_source": {}}
     out["subagent_minutes_by_role"] = {
-        role: {"runs": len(spans), "minutes": round(sum(spans), 1), "longest": round(max(spans), 1)}
-        for role, spans in sorted(ws.role_minutes.items(), key=lambda kv: -sum(kv[1]))}
+        role: {"runs": len(spans), "minutes": round(sum(b for b, _ in spans), 1),
+               "longest": round(max(b for b, _ in spans), 1), "span_minutes": round(sum(s for _, s in spans), 1)}
+        for role, spans in sorted(ws.role_minutes.items(), key=lambda kv: -sum(b for b, _ in kv[1]))}
     grand: dict[str, float] = defaultdict(float)
     for source, fields in ws.tokens.items():
         usd, unknown = cost(fields)
@@ -235,10 +238,12 @@ def main(argv: list[str] | None = None) -> int:
                 for ws in owners:
                     ws.add("subagents", model, tokens, 1 / len(owners))
             role = BRIEF_ROLE.search(context)
-            times = [t for t in times if t]
+            times = sorted(t for t in times if t)
             if role and times:
+                busy = sum(min((b - a).total_seconds(), IDLE_CAP_SECONDS) for a, b in zip(times, times[1:])) / 60
+                span = (times[-1] - times[0]).total_seconds() / 60
                 for ws in owners:
-                    ws.role_minutes[role.group(1)].append((max(times) - min(times)).total_seconds() / 60)
+                    ws.role_minutes[role.group(1)].append((busy, span))
 
         rows = list(requests(main_path))
         pi_of = [ws for ws in spaces if any(PI_ACTION.search(cmd) and ws.mentioned_in(cmd)
@@ -263,7 +268,7 @@ def main(argv: list[str] | None = None) -> int:
               f"cache-read {t['cache_read']/1e6:.0f}M | ~${row['api_usd']:,.0f} API-equivalent")
         slow = list(row["subagent_minutes_by_role"].items())[:3]
         if slow:
-            print("  slowest roles: " + ", ".join(f"{r} {v['minutes']:.0f} min over {v['runs']} run(s)"
+            print("  busiest roles: " + ", ".join(f"{r} {v['minutes']:.0f} min busy over {v['runs']} run(s)"
                                                   for r, v in slow))
     if args.out:
         Path(args.out).write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")

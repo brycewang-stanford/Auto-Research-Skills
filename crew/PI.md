@@ -57,10 +57,13 @@ After each returns, validate, update the task's status in `plan.json`, and go on
 
 ## Going fast
 
-In the first eight gallery papers most of the elapsed time that was not a human gate went
-to waiting on one subagent at a time and to review rounds that re-read unchanged files.
-The protocol does not need either. Launch independent subagents in one message, in the
-background, and keep working while they run:
+In the first eight gallery papers the agents were busy for only a few hours of each
+paper's 5–25 elapsed hours. The rest was the human gates and a single PI session serving
+several papers in turn, with its subagents mostly run one after another; the Reviewer's
+10–16 rounds per paper were the largest busy share after the analysis itself. So: request
+a gate as soon as `CREW next` says it is ready, and while the human decides, do the
+off-path work it lists. Launch independent subagents in one message, in the background,
+and keep working while they run:
 
 | While | Run together |
 |---|---|

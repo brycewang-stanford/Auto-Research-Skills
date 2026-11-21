@@ -210,10 +210,13 @@ whose true effect is zero.
 1. **Volume and novelty.** APE has produced roughly a hundred times as many papers, and
    on new questions. The crew's papers are mostly replications of known results. No crew
    paper yet asks an open question.
-2. **Speed.** A paper took 18–25 hours of elapsed time, 0.4–13 of them waiting at gates,
-   with the role subagents run one after another. `crew.py next` and `crew.py changes`
-   (2026-11-21) target this: they put independent roles in parallel and make each
-   review round read only what changed.
+2. **Speed.** A paper took 5–25 hours of elapsed time (18–25 for the six run together),
+   0.4–13 of them waiting at gates, although its agents were busy for only a few hours:
+   one PI session served several papers in turn and ran their subagents mostly one after
+   another, and the Reviewer's 10–16 rounds were the largest busy share after the
+   analysis. `crew.py next` and `crew.py changes` (2026-11-21) target this: they put
+   independent roles in parallel and make each review round read only what changed.
+   `usage.py` now reports each role's busy minutes, so the effect can be measured.
 3. **No external quality score.** APE and EvoScientist report results against human
    papers or a venue; the crew has not been run on
    [`benchmarks/discoverybench`](../benchmarks/discoverybench) or

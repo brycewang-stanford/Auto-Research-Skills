@@ -1560,8 +1560,8 @@ def next_actions(ws: Path) -> list[str]:
     if stage == "submission":
         problems = check_replication(ws, runs, required=True)
         if problems and runs:
-            out.append("parallel: Replicator: `crew.py rerun --setup ...` (needs only the runs; it can go "
-                       "alongside the Writer and the paper review once the Figures RA's runs are logged) "
+            out.append("alongside the steps above: Replicator: `crew.py rerun --setup ...` (needs only the "
+                       "runs, so it can start once the Figures RA's runs are logged) "
                        f"— {problems[0]}")
             ready = False
         if stale_paper_inputs(ws):
