@@ -192,3 +192,10 @@ runs/check-methods/mc_rates.csv). Run once, as instructed.
   runs/posthoc/georgia.csv. Part (b) drops Georgia's six L values (54 remain) and keeps
   level-mde's nu_h1 unchanged; Georgia's own placebo variance also lowers nu_hat, which part (b)
   does not recompute.
+- posthoc (analysis, unreviewed, human agreed 2026-11-21 via AskUserQuestion; code-r4 C6-C8 fixed
+  after the last code round). Results: see the posthoc claims (prefix "Post hoc (deviation D7").
+  Known defect, not rerun (single run agreed): the leave-one-out flags b_loo_<fips>_changes_chi,
+  b_loo_n_changing and b_loo_changing_states use a 1e-12 tolerance against level-mde's in-memory
+  critical values, while runs/level-mde/tests.csv stores T inputs at %.10g, so every flag reads 1
+  (differences about 9e-10 for the nine non-Georgia states). The b_loo_<fips>_crit_h1_* values are
+  correct; only Georgia's removal moves c_hi. The flags are not claimed.

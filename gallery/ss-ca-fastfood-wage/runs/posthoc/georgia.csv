@@ -1,0 +1,61 @@
+industry,level,quarter,disclosure_code,establishments,emp,avg_wkly_wage,note
+722513,state,2014Q1,,7264,140044,287,
+722513,state,2014Q2,,7320,147721,297,
+722513,state,2014Q3,,7369,148373,292,
+722513,state,2014Q4,,7419,148151,304,
+722513,state,2015Q1,,7547,145712,255,
+722513,state,2015Q2,,7605,151849,261,
+722513,state,2015Q3,,7653,151703,265,
+722513,state,2015Q4,,7703,152729,276,
+722513,state,2016Q1,,7760,152540,262,
+722513,state,2016Q2,,7894,161612,261,
+722513,state,2016Q3,,7936,159409,275,
+722513,state,2016Q4,,8091,160705,271,
+722511,state,2014Q1,,7011,151224,320,
+722511,state,2014Q2,,7025,157595,329,
+722511,state,2014Q3,,7164,157323,328,
+722511,state,2014Q4,,7180,158275,336,
+722511,state,2015Q1,,7295,159275,334,
+722511,state,2015Q2,,7399,165598,341,
+722511,state,2015Q3,,7448,166128,341,
+722511,state,2015Q4,,7524,165082,354,
+722511,state,2016Q1,,7477,164899,343,
+722511,state,2016Q2,,7584,171096,351,
+722511,state,2016Q3,,7616,171193,362,
+722511,state,2016Q4,,7695,169679,358,
+7225,state,2014Q1,,15523,307602,304,
+7225,state,2014Q2,,15610,322727,314,
+7225,state,2014Q3,,15827,323375,310,
+7225,state,2014Q4,,15904,324060,322,
+7225,state,2015Q1,,16152,322508,297,
+7225,state,2015Q2,,16335,336238,304,
+7225,state,2015Q3,,16457,336756,305,
+7225,state,2015Q4,,16597,336603,319,
+7225,state,2016Q1,,16611,336168,304,
+7225,state,2016Q2,,16891,352535,309,
+7225,state,2016Q3,,16992,350550,322,
+7225,state,2016Q4,,17252,350324,318,
+10,state,2014Q1,,277494,3.94053e+06,972,
+10,state,2014Q2,,279885,4.02945e+06,882,
+10,state,2014Q3,,281379,4.04707e+06,891,
+10,state,2014Q4,,284575,4.1129e+06,958,
+10,state,2015Q1,,284140,4.0708e+06,989,
+10,state,2015Q2,,287096,4.1452e+06,905,
+10,state,2015Q3,,289295,4.15725e+06,915,
+10,state,2015Q4,,294577,4.23079e+06,1002,
+10,state,2016Q1,,292484,4.18394e+06,1007,
+10,state,2016Q2,,297595,4.26182e+06,929,
+10,state,2016Q3,,299892,4.272e+06,970,
+10,state,2016Q4,,303938,4.33399e+06,993,
+722513,county_sum,2014Q1,31 of 152 counties suppressed,7203,136169,,establishments: all counties; emp: non-suppressed counties only
+722513,county_sum,2014Q2,29 of 152 counties suppressed,7259,145107,,establishments: all counties; emp: non-suppressed counties only
+722513,county_sum,2014Q3,32 of 152 counties suppressed,7300,145382,,establishments: all counties; emp: non-suppressed counties only
+722513,county_sum,2014Q4,39 of 152 counties suppressed,7347,143630,,establishments: all counties; emp: non-suppressed counties only
+722513,county_sum,2015Q1,34 of 152 counties suppressed,7463,142233,,establishments: all counties; emp: non-suppressed counties only
+722513,county_sum,2015Q2,29 of 152 counties suppressed,7522,149204,,establishments: all counties; emp: non-suppressed counties only
+722513,county_sum,2015Q3,27 of 152 counties suppressed,7564,149164,,establishments: all counties; emp: non-suppressed counties only
+722513,county_sum,2015Q4,31 of 152 counties suppressed,7609,149203,,establishments: all counties; emp: non-suppressed counties only
+722513,county_sum,2016Q1,28 of 152 counties suppressed,7653,149881,,establishments: all counties; emp: non-suppressed counties only
+722513,county_sum,2016Q2,29 of 152 counties suppressed,7776,156726,,establishments: all counties; emp: non-suppressed counties only
+722513,county_sum,2016Q3,30 of 152 counties suppressed,7820,154274,,establishments: all counties; emp: non-suppressed counties only
+722513,county_sum,2016Q4,33 of 152 counties suppressed,7974,155878,,establishments: all counties; emp: non-suppressed counties only

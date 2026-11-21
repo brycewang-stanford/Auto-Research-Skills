@@ -12,20 +12,29 @@ Inputs  data/derived/qcew_panel.csv          (a) Georgia's QCEW rows, 2014Q1-201
         runs/select/metrics.json             the selected candidate (checked against the others)
 Output  runs/posthoc/metrics.json, runs/posthoc/georgia.csv
 
-(a) Georgia's 2014-2015 NAICS 722513 weekly-wage drop (results-r1 R1). State facts only, no
-    causal claim. For Georgia (13), NAICS 722513, 722511, 7225 and industry 10 (state rows), and
-    the 722513 county rows, by quarter 2014Q1-2016Q4: disclosure code, establishments, mean
-    monthly employment, average weekly wage; the number of Georgia counties with a 722513 row and
-    with a suppressed one. Year-over-year log changes (quarter t against t-4) of Georgia's 722513
-    weekly wage, employment and establishments, each minus the median over the 51 units of the
-    same change, for 2015Q1-2015Q4; and the largest absolute such wage deviation over every
-    state and quarter 2015Q1-2019Q4 other than Georgia's 2015, for scale.
-(b) The H1 decision-set quantiles without Georgia (results-r1 R1): from runs/level-mde/tests.csv,
-    the T = tau / SE values (SE = max) of statistic h1 in L, Georgia's six removed (54 values);
-    q95 and q975 with numpy method 'higher', q05 and q025 with 'lower', as level-mde computes
-    them; c_hi(p) = max(t_{nu_h1,p}, q) and c_lo(p) = min(-t_{nu_h1,1-p}, q) with level-mde's
-    nu_h1 (unchanged). With these, the one-sided 5% H1 decisions (tau / SE > c_hi(0.95)) for the
-    pooled, year-1 and year-2 wage ATTs of h1-wage, and their 95% and 90% intervals.
+(a) Facts bearing on whether Georgia's 2014-2015 NAICS 722513 weekly-wage drop is a data
+    artifact (results-r1 R1; code-r4 C8). State facts only; the script draws no conclusion. For
+    Georgia (13), NAICS 722513, 722511, 7225 and industry 10 (state rows), and the 722513 county
+    rows, by quarter 2014Q1-2016Q4: disclosure code, establishments, mean monthly employment,
+    average weekly wage (georgia.csv; the county_sum rows give the establishments of all counties
+    and the employment of the non-suppressed counties only). In metrics.json, for 2015Q1-2015Q4
+    and each of the four industries: the year-over-year log change (quarter t against t-4) of
+    Georgia's weekly wage, employment and establishments, and the wage and employment changes
+    minus the median over the 51 units of the same change (state rows); Georgia's weekly wage
+    in 2014Q4 and 2015Q1; the number of suppressed quarters; the number of Georgia counties with
+    a 722513 row and with a suppressed one; and, for scale, the largest absolute 722513 wage
+    deviation over every state and quarter 2015Q1-2019Q4 other than Georgia's 2015.
+(b) The H1 decision-set quantiles with Georgia's own six L tests removed (results-r1 R1; code-r4
+    C6, C7). Only Georgia's six T values in L are removed: Georgia remains a donor and a placebo,
+    in California's SE and in the other L states' SEs. From runs/level-mde/tests.csv, the
+    T = tau / SE values (SE = max) of statistic h1 in L; q95 and q975 with numpy method 'higher',
+    q05 and q025 with 'lower', as level-mde computes them; c_hi(p) = max(t_{nu,p}, q) and c_lo(p) =
+    min(-t_{nu,1-p}, q). Reported for (i) Georgia's L tests removed at level-mde's nu_h1; (ii) the
+    same with nu recomputed from the 49 non-Georgia donors' s_j^2 (Georgia's placebo variance
+    removed from nu only); (iii) leave one L state out, for each of the ten L states in turn, at
+    nu_h1, with whether the removal changes c_hi(0.95) or c_hi(0.975). For each: whether the
+    pooled, year-1 and year-2 H1 t-statistics of h1-wage exceed c_hi(0.95), and for (i) and (ii)
+    the 95% and 90% intervals. None of these is a decision: the pre-specified H1 verdict stands.
 (c) DDT's out-of-fit pre-period evidence (results-r1 R3; identifying_assumption (ii)): the OLS
     slope per calendar quarter of the event-path gap on the quarter index over 2014Q1-2019Q4, for
     employment and wages, its RMS over those quarters, and the implied size over the post window:
@@ -53,15 +62,18 @@ IND = ["722513", "722511", "7225", "10"]
 Q_FIRST, Q_LAST = S.qidx(2014, 1), S.qidx(2016, 4)
 
 
-def qcew_georgia(path=QCEW):
-    """Georgia's state rows (four industries) and 722513 county rows, 2014Q1-2016Q4."""
+def qcew_rows(path=QCEW):
+    """State rows of the 51 units (four industries) and Georgia's 722513 county rows,
+    2014Q1-2016Q4."""
     cols = ["area_fips", "state_fips", "area_level", "industry", "own_code", "year", "qtr",
             "disclosure_code", "suppressed", "establishments", "month1_emplvl", "month2_emplvl",
             "month3_emplvl", "avg_wkly_wage"]
     q = pd.read_csv(path, dtype={"area_fips": str, "state_fips": str, "industry": str,
                                  "own_code": str, "disclosure_code": str}, usecols=cols)
     q["qi"] = 4 * q["year"] + q["qtr"] - 1
-    q = q[(q.state_fips == GA) & q.qi.between(Q_FIRST, Q_LAST) & q.industry.isin(IND)].copy()
+    keep_state = (q.area_level == "state") & q.state_fips.isin(S.ALL51)
+    keep_cty = (q.area_level == "county") & (q.state_fips == GA) & (q.industry == "722513")
+    q = q[(keep_state | keep_cty) & q.qi.between(Q_FIRST, Q_LAST) & q.industry.isin(IND)].copy()
     q["emp"] = q[["month1_emplvl", "month2_emplvl", "month3_emplvl"]].mean(axis=1)
     q["disclosure_code"] = q["disclosure_code"].fillna("")
     return q
@@ -69,84 +81,130 @@ def qcew_georgia(path=QCEW):
 
 def part_a(q, pre):
     m, rows = {}, []
-    st = q[q.area_level == "state"]
+    st_all = q[q.area_level == "state"]
+    st = st_all[st_all.state_fips == GA]
     for ind in IND:
         d = st[st.industry == ind].sort_values("qi")
         for _, r in d.iterrows():
             rows.append({"industry": ind, "level": "state", "quarter": S.qlabel(int(r.qi)),
                          "disclosure_code": r.disclosure_code, "establishments": r.establishments,
-                         "emp": r.emp, "avg_wkly_wage": r.avg_wkly_wage})
+                         "emp": r.emp, "avg_wkly_wage": r.avg_wkly_wage, "note": ""})
         m[f"a_ga_{ind}_rows"] = int(len(d))
         m[f"a_ga_{ind}_suppressed_quarters"] = int(d.suppressed.sum())
     cty = q[(q.area_level == "county") & (q.industry == "722513")]
     for qi, d in cty.groupby("qi"):
         lab = S.qlabel(int(qi))
+        ok = d[d.suppressed == 0]
         rows.append({"industry": "722513", "level": "county_sum", "quarter": lab,
-                     "disclosure_code": f"{int(d.suppressed.sum())} of {len(d)} suppressed",
-                     "establishments": d.establishments.sum(), "emp": d.emp.sum(),
-                     "avg_wkly_wage": np.nan})
+                     "disclosure_code": f"{int(d.suppressed.sum())} of {len(d)} counties suppressed",
+                     "establishments": d.establishments.sum(), "emp": ok.emp.sum(),
+                     "avg_wkly_wage": np.nan,
+                     "note": "establishments: all counties; emp: non-suppressed counties only"})
         m[f"a_ga_722513_counties_{lab}"] = int(len(d))
         m[f"a_ga_722513_counties_suppressed_{lab}"] = int(d.suppressed.sum())
-    # year-over-year log changes against the cross-state median (722513, state rows)
-    s13 = st[st.industry == "722513"].set_index("qi")
+    # year-over-year log changes (t against t-4), Georgia and minus the 51-unit median
+    for ind in IND:
+        d = st_all[st_all.industry == ind]
+        ww = d.pivot(index="qi", columns="state_fips", values="avg_wkly_wage").astype(float)
+        we = d.pivot(index="qi", columns="state_fips", values="emp").astype(float)
+        wn = d.pivot(index="qi", columns="state_fips", values="establishments").astype(float)
+        dw = np.log(ww) - np.log(ww.shift(4))
+        de = np.log(we) - np.log(we.shift(4))
+        dn = np.log(wn) - np.log(wn.shift(4))
+        for k in (1, 2, 3, 4):
+            qi = S.qidx(2015, k)
+            lab = S.qlabel(qi)
+            m[f"a_ga_{ind}_aww_yoy_{lab}"] = float(dw.loc[qi, GA])
+            m[f"a_ga_{ind}_aww_yoy_dev_{lab}"] = float(dw.loc[qi, GA] - dw.loc[qi].median())
+            m[f"a_ga_{ind}_emp_yoy_{lab}"] = float(de.loc[qi, GA])
+            m[f"a_ga_{ind}_emp_yoy_dev_{lab}"] = float(de.loc[qi, GA] - de.loc[qi].median())
+            m[f"a_ga_{ind}_estabs_yoy_{lab}"] = float(dn.loc[qi, GA])
+        for qi in (S.qidx(2014, 4), S.qidx(2015, 1)):
+            m[f"a_ga_{ind}_aww_{S.qlabel(qi)}"] = float(ww.loc[qi, GA])
+    # scale: the largest other |722513 wage deviation| over 2015Q1-2019Q4 (state_panel_pre)
     p = pre.copy()
     p["qi"] = 4 * p["year"] + p["qtr"] - 1
     wide_w = p.pivot(index="qi", columns="state_fips", values="aww_722513")
-    wide_e = p.pivot(index="qi", columns="state_fips", values="emp_722513")
     dw = np.log(wide_w) - np.log(wide_w.shift(4))
-    de = np.log(wide_e) - np.log(wide_e.shift(4))
     dev_w = dw.sub(dw.median(axis=1), axis=0)
-    dev_e = de.sub(de.median(axis=1), axis=0)
-    for y, qq in [(2015, 1), (2015, 2), (2015, 3), (2015, 4)]:
-        qi = S.qidx(y, qq)
-        lab = S.qlabel(qi)
-        m[f"a_ga_aww_yoy_dev_{lab}"] = float(dev_w.loc[qi, GA])
-        m[f"a_ga_emp_yoy_dev_{lab}"] = float(dev_e.loc[qi, GA])
-        m[f"a_ga_estabs_yoy_{lab}"] = float(np.log(s13.loc[qi, "establishments"])
-                                            - np.log(s13.loc[qi - 4, "establishments"]))
-        m[f"a_ga_aww_{lab}"] = float(wide_w.loc[qi, GA])
-        m[f"a_ga_aww_{S.qlabel(qi - 4)}"] = float(wide_w.loc[qi - 4, GA])
-    # scale: the largest other |wage deviation| over 2015Q1-2019Q4
     win = dev_w.loc[S.qidx(2015, 1):S.qidx(2019, 4)].stack()
     ga15 = [(S.qidx(2015, k), GA) for k in (1, 2, 3, 4)]
+    m["a_ga_722513_aww_yoy_dev_2015_min_pre_panel"] = float(min(win.loc[i] for i in ga15))
     other = win.drop(index=[i for i in ga15 if i in win.index])
     big = other.abs().idxmax()
     m["a_largest_other_aww_yoy_dev"] = float(other.loc[big])
     m["a_largest_other_aww_yoy_dev_state"] = str(big[1])
     m["a_largest_other_aww_yoy_dev_quarter"] = S.qlabel(int(big[0]))
-    m["a_ga_aww_yoy_dev_2015_min"] = float(min(m[f"a_ga_aww_yoy_dev_{S.qlabel(i)}"] for i, _ in ga15))
     return m, pd.DataFrame(rows)
+
+
+def h1_checks(prefix, c, m_h1, m, intervals=True):
+    """Whether the pooled, year-1 and year-2 H1 t-statistics exceed c_hi(0.95) under c."""
+    for tag in ("h1", "h1_y1", "h1_y2"):
+        tau, se = float(m_h1[f"{tag}_att"]), float(m_h1[f"{tag}_se"])
+        m[f"{prefix}_{tag}_t_exceeds_chi95"] = int(tau / se > c["hi95"])
+        if intervals:
+            for k, v in S.intervals(tau, se, c).items():
+                m[f"{prefix}_{tag}_{k}"] = float(v)
 
 
 def part_b(tests, m_lvl, m_h1):
     m = {}
-    d = tests[(tests.stat == "h1") & (tests.in_L == 1)]
+    d = tests[(tests.stat == "h1") & (tests.in_L == 1)].copy()
     if len(d) != 60:
         raise ValueError(f"{len(d)} H1 tests in L, expected 60")
-    dx = d[d.unit.astype(str).str.zfill(2) != GA]
-    m["b_n_L_without_ga"] = int(len(dx))
-    m["b_ga_L_tests"] = int(len(d) - len(dx))
-    T = (dx.tau / dx.se).to_numpy()
-    T_ga = (d.tau / d.se)[d.unit.astype(str).str.zfill(2) == GA].to_numpy()
-    m["b_ga_T_max"] = float(T_ga.max())
-    m["b_others_T_max"] = float(T.max())
-    lq = S.l_quantiles(T)
+    d["unit"] = d["unit"].astype(str).str.zfill(2)
+    d["T"] = d.tau / d.se
     nu = float(m_lvl["nu_h1"])
-    c = S.critical_values(nu, lq)
-    for k, v in lq.items():
-        m[f"b_Lq_h1_noga_{k}"] = v
-    for k, v in c.items():
-        m[f"b_crit_h1_noga_{k}"] = v
-        m[f"b_crit_h1_noga_{k}_from_L"] = int(v != S.critical_values(nu)[k])
-        m[f"b_crit_h1_prespecified_{k}"] = float(m_lvl[f"crit_h1_{k}"])
-    m["b_nu_h1"] = nu
+    m["b_nu_h1_prespecified"] = nu
+    pre_c = {k: float(m_lvl[f"crit_h1_{k}"]) for k in ("hi95", "hi975", "lo05", "lo025")}
+    for k, v in pre_c.items():
+        m[f"b_crit_h1_prespecified_{k}"] = v
     for tag in ("h1", "h1_y1", "h1_y2"):
-        tau, se = float(m_h1[f"{tag}_att"]), float(m_h1[f"{tag}_se"])
-        m[f"b_{tag}_t"] = tau / se
-        m[f"b_{tag}_reject_noga"] = S.one_sided_reject(tau, se, c)
-        m[f"b_{tag}_reject_prespecified"] = int(m_h1[f"{tag}_reject"])
-        for k, v in S.intervals(tau, se, c).items():
-            m[f"b_{tag}_noga_{k}"] = float(v)
+        m[f"b_{tag}_t"] = float(m_h1[f"{tag}_att"]) / float(m_h1[f"{tag}_se"])
+        m[f"b_{tag}_t_exceeds_chi95_prespecified"] = int(m_h1[f"{tag}_reject"])
+    ga = d[d.unit == GA]
+    rest = d[d.unit != GA]
+    m["b_gaL_tests_removed"] = int(len(ga))
+    m["b_n_L_remaining"] = int(len(rest))
+    m["b_ga_T_max"] = float(ga["T"].max())
+    m["b_others_T_max"] = float(rest["T"].max())
+    m["b_others_T_max_state"] = str(rest.loc[rest["T"].idxmax(), "unit"])
+    lq = S.l_quantiles(rest["T"].to_numpy())
+    for k, v in lq.items():
+        m[f"b_gaL_Lq_h1_{k}"] = v
+    # (i) Georgia's L tests removed, level-mde's nu_h1
+    c1 = S.critical_values(nu, lq)
+    for k, v in c1.items():
+        m[f"b_gaL_crit_h1_{k}"] = v
+        m[f"b_gaL_crit_h1_{k}_from_L"] = int(v != S.critical_values(nu)[k])
+    h1_checks("b_gaL", c1, m_h1, m)
+    # (ii) also Georgia's placebo variance removed from nu (49 non-Georgia donors)
+    donors = [u for u in S.R50 if u != GA]
+    nu_hat2, nu2 = S.nu_for_donors(m_lvl, "h1", donors)
+    m["b_nu_hat_h1_gaout"] = nu_hat2
+    m["b_nu_h1_gaout"] = nu2
+    m["b_s2_h1_ga_share"] = float(m_lvl[f"s2_h1_{GA}"]) / sum(float(m_lvl[f"s2_h1_{u}"]) for u in S.R50)
+    c2 = S.critical_values(nu2, lq)
+    for k, v in c2.items():
+        m[f"b_gaLnu_crit_h1_{k}"] = v
+    h1_checks("b_gaLnu", c2, m_h1, m)
+    # (iii) leave one L state out, each of the ten in turn, at nu_h1
+    states = sorted(d.unit.unique())
+    m["b_loo_states"] = ",".join(states)
+    changing = []
+    for u in states:
+        lq_u = S.l_quantiles(d.loc[d.unit != u, "T"].to_numpy())
+        c_u = S.critical_values(nu, lq_u)
+        m[f"b_loo_{u}_crit_h1_hi95"] = c_u["hi95"]
+        m[f"b_loo_{u}_crit_h1_hi975"] = c_u["hi975"]
+        ch = int(abs(c_u["hi95"] - pre_c["hi95"]) > 1e-12 or abs(c_u["hi975"] - pre_c["hi975"]) > 1e-12)
+        m[f"b_loo_{u}_changes_chi"] = ch
+        if ch:
+            changing.append(u)
+        h1_checks(f"b_loo_{u}", c_u, m_h1, m, intervals=False)
+    m["b_loo_n_changing"] = len(changing)
+    m["b_loo_changing_states"] = ",".join(changing)
     return m
 
 
@@ -183,15 +241,16 @@ def main():
             raise ValueError(f"{name} used a different candidate")
     m = {"selected": sel, "post_hoc": "D7: report-only, chosen after the results; changes no label"}
     pre = S.read_panel_csv(PRE, pre_only=True)
-    ma, tab = part_a(qcew_georgia(), pre)
+    ma, tab = part_a(qcew_rows(), pre)
     m.update(ma)
     m.update(part_b(pd.read_csv(TESTS, dtype={"unit": str}), m_lvl, m_h1))
     m.update(part_c(pd.read_csv(EVENT)))
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     tab.to_csv(OUT_DIR / "georgia.csv", index=False, float_format="%.6g")
     S.write_json(OUT_DIR / "metrics.json", m)
-    print(f"posthoc: H1 without Georgia c_hi95 {m['b_crit_h1_noga_hi95']:.3f}, pooled reject "
-          f"{m['b_h1_reject_noga']}; drift emp {m['c_emp_slope_2014_2019']:.4f}/q")
+    print(f"posthoc: c_hi95 with Georgia's L tests removed {m['b_gaL_crit_h1_hi95']:.3f}; "
+          f"leave-one-out changes c_hi for {m['b_loo_changing_states'] or 'no state'}; "
+          f"drift emp {m['c_emp_slope_2014_2019']:.4f}/q")
 
 
 if __name__ == "__main__":
