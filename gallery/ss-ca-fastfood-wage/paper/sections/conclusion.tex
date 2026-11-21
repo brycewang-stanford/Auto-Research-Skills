@@ -14,14 +14,18 @@ California-wide shock. The first stage in weekly earnings is not supported at th
 critical value, and two post hoc checks of that verdict pull in opposite directions; the change
 between the two years is uninformative.
 
-The main lesson is about precision, and it was known before the post-period data were read. With
-a standard error that is honest about California being the largest unit and about the few effective
-degrees of freedom of a placebo standard error, the 90 percent interval has a half-width of
-$\HNinetyHTwo$ log points, and this comparison cannot tell a decline of about 3.5 percent from no
+The main lesson is about the cost of conservative inference with one treated state, and it was
+known before the post-period data were read. With the larger of the scaled and unscaled placebo
+standard errors, chosen to protect the level of California's tests, and the few effective degrees
+of freedom of a placebo standard error, the 90 percent interval has a half-width of
+$\HNinetyHTwo$ log points, and this design cannot tell a decline of about 3.5 percent from no
 effect: ``inconclusive'' had probability $\ProbTauAltUndUndet$ under the first and
 $\ProbTauZeroUndUndet$ under the second. The published estimates that disagree are both consistent
-with our interval. Separating them would need more precise data than QCEW state aggregates, more
-treated units, or inference that is valid for California at a smaller cost in width.
+with our interval. The diagnostics show that this maximum is far from tight for California's
+employment statistics, and with the scaled standard error alone the interval would lie below zero;
+but that standard error over-rejects for the largest states in the level check, so the paper does
+not use it. Separating the published readings would need inference that is valid for California
+at a smaller cost in width, more treated units, or more precise data.
 
 \section*{Limitations and deviations from the approved design}
 \label{sec:limitations}
@@ -31,7 +35,11 @@ treated units, or inference that is valid for California at a smaller cost in wi
   \item \emph{Precision.} The design could not reach ``smaller than 2\%'' (Section~\ref{sec:res-power}):
         the pre-period half-width $h_{90} = \HNinetyHTwo$ exceeds $b = 0.02$, and the probability
         of ``inconclusive'' was $\ProbTauZeroUndUndet$ with no effect. The equivalence test therefore
-        cannot separate the published readings, which was part of the study's motivation.
+        cannot separate the published readings, which was part of the study's motivation. The width
+        is set mainly by the pre-specified maximum standard error, which overstates California's
+        pre-period spread ($k = \KDiagHTwo$); with the scaled standard error alone, which
+        over-rejects for large states, the H2 interval would lie below zero
+        (Sections~\ref{sec:res-inference} and~\ref{sec:res-h2}).
   \item \emph{The first stage.} H1's critical value comes from the decision-set quantile, not from
         $t_\nu$; the post hoc checks (Section~\ref{sec:res-posthoc}) show that it is set by one state
         and that the selected estimator's pre-2020 wage counterfactual drifts, and they cannot be
@@ -54,9 +62,6 @@ treated units, or inference that is valid for California at a smaller cost in wi
         and QCEW 722513 may track covered-chain employment poorly across states and over time
         \citep{melo2026covered}. The QCEW counts jobs, not hours. 2026Q1 is preliminary; the
         final-data window drops it.
-  \item \emph{Summary statistics.} The paper has no summary-statistics table, which the
-        social-science track asks for: no run tabulated the outcomes' levels, and the result claims
-        carry only two California levels (Section~\ref{sec:sumstats}).
   \item \emph{Unexplained cross-check differences.} Our fixed-horizon replication of Clemens and
         coauthors differs from their print by $\CemnFhSimpleDiff$ and $\CemnFhDetrDiff$ index points,
         and our SDID under Dube's timing differs from his by $\DubeTimingEmpDiff$ ($100\times$ log
@@ -69,7 +74,7 @@ treated units, or inference that is valid for California at a smaller cost in wi
 
 \paragraph{Deviations from the approved design.} The first four are departures the approved design
 itself makes from the track rules and the published specifications (Section~\ref{sec:departures});
-the last three arose while the runs were made.
+the last four arose while the runs were made or the paper was written.
 \begin{enumerate}
   \item[D1.] Standard errors are not clustered at the level of treatment: with one treated state,
         cluster-robust standard errors are invalid; placebo-based inference with a pre-specified
@@ -102,6 +107,14 @@ the last three arose while the runs were made.
         compare values stored at ten significant digits with a tolerance of $10^{-12}$; no claim uses
         them, the statement that only Georgia moves the critical value rests on the critical values
         themselves, and a clean rerun reproduces the same flags.
+  \item[D8.] Descriptive and report-only: run \cand{describe}, added at the paper stage after the
+        paper review asked for a summary-statistics table, produces only the levels of
+        Table~\ref{tab:sumstats} (means of employment, average weekly wage and establishments for
+        California and the two pools, and sample sizes) and no statistic comparing California with
+        another unit or one period with another. The code review rounds had been used, so it was
+        run without a code review, with the human PI's agreement; the ledger counts it among the
+        analysis runs not covered by a passing code review. It feeds the table only and changes no
+        label.
 \end{enumerate}
 
 \paragraph{How the results were checked.} The results were reviewed in \CrewRoundsResults{} rounds

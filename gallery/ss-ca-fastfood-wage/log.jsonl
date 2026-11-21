@@ -180,3 +180,6 @@
 {"time": "2026-11-21T15:37:41Z", "role": "econometrician", "action": "run", "detail": "describe exit=0"}
 {"time": "2026-11-21T15:38:15Z", "role": "econometrician", "action": "run", "detail": "describe (D8) run once, --unreviewed (human agreed): levels table for CA, R50, D20, pre and post; e-describe done"}
 {"time": "2026-11-21T15:38:15Z", "role": "econometrician", "action": "claims", "detail": "D8: 44 r-desc-* claims; paper-r1 P1: r-k-*-ses/-sen (12), r-h2-emp-fp-a/-b/-se, r-h2-ses-only; tercile and CA rate claims already existed; crew.py numbers run"}
+{"time": "2026-11-21T15:38:44Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261121T153844Z (paper-r1 P1 P3)"}
+{"time": "2026-11-21T15:38:44Z", "role": "pi", "action": "brief-archived", "detail": "replicator 20261121T153844Z (rp-rerun-2)"}
+{"time": "2026-11-21T15:41:03Z", "role": "writer", "action": "paper-r1-fixes", "detail": "paper-r1 P1 (SE choice diagnostics table, SE_s-only report-only note, precision lesson narrowed to this design's conservative inference in abstract, intro, conclusion) and P3 (summary-statistics table from r-desc-*, D8 listed, limitation dropped); responses in review.json; numbers rerun; main.pdf 41 pages; no label changed"}

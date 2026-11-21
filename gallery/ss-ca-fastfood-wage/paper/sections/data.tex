@@ -1,8 +1,7 @@
 % Data. States no result. Sources: plan.json design.data and design.method (OUTCOMES, SEASONAL
 % ADJUSTMENT), data/CODEBOOK.md (counts and checks only), sources/notes.md sections 5, 9-12.
-% The design plans no run that tabulates summary statistics of the outcomes. After the results
-% gate the result claims carry only two California levels (CaEmpPost, AwwCaBase), too few for a
-% table; the paper says so and lists it as a limitation (no new run, per the PI's brief).
+% Summary statistics: Table tab:sumstats from the r-desc-* claims of run describe (deviation D8,
+% added after paper-r1 P3; levels only, unreviewed with the human's agreement).
 \section{Data}
 \label{sec:data}
 
@@ -106,14 +105,54 @@ that computes no statistic comparing states or periods.
 \subsection{Summary statistics}
 \label{sec:sumstats}
 
-The social-science track asks for a table of summary statistics. The design planned no run that
-tabulates levels of the outcomes, and the result claims carry only two levels, both for
-California: mean private 722513 employment over the post window 2024Q2--2026Q1, $\CaEmpPost$ jobs
-(published, not seasonally adjusted), which converts the employment effect into jobs, and the
-average weekly wage in the base quarter 2023Q3, \$$\AwwCaBase$, which converts the wage effect
-into dollars. They are too few for a table: no claim gives donor levels, pre-period means or
-dispersion. We did not add a run after the results gate to produce them, so the paper has no
-summary-statistics table; this is listed among the limitations (Section~\ref{sec:limitations}).
+Table~\ref{tab:sumstats} gives the levels of private 722513 employment, average weekly wage and
+establishments for California and the two donor pools, over the fit window and the post window.
+It is descriptive only: the run that produced it, \cand{describe}, was added at the paper stage
+after the paper review asked for the table (deviation D8), computes no statistic comparing
+California with another unit or one period with another, and was run without a code review with
+the human PI's agreement, because the code review rounds had been used. California's mean
+employment is several times that of the average donor state in either pool, and its weekly wage
+is higher in both windows; this is why the estimators work with logs and why California's level
+of log employment lies outside the donors' convex hull (Section~\ref{sec:candidates}). The table
+reports means, not dispersion or population, which the run does not compute. The two California
+levels used for conversions elsewhere are the post-window mean employment in the table and the
+2023Q3 average weekly wage, \$$\AwwCaBase$.
+
+\begin{table}[tbp]
+\centering
+\caption{Summary statistics: private NAICS 722513, California and the donor pools}
+\label{tab:sumstats}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+& \multicolumn{2}{c}{California} & \multicolumn{2}{c}{R50} & \multicolumn{2}{c}{D20} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(l){6-7}
+& Fit & Post & Fit & Post & Fit & Post \\
+\midrule
+Employment per state, mean & \DescCAEmpMeanPre & \DescCAEmpMeanPost & \DescRFiftyEmpMeanPre & \DescRFiftyEmpMeanPost & \DescDTwentyEmpMeanPre & \DescDTwentyEmpMeanPost \\
+Employment, pool total & & & \DescRFiftyEmpTotalPre & \DescRFiftyEmpTotalPost & \DescDTwentyEmpTotalPre & \DescDTwentyEmpTotalPost \\
+Average weekly wage (\$) & \DescCAAwwPre & \DescCAAwwPost & \DescRFiftyAwwPre & \DescRFiftyAwwPost & \DescDTwentyAwwPre & \DescDTwentyAwwPost \\
+Establishments per state, mean & \DescCAEstMeanPre & \DescCAEstMeanPost & \DescRFiftyEstMeanPre & \DescRFiftyEstMeanPost & \DescDTwentyEstMeanPre & \DescDTwentyEstMeanPost \\
+Establishments, pool total & & & \DescRFiftyEstTotalPre & \DescRFiftyEstTotalPost & \DescDTwentyEstTotalPre & \DescDTwentyEstTotalPost \\
+\addlinespace
+States & \DescCANStatesPre & \DescCANStatesPost & \DescRFiftyNStatesPre & \DescRFiftyNStatesPost & \DescDTwentyNStatesPre & \DescDTwentyNStatesPost \\
+Quarters & \DescCANQuartersPre & \DescCANQuartersPost & \DescRFiftyNQuartersPre & \DescRFiftyNQuartersPost & \DescDTwentyNQuartersPre & \DescDTwentyNQuartersPost \\
+State-quarters & \DescCANObsPre & \DescCANObsPost & \DescRFiftyNObsPre & \DescRFiftyNObsPost & \DescDTwentyNObsPre & \DescDTwentyNObsPost \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\begin{minipage}{\linewidth}\footnotesize
+\emph{Notes:} Run \cand{describe} (deviation D8; descriptive, levels only; run without a code
+review with the human PI's agreement). Fit window: 2014Q1--2019Q4 and 2022Q1--2023Q3 (31
+quarters); post window: 2024Q2--2026Q1 (8 quarters; 2026Q1 preliminary). Employment and
+establishments: quarterly means of the published, not seasonally adjusted state values, per state
+or summed over the pool. Average weekly wage: summed quarterly wages divided by 13 times summed
+employment, nominal dollars. R50: the 50 other units; D20: the 20 federal-minimum states.
+California is in neither pool.
+\end{minipage}
+\end{table}
 
 \subsection{Comparison pools}
 \label{sec:pools}
