@@ -1,0 +1,13 @@
+{
+ "checksum_rmse": 0.5354482586876013,
+ "checksum_tau": 3.11328543440771,
+ "input_last_quarter": "2019Q4",
+ "n_candidates": 24,
+ "n_pseudo_dates": 6,
+ "n_tied_at_4dp": 1,
+ "selected": "DDT-POPW-E-R50",
+ "selected_rank": 1,
+ "tie_used": 0,
+ "xlim_rmse_high": 3.932888568569981,
+ "xlim_tau": 3.78395096292
+}

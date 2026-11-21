@@ -131,3 +131,11 @@
 {"time": "2026-11-21T12:06:46Z", "role": "figures-ra", "action": "code-r2-C4-C5-fixed", "detail": "fig_event.py reads runs/h1-wage/metrics.json (selected, nu, h1_c_hi95, h1_c_hi975); panel (b) caption states H1's one-sided critical values, that the wage bands use the H2 values and whether they are narrower than the H1 test (computed), and that a band excluding zero is not evidence against the H1 verdict; bands not redrawn; both captions' Generated-from lines list every file read; CAPTIONS.md inputs updated; synthetic harness rerun with real h1_wage.py (both comparison branches, mismatched h1-wage refused); no study data, no figure run"}
 {"time": "2026-11-21T12:06:59Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T120659Z (code-r3)"}
 {"time": "2026-11-21T12:08:24Z", "role": "reviewer", "action": "review-recorded", "detail": "code-r3 verdict=pass files=34"}
+{"time": "2026-11-21T12:08:55Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261121T120855Z (f-figs)"}
+{"time": "2026-11-21T12:09:10Z", "role": "figures-ra", "action": "run", "detail": "fig-select exit=0"}
+{"time": "2026-11-21T12:09:11Z", "role": "figures-ra", "action": "run", "detail": "fig-event exit=0"}
+{"time": "2026-11-21T12:09:11Z", "role": "figures-ra", "action": "run", "detail": "fig-placebo exit=0"}
+{"time": "2026-11-21T12:09:13Z", "role": "reviewer", "action": "review-recorded", "detail": "results-r1 verdict=revise files=47"}
+{"time": "2026-11-21T12:09:41Z", "role": "figures-ra", "action": "figures-run", "detail": "f-figs: runs fig-select, fig-event, fig-placebo (analysis, figures-ra, scripts and figlib.py as --code, every input declared, as CAPTIONS.md lists); outputs paper/figures/fig_{select,event,placebo}.pdf and .caption.md; each PDF looked at once; selected DDT-POPW-E-R50, no SDID floor, wage bands narrower than the H1 test (caption says so)"}
+{"time": "2026-11-21T12:09:49Z", "role": "figures-ra", "action": "task-done", "detail": "f-figs set to done in plan.json"}
+{"time": "2026-11-21T12:10:21Z", "role": "pi", "action": "deviation-recorded", "detail": "D7 post hoc report-only checks after results-r1 (Georgia series, H1 quantiles without Georgia, 2014-2019 drift); contribution narrowed (R2)"}

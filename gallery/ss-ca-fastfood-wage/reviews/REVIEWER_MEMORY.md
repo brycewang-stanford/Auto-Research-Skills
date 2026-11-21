@@ -182,3 +182,23 @@ Check next time (results/paper):
 - The paper does not read panel (b) as a wage effect; the strongest remaining objection is that the picture still shows bands at H2's 2.14, so a referee may ask for H1's values.
 - The caption's comparison sets per-quarter gap/SE against the pooled-test threshold; the text should not repeat it as a per-quarter test.
 - Still open from code-r2: S2's reused-weights wage effect not presented as overturning H1; \SelBestDDRmse for the typed 0.0240.
+
+## results-r1 (2026-11-21, verdict revise)
+
+New: R1-R3 major; R4-R8 minor. No critical finding. code-r1 process items checked: select ran once (no runs/.superseded/select-*), on state_panel_pre.csv only, with test_sclib.py in --code. level-mde (11:54:05Z) preceded every post run (11:55:50Z onward). Every post run read select and level-mde metrics and ran once. D5 was recorded (11:53:27Z) before h1-wage. Validate passes with 2 warnings. One of them is literature.tex:44, where 0.0240 is Melo's SE, written before select ran: a coincidence that needs `% crew:literal`.
+
+What I did (report-only, from run outputs and data/derived; no new estimator runs): read tests.csv by unit; computed the L quantiles without GA; took yoy aww deviations from the cross-state median; fitted OLS slopes of the event-path 2014-2019 segment. Script in scratch rv-r1/write_review.py.
+
+Suspicions:
+- R1 is the big one. Georgia's 722513 aww drops about 15 log points in 2014→2015 (yoy deviation -0.15 to -0.17; the next largest in the panel is FL at -0.078). It produces all four top L wage t-values (2016Q1-Q4), so it alone sets crit_h1 at 3.45/4.32. Watch for two opposite errors: (a) the paper reading 'H1 not supported' as 'no first stage'; (b) someone dropping GA or changing the rule after seeing this. The verdict must stay as pre-specified; only disclosure and a report-only check are legitimate.
+- In other statistics, one state drives the L tails too (TN for S1/op/H3 lower, IN for S2 lower). No label changes there. "20 effective draws in L" is really about ten states with correlated windows.
+- S2's California pseudo-ATTs average +0.029 (k 1.86, 4/6 upper rejections). Do not let S2's narrow interval or its wage interval [0.035, 0.116] be used as independent support.
+- The design's own named DDT out-of-fit evidence (the 2014-2019 event-path segment) drifts: emp slope 0.0023/q, wage 0.0085/q. Only the in-fit RMS is claimed.
+- Brief inconsistency: the archived brief (20261121T120101Z-reviewer.md) says the parallel Reviewer reviews 'results'; the PI's message says code. code-r2's brief was archived at the same second. Check which target that review has.
+
+Check next round:
+- `crew.py changes <ws> results`. Look for new text claims for R1 (GA sets crit_h1; h1_p_upper_tnu next to the verdict), R3 (2014-2019 segment), R5 (sign) and R6 (ca_h1_* claimed).
+- Any new metric (event_path.py, level_mde.py) needs a passing code review that read the changed script before it runs. Check run.json code_review and that no post run was --replace'd to change a label.
+- plan.json contribution no longer says the bound 'separates the two published readings' (R2).
+- f-figs is still todo. The figure scripts changed after code-r1 (C3, 11:56Z), so fig runs need code-r2.
+- Paper stage: the abstract shows S1/S2 labels with the R4 caveat; no 'no first stage' wording; no 'robust' wording (all checks inconclusive, n_not_robust 0 because every sign category is 'undetermined', not because estimates agree).

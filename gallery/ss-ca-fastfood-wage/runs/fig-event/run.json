@@ -1,0 +1,84 @@
+{
+  "id": "fig-event",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    "python3",
+    "code/fig_event.py"
+  ],
+  "started": "2026-11-21T12:09:10Z",
+  "finished": "2026-11-21T12:09:11Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_event.py",
+      "sha256": "f5d5b9a86ce15f3cef85fd58327d507ddc4c26ea845023701a14b8bd9735da0d"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "b4e1aa4b230279b582063c5a9dc624cf83dc6afc59fb05558ebeec59cece22bd"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/event-path/event_path.csv",
+      "sha256": "264204e66518e2bffe8955a92312605965c1de6a1a64b72079338aefc74e3bec"
+    },
+    {
+      "path": "runs/event-path/metrics.json",
+      "sha256": "930ce488636fa44577b415018a5afc4a094886552ab598583def7b2d91ade34d"
+    },
+    {
+      "path": "runs/level-mde/metrics.json",
+      "sha256": "0e8e22b9bee71df851d7404578ec5ef5e58f02b43409d52b896cd7e7bbe204fc"
+    },
+    {
+      "path": "runs/h1-wage/metrics.json",
+      "sha256": "0868aaab58079c555f3a8f548376b6e5a56199324bbd5e2e622f0e4222c7d864"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_event.pdf",
+      "sha256": "2469f7ab9fb82c3b2f477ddcef81e60bc9a4e46e922521e9f7fbf796bdb2c474"
+    },
+    {
+      "path": "paper/figures/fig_event.caption.md",
+      "sha256": "b83f79d032beb37e1860eecbfe3e5baabc718744ed46fd0059b784c9b8645933"
+    },
+    {
+      "path": "runs/fig-event/metrics.json",
+      "sha256": "19d0889c2f5235e326865bcc7350dd148baddb6584cc8217e25144126cf99e17"
+    }
+  ],
+  "metrics": {
+    "checksum_emp": -3.2618628250542,
+    "checksum_wage": -7.33440483792931,
+    "figure_case": "DDT",
+    "first_quarter": "2014Q1",
+    "h1_c_hi95": 3.4487049200511763,
+    "h1_c_hi975": 4.320439652247919,
+    "in_fit_marked": 0,
+    "last_quarter": "2026Q1",
+    "n_covid": 8,
+    "n_in_fit": 31,
+    "n_post": 8,
+    "n_quarters": 49,
+    "nu": 14.063590747166092,
+    "sdid_floor": 0,
+    "sdid_floor_binding": "",
+    "selected": "DDT-POPW-E-R50",
+    "wage_band_narrower_than_h1_test": 1,
+    "ylim_emp_high": 29.895616826,
+    "ylim_emp_low": -39.037018066,
+    "ylim_wage_high": 27.661212638000002,
+    "ylim_wage_low": -53.480009238
+  },
+  "metrics_file": "runs/fig-event/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  },
+  "code_review": "code-r3"
+}

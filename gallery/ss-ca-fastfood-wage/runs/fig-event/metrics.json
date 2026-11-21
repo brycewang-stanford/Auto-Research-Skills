@@ -1,0 +1,23 @@
+{
+ "checksum_emp": -3.2618628250542,
+ "checksum_wage": -7.33440483792931,
+ "figure_case": "DDT",
+ "first_quarter": "2014Q1",
+ "h1_c_hi95": 3.4487049200511763,
+ "h1_c_hi975": 4.320439652247919,
+ "in_fit_marked": 0,
+ "last_quarter": "2026Q1",
+ "n_covid": 8,
+ "n_in_fit": 31,
+ "n_post": 8,
+ "n_quarters": 49,
+ "nu": 14.063590747166092,
+ "sdid_floor": 0,
+ "sdid_floor_binding": "",
+ "selected": "DDT-POPW-E-R50",
+ "wage_band_narrower_than_h1_test": 1,
+ "ylim_emp_high": 29.895616826,
+ "ylim_emp_low": -39.037018066,
+ "ylim_wage_high": 27.661212638000002,
+ "ylim_wage_low": -53.480009238
+}

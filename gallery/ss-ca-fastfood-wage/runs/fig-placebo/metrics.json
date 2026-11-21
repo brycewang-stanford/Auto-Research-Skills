@@ -1,0 +1,13 @@
+{
+ "J": 50,
+ "checksum_ca": -0.14746007649064258,
+ "checksum_placebos": 0.5658758303457,
+ "implied_pop_ca": 39204508.711138844,
+ "nu": 14.063590747166092,
+ "sdid_floor": 0,
+ "sdid_floor_binding": "",
+ "se_is_scaled": 0,
+ "selected": "DDT-POPW-E-R50",
+ "xlim_high": 12.775799502850012,
+ "xlim_low": -11.914964737016877
+}

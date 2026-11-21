@@ -1,0 +1,70 @@
+{
+  "id": "fig-placebo",
+  "role": "figures-ra",
+  "kind": "analysis",
+  "command": [
+    "python3",
+    "code/fig_placebo.py"
+  ],
+  "started": "2026-11-21T12:09:11Z",
+  "finished": "2026-11-21T12:09:11Z",
+  "exit_code": 0,
+  "code": [
+    {
+      "path": "code/fig_placebo.py",
+      "sha256": "2dcfa8dccd73562f4fc7688c10280918389d7cbe1b5214673b2fcdb7e4d771cd"
+    },
+    {
+      "path": "code/figlib.py",
+      "sha256": "b4e1aa4b230279b582063c5a9dc624cf83dc6afc59fb05558ebeec59cece22bd"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "runs/h2-emp/placebos.csv",
+      "sha256": "35d8dc22ba38734a29a71c06bd8127e6b932772fddcaba53f8423591bd1846d7"
+    },
+    {
+      "path": "runs/h2-emp/metrics.json",
+      "sha256": "78d42fbcd13e0227c0d69157e2e0834a1cd5b30ef1b7fa86e190ed829dd6a43e"
+    },
+    {
+      "path": "runs/level-mde/metrics.json",
+      "sha256": "0e8e22b9bee71df851d7404578ec5ef5e58f02b43409d52b896cd7e7bbe204fc"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "paper/figures/fig_placebo.pdf",
+      "sha256": "20a5cbcc98407dccdd6a9f0c65dc79781165370c857cc7338f8a2cb7c42a0162"
+    },
+    {
+      "path": "paper/figures/fig_placebo.caption.md",
+      "sha256": "c27dfbc423b1093be67e16efcbf5c6f5511b355ade9e96d18f41ae5f9f905aff"
+    },
+    {
+      "path": "runs/fig-placebo/metrics.json",
+      "sha256": "078922dade820d56f7a8d27dffbcc18e09b2842afd1dcb8e034f0622cc4964fe"
+    }
+  ],
+  "metrics": {
+    "J": 50,
+    "checksum_ca": -0.14746007649064258,
+    "checksum_placebos": 0.5658758303457,
+    "implied_pop_ca": 39204508.711138844,
+    "nu": 14.063590747166092,
+    "sdid_floor": 0,
+    "sdid_floor_binding": "",
+    "se_is_scaled": 0,
+    "selected": "DDT-POPW-E-R50",
+    "xlim_high": 12.775799502850012,
+    "xlim_low": -11.914964737016877
+  },
+  "metrics_file": "runs/fig-placebo/metrics.json",
+  "env": {
+    "crew_python": "3.14.6",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "command_executable": "python3"
+  },
+  "code_review": "code-r3"
+}
