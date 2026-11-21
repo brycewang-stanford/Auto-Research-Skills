@@ -29,3 +29,6 @@
 {"time": "2026-11-21T05:22:00Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T052200Z (question-r4)"}
 {"time": "2026-11-21T05:24:59Z", "role": "reviewer", "action": "review-recorded", "detail": "question-r4 verdict=pass files=10"}
 {"time": "2026-11-21T05:25:23Z", "role": "pi", "action": "gate-request", "detail": "question"}
+{"time": "2026-11-21T05:35:16Z", "role": "pi", "action": "gate-approve", "detail": "question Bryce Wang"}
+{"time": "2026-11-21T05:35:37Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261121T053537Z (design)"}
+{"time": "2026-11-21T05:35:37Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T053537Z (literature-r1)"}

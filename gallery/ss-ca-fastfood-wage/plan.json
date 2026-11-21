@@ -29,9 +29,12 @@
   ],
   "gates": {
     "question": {
-      "status": "requested",
+      "status": "approved",
       "requested_on": "2026-11-21T05:25:23Z",
-      "summary": "AB 1228 eight-quarter effect on CA NAICS 722513 employment (H2, sign x size rule, b=2%), weekly-earnings first stage (H1), year two vs year one (H3); pre-specified not blind; one new preliminary quarter. Reviewer question-r4: pass; F15, F16 minor carried to the design stage."
+      "summary": "AB 1228 eight-quarter effect on CA NAICS 722513 employment (H2, sign x size rule, b=2%), weekly-earnings first stage (H1), year two vs year one (H3); pre-specified not blind; one new preliminary quarter. Reviewer question-r4: pass; F15, F16 minor carried to the design stage.",
+      "decided_by": "Bryce Wang",
+      "decided_on": "2026-11-21T05:35:16Z",
+      "note": "批准 question 门 (AskUserQuestion answer, 2026-11-21)"
     },
     "design": {
       "status": "pending"
