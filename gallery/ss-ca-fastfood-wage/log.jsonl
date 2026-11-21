@@ -94,3 +94,4 @@
 {"time": "2026-11-21T09:21:47Z", "role": "econometrician", "action": "run", "detail": "check-methods exit=0"}
 {"time": "2026-11-21T09:22:45Z", "role": "econometrician", "action": "check-methods-rerun", "detail": "e-check-r2: code to design.method C1-C5 (SDID floor q_cal, i-SC-1/i-SC-2, select.py -> select_rule.py without prologue, sc_solver_gap, verdict reads plc-nonff, matplotlib 3.11.2 and wrapt 2.5.2 pinned); check-methods rerun --replace: (i) (ii) (iii) (v) pass, (a) pass, (a-SDID) pass, (b) fails in SDID-E/D20/heteroA/rho0 as recorded in C2; every first-run (iv) rate reproduced exactly (80 cells x 21 columns, 884 metrics)"}
 {"time": "2026-11-21T09:23:21Z", "role": "pi", "action": "gate-request", "detail": "design"}
+{"time": "2026-11-21T11:41:48Z", "role": "pi", "action": "gate-approve", "detail": "design Bryce Wang"}
