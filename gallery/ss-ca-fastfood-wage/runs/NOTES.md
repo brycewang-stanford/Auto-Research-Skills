@@ -11,7 +11,21 @@
    record is under runs/.superseded/). Code: test_sclib.py, sclib.py, select_rule.py (renamed from
    select.py, C4), level_mde.py; same inputs. Results: "check-methods rerun (e-check-r2)" below.
 
-No analysis run has been made (the design gate is pending).
+3. `select` (analysis, after the design gate and code-r1 pass; code select_rule.py, sclib.py,
+   test_sclib.py; input state_panel_pre.csv only). Run once. Selected DDT-POPW-E-R50 (RMSE 0.0112,
+   max |tau| 0.0154; no tie). Runner-up DDT-AGG-E-R50 (0.0125). Best of the other families:
+   SC-E-D20 0.0191, SDID-E-D20 0.0200, DD-POPW-E-R50 0.0240. SC solver gaps <= 6.6e-7.
+   As T17 anticipates, an R50 and DDT winner may reflect California's shared 2014-2022 general
+   minimum-wage ramp.
+4. `level-mde` (analysis; code level_mde.py, sclib.py; inputs state_panel_pre.csv,
+   runs/select/metrics.json, runs/check-methods/metrics.json and mc_rates.csv). nu_h2 14.06,
+   MDE_h2 0.092, h90_h2 0.054 (above b = 0.02, so 'no effect as large as 2%' is unreachable at
+   the pre-period SE), MDE_h3 0.065 > 0.04, so h3_informative = 0 and H3 will be reported as
+   uninformative whatever its estimate. Surprises: the H1 (wage) L quantiles are large
+   (c_hi(0.95) 3.45, c_hi(0.975) 4.32, both from L), which makes MDE_h1 0.148; the S2 run had
+   29 of 5,052 weight solves with a KKT residual above 1e-6 (max 3.0e-6; report-only).
+
+No run that reads a post-2023Q3 outcome has been made.
 
 ## check-methods rerun (e-check-r2)
 

@@ -102,3 +102,6 @@
 {"time": "2026-11-21T11:53:27Z", "role": "pi", "action": "deviation-recorded", "detail": "code-r1 C1 (yearly H1 wage tests use pooled critical values) and C2 (wrapt pin) recorded as design deviations before any analysis run"}
 {"time": "2026-11-21T11:53:40Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T115340Z (e-select e-level-mde)"}
 {"time": "2026-11-21T11:53:40Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261121T115340Z (code-r1 C3)"}
+{"time": "2026-11-21T11:53:59Z", "role": "econometrician", "action": "run", "detail": "select exit=0"}
+{"time": "2026-11-21T11:54:13Z", "role": "econometrician", "action": "run", "detail": "level-mde exit=0"}
+{"time": "2026-11-21T11:54:36Z", "role": "econometrician", "action": "run", "detail": "select: DDT-POPW-E-R50 selected (RMSE 0.0112; runner-up DDT-AGG-E-R50 0.0125; no tie); level-mde: nu_h2 14.06, MDE_h2 0.092, h90_h2 0.054, MDE_h3 0.065 (h3 uninformative), S2 with D20 SDID floor; e-select and e-level-mde done"}

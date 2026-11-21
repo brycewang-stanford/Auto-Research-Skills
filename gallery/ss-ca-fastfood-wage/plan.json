@@ -197,13 +197,13 @@
       "id": "e-select",
       "title": "Run select (analysis_plan 1): first analysis run, truncated input only, run once",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-level-mde",
       "title": "Run level-mde (analysis_plan 2) before any post-period run",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-h1",
