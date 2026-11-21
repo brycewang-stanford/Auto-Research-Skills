@@ -107,3 +107,16 @@ Check next time (paper stage):
 - The related-work and H2 text use the revised Clemens et al. range and the corrected elasticity wording (L5, L9); 'separates the two readings' narrowed to the medians.
 - Disclosure covers the wage index (L10); limits carry Melo's measurement objection (L11).
 - Still only data-prep runs as of literature-r2 (fetch-data replaced once; .superseded/fetch-data-20261121T044556Z).
+
+## design-r2 (2026-11-21, verdict pass)
+
+D1-D7 resolved. New, all minor and open: D8 (California in every L unit's donor and placebo sets, so L carries its MW ramp and is weak at detecting size-related over-rejection; it can only widen intervals), D9 (H1 still says level-mde 'shows ... attain the stated level'; the design says California's level is argued, not measured), D10 (rob-pre-ab257 '9 quarters' lists 10; S1's 2021Q3 trend endpoint contradicts 'COVID never used in any trend'; I missed both in r1), D11 (check (ii) on 2022Q1-2023Q3 is in-sample for DDT/SC/SDID), D12 (Monte Carlo has homogeneous sigma_A; heterogeneous donor variances cut the effective df below J).
+
+Verified myself: the max-SE expectation algebra; numpy quantile indices for 60 values; the DOL WHD history table (Internet Archive copy, sha256 6e8c87edc35ab245 matches sources.json; copy in scratch rv-d2/dl): all 20 D20 states constant 2014-2024, WV changes 2015, VA constant to 2020, NV unchanged 2014-2019. Local MWs (Iowa counties, Louisville and Lexington) not in the table; IA and KY are not in L. Runs: still only data-prep (fetch-data, prepare-data, fetch-pop, fetch-prop99, prepare-state); one superseded fetch-data (04:45Z), and its replacement has identical data hashes (197 of 198 outputs match; the 198th is the metrics file).
+
+Check next time (code review):
+- level_mde.py: whether D8 was taken (California excluded from L units' donors) and how T is computed for L (SE = max); quantile methods 'higher' and 'lower'.
+- select.py and level_mde.py refuse any quarter after 2019Q4; check-methods (iv) pass condition fixed in the script before it runs; scaled-only rates reported.
+- rob-pre-ab257 trend points match whatever D10 fixes; sec-cemn's 2021Q3 endpoint.
+- The elasticity denominator reuses the employment fit (D5); verdict.py's 'not robust' uses sign category only (paper review: watch size-label differences).
+- Paper stage: the event-path figure is not called a pre-trend test for a DDT, SC or SDID winner (D11); H1 wording (D9).
