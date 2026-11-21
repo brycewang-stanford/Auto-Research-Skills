@@ -5,7 +5,5 @@
   "first_quarter": "2014Q1",
   "last_quarter": "2026Q1",
   "total_bytes": 288941864,
-  "total_rows": 1503889,
-  "n_files_pinned_in_manifest": 0,
-  "n_files_matching_manifest": 0
+  "total_rows": 1503889
 }

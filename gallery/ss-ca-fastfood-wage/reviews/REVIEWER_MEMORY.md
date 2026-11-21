@@ -94,3 +94,16 @@ Check next round:
 - D2: the threshold tied to nominal, or calibrated/conservative always.
 - D3: a threat entry; level-check treated units restricted to states with no minimum-wage change in 2014-2019, or rates reported for them.
 - Still no analysis runs before the gate; select reads only state_panel_pre.csv.
+
+## literature-r2 (2026-11-21, verdict pass)
+
+L1-L4, L6, L7 resolved. L5 still open (minor). New, all minor and open: L8 (stale notes.md 1.4 and 3), L9 (bound cites the superseded one-year Clemens range; the revised two-year range starts at -2.02, on the bound), L10 (disclosure omits Steier's public 2026Q1 weekly-pay index 114.8 vs 104.3, H1's outcome), L11 (Melo's argument that QCEW 722513 tracks covered employment poorly across donor states, -8 to +17 points, missing from the limits and T9-T10).
+
+Correction to my own round 1: my L5 remedy ('the least negative of Clemens et al.'s estimates') was imprecise. The PI wrote 'the least negative of the elasticities Clemens et al. report', which is false: w34033 rev. p. 12 gives -0.17 (QWI, one year). Lesson again: check the remedy's wording against the full source before proposing it.
+
+Verified myself (scratch rv-lit2/dl; every sha256 prefix matches sources.json): FPP 14.3% (PDF p. 17), ADH 1/39 = 0.026 and in-time placebos, Abadie 2021 pages 406/409/410/414, Ballotpedia AB 257 dates, Steier values and datePublished, DIR $20.00 page, EPI quote, Wiltshire, NRL, Thornberg, Card-Krueger, RS 2024. Crossref for 11 DOIs matches refs.bib. Web search: no causal 2026Q1 study.
+
+Check next time (paper stage):
+- The related-work and H2 text use the revised Clemens et al. range and the corrected elasticity wording (L5, L9); 'separates the two readings' narrowed to the medians.
+- Disclosure covers the wage index (L10); limits carry Melo's measurement objection (L11).
+- Still only data-prep runs as of literature-r2 (fetch-data replaced once; .superseded/fetch-data-20261121T044556Z).
