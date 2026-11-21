@@ -1,0 +1,14 @@
+# Python 3.14.6; frozen with pip freeze from a fresh venv (pip install numpy==2.5.3 scipy==1.18.1 pandas==3.0.5 statsmodels==0.15.0), 2026-11-21
+formulaic==1.2.2
+interface_meta==2.0.1
+narwhals==2.29.0
+numpy==2.5.3
+packaging==26.3
+pandas==3.0.5
+patsy==1.0.3
+python-dateutil==4.0.0
+scipy==1.18.1
+statsmodels==0.15.0
+typing_extensions==4.16.0
+tzdata==2026.6
+wrapt==2.6.0.dev1

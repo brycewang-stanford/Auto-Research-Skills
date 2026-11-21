@@ -129,19 +129,19 @@
       "id": "e-code",
       "title": "Write code/sclib.py (outcomes, seasonal adjustment, windows, DD/DDT/SC/SDID, placebo inference with SE = max(scaled, unscaled) and t at nu = min(J, Satterthwaite df from level-mde), level check with L-calibrated critical values (placebo units' donors exclude California), MDE, h90 and label probabilities, plus MDE_h2 and h90 under t_J, report-only), select.py, level_mde.py, h1_wage.py, h2_emp.py, h3_years.py, anticip.py, sec_cemn.py, sec_dube.py, robust.py, placebo_outcome.py, event_path.py, verdict.py and code/requirements.txt, exactly as design.method and analysis_plan specify",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-check",
       "title": "Write code/test_sclib.py and run check-methods (data-prep; Prop 99 and synthetic data only) before the code review (analysis_plan 0f, including the A > 0 and heterogeneous-variance Monte Carlo designs in (iv): hetero-A judged against the t_J rate expected at its Satterthwaite df nu_MC and at t_{nu_MC}; hetero-A-CA2 report-only, at t_J and at t_{nu_MC}, the t_{nu_MC} rate cited in T6)",
       "owner": "econometrician",
-      "status": "todo"
+      "status": "blocked"
     },
     {
       "id": "f-code",
       "title": "Write code/fig_event.py, fig_select.py, fig_placebo.py (reading runs/event-path, runs/select, runs/h2-emp outputs) before the code review",
       "owner": "figures-ra",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "rv-design",
