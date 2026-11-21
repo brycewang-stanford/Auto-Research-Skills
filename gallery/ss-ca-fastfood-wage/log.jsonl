@@ -99,3 +99,6 @@
 {"time": "2026-11-21T11:42:14Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261121T114214Z (w-data-strategy)"}
 {"time": "2026-11-21T11:52:03Z", "role": "writer", "action": "draft", "detail": "w-data-strategy: paper/main.tex skeleton (inputs numbers, process, ai-use) with sections/background.tex, literature.tex, data.tex, strategy.tex; introduction, results, robustness, conclusion, limitations and abstract left as marked stubs; no result stated, no runs/ read beyond check-methods and NOTES.md; compiled (25 pages, body 19); task set done"}
 {"time": "2026-11-21T11:52:43Z", "role": "reviewer", "action": "review-recorded", "detail": "code-r1 verdict=pass files=31"}
+{"time": "2026-11-21T11:53:27Z", "role": "pi", "action": "deviation-recorded", "detail": "code-r1 C1 (yearly H1 wage tests use pooled critical values) and C2 (wrapt pin) recorded as design deviations before any analysis run"}
+{"time": "2026-11-21T11:53:40Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T115340Z (e-select e-level-mde)"}
+{"time": "2026-11-21T11:53:40Z", "role": "pi", "action": "brief-archived", "detail": "figures-ra 20261121T115340Z (code-r1 C3)"}

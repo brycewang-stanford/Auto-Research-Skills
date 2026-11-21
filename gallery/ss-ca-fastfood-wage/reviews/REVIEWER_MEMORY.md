@@ -144,3 +144,16 @@ Check next time (code review):
 - check-methods: hetero-A judged against r at nu_MC; hetero-A-CA2 rates at t_{nu_MC} as well as t_J (D15); no change chosen after the Monte Carlo is seen.
 - Whether D14 got the wording and the t_J MDE/h90 comparison before level-mde runs; if the PI adds a floor on nu, it must be logged before level-mde.
 - That nothing ran sclib.py on data/derived before the gate (the __pycache__ is from an import).
+
+## code-r1 (2026-11-21, verdict pass)
+
+New, all minor and open: C1 (h1-wage's yearly one-sided tests use the pooled h1 critical values and nu, undisclosed; they gate owe_y1/owe_y2), C2 (requirements.txt wrapt 2.5.2 vs approved design text 2.6.0.dev1), C3 (fig_event/fig_placebo captions omit the SDID floor if SDID is selected; stale select.py prologue comments). D14 and D15 are in the code (level-mde mde_h2_tJ/h90_h2_tJ; hetero-A-CA2 at t_nu echoed as cm_).
+
+Read all 24 files in code/ (hashes stamped by crew.py review), plan.json design, runs/NOTES.md, runs/check-methods/run.json (its code hashes equal the current files). No study data read or run. Synthetic-only checks in scratch rv-c1 (tools/build.py, recover.py, infer_check.py, misc_check.py, pipeline.sh): every run script and the three figure scripts execute end to end for a DDT-POPW-P-D20 and an SDID-E-D20 primary (level-mde about 190 s for SDID); all 24 candidates recover a noise-free -0.03 exactly; run path = mc_dd/mc_T to 0 for DD/DDT; label probabilities = simulation; SA full vs pre identical; rob-7225 drops NH and WY (J = 18) and uses nu over its own donors. Pitfall I hit: test_sclib.synthetic_panel_df treats unit 0 as treated, so California must be first.
+
+Suspicions / check next time (results stage):
+- runs/select run once: one record, no runs/.superseded/select-*; select names code/test_sclib.py with --code (select_rule imports it); input state_panel_pre.csv only.
+- level-mde ran before any run reading post-2023Q3 data (compare started times in run.json); every post run's --input includes runs/select and runs/level-mde metrics.
+- Whether C1 was disclosed before h1-wage ran; whether yearly elasticities are reported as gated by the pooled critical values.
+- sc_solver_gap only covers California's six pseudo-ATTs; if SC wins with R50, ask for the real-window solver gap too (non-unique weights, T16).
+- Paper: S1/S2 labels next to the primary; 'not robust to' and the plc-nonff qualifier exactly as verdict wrote them; figure captions vs SDID floor (C3).

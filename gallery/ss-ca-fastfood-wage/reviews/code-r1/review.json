@@ -49,7 +49,7 @@
       "status": "open",
       "text": "The year-1 and year-2 one-sided H1 wage tests use the pooled H1 statistic's critical values and nu: h1_wage.py calls crit_for(m_lvl, 'h1', ...) once and applies the same c and nu to 'pooled', 'y1' and 'y2'. level-mde computes no yearly W statistic. Neither the design nor runs/NOTES.md item 5 states this choice (item 5 covers anticip and h3-years' yearly employment ATTs, not the yearly wage tests). The choice is not inert: h1_y1_reject and h1_y2_reject gate the yearly own-wage elasticities in h3_years.py (owe_y1, owe_y2 are 'not computed' unless they reject), which the claims plan lists.",
       "evidence": "code/h1_wage.py lines 29-39; code/h3_years.py lines 63-71; code/level_mde.py families() (h1 family has only 'pooled'); runs/NOTES.md item 5; plan.json design.method IMPLEMENTATION CHOICES 5 and DECISIONS; design.analysis_plan[7] ('the one-sided 5% test for each'). Remedy (cheapest): add the choice to NOTES item 5 and to the design's implementation choices before h1-wage runs; alternative: add yearly W statistics to level-mde.",
-      "response": "",
+      "response": "PI: recorded as design deviation D5 before any analysis run; the paper states it.",
       "ruling": ""
     },
     {
@@ -58,7 +58,7 @@
       "status": "open",
       "text": "code/requirements.txt pins wrapt==2.5.2, but the approved design text (IMPLEMENTATION CHOICES 14) says the freeze keeps the resolved wrapt 2.6.0.dev1. runs/NOTES.md item 14 says a later PI instruction overrides the design, but plan.json was not updated before the design gate was approved, so the environment the clean rerun will build differs from the approved design's text. No estimate should depend on wrapt, so this is a record problem, not a numeric one.",
       "evidence": "code/requirements.txt line 'wrapt==2.5.2' and its header comment; plan.json design.method IMPLEMENTATION CHOICES 14 ('keeping the resolved wrapt 2.6.0.dev1'); runs/NOTES.md item 14; log.jsonl 2026-11-21T09:22:45Z check-methods-rerun. Remedy: correct the design text (or list it under design.deviations) and state it in the paper's deviations.",
-      "response": "",
+      "response": "PI: recorded as design deviation D6; the paper states it.",
       "ruling": ""
     },
     {
@@ -67,7 +67,7 @@
       "status": "open",
       "text": "If select picks an SDID candidate, the figure captions misdescribe the intervals: fig_event.py and fig_placebo.py print the critical values as 't at nu with the decision-set quantile as a floor', but for an SDID statistic crit_for also applies the Monte Carlo floor q_cal (design.method C1), which can bind (in runs/check-methods every q_cal value except R50 lo05 lies beyond the t_J value). The captions are generated text the Writer is told to use as is. Separately, the import prologue and comments in figlib.py, fig_event.py, fig_select.py and fig_placebo.py still say code/select.py shadows the standard 'select' module; select.py no longer exists (C4), so the comments are stale (harmless to the numbers).",
       "evidence": "code/fig_event.py caption lines 202-206; code/fig_placebo.py caption lines 144-146; code/sclib.py crit_for and critical_values (floor argument); code/level_mde.py sdid_floor_<key>; code/figlib.py docstring lines 12-15; code/fig_*.py lines 22-29. Remedy: make each caption say whether the SDID floor applies (e.g. from runs/level-mde sdid_floor_h2, declared as an input, or a flag written by event-path and h2-emp), and drop or reword the stale prologue comments.",
-      "response": "",
+      "response": "Sent to the Figures RA; figure runs wait for another code round.",
       "ruling": ""
     }
   ],
