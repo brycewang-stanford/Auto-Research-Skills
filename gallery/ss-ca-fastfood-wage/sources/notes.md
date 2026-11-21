@@ -313,7 +313,7 @@ employment-count study.
 | CEMN 2026 synthetic (w35931) | **2025Q4** | post-period average (2015-2025 data); fixed horizon to 2025Q3 |
 
 None of these causal studies uses 2026Q1. QCEW 2026Q1 was released on August 28, 2026
-(preliminary) `[bls2026cewq1]`, so the data exist; the next release (2026Q2) is December 2, 2026.
+(preliminary; the 2025 quarters are final in that release, section 5) `[bls2026cewq1]`, `[blsqcewrevisions]`, so the data exist; the next release (2026Q2) is December 2, 2026.
 
 **Public descriptive series through 2026Q1 (added for literature-r1 L4)** `[steier2026recordinglaw]`.
 Recording Law "Data Story" by Adam Steier, published November 6, 2026 (JSON-LD
@@ -551,6 +551,22 @@ Secretary of State pages were blocked).
   total quarterly wages / mean monthly employment / 13 `[blsqcewtechnote]`.
 - Revisions: data preliminary until finalized with the following year's first-quarter
   release; revisions usually minor `[blsqcewfaq]`, `[blsqcewtechnote]`.
+- **Revision status of this workspace's vintage (checked 2026-11-21 against the BLS
+  revisions page `[blsqcewrevisions]`, last modified August 28, 2026).** Q1 data are
+  published five times (September of the reference year, then December, March, June,
+  September), Q2 four, Q3 three (first in March of the next year), Q4 twice (first in
+  June of the next year, revised once in September). The last revision of every quarter
+  of a year therefore comes with the next year's first-quarter release. On the page's
+  Table 2, Mar., Jun., Sep. and Dec. 2025 all carry a Final Value; Mar. 2026 has only an
+  Initial Value. The 2026Q1 release (August 28, 2026) marks its tables "Data are
+  preliminary" `[bls2026cewq1]`. The data in `data/manifest.json` were retrieved
+  2026-11-21, after that release and before the 2026Q2 release (December 2, 2026), so:
+  **2025Q1-2025Q4 are final; 2026Q1 is preliminary** (four revisions to come, the first
+  with the 2026Q2 release). Employment and wage levels rarely move more than 0.1% from
+  initial to final. Claim `c-qcew-revision-status`. This disagrees with design threat T14
+  in `plan.json` ("2025 will be revised"): under BLS policy 2025 will not be revised
+  again; only 2026Q1 will. rob-final-quarters (2024Q2-2025Q4) is then a final-data-only
+  window, as its analysis-plan text says. T14 is the PI's text; flagged, not edited.
 - NAICS 2022 (pp. 562-563) `[naics2022]`: **722513 Limited-Service Restaurants** -
   "providing food services (except snack and nonalcoholic beverage bars) where patrons
   generally order or select items and pay before eating", e.g. fast-food, fast casual,
