@@ -186,7 +186,7 @@
     "method": "fetched-fulltext",
     "doi": "10.1257/aer.20190159",
     "url": "https://www.nber.org/system/files/working_papers/w25532/w25532.pdf",
-    "note": "Full text read is NBER w25532 'February 2019, Revised July 2021' (70 pp., sha256 prefix b0dfa71eeeb3aca7); AER 111(12), 4088-4118 (2021) from Crossref. Passage used: Section 5 variance estimators, Algorithm 4 (placebo variance) and the paragraph on homoskedasticity with one treated unit (w25532 pp. 28-29, PDF pp. 29-30)."
+    "note": "Full text read is NBER w25532 'February 2019, Revised July 2021' (70 pp., sha256 prefix b0dfa71eeeb3aca7; re-downloaded 2026-11-21 for task s-methods, same hash); AER 111(12), 4088-4118 (2021) from Crossref; the AER typeset version is paywalled, so its page numbers were not checked. arXiv 1812.09970v4 (latest) prints the same Table 1. Passages used: Section 2.1 eq. (2.1) unit weights with intercept omega0 and penalty zeta^2 Tpre ||omega||^2, eq. (2.2) zeta = (Ntr Tpost)^(1/4) sigma_hat with sigma_hat^2 the variance of control first differences Delta_it = Y_i(t+1) - Y_it over t = 1..Tpre-1, divisor Nco(Tpre-1) (w25532 p. 6, PDF p. 7); Algorithm 1, eq. (2.3) time weights, fn 3 (time-weight penalty zeta^2 Nco ||lambda||^2 with zeta = 1e-6 sigma_hat), fn 5 and text: SC and DIFP use (2.1) without regularization (zeta = 1e-6 sigma_hat in practice), SC also omits omega0 (p. 7, PDF p. 8); Table 1 (p. 8, PDF p. 9): Prop 99, 39 states 1970-2000, Tpre = 19, Tpost = 12, placebo SEs: SDID -15.6 (8.4), SC -19.6 (9.9), DID -27.3 (17.7), MC -20.2 (11.5), DIFP -11.1 (9.5); eqs. (2.4)-(2.5) (pp. 8-9). Section 5 variance estimators, Algorithm 4 (placebo variance) and the paragraph on homoskedasticity with one treated unit (pp. 28-29, PDF pp. 29-30)."
   },
   "abadie2010synthetic": {
     "verified_on": "2026-11-21",
@@ -317,5 +317,42 @@
     "method": "fetched-fulltext",
     "url": "https://www.dir.ca.gov/dlse/Minimum_Wage.htm",
     "note": "Official Labor Commissioner's Office Minimum Wage page, footer dated December 2025, HTTP last-modified 9 January 2026, fetched 2026-11-21 (sha256 prefix e50900ec09572be8). Text: general minimum 'effective January 1, 2026, is $16.90/hour'; 'Fast Food Restaurant employers, effective April 1, 2024 ... have a higher minimum wage'; 'Starting April 1, 2024, all fast food restaurant employees who are covered by the new law must be paid at least $20.00 per hour'. No other fast-food rate appears on the page."
+  },
+  "doudchenko2016balancing": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w22791",
+    "url": "https://www.nber.org/system/files/working_papers/w22791/w22791.pdf",
+    "note": "NBER w22791, October 2016, full text read with pdftotext -layout (sha256 prefix 0c265edc86d9ea38); title, authors, date agree with Crossref for the DOI. Passages used: introduction (p. 2, PDF p. 4): DID 'allows for a non-zero intercept in this linear representation, corresponding to permanent additive differences', while matching, regression and SC do not, and such restrictions 'should be considered on their merit in applications rather than imposed as a matter of routine'; Section 4 restrictions NO-INTERCEPT, ADDING-UP, NON-NEGATIVITY, EXACT-BALANCE, CONSTANT-WEIGHTS, the first three imposed by Abadie et al. (p. 9, PDF p. 11); allowing a non-zero intercept keeps scale invariance when all covariates are lagged outcomes (pp. 10-11, PDF pp. 12-13)."
+  },
+  "ferman2021synthetic": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3982/QE1596",
+    "url": "https://arxiv.org/abs/1911.08521",
+    "note": "Full text read is arXiv 1911.08521v2 ('This Draft: January, 2021', 42 pp. as extracted, sha256 prefix b391948596bd1a55); QE 12(4), 1197-1221 (2021), CC BY-NC 4.0, from Crossref; the Wiley PDF refused automated access, so page numbers refer to the arXiv version. Passages used: abstract (SC and related estimators 'generally biased if treatment assignment is correlated with unobserved confounders, even when the number of pre-treatment periods goes to infinity'; 'a demeaned version of the SC method can substantially improve in terms of bias and variance relative to the difference-in-difference estimator'); p. 3 and fn 4 (SC can be biased when assignment correlates only with time-invariant unobservables; demeaning 'is equivalent to relaxing the non-intercept constraint, as suggested, in parallel to our paper, by Doudchenko and Imbens (2016)'); Section 3.2 eq. (8), the demeaned SC estimator, p. 11; Proposition 2 (asymptotically unbiased when E[lambda_t] = 0 post-treatment) p. 11; Proposition 3 (dominates DID in asymptotic MSE under Assumptions 1-5) p. 12."
+  },
+  "censuspep2020int": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2010-2020/intercensal/state/SC-EST2020INT-ALLDATA6.pdf",
+    "note": "File layout PDF read in full (3 pp., sha256 prefix 8b79fee285d924a5): 'SC-EST2020INT-ALLDATA6', release date September 2025; fields SUMLEV, REGION, DIVISION, STATE, NAME, SEX, ORIGIN, RACE, AGE, ESTIMATESBASE2010, POPESTIMATE2010-POPESTIMATE2019 (July 1), CENSUS2020POP; SEX 0 = Total, ORIGIN 0 = Total; RACE 1-6 = five race-alone groups and two or more races (no total code); AGE single years 0-84 and 85+; SUMLEV 040 = state. Directory listing of datasets/2010-2020/intercensal/state/asrh/ (fetched 2026-11-21) shows sc-est2020int-alldata6.csv, 17M, dated 2025-09-30. License: works of the U.S. Government are not subject to copyright (17 U.S.C. 105, read at law.cornell.edu); the Census Bureau's data.json catalog (www.census.gov/data.json, fetched 2026-11-21, sha256 prefix 66a461950813106c) lists all 1,800 of its datasets, including the earlier intercensal and Vintage 2013-2018 state estimates, under CC0 1.0 public domain dedication; this particular file is not in that catalog."
+  },
+  "censuspepv2025": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www2.census.gov/programs-surveys/popest/technical-documentation/file-layouts/2020-2025/NST-EST2025-ALLDATA.pdf",
+    "note": "File layout PDF read in full (4 pp., sha256 prefix 20b35f224039faf1): 'NST-EST2025-ALLDATA', 7/1/2025 National and State Population Estimates, release date January 2026; covers the United States, states, DC and Puerto Rico; fields include ESTIMATESBASE2020 (April 1) and POPESTIMATE2020-POPESTIMATE2025 (July 1 resident total population); SUMLEV 010 nation, 020 region, 030 division, 040 state; geographic boundaries as of January 1, 2025. Directory listing of datasets/2020-2025/state/totals/ (fetched 2026-11-21) shows NST-EST2025-ALLDATA.csv dated 2026-01-27. License: as for censuspep2020int (17 U.S.C. 105; Census data.json catalog CC0 for every listed dataset; this file is not in that catalog)."
+  },
+  "synthdidpackage": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://github.com/synth-inference/synthdid",
+    "note": "GitHub repository synth-inference/synthdid, default branch master, latest commit 70c1ce3eac58e28c30b67435ca377bb48baa9b8a (2024-01-15), read through the GitHub API on 2026-11-21. DESCRIPTION: Package synthdid, Version 0.0.9, authors Arkhangelsky, Athey, Hirshberg (cre), Imbens, Wager; 'License: GPL (>= 2) | BSD_3_clause + file LICENSE'. LICENSE: BSD 3-clause, 'Copyright 2019, Stanford University'; GitHub classifies the repository as BSD-3-Clause. data/README.md: california_prop99.csv 'is from Abadie, Diamond, and Hainmueller (2010). The raw data is in MATLAB format from https://web.stanford.edu/~jhain/synthpage.html and is preprocessed here to a long panel, and saved as a ; delimited CSV' (that page now returns 404). R/data.R: 1209 rows, columns State, Year, PacksPerCapita, treated (1 for California from 1989). File downloaded from https://raw.githubusercontent.com/synth-inference/synthdid/master/data/california_prop99.csv: 32,687 bytes, git blob 4ff21c81016d1feaa117d3b863eb8c44cd9b2c07, sha256 550d24c2f743507d097692d181bdbbf36c6168a39a0b6fc831cc89d98082f7de; 1209 data rows, 39 states, 1970-2000, 12 treated rows. No separate data license is stated; the package license covers the repository."
   }
 }

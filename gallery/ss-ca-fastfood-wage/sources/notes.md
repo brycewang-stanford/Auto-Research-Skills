@@ -641,7 +641,7 @@ A3, w35931 fn 5 and CEMN Table A3 vary or estimate them (Section 3.1).
   source dated in that window; see section 4 (DIR page December 2025; EPI March 23, 2026).
 - The exact last post quarter in w35931's post-period-average estimand (inferred 2025Q4).
 
-## 9. Methods sources for H1-H2 (added for literature-r1 L3)
+## 9. Methods sources for H1-H2 (added for literature-r1 L3; items 9-12 for task s-methods)
 
 Each entry: what the method needs when there is one treated unit, and what that means for this
 design (about 20 or 50 donor states, 2015-2019 plus 2022-2023 pre-quarters). Page numbers refer
@@ -723,6 +723,99 @@ article, with the journal metadata taken from Crossref).
    performed"); both one-sided tests must be significant; bounds should be prespecified
    (Lakens). [Scout: plan.json H2's 90% CI inside +/-b rule is this test; its validity rests on
    the H1 inference method's level, which the design gate checks.]
+
+9. **Arkhangelsky et al. (2021): Algorithm 1, zeta and Table 1** `[arkhangelsky2021synthetic]`
+   (added for task s-methods; NBER w25532, July 2021; pages are w25532 pages; the AER
+   typeset pages were not checked). Algorithm 1 (p. 7): compute zeta by (2.2), unit
+   weights by (2.1), time weights by (2.3), then a weighted two-way fixed effects
+   regression with weights omega_i * lambda_t. (2.1) (p. 6): omega0 in R and omega in the
+   simplex minimise sum over t <= Tpre of (omega0 + sum_i omega_i Y_it - mean treated
+   Y_t)^2 + zeta^2 Tpre ||omega||^2. (2.2) (p. 6): zeta = (Ntr Tpost)^(1/4) sigma_hat,
+   sigma_hat^2 = sum over controls and t = 1..Tpre-1 of (Delta_it - Delta_bar)^2 /
+   (Nco (Tpre - 1)), Delta_it = Y_i(t+1) - Y_it. (2.3) (p. 7): lambda0 and lambda in the
+   simplex minimise sum over controls of (lambda0 + sum_{t <= Tpre} lambda_t Y_it - mean
+   post Y_it)^2, with no regularisation except, for uniqueness, zeta^2 Nco ||lambda||^2
+   with zeta = 1e-6 sigma_hat (fn 3). SC and DIFP "use weights solving (2.1) without
+   regularization. The SC estimator also omits the intercept omega0"; in practice zeta =
+   1e-6 sigma_hat, not 0 (p. 7 and fn 5). (2.4)-(2.5) (pp. 8-9) write each estimator as a
+   difference of adjusted outcomes, SDID's being lambda-weighted post-minus-pre
+   differences.
+
+   **Table 1 as printed** (p. 8, PDF p. 9; arXiv v4 prints the same): Proposition 99,
+   39 states, 1970-2000, treated from 1989 (Tpre = 19, Tpost = 12, Nco = 38, Ntr = 1),
+   outcome per-capita cigarette sales, "placebo method" standard errors (Section 5):
+
+   | | SDID | SC | DID | MC | DIFP |
+   |---|---|---|---|---|---|
+   | Estimate | -15.6 | -19.6 | -27.3 | -20.2 | -11.1 |
+   | Standard error | (8.4) | (9.9) | (17.7) | (11.5) | (9.5) |
+
+   Text p. 8: "the -27.3 point estimate likely overstates the effect"; SC "a reduced ...
+   estimate of -19.6". [Scout: plan.json check-methods (i) states DID = -27.35 +/- 0.05.
+   The paper prints -27.3 to one decimal, so -27.35 is not a printed value. The
+   unweighted DID of the synthdid file computed from its means (Scout arithmetic on the
+   Prop 99 file, not a run and not a claim) is -27.349, which rounds to the printed -27.3,
+   so the design's target is consistent with print, but its +/- 0.05 band [-27.40, -27.30]
+   and the printed value's rounding interval [-27.35, -27.25) overlap only at
+   [-27.35, -27.30]. SC -19.6 and SDID -15.6 match print; the design's +/- 0.5 is coarser
+   than the printed precision. Two small differences between the design and the paper:
+   (a) the design's time-weight penalty is (1e-6 sigma_hat)^2 |F| ||lambda||^2, the paper's
+   is zeta^2 Nco ||lambda||^2 (fn 3), numerically negligible at 1e-12 scale; (b) the paper's
+   sigma_hat subtracts the mean first difference and divides by Nco (Tpre - 1), so "the SD
+   of donor first differences" should use that divisor to reproduce Table 1. The design's
+   SC check (no intercept, zeta = 1e-6 sigma_hat, no time weights) is the paper's SC.]
+   Citation claims: `c-sdid-prop99`, `c-sdid-algorithm`.
+
+10. **Doudchenko and Imbens (2016)** `[doudchenko2016balancing]` (NBER w22791) and
+    **Ferman and Pinto (2021)** `[ferman2021synthetic]` (arXiv 1911.08521v2; QE 12(4)),
+    for the demeaned SC candidate. Doudchenko-Imbens: DID "allows for a non-zero intercept
+    in this linear representation, corresponding to permanent additive differences", SC
+    does not; NO-INTERCEPT, ADDING-UP and NON-NEGATIVITY are the restrictions Abadie et al.
+    impose (pp. 2, 9); with lagged outcomes as predictors an intercept keeps scale
+    invariance (pp. 10-11). Ferman-Pinto: with imperfect pre-treatment fit SC is "generally
+    biased if treatment assignment is correlated with unobserved confounders, even when
+    the number of pre-treatment periods goes to infinity" (abstract), including when
+    assignment correlates only with time-invariant unobservables, the DID assumption
+    (p. 3); demeaning by pre-period means "is equivalent to relaxing the non-intercept
+    constraint, as suggested ... by Doudchenko and Imbens (2016)" (fn 4); the demeaned SC
+    estimator is eq. (8) (p. 11), asymptotically unbiased when post-period common factors
+    have mean zero (Proposition 2, p. 11), and dominates DID in asymptotic MSE under
+    Assumptions 1-5 (Proposition 3, p. 12). Their asymptotics are T0 -> infinity with J
+    fixed. [Scout: the design's SC objective (demean each unit by its mean over F, simplex
+    weights) is Ferman-Pinto's eq. (8); with 31 fit quarters, T0 is moderate, so the
+    asymptotic bias and MSE results are guides, not guarantees.] Citation claim:
+    `c-demeaned-sc`.
+
+11. **Census population estimates** `[censuspep2020int]`, `[censuspepv2025]` (file
+    layouts read in full; directory listings checked 2026-11-21). Intercensal
+    SC-EST2020INT-ALLDATA6 (released September 2025): POPESTIMATE2010-2019 are July 1
+    estimates (2020 appears only as CENSUS2020POP, April 1); SEX 0 and ORIGIN 0 are totals;
+    RACE has no total code (1-6: five race-alone groups and two or more races, mutually
+    exclusive), and AGE is single years 0-85+, so the state total is the sum over RACE 1-6
+    and all AGE rows with SEX 0, ORIGIN 0, as the design says. Vintage 2025
+    NST-EST2025-ALLDATA (released January 2026): POPESTIMATE2020-2025 are July 1
+    estimates; the file also has nation (SUMLEV 010), region (020), division (030) and
+    Puerto Rico rows, so keep SUMLEV 040 and drop STATE 72. License: U.S. Government work,
+    not subject to copyright (17 U.S.C. 105); the Census data.json catalog lists every one
+    of its 1,800 datasets, including earlier intercensal and Vintage 2013-2018 state files,
+    under CC0. Neither of these two files is in that catalog, so "public domain" for them
+    rests on 17 U.S.C. 105. Citation claim: `c-census-pop`.
+
+12. **synthdid package data** `[synthdidpackage]`. Location:
+    https://github.com/synth-inference/synthdid, file data/california_prop99.csv (raw URL
+    https://raw.githubusercontent.com/synth-inference/synthdid/master/data/california_prop99.csv;
+    master at commit 70c1ce3, 2024-01-15; 32,687 bytes; sha256 550d24c2...7de, full hash in
+    sources.json). Semicolon-delimited, header State;Year;PacksPerCapita;treated; 1,209
+    rows = 39 states x 31 years (1970-2000); treated = 1 for California 1989-2000 (12
+    rows). License: DESCRIPTION says "GPL (>= 2) | BSD_3_clause + file LICENSE" (LICENSE
+    is BSD 3-clause, Copyright 2019 Stanford University; GitHub reports BSD-3-Clause). No
+    separate data license; data/README.md says the file is ADH (2010)'s data, from MATLAB
+    files at web.stanford.edu/~jhain/synthpage.html (now 404), reshaped to a long panel.
+    [Scout: plan.json's "GPL>=2 | BSD-3" is the package license as DESCRIPTION states it;
+    the manifest should say it is the package's license, covering a redistribution of ADH
+    (2010) data that carry no stated license of their own. The Data RA's fetch should pin
+    the commit (raw URL with 70c1ce3... instead of master) and parse with sep=';'.]
+    Citation claim: `c-prop99-data`.
 
 ## 10. Further prior work (added for literature-r1 L6), with what each implies here
 
