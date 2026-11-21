@@ -9,20 +9,27 @@ Inputs  data/raw/synthdid/california_prop99.csv        (i)
                                                        later quarter is computed
 Output  runs/check-methods/metrics.json, runs/check-methods/mc_rates.csv
 
-(i)   Prop 99 (39 states, 1970-2000, treated from 1989): DID, SDID (zeta = (1 x 12)^(1/4)
-      sigma_hat) and the paper's SC (no intercept, zeta = 1e-6 sigma_hat, no time weights) must lie
-      in the rounding interval of the value Arkhangelsky et al. (2021) Table 1 prints:
-      DID [-27.35, -27.25), SDID [-15.65, -15.55), SC [-19.65, -19.55). Printed to 3 decimals.
-      Diagnostic only (never used by any run): a port of the synthdid package's Frank-Wolfe solver,
-      with and without its default sparsification, for the SC estimate.
+(i)   Prop 99 (39 states, 1970-2000, treated from 1989): DID and SDID (zeta = (1 x 12)^(1/4)
+      sigma_hat) must lie in the rounding interval of the value Arkhangelsky et al. (2021) Table 1
+      prints: DID [-27.35, -27.25), SDID [-15.65, -15.55). The paper's SC (no intercept, zeta =
+      1e-6 sigma_hat, no time weights) is judged by design.method C3: (i-SC-1) sclib's estimate
+      equals, to within 1e-3 packs, that of exact_simplex_ls below (a primal active-set solve
+      that shares no code with sclib.simplex_ls; its own KKT residual <= 1e-6), and sclib's KKT
+      residual is <= 1e-6; (i-SC-2) the Frank-Wolfe port of synthdid (commit 70c1ce3 defaults:
+      100 iterations, weights <= max/4 set to 0 and renormalised, up to 10,000 iterations,
+      min_decrease 1e-5 sigma_hat), fed the problem sclib builds (sclib.sdid_unit_problem,
+      sclib.sigma_hat), lies in [-19.65, -19.55); its unsparsified value is reported too.
+      Printed to 3 decimals.
 (ii)  Synthetic panels, one treated unit, 20 and 50 donors, known effect: DD/DDT closed forms equal
       OLS TWFE (unit and time effects; unit trends fitted on the trend window for DDT; population
       weights included) to 1e-10; SC and SDID recover exact weights when the treated unit is a
       convex combination; demeaned SC equals the SDID routine with zeta = 0 and uniform time
       weights; every weight solve meets the KKT conditions to 1e-6.
 (iii) Seasonal factors from state_panel_pre.csv equal those from state_panel.csv.
-(iv)  Monte Carlo of the inference (design.method INFERENCE, DEGREES OF FREEDOM): see PASS_TEXT.
-(v)   select.py and level_mde.py raise an error if their input holds a quarter after 2019Q4.
+(iv)  Monte Carlo of the inference (design.method INFERENCE, DEGREES OF FREEDOM, C1, C2): see
+      PASS_TEXT. The SDID calibration draws (C1) come first, from default_rng(20261122); the (iv)
+      panels come from default_rng(20261121) exactly as in the first run.
+(v)   select_rule.py and level_mde.py raise an error if their input holds a quarter after 2019Q4.
 
 The script records every check as a metric and exits 0 when it completes; a failed check is a
 metric equal to 0, not a crash (the run record keeps the evidence).
@@ -32,36 +39,33 @@ uses none of them.
 import sys
 from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select'; load the standard one first.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
+import argparse
+import io
+import multiprocessing as mp
+import os
+import time
 
-import argparse  # noqa: E402
-import importlib.util  # noqa: E402
-import io  # noqa: E402
-import multiprocessing as mp  # noqa: E402
-import os  # noqa: E402
-import time  # noqa: E402
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+from scipy import stats
 
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-import statsmodels.api as sm  # noqa: E402
-from scipy import stats  # noqa: E402
-
-import sclib as S  # noqa: E402
+import sclib as S
 
 PROP99 = Path("data/raw/synthdid/california_prop99.csv")
 PRE = Path("data/derived/state_panel_pre.csv")
 FULL = Path("data/derived/state_panel.csv")
 OUT_DIR = Path("runs/check-methods")
 SEED = 20261121
+SEED_CAL = 20261122                     # SDID calibration draws (design.method C1)
+CAL_R = {"D20": 4000, "R50": 1000}      # per rho
+SC1_TOL = 1e-3
 KKT_TOL = 1e-6
 EQ_TOL = 1e-10
 W_TOL = 1e-5      # weight recovery (SLSQP's attainable accuracy on exact-fit problems)
 
-PROP99_TARGETS = {"did": (-27.35, -27.25), "sdid": (-15.65, -15.55), "sc": (-19.65, -19.55)}
+PROP99_TARGETS = {"did": (-27.35, -27.25), "sdid": (-15.65, -15.55)}
+SC_PRINT = (-19.65, -19.55)             # i-SC-2: the printed -19.6's rounding interval
 
 MC_DESIGNS = ["pureB", "pureA", "mixed", "heteroA", "heteroA_CA2"]
 MC_RHOS = [0.0, 0.5]
@@ -81,26 +85,28 @@ SE = max(SE_s, SE_n); J = 20 (D20) or 50 (R50)):
  (b) hetero-A: nu_MC = min(J, (sum_j s_j^2)^2 / sum_j s_j^4), s_j^2 = variance of donor j's placebo
      estimate across the R replications; r1 = 1 - F_{nu_MC}(t_{J,0.95}) (each one-sided tail),
      r2 = 2 (1 - F_{nu_MC}(t_{J,0.975})) (two-sided). Each t_J rate at most r + band(r), and each
-     rate at t_{nu_MC} at most 0.05 + band(0.05). A failure of (b) is a bug to look for.
+     rate at t_{nu_MC} at most 0.05 + band(0.05). A failure of (b) is a bug to look for (C2: the
+     SDID-E D20 rho = 0 cell is expected to fail again with the same draws).
+ (a-SDID) replaces (a) for SDID-E (design.method C1): on the same replications, pure A, pure B and
+     mixed, both pools and both rho, each tail and the two-sided test reject at most
+     0.05 + band(0.05) with critical values max(t_J, q_cal,hi(p)) and min(-t_J, q_cal,lo(p)),
+     q_cal from the calibration draws (pure A, rho 0 and 0.5, D20 4,000 and R50 1,000 each,
+     default_rng(20261122)): q_cal,hi(p) = the larger over rho of the p-quantile of T (method
+     'higher'), q_cal,lo(p) = the smaller (method 'lower'). SDID's t_J rates are reported as
+     uncorrected. A failure of (a-SDID) is a bug to look for.
  (c) hetero-A-CA2: report-only, at t_J and at t_{nu_MC} with its own nu_MC.
-Reported next to them: scaled-only (SE_s) and unscaled-only (SE_n) rates at t_J."""
+Reported next to them: scaled-only (SE_s) and unscaled-only (SE_n) rates at t_J; SDID-E's rates
+with the floor in every design (report-only outside (a-SDID))."""
 
 
 # --------------------------------------------------------------------------- helpers
 
 def kkt_reset():
-    S.SOLVER_LOG.update({"solves": 0, "kkt_max": 0.0, "not_converged": 0})
+    S.SOLVER_LOG.update({"solves": 0, "kkt_max": 0.0, "not_converged": 0, "kkt_above_1e6": 0})
 
 
 def in_interval(x, lo_hi):
     return int(lo_hi[0] <= x < lo_hi[1])
-
-
-def load_module(name, path):
-    spec = importlib.util.spec_from_file_location(name, path)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    return mod
 
 
 def synthetic_panel_df(rng, units, first=(2014, 1), last=(2026, 1), effect=0.0,
@@ -144,7 +150,55 @@ def synthetic_panel_df(rng, units, first=(2014, 1), last=(2026, 1), effect=0.0,
 
 # --------------------------------------------------------------------------- (i) Prop 99
 
+def exact_simplex_ls(A, b, pen=0.0, tol=1e-13, max_iter=1000):
+    """Independent exact solve of min ||A w - b||^2 + pen ||w||^2 over the simplex: a primal
+    active-set method whose subproblems (the equality-constrained least squares on the free set)
+    are solved exactly from their KKT system by numpy.linalg.lstsq. Shares no code with
+    sclib.simplex_ls (design.method C3 i-SC-1; IMPLEMENTATION CHOICES 3). The objective is
+    divided by b'b (scale-free residual). Returns (w, own KKT residual)."""
+    A = np.asarray(A, float)
+    b = np.asarray(b, float)
+    n = A.shape[1]
+    scale = float(b @ b) if float(b @ b) > 0 else 1.0
+    H = 2.0 * (A.T @ A + pen * np.eye(n)) / scale
+    g = 2.0 * (A.T @ b) / scale
+    w = np.full(n, 1.0 / n)
+    free = np.ones(n, bool)
+    for _ in range(max_iter):
+        idx = np.flatnonzero(free)
+        k = len(idx)
+        K = np.zeros((k + 1, k + 1))
+        K[:k, :k] = H[np.ix_(idx, idx)]
+        K[:k, k] = 1.0
+        K[k, :k] = 1.0
+        sol = np.linalg.lstsq(K, np.concatenate([g[idx], [1.0]]), rcond=None)[0]
+        v = np.zeros(n)
+        v[idx] = sol[:k]
+        neg = idx[v[idx] < 0]
+        if len(neg):
+            steps = w[neg] / (w[neg] - v[neg])
+            j = neg[int(np.argmin(steps))]
+            w = np.maximum(w + float(steps.min()) * (v - w), 0.0)
+            w[j] = 0.0
+            free[j] = False
+            continue
+        w = v
+        grad = H @ w - g
+        mu = float(grad[idx].mean())
+        out = np.flatnonzero(~free)
+        if len(out) == 0 or (grad[out] - mu).min() >= -tol:
+            break
+        free[out[int(np.argmin(grad[out] - mu))]] = True
+    w = np.maximum(w, 0.0)
+    w = w / w.sum()
+    grad = H @ w - g
+    lam = float(w @ grad)
+    resid = float(np.max(np.abs(np.minimum(w, grad - lam))))
+    return w, resid
+
+
 def fw_step(A, x, b, eta):
+    """synthdid fw.step (R package synthdid, commit 70c1ce3)."""
     Ax = A @ x
     half_grad = (Ax - b) @ A + eta * x
     i = int(np.argmin(half_grad))
@@ -157,20 +211,29 @@ def fw_step(A, x, b, eta):
     return x + min(1.0, max(0.0, step)) * d_x
 
 
-def fw_weights(Ymat, zeta, intercept, lam=None, min_decrease=1e-3, max_iter=1000):
-    """Diagnostic port of synthdid's sc.weight.fw (R package, Frank-Wolfe with its stopping rule)."""
-    T0, N0 = Ymat.shape[1] - 1, Ymat.shape[0]
-    lam = np.full(T0, 1.0 / T0) if lam is None else lam
-    if intercept:
-        Ymat = Ymat - Ymat.mean(axis=0)
-    A, b, eta = Ymat[:, :T0], Ymat[:, T0], N0 * zeta ** 2
+def fw_weights(A, b, eta, x=None, min_decrease=1e-3, max_iter=1000):
+    """synthdid sc.weight.fw on the problem min ||A x - b||^2 + eta ||x||^2 (its objective value is
+    that divided by the number of rows; it stops when an iteration lowers it by min_decrease^2
+    or less)."""
+    N0, n = A.shape
+    x = np.full(n, 1.0 / n) if x is None else x
     vals, t = [], 0
     while t < max_iter and (t < 2 or vals[-2] - vals[-1] > min_decrease ** 2):
-        lam = fw_step(A, lam, b, eta)
-        err = Ymat @ np.append(lam, -1.0)
-        vals.append(zeta ** 2 * np.sum(lam ** 2) + np.sum(err ** 2) / N0)
+        x = fw_step(A, x, b, eta)
+        err = A @ x - b
+        vals.append((eta * np.sum(x ** 2) + np.sum(err ** 2)) / N0)
         t += 1
-    return lam
+    return x
+
+
+def fw_synthdid(A, b, eta, min_decrease, sparsify=True):
+    """synthdid's default: 100 iterations, sparsify (weights <= max/4 set to 0, renormalised),
+    then up to 10,000 iterations; unsparsified: up to 10,000 iterations from uniform."""
+    if not sparsify:
+        return fw_weights(A, b, eta, min_decrease=min_decrease, max_iter=10000)
+    x = fw_weights(A, b, eta, min_decrease=min_decrease, max_iter=100)
+    x = np.where(x <= x.max() / 4, 0.0, x)
+    return fw_weights(A, b, eta, x=x / x.sum(), min_decrease=min_decrease, max_iter=10000)
 
 
 def part_i(m):
@@ -190,9 +253,9 @@ def part_i(m):
     wins = {"pooled": post}
     did = float((y[post].mean() - y[pre].mean()) - (Y[:, post].mean() - Y[:, pre].mean()))
     sdid, f_sdid = S.sdid_fit(y, Y, pre, wins, tpost=len(post))
-    sig = f_sdid["sigma"]
-    sc, _ = S.sdid_fit(y, Y, pre, wins, zeta=1e-6 * sig, unit_intercept=False, time_weights=False)
-    est = {"did": did, "sdid": sdid["pooled"], "sc": sc["pooled"]}
+    sig = S.sigma_hat(Y, pre)
+    sc, f_sc = S.sdid_fit(y, Y, pre, wins, zeta=1e-6 * sig, unit_intercept=False, time_weights=False)
+    est = {"did": did, "sdid": sdid["pooled"]}
     m["p99_sigma_hat"] = sig
     m["p99_zeta_sdid"] = f_sdid["zeta"]
     for k, v in est.items():
@@ -202,18 +265,33 @@ def part_i(m):
         m[f"p99_{k}_pass"] = in_interval(v, PROP99_TARGETS[k])
     m["p99_kkt_max"] = S.SOLVER_LOG["kkt_max"]
     m["p99_kkt_pass"] = int(S.SOLVER_LOG["kkt_max"] <= KKT_TOL)
-    # diagnostic only: synthdid's own solver (Frank-Wolfe, its stopping rule, its sparsification)
-    noise = float(np.std(np.diff(Y[:, pre], axis=1).ravel(), ddof=1))
-    Yc = np.column_stack([Y[:, pre].T, y[pre]])
-    om = fw_weights(Yc, 1e-6 * noise, False, min_decrease=1e-5 * noise, max_iter=10000)
-    m["diag_p99_sc_fw_unsparsified"] = float(np.mean(y[post] - om @ Y[:, post]))
-    om = fw_weights(Yc, 1e-6 * noise, False, min_decrease=1e-5 * noise, max_iter=100)
-    om[om <= om.max() / 4] = 0
-    om = fw_weights(Yc, 1e-6 * noise, False, lam=om / om.sum(), min_decrease=1e-5 * noise,
-                    max_iter=10000)
-    m["diag_p99_sc_fw_sparsified"] = float(np.mean(y[post] - om @ Y[:, post]))
-    m["part_i_pass"] = int(all(m[f"p99_{k}_pass"] for k in est) and m["p99_kkt_pass"])
-    print(f"(i) Prop 99: DID {did:.3f}, SDID {est['sdid']:.3f}, SC {est['sc']:.3f}")
+    # SC (design.method C3)
+    A, b, pen = S.sdid_unit_problem(y, Y, pre, 1e-6 * sig, unit_intercept=False)
+    sc_val = sc["pooled"]
+    m["p99_sc"] = sc_val
+    m["p99_sc_3dp"] = round(sc_val, 3)
+    m["p99_sc_kkt"] = float(f_sc["solves"][0]["kkt"])
+    w_ex, kkt_ex = exact_simplex_ls(A, b, pen)
+    sc_ex = float(np.mean(y[post] - w_ex @ Y[:, post]))
+    m["p99_sc_exact"] = sc_ex
+    m["p99_sc_exact_3dp"] = round(sc_ex, 3)
+    m["p99_sc_exact_kkt"] = kkt_ex
+    m["i_sc_1_absdiff"] = abs(sc_val - sc_ex)
+    m["i_sc_1_pass"] = int(abs(sc_val - sc_ex) <= SC1_TOL and kkt_ex <= KKT_TOL
+                           and m["p99_sc_kkt"] <= KKT_TOL)
+    w_fw = fw_synthdid(A, b, pen, 1e-5 * sig, sparsify=True)
+    w_fw0 = fw_synthdid(A, b, pen, 1e-5 * sig, sparsify=False)
+    m["p99_sc_fw_sparsified"] = float(np.mean(y[post] - w_fw @ Y[:, post]))
+    m["p99_sc_fw_sparsified_3dp"] = round(m["p99_sc_fw_sparsified"], 3)
+    m["p99_sc_fw_unsparsified"] = float(np.mean(y[post] - w_fw0 @ Y[:, post]))
+    m["p99_sc_fw_unsparsified_3dp"] = round(m["p99_sc_fw_unsparsified"], 3)
+    m["i_sc_2_lo"], m["i_sc_2_hi"] = SC_PRINT
+    m["i_sc_2_pass"] = in_interval(m["p99_sc_fw_sparsified"], SC_PRINT)
+    m["part_i_pass"] = int(m["p99_did_pass"] and m["p99_sdid_pass"] and m["p99_kkt_pass"]
+                           and m["i_sc_1_pass"] and m["i_sc_2_pass"])
+    print(f"(i) Prop 99: DID {did:.3f}, SDID {est['sdid']:.3f}; SC sclib {sc_val:.3f}, exact "
+          f"{sc_ex:.3f}, FW sparsified {m['p99_sc_fw_sparsified']:.3f}, FW unsparsified "
+          f"{m['p99_sc_fw_unsparsified']:.3f}")
 
 
 # --------------------------------------------------------------------------- (ii) synthetic
@@ -494,12 +572,17 @@ def mc_qp_chunk(args):
     return tau_ca, plc, S.SOLVER_LOG["kkt_max"], S.SOLVER_LOG["not_converged"]
 
 
-def mc_rates(tau_ca, plc, pops_arr, J):
+def mc_T(tau_ca, plc, pops_arr):
+    """California's T = tau / SE with SE = max(SE_s, SE_n), and SE_s, SE_n."""
     pu = pops_arr[0]
     pj = pops_arr[1:]
     se_s = np.sqrt(np.mean(plc ** 2 * (pj / pu)[None, :], axis=1))
     se_n = np.sqrt(np.mean(plc ** 2, axis=1))
-    se = np.maximum(se_s, se_n)
+    return tau_ca / np.maximum(se_s, se_n), se_s, se_n
+
+
+def mc_rates(tau_ca, plc, pops_arr, J, floor=None):
+    T_max, se_s, se_n = mc_T(tau_ca, plc, pops_arr)
     s2 = plc.var(axis=0, ddof=1)
     nu = float(min(J, S.satterthwaite_df(s2)))
     out = {"nu_mc": nu, "share_se_n": float(np.mean(se_n >= se_s))}
@@ -508,16 +591,71 @@ def mc_rates(tau_ca, plc, pops_arr, J):
         t95, t975 = stats.t.ppf(0.95, df), stats.t.ppf(0.975, df)
         return float(np.mean(T > t95)), float(np.mean(T < -t95)), float(np.mean(np.abs(T) > t975))
 
-    for name, s in (("max", se), ("scaled", se_s), ("unscaled", se_n)):
-        up, lo, two = rates(tau_ca / s, J)
+    for name, Tv in (("max", T_max), ("scaled", tau_ca / se_s), ("unscaled", tau_ca / se_n)):
+        up, lo, two = rates(Tv, J)
         out.update({f"{name}_tJ_up": up, f"{name}_tJ_lo": lo, f"{name}_tJ_two": two})
-    up, lo, two = rates(tau_ca / se, nu)
+    up, lo, two = rates(T_max, nu)
     out.update({"max_tnu_up": up, "max_tnu_lo": lo, "max_tnu_two": two})
+    if floor is not None:
+        c = S.critical_values(J, None, floor)        # max(t_J, q_cal,hi), min(-t_J, q_cal,lo)
+        out.update({"floor_up": float(np.mean(T_max > c["hi95"])),
+                    "floor_lo": float(np.mean(T_max < c["lo05"])),
+                    "floor_two": float(np.mean((T_max > c["hi975"]) | (T_max < c["lo025"])))})
     return out
 
 
 def band(r, R):
     return 3.0 * np.sqrt(r * (1 - r) / R)
+
+
+def mc_panels(rng, R, units, pops, design, rho, T):
+    """(iv) panels: unit effects ln(pop), linear quarter effects, a_jt + u_jt (AR(1))."""
+    va, vu = mc_variances(design, units, pops)
+    pops_arr = np.array([pops[u] for u in units])
+    e = ar1(rng, R, len(units), T, va, rho) + ar1(rng, R, len(units), T, vu, rho)
+    return np.log(pops_arr)[None, :, None] + 0.004 * np.arange(T)[None, None, :] + e
+
+
+def mc_qp(pool_exec, est, Y, fp, post, chunk=10):
+    R = Y.shape[0]
+    jobs = [(est, Y[s:min(R, s + chunk)], fp, post) for s in range(0, R, chunk)]
+    res = pool_exec.map(mc_qp_chunk, jobs)
+    return (np.concatenate([r[0] for r in res]), np.vstack([r[1] for r in res]),
+            max(r[2] for r in res), sum(r[3] for r in res))
+
+
+def sdid_calibration(m, pool_exec, pops, reps_scale, T, fp, post):
+    """design.method C1: q_cal per pool from fresh pure-A SDID-E draws (rho 0 and 0.5)."""
+    rng = np.random.default_rng(SEED_CAL)
+    qcal, kkt_max = {}, 0.0
+    for pool in ("D20", "R50"):
+        units = [S.CA] + S.POOLS[pool]
+        pops_arr = np.array([pops[u] for u in units])
+        R = max(1, int(round(CAL_R[pool] * reps_scale)))
+        qs = {}
+        for rho in MC_RHOS:
+            t0 = time.time()
+            Y = mc_panels(rng, R, units, pops, "pureA", rho, T)
+            tau_ca, plc, kk, _ = mc_qp(pool_exec, "SDID", Y, fp, post)
+            kkt_max = max(kkt_max, kk)
+            Tm, _, _ = mc_T(tau_ca, plc, pops_arr)
+            qs[rho] = {"hi95": float(np.quantile(Tm, 0.95, method="higher")),
+                       "hi975": float(np.quantile(Tm, 0.975, method="higher")),
+                       "lo05": float(np.quantile(Tm, 0.05, method="lower")),
+                       "lo025": float(np.quantile(Tm, 0.025, method="lower"))}
+            tag = f"rho{str(rho).replace('.', '')}"
+            for k, v in qs[rho].items():
+                m[f"qcal_{pool}_{tag}_{k}"] = v
+            m[f"qcal_{pool}_{tag}_R"] = R
+            print(f"  calibration {pool} rho={rho}: {time.time() - t0:.0f}s", flush=True)
+        q = {"hi95": max(qs[r]["hi95"] for r in MC_RHOS), "hi975": max(qs[r]["hi975"] for r in MC_RHOS),
+             "lo05": min(qs[r]["lo05"] for r in MC_RHOS), "lo025": min(qs[r]["lo025"] for r in MC_RHOS)}
+        for k, v in q.items():
+            m[f"qcal_{pool}_{k}"] = v
+        qcal[pool] = q
+    m["qcal_seed"] = SEED_CAL
+    m["qcal_kkt_max"] = kkt_max
+    return qcal
 
 
 def part_iv(m, rng, reps_scale=1.0, synthetic=False, out_dir=OUT_DIR, workers=None):
@@ -529,19 +667,16 @@ def part_iv(m, rng, reps_scale=1.0, synthetic=False, out_dir=OUT_DIR, workers=No
     kkt_max, not_conv = 0.0, 0
     ctx = mp.get_context("spawn")
     with ctx.Pool(workers) as pool_exec:
+        qcal = sdid_calibration(m, pool_exec, pops, reps_scale, T, fp, post)
         for pool in ("D20", "R50"):
             units = [S.CA] + S.POOLS[pool]
             J = len(units) - 1
             pops_arr = np.array([pops[u] for u in units])
             Rmax = max(1, int(round(MC_R[pool] * reps_scale)))
-            alpha = np.log(pops_arr)
-            gamma = 0.004 * np.arange(T)
             for design in MC_DESIGNS:
-                va, vu = mc_variances(design, units, pops)
                 for rho in MC_RHOS:
                     t0 = time.time()
-                    e = ar1(rng, Rmax, len(units), T, va, rho) + ar1(rng, Rmax, len(units), T, vu, rho)
-                    Y = alpha[None, :, None] + gamma[None, None, :] + e
+                    Y = mc_panels(rng, Rmax, units, pops, design, rho, T)
                     for est, epool, R_est in MC_EST:
                         if epool != pool:
                             continue
@@ -549,31 +684,35 @@ def part_iv(m, rng, reps_scale=1.0, synthetic=False, out_dir=OUT_DIR, workers=No
                         if est in ("DD-POPW-E", "DDT-POPW-E"):
                             tau_ca, plc = mc_dd(Y[:R], pops_arr, est.split("-")[0], Bp, fp, tp, post)
                         else:
-                            chunk = 10
-                            jobs = [(est.split("-")[0], Y[s:min(R, s + chunk)], fp, post)
-                                    for s in range(0, R, chunk)]
-                            res = pool_exec.map(mc_qp_chunk, jobs)
-                            tau_ca = np.concatenate([r[0] for r in res])
-                            plc = np.vstack([r[1] for r in res])
-                            kkt_max = max([kkt_max] + [r[2] for r in res])
-                            not_conv += sum(r[3] for r in res)
+                            tau_ca, plc, kk, nc = mc_qp(pool_exec, est.split("-")[0], Y[:R], fp, post)
+                            kkt_max = max(kkt_max, kk)
+                            not_conv += nc
                         row = {"estimator": est, "pool": pool, "design": design, "rho": rho,
                                "R": R, "J": J}
-                        row.update(mc_rates(tau_ca, plc, pops_arr, J))
+                        row.update(mc_rates(tau_ca, plc, pops_arr, J,
+                                            qcal[pool] if est == "SDID-E" else None))
                         rows.append(row)
                     print(f"  {pool} {design} rho={rho}: {time.time() - t0:.0f}s", flush=True)
     tab = pd.DataFrame(rows)
     # pass conditions
-    fails_a, fails_b = [], []
+    fails_a, fails_a_sdid, fails_b = [], [], []
     for i, r in tab.iterrows():
         R, J, nu = r["R"], r["J"], r["nu_mc"]
         b05 = 0.05 + band(0.05, R)
         tab.loc[i, "bound_05"] = b05
+        name = f"{r['estimator']}/{r['pool']}/{r['design']}/rho{r['rho']}"
         if r["design"] in ("pureB", "pureA", "mixed"):
-            ok = all(r[f"max_tJ_{k}"] <= b05 for k in ("up", "lo", "two"))
+            ok_tJ = all(r[f"max_tJ_{k}"] <= b05 for k in ("up", "lo", "two"))
+            tab.loc[i, "pass_tJ"] = int(ok_tJ)
+            if r["estimator"] == "SDID-E":
+                ok = all(r[f"floor_{k}"] <= b05 for k in ("up", "lo", "two"))   # (a-SDID)
+                if not ok:
+                    fails_a_sdid.append(name)
+            else:
+                ok = ok_tJ                                                       # (a)
+                if not ok:
+                    fails_a.append(name)
             tab.loc[i, "pass"] = int(ok)
-            if not ok:
-                fails_a.append(f"{r['estimator']}/{r['pool']}/{r['design']}/rho{r['rho']}")
         elif r["design"] == "heteroA":
             r1 = 1 - stats.t.cdf(stats.t.ppf(0.95, J), nu)
             r2 = 2 * (1 - stats.t.cdf(stats.t.ppf(0.975, J), nu))
@@ -591,14 +730,18 @@ def part_iv(m, rng, reps_scale=1.0, synthetic=False, out_dir=OUT_DIR, workers=No
     tab.to_csv(out_dir / "mc_rates.csv", index=False, float_format="%.6g")
     for _, r in tab.iterrows():
         key = f"mc_{r['estimator']}_{r['pool']}_{r['design']}_rho{str(r['rho']).replace('.', '')}"
-        for col in ("nu_mc", "max_tJ_up", "max_tJ_lo", "max_tJ_two", "max_tnu_up", "max_tnu_lo",
-                    "max_tnu_two", "scaled_tJ_up", "scaled_tJ_lo", "scaled_tJ_two",
-                    "unscaled_tJ_two"):
+        cols = ["nu_mc", "max_tJ_up", "max_tJ_lo", "max_tJ_two", "max_tnu_up", "max_tnu_lo",
+                "max_tnu_two", "scaled_tJ_up", "scaled_tJ_lo", "scaled_tJ_two", "unscaled_tJ_two"]
+        if r["estimator"] == "SDID-E":
+            cols += ["floor_up", "floor_lo", "floor_two"]
+        for col in cols:
             m[f"{key}_{col}"] = float(r[col])
         m[f"{key}_pass"] = int(r["pass"])
     m["mc_combinations"] = int(len(tab))
     m["mc_pass_a"] = int(not fails_a)
     m["mc_fail_a"] = ";".join(fails_a)
+    m["a_sdid_pass"] = int(not fails_a_sdid)
+    m["a_sdid_fail"] = ";".join(fails_a_sdid)
     m["mc_pass_b"] = int(not fails_b)
     m["mc_fail_b"] = ";".join(fails_b)
     m["mc_kkt_max"] = kkt_max
@@ -607,19 +750,20 @@ def part_iv(m, rng, reps_scale=1.0, synthetic=False, out_dir=OUT_DIR, workers=No
     m["mc_seed"] = SEED
     m["mc_reps_scale"] = reps_scale
     m["mc_populations"] = "synthetic" if synthetic else "state_panel_pre.csv 2016Q1 pop"
-    print(f"(iv) Monte Carlo: (a) pass {m['mc_pass_a']} {fails_a}; (b) pass {m['mc_pass_b']} {fails_b}")
+    print(f"(iv) Monte Carlo: (a) pass {m['mc_pass_a']} {fails_a}; (a-SDID) pass "
+          f"{m['a_sdid_pass']} {fails_a_sdid}; (b) pass {m['mc_pass_b']} {fails_b}")
 
 
 # --------------------------------------------------------------------------- (v) input guard
 
 def part_v(m, rng):
-    sel = load_module("select_run_script", Path(_HERE) / "select.py")
-    lvl = load_module("level_mde_run_script", Path(_HERE) / "level_mde.py")
+    import level_mde
+    import select_rule
     units = [S.CA] + S.D20
     df = synthetic_panel_df(rng, units, last=(2020, 1))
     bad = df.to_csv(index=False)
     good = df[df.year <= 2019].to_csv(index=False)
-    for name, mod in (("select", sel), ("level_mde", lvl)):
+    for name, mod in (("select_rule", select_rule), ("level_mde", level_mde)):
         try:
             mod.load_input(io.StringIO(bad))
             raised = 0
@@ -633,7 +777,7 @@ def part_v(m, rng):
         m[f"v_{name}_raises_after_2019q4"] = raised
         m[f"v_{name}_accepts_pre"] = accepts
     m["part_v_pass"] = int(all(m[f"v_{n}_raises_after_2019q4"] and m[f"v_{n}_accepts_pre"]
-                               for n in ("select", "level_mde")))
+                               for n in ("select_rule", "level_mde")))
     print(f"(v) input guard: pass {m['part_v_pass']}")
 
 

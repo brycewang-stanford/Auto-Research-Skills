@@ -1,14 +1,22 @@
-# Python 3.14.6; frozen with pip freeze from a fresh venv (pip install numpy==2.5.3 scipy==1.18.1 pandas==3.0.5 statsmodels==0.15.0), 2026-11-21
+# Python 3.14.6; pip freeze of a fresh venv after: pip install numpy==2.5.3 scipy==1.18.1 pandas==3.0.5 statsmodels==0.15.0 matplotlib wrapt==2.5.2 (2026-11-21).
+# Released versions only: wrapt is pinned to its latest release 2.5.2 instead of the 2.6.0.dev1 pre-release pip resolved by itself (PI follow-up). matplotlib is imported only by code/fig_*.py.
+contourpy==1.4.0
+cycler==0.12.1
+fonttools==4.68.0
 formulaic==1.2.2
 interface_meta==2.0.1
+kiwisolver==1.5.1
+matplotlib==3.11.2
 narwhals==2.29.0
 numpy==2.5.3
 packaging==26.3
 pandas==3.0.5
 patsy==1.0.3
+pillow==13.0.0
+pyparsing==3.3.3
 python-dateutil==4.0.0
 scipy==1.18.1
 statsmodels==0.15.0
 typing_extensions==4.16.0
 tzdata==2026.6
-wrapt==2.6.0.dev1
+wrapt==2.5.2

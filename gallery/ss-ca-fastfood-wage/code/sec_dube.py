@@ -6,8 +6,9 @@ Output  runs/sec-dube/metrics.json
 S2 = Dube's SDID under the 2023Q3 timing: SA log(emp/pop) (P), D20, fit window 2015Q1-2023Q3
 without C, post 2024Q2-2026Q1; the wage effect applies the employment omega and lambda (Dube's
 choice). Inference as design.method INFERENCE (each placebo with its own employment fit, reused
-for its wage), with level-mde statistic s2's critical values (t at nu_s2, L quantile); the
-reused-weights wage interval uses the same s2 values (same comparison and donors). S2's H2 rule
+for its wage), with level-mde statistic s2's critical values (t at nu_s2, L quantile, and the D20
+SDID floor q_cal of design.method C1); the reused-weights wage interval uses the same values
+(same comparison and donors; IMPLEMENTATION CHOICES 5). S2's H2 rule
 label enters the verdict.
 
 Report-only cross-check: Dube's own timing (fit 2015Q1-2023Q4 without C, 2024Q1 dropped, post
@@ -19,13 +20,7 @@ Our seasonal factors are 2014-2019 and our SDID has the intercept and two penalt
 import sys
 from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select'; load the standard one first.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
-
-import sclib as S  # noqa: E402
+import sclib as S
 
 OUT = Path("runs/sec-dube/metrics.json")
 PRINT_EMP, PRINT_SE, PRINT_WAGE = -0.26, 0.54, 6.99   # Dube (2026) Table 1 Panel A, SDID
@@ -36,7 +31,7 @@ def main():
     panel, selected, spec, pool, m_lvl = S.load_run_context()
     donors = S.D20
     s2 = S.Spec(est="SDID", norm="P", fit_start=FIT_START_DUBE)
-    c, nu_hat, nu = S.crit_for(m_lvl, "s2", donors)
+    c, nu_hat, nu = S.crit_for(m_lvl, "s2", donors, s2, "D20")
     m = {"selected": selected, "spec": "S2: SDID, P, D20, fit 2015Q1-2023Q3 without C",
          "J": len(donors), "nu_hat": nu_hat, "nu": nu}
     win = S.standard_windows(S.REAL_B, fit_start=FIT_START_DUBE, years=False, anticip=False)

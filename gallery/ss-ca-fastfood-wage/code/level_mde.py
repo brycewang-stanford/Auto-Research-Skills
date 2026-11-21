@@ -3,6 +3,8 @@ CRITICAL VALUES, MDE AND POWER).
 
 Inputs  data/derived/state_panel_pre.csv (2014Q1-2019Q4; the script refuses any later quarter)
         runs/select/metrics.json (the selected candidate)
+        runs/check-methods/metrics.json and mc_rates.csv (the SDID floor q_cal per pool, and the
+        check-methods values the paper cites, copied here so each claim rests on an analysis run)
 Output  runs/level-mde/metrics.json
         runs/level-mde/tests.csv   one row per statistic x pseudo-date x treated unit
 
@@ -25,25 +27,27 @@ with c_hi(0.975); h90_h2 = max(c_hi(0.95), -c_lo(0.05)) SE_pre; the nine H2 labe
 probabilities under tau = 0 and -0.035 (T ~ t_nu, closed form). Report-only (design-r4 D14):
 MDE_h2 and h90_h2 also under t_J (t_J in the t floor of the critical values and in the power
 quantile; L quantiles unchanged).
+
+SDID floor (design.method C1): for an SDID statistic (s2, and h1/h2/h3/op if the selected
+candidate is SDID) c_hi(p) = max(t_{nu,p}, L quantile, q_cal,hi(p)) and c_lo(p) = min(-t_{nu,1-p},
+L quantile, q_cal,lo(p)) with the q_cal of the statistic's pool; each SDID critical value is
+reported with and without the floor (crit_<stat>_<k>_nofloor). q_cal of both pools is echoed
+(qcal_<pool>_<k>) for the post-period runs. Echoed check-methods values carry the prefix cm_.
 """
 import sys
 from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select'; load the standard one first.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
+import json
 
-import json  # noqa: E402
+import numpy as np
+import pandas as pd
 
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-
-import sclib as S  # noqa: E402
+import sclib as S
 
 INPUT = Path("data/derived/state_panel_pre.csv")
 SELECT_METRICS = Path("runs/select/metrics.json")
+CHECK_METRICS = Path("runs/check-methods/metrics.json")
+MC_RATES = Path("runs/check-methods/mc_rates.csv")
 OUT_DIR = Path("runs/level-mde")
 METRICS = OUT_DIR / "metrics.json"
 TESTS_CSV = OUT_DIR / "tests.csv"
@@ -98,14 +102,22 @@ def run_tests(panel, selected):
     return pd.DataFrame(rows), ca_plc
 
 
-def summarise(tests, ca_plc, selected):
+def summarise(tests, ca_plc, selected, m_check):
     spec, pool = S.parse_candidate(selected)
     pools = {"h1": pool, "h2": pool, "h3": pool, "s1": "R50", "s2": "D20", "op": S.other_pool(pool)}
+    ests = {k: spec.est for k in ("h1", "h2", "h3", "op")}
+    ests.update({"s1": "DDTE", "s2": "SDID"})
     m = {"selected": selected, "selected_pool": pool, "other_pool": S.other_pool(pool),
          "pseudo_dates": ",".join(S.qlabel(b) for b in S.PSEUDO_DATES), "tau_alt": TAU_ALT,
          "b": S.B_SIZE}
-    crit = {}
+    for pl in ("D20", "R50"):
+        for k, v in S.qcal_from_metrics(m_check, pl).items():
+            m[f"qcal_{pl}_{k}"] = v
+    crit, floors = {}, {}
     for key, pl in pools.items():
+        floor = S.qcal_from_metrics(m_check, pl) if ests[key] == "SDID" else None
+        floors[key] = floor
+        m[f"sdid_floor_{key}"] = int(floor is not None)
         J = len(S.POOLS[pl])
         d = tests[tests.stat == key]
         ca = d[d.is_ca == 1].sort_values("pseudo_date")
@@ -157,11 +169,15 @@ def summarise(tests, ca_plc, selected):
         m[f"tnu_{key}_80"] = S.t_quantile(nu, 0.80)
         m[f"tJ_{key}_95"] = S.t_quantile(J, 0.95)
         m[f"tJ_{key}_975"] = S.t_quantile(J, 0.975)
-        c = S.critical_values(nu, lq)
+        c = S.critical_values(nu, lq, floor)
         crit[key] = c
+        c_nofloor = S.critical_values(nu, lq)
         for k, v in c.items():
             m[f"crit_{key}_{k}"] = v
-            m[f"crit_{key}_{k}_from_L"] = int(v != S.critical_values(nu)[k])
+            m[f"crit_{key}_{k}_from_L"] = int(c_nofloor[k] != S.critical_values(nu)[k])
+            if floor is not None:
+                m[f"crit_{key}_{k}_nofloor"] = c_nofloor[k]
+                m[f"crit_{key}_{k}_from_floor"] = int(v != c_nofloor[k])
         # California at each B': SE variants and the Ferman-Pinto diagnostic
         for _, r in ca.iterrows():
             b = r["pseudo_date"]
@@ -181,7 +197,7 @@ def summarise(tests, ca_plc, selected):
     # report-only (design-r4 D14): the same two quantities with t_J in place of t_nu in the t floor
     # of the critical values and in the power quantile; L quantiles unchanged
     J2 = m["J_h2"]
-    c_tJ = S.critical_values(J2, S.lq_from_metrics(m, "h2"))
+    c_tJ = S.critical_values(J2, S.lq_from_metrics(m, "h2"), floors["h2"])
     m["mde_h2_tJ"] = S.mde(c_tJ["hi975"], J2, m["se_pre_h2"])
     m["h90_h2_tJ"] = S.h90(c_tJ, m["se_pre_h2"])
     for tau, tag in ((0.0, "tau0"), (TAU_ALT, "tau035")):
@@ -189,19 +205,33 @@ def summarise(tests, ca_plc, selected):
         for k, v in probs.items():
             m[f"prob_{tag}_{k}"] = v
         m[f"prob_{tag}_sum"] = float(sum(probs.values()))
-    m["solver_solves"] = S.SOLVER_LOG["solves"]
-    m["solver_kkt_max"] = S.SOLVER_LOG["kkt_max"]
-    m["solver_not_converged"] = S.SOLVER_LOG["not_converged"]
+    m.update(S.solver_metrics())
     return m
+
+
+def echo_check_methods(m_check, mc):
+    """The check-methods values the paper cites (design.method C1-C3; T6), copied with prefix cm_."""
+    out = {}
+    for k, v in m_check.items():
+        if (k.startswith(("p99_sc", "diag_p99_sc", "i_sc_", "mc_SDID-E_"))
+                or "_heteroA_" in k or k.startswith(("mc_pass", "mc_fail", "a_sdid"))):
+            out[f"cm_{k}"] = v
+    if len(mc) != int(m_check["mc_combinations"]):
+        raise ValueError("runs/check-methods/mc_rates.csv does not match its metrics.json")
+    out["cm_mc_rows"] = len(mc)
+    return out
 
 
 def main():
     panel = load_input()
     selected = json.loads(SELECT_METRICS.read_text())["selected"]
+    m_check = json.loads(CHECK_METRICS.read_text())
+    mc = pd.read_csv(MC_RATES)
     tests, ca_plc = run_tests(panel, selected)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     tests.to_csv(TESTS_CSV, index=False, float_format="%.10g")
-    m = summarise(tests, ca_plc, selected)
+    m = summarise(tests, ca_plc, selected, m_check)
+    m.update(echo_check_methods(m_check, mc))
     m["input_last_quarter"] = S.qlabel(int(panel.qi[-1]))
     S.write_json(METRICS, m)
     print(f"level-mde for {selected}: nu_h2 {m['nu_h2']:.2f}, MDE_h2 {m['mde_h2']:.4f}, "

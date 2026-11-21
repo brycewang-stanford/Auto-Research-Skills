@@ -14,20 +14,16 @@ Pointwise bands: the gap's own placebo SE = max(SE_s, SE_n) at each quarter and 
 candidate's H2 critical values (L quantile; t at nu). COVID quarters, AB 257 (2022Q3) and AB 1228
 (2023Q4) are flagged for the figure. Which reading the 2022Q1-2023Q3 gaps admit depends on the
 estimator (design-r2 D11), recorded as 'figure_case'.
+For an SDID candidate every critical value also carries the SDID floor q_cal of the pool the
+run uses (design.method C1; echoed by level-mde).
 """
 import sys
 from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select'; load the standard one first.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
+import numpy as np
+import pandas as pd
 
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-
-import sclib as S  # noqa: E402
+import sclib as S
 
 OUT_DIR = Path("runs/event-path")
 CASE_NOTE = {
@@ -46,7 +42,7 @@ def main():
     donors = S.POOLS[pool]
     win = S.standard_windows(S.REAL_B, fit_start=spec.fit_start, years=False, anticip=False)
     pop_of = S.pop_at_base(panel, win)
-    c, nu_hat, nu = S.crit_for(m_lvl, "h2", donors)
+    c, nu_hat, nu = S.crit_for(m_lvl, "h2", donors, spec, pool)
     rows = []
     for outcome, sp in (("emp", spec), ("wage", spec.with_(norm="W"))):
         res = S.placebo_inference(S.make_gap_stat_fn(panel, sp, win), S.CA, donors, pop_of)

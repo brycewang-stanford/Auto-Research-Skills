@@ -9,17 +9,13 @@ emp_10 - emp_722513) or to full-service employment (722511). Critical values: le
 h2 (L quantile; t at nu over the pool). plc-nonff 'fails' if its 95% CI excludes 0 (the H2 label
 is then qualified as not separable from a California-wide shock; no re-specification).
 plc-722511 is reported only (not a clean placebo; never a DDD comparison).
+For an SDID candidate every critical value also carries the SDID floor q_cal of the pool the
+run uses (design.method C1; echoed by level-mde).
 """
 import sys
 from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select'; load the standard one first.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
-
-import sclib as S  # noqa: E402
+import sclib as S
 
 RUN_IDS = {"nonff": "plc-nonff", "722511": "plc-722511"}
 
@@ -33,7 +29,7 @@ def main(which):
     win = S.standard_windows(S.REAL_B, fit_start=spec.fit_start, years=False, anticip=False)
     r = S.placebo_inference(S.make_stat_fn(panel, sp, win), S.CA, donors,
                             S.pop_at_base(panel, win))["pooled"]
-    c, nu_hat, nu = S.crit_for(m_lvl, "h2", donors)
+    c, nu_hat, nu = S.crit_for(m_lvl, "h2", donors, spec, pool)
     m = {"selected": selected, "outcome": which, "J": len(donors), "nu_hat": nu_hat, "nu": nu}
     m.update(S.flatten_inference("plc", r, c, nu))
     m["plc_pct"] = S.pct(r["tau"])

@@ -256,7 +256,7 @@ class Panel:
 
 
 def check_pre_only(df):
-    """select.py and level_mde.py: raise if the input holds any quarter after 2019Q4 (0f (v))."""
+    """select_rule.py and level_mde.py: raise if the input holds any quarter after 2019Q4 (0f (v))."""
     qi = 4 * df["year"].astype(int) + df["qtr"].astype(int) - 1
     if (qi > PRE_END).any() or ("quarter" in df.columns
                                 and df["quarter"].map(qparse).gt(PRE_END).any()):
@@ -274,7 +274,7 @@ def read_panel_csv(path, pre_only=False, usecols=None):
 
 # --------------------------------------------------------------------------- simplex weights
 
-SOLVER_LOG = {"solves": 0, "kkt_max": 0.0, "not_converged": 0}
+SOLVER_LOG = {"solves": 0, "kkt_max": 0.0, "not_converged": 0, "kkt_above_1e6": 0}
 KKT_RESTART = 1e-7
 RESTARTS = 3
 
@@ -343,6 +343,7 @@ def simplex_ls(A, b, pen=0.0, x0=None):
     SOLVER_LOG["solves"] += 1
     SOLVER_LOG["kkt_max"] = max(SOLVER_LOG["kkt_max"], kkt)
     SOLVER_LOG["not_converged"] += int(not success)
+    SOLVER_LOG["kkt_above_1e6"] += int(kkt > 1e-6)
     return w, {"kkt": kkt, "success": success, "nit": nit, "restarts": restarts, "obj": f(w) * s2}
 
 
@@ -395,6 +396,19 @@ def sigma_hat(Y, fp):
     return float(np.sqrt(np.sum((D - D.mean()) ** 2) / D.size))
 
 
+def sdid_unit_problem(y, Y, fp, zeta, unit_intercept=True):
+    """The unit-weight problem of sdid_fit as (A, b, pen): min ||A omega - b||^2 + pen ||omega||^2
+    over the simplex, A = Y_F' (centred over F if unit_intercept), b = y_F (likewise),
+    pen = zeta^2 |F|. check-methods (i-SC-2) feeds these same inputs to the Frank-Wolfe port."""
+    fp = np.asarray(fp, int)
+    A = Y[:, fp].T
+    bvec = y[fp]
+    if unit_intercept:
+        A = A - A.mean(axis=0)
+        bvec = bvec - bvec.mean()
+    return A, bvec, zeta ** 2 * len(fp)
+
+
 def sdid_fit(y, Y, fp, wins, tpost=None, omega=None, lambdas=None, zeta=None,
              unit_intercept=True, time_weights=True, n_tr=1):
     """Synthetic DID (Arkhangelsky et al. 2021, Algorithm 1, no sparsification).
@@ -418,12 +432,8 @@ def sdid_fit(y, Y, fp, wins, tpost=None, omega=None, lambdas=None, zeta=None,
         zeta = (n_tr * tpost) ** 0.25 * sig
     solves = []
     if omega is None:
-        A = Y[:, fp].T
-        bvec = y[fp]
-        if unit_intercept:
-            A = A - A.mean(axis=0)
-            bvec = bvec - bvec.mean()
-        omega, info = simplex_ls(A, bvec, pen=zeta ** 2 * len(fp))
+        A, bvec, pen = sdid_unit_problem(y, Y, fp, zeta, unit_intercept)
+        omega, info = simplex_ls(A, bvec, pen=pen)
         solves.append(info)
     lam_out, taus = {}, {}
     for k, p in wins.items():
@@ -666,15 +676,35 @@ def nu_for_donors(m, stat, donors):
     return nu_from_s2(s2, len(donors))
 
 
-def critical_values(df, lq=None):
-    """c_hi(p) = max(t_{nu,p}, L quantile), c_lo(p) = min(-t_{nu,1-p}, L quantile), with t at
-    df = nu (scipy.stats.t accepts non-integer df). lq=None: the t quantiles only."""
+def critical_values(df, lq=None, floor=None):
+    """c_hi(p) = max(t_{nu,p}, L quantile[, q_cal,hi(p)]), c_lo(p) = min(-t_{nu,1-p}, L quantile
+    [, q_cal,lo(p)]), with t at df = nu (scipy.stats.t accepts non-integer df). lq=None: no L
+    quantile. floor: the SDID Monte Carlo floor of the run's pool (design.method C1), keys
+    hi95, hi975, lo05, lo025; None for every non-SDID statistic."""
     c = {"hi95": t_quantile(df, 0.95), "hi975": t_quantile(df, 0.975),
          "lo05": -t_quantile(df, 0.95), "lo025": -t_quantile(df, 0.975)}
     if lq is not None:
         c = {"hi95": max(c["hi95"], lq["q95"]), "hi975": max(c["hi975"], lq["q975"]),
              "lo05": min(c["lo05"], lq["q05"]), "lo025": min(c["lo025"], lq["q025"])}
+    if floor is not None:
+        c = {"hi95": max(c["hi95"], floor["hi95"]), "hi975": max(c["hi975"], floor["hi975"]),
+             "lo05": min(c["lo05"], floor["lo05"]), "lo025": min(c["lo025"], floor["lo025"])}
     return c
+
+
+QCAL_KEYS = ("hi95", "hi975", "lo05", "lo025")
+
+
+def qcal_from_metrics(m, pool):
+    """The SDID floor q_cal of a pool as check-methods writes it (qcal_<pool>_<key>) and
+    level-mde echoes it."""
+    return {k: float(m[f"qcal_{pool}_{k}"]) for k in QCAL_KEYS}
+
+
+def sdid_floor(m, spec, pool):
+    """The floor for a statistic of estimator spec.est with donors from `pool`: q_cal of that pool
+    for SDID (design.method C1), None otherwise."""
+    return qcal_from_metrics(m, pool) if spec.est == "SDID" else None
 
 
 def lq_from_metrics(m, stat):
@@ -889,13 +919,18 @@ def load_run_context(panel_path=PANEL_FULL, select_path=SELECT_METRICS, level_pa
     return panel, selected, spec, pool, m_lvl
 
 
-def crit_for(m_lvl, stat, donors):
-    """Critical values of a run: t at its own nu (nu_hat over its own donors, capped at its own J)
-    and the L quantiles of level-mde statistic `stat`. Returns (c, nu_hat, nu)."""
+def crit_for(m_lvl, stat, donors, spec, pool):
+    """Critical values of a run: t at its own nu (nu_hat over its own donors, capped at its own J),
+    the L quantiles of level-mde statistic `stat`, and for an SDID spec the floor q_cal of the
+    pool the run uses (design.method C1). Returns (c, nu_hat, nu)."""
     nu_hat, nu = nu_for_donors(m_lvl, stat, donors)
-    return critical_values(nu, lq_from_metrics(m_lvl, stat)), nu_hat, nu
+    c = critical_values(nu, lq_from_metrics(m_lvl, stat), sdid_floor(m_lvl, spec, pool))
+    return c, nu_hat, nu
 
 
 def solver_metrics():
+    """Each run's weight-solver record: solves, largest KKT residual, solves above 1e-6
+    (report-only; design.method IMPLEMENTATION CHOICES 2), SLSQP non-convergence."""
     return {"solver_solves": SOLVER_LOG["solves"], "solver_kkt_max": SOLVER_LOG["kkt_max"],
+            "solver_kkt_above_1e6": SOLVER_LOG["kkt_above_1e6"],
             "solver_not_converged": SOLVER_LOG["not_converged"]}

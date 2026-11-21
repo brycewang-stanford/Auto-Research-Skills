@@ -1,7 +1,7 @@
 """Run verdict (analysis_plan 17; design.method DECISIONS, exactly the approved rules).
 
 Inputs  runs/level-mde, h1-wage, h2-emp, h3-years, sec-cemn, sec-dube, rob-base-2023q4,
-        rob-pre-ab257, rob-pool, rob-7225, rob-final-quarters (metrics.json each)
+        rob-pre-ab257, rob-pool, rob-7225, rob-final-quarters, plc-nonff (metrics.json each)
 Output  runs/verdict/metrics.json
 
 H1 supported if the pooled W statistic rejects the one-sided 5% test; if not, H2 is reported as
@@ -11,22 +11,16 @@ against h2-emp's own label). H3: h3-years' label or 'uninformative'. Elasticitie
 computed them, or 'not computed'. Secondaries S1, S2 and runs 9-13 report the label the H2 rule
 gives them, marked 'not the headline'; if S1, S2 or any of runs 9, 10, 11, 13 has a different
 sign category from the primary, the headline is stated as 'not robust to <check>' (design-r1 D4).
-rob-7225's labels are reported and do not qualify the headline. The plc-nonff qualification
-(analysis_plan 14) is not among this run's inputs (analysis_plan 17 lists runs 2-5, 7, 8, 9-13);
-the paper applies it from runs/plc-nonff.
+rob-7225's labels are reported and do not qualify the headline. If plc-nonff's 95% CI excludes
+0, 'not separable from a California-wide shock' is appended to the H2 label (analysis_plan 14
+and 17; design.method IMPLEMENTATION CHOICES 12).
 """
 import sys
 from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select'; load the standard one first.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
+import json
 
-import json  # noqa: E402
-
-import sclib as S  # noqa: E402
+import sclib as S
 
 RUNS = Path("runs")
 OUT = RUNS / "verdict" / "metrics.json"
@@ -79,6 +73,14 @@ def main():
     out["not_robust_to"] = ",".join(not_robust)
     out["n_not_robust"] = len(not_robust)
     out["h2_headline"] = label + (f" (not robust to {', '.join(not_robust)})" if not_robust else "")
+    plc = load("plc-nonff")
+    if plc["selected"] != sel:
+        raise ValueError("plc-nonff used a different candidate")
+    out["plc_nonff_ci95_excludes_0"] = int(plc["plc_ci95_excludes_0"])
+    out["h2_label_qualified"] = label + ("; not separable from a California-wide shock"
+                                         if out["plc_nonff_ci95_excludes_0"] else "")
+    if out["plc_nonff_ci95_excludes_0"]:
+        out["h2_headline"] += "; not separable from a California-wide shock"
     S.write_json(OUT, out)
     print(f"verdict: H1 {out['h1_label']}; H2 {out['h2_headline']}; H3 {out['h3_label']}")
 

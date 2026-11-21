@@ -10,20 +10,16 @@ statistic h2's critical values (t at nu, L quantile); the H2 rule label; percent
 quarterly means, not seasonally adjusted) x (1 - exp(-tau)); MDE_h2, h90 and the label
 probabilities carried from level-mde, and MDE_h2 and h90 recomputed with this run's SE
 (report-only; design-r1 D6).
+For an SDID candidate every critical value also carries the SDID floor q_cal of the pool the
+run uses (design.method C1; echoed by level-mde).
 """
 import sys
 from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select'; load the standard one first.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
+import numpy as np
+import pandas as pd
 
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-
-import sclib as S  # noqa: E402
+import sclib as S
 
 OUT = Path("runs/h2-emp/metrics.json")
 PLACEBOS = Path("runs/h2-emp/placebos.csv")
@@ -36,7 +32,7 @@ def main():
     pop_of = S.pop_at_base(panel, win)
     res = S.placebo_inference(S.make_stat_fn(panel, spec, win), S.CA, donors, pop_of)
     r = res["pooled"]
-    c, nu_hat, nu = S.crit_for(m_lvl, "h2", donors)
+    c, nu_hat, nu = S.crit_for(m_lvl, "h2", donors, spec, pool)
     m = {"selected": selected, "outcome": f"{spec.norm} (722513 employment)", "base": "2023Q3",
          "post": "2024Q2-2026Q1", "nu_hat": nu_hat, "nu": nu, "J": len(donors)}
     m.update(S.flatten_inference("h2", r, c, nu))

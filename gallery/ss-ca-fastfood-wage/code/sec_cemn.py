@@ -22,15 +22,9 @@ California-minus-US indexed difference. Next to CEMN Table 3 Panel B (-2.74, -3.
 import sys
 from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select'; load the standard one first.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
+import numpy as np
 
-import numpy as np  # noqa: E402
-
-import sclib as S  # noqa: E402
+import sclib as S
 
 OUT = Path("runs/sec-cemn/metrics.json")
 PRINT_SIMPLE = -2.74     # CEMN (2026) Table 3 Panel B, FF, Rest of US, simple
@@ -56,7 +50,7 @@ def main():
     donors = S.R50
     win = S.standard_windows(S.REAL_B, years=False, anticip=False)
     pop_of = S.pop_at_base(panel, win)
-    c, nu_hat, nu = S.crit_for(m_lvl, "s1", donors)
+    c, nu_hat, nu = S.crit_for(m_lvl, "s1", donors, S.Spec(est="DDTE", weighting="AGG", norm="E"), "R50")
     m = {"selected": selected, "spec": "S1: DDT endpoint trend, AGG, E, R50", "J": len(donors),
          "nu_hat": nu_hat, "nu": nu, "trend_start": "2021Q3"}
     for tag, sp in (("s1", S.Spec(est="DDTE", weighting="AGG", norm="E")),

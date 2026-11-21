@@ -17,19 +17,15 @@ per window, the employment lambda; DD and DDT: the H1 wage ATT, which already is
 and SDID the ratio with the H1 (refitted) wage ATT is reported next to it. Computed only for a
 window whose H1 wage effect rejects the one-sided 5% test and whose reused-weights wage ATT is
 positive; otherwise 'not computed'.
+For an SDID candidate every critical value also carries the SDID floor q_cal of the pool the
+run uses (design.method C1; echoed by level-mde).
 """
 import sys
 from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select'; load the standard one first.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
+import json
 
-import json  # noqa: E402
-
-import sclib as S  # noqa: E402
+import sclib as S
 
 H1 = Path("runs/h1-wage/metrics.json")
 OUT = Path("runs/h3-years/metrics.json")
@@ -44,8 +40,8 @@ def main():
     win = S.standard_windows(S.REAL_B, fit_start=spec.fit_start, years=True, anticip=False)
     res = S.placebo_inference(S.make_stat_fn(panel, spec, win, diff=True), S.CA, donors,
                               S.pop_at_base(panel, win))
-    c3, nu3_hat, nu3 = S.crit_for(m_lvl, "h3", donors)
-    c2, nu2_hat, nu2 = S.crit_for(m_lvl, "h2", donors)
+    c3, nu3_hat, nu3 = S.crit_for(m_lvl, "h3", donors, spec, pool)
+    c2, nu2_hat, nu2 = S.crit_for(m_lvl, "h2", donors, spec, pool)
     m = {"selected": selected, "J": len(donors), "nu_hat_h3": nu3_hat, "nu_h3": nu3,
          "nu_hat_h2": nu2_hat, "nu_h2": nu2}
     m.update(S.flatten_inference("h3_y1", res["y1"], c2, nu2))

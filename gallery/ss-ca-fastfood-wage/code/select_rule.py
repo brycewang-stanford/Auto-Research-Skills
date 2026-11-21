@@ -3,7 +3,8 @@
 Input   data/derived/state_panel_pre.csv only (2014Q1-2019Q4; the script refuses any later quarter)
 Output  runs/select/pseudo_atts.csv   24 candidates x 6 pseudo-dates of California's pseudo-ATTs
         runs/select/metrics.json      rmse_<id>, maxabs_<id> for every candidate, selected,
-                                      selected_rmse, tie_used, and the best DD/DDT/SC/SDID
+                                      selected_rmse, tie_used, the best DD/DDT/SC/SDID, and
+                                      sc_solver_gap_<id> for each SC candidate (report-only)
 
 At each pseudo-date B' in 2016Q1..2017Q2, California is treated with the candidate's pool as
 donors and the windows F(B'), A(B'), P(B') of design.method NOTATION; the pseudo-ATT is the
@@ -11,21 +12,20 @@ pooled estimate over P(B') = B'+3..B'+10 (for P candidates read on the log-emplo
 which is the same number: F16). RMSE_c = sqrt(mean over the six B' of tau_c(B')^2).
 Primary = argmin RMSE_c; tie-break: RMSEs equal after rounding to 4 decimals, then smaller
 max |tau_c(B')|, then the earlier candidate in the design's order. Run once.
+
+sc_solver_gap_<id> (design.method IMPLEMENTATION CHOICES 3; report-only, never used by the rule):
+for each SC candidate, the largest absolute difference over the six pseudo-dates between its
+pseudo-ATT and the pseudo-ATT with the weights from the independent exact solver of
+design.method C3 (test_sclib.exact_simplex_ls): demeaned SC weights are not unique when the fit
+window is shorter than the number of donors. (The script was code/select.py; design.method C4.)
 """
 import sys
 from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# This file shares its name with the standard-library module 'select'. Load the standard module
-# before code/ is on the import path, so that subprocess/selectors (imported by scipy) find it.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
+import numpy as np
+import pandas as pd
 
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-
-import sclib as S  # noqa: E402
+import sclib as S
 
 INPUT = Path("data/derived/state_panel_pre.csv")
 OUT_DIR = Path("runs/select")
@@ -48,6 +48,30 @@ def pseudo_atts(panel):
             taus, _ = S.estimate(panel, spec, win, S.CA, S.POOLS[pool])
             rows.append({"candidate": cid, "pseudo_date": S.qlabel(B), "tau": taus["pooled"]})
     return pd.DataFrame(rows)
+
+
+def sc_solver_gaps(panel, tab):
+    """Largest |pseudo-ATT (sclib SLSQP) - pseudo-ATT (independent exact solver)| per SC candidate."""
+    from test_sclib import exact_simplex_ls
+    gaps = {}
+    for cid in S.CANDIDATES:
+        spec, pool = S.parse_candidate(cid)
+        if spec.est != "SC":
+            continue
+        diffs = []
+        for B in S.PSEUDO_DATES:
+            win = S.standard_windows(B, fit_start=spec.fit_start, years=False, anticip=False)
+            y = panel.unit_series(spec.industry, spec.norm, [S.CA])[0]
+            Y = panel.unit_series(spec.industry, spec.norm, S.POOLS[pool])
+            fp = panel.positions(win.fit)
+            post = panel.positions(win.win["pooled"])
+            yb, Yb = y[fp].mean(), Y[:, fp].mean(axis=1)
+            w, _ = exact_simplex_ls((Y[:, fp] - Yb[:, None]).T, y[fp] - yb)
+            tau_ex = float(np.mean((y[post] - yb) - w @ (Y[:, post] - Yb[:, None])))
+            tau = float(tab.loc[(tab.candidate == cid) & (tab.pseudo_date == S.qlabel(B)), "tau"].iloc[0])
+            diffs.append(abs(tau - tau_ex))
+        gaps[cid] = max(diffs)
+    return gaps
 
 
 def select_candidate(tab):
@@ -88,9 +112,9 @@ def main():
         b = min(ids, key=lambda c: (rmse[c], S.CANDIDATES.index(c)))
         m[f"best_{est}_id"] = b
         m[f"best_{est}_rmse"] = rmse[b]
-    m["solver_solves"] = S.SOLVER_LOG["solves"]
-    m["solver_kkt_max"] = S.SOLVER_LOG["kkt_max"]
-    m["solver_not_converged"] = S.SOLVER_LOG["not_converged"]
+    m.update(S.solver_metrics())          # sclib solves only (before the exact-solver diagnostic)
+    for cid, g in sc_solver_gaps(panel, tab).items():
+        m[f"sc_solver_gap_{cid}"] = g
     S.write_json(METRICS, m)
     print(f"selected {selected} (RMSE {rmse[selected]:.4f}; tie_used {tie_used})")
 
