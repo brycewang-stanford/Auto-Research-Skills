@@ -95,3 +95,7 @@
 {"time": "2026-11-21T09:22:45Z", "role": "econometrician", "action": "check-methods-rerun", "detail": "e-check-r2: code to design.method C1-C5 (SDID floor q_cal, i-SC-1/i-SC-2, select.py -> select_rule.py without prologue, sc_solver_gap, verdict reads plc-nonff, matplotlib 3.11.2 and wrapt 2.5.2 pinned); check-methods rerun --replace: (i) (ii) (iii) (v) pass, (a) pass, (a-SDID) pass, (b) fails in SDID-E/D20/heteroA/rho0 as recorded in C2; every first-run (iv) rate reproduced exactly (80 cells x 21 columns, 884 metrics)"}
 {"time": "2026-11-21T09:23:21Z", "role": "pi", "action": "gate-request", "detail": "design"}
 {"time": "2026-11-21T11:41:48Z", "role": "pi", "action": "gate-approve", "detail": "design Bryce Wang"}
+{"time": "2026-11-21T11:42:14Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T114214Z (code-r1)"}
+{"time": "2026-11-21T11:42:14Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261121T114214Z (w-data-strategy)"}
+{"time": "2026-11-21T11:52:03Z", "role": "writer", "action": "draft", "detail": "w-data-strategy: paper/main.tex skeleton (inputs numbers, process, ai-use) with sections/background.tex, literature.tex, data.tex, strategy.tex; introduction, results, robustness, conclusion, limitations and abstract left as marked stubs; no result stated, no runs/ read beyond check-methods and NOTES.md; compiled (25 pages, body 19); task set done"}
+{"time": "2026-11-21T11:52:43Z", "role": "reviewer", "action": "review-recorded", "detail": "code-r1 verdict=pass files=31"}

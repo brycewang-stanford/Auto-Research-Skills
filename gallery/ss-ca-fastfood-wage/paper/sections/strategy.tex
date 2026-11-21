@@ -1,0 +1,557 @@
+% Empirical strategy. States no result. Source: plan.json (hypotheses, design.estimand,
+% identifying_assumption, method, analysis_plan, threats, deviations). Every number below is a
+% fact of the approved design. The check-methods outcomes that shaped the design (design.method
+% C1-C3, T6) are described qualitatively here; their values enter the paper only as macros of
+% claims backed by the run level-mde, which copies them (design.analysis_plan 2, claims_plan).
+\section{Empirical strategy}
+\label{sec:strategy}
+
+The design compares California's limited-service restaurant employment after AB 1228 took effect
+with a counterfactual built from other states. Which counterfactual---which estimator, donor pool,
+weighting and outcome normalisation---is not chosen by judgement: a rule fixed at the design gate
+picks it from 24 candidates using only data that end in 2019Q4. Inference is built for a single
+treated state, and the labels the paper reports follow from decision rules fixed at the same time.
+
+\subsection{Estimand}
+\label{sec:estimand}
+
+Let $Y_{\mathrm{CA},t}$ be the seasonally adjusted log employment of private NAICS 722513
+establishments in California in quarter $t$, and $Y_{\mathrm{CA},t}(1)$ and $Y_{\mathrm{CA},t}(0)$
+its values with and without AB 1228. The estimand is
+\begin{equation}
+\label{eq:estimand}
+\tau = \frac{1}{8}\sum_{t=\text{2024Q2}}^{\text{2026Q1}}
+  \bigl[Y_{\mathrm{CA},t}(1) - Y_{\mathrm{CA},t}(0)\bigr]
+  - \bigl[Y_{\mathrm{CA},\text{2023Q3}}(1) - Y_{\mathrm{CA},\text{2023Q3}}(0)\bigr].
+\end{equation}
+If AB 1228 had no effect before it was signed (September 28, 2023, after the September pay period
+that the QCEW counts), the second bracket is zero. $\tau$ is an intent-to-treat effect on the whole
+industry code, covered and uncovered establishments together (Section~\ref{sec:coverage}), in log
+points; we also report it as $100(e^{\tau}-1)$ percent and as jobs, the mean of California's
+published (not seasonally adjusted) 2024Q2--2026Q1 employment times $1 - e^{-\tau}$. The wage
+estimand of hypothesis H1 is the same with the log average weekly wage. Hypothesis H3 concerns
+$\tau_2 - \tau_1$, where $\tau_1$ averages over year one (2024Q2--2025Q1) and $\tau_2$ over year two
+(2025Q2--2026Q1). Candidates fitted on log employment per capita estimate the same $\tau$ under the
+maintained assumption that AB 1228 did not change California's resident population, which is what
+lets the selection rule compare all candidates on one scale.
+
+\subsection{Timing}
+\label{sec:timing}
+
+The base quarter is $B = \text{2023Q3}$, the last quarter before AB 1228 was signed. The two quarters
+between signing and the effective date, 2023Q4 and 2024Q1, form an anticipation window that enters
+neither the base nor the post window; we report the effect in that window separately, without a
+test, as \citet[Table~A3]{sosinskiy2026effects} already do at county level. The COVID quarters
+2020Q1--2021Q4 are excluded from every fit, base, trend and standard error, as in
+\citet{dube2026labor}, with the one exception noted for the secondary analysis S1
+(Section~\ref{sec:secondary}). In general, for a base quarter $B$,
+\begin{itemize}
+  \item the fit window $F(B)$ is every quarter from 2014Q1 to $B$ outside the COVID quarters;
+  \item the anticipation window is $A(B) = \{B+1, B+2\}$;
+  \item the post window $P(B)$ is the eight quarters $B+3, \dots, B+10$, with year one $B+3, \dots, B+6$
+        and year two $B+7, \dots, B+10$.
+\end{itemize}
+For the real base, $F$ is 2014Q1--2019Q4 and 2022Q1--2023Q3 (31 quarters), $A$ is 2023Q4--2024Q1 and
+$P$ is 2024Q2--2026Q1. Time is the calendar quarter index, so the COVID gap counts as elapsed time
+in trends. The published result closest to this timing is \citet[Table~1, Panel~B]{dube2026labor},
+whose base, the 2022Q1--2023Q3 average, also keeps 2023Q4 out. Dube's own 2023Q4 base and a base
+before AB 257 (2022Q2) are pre-specified robustness checks (Section~\ref{sec:robust-plan}), not
+alternative primaries.
+
+\subsection{Identifying assumption}
+\label{sec:assumption}
+
+Without AB 1228, California's seasonally adjusted log 722513 employment (for H1, its log weekly
+wage) after 2023Q3 would have stayed as far from the selected counterfactual as it was before. For
+the DD candidates the reference is the 2023Q3 gap, with the pre-period trend of the gap extrapolated
+for the trend-adjusted variant; for synthetic control it is the mean gap over the fit window; for
+SDID it is the time-weighted pre-period gap.
+
+The selection rule rests on a premise: the candidate that best reproduced California's actual path
+at pre-COVID pseudo-treatment dates is the one for which the assumption holds best. That path
+includes California's own general minimum-wage ramp (Section~\ref{sec:ramp}), which is part of the
+counterfactual for AB 1228. The premise is therefore about fit to California's path under its own
+ramp, and it assumes that whatever lets a candidate track that ramp in 2016--2019---a gap trend, or
+donors with their own increases---still tracks California's path without AB 1228 in 2024--2026,
+when the general minimum rose more slowly.
+
+The data would contradict the assumption if (i) the selected candidate's placebo RMSE is near or
+above the 2 percent bound of hypothesis H2; (ii) the event path shows systematic gaps over
+2022Q1--2023Q3; (iii) employment outside 722513 shows an effect; or (iv) the estimate moves
+materially with the base or the donor pool. Check (ii) is an out-of-fit test only for plain DD: for
+the trend-adjusted DD those seven quarters are the points the trend is fitted on, so the gaps there
+test only curvature, and for synthetic control and SDID every non-COVID pre-period quarter is in the
+fit window, so the path shows in-sample fit. For these candidates the out-of-fit pre-period evidence
+is the selection rule's placebo RMSE. None of the four checks can confirm the assumption.
+
+\subsection{Candidate estimators}
+\label{sec:candidates}
+
+Let $g_t = Y_{\mathrm{CA},t} - \bar Y_{\mathrm{donor},t}$ be the gap between California and a donor
+average. The candidates are of four kinds.
+
+\paragraph{DD.} $\hat\tau = \operatorname{mean}_{t\in P} g_t - g_B$.
+
+\paragraph{Trend-adjusted DD (DDT).} In the style of \citet{clemens2026employment},
+\begin{equation}
+\hat\tau = \operatorname{mean}_{t\in P}\bigl[g_t - g_B - \hat b\,(t - B)\bigr],
+\end{equation}
+where $\hat b$ is the least-squares slope of $g_t$ on $t$ over the quarters $B-8, \dots, B$ outside
+the COVID quarters: 2022Q1--2023Q3 (seven points) for the real base, nine points at the
+pseudo-dates of the selection rule. This is equivalent to a state-specific linear trend in the
+weighted two-by-two comparison.
+
+For DD and DDT the donor average is formed in one of two ways: \emph{AGG}, the donor aggregate
+series of summed employment, population and wages, logged, as Clemens and coauthors compare
+California with the rest of the United States; or \emph{POPW}, the population-weighted mean of the
+donors' log series with weights from population at $B$, as in \citet{dube2026labor}.
+
+\paragraph{Demeaned synthetic control (SC).} Simplex weights $w$ minimise
+\begin{equation}
+\sum_{t\in F}\Bigl[\bigl(Y_{\mathrm{CA},t} - \bar Y_{\mathrm{CA},F}\bigr)
+  - \sum_j w_j\bigl(Y_{j,t} - \bar Y_{j,F}\bigr)\Bigr]^2,
+\end{equation}
+and $\hat\tau$ is the mean of the same demeaned gap over $P$ \citep{doudchenko2016balancing,ferman2021synthetic}.
+The demeaned form is needed because California's level of log employment lies outside the donors'
+convex hull. With no penalty, the weights---and so the post-period estimate---are not unique when
+the fit window is shorter than the number of donors, which happens at every pseudo-date and for R50
+in the real window; the estimator is then the deterministic solve from uniform weights.
+
+\paragraph{Synthetic DID (SDID).} We implement Algorithm~1 of \citet{arkhangelsky2021synthetic}
+without sparsification. Unit weights $(\omega_0, \omega)$, with $\omega$ in the simplex, minimise
+$\sum_{t\in F}\bigl(\omega_0 + \sum_j \omega_j Y_{j,t} - Y_{\mathrm{CA},t}\bigr)^2 + \zeta^2|F|\,\lVert\omega\rVert^2$,
+with $\zeta = (1\cdot 8)^{1/4}\hat\sigma$ and $\hat\sigma^2$ the variance of the donors' first
+differences over pairs of consecutive quarters inside $F$, as in their equation~(2.2). Time weights
+$(\lambda_0, \lambda)$, with $\lambda$ in the simplex, minimise
+$\sum_j\bigl(\lambda_0 + \sum_{s\in F}\lambda_s Y_{j,s} - \operatorname{mean}_{t\in W} Y_{j,t}\bigr)^2$
+plus the negligible penalty $(10^{-6}\hat\sigma)^2 J\lVert\lambda\rVert^2$, for the estimation window
+$W$. Then
+\begin{equation}
+\hat\tau = \Bigl(\operatorname{mean}_{t\in W} Y_{\mathrm{CA},t} - \sum_{s}\lambda_s Y_{\mathrm{CA},s}\Bigr)
+  - \sum_j\omega_j\Bigl(\operatorname{mean}_{t\in W} Y_{j,t} - \sum_s\lambda_s Y_{j,s}\Bigr).
+\end{equation}
+$\omega$ and $\zeta$ are fitted once with the eight-quarter post window and reused for the yearly and
+anticipation windows; $\lambda$ is refitted for each window.
+
+All weights are exact minimisers of these objectives. On the Proposition 99 data our DD and SDID
+estimates round to the values \citet[Table~1]{arkhangelsky2021synthetic} print ($-27.3$ and
+$-15.6$), while our exact synthetic control differs from the printed $-19.6$ by about 0.1 packs per
+capita, a difference that the reference package's own iterative solver and its default
+sparsification reproduce; our design fixes the exact minimiser. For the wage outcome each estimator
+is re-applied to log weekly wages with the same pool, refitting the weights (SC, SDID) or the trend
+(DDT) on wages.
+
+\paragraph{The candidate set.} Crossing DD and DDT with AGG and POPW weighting, the outcomes $E$
+and $P$, and the pools D20 and R50 gives 16 candidates; SC and SDID, each with $E$ and $P$ and D20
+and R50, give eight more. The 24 candidates, identified as \cand{DDT-POPW-P-D20} and so on, are
+ordered DD, DDT (each AGG then POPW, $E$ then $P$, D20 then R50), SC, SDID, and this order is the
+last tie-break. The set covers both published approaches: the detrended aggregate comparison with
+the rest of the United States of Clemens and coauthors, and the per-capita SDID with federal-minimum
+donors of Dube.
+
+\subsection{The selection rule}
+\label{sec:select}
+
+The primary specification is the candidate that best reproduces California's own path at placebo
+dates before COVID. The run that applies the rule reads only the panel truncated at 2019Q4 and is
+the first analysis run after the design gate; it is run once. For each candidate $c$ and each
+pseudo-treatment date $B' \in \{\text{2016Q1}, \dots, \text{2017Q2}\}$ (six dates), California is
+treated at $B'$, the candidate's pool supplies the donors, and the windows $F(B')$, $A(B')$ and
+$P(B')$ are defined as above, so every pseudo post window ends by 2019Q4 and contains no COVID
+quarter. The first date is 2016Q1 because DDT needs $B'-8 \geq$ 2014Q1, the last 2017Q2 because
+$B'+10 \leq$ 2019Q4. The pseudo-ATT $\hat\tau_c(B')$ is read in log points of employment, also for
+per-capita candidates, and
+\begin{equation}
+\mathrm{RMSE}_c = \Bigl(\tfrac{1}{6}\textstyle\sum_{B'}\hat\tau_c(B')^2\Bigr)^{1/2}.
+\end{equation}
+The primary is the candidate with the smallest $\mathrm{RMSE}_c$. If RMSEs are equal after rounding
+to four decimals, the smaller maximum $|\hat\tau_c(B')|$ wins, then the earlier candidate in the
+order above. The rule's parameters were fixed on November 21, 2026 without computing any placebo
+or any statistic of the outcomes, and no alternative set of pseudo-dates is computed. The paper
+reports all 24 RMSEs.
+
+Three properties of the rule should be kept in mind. First, $\hat\tau_c(B')$ is a fit error relative
+to California's path without AB 1228, not an estimate of a zero policy effect: California's
+2016--2019 path contains its general minimum-wage ramp, which the D20 donors lack entirely and the
+R50 donors partly, so the rule favours candidates that track that ramp, such as DDT or R50
+candidates. An R50 or DDT winner may reflect that shared ramp. Second, the rule has little
+information: the six pseudo post windows overlap by three to seven of their eight quarters, so they
+amount to about two independent draws, in calm years, with fit windows of 9 to 14 quarters against
+31 in the real analysis, and the trend windows of DD and DDT are alike at the pseudo-dates but differ
+after COVID. The winner may not be the best estimator for 2024--2026. Third, for SC candidates the
+non-unique weights make the pseudo-ATTs depend on the solver; the run reports, without using it,
+the largest gap between each SC candidate's pseudo-ATTs and those of an independent solver. For
+these reasons the two published specifications are always reported as named secondary analyses and
+can qualify the headline (Section~\ref{sec:decision}).
+
+\subsection{Inference with one treated state}
+\label{sec:inference}
+
+\paragraph{Placebo estimates and the standard error.} For a statistic $\hat\tau_u$ of a treated
+unit $u$---California in every post-period run---we compute the placebo estimate $\hat\tau_j$ of
+each of the $J$ donors in $u$'s pool, treating $j$ as treated with the other $J-1$ donors as its
+donors ($u$ excluded) and the same estimator, windows and outcome. Two standard errors are formed:
+\begin{equation}
+\SEs = \Bigl(\frac{1}{J}\sum_j \hat\tau_j^2\,\frac{\mathrm{pop}_j}{\mathrm{pop}_u}\Bigr)^{1/2},
+\qquad
+\SEn = \Bigl(\frac{1}{J}\sum_j \hat\tau_j^2\Bigr)^{1/2},
+\qquad
+\mathrm{SE} = \max(\SEs, \SEn),
+\end{equation}
+with populations at the base quarter. $\SEs$ is the population scaling of
+\citet{ferman2019inference} as implemented by \citet{dube2026labor}. The maximum is conservative for
+California. Suppose $\operatorname{var}(\hat\tau_j) = A + B/\mathrm{pop}_j$ with $A, B \geq 0$, a
+state-level component and a size-related component. Then
+$E[\SEs^2] = A\,\overline{\mathrm{pop}}/\mathrm{pop}_u + B/\mathrm{pop}_u$ and
+$E[\SEn^2] = A + B\,\overline{1/\mathrm{pop}}$, against the truth $A + B/\mathrm{pop}_u$. Because
+California is larger than every donor, $\SEs$ is at or below the truth and $\SEn$ at or above it for
+every $A, B \geq 0$; scaling alone imposes $A = 0$, which is unlikely for a near-census like the QCEW.
+The argument fails if the variance rises with size ($B < 0$); the level check below looks for that.
+Since every ratio $\mathrm{pop}_j/\mathrm{pop}_{\mathrm{CA}}$ is below one, $\SEs < \SEn$ in every run,
+and California's standard error is $\SEn$. As a diagnostic that decides nothing, we also report
+Ferman and Pinto's own step: the least-squares regression of $\hat\tau_j^2$ on a constant and
+$1/\mathrm{pop}_j$, giving $\hat A$, $\hat B$ and
+$\mathrm{SE}_{\mathrm{FP}} = \max(0, \hat A + \hat B/\mathrm{pop}_u)^{1/2}$. Standard errors clustered
+by state are not used.
+
+\paragraph{Degrees of freedom.} California's $\SEn$ is the root mean square of $J$ placebo
+estimates whose variances $s_j^2$ differ across donors, so its effective degrees of freedom are
+fewer than $J$: the Satterthwaite value $(\sum_j s_j^2)^2/\sum_j s_j^4$ equals $J$ only when the
+$s_j^2$ are equal. Every label uses Student's $t$ at $\nu = \min(J, \hat\nu)$, never at $J$, where
+$\hat\nu$ is that formula with $s_j^2$ the mean over the six pseudo-dates of donor $j$'s squared
+placebo estimate of the same statistic in the level check, computed on data ending in 2019Q4. So
+$\nu$ is fixed for every statistic before any post-2023Q3 outcome is read. With about two
+independent draws per donor the estimated $s_j^2$ are dispersed, which biases $\hat\nu$ downward
+(to roughly $J/2$ when the true variances are equal), and when donor variances differ because of
+size, $\SEn$ is already conservative for California and the small $\hat\nu$ widens the interval a
+second time. Both costs are accepted, not corrected. So that readers can see how much of the
+interval width is due to this penalty, the minimum detectable effect and the equivalence half-width
+of H2 are also reported with $t_J$; no label uses those values.
+
+\paragraph{Level check and the decision set.} A run on the truncated panel, after the design gate
+and before any run that reads a post-2023Q3 outcome, measures how the procedure behaves where the
+effect is known to be absent. At each of the six pseudo-dates, every unit $u$ in the pool and
+California in turn is treated. California uses the whole pool as donors; every other unit uses the
+pool without itself, with California excluded from both its donors and its placebos, so that no
+placebo-unit test carries California's 2014--2019 minimum-wage ramp. For each statistic the run
+reports rejection rates of $T_u = \hat\tau_u/\mathrm{SE}_u$ at the nominal 5 percent one- and
+two-sided levels, with $\mathrm{SE}$, $\SEs$ and $\SEn$ separately: over all tests, by population
+tercile, over the decision set $L$, and for California's six tests. The statistics checked are the
+selected candidate's pooled wage, pooled employment and year-two-minus-year-one statistics, the
+pooled employment statistics of the secondary analyses S1 and S2, and the selected candidate's
+pooled employment statistic with the other pool.
+
+The decision set $L$ is the ten most populous D20 states at each pseudo-date (60 tests). Their
+binding minimum was the federal \$7.25 throughout 2014--2019, so their pseudo-ATTs have no
+own-policy content, unlike California's and many R50 states'. Because the six pseudo post windows
+overlap, $L$ holds about 20 independent draws (all tests: about 42 for D20 and 102 for R50). $L$
+contains no unit as large as California, so it can reveal over-rejection that grows with size but
+cannot measure California's own level; for California the level is argued from the conservative
+standard error and critical value, not measured, and we say so wherever we report it.
+
+\paragraph{Critical values and intervals.} For each statistic,
+\begin{align}
+c_{\mathrm{hi}}(p) &= \max\bigl(t_{\nu,p},\; Q^{\mathrm{higher}}_p(T_L)\bigr), \quad p \in \{0.95, 0.975\},\\
+c_{\mathrm{lo}}(p) &= \min\bigl(-t_{\nu,1-p},\; Q^{\mathrm{lower}}_p(T_L)\bigr), \quad p \in \{0.025, 0.05\},
+\end{align}
+where $Q_p(T_L)$ is the empirical $p$-quantile of the 60 values of $T$ in $L$ (taken as the next
+higher or lower observation). With 60 values the 0.025 and 0.975 quantiles are the second smallest
+and second largest, attainable but noisy; that noise can only widen an interval relative to
+$t_\nu$. The intervals are
+\begin{equation}
+\text{95\%: } \bigl[\hat\tau - c_{\mathrm{hi}}(0.975)\,\mathrm{SE},\; \hat\tau - c_{\mathrm{lo}}(0.025)\,\mathrm{SE}\bigr],
+\qquad
+\text{90\%: } \bigl[\hat\tau - c_{\mathrm{hi}}(0.95)\,\mathrm{SE},\; \hat\tau - c_{\mathrm{lo}}(0.05)\,\mathrm{SE}\bigr],
+\end{equation}
+and the one-sided 5 percent test of H1 rejects if $\hat\tau/\mathrm{SE} > c_{\mathrm{hi}}(0.95)$.
+$p$-values from $t_\nu$ are reported for information only; every label uses the intervals. With
+$J = 20$ or $50$ donors a 5 percent test is attainable without California ranking first among the
+placebos. The selected candidate's critical values serve H1, H2, H3 and the anticipation estimate;
+S1 and S2 have their own, as does the other-pool robustness check; the remaining robustness and
+placebo runs and the event-path bands use the selected candidate's employment critical values with
+$t$ at each run's own $\nu$.
+
+\paragraph{The SDID floor.} Before the design gate, a Monte Carlo study checked the inference on
+synthetic panels with the real 2016 populations of California and the donors and a true effect of
+zero, with state-level shocks, size-related noise, or both, with and without autocorrelation, and
+in two designs where the state-level shock variances differ: five oil states with four times the
+variance and California at the donors' mean, and the same with California at twice that mean. For
+DD, DDT and synthetic control, California's tests at $t_J$ with the maximum standard error kept
+their level in the designs with equal shock variances. SDID's placebo $t$ statistic did not: in one
+cell (D20 donors, pure state-level shocks, no autocorrelation) its two-sided rejection rate at
+$t_J$ exceeded the pre-set bound, and no error in the code was found; the excess lies in the tails
+of SDID's placebo $t$, not in the scale of its standard error. Every SDID statistic therefore has a
+calibrated floor on its critical values: $c_{\mathrm{hi}}(p)$ is also at least the
+$p$-quantile, and $c_{\mathrm{lo}}(p)$ at most the $p$-quantile, of California's $t$ statistic in
+fresh pure-state-shock replications for the pool the run uses, with and without autocorrelation,
+the more extreme of the two. The floor applies to S2 and, if the rule selects an SDID candidate, to
+every statistic of the primary. It comes from the geometry of the pseudo-dates, not from the real
+fit window, so it transfers to the real runs by assumption; it can only widen an SDID interval. In
+the design with unequal shock variances one SDID cell (D20, no autocorrelation) rejected above its
+bound even at the Monte Carlo degrees of freedom, again with no error found; we report that rate as
+the size of an SDID test with D20 under that design. The design with California twice as noisy
+as its donors shows how far California's rate can exceed 5 percent if its own noise is larger than
+its size implies; it cannot tell whether it is. The rates and the floor values are reported with
+the results.
+% The rates (D20 pure-A uncorrected and with the floor; hetero-A and hetero-A-CA2 for SDID) and the
+% q_cal values enter as macros of claims backed by level-mde (claims_plan item 1).
+
+\subsection{Power}
+\label{sec:power}
+
+The same truncated-data run computes the power of the design. For each statistic, $\mathrm{SE}_{\mathrm{pre}}$
+is the root mean square of California's standard error over the six pseudo-dates. The minimum
+detectable effects at 80 percent power are
+\begin{equation}
+\mathrm{MDE}_{\mathrm{H2}} = \bigl(c_{\mathrm{hi}}(0.975) + t_{\nu,0.80}\bigr)\mathrm{SE}_{\mathrm{pre}},
+\qquad
+\mathrm{MDE}_{\mathrm{H1}} = \bigl(c_{\mathrm{hi}}(0.95) + t_{\nu,0.80}\bigr)\mathrm{SE}_{\mathrm{pre}},
+\end{equation}
+with $\mathrm{MDE}_{\mathrm{H3}}$ defined like $\mathrm{MDE}_{\mathrm{H2}}$. For the size label of H2,
+$h_{90} = \max\bigl(c_{\mathrm{hi}}(0.95), -c_{\mathrm{lo}}(0.05)\bigr)\mathrm{SE}_{\mathrm{pre}}$ is the
+half-width of the 90 percent interval; the label ``no effect as large as 2\%'' is reachable only if
+$h_{90} < 0.02$. The run also computes the probability of each of the nine H2 labels when
+$\tau = 0$ and when $\tau = -0.035$, close to the two-year median of CEMN, from
+$\hat\tau = \tau + \mathrm{SE}_{\mathrm{pre}}T$ with $T \sim t_\nu$. Because $\mathrm{SE}_{\mathrm{pre}}$
+rests on 2014--2019 noise and on seasonal factors fitted to the same years, it is a lower bound; the
+post-period runs recompute $\mathrm{MDE}_{\mathrm{H2}}$, $h_{90}$ and $\mathrm{MDE}_{\mathrm{H3}}$ with
+the real standard error, for information, and the rule for H3 uses the larger of the two
+$\mathrm{MDE}_{\mathrm{H3}}$ values.
+
+\subsection{Hypotheses and decision rules}
+\label{sec:decision}
+
+\paragraph{H1, first stage in weekly earnings.} The pooled 2024Q2--2026Q1 effect on the log average
+weekly wage is positive: one-sided test at 5 percent, also reported for each year. Weekly earnings
+per job are not the hourly wage the law sets; fewer hours would bias the effect toward zero. If H1
+is not supported, H2 is reported as uninformative about the wage floor.
+
+\paragraph{H2, employment.} With $b = 0.02$ log points, let $[L, U]$ be the 95 percent and
+$[l, u]$ the 90 percent interval of the pooled employment effect. The sign is negative if $U < 0$,
+positive if $L > 0$, and undetermined otherwise. The size is smaller than $b$ if $-b < l$ and
+$u < b$ (two one-sided tests at 5 percent), at least $b$ if $u < -b$ or $l > b$, and undetermined
+otherwise. The headline label is the pair, from the exhaustive and mutually exclusive
+Table~\ref{tab:labels}.
+
+\begin{table}[tbp]
+\centering
+\caption{Labels of hypothesis H2}
+\label{tab:labels}
+\small
+\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+& \multicolumn{3}{c}{Size (90\% interval against $b = 0.02$)} \\
+\cmidrule(l){2-4}
+Sign (95\% interval) & at least $b$ & smaller than $b$ & undetermined \\
+\midrule
+negative & decline of at least 2\% & decline smaller than 2\% & decline, size not distinguishable from 2\% \\
+\addlinespace
+undetermined & inconclusive & no effect as large as 2\% & inconclusive \\
+\addlinespace
+positive & increase of at least 2\% & increase smaller than 2\% & increase, size not distinguishable from 2\% \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The bound separates the two published readings. The published pooled weekly-wage effects are about
+6 percent \citep{clemens2026employment} to 7 percent \citep[Table~1, Panel~A]{dube2026labor}, close
+to but not the same estimand as ours; at those wage effects an employment effect of $-0.02$ is an
+own-wage elasticity of about $-0.29$ to $-0.33$. The two-year QCEW estimates of CEMN range from
+$-2.02$ to $-5.03$ percent, so their least negative sits at the bound: an interval inside $\pm0.02$
+excludes their median and detrended estimates but not every one of their specifications, and an
+interval wholly below $-0.02$ excludes Dube's SDID estimate. A ``decline of at least 2\%'' therefore
+counts against the near-zero reading; ``no effect as large as 2\%'' or ``decline smaller than 2\%''
+count against the reading of a decline of about 3.5 percent.
+
+\paragraph{H3, year two against year one.} The difference $\tau_2 - \tau_1$, with the same estimator
+and inference, is labelled ``larger decline in year two'' if its 95 percent interval is below zero,
+``smaller decline in year two'' if above, and ``no detectable change'' otherwise. If
+$\mathrm{MDE}_{\mathrm{H3}}$ exceeds 0.04, twice $b$, H3 is reported as uninformative whatever the
+estimate. The difference is read next to the yearly wage effects and the implied yearly
+elasticities, because the bite of the law fell in year two and a change cannot be attributed to
+time alone.
+
+\paragraph{Elasticities.} The own-wage elasticity, pooled and by year, is the employment effect
+divided by a wage effect computed with the employment fit reused (for SC the employment weights, for
+SDID the employment unit and time weights; DD and DDT have no fitted weights). Numerator and
+denominator then use one comparison, so dilution by uncovered establishments roughly cancels. For
+SC and SDID the ratio with the refitted wage effect of H1 is reported next to it. An elasticity is
+computed only for windows whose H1 wage effect rejects and whose reused-weights wage effect is
+positive, and only as a point value.
+
+\paragraph{Qualifications of the headline.} A final run applies these rules mechanically. Each
+secondary analysis and robustness check also reports the label the H2 rule would give, marked as
+not the headline. If S1, S2, the 2023Q4 base, the pre-AB 257 base, the other pool or the
+final-data window gives a different sign category from the primary, the headline is stated as not
+robust to that check. If the 95 percent interval of the placebo outcome (employment outside 722513)
+excludes zero, ``not separable from a California-wide shock'' is appended to the H2 label. The
+abstract and the first results paragraph report the primary, S1 and S2 labels side by side.
+
+\paragraph{Multiple testing.} No family-wise correction is applied: H2 is the single primary
+employment test, H1 a gate for reading it, and H3 a separately labelled secondary with its own power
+rule. Secondary analyses, robustness checks and placebos never create a new finding. With two
+placebo outcomes, the chance that one of them ``fails'' at 95 percent by chance alone is about 0.10.
+
+\subsection{Secondary analyses}
+\label{sec:secondary}
+
+Two named secondary analyses re-estimate each published approach with our timing and inference,
+whatever the rule selects.
+
+\paragraph{S1, the detrended comparison of Clemens and coauthors.} With
+$g_t$ the gap between California's seasonally adjusted log employment and that of the R50
+aggregate,
+\begin{equation}
+\hat\tau_{\mathrm{S1}} = \operatorname{mean}_{t\in P}\Bigl[g_t - g_B - (t-B)\,\frac{g_B - g_{B-8}}{8}\Bigr],
+\end{equation}
+which keeps their endpoint 2021Q3--2023Q3 growth trend; its start, 2021Q3, is the only COVID
+quarter used in any estimate. The undetrended version is reported too. Inference uses R50 and S1's
+own critical values, alongside their placebo rank $p$-value $(b+1)/(m+1)$. As a cross-check against
+print, the run also computes their September-to-September fixed-horizon estimate for 2023--2025
+on third-month levels with their 48-state pool, simple and detrended, next to
+\citet[Table~3, Panel~B]{clemens2026employment} ($-2.74$ and $-3.72$).
+
+\paragraph{S2, the SDID of Dube.} SDID on seasonally adjusted log employment per capita with the D20
+pool, a fit window of 2015Q1--2023Q3 without the COVID quarters and the post window 2024Q2--2026Q1;
+the wage effect reuses the employment weights, as Dube does. Inference uses S2's own critical
+values, which include the D20 SDID floor. As a cross-check, the run also applies Dube's own timing
+(fit window to 2023Q4, 2024Q1 dropped, post window 2024Q2--2025Q3), next to
+\citet[Table~1, Panel~A]{dube2026labor} ($-0.26$ with standard error 0.54; wage effect 6.99).
+Because our SDID follows Algorithm~1 with an intercept and separate penalties and uses our own
+seasonal factors, and Dube's code is not available to us, that cross-check measures the combined
+difference.
+
+\subsection{Robustness and placebo checks}
+\label{sec:robust-plan}
+
+Each of the following uses the selected estimator, pool and outcome unless stated, and is reported
+whatever it shows.
+\begin{enumerate}
+  \item \cand{rob-base-2023q4}: Dube's base, $B$ = 2023Q4, with 2024Q1 dropped and the same post
+        window.
+  \item \cand{rob-pre-ab257}: $B$ = 2022Q2, the last quarter before AB 257 was enacted, with
+        2022Q3--2024Q1 excluded from the base, the fit and the post window. For DDT the trend uses
+        the last nine non-COVID quarters up to 2022Q2. This reports the base both ways and also
+        covers anticipation of AB 1228 from mid-2023, which \citet{sosinskiy2026effects} discuss.
+  \item \cand{rob-pool}: the other donor pool (D20 for R50 and the reverse).
+  \item \cand{rob-7225}: all restaurants (7225) as outcome. The four donors with a suppressed 2024Q4
+        row are dropped and listed, leaving 18 D20 or 46 R50 donors, with $t$ at the run's own
+        $\nu$; a second number keeps all donors and drops 2024Q4 from every post window. A 722513
+        decline with no 7225 decline would point to reclassification between restaurant codes or
+        substitution toward other restaurants rather than job loss in restaurants.
+  \item \cand{rob-final-quarters}: the post window 2024Q2--2025Q4, without the preliminary 2026Q1,
+        to show how much the one new quarter moves the estimate.
+  \item \cand{plc-nonff} (placebo outcome): employment in all covered industries except 722513,
+        of which the law's direct share is small. A 95 percent interval that excludes zero means the
+        comparison does not hold for California's aggregate labour market, and qualifies the H2
+        label; no re-specification follows.
+  \item \cand{plc-722511}: full-service employment, reported only. It is not a clean placebo:
+        covered chains are also coded in 722511 \citep{melo2026covered}, and wage and price
+        spillovers to full service are reported \citep{clemens2026prices}. A decline of similar size
+        to H2 would mean the result is not specific to the limited-service code; a null or
+        opposite-signed effect does not validate the design, and 722511 is never used as a
+        triple-difference comparison.
+  \item \cand{anticip}: the employment and wage effects over 2023Q4--2024Q1 against the 2023Q3
+        base, without a label or test.
+  \item \cand{event-path}: the quarterly gap between California and the selected counterfactual,
+        2014Q1--2026Q1, for employment and wages, with pointwise bands; COVID quarters shaded, AB
+        257 (2022Q3) and AB 1228 (2023Q4) marked. The 2022Q1--2023Q3 gaps are an out-of-fit check
+        only if plain DD is selected; for DDT they are residuals around the fitted trend, and for SC
+        and SDID the whole pre-period is in-sample fit. The figure is not a pre-trend test for those
+        candidates, and its note says which case applies.
+\end{enumerate}
+
+\subsection{Pre-specification and what was known}
+\label{sec:prespec}
+
+The runs follow a fixed order: the selection rule first, on the truncated panel; then the level
+check and power run, also on the truncated panel; then every run that reads an outcome after 2023Q3.
+Each post-period run reads the selected candidate and the critical values from the outputs of the
+first two runs; nothing is typed in by hand. If a reviewed bug fix forces the selection run to be
+repeated, the superseded record is kept and the paper reports every selection run and its winner.
+
+The study is pre-specified but not blind. The design's choices were made knowing the published map
+of how each specification choice moves the estimate (Section~\ref{sec:lit-map}), which is why they
+are delegated to a rule and both published specifications are reported. The PI and the literature
+scout also read the public descriptive series of \citet{steier2026recordinglaw}, including its
+March 2026 employment index values for California and the rest of the United States and its 2026Q1
+weekly-wage index values (Section~\ref{sec:lit-estimates}), before the design was fixed. The roles
+that analyse the data computed nothing on outcomes after 2023Q3 before the design gate. The design
+was reviewed in \CrewRoundsDesign{} rounds by a reviewer agent that did not author it. The rules
+that settle the outcomes of the code check (among them the SDID floor and the Proposition 99
+synthetic-control check), the adoption of the implementation choices, and two report-only additions
+were made after the last of those rounds; they were not
+reviewed by a design round, and the human PI approved the design with them on record.
+
+\subsection{Threats to validity}
+\label{sec:threats}
+
+\paragraph{Search moved into the rule.} Fixing a selection rule moves the specification search into
+the rule's parameters: pseudo-dates, windows, COVID handling, outcome scale, tie-break, pools,
+inference and cutoff. All were fixed before any placebo was computed, the selection runs once on
+data ending in 2019Q4, and both camps' specifications are reported. The rule itself has little
+information and may favour candidates that track California's own minimum-wage ramp
+(Section~\ref{sec:select}); there is no re-selection.
+
+\paragraph{COVID, AB 257 and anticipation.} Every eight-quarter pseudo post window starting from
+2018Q3 would contain COVID quarters, so all pseudo-windows end by 2019Q4; the real fit windows
+straddle the COVID gap, which the pseudo-dates do not mimic. The quarters 2022Q3--2023Q3, including
+the base and the end of every real fit window, fall under the pending AB 257
+(Section~\ref{sec:ab257}); the selection, level check and power calculations avoid them, and the
+pre-AB 257 base reports the base both ways. Anticipation of AB 1228 before signing, which
+\citet{sosinskiy2026effects} discuss from as early as July--August 2023, would bias a 2023Q3 base; the
+pre-AB 257 base and the event path speak to it. Anticipation between signing and the effective date
+is estimated separately and checked with Dube's base.
+
+\paragraph{Inference with one treated state.} The maximum standard error is conservative for the
+largest unit only if variance does not rise with size; California-specific noise beyond its size
+would make the tests over-reject, and the Monte Carlo design with California twice as noisy shows by
+how much, without saying whether it is so. $L$ contains no unit as large as California, so its level
+for California is argued, not measured. The degrees-of-freedom rule and the SDID floor widen the
+intervals, and the power quantities show the cost. The minimum detectable effect from 2014--2019
+noise, with seasonal factors fitted to the same years, may understate post-COVID noise; the real
+standard error is reported next to it. Stale seasonal factors after COVID mostly average out over
+two full years, except at the single third-quarter base, which the 2023Q4 base checks.
+
+\paragraph{Comparison states and concurrent shocks.} R50 states that raised their own minimum wages
+in 2024--2026 bias an R50 estimate toward a smaller decline; D20 states had no increase but differ
+economically. The other-pool check and S1 against S2 show the difference. In California, the general
+minimum wage rose, affecting uncovered 722513 and 722511 workers; a health-care minimum wage took
+effect from October 2024 \citep{clemens2026employment}; and population grew more slowly than in the
+rest of the country \citep{clemens2026employment}, which matters for per-capita candidates and for the extrapolated population of
+2025Q3--2026Q1. The placebo outcome is the check, and its failure qualifies H2.
+
+\paragraph{Measurement.} The treated sector is wider than and different from 722513
+(Section~\ref{sec:coverage}): covered chains sit also in 722515, never used, and 722511, a non-clean
+placebo only; classification may respond to the policy, which the 7225 check addresses. The estimand
+is diluted by uncovered establishments, and no rescaling is done; the elasticity is roughly invariant
+to dilution. If QCEW 722513 tracks covered-chain employment poorly across states and over time, as
+\citet{melo2026covered} argue, the counterfactual can be distorted in ways the placebo standard error,
+which samples only donor divergence present in 2014--2019, does not capture; the equivalence verdict
+of H2 is a statement about QCEW 722513. The QCEW counts jobs in the pay period including the 12th,
+not hours, so lower turnover can lower counts \citep{dube2026labor}; weekly earnings are not hourly
+wages, and nominal wages carry differential price changes. The 2026Q1 data are preliminary; the
+final-data window drops them.
+
+\paragraph{Code errors.} The estimator code was checked on the Proposition 99 data against
+\citet[Table~1]{arkhangelsky2021synthetic}, on synthetic identities and in the Monte Carlo study
+before any analysis run; it is reviewed before it runs, cross-checked against the published
+estimates of both camps, and rerun from scratch in a clean environment before submission.
+
+\subsection{Departures from the track rules and the published specifications}
+\label{sec:departures}
+
+\begin{enumerate}
+  \item Standard errors are not clustered at the level at which treatment varies: with one treated
+        state, cluster-robust standard errors are invalid \citep{dube2026labor,clemens2025did,sosinskiy2026effects}.
+        Placebo-based inference with a level check fixed in advance is used instead.
+  \item S1 adapts the monthly fixed-horizon estimator of Clemens and coauthors to a pooled quarterly
+        average, which needs the seasonal adjustment their September-to-September comparison does
+        not; the faithful fixed-horizon number is reported as a cross-check. S1 also keeps their
+        endpoint trend, whose start is a COVID quarter.
+  \item S2 uses our implementation of Algorithm~1 of \citet{arkhangelsky2021synthetic}, with an
+        intercept and separate penalties, and our 2014--2019 seasonal factors, not Dube's code;
+        \citet{clemens2026synthetic} report that Dube's SDID omits the intercept and uses one penalty.
+  \item R50 keeps Alaska and Michigan, which CEMN drop; the cross-check against their print uses
+        their 48-state pool.
+\end{enumerate}

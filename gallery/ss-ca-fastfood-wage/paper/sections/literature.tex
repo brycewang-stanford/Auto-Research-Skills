@@ -1,0 +1,187 @@
+% Related literature. States no result of this study. Every published number is quoted as
+% sources/notes.md records it (sections 1-3, 9, 10) and as the citation claims in claims.jsonl
+% state it. Units differ: Clemens et al. report index points (percent of the September 2023
+% level), Dube log points times 100.
+\section{Related literature}
+\label{sec:literature}
+
+\subsection{Estimates of AB 1228's employment effect}
+\label{sec:lit-estimates}
+
+Five studies estimate the employment effect of AB 1228 with administrative data, and they
+disagree. Table~\ref{tab:published} lists the estimates closest to ours.
+
+\citet{clemens2025did} compare California's monthly QCEW fast-food employment, indexed to
+September 2023, with the rest of the United States. Between September 2023 and September 2024
+it fell 2.7 percent relative to the comparison, 3.2 percent after removing pre-enactment trends,
+and their eight difference-in-differences (DD) and triple-difference estimates range from $-2.28$
+to $-3.93$ percent (their Table~1). They report placebo rank $p$-values, not standard errors. The
+revised and renamed version \citep{clemens2026employment} extends the QCEW window to September
+2025 and adds the Quarterly Workforce Indicators (QWI): its eight two-year QCEW estimates range
+from $-2.02$ to $-5.03$ percent with a median of $-3.45$ percent (Table~3), and the two-year QWI
+median is $-3.52$ percent (Table~7). They put the fast-food wage effect at just over 6 percent by
+2025Q3 and the two-year own-wage elasticity at just over $-0.5$. We refer to these authors as
+CEMN.
+
+\citet{dube2026labor} uses quarterly QCEW data through 2025Q3, the log of employment per capita,
+and as controls the 20 states whose binding fast-food minimum is the federal \$7.25. Measured as
+the 2024Q2--2025Q3 average relative to 2023Q4, with 2024Q1 dropped as a transition quarter, his
+event-study DD gives an employment effect of $-1.39$ percent (Ferman--Pinto standard error 0.44)
+and his preferred SDID estimate is $-0.26$ percent (0.54), with wage effects of 7.50 and 6.99
+percent (Table~1, Panel~A). With the 2022Q1--2023Q3 average as base (Panel~B) the two employment
+estimates are $-1.28$ and $-0.02$ percent.
+
+\citet{sosinskiy2026effects} use county QCEW data for 2022--2024, 2024Q1 as reference period and a
+triple difference against full-service restaurants, and estimate an employment-rate effect of
+$-0.9$ percent in 2024Q4, with a Rambachan--Roth 95 percent interval of $-2.9$ to $0.9$ percent
+(Table~1). Across 1,440 synthetic-control and SDID specifications on QCEW and QWI data through
+2025Q4, \citet{clemens2026synthetic} find that over 96 percent of the estimated employment effects
+are negative, that the median QCEW SDID estimate is $-3.58$ percent, and that Dube's SDID
+estimate lies near the 97th percentile; detrending is the single choice that moves the estimates
+most, and they report that Dube's SDID omits the intercept and uses one penalty for unit and time
+weights. With establishment-level YTS data through 2025, \citet{melo2026covered} find a small,
+insignificant state-level effect (an inverse-hyperbolic-sine coefficient of $-0.0137$, placebo
+standard error 0.0240) but significant declines among smaller chains, and no significant effect
+for the 20 largest chains.
+
+Other evidence uses other data. From Equifax payroll records of large fast-food employers,
+\citet{hamdi2025wage} find that hourly wages rose 12.1 percent and establishment employment
+changed by $+2.3$ percent (95 percent interval $-1.0$ to $5.5$). The first version of
+Sosinskiy and Reich's study \citep{reich2024sectoral} found from job postings that pay rose 18
+percent without a fall in employment, and a worker survey found large wage increases with no
+effect on hours or scheduling \citep{schneider2024early}.
+
+No causal or pre-specified estimate we found uses QCEW data for any quarter of 2026: the latest
+use QCEW data through 2025Q4 \citep{clemens2026synthetic} or 2025Q3
+\citep{dube2026labor,clemens2026employment}. The BLS released preliminary 2026Q1 data on August
+28, 2026 \citep{bls2026cewq1}. A descriptive comparison is public: \citet{steier2026recordinglaw}
+indexes California and rest-of-US 722513 employment to September 2023 through March 2026, putting
+California at 97.06 and the rest of the United States at 98.99 in March 2026, and indexes average
+weekly pay for 2026Q1 to 2023Q3 (114.8 against 104.3); the page makes no causal estimate. We
+disclose in Section~\ref{sec:prespec} that these values were read before the design was fixed.
+
+\begin{table}[tbp]
+\centering
+\caption{Published QCEW-based estimates of AB 1228's employment effect closest to this study}
+\label{tab:published}
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{2.0cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{3.0cm}@{}}
+\toprule
+Study & Last QCEW quarter used & Estimator and comparison & Base & Employment effect (percent) \\
+\midrule
+CEMN (2026), Table~3, Panel~B & 2025Q3 & Two-year fixed-horizon DD of indexed levels, rest of US; detrended & September 2023 & $-2.74$; detrended $-3.72$; median of eight $-3.45$ \\
+\addlinespace
+Dube (2026), Table~1, Panel~A & 2025Q3 & 2024Q2--2025Q3 average; DD and SDID on log employment per capita; 20 federal-minimum states & 2023Q4, 2024Q1 dropped & DD $-1.39$ (0.44); SDID $-0.26$ (0.54) \\
+\addlinespace
+Dube (2026), Table~1, Panel~B & 2025Q3 & as Panel~A & 2022Q1--2023Q3 mean & DD $-1.28$; SDID $-0.02$ \\
+\addlinespace
+Sosinskiy and Reich (2026), Table~1 & 2024Q4 & County triple difference against 722511, employment rate & 2024Q1 & $-0.9$ [$-2.9$, $0.9$] in 2024Q4 \\
+\addlinespace
+Clemens et al.\ (2026, w35931) & 2025Q4 & 1,440 synthetic-control and SDID specifications & 2023Q4 weights; 2023Q3 for fixed horizons & median QCEW SDID $-3.58$ \\
+\bottomrule
+\end{tabularx}
+
+\medskip
+\begin{minipage}{\linewidth}\footnotesize
+\emph{Notes:} As recorded from each source (sources/notes.md). Parentheses: Ferman--Pinto
+placebo standard errors; brackets: Rambachan--Roth 95 percent interval. CEMN report index points
+(percent of the September 2023 level); Dube reports log points times 100. The estimands differ
+from ours and from each other in horizon, base and outcome normalisation.
+\end{minipage}
+\end{table}
+
+\subsection{Why the estimates differ, and what is already mapped}
+\label{sec:lit-map}
+
+The disagreement has been decomposed. Starting from \citet{clemens2025did}, \citet[Table~D1]{dube2026labor}
+changes one specification choice at a time and attributes most of the gap to detrending,
+normalisation by population, multi-quarter pre- and post-period averaging windows (one step that
+replaces the September 2023 base and single post month with the 2022Q1--2023Q3 and 2024Q2--2025Q3
+averages) and synthetic-control weighting, and finds seasonal adjustment and the choice of
+control states nearly irrelevant; on QWI data the switch of data source alone accounts for
+roughly half of the gap. \citet[Table~A1]{clemens2026synthetic} report the median estimate by
+each choice across their 1,440 specifications, and \citet[Appendix~A]{sosinskiy2026effects} list
+nine differences between the studies and test four. We cite these maps and do not repeat them as
+findings. We use them instead to fix the set of candidate specifications from which a
+pre-specified rule picks our primary estimator (Section~\ref{sec:select}).
+
+The base period and the anticipation window are also already varied. Clemens and coauthors
+measure effects from the September 2023 enactment and argue that firms responded in
+anticipation; Sosinskiy and Reich use the quarter before implementation as reference and find
+no anticipation effect; Dube uses 2023Q4 as base and drops 2024Q1
+\citep{clemens2026employment,sosinskiy2026effects,dube2026labor}. Re-estimating with a September
+2023 reference, \citet[Table~A3]{sosinskiy2026effects} estimate employment-rate effects of $-0.2$
+percent in 2023Q4 (95 percent interval $-1.9$ to $1.7$) and $-0.6$ percent in 2024Q1 ($-4.5$ to
+$2.7$) in their preferred specification, and $-0.5$ and $-1.4$ percent in the specification closest
+to Clemens and coauthors. \citet[footnote~5]{clemens2026synthetic} fit their synthetic controls with
+Dube's base and transition quarter and report that the distribution of estimates is slightly
+more negative, but not meaningfully changed, with a 2023Q3 baseline and no transition quarter.
+Re-estimated on Dube's 2023Q4 base, the one-year QWI estimates of \citet[Table~A3]{clemens2026employment}
+have a median of $-1.43$ percent, against $-1.38$ percent on their 2023Q3 base. Prices began to
+rise between enactment and implementation \citep{clemens2026prices}, which is one reason we hold
+the two quarters between signing and the effective date out of both the base and the post window
+(Section~\ref{sec:timing}).
+
+\subsection{Minimum wages and restaurant employment}
+
+Fast-food restaurants have been the reference case for one-state minimum-wage comparisons since
+\citet{card1994minimum}, who found no indication that New Jersey's 1992 increase reduced
+employment in surveyed restaurants relative to eastern Pennsylvania. Across 138 state increases,
+\citet{cengiz2019effect} find the number of low-wage jobs essentially unchanged five years after an
+increase. For restaurants, \citet{dube2024restaurant} argue that earlier disemployment estimates
+were confounded by pre-trends amplified by two-way fixed effects, while
+\citet{neumark2026modern} re-estimate modern event-study designs on the same data, find negative
+and significant effects, more strongly in restaurants, and argue that null results depend on
+choices of variables, events, samples and weighting. The last point is one reason our weighting,
+pools and outcome normalisation are fixed by a rule rather than chosen. Closest in data to ours,
+\citet{wiltshire2026minimum} use county QCEW 722513 data and stacked synthetic controls for
+California and New York counties and find pay growth and no disemployment during the run-up to
+\$15. \citet{thornberg2025jumping} documents a large benchmark revision of California's CES
+payroll estimates for limited-service restaurants; we use the QCEW, the benchmark itself, and not
+the CES.
+
+\subsection{Inference and estimator choice with one treated state}
+\label{sec:lit-methods}
+
+With one treated state, cluster-robust standard errors are not valid, as the QCEW studies above
+note; they use placebo rank $p$-values \citep{clemens2025did}, Ferman--Pinto standard errors
+\citep{dube2026labor} and Rambachan--Roth bounds \citep{sosinskiy2026effects} instead. \citet{conley2011inference}
+estimate the distribution of the DD estimator from control-group residuals, assuming errors
+independent and identically distributed across groups. \citet{ferman2019inference} show that
+variation in group size makes the aggregate DD model heteroskedastic, so that such tests misstate
+their size, and propose a correction valid with one treated group as the number of controls grows,
+under the assumption that errors differ across groups only by a scale that depends on observables
+such as size; in their simulations it performs reasonably with 25 groups. Dube's implementation
+scales the placebo estimates by population. The placebo variance estimator of SDID reassigns
+treatment to control units and relies on homoskedasticity across units, which
+\citet{arkhangelsky2021synthetic} describe as effectively necessary for inference with one treated
+unit. \citet{abadie2010synthetic} introduce placebo inference for synthetic control and suggest
+in-time placebos when comparison units are few. \citet{chernozhukov2021exact} permute residuals over
+time rather than units, which requires many pre-treatment periods. Our inference
+(Section~\ref{sec:inference}) builds on the placebo approach and replaces its homoskedasticity
+assumption with a standard error that is conservative for the largest unit.
+
+On the choice of estimator, \citet{abadie2021using} recommends computing, and preregistering,
+synthetic-control weights before post-treatment outcomes are seen, as a safeguard against
+specification searches, and using backdated interventions as in-time placebo tests.
+\citet{ferman2020cherry} show that with a finite pre-period there is substantial room for
+specification searching across synthetic-control specifications, even among those with good
+pre-treatment fit, and recommend reporting several. Demeaning outcomes by their pre-period means
+relaxes the no-intercept restriction of synthetic control \citep{doudchenko2016balancing}, and
+\citet{ferman2021synthetic} show that the demeaned estimator is asymptotically unbiased under
+conditions under which DD is, while the original can be biased with imperfect pre-treatment fit.
+Our equivalence test is the two one-sided tests procedure, which declares equivalence within
+pre-specified bounds when the 90 percent confidence interval lies inside them
+\citep{schuirmann1987comparison,lakens2017equivalence}.
+
+\subsection{What this study adds}
+
+This is a pre-specified, not blind, update of a contested question, and its novelty is modest. The
+estimand, the base period, a rule that picks the primary estimator from data ending in 2019, an
+inference procedure built for one treated state, and the decision rules were fixed and reviewed
+before any outcome after 2023Q3 was computed. The employment hypothesis adds an equivalence test
+against a bound of 2 percent that separates the two published readings; the year-two comparison is
+read next to the yearly wage effects, because the fast-food premium over the general minimum fell;
+and the data add one preliminary quarter, 2026Q1, to the latest published window. The
+decompositions of the disagreement and the published anticipation and base-period checks are
+cited, not repeated.

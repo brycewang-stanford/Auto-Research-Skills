@@ -1,0 +1,131 @@
+% Data. States no result. Sources: plan.json design.data and design.method (OUTCOMES, SEASONAL
+% ADJUSTMENT), data/CODEBOOK.md (counts and checks only), sources/notes.md sections 5, 9-12.
+% The design plans no run that tabulates summary statistics of the outcomes; a summary-statistics
+% table needs a logged run and claims (raised with the PI).
+\section{Data}
+\label{sec:data}
+
+\subsection{Employment and wages: the QCEW}
+
+Employment and wages come from the Quarterly Census of Employment and Wages (QCEW) of the U.S.
+Bureau of Labor Statistics, through its open-data files by industry
+\citep{blsqcewopendata}. We use the quarters 2014Q1--2026Q1 for four industries: private NAICS
+722513 (limited-service restaurants), private 722511 (full-service restaurants), private 7225
+(restaurants and other eating places) and industry 10 (total covered employment, all ownerships):
+196 files of one industry and quarter each. On November 21, 2026 the files for 2026Q2 were not yet
+available; the BLS schedules them for December 2, 2026 \citep{bls2026cewq1}, and we do not wait
+for them. The vintage used is pinned by the SHA-256 hash of every file in the data manifest. The
+files for 2025Q1--2026Q1 carry a server date of August 21, 2026; 2026Q1 is preliminary, and a
+later download may return revised values for 2025 and 2026, which would be a new vintage. The
+data are in the public domain.
+
+We use state rows only: aggregation level 58 for 722513 and 722511, 56 for 7225 and 50 for
+industry 10, with ownership code 5 (private) for the restaurant industries and 0 (total covered)
+for industry 10 \citep{blsqcewagglvl,blsqcewowncodes}. The units are the 50 states and the
+District of Columbia; Puerto Rico and the Virgin Islands are excluded. QCEW monthly employment
+counts the workers who worked or received pay in the pay period including the 12th of the month,
+counting a person with two jobs once for each employer, and the average weekly wage is total
+quarterly wages divided by mean monthly employment and by 13
+\citep{blsqcewhom,blsqcewtechnote}. Employment is therefore a count of jobs, not of hours, and the
+weekly wage is earnings per job, not the hourly wage the law sets. Quarterly employment is the
+mean of the three monthly levels. Wages are nominal.
+
+No state row of 722513 or 722511 is suppressed in any quarter, and state totals include the data
+of suppressed county cells \citep{blsqcewfaq}. Four state rows of 7225 are suppressed, all in
+2024Q4: Alaska, New Hampshire, Vermont and Wyoming. We do not use counties. In the county files
+the share of suppressed restaurant cells rises in 2025Q1 in all three restaurant industries and
+stays higher through 2026Q1; for 7225 it goes from 23.2 percent of county cells in 2024Q4 to 29.6
+percent in 2025Q1, and from 2024 to 2025 the number of suppressed 7225 county cells rises in 45
+of the 53 state-level areas. A county panel would therefore be selected partly on disclosure in
+the post-period. We never use NAICS 722515, where covered chains are also coded
+(Section~\ref{sec:coverage}).
+
+\subsection{Population}
+
+Resident population on July 1 comes from the Census Bureau's Population Estimates Program: the
+2010--2020 intercensal state estimates for 2013--2019, summed over race and age groups, and the
+Vintage 2025 estimates for 2020--2025 \citep{censuspep2020int,censuspepv2025}. The log of
+population is interpolated linearly between July 1 anchors, placed at mid-year, with quarter $q$
+of year $y$ placed at $y + (q-0.5)/4$; after mid-2025 it is extrapolated with the 2024--2025 log
+growth, so 2025Q3, 2025Q4 and 2026Q1 are extrapolated and flagged. At the splice of the two files
+no state's ratio of the July 2020 Vintage 2025 estimate to the July 2019 intercensal estimate
+lies outside 0.97--1.03. The 2019Q4 value is interpolated between the July 2019 and July 2020
+anchors. Population enters the per-capita outcome, the population weights, the scaling of one of
+our two placebo standard errors and the ranking of states by size (Section~\ref{sec:inference});
+the extrapolated quarters matter only if a per-capita candidate is selected.
+
+\subsection{Variables and outcomes}
+
+Table~\ref{tab:variables} lists the variables of the state panel. From them the estimator code
+builds three outcomes for California and for each donor or donor aggregate:
+\begin{itemize}
+  \item $E$, the log of quarterly 722513 employment;
+  \item $P$, seasonally adjusted log employment minus log population (employment per capita);
+  \item $W$, the log of the average weekly wage as the BLS publishes it, and for a donor
+        aggregate the log of summed quarterly wages divided by 13 times summed mean employment.
+\end{itemize}
+Every series that enters an estimator is seasonally adjusted after aggregation, with fixed
+factors estimated on 2014--2019. A centred $2\times4$ moving average
+$m_t = (0.5y_{t-2} + y_{t-1} + y_t + y_{t+1} + 0.5y_{t+2})/4$ is computed for 2014Q3--2019Q2, so
+that it uses only 2014Q1--2019Q4; the factor $s_q$ of quarter type $q$ is the mean of $y_t - m_t$
+over its five quarters, minus the mean of the four factors; and the adjusted series is
+$y_t - s_{q(t)}$ for every $t$. The same factors serve every run, including the runs that read
+only data through 2019Q4.
+
+\begin{table}[tbp]
+\centering
+\caption{Variables of the state panel}
+\label{tab:variables}
+\small
+\begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}X@{}}
+\toprule
+Variable & Definition \\
+\midrule
+\texttt{emp\_722513} & Mean of the three monthly employment levels, private 722513, state row \\
+\texttt{emp\_722511}, \texttt{emp\_7225} & The same for private 722511 and private 7225 (missing on the four suppressed 7225 rows) \\
+\texttt{emp\_10} & The same for industry 10, total covered employment, private and government \\
+\texttt{emp\_nonff} & \texttt{emp\_10} minus \texttt{emp\_722513}: employment outside limited-service restaurants \\
+\texttt{sep\_722513} & Third-month employment of 722513, for the cross-check against the fixed-horizon estimates of CEMN \\
+\texttt{wages\_722513} & Total quarterly wages of 722513, nominal dollars \\
+\texttt{aww\_722513} & Average weekly wage of 722513 as published; equal to wages divided by 13 times employment within \$1 in every row \\
+\texttt{pop} & July 1 resident population interpolated to the quarter; \texttt{pop\_extrap} flags 2025Q3--2026Q1 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The full panel has 2,499 rows, 51 units by 49 quarters, with no missing value of 722513, 722511 or
+industry 10. A second file holds the same rows for 2014Q1--2019Q4 only (1,224 rows); it is the
+only input of the two runs that select the primary estimator and check the level of the inference
+(Sections~\ref{sec:select} and~\ref{sec:inference}). Both files come from one data-preparation run
+that computes no statistic comparing states or periods.
+
+\subsection{Comparison pools}
+\label{sec:pools}
+
+California (FIPS 06) is the treated unit. Each candidate estimator uses one of two donor pools.
+D20 is Dube's set of 20 states whose binding fast-food minimum is the federal \$7.25: Alabama,
+Georgia, Idaho, Indiana, Iowa, Kansas, Kentucky, Louisiana, Mississippi, New Hampshire, North
+Carolina, North Dakota, Oklahoma, Pennsylvania, South Carolina, Tennessee, Texas, Utah, Wisconsin
+and Wyoming \citep{dube2026labor}. In each of them the binding minimum for employers covered by
+the Fair Labor Standards Act was \$7.25 throughout 2014--2019 \citep{dolwhd2025history,dolwhd2026state}.
+R50 is all 50 other units, the ``rest of the US'' of Clemens and coauthors, here including Alaska
+and Michigan, which CEMN drop from their monthly panel; our quarterly state rows have no gaps.
+Most R50 units outside D20 raised their own minimum wage during 2014--2019
+(Section~\ref{sec:ramp}).
+
+\subsection{Other data}
+
+Two further sources enter no estimate of the study. The Proposition 99 panel distributed with the
+\texttt{synthdid} R package, a long-format version of the data of \citet{abadie2010synthetic} for
+39 states and 1970--2000 \citep{synthdidpackage}, is used only to check our estimator code against
+the published values of \citet[Table~1]{arkhangelsky2021synthetic}. The Wage and Hour Division's
+history of state minimum wages \citep{dolwhd2025history} is used only to confirm that every D20
+state was at the federal minimum in 2014--2019, which defines the set of states that calibrates our
+critical values (Section~\ref{sec:inference}).
+
+\subsection{Software}
+
+The study runs in Python 3.14.6 with numpy 2.5.3, scipy 1.18.1, pandas 3.0.5 and statsmodels
+0.15.0, with the environment frozen in the replication package. Nothing in a study run is random.
+Weights are solved by sequential least squares on the simplex, starting from uniform weights, and
+their Karush--Kuhn--Tucker conditions are checked to $10^{-6}$.
