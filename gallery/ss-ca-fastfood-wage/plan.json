@@ -51,7 +51,8 @@
       "D4: R50 keeps Alaska and Michigan, which CEMN drop; the CEM cross-check uses the 48-state pool.",
       "D5 (recorded after code-r1 C1, before any analysis run): the design gives no yearly H1 wage statistic. code/h1_wage.py tests the year-1 and year-2 one-sided wage effects with the pooled H1 critical values and nu from level-mde. Those two tests decide whether h3-years reports yearly own-wage elasticities. The paper states this choice; the yearly tests are therefore approximate.",
       "D6 (recorded after code-r1 C2): design implementation choice 14 says the frozen requirements keep wrapt 2.6.0.dev1; on the PI's instruction code/requirements.txt pins the released wrapt 2.5.2 instead (pip check clean). No estimate depends on wrapt.",
-      "D7 (post hoc, added after results-r1 had seen every post-period result; report-only, changes no label): code/posthoc.py, run once as analysis run posthoc. It passed code review code-r4 (the last code round); its minor findings C6-C8 were then fixed and, with the human's agreement in this conversation (2026-11-21), the run was made with --unreviewed, so the code it ran was not reviewed. It reports (a) facts about Georgia's 2014-2015 NAICS 722513 weekly-wage series and the comparison series (disclosure codes, establishment counts, employment and wages for 722513, 722511, 7225 and industry 10), stating facts without judging whether the drop is a data artifact; (b) the H1 decision-set quantiles with Georgia's own L tests removed, the H1 nu with Georgia's placebo variance removed, a leave-one-out over all ten L states, and the H1 decisions each would give; (c) the 2014-2019 out-of-sample drift of the selected DDT candidate's event path (slopes per quarter for employment and wages, implied size over the post window). The pre-specified verdict stands; these numbers qualify it and are labelled post hoc in the paper. Known defect: the run's leave-one-out change flags (b_loo_*_changes_chi, b_loo_n_changing, b_loo_changing_states and the matching stdout line) are all 1 because of a 1e-12 tolerance against values stored at 10 significant digits; no claim uses them, the claim that only Georgia moves the critical value rests on the critical values themselves, and a clean rerun reproduces the same flags."
+      "D7 (post hoc, added after results-r1 had seen every post-period result; report-only, changes no label): code/posthoc.py, run once as analysis run posthoc. It passed code review code-r4 (the last code round); its minor findings C6-C8 were then fixed and, with the human's agreement in this conversation (2026-11-21), the run was made with --unreviewed, so the code it ran was not reviewed. It reports (a) facts about Georgia's 2014-2015 NAICS 722513 weekly-wage series and the comparison series (disclosure codes, establishment counts, employment and wages for 722513, 722511, 7225 and industry 10), stating facts without judging whether the drop is a data artifact; (b) the H1 decision-set quantiles with Georgia's own L tests removed, the H1 nu with Georgia's placebo variance removed, a leave-one-out over all ten L states, and the H1 decisions each would give; (c) the 2014-2019 out-of-sample drift of the selected DDT candidate's event path (slopes per quarter for employment and wages, implied size over the post window). The pre-specified verdict stands; these numbers qualify it and are labelled post hoc in the paper. Known defect: the run's leave-one-out change flags (b_loo_*_changes_chi, b_loo_n_changing, b_loo_changing_states and the matching stdout line) are all 1 because of a 1e-12 tolerance against values stored at 10 significant digits; no claim uses them, the claim that only Georgia moves the critical value rests on the critical values themselves, and a clean rerun reproduces the same flags.",
+      "D8 (added at the paper stage after paper-r1 P3; report-only): a descriptive run, code/describe.py run once as analysis run describe, reports levels only (pre-period and post-period means of employment, average weekly wage and establishments for California and for the R50 and D20 pools, sample sizes), and no statistic comparing California with another unit or one period with another. The four code-review rounds had been used, so it ran with --unreviewed with the human's agreement in this conversation (2026-11-21). It feeds the summary-statistics table only."
     ],
     "threats": [
       "T1 Search moved into the rule's parameters (question-r4 F15a): the pseudo-dates, windows, COVID handling, outcome scale, tie-break, pools, inference variant rule and cutoff are all fixed above before any placebo is computed. select runs once on an input that ends in 2019Q4, and repeated selection runs remain visible in runs/.superseded. The PI and Scout know the published map (disclosed); both camps' specifications are reported as S1 and S2.",
@@ -162,7 +163,7 @@
       "id": "rv-design",
       "title": "Review the design (reviews/design-r1)",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "d-design-r1",
@@ -180,7 +181,7 @@
       "id": "rv-code",
       "title": "Code review (reviews/code-r1) of prepare_state.py, fetch_pop.py, fetch_prop99.py, sclib.py, every run script, verdict.py, the figure scripts and test_sclib.py against the design; must pass before any analysis run. Run after e-check-r2. Check the design.method CHECK-METHODS CONSEQUENCES C1-C5 and IMPLEMENTATION CHOICES in the code (SDID floor on every SDID critical value, Prop 99 SC conditions, plc-nonff in verdict). Check that select_rule.py and level_mde.py read only state_panel_pre.csv",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "w-data-strategy",
@@ -192,7 +193,7 @@
       "id": "pi-design-gate",
       "title": "Request and decide the design gate after the design and code reviews",
       "owner": "pi",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "e-select",
@@ -312,13 +313,13 @@
       "id": "rv-results",
       "title": "Review results (reviews/results-r1)",
       "owner": "reviewer",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "pi-results-gate",
       "title": "Request and decide the results gate",
       "owner": "pi",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "w-paper",
@@ -336,12 +337,24 @@
       "id": "rp-rerun",
       "title": "Clean rerun (crew.py rerun --setup with code/requirements.txt)",
       "owner": "replicator",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "pi-submission-gate",
       "title": "Request and decide the submission gate",
       "owner": "pi",
+      "status": "todo"
+    },
+    {
+      "id": "e-describe",
+      "title": "Write code/describe.py and run describe (D8, unreviewed with the human's agreement); claims for the table",
+      "owner": "econometrician",
+      "status": "todo"
+    },
+    {
+      "id": "rp-rerun-2",
+      "title": "Clean rerun again after the describe run (replication.json must be newer than every run)",
+      "owner": "replicator",
       "status": "todo"
     }
   ],

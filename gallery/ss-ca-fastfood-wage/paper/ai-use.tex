@@ -29,16 +29,17 @@ submission gate. He takes responsibility for the paper's content.
         \CrewRoundsPaper{} on the paper. It raised \CrewFindingsCritical{} critical,
         \CrewFindingsMajor{} major and \CrewFindingsMinor{} minor distinct findings (a
         finding carried into a later round is counted once, at its latest severity). The
-        last round of each completed stage passed. Three sets of changes were made after
+        last round of each completed stage passed. Four sets of changes were made after
         the last round of their stage and reached the human at the next gate without
         another round of that stage: the design's responses to the check-methods failures
         (the SDID critical-value floor, the two-part synthetic-control check and the
         adopted implementation choices), which the code review then checked against the
-        code; two report-only additions to the design (findings D14 and D15); and
-        claim-text corrections after the third results round (findings R12 and R13).
+        code; two report-only additions to the design (findings D14 and D15); claim-text corrections after the third results round (findings R12 and R13); and
+        the PI's correction of threat T14 after the results gate (the 2025 quarters are final), which changes no analysis.
   \item \textbf{Runs.} \CrewRuns{} runs in the ledger (\CrewRunsAnalysis{} analysis,
         \CrewRunsDataPrep{} data preparation); \CrewRunsSuperseded{} were replaced by a
-        later run with the same id and archived (data-preparation runs only; no run behind
+        later run with the same id and archived (the first data fetch, replaced to drop two metrics that a clean rerun could not reproduce, and the
+        first run of the method checks, whose failures led to the design changes described above; no run behind
         a result claim was replaced); \CrewRunsUnreviewed{} analysis run was not covered
         by a passing code review: the post hoc run (deviation D7), whose code was changed
         after the fourth and last code-review round to add the leave-one-out check the

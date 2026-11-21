@@ -247,3 +247,21 @@ Check next time (paper stage):
 - Employment drift, if cited, gives its direction for H2 (R13).
 - Replication appendix repeats the defective b_loo flags (R11); AI-use statement uses \CrewRunsUnreviewed and names posthoc.
 - Older carry-overs: Georgia removal described as partial (Georgia stays in nu-pre and every SE); S2 caveat next to its interval; 'inconclusive' framed as expected ex ante (P 0.95/0.829); no 'robust'; fig-event panel (b) not read as a wage test at 2.14; literature.tex:43-44 typed numbers need `% crew:literal`.
+
+## paper-r1 (2026-11-21, verdict revise)
+
+New: P1-P3 major; P4-P10 minor. No critical finding. The rerun was still running (replication.json absent, process.tex "not run"); judged as it stands.
+
+What I did (report-only arithmetic, no estimate run): H2 under SE_s alone = -0.0295 +/- 2.144 x 0.00946 -> 95% [-0.050, -0.009], 90% [-0.046, -0.013] -> 'decline, size not distinguishable from 2%'; Dube's -0.26% falls outside it. Script in scratch rv-p1/write_review.py.
+
+Suspicions:
+- P1 is the real issue: the label hinges on SE = max(SE_s, SE_n) (SE_n is 3.8x SE_s). The planned diagnostics that bear on the choice are all missing from the paper: tercile rates (SE_s two-sided 0.137 in the largest tercile, which supports max), FP A/B/SE_FP (real h2 run: A_hat < 0, SE_FP 0, and no claim), and k under each SE (1.35 / 0.37). The claim text r-ca-h2-*-fpse says "A_hat < 0 supports the max-SE choice", which is contestable (A_hat < 0 with a large B_hat looks like variance driven by size). Watch for: a fix that reports only the diagnostics that favour max; any change to the label (it must stay 'inconclusive' by rule); an SE_s interval presented as a result rather than report-only.
+- The precision lesson ("what QCEW state data can settle") reopens results-r1 R2. It should become "this design's conservative inference".
+- P2: the "also ran above" in the abstract and intro is a sign slip; check that both places are fixed.
+
+Check next round:
+- `crew.py changes <ws> paper`; read abstract, intro, results sec:res-inference/res-h2, conclusion paragraph 2, data.tex vintage sentence, ai-use bullets in full.
+- New claims for h2_fp_* (from h2-emp metrics, no new run) and any SE_s text claim; numbers.tex regenerated; validate clean.
+- P3: if a descriptive run is added, it must compute no between-group statistic. Check its kind and whether it needs code review (analysis needs a passing code review; code is capped at r4, so --unreviewed would have to be disclosed).
+- replication.json: once it exists, check \CrewRerunStatus / reproduced counts in the conclusion and AI-use, and that the posthoc defective flags reproduce as D7 says.
+- Held this round: process facts vs log/runs, RMSE ordering, Georgia/drift pairing, no 'robust', panel (b) caveat, typed literals marked.
