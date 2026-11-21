@@ -153,3 +153,6 @@
 {"time": "2026-11-21T13:54:20Z", "role": "pi", "action": "deviation-recorded", "detail": "results-r2 R10 R11: D7 text updated (unreviewed run with the human's agreement, leave-one-out, facts-only part a, defective flags)"}
 {"time": "2026-11-21T13:54:20Z", "role": "pi", "action": "brief-archived", "detail": "econometrician 20261121T135420Z (results-r2 R9)"}
 {"time": "2026-11-21T13:55:08Z", "role": "econometrician", "action": "revise-claims", "detail": "results-r2 R9: text claim r-ph-h1-joint (post hoc checks pull in opposite directions; neither changes the H1 verdict; cite both or neither); cross-referenced from r-h1-crit-georgia, r-ph-gal(nu)-h1-exceeds and the drift claims; response written; crew.py numbers run"}
+{"time": "2026-11-21T13:55:25Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T135525Z (results-r3)"}
+{"time": "2026-11-21T13:57:18Z", "role": "reviewer", "action": "review-recorded", "detail": "results-r3 verdict=pass files=12"}
+{"time": "2026-11-21T13:57:32Z", "role": "reviewer", "action": "review-recorded", "detail": "results-r3 verdict=pass files=12"}

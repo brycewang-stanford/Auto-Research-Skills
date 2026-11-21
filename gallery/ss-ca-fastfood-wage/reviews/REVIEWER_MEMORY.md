@@ -235,3 +235,15 @@ Suspicions:
 Check next round / paper stage:
 - `crew.py changes <ws> results`: a joint text claim for R9; D7 text updated; replication note for R11.
 - Paper: no 'H1 supported without Georgia', no 'wage effect is drift'; Georgia removal described as partial (Georgia stays in nu-pre and every SE) and post hoc; S2 caveat next to its interval; 'inconclusive' framed as expected ex ante; no 'robust'.
+
+## results-r3 (2026-11-21, verdict pass)
+
+R9-R11 resolved (r-ph-h1-joint added; D7 rewritten: unreviewed run with the human's agreement, leave-one-out and nu checks, facts-only (a), defective flags named). New, both minor and open: R12 (the 'cite both or neither' cross-reference is on only 3 of the 51 claims backed by part (b) metrics; the no-Georgia intervals r-ph-gal-h1-lo95 0.018 and the y1/y2 exceeds claims lack it, as do r-ph-wage-rms and the gap end points), R13 (the employment drift claims point to the H1-only joint claim; extrapolated, the employment drift (+0.015) would push H2 (-0.029) more negative, the same direction as r-plc-nonff-sign, and no claim says so).
+
+Checked: crew.py changes (claims.jsonl, plan.json, process.tex only; 2 ledger entries); joint-claim numbers against posthoc and h1-wage metrics; runs/posthoc/run.json code_review null and unreviewed reason; runs/.superseded unchanged (check-methods, fetch-data); claim ids unique (1182); validate passes (process.tex now stale only because of my record). I recorded results-r3 twice (13:57:18Z, 13:57:32Z) after correcting a count in R12; the log shows both entries.
+
+Check next time (paper stage):
+- Every use of \PhGaL*, \PhGaLNu*, \PhDrift* in the paper sits next to the other check and the pre-specified verdict (R9, R12); no 'H1 supported without Georgia', no 'wage effect is drift'.
+- Employment drift, if cited, gives its direction for H2 (R13).
+- Replication appendix repeats the defective b_loo flags (R11); AI-use statement uses \CrewRunsUnreviewed and names posthoc.
+- Older carry-overs: Georgia removal described as partial (Georgia stays in nu-pre and every SE); S2 caveat next to its interval; 'inconclusive' framed as expected ex ante (P 0.95/0.829); no 'robust'; fig-event panel (b) not read as a wage test at 2.14; literature.tex:43-44 typed numbers need `% crew:literal`.
