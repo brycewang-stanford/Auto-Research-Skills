@@ -352,7 +352,9 @@
       "note": "批准 question 门 (AskUserQuestion answer, 2026-11-21)"
     },
     "design": {
-      "status": "pending"
+      "status": "requested",
+      "requested_on": "2026-11-21T09:23:21Z",
+      "summary": "State-level design: AB 1228 on CA NAICS 722513, 2024Q2-2026Q1 vs 2023Q3 base; primary picked by rule (24 candidates, pre-2020 placebo RMSE); conservative SE and nu=min(J,nu_hat) t; SDID calibrated floor; S1/S2 in the headline. design-r4 pass (last round); D14/D15 report-only and the check-methods consequences (C1-C5) added after it, unreviewed by a design round; check-methods passes except the recorded SDID hetero-A cell."
     },
     "results": {
       "status": "pending"
