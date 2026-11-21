@@ -8,11 +8,6 @@ whose run-dependent parts (candidate, pool, outcome, J, nu) are printed from the
 
 Units: every estimate in these runs is a difference of logs. Figures show 100 x log points
 (close to percent for small values); the caption says so.
-
-Import order: code/select.py shadows the standard-library module 'select', which matplotlib
-reaches through subprocess -> selectors. Each figure script therefore loads the standard module
-before code/ is on sys.path (the same prologue as the run scripts); this module must be imported
-after that prologue.
 """
 from __future__ import annotations
 
@@ -106,6 +101,54 @@ def describe_candidate(cid: str) -> str:
     c = parse_candidate(cid)
     w = f", {WEIGHTING_NAME[c['weighting']]}" if c["weighting"] else ""
     return f"{ESTIMATOR_NAME[c['est']]}{w}, donor pool {POOL_NAME[c['pool']]}"
+
+
+CRIT_NAME = {"hi95": "c_hi(0.95)", "hi975": "c_hi(0.975)", "lo05": "c_lo(0.05)", "lo025": "c_lo(0.025)"}
+
+
+def sdid_floor(lvl: dict, lvl_path: str, selected: str, c: dict, keys: tuple) -> dict:
+    """The SDID Monte Carlo floor on the H2 critical values (design.method C1), as run level-mde
+    reports it: sdid_floor_h2 (1 for an SDID candidate), pool_h2 and q_cal of that pool
+    (qcal_<pool>_<key>, echoed from check-methods). Checks that the flag matches the selected
+    estimator and that the run's critical values c lie at least as far from zero as q_cal.
+    Returns {applies, pool, qcal, binding (the keys among `keys` that the floor sets), phrase,
+    sentence}: phrase replaces 'the decision-set quantile as a floor' in a caption and sentence
+    is appended after it ('' when the floor does not apply)."""
+    if need(lvl, "selected", lvl_path) != selected:
+        raise FigureInputError(f"{lvl_path} is for {lvl['selected']}, the run for {selected}")
+    cand = parse_candidate(selected)
+    applies = int(need(lvl, "sdid_floor_h2", lvl_path))
+    if applies != int(cand["est"] == "SDID"):
+        raise FigureInputError(f"{lvl_path}: sdid_floor_h2 = {applies} for estimator {cand['est']}")
+    if not applies:
+        return {"applies": 0, "pool": None, "qcal": {}, "binding": [],
+                "phrase": "the decision-set quantile as a floor", "sentence": ""}
+    pool = need(lvl, "pool_h2", lvl_path)
+    if pool != cand["pool"]:
+        raise FigureInputError(f"{lvl_path}: pool_h2 {pool} is not the pool of {selected}")
+    q = {k: float(need(lvl, f"qcal_{pool}_{k}", lvl_path)) for k in ("hi95", "hi975", "lo05", "lo025")}
+    tol = 1e-12
+    for k in keys:
+        if (k.startswith("hi") and c[k] < q[k] - tol) or (k.startswith("lo") and c[k] > q[k] + tol):
+            raise FigureInputError(f"critical value {k} = {c[k]} is inside the SDID floor {q[k]}")
+    binding = [k for k in keys if close(c[k], q[k], 1e-12)]
+    qtxt = ", ".join(f"q_cal for {CRIT_NAME[k]} = {fmt(q[k])}" for k in keys)
+    if binding:
+        names = [CRIT_NAME[k] for k in binding]
+        sets = names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+        bind_txt = f"here the floor sets {sets}" + (" (the others come from t or the quantile)"
+                                                    if len(binding) < len(keys) else "")
+    else:
+        bind_txt = "here the floor does not bind: every critical value comes from t or the quantile"
+    sentence = (f" Because the estimator is SDID, each critical value is also at least as far from "
+                f"zero as the Monte Carlo floor q_cal of pool {pool} from run check-methods "
+                f"(design.method C1): c_hi(p) = max(t_ν,p, decision-set quantile, q_cal,hi(p)) and "
+                f"c_lo(p) = min(−t_ν,1−p, decision-set quantile, q_cal,lo(p)); {qtxt}; {bind_txt}. "
+                "The floor was calibrated on synthetic panels with the pseudo-date windows, not the "
+                "real ones, so it carries over to these intervals by assumption; it can only widen them.")
+    return {"applies": 1, "pool": pool, "qcal": q, "binding": binding,
+            "phrase": "the decision-set quantile and the SDID Monte Carlo floor as floors",
+            "sentence": sentence}
 
 
 def quarter_index(label: str) -> int:

@@ -4,6 +4,8 @@ Reads   runs/event-path/event_path.csv   one row per outcome (emp, wage) and qua
                                          se_s, se_n, lo95, hi95 and the flags covid, in_fit,
                                          post, ab257, ab1228
         runs/event-path/metrics.json     selected, figure_case, figure_note, nu_hat, nu, c_*
+        runs/level-mde/metrics.json      selected, sdid_floor_h2, pool_h2, qcal_<pool>_* (whether
+                                         the SDID Monte Carlo floor applies, and its values)
 Writes  paper/figures/fig_event.pdf, paper/figures/fig_event.caption.md, and the run's
         metrics (--metrics).
 
@@ -18,21 +20,13 @@ carries the run's figure_note instead.
 from __future__ import annotations
 
 import argparse
-import sys
-from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select' (reached by matplotlib through
-# subprocess -> selectors); load the standard one before code/ is on the path.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
-
-import figlib as F  # noqa: E402
+import figlib as F
 
 ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
 ap.add_argument("--csv", default="runs/event-path/event_path.csv")
 ap.add_argument("--run-metrics", default="runs/event-path/metrics.json")
+ap.add_argument("--level-metrics", default="runs/level-mde/metrics.json")
 ap.add_argument("--out", default="paper/figures/fig_event.pdf")
 ap.add_argument("--caption", default="paper/figures/fig_event.caption.md")
 ap.add_argument("--metrics", default="runs/fig-event/metrics.json")
@@ -51,6 +45,7 @@ if case != cand["est"]:
 note = F.need(M, "figure_note", args.run_metrics)
 nu = float(F.need(M, "nu", args.run_metrics))
 c = {k: float(F.need(M, f"c_{k}", args.run_metrics)) for k in ("hi95", "hi975", "lo05", "lo025")}
+FLOOR = F.sdid_floor(F.load_json(args.level_metrics), args.level_metrics, selected, c, ("hi975", "lo025"))
 if int(F.need(M, "n_rows", args.run_metrics)) != len(rows):
     raise F.FigureInputError(f"{W}: {len(rows)} rows, metrics say {M['n_rows']}")
 
@@ -202,8 +197,8 @@ the counterfactual the estimator builds from the donors, fitted with the base qu
 is a pointwise 95% interval, gap − c_hi(0.975) SE to gap − c_lo(0.025) SE, where SE =
 max(SE_s, SE_n) comes from the donors' placebo gaps at that quarter and the critical values are
 those of the selected candidate's H2 statistic from run level-mde (t at ν = {F.fmt(nu, '.1f')}
-with the decision-set quantile as a floor; c_hi(0.975) = {F.fmt(c['hi975'])}, c_lo(0.025) =
-{F.fmt(c['lo025'])}); both panels use these critical values, as the run does. Hatched: COVID
+with {FLOOR['phrase']}; c_hi(0.975) = {F.fmt(c['hi975'])}, c_lo(0.025) =
+{F.fmt(c['lo025'])}); both panels use these critical values, as the run does.{FLOOR['sentence']} Hatched: COVID
 quarters ({span(cov)}), excluded from every fit window. Light shading: the post window
 ({span(pst)}). Dashed line: {F.quarter_label(q_ab257)}, the quarter AB 257 was enacted
 (September 2022). Dotted line: {F.quarter_label(q_ab1228)}, the first quarter after AB 1228 was
@@ -224,7 +219,8 @@ F.write_metrics(args.metrics, {
     "selected": selected, "figure_case": case, "in_fit_marked": int(mark_fit),
     "n_quarters": len(qs), "first_quarter": F.quarter_label(q_first),
     "last_quarter": F.quarter_label(q_last), "n_covid": len(covid_q), "n_post": len(post_q),
-    "n_in_fit": len(fit_q), "nu": nu,
+    "n_in_fit": len(fit_q), "nu": nu, "sdid_floor": FLOOR["applies"],
+    "sdid_floor_binding": ",".join(FLOOR["binding"]),
     "checksum_emp": sum(p["gap"] + p["lo"] + p["hi"] for p in series["emp"]),
     "checksum_wage": sum(p["gap"] + p["lo"] + p["hi"] for p in series["wage"]),
     "ylim_emp_low": axes[0].get_ylim()[0], "ylim_emp_high": axes[0].get_ylim()[1],

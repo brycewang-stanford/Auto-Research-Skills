@@ -17,17 +17,8 @@ from __future__ import annotations
 
 import argparse
 import math
-import sys
-from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select' (reached by matplotlib through
-# subprocess -> selectors); load the standard one before code/ is on the path.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
-
-import figlib as F  # noqa: E402
+import figlib as F
 
 ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
 ap.add_argument("--csv", default="runs/select/pseudo_atts.csv")

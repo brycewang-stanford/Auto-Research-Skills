@@ -3,6 +3,8 @@
 Reads   runs/h2-emp/placebos.csv    state_fips, abbr, pop_base, tau, tau_scaled (one row per donor)
         runs/h2-emp/metrics.json    selected, outcome, base, post, nu, J, h2_att, h2_se, h2_se_s,
                                     h2_se_n, h2_J, h2_lo95, h2_hi95, h2_lo90, h2_hi90, h2_c_*
+        runs/level-mde/metrics.json selected, sdid_floor_h2, pool_h2, qcal_<pool>_* (whether the
+                                    SDID Monte Carlo floor applies, and its values)
 Writes  paper/figures/fig_placebo.pdf, paper/figures/fig_placebo.caption.md, and the run's
         metrics (--metrics).
 
@@ -16,21 +18,13 @@ from __future__ import annotations
 
 import argparse
 import math
-import sys
-from pathlib import Path
 
-_HERE = str(Path(__file__).resolve().parent)
-# code/select.py shadows the standard-library module 'select' (reached by matplotlib through
-# subprocess -> selectors); load the standard one before code/ is on the path.
-sys.path[:] = [p for p in sys.path if str(Path(p or ".").resolve()) != _HERE]
-import select  # noqa: E402,F401  (standard library)
-sys.path.insert(0, _HERE)
-
-import figlib as F  # noqa: E402
+import figlib as F
 
 ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
 ap.add_argument("--csv", default="runs/h2-emp/placebos.csv")
 ap.add_argument("--run-metrics", default="runs/h2-emp/metrics.json")
+ap.add_argument("--level-metrics", default="runs/level-mde/metrics.json")
 ap.add_argument("--out", default="paper/figures/fig_placebo.pdf")
 ap.add_argument("--caption", default="paper/figures/fig_placebo.caption.md")
 ap.add_argument("--metrics", default="runs/fig-placebo/metrics.json")
@@ -47,6 +41,8 @@ g = lambda k: float(F.need(M, k, MJ))  # noqa: E731
 att, se, se_s, se_n = g("h2_att"), g("h2_se"), g("h2_se_s"), g("h2_se_n")
 ci = {k: g(f"h2_{k}") for k in ("lo95", "hi95", "lo90", "hi90")}
 c = {k: g(f"h2_c_{k}") for k in ("hi95", "hi975", "lo05", "lo025")}
+FLOOR = F.sdid_floor(F.load_json(args.level_metrics), args.level_metrics, selected, c,
+                     ("hi95", "hi975", "lo05", "lo025"))
 nu = g("nu")
 J = int(F.need(M, "J", MJ))
 if int(F.need(M, "h2_J", MJ)) != J or len(rows) != J:
@@ -142,8 +138,8 @@ same estimate times sqrt(pop_j / pop_CA), with populations at the base quarter. 
 root mean square of the unscaled placebos and SE_s that of the scaled ones; the inference uses
 SE = max(SE_s, SE_n), here {which}, and the dashed lines mark ± SE. California's 90% interval
 (thick) and 95% interval (thin) are estimate − c × SE with the critical values of run
-level-mde's H2 statistic (t at ν = {F.fmt(nu, '.1f')} with the decision-set quantile as a
-floor), as in run h2-emp. Donors are sorted by their scaled placebo.
+level-mde's H2 statistic (t at ν = {F.fmt(nu, '.1f')} with {FLOOR['phrase']}),
+as in run h2-emp.{FLOOR['sentence']} Donors are sorted by their scaled placebo.
 
 **What the figure does not show.** The donors' placebo estimates are not effects of any
 policy; they show how large an estimate this procedure gives where no fast-food law applies.
@@ -155,6 +151,7 @@ F.write_text(args.caption, caption)
 
 F.write_metrics(args.metrics, {
     "selected": selected, "J": J, "se_is_scaled": int(se_s >= se_n), "nu": nu,
+    "sdid_floor": FLOOR["applies"], "sdid_floor_binding": ",".join(FLOOR["binding"]),
     "implied_pop_ca": pop_ca,
     "checksum_placebos": sum(d["tau"] + d["tau_s"] for d in don),
     "checksum_ca": att + sum(ci.values()),

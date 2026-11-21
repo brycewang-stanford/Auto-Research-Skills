@@ -13,12 +13,15 @@ Where the text quotes a number that also appears in a caption, the Writer uses t
 
 | Figure | Run | Script | Reads | Writes |
 |---|---|---|---|---|
-| `fig_event.pdf` | `fig-event` | `code/fig_event.py` | `runs/event-path/event_path.csv`, `runs/event-path/metrics.json` | `paper/figures/fig_event.pdf`, `paper/figures/fig_event.caption.md`, `runs/fig-event/metrics.json` |
+| `fig_event.pdf` | `fig-event` | `code/fig_event.py` | `runs/event-path/event_path.csv`, `runs/event-path/metrics.json`, `runs/level-mde/metrics.json` | `paper/figures/fig_event.pdf`, `paper/figures/fig_event.caption.md`, `runs/fig-event/metrics.json` |
 | `fig_select.pdf` | `fig-select` | `code/fig_select.py` | `runs/select/pseudo_atts.csv`, `runs/select/metrics.json` | `paper/figures/fig_select.pdf`, `paper/figures/fig_select.caption.md`, `runs/fig-select/metrics.json` |
-| `fig_placebo.pdf` | `fig-placebo` | `code/fig_placebo.py` | `runs/h2-emp/placebos.csv`, `runs/h2-emp/metrics.json` | `paper/figures/fig_placebo.pdf`, `paper/figures/fig_placebo.caption.md`, `runs/fig-placebo/metrics.json` |
+| `fig_placebo.pdf` | `fig-placebo` | `code/fig_placebo.py` | `runs/h2-emp/placebos.csv`, `runs/h2-emp/metrics.json`, `runs/level-mde/metrics.json` | `paper/figures/fig_placebo.pdf`, `paper/figures/fig_placebo.caption.md`, `runs/fig-placebo/metrics.json` |
 
 All three scripts import `code/figlib.py` (palette, style, caption wording of candidate ids);
-each run names it with `--code` as well.
+each run names it with `--code` as well. fig-event and fig-placebo read `runs/level-mde/metrics.json`
+only for `sdid_floor_h2`, `pool_h2` and `qcal_<pool>_*`: when the selected candidate is SDID their
+captions state the Monte Carlo floor on the critical values (design.method C1), its values, and
+which critical values it sets.
 
 What each figure shows, and what it cannot:
 
