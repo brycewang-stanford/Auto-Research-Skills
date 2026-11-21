@@ -45,7 +45,8 @@ Codex loads the PI skill, all nine agents and the hooks; the guard is tested in
 On 2026-11-21 the first end-to-end test,
 [`gallery/ss-null-effect-codex`](../../../gallery/ss-null-effect-codex/), ran in Codex
 (codex-cli 0.164.0, model gpt-6.1). It reached the results stage before a Codex usage
-limit paused it.
+limit paused it, and the test was stopped there by choice: the remaining stages use the
+same machinery. No paper has yet passed all four gates in Codex.
 
 What worked:
 
