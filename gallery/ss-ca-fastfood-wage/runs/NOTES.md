@@ -177,3 +177,18 @@ runs/check-methods/mc_rates.csv). Run once, as instructed.
     every SDID statistic (S2 always; the selected candidate's statistics if it is SDID); level-mde
     echoes q_cal of both pools (qcal_<pool>_<k>) and reports crit_<stat>_<k>_nofloor; it copies the
     cited check-methods values with prefix cm_. Every run reports solver_kkt_above_1e6.
+
+## After results-r1 (2026-11-21)
+
+- Claim texts revised for R1, R2, R4-R8 (values and macros unchanged; 14 claims added: the
+  California H1 pseudo-date ATTs and SEs, r-h1-crit-georgia, r-plc-nonff-sign). Responses are in
+  reviews/results-r1/review.json.
+- code/posthoc.py (deviation D7, report-only, post hoc) is written and was unit-tested on synthetic
+  inputs in the scratchpad (15 checks with known answers). It has not been run: it waits for a code
+  review. The posthoc run must name code/posthoc.py and code/sclib.py with --code, and declare as
+  --input data/derived/qcew_panel.csv, data/derived/state_panel_pre.csv,
+  runs/level-mde/tests.csv, runs/level-mde/metrics.json, runs/h1-wage/metrics.json,
+  runs/event-path/event_path.csv and runs/select/metrics.json, with --output
+  runs/posthoc/georgia.csv. Part (b) drops Georgia's six L values (54 remain) and keeps
+  level-mde's nu_h1 unchanged; Georgia's own placebo variance also lowers nu_hat, which part (b)
+  does not recompute.
