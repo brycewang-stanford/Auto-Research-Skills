@@ -51,7 +51,7 @@
     "method": "fetched-fulltext",
     "doi": "10.3386/w35749",
     "url": "https://www.nber.org/system/files/working_papers/w35749/w35749.pdf",
-    "note": "NBER WP 35749, September 2026, 56 pp.; sha256 prefix 1cfa46ae94e691fd. Numbers from Table 2 (PDF p. 48) and text pp. 4, 20-22. Crossref agrees."
+    "note": "NBER WP 35749, September 2026, 56 pp.; sha256 prefix 1cfa46ae94e691fd. Numbers from Table 2 (PDF p. 48) and text pp. 4, 20-22. Added for literature-r1 L1-L2 (re-read 2026-11-21): Section 2.1 policy background on AB 257 (pp. 5-6, PDF pp. 7-8); QCEW misclassification in Louisiana (pp. 15-16, PDF pp. 17-18, fn 20; Figures 1-3); YTS vs QCEW 722513 employment comparison (pp. 18-19, PDF pp. 20-21; Figure 4 PDF p. 41, Figure 5 PDF p. 42). Crossref agrees."
   },
   "hamdi2025wage": {
     "verified_on": "2026-11-21",
@@ -100,7 +100,7 @@
     "verified_by": "scout",
     "method": "fetched-fulltext",
     "url": "https://www.dir.ca.gov/iwc/MW-2026.pdf",
-    "note": "Official General Minimum Wage Order MW-2026: general minimum $16.90 from January 1, 2026; $16.50 from January 1, 2025; $16.00 from January 1, 2024. Section 2 still names only the fast-food rate 'effective April 1, 2024'. MW-2025 (https://www.dir.ca.gov/iwc/MW-2025.pdf) read too, same wording. sha256 prefixes 9dcfe03ce00c7aed (2026), d5bece2efc26de07 (2025)."
+    "note": "Official General Minimum Wage Order MW-2026: general minimum $16.90 from January 1, 2026; $16.50 from January 1, 2025; $16.00 from January 1, 2024. Section 2 states no fast-food dollar rate: it names 'Fast Food Restaurant employers under Part 4.5.5, of Division 2 of the Labor Code (commencing with Labor Code section 1474), effective April 1, 2024' as paying a separate minimum and says 'Supplements to this order containing minimum wage rates applicable for Fast Food Restaurant and Healthcare Facility employees ... are available online'. MW-2025 (https://www.dir.ca.gov/iwc/MW-2025.pdf) read too, same wording. sha256 prefixes 9dcfe03ce00c7aed (2026), d5bece2efc26de07 (2025). Wording corrected 2026-11-21 for literature-r1 L7."
   },
   "bls2026cewq1": {
     "verified_on": "2026-11-21",
@@ -157,5 +157,165 @@
     "method": "fetched-fulltext",
     "url": "https://www.census.gov/naics/reference_files_tools/2022_NAICS_Manual.pdf",
     "note": "2022 NAICS Manual (958 pp.) downloaded; definitions of 722511, 722513, 722514, 722515 read from printed pp. 562-563 (Sector 72). sha256 prefix 8a19163d845163ab. census.gov/naics web search returned 403."
+  },
+  "ballotpedia2024ab257": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://ballotpedia.org/California_Fast_Food_Restaurant_Minimum_Wage_and_Labor_Regulations_Referendum_(2024)",
+    "note": "Ballotpedia page on the veto referendum against AB 257, read in full (sha256 prefix 1a12720daae39300). Secondary source, used only for the AB 257 timeline: Senate approval August 29, 2022; signed September 5, 2022; petition summary 'up to $22/hour in 2023, with capped annual increases' for restaurants with '100+ nationwide locations', council created upon 10,000 worker signatures; signatures submitted December 5, 2022; Sacramento Superior Court hold December 30, 2022 and preliminary injunction January 13, 2023; qualified January 24, 2023 (final random sample, citing the Secretary of State); withdrawn December 29, 2023. The AB 257 statute (leginfo.legislature.ca.gov) and the Secretary of State pages returned a Cloudflare challenge, so the primary record was not read; the three cited papers (melo2026covered pp. 5-6, sosinskiy2026effects p. 7, hamdi2025wage p. 6 fn 7) agree on month, $22 cap and the stay."
+  },
+  "steier2026recordinglaw": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.recordinglaw.com/data-stories/california-20-fast-food-wage-data/",
+    "note": "Recording Law 'Data Story' by Adam Steier, page text and JSON-LD read (sha256 prefix f7743d164afc19d6): datePublished 2026-11-06; byline says 'last audited November 16, 2026'. 'How we measured': QCEW NAICS 722513, private, monthly employment 'through the first quarter of 2026 (released August 28, 2026)', not seasonally adjusted; 'Rest of US' = US minus California. Employment table indexed to Sept 2023 = 100: Mar 2026 California 97.06 (554,137 jobs), rest of US 98.99; March 2026 vs March 2024: California -1.65%, rest of US -0.90%; average weekly pay 2026Q1 vs 2023Q3 = 114.8 (CA) vs 104.3. The page states these comparisons 'do not by themselves show what the law caused'. Descriptive journalism on a legal-information site; not peer reviewed; cite only as a public descriptive series."
+  },
+  "ferman2019inference": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1162/rest_a_00759",
+    "url": "https://mpra.ub.uni-muenchen.de/81988/1/MPRA_paper_81988.pdf",
+    "note": "Full text read is the working-paper version (MPRA 81988, posted 16 Oct 2017, 52 pp., sha256 prefix 8d2afec95002846f); the REStat version is paywalled. Title, authors, journal, volume 101(3), pp. 452-467 (2019) from Crossref for the DOI. Passages used: abstract; assumptions 1-5 (WP pp. 10-11, PDF pp. 11-12); simulations with 25 groups (WP pp. 19-20, PDF pp. 20-21). Page numbers refer to the working paper, not the journal."
+  },
+  "arkhangelsky2021synthetic": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1257/aer.20190159",
+    "url": "https://www.nber.org/system/files/working_papers/w25532/w25532.pdf",
+    "note": "Full text read is NBER w25532 'February 2019, Revised July 2021' (70 pp., sha256 prefix b0dfa71eeeb3aca7); AER 111(12), 4088-4118 (2021) from Crossref. Passage used: Section 5 variance estimators, Algorithm 4 (placebo variance) and the paragraph on homoskedasticity with one treated unit (w25532 pp. 28-29, PDF pp. 29-30)."
+  },
+  "abadie2010synthetic": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1198/jasa.2009.ap08746",
+    "url": "https://www.nber.org/system/files/working_papers/w12831/w12831.pdf",
+    "note": "Full text read is NBER w12831 (January 2007, 51 pp., sha256 prefix f65db17b3378360c); JASA 105(490), 493-505 (2010) from Crossref. Passages used: footnote 4 on redefining T0 under anticipation (PDF p. 7); placebo inference 'exact ... regardless of the number of available comparison regions' and in-time placebos when comparison units are few (PDF pp. 14-15); California's post/pre MSPE ratio rank 1/39 (PDF p. 25). Page numbers refer to the working paper."
+  },
+  "abadie2021using": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1257/jel.20191450",
+    "url": "https://conference.nber.org/confer/2021/SI2021/Abadie_2021.pdf",
+    "note": "Published JEL article as printed (journal header 59(2), 391-425; 35 pp., sha256 prefix b2237e9888fa4e87); Crossref agrees. Journal page = PDF page + 390. Passages used: 'Safeguard against Specification Searches' (p. 406); 'Size of the Effect and Volatility of the Outcome' (pp. 409-410); 'No Anticipation' with backdating (pp. 409-410); 'Backdating' and the in-time placebo test (p. 414)."
+  },
+  "chernozhukov2021exact": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1080/01621459.2021.1920957",
+    "url": "https://arxiv.org/abs/1712.09089",
+    "note": "Full text read is arXiv 1712.09089v10 (102 pp., sha256 prefix 5ca99bed3ca8170d); JASA 116(536), 1849-1864 (2021) from Crossref. Passages used: abstract; Introduction pp. 2-3 (validity under stationary, weakly dependent errors with a consistent or stable counterfactual estimator; finite-sample bounds exact as T0 grows; exact under exchangeability)."
+  },
+  "ferman2020cherry": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1002/pam.22206",
+    "url": "https://mpra.ub.uni-muenchen.de/85138/1/MPRA_paper_85138.pdf",
+    "note": "Full text read is MPRA 85138 (11 March 2018, 59 pp., sha256 prefix d6065d925231d548); JPAM 39(2), 510-532 (2020) from Crossref; the Wiley page is paywalled. Passages used: abstract; introduction (PDF p. 6: over-rejection 'even when we restrict the set of choices to specifications with a good pre-treatment fit'); Section 4 (PDF p. 17: with T0 = 12 and seven specifications, at least one 5% rejection with probability 14.3%); Section 5 recommendations (PDF p. 24). Page numbers refer to the working paper."
+  },
+  "conley2011inference": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1162/REST_a_00049",
+    "url": "https://www.nber.org/system/files/working_papers/t0312/t0312.pdf",
+    "note": "Full text read is NBER Technical Working Paper 312 (June 2005, 51 pp., sha256 prefix ed6b84b57f592b29); REStat 93(1), 113-125 (2011) from Crossref. Passages used: abstract; Assumption 1.1 (errors i.i.d. across groups and independent of treatment). Working-paper version."
+  },
+  "schuirmann1987comparison": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-abstract",
+    "doi": "10.1007/BF01068419",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/3450848/",
+    "note": "PubMed record 3450848 (abstract, via NCBI E-utilities, sha256 prefix 90019f665f9cccd5): J Pharmacokinet Biopharm 15(6):657-80, Dec 1987; Crossref agrees. Abstract: the Two One-Sided Tests Procedure 'leads to the same conclusion as the approach ... based on the usual (shortest) 1-2 alpha confidence interval'. Springer full text not reached (login redirect). Cite only for the procedure and that equivalence."
+  },
+  "lakens2017equivalence": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1177/1948550617697177",
+    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5502906/",
+    "note": "Open-access full text on PMC (PMC5502906; sha256 prefix of the page b0bc1076ef62581f); Crossref: SPPS 8(4), 355-362 (2017). Passages used: abstract; TOST rule that both one-sided tests must reject and the 90% (1 - 2 alpha) CI equivalence (Figure 1 discussion, note 2); recommendation that equivalence bounds be prespecified."
+  },
+  "card1994minimum": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://davidcard.berkeley.edu/papers/njmin-aer.pdf",
+    "note": "Author-hosted scan of the published AER article, 26 pp. (sha256 prefix 6f9b9f1b6da9834c), read with pdftotext; AER 84(4), 772-793 (September 1994), no DOI (same record as in the gallery workspace ss-card-krueger, re-fetched today). Used only for the abstract: 410 fast-food restaurants surveyed in New Jersey and eastern Pennsylvania before and after New Jersey's April 1, 1992 increase from $4.25 to $5.05; 'We find no indication that the rise in the minimum wage reduced employment.'"
+  },
+  "wiltshire2026minimum": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1086/735551",
+    "url": "https://irle.berkeley.edu/wp-content/uploads/2025/06/wiltshire-et-al-2025-minimum-wage-effects-and-monopsony-explanations-1.pdf",
+    "note": "Author's accepted manuscript, 46 pp. (sha256 prefix da0ab15f105828c8), header says it will be published in the Journal of Labor Economics, DOI 10.1086/735551; Crossref gives JLE 44(4), 1339-1381, issued 2026-10-02. Sosinskiy-Reich (2026) cite it as 'Wiltshire et al. (2024), forthcoming'. Passages used: abstract; Section 2.1 (California's minimum rose from July 2014, reaching $15 in 2022); Section 3.1 sample (36 populous California and New York counties, 122 donor counties in federal-minimum states; PDF p. 8); QCEW NAICS 722513 private (PDF p. 9); treated period extended through 2022q4 (PDF p. 9). Page numbers refer to the manuscript."
+  },
+  "clemens2026prices": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w34990",
+    "url": "https://www.nber.org/system/files/working_papers/w34990/w34990.pdf",
+    "note": "NBER WP 34990, March 2026, 33 pp. (sha256 prefix e7559ca72c51ab2c); Crossref agrees on title, authors and date. Passages used: abstract (FAFH CPI, 21 MSAs, +3.3 to 3.6 percent through December 2024; 'likely arise in part from spillovers to the full-service sector'); Introduction p. 1 (prices 'begin rising gradually ... in the months between enactment and implementation')."
+  },
+  "reich2024sectoral": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://irle.berkeley.edu/wp-content/uploads/2024/09/Sectoral-Wage-Setting-in-California-09-30-2024.pdf",
+    "note": "IRLE Working Paper #104-24, September 2024, 26 pp. (sha256 prefix b47773a1ca2715ec), title page 'Sectoral Wage-Setting in California', Michael Reich and Denis Sosinskiy. Earlier version of sosinskiy2026effects; used only for its abstract (Glassdoor pay +18 percent, no employment reduction, prices +3.7 percent). Replaces the 'not reached' entry in notes.md section 8."
+  },
+  "cengiz2019effect": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.1093/qje/qjz014",
+    "url": "https://www.nber.org/system/files/working_papers/w25434/w25434.pdf",
+    "note": "Full text read is NBER w25434 (January 2019, 116 pp., sha256 prefix 3d216819efe68f74); QJE 134(3), 1405-1454 (2019) from Crossref. Used only for the abstract (bunching estimator, 138 state minimum-wage changes 1979-2016, number of low-wage jobs essentially unchanged over five years)."
+  },
+  "dube2024restaurant": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "doi": "10.3386/w32902",
+    "url": "https://www.nber.org/system/files/working_papers/w32902/w32902.pdf",
+    "note": "NBER WP 32902, 'September 2024, Revised May 2026', 62 pp. (sha256 prefix c4b43a858e80150a); Crossref agrees on title and authors. Used only for the abstract: Jha-Neumark-Rodriguez-Lopez's commuting-zone disemployment results are confounded by 1990s pre-trend violations amplified by TWFE; modern event-study designs show no meaningful restaurant employment decline."
+  },
+  "neumark2026modern": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://sites.socsci.uci.edu/~jantonio/Papers/ModernDiD_SameOldAnswer.pdf",
+    "note": "Author-hosted draft dated June 2026, 52 pp. (sha256 prefix 52f122d18a1f0be7); EconPapers lists it as CESifo Working Paper No. 12791 (RePEc:ces:ceswps:_12791), same title and authors. Used only for the abstract: with the stacked design of Cengiz et al. and Dube-Lindner's LP-DiD on their data, negative and significant employment effects, stronger in restaurants; the null results 'depend critically on a number of choices regarding variables, events, sample definitions, and weighting'."
+  },
+  "thornberg2025jumping": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://publicpolicy.pepperdine.edu/institutes-initiatives/content/jumping-the-gun-on-the-fast-act-compressed.pdf",
+    "note": "Pepperdine School of Public Policy and Beacon Economics white paper, dated March 2025, 8 pp. ('compressed' PDF; sha256 prefix cd06cfdbecd7453f; the cover page carries template filler text). No author line is printed; the closing bio is of 'Dr. Thornberg', and Melo et al. (2026) cite it as Thornberg (2025). Passages used: Summary (PDF p. 4: EDD's January 2025 report of March 14 revised December 2024 limited-service jobs down by 21,500, 2.5%; revised 12-month change -3.2%) and the benchmarking box (PDF p. 5: CES estimates are benchmarked each January to QCEW). Concerns CES (EDD survey) revisions, not QCEW revisions."
+  },
+  "bivens2026adjusting": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://files.epi.org/uploads/317230.pdf",
+    "note": "EPI report by Josh Bivens and Ben Zipperer, March 23, 2026, 14 pp. (sha256 prefix 74878b90699adf60). Advocacy think tank. Passage used (p. 1): 'The Council was preparing to discuss a wage adjustment in June 2025 when the chair resigned. It is expected to take up the issue when the governor names a new chair, which has yet to happen'; it urges the Council to make the adjustment in 2026. Also p. 7: CPI-W up 4.2% April 2024-January 2026. Its first sentence says the Council 'instituted' the $20 wage, whereas AB 1228 set it in statute; do not cite it for that."
+  },
+  "dir2025minimumwage": {
+    "verified_on": "2026-11-21",
+    "verified_by": "scout",
+    "method": "fetched-fulltext",
+    "url": "https://www.dir.ca.gov/dlse/Minimum_Wage.htm",
+    "note": "Official Labor Commissioner's Office Minimum Wage page, footer dated December 2025, HTTP last-modified 9 January 2026, fetched 2026-11-21 (sha256 prefix e50900ec09572be8). Text: general minimum 'effective January 1, 2026, is $16.90/hour'; 'Fast Food Restaurant employers, effective April 1, 2024 ... have a higher minimum wage'; 'Starting April 1, 2024, all fast food restaurant employees who are covered by the new law must be paid at least $20.00 per hour'. No other fast-food rate appears on the page."
   }
 }

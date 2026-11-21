@@ -32,3 +32,13 @@
 {"time": "2026-11-21T05:35:16Z", "role": "pi", "action": "gate-approve", "detail": "question Bryce Wang"}
 {"time": "2026-11-21T05:35:37Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261121T053537Z (design)"}
 {"time": "2026-11-21T05:35:37Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T053537Z (literature-r1)"}
+{"time": "2026-11-21T05:43:59Z", "role": "reviewer", "action": "review-recorded", "detail": "literature-r1 verdict=revise files=10"}
+{"time": "2026-11-21T05:45:00Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261121T054500Z (literature-r1 L1-L4 L6 L7)"}
+{"time": "2026-11-21T05:45:12Z", "role": "pi", "action": "brief-archived", "detail": "designer 20261121T054512Z (design follow-up L1 L2)"}
+{"time": "2026-11-21T05:50:13Z", "role": "designer", "action": "design-written", "detail": "design (24-candidate placebo-in-time selection on 2014Q1-2019Q4, FP placebo inference with level check, H1-H3, S1/S2, 5 robustness, 2 placebos, 16 threats) and 40-task board; question-r4 F15/F16 and literature-r1 L1/L2 addressed"}
+{"time": "2026-11-21T06:01:43Z", "role": "scout", "action": "literature-r1-answered", "detail": "L1 L2 L3 L4 L6 L7 fixed, no rebuttals; 21 sources added (43 verified), 18 citation claims added, c-no-2026-qcew narrowed, c-ab1228-no-increase reworded and sourced; notes.md 1.7, 2, 4, 4.1, 6.2, 7, 8, 9, 10"}
+{"time": "2026-11-21T06:01:50Z", "role": "scout", "action": "log-correction", "detail": "previous entry: 20 citation claims added (not 18); claims.jsonl now 44"}
+{"time": "2026-11-21T06:03:00Z", "role": "pi", "action": "plan-revised", "detail": "literature-r1 L1 L2 L4 L5: AB 257 in timing, Melo coverage and misclassification, not-blind disclosure of the descriptive index, H2 bound wording"}
+{"time": "2026-11-21T06:03:30Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T060330Z (design-r1)"}
+{"time": "2026-11-21T06:03:31Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261121T060331Z (s-methods)"}
+{"time": "2026-11-21T06:03:31Z", "role": "pi", "action": "brief-archived", "detail": "data-ra 20261121T060331Z (dr-pop dr-prop99 dr-state)"}

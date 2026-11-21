@@ -1,0 +1,110 @@
+{
+  "id": "literature-r1",
+  "target": "literature",
+  "round": 1,
+  "created": "2026-11-21T05:42:36Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "crew.json",
+    "plan.json",
+    "claims.jsonl",
+    "refs.bib",
+    "sources/sources.json",
+    "sources/notes.md",
+    "log.jsonl",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/question-r4/review.json",
+    "briefs/20261121T053537Z-reviewer.md"
+  ],
+  "kill_argument": "The literature record checks the numbers it chose to copy and skips what the same sources say against the design. Three of the papers it cites (Sosinskiy-Reich p. 7, Hamdi-Sovich p. 6, Melo et al. pp. 5-6) say that AB 257 was enacted in September 2022 with a possible $22 fast-food wage and stayed in January 2023. AB 257 appears nowhere in plan.json, notes.md or claims.jsonl. So the 'pre-policy' quarters the selection rule, the MDE and the 2023Q3 base all rely on fall partly under a pending sectoral wage law. Melo et al., which the record cites only for its coefficients, finds that QCEW six-digit codes misfile fast-food chains (7.9% of chain locations in 722511). It also reports covered-chain employment about 33% below QCEW 722513 in California, against the plan's claim that this share 'is not known'. The inference and selection methods H1-H2 depend on (Ferman-Pinto, conformal, SDID, cherry-picking in synthetic control) have no verified source. The only new data, 2026Q1, already appear as a public California-vs-US index through March 2026. What I checked and found sound: 15 sampled numeric attributions matched the PDFs exactly, all hashes matched, and no causal estimate uses 2026Q1.",
+  "verdict": "revise",
+  "findings": [
+    {
+      "id": "L1",
+      "severity": "major",
+      "status": "open",
+      "text": "AB 257 (the FAST Recovery Act), enacted September 2022, set up a Fast Food Council that could raise the wage of chains with 100+ locations to as much as $22 in 2023. A referendum petition stayed it in January 2023, and AB 1228 replaced it in September 2023. Three cited sources describe this: sosinskiy2026effects p. 7 ('This earlier law, passed in September 2022 ... as high as $22'; 'in January 2023 a state court stayed the implementation'), hamdi2025wage p. 6 and fn 7, and melo2026covered Section 2.1 pp. 5-6. The crew's record never mentions it (grep for 'AB 257' or 'FAST Recovery' in plan.json, claims.jsonl and sources/notes.md returns nothing). plan.json H2 calls 2023Q3 'the last quarter before the law was signed' and builds the primary-specification selection rule and the MDE from pre-2023Q3 data. It names Dube Table 1 Panel B (base 2022Q1-2023Q3) as the published result closest to its timing. All three use quarters in which a higher sectoral wage was law (2022Q3-2023Q1) or pending a referendum (2023Q1-2023Q3). No cited source estimates an AB 257 anticipation effect, so the size of the problem is unknown, but it is a known threat the record omits.",
+      "evidence": "plan.json hypotheses[1] (timing paragraph and selection rule); sources/notes.md section 4 and 6.4 (no AB 257); claims.jsonl (no claim). Sources: sosinskiy2026effects p. 7; hamdi2025wage p. 6 fn 7; melo2026covered pp. 5-6.",
+      "remedy": "Add a citation claim on the AB 257 timeline from those sources. Add it to the limits in plan.json's contribution and pass it to design.threats. The Designer should then state whether the pseudo-dates and fit windows avoid 2022Q3-2023Q3, or report the rule's choice with and without them. Narrowing 'before the law was signed' to 'before AB 1228 was signed' costs nothing.",
+      "response": "Fixed (Scout). Re-read the three passages (melo2026covered pp. 5-6, sosinskiy2026effects p. 7, hamdi2025wage p. 6 fn 7) and added ballotpedia2024ab257 (fetched in full; secondary, because leginfo and the Secretary of State pages returned a Cloudflare challenge) for exact dates. New claim c-ab257: AB 257 signed September 5, 2022 (Senate approval August 29); a Fast Food Council could set up to $22/hour in 2023 for chains with 100+ locations, then annual increases capped at the lesser of 3.5% or inflation; court hold December 30, 2022 and preliminary injunction January 13, 2023; referendum qualified January 24, 2023, freezing the law before it took effect; replaced by AB 1228 (deal September 11, signed September 28, 2023); referendum withdrawn December 29, 2023; no source reports an AB 257 wage. notes.md section 4.1 states the pre-period implication: 2022Q3-2023Q3 are not policy-free; the only post-COVID quarters wholly before AB 257 are 2022Q1-2022Q2; the 2023Q3 base, any fit window or MDE using 2022Q3-2023Q3, Dube's Panel B base and CEM's September 2023 base all sit inside the AB 257 period; pseudo-dates ending by 2019Q4 avoid it and 2022Q2 is the last base before passage. Not done by the Scout: plan.json wording ('before AB 1228 was signed') and design.threats, which belong to the PI and Designer. PI: H2 timing now says 2022Q3-2023Q3 is not policy-free (AB 257); the design reports a pre-AB 257 base (rob-pre-ab257).",
+      "ruling": ""
+    },
+    {
+      "id": "L2",
+      "severity": "major",
+      "status": "open",
+      "text": "The record cites melo2026covered only for its SDID coefficients (c-melo2026). It leaves out the paper's two QCEW findings, both of which bear on this study's outcome and comparison sector. (a) Misclassification (Section 3.1.1, p. 15 and fn 20): in Louisiana QCEW, only 77.7% of matched fast-food chain locations are coded 722513, 9.2% are coded 722515 and 7.9% 722511, and 14% of chains have locations in both 722513 and another restaurant code. Melo et al. warn that classification may change when the policy changes the mix of establishments. plan.json names only 722515 as unusable as a control. 722511, a candidate DDD sector in the literature and a fetched slice (dr-fetch), therefore also holds covered establishments. (b) Coverage (p. 19, PDF p. 21, and Figure 4): in California in 2025, employment at chains with 60+ locations (YTS) is 33% below QCEW 722513 employment. This is an imperfect but published approximation of the covered share, from a different universe that also includes some 722515 chains. It contradicts plan.json's 'the share for 722513 alone is not known' and sources/notes.md 6.2's 'not a sourced number'. Figure 5 also shows that the YTS-QCEW gap changes from 2019 to 2025, which Melo et al. note can bias DD designs.",
+      "evidence": "claims.jsonl c-melo2026; plan.json contribution (limits sentence on coverage and 722515); sources/notes.md 1.7 and 6.2-6.3. Source: melo2026covered pp. 2-3, 15-19, fn 20, Figures 3-5.",
+      "remedy": "Add citation claims for (a) and (b). Reword the coverage limit to say a YTS-based comparison puts covered-chain employment at about two-thirds of QCEW 722513 in California, with Melo et al.'s caveats. State in the limits that 722511 contains covered chains, so a DDD against it is contaminated in both directions.",
+      "response": "Fixed (Scout). Re-read melo2026covered pp. 14-19 and Figures 1-5 and added two claims. c-melo-misclass (pp. 15-16, PDF pp. 17-18, fn 20): Louisiana QCEW chain locations 77.7% 722513, 9.2% 722515, 7.9% 722511, 0.7% 722514/722320; 17 of 121 chains (14%) in both 722513 and another restaurant code; bias may be more complex than attenuation if classification shifts with the policy. c-melo-coverage (p. 19, PDF p. 21; Figures 4-5, PDF pp. 41-42): California 2025 YTS employment at 60+-location limited-service chains is 33% below QCEW 722513 (range -49% DC to +4% Iowa); the 2019-2025 QCEW-minus-YTS change ranges -8 to +17 points, which Melo et al. say can bias DD. notes.md 1.7, 4 and 6.2 now say the 722513 share is not measured directly but a YTS comparison puts it near two-thirds, with caveats (name-matched universe, modelled YTS data, exemptions not applied, 2025 level), and that 722511 holds covered chains so a DDD against it is contaminated both ways. One wording point: Melo et al. do not say the YTS universe includes 722515 chains; I record that only as a possibility suggested by the Louisiana shares. The plan.json limits sentence is the PI's to reword. PI: plan contribution now uses Melo et al.'s coverage figure and names 722511 and 722515 as unclean controls.",
+      "ruling": ""
+    },
+    {
+      "id": "L3",
+      "severity": "major",
+      "status": "open",
+      "text": "The design H1-H2 commits to has no verified source in refs.bib or sources.json. H1 requires inference 'valid with a single treated state (Ferman-Pinto, conformal, or a permutation ...)'. H2's candidate set includes synthetic control and SDID, and its decision rule is a two one-sided test. The selection rule picks a specification by placebo-in-time fit. None of Ferman and Pinto (2019, REStat; cited by Dube), Arkhangelsky et al. (2021, AER), Abadie, Diamond and Hainmueller (2010), Abadie (2021, JEL, on in-time placebos and feasibility), Chernozhukov, Wuthrich and Zhu (2021, JASA, conformal), Conley and Taber (2011) or an equivalence-testing reference (e.g., Schuirmann 1987) is recorded. The most relevant omission is Ferman, Pinto and Possebom (2020, JPAM), 'Cherry picking with synthetic controls', which w35931 cites. It studies specification searching in exactly this kind of choice and bears directly on whether the RMSE selection rule protects against it. The design gate will turn on whether the chosen inference reaches its nominal level with about 20 or 48 donors, and that claim needs its source's assumptions, such as Ferman-Pinto's heteroskedasticity correction by group size.",
+      "evidence": "plan.json hypotheses[0] (inference clause), hypotheses[1] (candidate set, selection rule, TOST); refs.bib (no methods entries); w35931 and w35171 reference lists.",
+      "remedy": "The Scout fetches and records these sources (at least Ferman-Pinto 2019, Arkhangelsky et al. 2021, Abadie et al. 2010, Abadie 2021, Chernozhukov-Wuthrich-Zhu 2021, Ferman-Pinto-Possebom 2020, one TOST reference), with a note on each method's assumptions relevant to one treated unit, before the design review.",
+      "response": "Fixed (Scout). Fetched and recorded nine methods sources, journal metadata from Crossref for each DOI, text from the version noted in sources.json: ferman2019inference (MPRA WP), arkhangelsky2021synthetic (NBER w25532 rev. July 2021), abadie2010synthetic (NBER w12831), abadie2021using (JEL as printed), chernozhukov2021exact (arXiv v10), ferman2020cherry (MPRA WP), conley2011inference (NBER t0312), and for TOST schuirmann1987comparison (PubMed abstract) and lakens2017equivalence (PMC full text). One claim each (c-ferman-pinto, c-sdid-placebo, c-adh-placebo, c-abadie-guidance, c-conformal, c-cherry-picking, c-conley-taber, c-tost). notes.md section 9 gives each method's one-treated-unit assumptions with pages: FP's scale-only heteroskedasticity and N0 -> infinity, simulated with 25 groups (21 states is fewer); SDID placebo needs homoskedasticity across units; ADH rank p-values need California first of 21 for p = 0.048; conformal needs many stationary pre-periods; FPP show fit-based specification choice still over-rejects, and the note says how far the plan's pre-2019 placebo-RMSE rule differs from what they studied.",
+      "ruling": ""
+    },
+    {
+      "id": "L4",
+      "severity": "major",
+      "status": "open",
+      "text": "The novelty claim c-no-2026-qcew ('No study of AB 1228 found uses QCEW data for any 2026 quarter') and plan.json's 'the data add one preliminary quarter, 2026Q1' leave out a public analysis that already uses 2026Q1. Recording Law, 'Data Story' on AB 1228, by Adam Steier, published 6 November 2026 and audited 16 November 2026 (https://www.recordinglaw.com/data-stories/california-20-fast-food-wage-data/), uses QCEW NAICS 722513 monthly employment 'through the first quarter of 2026 (released August 28, 2026)'. It reports California at 97.06 against 98.99 for the rest of the US in March 2026 (September 2023 = 100), California 1.65% below its March 2024 level against 0.90% for the rest of the US. It runs no DD and makes no causal claim. So the narrow claim (no causal or pre-specified estimate uses 2026Q1) still stands. But 'no study uses' 2026 data is not safe as written, and the raw post-period contrast for the one new quarter is public. This matters for the 'pre-specified, not blind' disclosure in plan.json's contribution.",
+      "evidence": "claims.jsonl c-no-2026-qcew; plan.json question (last sentence) and contribution; sources/notes.md sections 0.1, 2, 7.",
+      "remedy": "Reword c-no-2026-qcew to 'no causal estimate'. Cite the data page as descriptive (verified, with a sources.json record). Add to the not-blind disclosure that a raw California-vs-US index through 2026Q1 is public, and record whether the PI or the Scout has seen it.",
+      "response": "Fixed (Scout). Fetched the page and recorded steier2026recordinglaw (published November 6, 2026 per JSON-LD; byline 'last audited November 16, 2026'; QCEW 722513 private monthly through 2026Q1, not seasonally adjusted; March 2026 index California 97.06 vs rest of US 98.99; March 2026 vs March 2024 -1.65% vs -0.90%; the page itself says this does not show what the law caused). Narrowed c-no-2026-qcew to 'no causal or pre-specified estimate' and added that a descriptive index through March 2026 is public; added c-steier2026 as a descriptive citation; notes.md sections 0.1, 2 and 7 updated. Disclosure for the not-blind statement: the Scout read the page, including the index values, on 2026-11-21; whether the PI has seen it is for the PI to state. The plan.json disclosure sentence is the PI's. PI: the not-blind disclosure in plan contribution now names the descriptive index and that the PI read its March 2026 values.",
+      "ruling": ""
+    },
+    {
+      "id": "L5",
+      "severity": "minor",
+      "status": "open",
+      "text": "plan.json H2 calls the bound's wage effect 'the same pooled post-period estimand'. That is not so. Dube Table 1 Panel A SDID (+6.99) is the 2024Q2-2025Q3 average against a 2023Q4 base, with the outcome log emp/pop (Table 1 notes). The plan's estimand is 2024Q2-2026Q1 against a 2023Q3 base. Panel B, which the plan calls closest to its own timing, gives +6.71. The plan also describes -0.29 as 'the size of the more negative published estimates'. It is the least negative end of Clemens et al.'s one-year range, -0.29 to -0.49 (clemens2025did p. 11), and below the two-year 'just over -0.5' (clemens2026employment p. 12). The arithmetic (-0.02/0.07 = -0.29) is right.",
+      "evidence": "plan.json hypotheses[1] ('The bound:' sentence); dube2026labor Table 1 and notes (PDF p. 30); clemens2025did p. 11; clemens2026employment p. 12.",
+      "remedy": "Reword to 'a comparable pooled estimand (2024Q2-2025Q3, 2023Q4 base)' and 'the least negative of Clemens et al.'s estimates'.",
+      "response": "PI: the bound text now says Dube's Panel A is a close but not identical estimand (window, base, outcome) and that -0.29 is the least negative Clemens et al. elasticity; it states what a CI inside or below the bound excludes.",
+      "ruling": ""
+    },
+    {
+      "id": "L6",
+      "severity": "minor",
+      "status": "open",
+      "text": "Other obvious prior work is missing from the record: Card and Krueger (1994), the reference fast-food minimum-wage study; Wiltshire, McPherson, Reich and Sosinskiy (2024, JLE forthcoming), on California fast-food employment under the earlier $15 phase-in and the closest prior evidence for this state and sector (cited by Sosinskiy-Reich); Dube, Reich, Bhatt and Sosinskiy (2024) on restaurant employment; Cengiz et al. (2019); and Neumark and Rodriguez-Lopez (2026), cited by w34033. Also missing are Clemens, Edwards, Meer and Nguyen (2026a, NBER w34990, March 2026, prices), which reports prices rising between enactment and implementation and attributes part of the rise to spillovers to full-service restaurants (abstract and p. 1), relevant to anticipation and to the 722511 comparison, and Thornberg (2025, Pepperdine/Beacon), cited by Melo et al. for revisions to the preliminary California data, relevant because 2026Q1 is preliminary. Reich and Sosinskiy (2024, IRLE WP 104-24) is listed as 'not reached' in notes.md 8, but it is available at https://irle.berkeley.edu/wp-content/uploads/2024/09/Sectoral-Wage-Setting-in-California-09-30-2024.pdf.",
+      "evidence": "refs.bib; sources/notes.md section 8; reference lists of sosinskiy2026effects, clemens2026employment, melo2026covered.",
+      "remedy": "Record the ones the paper's related-work section will cite; at least w34990, Wiltshire et al. and Card-Krueger.",
+      "response": "Fixed (Scout). Fetched and recorded, each with a claim and a one-line implication in notes.md section 10: card1994minimum (c-card-krueger), wiltshire2026minimum (JLE 44(4), 2026 per Crossref; accepted manuscript read; c-wiltshire), clemens2026prices (w34990; c-cemn-prices), reich2024sectoral (IRLE WP 104-24 at the URL given; c-rs2024; removed from 'not reached'), cengiz2019effect (c-cengiz), dube2024restaurant (w32902 rev. May 2026; c-drbs2024), neumark2026modern (CESifo WP 12791, June 2026 draft; c-nrl2026), thornberg2025jumping (Pepperdine/Beacon, March 2025; c-thornberg). Implications include: California's 2014-2022 pre-period was under its own $15 phase-in (Wiltshire et al. section 2.1); w34990 documents price responses between enactment and implementation and full-service spillovers. One correction to the finding: Thornberg's revisions are EDD CES benchmark revisions to QCEW, not QCEW revisions, so they bear on CES users, not on 2026Q1 QCEW; the relevant risk is QCEW's own preliminary revision, which BLS calls usually minor.",
+      "ruling": ""
+    },
+    {
+      "id": "L7",
+      "severity": "minor",
+      "status": "open",
+      "text": "c-ab1228-no-increase says the MW-2025 and MW-2026 orders 'still list the fast-food rate as the one effective April 1, 2024'. The orders list no fast-food rate. They name fast-food employers 'effective April 1, 2024' and refer to separate supplements (MW-2026 lines on 'Supplements to this order ... are available online'). The claim that the $20 wage did not rise in 2025 or 2026 is the premise of H3 and of the yearly H1 split, and it rests only on absence of evidence (notes.md section 4 says so). A direct statement exists: an EPI report says the Council has not raised the wage, and the DIR minimum-wage page could be checked.",
+      "evidence": "claims.jsonl c-ab1228-no-increase; plan.json hypotheses[0] and [2]; dir2026mw (MW-2026, Section 2 and note).",
+      "remedy": "Reword the claim to what the orders say, and add a positive source for no increase through 2026Q1, or state it as an assumption in the limits.",
+      "response": "Fixed (Scout), sourced directly. Reworded c-ab1228-no-increase to what the orders say: MW-2025 and MW-2026 state no fast-food dollar rate; Section 2 names fast-food employers under Labor Code section 1474 'effective April 1, 2024' and refers to supplements. Added two direct sources: dir2025minimumwage (Labor Commissioner's Minimum Wage page, footer December 2025, last-modified January 9, 2026: covered fast-food employees 'must be paid at least $20.00 per hour' from April 1, 2024; no other fast-food rate) and bivens2026adjusting (EPI, March 23, 2026, p. 1: the Council was to discuss an adjustment in June 2025 when its chair resigned and will take it up when a new chair is named, 'which has yet to happen'). Corrected the dir2026mw record note. What remains unsourced, stated in notes.md section 4 and 8: March 24-31, 2026, covered only by the meeting list (last entry February 26, 2025) and the need for a Council vote.",
+      "ruling": ""
+    }
+  ],
+  "checked": "Downloaded myself (scratch rv-lit1/dl; sha256 prefixes match sources.json for every PDF): clemens2025did Table 1 Panel B and p. 11; clemens2026employment Tables 3, 5, 7 text pp. 10-11 and title page; dube2026labor Table 1 Panels A-B, Table 2, Table D1 and pp. 41-42; sosinskiy2026effects Table 1 and pp. 6, 13; clemens2026synthetic pp. 1-3, 7; melo2026covered Tables 2-3 and pp. 2-19; hamdi2025wage Table 2 and p. 16; DIR FAQ (60-establishment rule, exemptions, 3.5%/CPI cap, not before 1 Jan 2025), Fast Food Council page, MW-2025, MW-2026; BLS USDL-26-1424 (28 Aug 2026, 2026Q1 preliminary, 2026Q2 on 2 Dec 2026), QCEW HOM concepts and Q&A (60% suppression, finalization). All sampled numbers in c-cem2025, c-cemn2026, c-dube2026, c-dube-decomp, c-sr2026, c-synth2026, c-melo2026, c-hamdi2025, c-council-cap, c-ab1228-dates, c-ab1228-coverage, c-qcew-2026q1, c-qcew-concepts and c-qcew-suppression match their sources. Web searches found no causal study using 2026Q1. I ran no estimate and computed nothing on the study's data.",
+  "files_sha256": {
+    "crew.json": "dda332380e01e54e8ab18db26093f062b7a666fbece0a0b73e45ea700977c4a6",
+    "plan.json": "78e330ec2ecfaf68e7e935ac7c72e57d2aa4df8fd7ef5dcc5937f8416054eadb",
+    "claims.jsonl": "44000b0b1ec60fb33247b4cd6e1dc1234cc5f6d5670cea4c917e36bd5f0ec974",
+    "refs.bib": "75cfb9d20c643ef0e9f9c031ac6c00da9780e7b3d83dc11597e818bb2d04d500",
+    "sources/sources.json": "4c100ab81eff62868217187648c4f48c4a2936a20bbc5cf842acf31b0f0b5f69",
+    "sources/notes.md": "2c1cc05d79eca685b8be673e6773388e3294f11eae1f452d779cdf5dbc9328f9",
+    "log.jsonl": "277a1e28b9fda5e30635387c4f1a4f6b6485b56332464123c68cf00122992924",
+    "reviews/REVIEWER_MEMORY.md": "0bf8bc4a1e8e2eb50862316834efe3685efe0738c2f8e9e4e79d93a8cb57f987",
+    "reviews/question-r4/review.json": "a733b76451f5a61897113fede658ac5722236b28cfa62a5ca31cb424223193ff",
+    "briefs/20261121T053537Z-reviewer.md": "52b20ffceff68adadaf2114bea8bfd2b1bb5e6be4dbb1bdfcb9ff2894f9d0898"
+  },
+  "recorded": "2026-11-21T05:43:59Z"
+}

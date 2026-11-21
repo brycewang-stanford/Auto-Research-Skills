@@ -59,3 +59,20 @@ Suspicions for the design review:
 - F16: which outcome the RMSE uses, and whether H1 inherits the employment-selected estimator.
 - 2023Q3 base may contain anticipation (SR p. 42, July-August 2023); it should be in design.threats.
 - The H2 bound uses Dube's pooled ~7% wage effect from a window ending 2025Q3 as "the same pooled post-period estimand"; it is close but not the same window. Check the paper does not overstate this.
+
+## literature-r1 (2026-11-21, verdict revise)
+
+New: L1-L4 major, L5-L7 minor. No critical finding. After recording I fixed one typo in L1's text (review.json only; no stamped file changed).
+
+Verified myself (PDFs in scratch rv-lit1/dl; every sha256 prefix matches sources.json): c-cem2025, c-cemn2026, c-dube2026, c-dube-decomp, c-sr2026, c-synth2026, c-melo2026, c-hamdi2025, the DIR claims, the BLS release (USDL-26-1424) and QCEW HOM/Q&A. All numbers correct. BLS pages block curl; WebFetch works.
+
+Suspicions:
+- L1: AB 257 (Sept 2022, up to $22, stayed Jan 2023) puts 2022Q3-2023Q3 under a pending sectoral wage law. The selection rule, the MDE and Dube Panel B's base all use those quarters. At the design review, check the threats list and whether the pseudo-dates avoid that window or report the rule both ways.
+- L2: Melo et al. find QCEW misclassification (LA: 7.9% of chain locations in 722511, 9.2% in 722515) and covered-chain employment 33% below QCEW 722513 in CA in 2025 (p. 19). Watch for a 722511 DDD treated as clean and for "share not known" left standing.
+- L4: Recording Law data page (6 Nov 2026) publishes a raw CA-vs-US 722513 index through March 2026. The post-period for the one new quarter is public; the not-blind disclosure should say so.
+- L3: no methods sources yet; Ferman-Pinto-Possebom (2020, cherry picking) bears directly on the RMSE selection rule.
+
+Check next round:
+- `crew.py changes <ws> literature`; new claims for AB 257, Melo misclassification/coverage, methods sources; c-no-2026-qcew reworded to "no causal estimate"; c-ab1228-no-increase reworded; H2 bound wording (L5).
+- Spot-check every new sources.json entry against the fetched document (methods papers: title, journal, year).
+- Still only data-prep runs (fetch-data, prepare-data) as of literature-r1.
