@@ -17,3 +17,8 @@
 {"time": "2026-11-21T05:03:52Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261121T050352Z (question-r1 F4)"}
 {"time": "2026-11-21T05:05:19Z", "role": "scout", "action": "claim-revised", "detail": "F4: c-coverage-share and notes now say ~70% covered is for 722513+722515 combined (Sosinskiy-Reich 2026 p. 6, NAICS mapping p. 8); no 722513-only share given (71.8% p. 7 is an illustrative fast-food calc)"}
 {"time": "2026-11-21T05:05:32Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T050532Z (question-r2)"}
+{"time": "2026-11-21T05:09:17Z", "role": "reviewer", "action": "review-recorded", "detail": "question-r2 verdict=block files=9"}
+{"time": "2026-11-21T05:10:23Z", "role": "pi", "action": "question-revised", "detail": "question-r2 F7-F10 answered: H4 deleted (anticipation already tested in the literature), timing fixed (2023Q3 base, 2023Q4-2024Q1 report-only), H2 table completed, contribution states modest novelty"}
+{"time": "2026-11-21T05:10:36Z", "role": "pi", "action": "brief-archived", "detail": "scout 20261121T051036Z (question-r2 F7)"}
+{"time": "2026-11-21T05:16:04Z", "role": "scout", "action": "base-period-checked", "detail": "F7 (question-r2): re-read Dube Table 1 Panel B, SR Table A3 (p. 49), w35931 fn 5, CEMN fn 9/Table A3; notes.md section 3.1 added, base-period row and 1.2-1.4, 1.6, 6.4, 7 corrected; c-dube-decomp revised; claims c-dube-panelb, c-sr-anticipation, c-synth-baseline, c-cemn-q4base added"}
+{"time": "2026-11-21T05:16:20Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T051620Z (question-r3)"}

@@ -36,7 +36,9 @@ on outcomes.
    by each choice across 1,440 synthetic specifications; Sosinskiy and Reich (2026,
    Appendix A and Table A3) list nine differences and test four. H4 can still add something
    (a full factorial grid fixed in advance, one data vintage, both published estimates as
-   targets), but the paper must cite these and not claim to be first.
+   targets), but the paper must cite these and not claim to be first. The base period and
+   the anticipation window are also already varied or estimated: Dube Table 1 Panel B,
+   Sosinskiy-Reich Table A3, w35931 fn 5 and CEMN Table A3 (Section 3.1).
 
 Also for the design gate: the plan's H1/H2 say "standard errors clustered by state". With
 one treated state, every paper here says cluster-robust inference is invalid and uses
@@ -92,7 +94,9 @@ something else (Section 6).
 - **Treatment date / anticipation:** base September 2023 / 2023Q3, "the last time periods
   ... that ensure that all post-enactment impacts on employment are appropriately
   categorized as post-treatment effects" (p. 6); they argue Dube's 2023Q4 base and
-  2024Q1 exclusion "risk biasing estimates towards zero" (p. 13).
+  2024Q1 exclusion "risk biasing estimates towards zero" (p. 13). They re-estimate the
+  one-year QWI results on Dube's 2023Q4 base (fn 9, pp. 10-11; Table A3, p. 41, PDF
+  p. 43): median -1.43 vs -1.38 on the 2023Q3 base, none significant at 0.10 (Section 3.1).
 - **Headline estimates (percent):**
   - QCEW one year, Table 1 Panel B (p. 24, PDF p. 26): FF Rest of US simple -2.89,
     detrended -3.38; Non-Increasers -3.23, -3.58; DDD Rest of US -2.19, -3.52; DDD
@@ -135,8 +139,10 @@ something else (Section 6).
 - **Outcome:** log(employment / population), population interpolated to quarters,
   log-linear between July 1 anchors (p. 5). Wage: log average weekly wage.
 - **Treatment date / anticipation:** base 2023Q4; 2024Q1 dropped as a "transition
-  quarter"; post 2024Q2-2025Q3 (six quarters); COVID quarters 2020Q1-2021Q4 excluded;
-  Panel B uses the 2022Q1-2023Q3 average as base (p. 6).
+  quarter" and excluded from both the pre- and the post-period; post 2024Q2-2025Q3 (six
+  quarters); COVID quarters 2020Q1-2021Q4 excluded; Panel B uses the 2022Q1-2023Q3 average
+  as base, which "is invariant to anticipation that may have leaked into 2023Q4 itself"
+  (p. 6). Every Table 1 and Table 2 estimate is reported under both bases (Section 3.1).
 - **Seasonal adjustment:** state-industry quarter factors from a 2x4 centered moving
   average over 2015Q1-2019Q4, subtracted from the whole series (p. 7).
 - **Inference:** Ferman-Pinto permutation SEs: SD of the 20 placebo estimates scaled by
@@ -179,7 +185,9 @@ something else (Section 6).
 - **Outcome:** log county employment / working-age population (Figure 4 note, PDF p. 36).
 - **Treatment date:** reference period 2024Q1, "the last quarter before treatment"
   (Figure 4 note); they reject enactment as reference (pp. 42-43) and "do not find
-  anticipation effects" (p. 6).
+  anticipation effects" (p. 6). Appendix A.1 and Table A3 (p. 49) re-estimate with CEM's
+  reference (2023Q3 / September 2023) and report the 2023Q4 and 2024Q1 coefficients
+  directly (Section 3.1).
 - **Seasonal adjustment:** state-industry quarter factors from 2010-2019 and 2023-2024
   (p. 13).
 - **Headline estimate, Table 1 (p. 31):** DDD EPop 2024Q4 -0.009, 95% CI [-0.029, 0.009],
@@ -201,7 +209,10 @@ preferred triple difference "does not find a significant negative employment eff
   data source, donor pool (Dube's 20 federal-MW states or balanced 48), outcome (5 for
   SDID, 3 for SC), seasonal adjustment (none, Dube's CMA, CEM's quarter-of-year FE),
   detrending (none, CEM linear, 2021Q3-2023Q3 trend), match window (5 options) (Table 1,
-  p. 6). Weights fitted with Dube's 2023Q4 base / 2024Q1 transition choice (fn 5).
+  p. 6). Weights fitted with Dube's 2023Q4 base / 2024Q1 transition choice (fn 5); the
+  fixed-horizon estimates are measured from 2023Q3 (eq. 1, p. 5), and fn 5 reports that the
+  distribution is "slightly more negative, but not meaningfully changed" with a 2023Q3
+  baseline and no transition quarter (Section 3.1).
 - **Results:** SDID post-period average, QCEW: median -3.58, mean -3.87, SD 2.21; Dube's
   SDID estimate is at the 97th percentile (p. 7). Two-year fixed horizon (2023Q3-2025Q3):
   SDID QCEW median -5.01 (range -10.58 to -0.56); SC QCEW median -4.07 (p. 12). Largest
@@ -262,8 +273,8 @@ None uses 2026Q1. QCEW 2026Q1 was released on August 28, 2026 (preliminary)
 |---|---|---|---|
 | Data source | Monthly QCEW (rev.: plus QWI) | Quarterly QCEW (3-month mean) plus QWI | QWI vs QCEW about half the gap (D2, p. 42); converges at 2 years per CEMN |
 | Sample end | Dec 2024 (2025); Sept 2025 (rev.) | 2025Q3 (QCEW), 2024Q4 (QWI) | - |
-| Base period | Sept 2023 / 2023Q3 (enactment) | 2023Q4; 2024Q1 dropped | Not decomposed by Dube; SR: 60% of CEM effect is pre-implementation |
-| Post window | Single month, Sept 2024 (and Sept 2025) | Average 2024Q2-2025Q3 | Yes: DD OWE -0.29 to -0.22 (D1 row 5) |
+| Base period | Sept 2023 / 2023Q3 (enactment) | 2023Q4; 2024Q1 dropped | Varied by all four, see 3.1: Dube Panel B (2022Q1-2023Q3 average) moves SDID -0.26 to -0.02, DD -1.39 to -1.28; SR Table A3; w35931 fn 5 ("not meaningfully changed"); CEMN Table A3 (QWI median -1.43 vs -1.38). In D1 it changes only jointly with the post window (row 5) |
+| Post window | Single month, Sept 2024 (and Sept 2025) | Average 2024Q2-2025Q3 | Yes, jointly with the base: D1 row 5 replaces Sept-to-Sept with pre 2022Q1-2023Q3 / post 2024Q2-2025Q3 averages, DD OWE -0.29 to -0.22 |
 | Outcome | Indexed employment level | log(emp / population) | Yes for DD: -0.36 to -0.29 (row 4) |
 | Detrending | Linear, 2021-2023 growth | None | Yes: -0.42 to -0.36 (DD), -0.43 to -0.29 (DDD) (row 3); largest in w35931 |
 | Seasonal adjustment | None needed for Sept-Sept; 2021-23 month FE for figures | Pre-COVID 2x4 CMA 2015-19 | About 0.02 (row 6) |
@@ -280,6 +291,83 @@ Table 1, Panel A (DD -1.39 [0.44]; SDID -0.26 [0.54]). The plan names "Clemens e
 2025 about 3%"; that one-year number (Table 1 of `clemens2025did`) ends September 2024,
 not 2025Q3. **[Scout] The PI should name the exact cells at the design gate.** The units
 differ: CEM index points (percent of the Sept 2023 level), Dube log points times 100.
+
+### 3.1 Base period and anticipation: what each study already does
+
+Added for finding F7 of `reviews/question-r2`; each item re-read in the fetched PDF
+(sha256 prefixes in `sources.json`). **Four studies vary the base period or estimate the
+2023Q4-2024Q1 window directly; a statement that no published study does so is false.**
+
+1. **Dube (2026) `[dube2026labor]`.** Panel A base 2023Q4. Panel B "subtracts the average
+   of seven pre-period event-study coefficients (2022Q1-2023Q3) from the post-period
+   average" and "is invariant to anticipation that may have leaked into 2023Q4 itself";
+   both panels exclude 2024Q1 "from the post-period average as well as from the
+   pre-treament period, treating it as a transition quarter" (p. 6). Table 1 (QCEW, p. 29,
+   PDF p. 30), employment %, Panel A -> Panel B [FP SE]: DD -1.39 [0.44] -> -1.28 [0.60];
+   SDID -0.26 [0.54] -> -0.02 [0.66]; DDD vs full-service -0.38 -> +0.28; vs low-wage
+   non-FF -1.50 -> -0.44; vs all non-FF -2.19 -> -1.02; SDDD +0.07 -> +0.35, -0.23 -> +0.32,
+   +0.04 -> +0.57. Panel B FP SEs "are approximate". Text: "Panel B pushes employment
+   effects closer to zero across most specifications"; SDID OWE -0.04 -> -0.00 (p. 10).
+   Table 2 (QWI, p. 30): main DD -0.34 [0.49] -> -0.62 [0.47]; SDID +0.74 [0.46] -> +0.87
+   [0.49]. Table D1 row 5 (p. 43) switches CEM's Sept-to-Sept comparison to "pre =
+   2022Q1-2023Q3, post = 2024Q2-2025Q3" in one step (DD col. 4: -2.3 -> -1.2, OWE -0.29 ->
+   -0.22), so D1 does not separate the base from the post window. He reports no separate
+   2023Q4 or 2024Q1 effect in Tables 1-2.
+2. **Sosinskiy and Reich (2026) `[sosinskiy2026effects]`.** Main reference 2024Q1. Appendix
+   A.1 (pp. 42-43): in their preferred specification "the point estimate is -1.2 when we use
+   implementation as the reference date and -1.8 when we use the enactment date. For CEM,
+   the comparable estimates are around -1.7 and -3.9" (the CEM pair deduced from CEM's
+   Figure A3 Panel C, fn 37), so "almost 60 percent of CEM's estimated employment effect
+   occurs during the anticipation phase"; "we interpret these results as suggesting the
+   absence of any anticipatory effect" (p. 43). Table A3 (p. 49, PDF p. 49; PDF p. 48 is
+   blank, the review cites p. 48): county event-study DD on the employment rate, reference
+   2023Q3 (quarterly) or September 2023 (monthly), Rambachan-Roth 95% CI with M-bar = 1,
+   SEs clustered by state, log points:
+
+   | Quarter | (1) Preferred | (2) Emp. level, no controls | (3) SA 2021-23 | (4) Preferred, monthly | (5) Closest to CEM, monthly |
+   |---|---|---|---|---|---|
+   | 2023Q4 | -0.002 [-0.019, 0.017] | -0.004 [-0.019, 0.013] | -0.004 [-0.015, 0.007] | -0.001 [-0.029, 0.027] | -0.005 [-0.021, 0.009] |
+   | 2024Q1 | -0.006 [-0.045, 0.027] | -0.010 [-0.045, 0.023] | -0.002 [-0.029, 0.019] | -0.008 [-0.065, 0.049] | -0.014 [-0.045, 0.019] |
+   | 2024Q4 | -0.018 [-0.109, 0.069] | -0.027 [-0.113, 0.057] | -0.020 [-0.075, 0.031] | -0.020 [-0.159, 0.125] | -0.030 [-0.111, 0.051] |
+
+   N = 1,764 (quarterly), 5,292 (monthly). [Scout: county level, data through 2024Q4, a
+   TWFE event study; (3.9 - 1.7) / 3.9 = 56%.]
+3. **Clemens, Edwards, Meer and Nguyen, w35931 `[clemens2026synthetic]`, fn 5 (p. 7, PDF
+   p. 8).** Full text: "An additional choice that we do not consider here is the choice of
+   baseline period. Dube (2026) uses 2023Q4 and excludes 2024Q1 as a 'transition' quarter.
+   In Clemens et al. (2026b), we discuss this choice at length. For comparability, we use
+   the choices made in Dube (2026) when creating the synthetic Californias. However, in the
+   fixed-horizon estimates, ... we measure the change in the California-minus-synthetic
+   employment gap from 2023Q3 to 2024Q3 or 2025Q3, retaining the synthetic weights estimated
+   under the baseline and transition-quarter choices of Dube (2026). The distribution of
+   estimates is slightly more negative, but not meaningfully changed, when using 2023Q3 as
+   a baseline and not excluding any transition quarters." The fixed-horizon estimator
+   (eq. 1, p. 5) sets t0 = 2023Q3; Figures 2-3 are "against a common 2023Q3 baseline". So
+   the 1,440-specification grid does not include the base as a dimension, but the fixed-
+   horizon estimates use a 2023Q3 base, and the post-period-average distribution was
+   re-run on a 2023Q3 base. **No numbers are given for that re-run.**
+4. **Clemens, Edwards, Meer and Nguyen, w34033 rev. `[clemens2026employment]`, fn 9 (pp.
+   10-11, PDF pp. 12-13) and Table A3 (p. 41, PDF p. 43).** "Dube (2026)'s QWI estimates use
+   changes relative to a baseline of 2023Q4 rather than 2023Q3. For the sake of direct
+   comparison, we produce estimates that mirror this choice in Table A3 and differ only
+   marginally from the estimates that use 2023Q3 as the baseline. The estimates range from
+   -0.59 percent to -2.47 percent with a median of -1.43 percent. None of the eight
+   estimates are significant at the 0.10 level." Table A3 (QWI, Q4 2023 to Q4 2024) vs
+   Table 5 (QWI, Q3 2023 to Q3 2024, p. 28), simple / detrended: FF Rest of US -1.14 /
+   -1.32 vs -0.86 / -1.54; FF Non-Increasers -1.56 / -1.53 vs -1.22 / -2.02; DDD Rest of US
+   -0.59 / -1.93 vs -0.18 / -1.75; DDD Non-Increasers -1.15 / -2.47 vs -0.59 / -2.45.
+   Placebo p-values, Table A4 (p. 42): 0.2245, 0.2174, 0.3061, 0.3043, 0.1837, 0.2174,
+   0.1837, 0.1304. Figures A1 and A3 plot the QWI series indexed to 2023Q4. [Scout: QWI
+   only and one-year only; no QCEW estimate on a 2023Q4 base; the comparison shifts the
+   end quarter with the base (Q3-Q3 vs Q4-Q4), so it is not a pure base-period test.] On
+   p. 13 they argue that both the 2024Q1 reference (SR) and the 2023Q4 base with 2024Q1
+   dropped (Dube) "risk biasing estimates towards zero".
+
+**[Scout] What is left:** none of these estimates the 2023Q4-2024Q1 window at state level
+with SDID or synthetic control and reports it with a pre-specified test; SR's direct
+estimate is a county TWFE event study ending 2024Q4. A 2023Q3 base with 2023Q4-2024Q1
+reported separately repeats SR Table A3's design choice at another level and estimator; it
+uses no post-2024Q1 data.
 
 ## 4. What AB 1228 covers (official sources)
 
@@ -364,7 +452,10 @@ differ: CEM index points (percent of the Sept 2023 level), Dube log points times
    April 1, 2024. Bases in use: Sept 2023 (CEM), 2023Q4 (Dube), 2024Q1 (SR). A base of
    2023Q3 with 2023Q4-2024Q1 reported separately as an anticipation window keeps the
    pooled 2024Q2-2026Q1 effect from absorbing or hiding anticipation; report the 2024Q1
-   base as a planned alternative.
+   base as a planned alternative. This is not new: SR Table A3 already uses a 2023Q3
+   reference and reports 2023Q4 and 2024Q1 (-0.002 and -0.006 in the preferred
+   specification), and Dube Panel B, w35931 fn 5 and CEMN Table A3 vary the base
+   (Section 3.1); cite them.
 5. **Inference with one treated state:** cluster-robust SEs are not valid (Dube p. 8;
    CEM p. 6; SR p. 14). Options in use: placebo-rank p-values (CEM), Ferman-Pinto SEs
    (Dube), Rambachan-Roth bounds (SR). H1/H2's "clustered by state" wording should change
@@ -400,7 +491,9 @@ uses QCEW for any 2026 quarter, and none estimates the pooled eight-quarter effe
 2024Q2-2026Q1, so H1-H3 on that window are new. The closest prior work is CEMN (2026,
 two-year fixed horizon through September 2025) and w35931 (QCEW through 2025Q4). H4 is
 partly answered by Dube's Table D1, w35931's Table A1 and SR's Appendix A; a pre-specified
-full-factorial grid on one vintage is still a modest addition, not a first.
+full-factorial grid on one vintage is still a modest addition, not a first. The base
+period and the anticipation window are not open either: Dube Table 1 Panel B, SR Table
+A3, w35931 fn 5 and CEMN Table A3 vary or estimate them (Section 3.1).
 
 ## 8. Unverified or not reached
 

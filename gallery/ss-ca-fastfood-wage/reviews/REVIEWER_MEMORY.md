@@ -14,3 +14,20 @@ Check next round:
 - Confirm c-coverage-share is reworded in claims.jsonl.
 - At the design stage: base period, donor pool, DDD sector, detrending and the inference method are fixed before any post-2023Q3 outcome is computed; there are no runs of kind analysis before the design gate; the MDE comes from pre-period placebo data only.
 - Verified myself: w35931 pp. 6-7 (data end 2025Q4, fn 3 vintage, fn 5 base period not varied, percentiles of CEMN and Dube); Sosinskiy-Reich 70% quote. Copies are in my scratch folder rv-q1.
+
+## question-r2 (2026-11-21, verdict block)
+
+F1-F6 resolved. New: F7 critical, F8 major, F9 and F10 minor.
+
+Correction to my own round 1: I proposed the base period as "the choice nobody varies" from the first sentence of w35931 fn 5 and notes.md section 3. That was wrong. fn 5 ends by saying a 2023Q3 base is "not meaningfully changed". Dube Table 1 Panel B (base 2022Q1-2023Q3, "invariant to anticipation ... in 2023Q4") moves SDID from -0.26 to -0.02. SR Table A3 (p. 48) gives the 2023Q4 and 2024Q1 effects on a Sept 2023 reference (-0.002, -0.006). CEMN rev. fn 9 / Table A3 re-estimate on a 2023Q4 base. The PI took my remedy, so a false novelty claim now carries the question. Lesson: verify the literature myself before suggesting a remedy.
+
+Suspicions:
+- With H4 pre-empted, the question's only remaining new element is H2 (one preliminary quarter plus a pre-specified test). Watch for a new "first" or "no study" claim taking H4's place without a check.
+- The base period for H2 and H3 is still unfixed (F10). This is the choice with the most room to search, and the PI has seen its effect in the published numbers.
+
+Check next round:
+- `crew.py changes`; grep plan.json for "no published", "no study", "first", "the one".
+- If H4 survives: it uses the 2023Q4 effect alone for Dube's base, gives its own bound with a rationale and an MDE rule, and concludes as a share of the gap.
+- The H2 table has the (sign undetermined, at least b) cell.
+- No analysis runs yet (only fetch-data and prepare-data, both data-prep, as of r2).
+- My PDFs are in scratch rv-q2/dl (w35171, w34033 rev.; hashes match the Scout's copies) and rv-q1 (w35931, SR).
