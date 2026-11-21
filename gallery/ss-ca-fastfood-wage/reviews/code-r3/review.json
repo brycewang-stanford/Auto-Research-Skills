@@ -1,0 +1,109 @@
+{
+  "id": "code-r3",
+  "target": "code",
+  "round": 3,
+  "created": "2026-11-21T12:08:07Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261121T120659Z-reviewer.md",
+    "briefs/20261121T120505Z-figures-ra.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/code-r2/review.json",
+    "log.jsonl",
+    "paper/figures/CAPTIONS.md",
+    "code/",
+    "runs/event-path/event_path.csv",
+    "runs/event-path/metrics.json",
+    "runs/h1-wage/metrics.json",
+    "runs/level-mde/metrics.json"
+  ],
+  "kill_argument": "The fix is a sentence; the picture is unchanged. Panel (b) of fig_event still draws the wage bands with the H2 employment statistic's critical value 2.14, so in 6 of the 8 post-window quarters the band sits wholly above zero, while the pre-specified wage test H1 needs t above 3.45 and is 'not supported' (t = 2.66). A reader who looks at the figure and skips the caption sees a wage effect the paper says it cannot establish. The caption now says so plainly, with H1's own critical values printed from runs/h1-wage/metrics.json, but a caption cannot undo a figure's first impression; a referee could ask that panel (b) be drawn with H1's values (a deviation from analysis_plan 16, which the PI chose not to make). What I attacked and what held: I ran fig_event and fig_placebo on the real run outputs (scratch only, no estimate): both exit 0, every internal check passes, the printed H1 values equal the run's, the 'narrower' branch is chosen from the numbers, and the provenance lines list every input. The comparison sentence sets per-quarter gap/SE against a pooled-test threshold; it is loose but its conclusion is right. crew.py validate passes; no figure run exists yet.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "C4",
+      "severity": "major",
+      "status": "resolved",
+      "text": "fig_event panel (b) (wage) uses the H2 statistic's critical values (c_hi(0.975) = 2.14, c_lo(0.025) = -2.14 at nu = 14.06), as analysis_plan 16 says. For the selected DDT-POPW-E-R50 the wage statistic's own critical values are far larger on the upper side: Lq_h1_q95 = 3.45 and Lq_h1_q975 = 4.32 set h1_c_hi95 and h1_c_hi975, and H1 is 'not supported' because t = 2.66 < 3.45. On the real event_path.csv, the panel (b) band excludes zero in 6 of 8 post quarters (2024Q2, 2024Q3, 2025Q2, 2025Q3, 2025Q4, 2026Q1) with H2's c_hi(0.975), and in none with H1's c_hi(0.975). The caption the script generates (and that the Writer must use unchanged) states the H2 values and says the bands are not the pooled intervals, but does not state H1's critical values or that the wage band would be about twice as wide on the upper side under them. The figure therefore shows a pattern the paper's pre-specified wage test rejects. The design text fixed the H2 critical values for both panels before the L quantile for the wage was known; the problem is in what the caption leaves out, not in a wrong number.",
+      "evidence": "code/fig_event.py lines 47-48, 68-70 and caption lines 196-201, 210-214; runs/event-path/metrics.json c_hi975 2.1439; runs/h1-wage/metrics.json h1_c_hi95 3.4487, h1_c_hi975 4.3204, h1_t 2.663, h1_reject 0; runs/level-mde/metrics.json Lq_h1_q95/q975; runs/event-path/event_path.csv wage rows with post = 1; plan.json design.analysis_plan 16. Remedy (cheapest, no deviation): fig_event.py reads runs/h1-wage/metrics.json (declared as an --input) and the caption states, for panel (b), H1's one-sided critical values c_hi(0.95) and c_hi(0.975) next to the H2 ones, says the wage band uses the smaller H2 values and so is narrower on the upper side than the H1 test, and says how many post quarters' bands exclude zero under each (or simply that a band excluding zero in panel (b) is not evidence against H1's label). Alternative: draw panel (b) with H1's critical values (arithmetic from gap and se in event_path.csv), recorded as a deviation from analysis_plan 16 before fig-event runs.",
+      "response": "Figures RA (log 12:06:46Z, code-r2-C4-C5-fixed): fig_event.py reads runs/h1-wage/metrics.json; the panel (b) caption states H1's c_hi(0.95) and c_hi(0.975), that the bands use the H2 values and (computed) whether they are narrower than the H1 test, and that a band excluding zero is not evidence against the H1 verdict. Bands not redrawn.",
+      "ruling": "Resolved with the first remedy I named, which keeps analysis_plan 16. code/fig_event.py lines 53-60 read selected, nu, h1_c_hi95 and h1_c_hi975 from runs/h1-wage/metrics.json and refuse a mismatched candidate; lines 193-199 choose the comparison sentence from the numbers, and lines 227-233 print it. I ran the script on the real run outputs (output to my scratch only): the caption reads c_hi(0.95) = 3.45, c_hi(0.975) = 4.32 at nu = 14.4 for H1 against the band threshold 2.14, takes the 'narrower' branch, and says a band excluding zero is not evidence against H1. The values equal runs/h1-wage/metrics.json. On event_path.csv, post-window wage gap/SE exceeds 2.14 in 6 of 8 quarters, 3.45 in one (2024Q3), 4.32 in none, so the caption's statement is correct. For an SDID primary H1's critical values carry the same pool floor (sclib.crit_for), so reusing FLOOR['phrase'] for H1 is right. The paper must not read panel (b) as a wage effect; that is for the paper review."
+    },
+    {
+      "id": "C5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The provenance line of the generated captions is stale after the C3 fix: fig_event.caption.md says 'Generated from runs/event-path/event_path.csv and runs/event-path/metrics.json' and fig_placebo.caption.md 'Generated from runs/h2-emp/placebos.csv and runs/h2-emp/metrics.json', but both scripts now also read runs/level-mde/metrics.json (CAPTIONS.md lists it). If C4's remedy adds runs/h1-wage/metrics.json, fig_event's line must list that too.",
+      "evidence": "code/fig_event.py line 188; code/fig_placebo.py line 129; paper/figures/CAPTIONS.md table. Remedy: print every file the script reads in that line.",
+      "response": "Figures RA: both captions' Generated-from lines are printed by figlib.file_list from every file the script reads; CAPTIONS.md lists runs/h1-wage/metrics.json for fig-event.",
+      "ruling": "Resolved. figlib.file_list (lines 154-157); fig_event.py line 207 lists the four inputs, fig_placebo.py line 129 the three; the argparse inputs of each script are exactly those files. fig_select.py (unchanged) already lists its two inputs. CAPTIONS.md row and paragraph updated to match. Checked on the generated captions."
+    },
+    {
+      "id": "C1",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The year-1 and year-2 one-sided H1 wage tests use the pooled H1 statistic's critical values and nu, undisclosed; they gate owe_y1/owe_y2.",
+      "evidence": "plan.json design.deviations D5; log.jsonl 2026-11-21T11:53:27Z pi deviation-recorded, before h1-wage started (runs/h1-wage/run.json started 11:55:50Z).",
+      "response": "PI: recorded as design deviation D5 before any analysis run; the paper states it.",
+      "ruling": "Resolved: D5 is in design.deviations and was logged before h1-wage ran. That the paper states it is for the paper review."
+    },
+    {
+      "id": "C2",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "code/requirements.txt pins wrapt==2.5.2, but the approved design text says wrapt 2.6.0.dev1.",
+      "evidence": "plan.json design.deviations D6; code/requirements.txt header.",
+      "response": "PI: recorded as design deviation D6; the paper states it.",
+      "ruling": "Resolved: D6 records the difference in the design. The paper statement is for the paper review."
+    },
+    {
+      "id": "C3",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Figure captions omit the SDID Monte Carlo floor if SDID is selected; stale select.py prologue comments.",
+      "evidence": "code/figlib.py sdid_floor (lines 106-151); code/fig_event.py line 48 and caption; code/fig_placebo.py lines 44-45 and caption; prologues removed in all four files.",
+      "response": "Sent to the Figures RA; figure runs wait for another code round.",
+      "ruling": "Resolved. figlib.sdid_floor checks the level-mde flag against the selected estimator and pool, refuses critical values inside the floor, and its formula matches sclib.critical_values (max/min over t, L quantile, q_cal). I checked it on a synthetic SDID-E-R50 input (binding keys reported, tampered c and a wrong flag refused). For the actual DDT selection it returns the old phrase and no sentence, as it should. The stale comments are gone and the scripts import and run without the workaround. Caption provenance line: see C5."
+    }
+  ],
+  "files_sha256": {
+    "briefs/20261121T120659Z-reviewer.md": "4e2df17e2e38947b2f7b261346f71f9bd09e839299cb2d257e0a659763e15c81",
+    "briefs/20261121T120505Z-figures-ra.md": "3f34f17cba1036e2185fbb1613010d204cc887b19edb87bddc889db50bbf9e2d",
+    "reviews/REVIEWER_MEMORY.md": "de428d3816c4509302fdaec10ea631a6a8a3489184db651ad30703da85330224",
+    "reviews/code-r2/review.json": "012e2f208d23f5b30ec9ecf551a2cc76c5cf140fe48656dfd1103a423c34e571",
+    "log.jsonl": "72abe493f121a0e5220defc7df69b404778726c8d55555fe91d774912bfac551",
+    "paper/figures/CAPTIONS.md": "960f01ee55284d8b88bf10c033b5c741ed2fb232fc239089ab672f0803ac98cb",
+    "code/anticip.py": "8df3da5ba3249bf8b7226cb2d5b923f0b00d0df83c6edd4c7c9336f5245bad8d",
+    "code/event_path.py": "d895bf68d5bd2f4dd531f7dc75abf2be7bc6d71fe94dad2c65cab4c41f1a09a1",
+    "code/fetch_data.py": "e649c9c4bff6a4b0749d116dd2a97b3bf144d8f34d1800e73378620261b80275",
+    "code/fetch_pop.py": "476d95fb522c459ce25111d23507dbc721b415ca99ab94790728fbeb4e9771a1",
+    "code/fetch_prop99.py": "3526c753f5a443ff00d28f20a07b555eeaab4dede58f98889a9ecab6d4b9b17f",
+    "code/fig_event.py": "f5d5b9a86ce15f3cef85fd58327d507ddc4c26ea845023701a14b8bd9735da0d",
+    "code/fig_placebo.py": "2dcfa8dccd73562f4fc7688c10280918389d7cbe1b5214673b2fcdb7e4d771cd",
+    "code/fig_select.py": "53d24f4e5d38d4ef02196da534f472cbd5ccb06b7e75673b8e846743fb969d17",
+    "code/figlib.py": "b4e1aa4b230279b582063c5a9dc624cf83dc6afc59fb05558ebeec59cece22bd",
+    "code/h1_wage.py": "38f0306aadcd8ae07ba1c1bbc69726725932274ecef86be2ffd23113ccdc04df",
+    "code/h2_emp.py": "236450bde3f8cbcd0b8289c0ec5b0bef4b78d215802bae1849feca023b6d2cca",
+    "code/h3_years.py": "89cbbacd5766c39daf3340f470fea809aeee64a3598178effedb899ba570a1d3",
+    "code/level_mde.py": "c37c3643d1bd30b4ea57cc6d6e86d7895f648358c242d83b69eb42bd6847436a",
+    "code/placebo_outcome.py": "74661a291e6a773914add7f4a54dda947751a69aa74fb4cfedd8ccd6b6891ec8",
+    "code/prepare_data.py": "468592cdeffc24aa77400c22b7be3e21f37ec00267f186eec7c1241c573eb92c",
+    "code/prepare_state.py": "15fd020da7d165c45e4d9158dcc45d33703602ff09bbee98e47424fda35dd55b",
+    "code/requirements.txt": "b1a0dc37ff0c75b7593f3c1ffca09177247107c2264da7ee0887b2901a198325",
+    "code/robust.py": "a9f3f39b4cfdddf968494d8829a85350da395ee4633df3e4d396418a477dcf05",
+    "code/sclib.py": "cd10e760953136b159ceee5dfb602652371c600b038005d369cc48ccfe9daf1d",
+    "code/sec_cemn.py": "dafd5f54aa9f1d94729ed12ab3ee4691fdee13adb24d43c53f943f7469068492",
+    "code/sec_dube.py": "36307b2695d59ca1c5f9d61d54674f7d285427cec90de41475d03dc0a0b9f0d6",
+    "code/select_rule.py": "94c5e4386a76ba5c45789bd8ee101b887bc1b07b9acb5db705d4913e7b82a597",
+    "code/test_sclib.py": "9db9923d00de04e0fee602b762dc440773e67a00ee182627f733188aad012f32",
+    "code/verdict.py": "1b42a2ff4471e1792fe54f511131a75d2e2484ab552509d82f0781660cff30fa",
+    "runs/event-path/event_path.csv": "264204e66518e2bffe8955a92312605965c1de6a1a64b72079338aefc74e3bec",
+    "runs/event-path/metrics.json": "930ce488636fa44577b415018a5afc4a094886552ab598583def7b2d91ade34d",
+    "runs/h1-wage/metrics.json": "0868aaab58079c555f3a8f548376b6e5a56199324bbd5e2e622f0e4222c7d864",
+    "runs/level-mde/metrics.json": "0e8e22b9bee71df851d7404578ec5ef5e58f02b43409d52b896cd7e7bbe204fc"
+  },
+  "recorded": "2026-11-21T12:08:24Z"
+}

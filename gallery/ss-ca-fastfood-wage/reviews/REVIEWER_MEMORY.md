@@ -170,3 +170,15 @@ Check next round:
 - `crew.py changes <ws> code`; fig_event.py caption gives H1's critical values for panel (b), or panel (b) is redrawn with them and a deviation is logged before fig-event runs; runs/h1-wage/metrics.json is declared as an input if read.
 - C5: provenance line lists every input.
 - Paper/results stage: the text does not read panel (b) as evidence of a wage effect beyond H1's label; S2's reused-weights wage effect (+0.075, excludes 0 under S2's c) is not presented as overturning H1; the typed 0.0240 in literature.tex becomes \SelBestDDRmse.
+
+## code-r3 (2026-11-21, verdict pass)
+
+C4 and C5 resolved (first remedy; bands not redrawn, analysis_plan 16 unchanged). No new finding; C1-C5 all resolved.
+
+Checked: fig_event.py reads runs/h1-wage/metrics.json (selected, nu 14.41, h1_c_hi95 3.45, h1_c_hi975 4.32) and refuses a mismatched candidate; the comparison branch is computed. Ran fig_event and fig_placebo on the real run outputs into scratch rv-c3 only (no estimate); captions print the run values; Generated-from lines list every argparse input. Post-window wage gap/SE: 6 of 8 above 2.14, one (2024Q3, 3.71) above 3.45, none above 4.32. For SDID, H1 carries the same pool floor (sclib.crit_for), so FLOOR['phrase'] fits H1. validate passes (3 paper warnings: process.tex stale, typed 0.0240 in literature.tex, main.pdf older). No runs/fig-* yet.
+
+Check next time (results/paper):
+- fig-event, fig-placebo, fig-select runs name code-r3 and --input every file in CAPTIONS.md (fig-event includes runs/h1-wage/metrics.json); captions used unchanged.
+- The paper does not read panel (b) as a wage effect; the strongest remaining objection is that the picture still shows bands at H2's 2.14, so a referee may ask for H1's values.
+- The caption's comparison sets per-quarter gap/SE against the pooled-test threshold; the text should not repeat it as a per-quarter test.
+- Still open from code-r2: S2's reused-weights wage effect not presented as overturning H1; \SelBestDDRmse for the typed 0.0240.
