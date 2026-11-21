@@ -31,3 +31,19 @@ Check next round:
 - The H2 table has the (sign undetermined, at least b) cell.
 - No analysis runs yet (only fetch-data and prepare-data, both data-prep, as of r2).
 - My PDFs are in scratch rv-q2/dl (w35171, w34033 rev.; hashes match the Scout's copies) and rv-q1 (w35931, SR).
+
+## question-r3 (2026-11-21, verdict revise)
+
+F7, F9 and F10 resolved; F8 conceded (H4 deleted). New: F11 major, F12, F13 and F14 minor. No critical finding is open.
+
+Re-verified: SR Table A3 is on PDF p. 49, not p. 48 as I wrote in r2 (the Scout's correction is right); the 2023Q4/2024Q1 numbers and the "almost 60 percent" passage are correct; w35931 fn 5 verbatim; CEMN rev. fn 9 and Table A3 Panel B are correct. w35931 p. 12: the detrending medians -2.83 / -5.67 / -4.98.
+
+Suspicions:
+- F11 is the real risk now: the label H2 gets is close to determined by the estimator and detrending choice, and the PI knows the published map. At the design gate, check that the selection rule uses only pre-2023Q3 data, is stated before the choice is made, and does not cite which camp it matches; that both camps' specifications are named secondaries; and that "pre-registered" is either backed or narrowed.
+- The 2023Q3 base may itself contain anticipation (SR p. 42: as early as July-August 2023). This should appear among the design threats.
+
+Check next round (r4 is the last):
+- `crew.py changes`; read plan.json H2 and the contribution in full; check that the F12 label split is symmetric for the positive cases.
+- F13: Dube Panel B no longer credited with reporting 2023Q4/2024Q1 separately.
+- F14: notes.md sections 0.3, 3 (end), 6.1 and 7 marked as superseded or reworded.
+- Still only data-prep runs (fetch-data and prepare-data).

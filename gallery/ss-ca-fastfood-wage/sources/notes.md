@@ -6,6 +6,11 @@ that day; its location follows it in brackets. "PDF p." is the page of the PDF f
 not a claim made by any source. I downloaded no QCEW employment data and computed nothing
 on outcomes.
 
+Updated 2026-11-21 for finding F14 of `reviews/question-r3`: plan.json now has H1-H3 only
+(H4, a specification grid, was deleted after `reviews/question-r2`). Passages that described
+H4 or a grid as part of this study are rewritten or marked superseded below; the literature
+facts are unchanged.
+
 ## 0. Read this first: three corrections to plan.json
 
 1. **"No published estimate uses data past 2025Q3" is not quite true.** Clemens, Edwards,
@@ -30,19 +35,22 @@ on outcomes.
    `revisions/w34033.rev0.pdf`. Both share DOI 10.3386/w34033. I keep two keys:
    `clemens2025did` (original) and `clemens2026employment` (revision). The plan's "about a
    3% decline" is right for the one-year horizon; the revision gives about 3.5% at two years.
-3. **H4 is already partly done in the literature.** Dube (2026, Appendix D, Tables D1-D2)
-   moves Clemens et al.'s specifications toward his own one choice at a time and reports
+3. **Superseded: H4 was deleted from plan.json after `reviews/question-r2`; the study has
+   no specification grid.** The literature facts in this item stay relevant because
+   plan.json H2 uses this published map of specification choices (w35931; Dube Table D1)
+   to fix its candidate set. Specification choices are already mapped in the literature:
+   Dube (2026, Appendix D, Tables D1-D2) moves Clemens et al.'s specifications toward his
+   own one choice at a time and reports
    how much each choice moves the elasticity; w35931 (Table A1) reports the median estimate
    by each choice across 1,440 synthetic specifications; Sosinskiy and Reich (2026,
-   Appendix A and Table A3) list nine differences and test four. H4 can still add something
-   (a full factorial grid fixed in advance, one data vintage, both published estimates as
-   targets), but the paper must cite these and not claim to be first. The base period and
+   Appendix A and Table A3) list nine differences and test four. The paper must cite these
+   and must not claim to be the first to compare specification choices. The base period and
    the anticipation window are also already varied or estimated: Dube Table 1 Panel B,
    Sosinskiy-Reich Table A3, w35931 fn 5 and CEMN Table A3 (Section 3.1).
 
-Also for the design gate: the plan's H1/H2 say "standard errors clustered by state". With
-one treated state, every paper here says cluster-robust inference is invalid and uses
-something else (Section 6).
+Also for the design gate (now reflected in plan.json, whose H1 excludes standard errors
+clustered by state): with one treated state, every paper here says cluster-robust
+inference is invalid and uses something else (Section 6).
 
 ## 1. Studies of AB 1228's employment effects
 
@@ -285,7 +293,9 @@ None uses 2026Q1. QCEW 2026Q1 was released on August 28, 2026 (preliminary)
 | Pre-period / match window | Sept 2021-Sept 2023 | 2015Q1-2023Q4 excl. 2020-21 | w35931: match window matters |
 | Inference | One-sided placebo rank p, (b+1)/(m+1) | Ferman-Pinto SE | Changes p-values, not points |
 
-Published estimates H4 could target (window ending 2025Q3): CEMN 2026 Table 3, Panel B
+Published estimates for comparison (window ending 2025Q3; formerly listed as "H4 targets",
+superseded since H4 was deleted; plan.json H2 names Dube 2026 Table 1 Panel B as the
+published result closest to its timing): CEMN 2026 Table 3, Panel B
 (QCEW two-year: simple DD rest of US -2.74; detrended -3.72; median -3.45) and Dube 2026
 Table 1, Panel A (DD -1.39 [0.44]; SDID -0.26 [0.54]). The plan names "Clemens et al.
 2025 about 3%"; that one-year number (Table 1 of `clemens2025did`) ends September 2024,
@@ -435,8 +445,9 @@ uses no post-2024Q1 data.
 ## 6. What this implies for the design [Scout]
 
 1. **Question status:** see verdict below. The new contribution is the window
-   2024Q2-2026Q1 (2026Q1 data released August 28, 2026, preliminary), the year-two effect
-   (H3), and a fixed-in-advance specification grid.
+   2024Q2-2026Q1 (2026Q1 data released August 28, 2026, preliminary) and the year-two
+   effect (H3). (A fixed-in-advance specification grid was listed here earlier; it is
+   superseded, since H4 was deleted from plan.json after `reviews/question-r2`.)
 2. **Treated sector is wider than 722513.** DIR says coffee, donut and ice-cream chains can
    be covered; Sosinskiy-Reich describe the law as covering limited-service restaurants
    and snack and nonalcoholic beverage bars (Starbucks, Dunkin), i.e. NAICS 722515. So
@@ -458,8 +469,8 @@ uses no post-2024Q1 data.
    (Section 3.1); cite them.
 5. **Inference with one treated state:** cluster-robust SEs are not valid (Dube p. 8;
    CEM p. 6; SR p. 14). Options in use: placebo-rank p-values (CEM), Ferman-Pinto SEs
-   (Dube), Rambachan-Roth bounds (SR). H1/H2's "clustered by state" wording should change
-   at the design gate; the MDE should come from the placebo distribution.
+   (Dube), Rambachan-Roth bounds (SR). plan.json H1 now excludes state-clustered SEs; the
+   MDE should come from the placebo distribution.
 6. **State level is the safer unit.** Dube found no suppressed 722513 cells at state level
    in his 21 states; county x 6-digit cells are often suppressed (about 60% of the most
    detailed cells overall), so a county design needs a pre-registered rule for suppressed
@@ -489,9 +500,10 @@ Sosinskiy-Reich 2026, w35931, Melo et al. 2026), plus payroll (Hamdi-Sovich) and
 SDID) to -3.5% (CEMN two-year median) and -5% (CEMN detrended DDD, two years). No study
 uses QCEW for any 2026 quarter, and none estimates the pooled eight-quarter effect
 2024Q2-2026Q1, so H1-H3 on that window are new. The closest prior work is CEMN (2026,
-two-year fixed horizon through September 2025) and w35931 (QCEW through 2025Q4). H4 is
-partly answered by Dube's Table D1, w35931's Table A1 and SR's Appendix A; a pre-specified
-full-factorial grid on one vintage is still a modest addition, not a first. The base
+two-year fixed horizon through September 2025) and w35931 (QCEW through 2025Q4). How
+specification choices move the estimate is already mapped by Dube's Table D1, w35931's
+Table A1 and SR's Appendix A; this study claims no contribution there (the former H4 grid
+is superseded, deleted from plan.json after `reviews/question-r2`). The base
 period and the anticipation window are not open either: Dube Table 1 Panel B, SR Table
 A3, w35931 fn 5 and CEMN Table A3 vary or estimate them (Section 3.1).
 
