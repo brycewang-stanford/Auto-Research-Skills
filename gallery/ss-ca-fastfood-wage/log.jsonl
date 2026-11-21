@@ -190,3 +190,8 @@
 {"time": "2026-11-21T15:47:21Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261121T154721Z (paper-r2 P11 text)"}
 {"time": "2026-11-21T15:48:41Z", "role": "econometrician", "action": "revise-claims", "detail": "paper-r2 P11 (claim side): FP texts no longer say the diagnostic supports the max SE (A_hat < 0 gives no support to A > 0); r-h2-ses-only even-handed and its Monte Carlo sentence supported by echoed cm_ metrics; P13: NOTES.md says the describe and posthoc tests were scratchpad scripts, not in the workspace; no value, macro or run change; crew.py numbers run"}
 {"time": "2026-11-21T15:49:17Z", "role": "writer", "action": "paper-r2-fixes", "detail": "paper-r2 P11 (text): SE-choice evidence reported even-handedly (tercile cell supports, L, California and Ferman-Pinto do not; FP read as no support for A > 0; no 'bracket'; Monte Carlo as size of failure if A > 0); abstract, intro, conclusion, limitation 1 softened; response appended; main.pdf 41 pages; no label changed"}
+{"time": "2026-11-21T15:49:37Z", "role": "pi", "action": "brief-archived", "detail": "reviewer 20261121T154937Z (paper-r3)"}
+{"time": "2026-11-21T15:52:28Z", "role": "reviewer", "action": "review-recorded", "detail": "paper-r3 verdict=pass files=21"}
+{"time": "2026-11-21T15:52:34Z", "role": "reviewer", "action": "review-recorded", "detail": "paper-r3 verdict=pass files=21"}
+{"time": "2026-11-21T15:53:04Z", "role": "pi", "action": "brief-archived", "detail": "writer 20261121T155304Z (paper-r3 P15(b))"}
+{"time": "2026-11-21T15:53:22Z", "role": "writer", "action": "paper-r3-fixes", "detail": "paper-r3 P15(b): D7 says no code review covered the post hoc run's code and results-r2 read the same file after the run; response appended; recompiled"}

@@ -1,0 +1,196 @@
+{
+  "id": "paper-r3",
+  "target": "paper",
+  "round": 3,
+  "created": "2026-11-21T15:52:16Z",
+  "reviewer": {
+    "model": "claude-opus-5-5",
+    "independence": "fresh-context"
+  },
+  "files_read": [
+    "briefs/20261121T154937Z-reviewer.md",
+    "reviews/REVIEWER_MEMORY.md",
+    "reviews/paper-r2/review.json",
+    "reviews/paper-r1/review.json",
+    "reviews/results-r2/review.json",
+    "reviews/results-r3/review.json",
+    "reviews/code-r4/review.json",
+    "claims.jsonl",
+    "log.jsonl",
+    "runs/NOTES.md",
+    "paper/process.tex",
+    "paper/ai-use.tex",
+    "paper/main.pdf",
+    "paper/sections/abstract.tex",
+    "paper/sections/intro.tex",
+    "paper/sections/results.tex",
+    "paper/sections/conclusion.tex",
+    "runs/level-mde/metrics.json",
+    "runs/h2-emp/metrics.json",
+    "runs/posthoc/run.json",
+    "replication.json"
+  ],
+  "kill_argument": "The paper has no finding. By its own pre-specified rules the first stage is not established, so the employment estimate is 'uninformative about the wage floor'; the placebo outcome fails, so it is 'not separable from a California-wide shock'; the power run showed before the data were read that 'inconclusive' was the likely label whatever the truth; and the paper's own diagnostic says the chosen standard error is about 2.7 times California's pre-period spread (k 0.37), while the scaled one would put the interval below zero. What is left is one preliminary quarter, a rule-selected specification, and a careful account of why this design could not settle the question: a methods note about conservative single-state inference, not an answer about AB 1228. The paper now says nearly all of this itself (contribution 'modest', the precision lesson tied to the design's inference, the SE evidence reported cell by cell), so the objection goes to significance, not to honesty. What I attacked and found holding: the P11 rewrite against the metrics and the design history (max rule dated 06:19Z, before check-methods), the new Monte Carlo support values, the P12 PDF text and the superseded-run statement.",
+  "verdict": "pass",
+  "findings": [
+    {
+      "id": "P1",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The H2 label depends on the choice SE = max(SE_s, SE_n). The paper does not show this, and two claims go beyond what it shows. (a) Results report SE_s = 0.0095 against SE = SE_n = 0.0357 only in a parenthesis (sec:res-h2). Arithmetic from the macros (no estimate run): HTwoAtt -0.0295 +/- t_{14.06,0.975} 2.144 x 0.00946 gives [-0.0498, -0.0092], and the 90 percent interval is [-0.0461, -0.0128]. Under the H2 rule that is 'decline, size not distinguishable from 2%', and Dube's -0.26 percent lies outside it. (b) The approved design says these diagnostics are reported, but the paper omits all three, and they are the evidence for and against the choice. (1) The level-check rates by population tercile (strategy.tex sec:inference lists them; the paper gives none): with SE_s, H2 over-rejects in the largest tercile, rej_h2_ses_t3_two = 0.137, which supports the max rule. (2) The Ferman-Pinto A-hat, B-hat and SE_FP (strategy.tex: 'we also report Ferman and Pinto's own step'): California's pseudo-date SE_FP is 0.022, 0.017, 0.016, 0.009, 0, 0. In the real H2 run, h2_fp_a = -0.00043 and h2_fp_b = 4011, so SE_FP = 0, and h2_fp_* have no claim. (3) k under each SE: k_h2_ses = 1.35 and k_h2_sen = 0.37, so SE_s understates California's pre-period spread by about a third and SE_n overstates it about 2.7-fold. Only k = 0.37 is reported. (c) Therefore 'the contribution is ... mainly about what QCEW state data can and cannot settle' and 'the precision of this state-level QCEW comparison is too low' (intro), 'the result does not discriminate between the published estimates' (abstract), and 'Separating them would need more precise data than QCEW state aggregates' (conclusion) attribute to the data what is largely the design's deliberately conservative standard error. results-r1 R2 already made this point about the claims ('the width comes from the conservative SE'), and the paper reopens it.",
+      "evidence": "paper/sections/results.tex sec:res-h2 (HTwoSeScaled in parentheses), sec:res-inference and Table tab:inference (no tercile rates, no FP diagnostic, k only for SE); paper/sections/strategy.tex sec:inference ('we also report Ferman and Pinto's own step', 'by population tercile'); plan.json design.method INFERENCE ('Diagnostic, reported and never used for a decision') and analysis_plan 2; runs/h2-emp/metrics.json h2_se_s 0.009456, h2_se_n 0.035651, h2_fp_a, h2_fp_b, h2_fp_se; runs/level-mde/metrics.json k_h2_ses 1.348, k_h2_sen 0.373, se_s_pre_h2 0.0081; claims r-rej-h2-ses-t3-two (0.137), r-ca-h2-*-fpse; paper/sections/intro.tex paragraphs 5-6, abstract.tex, conclusion.tex paragraph 2. Cheapest remedy, with the label unchanged: (1) report the tercile rates, the FP diagnostic (add claims for h2_fp_a/b/se from h2-emp) and k under SE_s and SE_n next to Table tab:inference; (2) add one report-only sentence, backed by a text claim on h2_att, h2_se_s and nu, saying that with SE_s alone the 95 percent interval would exclude zero and that the label therefore rests on the pre-specified max rule; (3) narrow the precision lesson in the abstract, introduction and conclusion to 'this design's conservative single-state inference on QCEW state data'. No new estimate is needed.",
+      "response": "Writer: (a) sec:res-h2 adds a report-only note (claim r-h2-ses-only): with SE_s alone and the same t-at-nu critical values the H2 95% interval would lie entirely below zero; it is not the pre-specified inference; the design takes the larger SE because SE_s alone over-rejects for large units (0.137 in the largest tercile vs 0.010 with the max) and under state-level shocks in the Monte Carlo; the label rests on the max rule and the conservative SE, not the QCEW data alone, sets the width. (b) sec:res-inference adds 'Which standard error, and what the choice costs' and Table tab:sechoice with the three diagnostics: H2 two-sided rejection rates by population tercile, all, L and CA under SE_s, SE_n and the max (r-rej-h2-*); k under each SE for every statistic (r-k-*-ses/-sen; H2 1.35 vs 0.37); and the Ferman-Pinto step as a diagnostic only (California's pseudo-date SE_FP r-ca-h2-*-fpse; the real run's A_hat, B_hat and SE_FP = 0, r-h2-emp-fp-*). (c) The precision lesson is narrowed to this design's conservative inference in the abstract, the introduction (width paragraph and contribution paragraph), the conclusion and limitation 1; the phrases attributing it to 'QCEW state data' are gone. No label changed.",
+      "ruling": "Fixed in the files: results.tex sec:res-inference now has 'Which standard error, and what the choice costs' and Table tab:sechoice (tercile rates under SE_s, SE_n and the max; k under each SE for every statistic; the Ferman-Pinto values), sec:res-h2 has the report-only SE_s-only note (claim r-h2-ses-only), and the precision lesson is narrowed to this design's inference in the abstract, intro paragraphs 4 and 6, the conclusion and limitation 1. No label changed. How the FP diagnostic is read is a new problem, P11."
+    },
+    {
+      "id": "P2",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The abstract and the introduction misstate the direction of the placebo result relative to the estimate. The abstract says the label is qualified 'because employment outside 722513 also ran above its counterfactual'. The introduction says 'Employment outside limited-service restaurants also ran above its counterfactual' right after giving the primary estimate. 'Also' implies that 722513 ran above its counterfactual, but HTwoAtt is -0.0295. robustness.tex sec:rob-placebo and the conclusion correctly say the deviation is of the opposite sign. The direction is what the paper's bias argument (toward zero or upward) rests on, and the abstract is where readers take it from.",
+      "evidence": "paper/sections/abstract.tex sentence 'because employment outside 722513 also ran above its counterfactual'; paper/sections/intro.tex paragraph 3 ('Employment outside limited-service restaurants also ran above'); claims r-h2-emp-h2-att (-0.0295), r-plc-nonff-sign (+0.0245, 'about the size of |H2|'); robustness.tex sec:rob-placebo ('of the opposite sign'). Remedy: delete 'also' and say that employment outside 722513 ran above its counterfactual while 722513 ran below it.",
+      "response": "Writer: abstract now says employment outside 722513 'ran above its counterfactual, the opposite sign to the estimate'; the introduction says 'by contrast, ran above its counterfactual'. No 'also' remains (sections/abstract.tex, sections/intro.tex).",
+      "ruling": "abstract.tex now says 'the opposite sign to the estimate'; intro.tex paragraph 3 says 'by contrast'. No 'also ran above' remains (grep)."
+    },
+    {
+      "id": "P3",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The paper has no summary-statistics table, which the social-science track lists as part of a finished paper (track playbook, 'What a finished paper contains', item 2). The paper discloses this (data.tex sec:sumstats; limitation 6), but disclosure does not supply what a referee needs to judge the comparison: California's and the D20 and R50 pools' levels of 722513 employment, weekly wage and population in the fit window and the post window, and their dispersion. No claim gives a donor level. The two California levels in the paper cannot show how different California is from its donors (data.tex itself says California lies outside the donors' convex hull).",
+      "evidence": "paper/sections/data.tex sec:sumstats; paper/sections/conclusion.tex limitation 6; crew/tracks/social-science.md item 2; claims.jsonl (only r-h2-emp-ca-emp-post-mean and r-h1-wage-aww-ca-2023q3 are levels). Remedy: one descriptive run that tabulates levels and standard deviations by unit group (California, D20, R50) and window (2014-2019, 2022Q1-2023Q3, 2024Q2-2026Q1), with no between-group statistic, plus a table generated by that run. Alternatively the human accepts the gap at the submission gate, and the AI-use statement says so.",
+      "response": "Writer: data.tex sec:sumstats now has Table tab:sumstats from the r-desc-* claims (run describe): fit-window and post-window means of 722513 employment (per state and pool total), average weekly wage and establishments for California, R50 and D20, with sample sizes; labelled descriptive, levels only, deviation D8, run without a code review with the human's agreement. The table states that dispersion and population are not reported (the run does not compute them). The 'no summary-statistics table' limitation is removed, and D8 is added to the deviation list with the unreviewed run and the human's agreement.",
+      "ruling": "data.tex sec:sumstats has Table tab:sumstats from run describe (44 r-desc-* claims). describe.py computes only within-group levels (no differences, ratios or growth). I recomputed CA employment mean pre (519,621) and post (556,990), CA weekly wage pre (383.59) and R50 weekly wage post (447.11) from data/derived/state_panel.csv: all match. Dispersion and population are not reported, and the table note says so; acceptable for a descriptive table. D8 is in plan.json and the deviation list. The unreviewed run is misdescribed in the AI-use statement: P12."
+    },
+    {
+      "id": "P4",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Results sec:res-inference says that for 'the employment statistics of the primary (H2, H3), of S1 and of the other-pool check, the critical values are t at nu: the quantiles of the decision set L are less extreme'. That is false for the other-pool check on the lower side: CritOtherPoolLoFive = -2.470 and CritOtherPoolLoTwoFive = -2.495 come from L, against t_nu = 1.885 and 2.348. The rob-pool interval is wider on the negative side for that reason.",
+      "evidence": "paper/sections/results.tex sec:res-inference first paragraph; paper/numbers.tex CritOtherPoolLoFive, CritOtherPoolLoTwoFive, TnuOtherPoolNinetyFive, TnuOtherPoolNinetySevenFive (claims r-crit-op-lo05, r-crit-op-lo025). Remedy: say that the other-pool check's lower critical values come from L, as S2's do.",
+      "response": "Writer: sec:res-inference now says t at nu holds for H2, H3 and S1; for the other-pool check only the upper critical values are t at nu, the lower ones (CritOtherPoolLoFive, CritOtherPoolLoTwoFive) come from L and are more extreme than -t_nu, so its interval is wider on the negative side (sections/results.tex).",
+      "ruling": "results.tex sec:res-inference now says the other-pool check's lower critical values come from L and are more extreme than -t_nu."
+    },
+    {
+      "id": "P5",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "data.tex says '2026Q1 is preliminary, and a later download may return revised values for 2025 and 2026'. That contradicts claim c-qcew-revision-status and the corrected threat T14: in the 2026Q1 release all four 2025 quarters are final, and only 2026Q1 will be revised. The sentence follows data/CODEBOOK.md, which predates the Scout's check, and data.tex was not updated with T14 (data.tex mtime 14:17Z, T14 corrected 14:15Z).",
+      "evidence": "paper/sections/data.tex subsection 'Employment and wages: the QCEW', vintage sentence; claims.jsonl c-qcew-revision-status; plan.json design.threats T14; log.jsonl 2026-11-21T14:15:03Z and 14:15:31Z. Remedy: 'a later download may return revised values for 2026Q1'.",
+      "response": "Writer: data.tex now follows c-qcew-revision-status and T14: in the 2026Q1 release all four 2025 quarters are final and only 2026Q1 is preliminary, to be revised four more times starting with the 2026Q2 release (cites blsqcewrevisions, bls2026cewq1); the sentence about revised 2025 values is gone.",
+      "ruling": "data.tex vintage sentence now follows c-qcew-revision-status and T14: all 2025 quarters final, only 2026Q1 preliminary."
+    },
+    {
+      "id": "P6",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Wording overstates the design in three places. The conclusion says the specification 'was chosen by a pre-registered rule', and deviation D1 speaks of a 'pre-registered level check'. No registry or public time-stamped filing is cited; elsewhere the paper says 'pre-specified, not blind', which is accurate. The introduction calls the inference 'an inference procedure valid with one treated state', but the paper itself says California's level is argued, not measured, and that a California twice as noisy as its size implies would reject at 0.161.",
+      "evidence": "paper/sections/conclusion.tex first paragraph ('pre-registered rule') and D1 ('pre-registered level check'; plan.json design.deviations D1 uses the same word); paper/sections/intro.tex paragraph 2 ('valid with one treated state'); strategy.tex sec:inference and conclusion limitation 4. Remedy: 'pre-specified'; 'built for one treated state' (the abstract's wording).",
+      "response": "Writer: conclusion 'pre-registered rule' and D1 'pre-registered level check' now read 'pre-specified'; the introduction says 'an inference procedure built for one treated state' instead of 'valid with'. No 'pre-registered' remains in the paper.",
+      "ruling": "No 'pre-registered' in the paper (grep; plan.json D1 keeps the word, but plan.json is the design record); intro says 'built for one treated state'."
+    },
+    {
+      "id": "P7",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "Two process statements in the AI-use statement are incomplete. (a) 'Three sets of changes were made after the last round of their stage and reached the human at the next gate without another round of that stage' leaves out a fourth: the PI corrected threat T14 in the approved design after the results gate (log 14:15:31Z; plan.json T14 '[Corrected after the results gate'). The same statement credits the PI with the correction, and no design or results round has seen it; this paper round is the first. (b) The superseded runs are described as '(data-preparation runs only...)'. One of the two is runs/.superseded/check-methods-20261121T074419Z, the Monte Carlo and Proposition 99 code check whose first-run failures (log 07:48:38Z) led to the SDID floor and the two-part synthetic-control check. The ledger records it as kind data-prep, and \\CrewRunsDataPrep (6) counts it, but it is not data preparation. The sentence hides that the replaced run is the one that changed the design.",
+      "evidence": "paper/ai-use.tex 'Review' and 'Runs' bullets; log.jsonl 2026-11-21T07:48:38Z, 08:13:17Z, 14:15:31Z; runs/check-methods/run.json kind data-prep; runs/.superseded/. Remedy: add the T14 correction as a fourth set; write 'a data-download run and the pre-gate code check check-methods (recorded as data-prep), whose first run's failures are described in Section 5'.",
+      "response": "",
+      "ruling": "No response, but fixed in ai-use.tex: the Review bullet now lists four sets, including the T14 correction, and the Runs bullet names the first check-methods run and says its failures led to the design changes."
+    },
+    {
+      "id": "P8",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "literature.tex opens 'Five studies estimate the employment effect of AB 1228 with administrative data'. The fifth, Melo et al., estimates its state-level effect from YTS, which background.tex calls 'modelled establishment data' and the paper treats as contested for that reason.",
+      "evidence": "paper/sections/literature.tex sec:lit-estimates first sentence and the Melo et al. sentence; paper/sections/background.tex sec:coverage ('Because YTS is itself modelled data'). Remedy: 'with QCEW or establishment-level data'.",
+      "response": "Writer: literature.tex now says five studies estimate the effect, four with administrative QCEW data and one (Melo et al.) with the modelled establishment data YTS, pointing to sec:coverage.",
+      "ruling": "literature.tex now says four studies use QCEW and Melo et al. use the modelled YTS data."
+    },
+    {
+      "id": "P9",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "The task board in plan.json still lists rv-design, rv-code, pi-design-gate, rv-results and pi-results-gate as 'todo', although those reviews and gates are complete. The submission gate requires that no task is todo or doing (protocol 0.2), and the board does not match log.jsonl.",
+      "evidence": "plan.json tasks (status 'todo': rv-design, rv-code, pi-design-gate, rv-results, pi-results-gate, rv-paper, rp-rerun, pi-submission-gate); log.jsonl gate-approve entries 05:35:16Z, 11:41:48Z, 14:12:04Z. Remedy: set the completed ones to done.",
+      "response": "",
+      "ruling": "No response, but fixed: the only tasks not done in plan.json are rv-paper, pi-submission-gate and rp-rerun-2, all genuinely pending."
+    },
+    {
+      "id": "P10",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "results.tex sec:res-h3 says 'Before the power gate the rule would label it \"no detectable change\"'. There is no power gate. The meaning is 'Without the power rule'.",
+      "evidence": "paper/sections/results.tex sec:res-h3 second sentence. Remedy: reword.",
+      "response": "Writer: sec:res-h3 now reads 'Without the power rule the H3 rule would label it \"no detectable change\"'.",
+      "ruling": "results.tex sec:res-h3 now reads 'Without the power rule'."
+    },
+    {
+      "id": "P11",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The new diagnostics paragraph reads the evidence on the choice of standard error one way, and in one place the wrong way. (a) The Ferman-Pinto step is read backwards. SE_s assumes var(tau_j) = B/pop_j (A = 0). The design's case for the maximum is that a state-level component A > 0 is likely (strategy.tex: 'scaling alone imposes A = 0, which is unlikely'; plan.json threat T6: 'state-level shocks (A > 0) are likely, and then the scaled SE understates California's SE'). In the real H2 run the regression gives A_hat = -4.33e-04 < 0 with B_hat = 4011, so SE_FP = 0. The same happens at two of California's six pseudo-dates (2017Q1, 2017Q2). A negative A_hat is no evidence of the state-level component; if anything it says variance falls with size at least as fast as the scaling assumes. Yet results.tex says the failed fit 'supports not relying on the scaled one', and claims r-h2-emp-fp-se and r-ca-h2-<date>-fpse say it 'supports the max-SE choice'. (b) The paper then says 'read together, the diagnostics bracket California's true standard error between SE_s and SE_n'. That holds for the level check and k, but three of the seven SE_FP values (0) lie below SE_s, so the bracket holds only if the FP diagnostic is set aside. (c) The other reasons are thinner than the abstract's 'which the design rejects because it over-rejects for large states' suggests. The tercile-3 rate (0.137) comes from about 17 units at six overlapping pseudo-dates. With SE_s, the ten-state decision set L rejects 0.067, inside its band (0.146), and California 0 of 6 two-sided. The Monte Carlo over-rejection of SE_s (0.46 for DDT-POPW-E-R50, pure state-level shocks) exists only in the designs that assume A > 0. With pure size noise it is 0.061 (check-methods mc_DDT-POPW-E_R50_pureB_rho00_scaled_tJ_two). Moreover the sentence 'The code-check Monte Carlo likewise showed SE_s alone over-rejecting' has no claim behind it; r-h2-ses-only states it, but its support lists no check-methods metric. None of this changes the label, which is pre-specified. It changes whether the paper's account of why the label is 'inconclusive' is even-handed.",
+      "evidence": "paper/sections/results.tex sec:res-inference paragraph 'Which standard error, and what the choice costs' (sentences on Ferman and Pinto's step, 'supports not relying on the scaled one', 'Read together, the diagnostics bracket', 'The code-check Monte Carlo likewise'); sec:res-h2 paragraph 2; paper/sections/abstract.tex ('which the design rejects because it over-rejects for large states'); paper/sections/conclusion.tex paragraph 2; paper/sections/strategy.tex sec:inference (A, B >= 0 argument); plan.json design.threats T6; claims r-h2-emp-fp-a/-b/-se, r-ca-h2-2017q1-fpse, r-ca-h2-2017q2-fpse, r-h2-ses-only, r-rej-h2-ses-L-two (0.067), r-band-h2-L (0.146), r-rej-h2-ses-ca-two (0); runs/h2-emp/metrics.json h2_fp_a, h2_fp_b; runs/check-methods/metrics.json mc_DDT-POPW-E_R50_pureA_rho00_scaled_tJ_two 0.46 and _pureB_rho00_scaled_tJ_two 0.061; code/sclib.py se_from_placebos. Cheapest remedy, label unchanged: (1) say that A_hat < 0 in the real run and at two pseudo-dates gives no support to the state-level component the maximum guards against, and drop 'supports not relying on the scaled one' and the matching clause in the r-*-fpse claim texts; (2) state the bracket as holding for the level check and k, with the FP fit pointing below SE_s; (3) say the maximum was chosen a priori against the A > 0 threat (T6); among the diagnostics, the tercile-3 rate supports it, while L, California's own tests and the FP fit do not; the Monte Carlo shows the size of the failure if A > 0, not that A > 0. Back the Monte Carlo sentence with a claim on the check-methods metrics, or cut it. In the abstract, replace 'which the design rejects because it over-rejects for large states' with wording such as 'which the design does not use because it over-rejects if shocks have a state-level component'.",
+      "response": "Sent to the Writer (paper text) and the Econometrician (claim texts and support). Econometrician: r-h2-emp-fp-se and r-ca-h2-2017q1/2017q2-fpse now say that SE_FP = 0 with A_hat < 0 gives no support to the state-level component (A > 0) the max rule guards against and does not support the max-SE choice (chosen a priori against T6); no fpse claim says 'supports' any more. r-h2-ses-only is now even-handed (tercile 3 supports the max; L 0.067 inside its band, California 0 of 6 and the FP fit do not) and its Monte Carlo sentence is supported by the cm_ metrics level-mde echoed (DDT-POPW-E R50 hetero-A 0.432, SDID-E D20 pure A 0.448 against pure B 0.100 and 0.072), stated as the size of the failure if A > 0, not that A > 0. No value, macro or run changed. Writer: sec:res-inference paragraph rewritten as 'Which standard error, and what the evidence on it shows': the maximum is stated as chosen a priori against the A > 0 threat; the level check is reported cell by cell (largest tercile 0.137 with SE_s supports the maximum, on about 17 units at six overlapping pseudo-dates; all 0.056, L 0.067 inside its band 0.146, California 0 of 6 do not); the Ferman-Pinto step is read correctly (A_hat < 0 and SE_FP = 0 in the real run and at 2017Q1 and 2017Q2 give no support to A > 0 and point at or below SE_s); 'bracket' and 'supports not relying on the scaled one' are gone ('the level check and k place California's SE between SE_s and SE_n, while the Ferman-Pinto fit points below SE_s'); the Monte Carlo sentence now rests on r-h2-ses-only (as revised with cm_ support) and says it measures the size of the failure if A > 0, not that A > 0. sec:res-h2's note, the abstract, the introduction, the conclusion and limitation 1 now say SE_s 'over-rejects if shocks have a state-level component' and that the pre-2020 evidence on that component is mixed. No label changed.",
+      "ruling": "Fixed in the files. results.tex sec:res-inference is now 'Which standard error, and what the evidence on it shows': the maximum is stated as chosen a priori against A > 0 (the max rule entered the design at 06:19Z, before check-methods at 07:44Z, so 'before any diagnostic was computed' holds); the level check is reported cell by cell (tercile 3 0.137 supports it; all 0.056, L 0.067 inside its band 0.146, CA 0 of 6 do not); the FP step is read correctly (A_hat < 0, SE_FP = 0, points at or below SE_s); 'bracket' is limited to the level check and k. The Monte Carlo sentence is now backed by r-h2-ses-only, whose added support metrics I checked in runs/level-mde/metrics.json (cm_mc_DDT-POPW-E_R50_heteroA_rho00_scaled_tJ_two 0.4325, cm_mc_SDID-E_D20_pureA 0.448, pureB D20 0.100 and R50 0.072); 'much less' is accurate, not 'holds its level'. The r-*-fpse claims no longer say 'supports'. Abstract, intro, sec:res-h2, conclusion and limitation 1 say SE_s over-rejects 'if shocks have a state-level component' and that the evidence is mixed. No label changed."
+    },
+    {
+      "id": "P12",
+      "severity": "major",
+      "status": "resolved",
+      "text": "The AI-use statement was not updated for deviation D8 and misstates the unreviewed runs. The Runs bullet renders as '2 analysis run was not covered by a passing code review: the post hoc run (deviation D7), ...'. \\CrewRunsUnreviewed is now 2 (process.tex) because run describe was made with --unreviewed (runs/describe/run.json code_review null, unreviewed 'human agreed 2026-11-21 (AskUserQuestion) ...'), but the sentence names only posthoc. The Roles bullet says the PI 'recorded deviations D5--D7'. The log records the PI recording D8 (2026-11-21T15:36:30Z pi deviation-recorded). ai-use.tex was last modified at the paper-r1 revision (14:35Z), before D8 existed. The data section, the table note and the D8 entry disclose the run correctly; the AI-use statement, which certifies the process, contradicts its own count.",
+      "evidence": "paper/ai-use.tex 'Runs' bullet ('\\CrewRunsUnreviewed{} analysis run was not covered ...: the post hoc run (deviation D7)') and 'Roles and models' bullet ('recorded deviations D5--D7'); compiled main.pdf text ('2 analysis run was not covered by a passing code review: the post hoc run'); paper/process.tex \\CrewRunsUnreviewed{2}; runs/describe/run.json; log.jsonl 15:36:30Z, 15:37:41Z. Remedy: name both unreviewed runs, posthoc (D7) and describe (D8, levels only, after the last code round, the human's agreement), with plural agreement; change 'D5--D7' to 'D5--D8'.",
+      "response": "PI: ai-use lists both unreviewed runs (D7 post hoc, D8 descriptive) in the plural, both with the human's consent after the last code round; roles item now says D5-D8.",
+      "ruling": "Fixed: the compiled PDF's Runs bullet now reads '2 analysis runs were not covered by a passing code review, both after the fourth and last code-review round ...: the post hoc run (deviation D7) ... and the descriptive run ... (deviation D8)'; the Roles bullet says D5-D8, matching log 15:36:30Z. One clause in the same bullet is inaccurate; see P15."
+    },
+    {
+      "id": "P13",
+      "severity": "minor",
+      "status": "resolved",
+      "text": "runs/NOTES.md says describe was 'unit-tested on synthetic data, 10 checks'. No such test is in the workspace: code/test_sclib.py does not mention describe, and no other file in code/ tests it. For a run that had no code review, the stated tests are the only quality check on record, and they cannot be rerun or inspected. I checked four of its numbers against the panel myself (P3 ruling), so the table is not in doubt. The record is.",
+      "evidence": "runs/NOTES.md describe entry; code/ (only test_sclib.py, which has no describe test); briefs/20261121T153633Z-econometrician.md ('unit-test it on synthetic data'). Remedy: add the test to code/ (and to the replication instructions) or delete the sentence from NOTES.md.",
+      "response": "Corrected runs/NOTES.md: the describe test (10 checks) and the posthoc test (15, then 24 checks) were scripts in my session scratchpad on synthetic inputs; they are not in code/ or anywhere in the workspace and cannot be rerun from it. The describe table itself rests on the run.",
+      "ruling": "Fixed: runs/NOTES.md now says the describe test (10 checks) and the posthoc test (15, then 24 checks) were scratchpad scripts that are not in the workspace and cannot be rerun from it. That is an accurate record; the describe table rests on the run, and I recomputed four of its values in paper-r2."
+    },
+    {
+      "id": "P14",
+      "severity": "minor",
+      "status": "open",
+      "text": "As compiled, the paper says the ledger holds 28 runs (22 analysis) and, in the same paragraph, that the clean rerun 'passed, with 27 of 27 runs reproduced'. replication.json (14:47:52Z) predates run describe (15:37:41Z), and validate warns 'run(s) describe were not rerun'. The brief says a rerun is in progress. Until it finishes, numbers is rerun and main.pdf is recompiled, the conclusion's 'How the results were checked' paragraph and the AI-use Replication bullet describe a rerun that did not cover every run.",
+      "evidence": "paper/sections/conclusion.tex 'How the results were checked'; paper/ai-use.tex 'Replication'; paper/process.tex (\\CrewRuns 28, \\CrewRerunTotal 27); replication.json created 2026-11-21T14:47:52Z; crew.py validate warnings. Remedy: after the rerun, crew.py numbers and recompile; check that \\CrewRerunTotal equals \\CrewRuns and that the posthoc defective flags reproduce as D7 says.",
+      "response": "PI: after the second clean rerun: crew.py numbers, recompile, check CrewRerunTotal = CrewRuns and the posthoc flags.",
+      "ruling": "Not yet fixable and correctly answered: replication.json is still the 14:47:52Z rerun (27 of 27), older than run describe; validate still warns 'run(s) describe were not rerun'; the compiled PDF (41 pp) says the ledger holds 28 runs and the rerun reproduced 27 of 27. Stays open until the second rerun finishes, crew.py numbers is rerun (which also moves \\CrewRoundsPaper and the finding counts after this round) and main.pdf is recompiled; then \\CrewRerunTotal must equal \\CrewRuns and the posthoc leave-one-out flags must reproduce as D7 says."
+    },
+    {
+      "id": "P15",
+      "severity": "minor",
+      "status": "open",
+      "text": "Two process statements about the post hoc run disagree with reviews/. (a) The AI-use Runs bullet ends 'the paper review read both runs' outputs'. For the post hoc run that is not what the record shows: paper-r1 read only runs/posthoc/run.json, and paper-r2 read nothing of posthoc. The rounds that read its outputs were results-r2 (code/posthoc.py, metrics.json, georgia.csv, stdout.log, stderr.log) and results-r3 (metrics.json). (b) D7 in the conclusion says 'so the code it ran was not reviewed', and sec:res-posthoc says it was 'run without a further review'. No code review covered it, which is what the ledger counts, but results-r2 (13:52:47Z) read code/posthoc.py at sha256 f428437c..., the exact hash the run executed (runs/posthoc/run.json, 13:47:04Z). The understatement is in the conservative direction, but the AI-use statement certifies the process and should match the review records.",
+      "evidence": "paper/ai-use.tex line 48 ('the paper review read both runs' outputs'); paper/sections/conclusion.tex D7 ('so the code it ran was not reviewed'); reviews/paper-r1/review.json files_read (runs/posthoc/run.json only); reviews/results-r2/review.json files_read and files_sha256['code/posthoc.py'] = f428437c8591c304dc7a1273b50fd4122e2795ade6339a12ecbb07dff52ef8e8; runs/posthoc/run.json code[0].sha256 (same). Remedy: 'the results review (rounds 2 and 3) read the post hoc run's code and outputs, and the paper review read the descriptive run's code and outputs'; in D7, 'no code review covered the code it ran (results review round 2 read it after the run)'.",
+      "response": "PI: (a) ai-use now says results-review rounds 2 and 3 read the post hoc run's code and outputs, and the paper review read the descriptive run's; (b) sent to the Writer. Writer: (b) D7 in conclusion.tex now says no code review covered the code the post hoc run executed, and that the second results-review round read that code, the same file that ran, after the run; 'so the code it ran was not reviewed' is gone.",
+      "ruling": ""
+    }
+  ],
+  "files_sha256": {
+    "briefs/20261121T154937Z-reviewer.md": "62b01a02b65f214ca4b3a8de5e6eaa08d868e739a4ae702284300db35c689a67",
+    "reviews/REVIEWER_MEMORY.md": "3a63d6266930ccbce720451173e388b08d015ebc93fdced3d6eeeecf6b1ee0a9",
+    "reviews/paper-r2/review.json": "2c31d0728ab6c6f2e3ae3747b01cfb0b334c00a63c258b2e2a58528408d7019f",
+    "reviews/paper-r1/review.json": "89a377f66c29aefa676bfac07892d39be0e6dbb0b31f1461d4403ab527f4f9ac",
+    "reviews/results-r2/review.json": "fc42abdcd15e18f140d9ed49b7e83a05f45416022083e0b8b63e88aa53b4a815",
+    "reviews/results-r3/review.json": "7a4d6ebb36d8d1e54d6855eb38b7aae795371da0476d901aa73bf861be33f9e5",
+    "reviews/code-r4/review.json": "f3142a9c8f0cedd12581fd949e71759113cd23e928179d6d3586312012f373fd",
+    "claims.jsonl": "1bf787634f523c9851688c11a39b464bd03ebe2d821126647fb68e5998d30166",
+    "log.jsonl": "98af85fa4b59af2cb899758162ed7c57669b524e2c4dae6cb175c2bfd379f184",
+    "runs/NOTES.md": "234db0134aca02c02087cb445de2ccaade04b1d0615ce83701a4e8b2112c9f63",
+    "paper/process.tex": "06cc70459aaff2b16e1483266e809ef4cb28b9adb5dcbc02b6855e30dd68fe40",
+    "paper/ai-use.tex": "12b943553967782fe8c577937eea2188b8e4c43eb22f3c6a72443adc34ccc175",
+    "paper/main.pdf": "ecad1a13a9c247758e0a70ee344f90f88ff13449ce9c8cd00e7c5316e91864d8",
+    "paper/sections/abstract.tex": "560f0c9ea7ad3a64aec30ee945c39e35ec6b7d8b965953ce88c94c7333ee7088",
+    "paper/sections/intro.tex": "5c1d766c1bddb114cdae9a85cc2f966315fd0e91d7ba0bd7fb5aac9fed326c8b",
+    "paper/sections/results.tex": "89ef80ac667644c02e96d441c69b9add69924d16b4474fea275f42f376a58104",
+    "paper/sections/conclusion.tex": "f43fe7b2ed8a4a51d79e892bbd166a5d5f41d09ee0d2d7f57c466e5607717ef2",
+    "runs/level-mde/metrics.json": "0e8e22b9bee71df851d7404578ec5ef5e58f02b43409d52b896cd7e7bbe204fc",
+    "runs/h2-emp/metrics.json": "78d42fbcd13e0227c0d69157e2e0834a1cd5b30ef1b7fa86e190ed829dd6a43e",
+    "runs/posthoc/run.json": "8265c9d13f3dbd84ed53045ce8e082833e39f2113b75995e9bab29b7dc6447c1",
+    "replication.json": "aa2876fdb673127a40da29258546106816b9e719d87ffab59fa7c468ded7bd2b"
+  },
+  "recorded": "2026-11-21T15:52:34Z"
+}

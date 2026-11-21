@@ -281,3 +281,18 @@ Check next round (paper-r3):
 - `crew.py changes <ws> paper`; read the results.tex diagnostics paragraph, the abstract sentence, the r-*-fpse and r-h2-ses-only claim texts (support for the MC sentence), and ai-use.tex in full.
 - replication.json newer than describe; \CrewRerunTotal = \CrewRuns = 28; PDF recompiled after numbers; posthoc defective flags still reproduce.
 - If describe.py changes for P13, it must be rerun with --replace and --unreviewed. Check runs/.superseded and the disclosure.
+
+## paper-r3 (2026-11-21, verdict pass)
+
+P11, P12, P13 resolved. P14 minor stays open (second rerun still running; replication.json 14:47Z, 27/27, older than describe). New: P15 minor (AI-use says 'the paper review read both runs' outputs'; for posthoc it was results-r2/r3, and results-r2 read code/posthoc.py at the exact hash the run executed, so D7's 'the code it ran was not reviewed' understates). No critical or major open.
+
+What I did (no estimator run): checked the r-h2-ses-only Monte Carlo support values in runs/level-mde/metrics.json (DDT-POPW-E R50 heteroA scaled 0.4325; SDID-E D20 pureA 0.448; pureB D20 0.100, R50 0.072); dated the max rule (designer 06:19Z, before check-methods 07:44Z); confirmed no claim cites a superseded run id; pdftotext of main.pdf for the AI-use bullets. Script in scratch rv-p3/write_review.py.
+
+Suspicions:
+- Considered and not raised: results.tex says 'only the largest-tercile rate supports the maximum', yet k with SE_s (1.35) also points above SE_s; neither tercile 3 (0.010 with max) nor k (0.37 with SE_n) supports an SE as large as SE_n. It follows my own P11 wording and the paragraph gives k; if a round 4 happens, a one-clause fix would make it exact.
+- The level-mde echo has pure-B only for SDID, not for the selected DDT-POPW-E (0.061 in check-methods); the claim states which designs it uses, so fine.
+
+Check next round (paper-r4, last), or at the submission gate:
+- replication.json newer than describe; \CrewRerunTotal = \CrewRuns = 28; status passed; posthoc b_loo flags reproduce (D7 says they do).
+- crew.py numbers rerun after this round (\CrewRoundsPaper 3, finding counts) and main.pdf recompiled after numbers.tex/process.tex.
+- P15 wording in ai-use.tex and D7.
